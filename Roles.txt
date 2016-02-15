@@ -1,0 +1,8 @@
+Iteration 1
+
+( * Project Coordinator Ben ) <- undefined.
+* Testing Coordinator Kwinten
+* Design Coordinator Vincent
+* Domain Coordinator Mathias
+
+Iteration 2
