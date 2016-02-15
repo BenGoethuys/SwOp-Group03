@@ -1,0 +1,36 @@
+<!-- An Apache Ant script that runs the static checker and the doclet on the example codebase. -->
+<project default="run">
+  
+  <mkdir dir="examplebin"/>
+  
+  <target name="check">
+    <javac srcdir="example" destdir="examplebin" classpath="capsules.jar" includeAntRuntime="false" debug="true"/>
+    <java jar="capsules.jar" outputproperty="example_check_output_actual" fork="true">
+      <!-- <arg value="-verbose"/> -->
+      <arg value="examplebin"/>
+    </java>
+    <echo message="${example_check_output_actual}"/>
+    <!-- Check that the checker output is as expected. -->
+    <loadfile srcfile="example_checker_output.txt" property="example_check_output_expected"/>
+    <condition property="test_success">
+      <equals arg1="${example_check_output_expected}" arg2="${example_check_output_actual}"/>
+    </condition>
+    <fail unless="test_success"/>
+  </target>
+  
+  <target name="docs">
+    <javadoc sourcepath="example" destdir="exampledocs" classpath="capsules.jar" packagenames="capsulesexample.system.*">
+      <doclet name="capsules.doclet.Doclet" path="capsules.jar">
+        <param name="-exportKeyword" value="capsulesexample.system.SystemAPI"/>
+      </doclet>
+    </javadoc>
+  </target>
+  
+  <target name="run" depends="check,docs"/>
+  
+  <target name="clean">
+    <delete dir="examplebin"/>
+    <delete dir="exampledocs"/>
+  </target>
+  
+</project>
