@@ -2,6 +2,8 @@ package bugdomain;
 
 import java.util.Date;
 
+// !!! At  this point BugReport does not check if uniqueID is unique !! -> outsource problem ?
+// -> change constructors to PROTECTED !!
 public class BugReport {
 	
 	/**
