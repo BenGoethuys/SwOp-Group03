@@ -151,7 +151,7 @@ public class User {
      * @return Whether the middle name is valid.
      */
     public boolean isValidMiddleName(String middleName) {
-        return true;
+        return middleName != null;
     }
 
     /**
