@@ -1,5 +1,5 @@
 package usersystem;
 
-public class Developer extends User {
+public class Developer extends Issuer {
 
 }
