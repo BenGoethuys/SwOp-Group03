@@ -1,0 +1,26 @@
+<!-- An Apache Ant script that runs the purecollections test suite. -->
+<project default="test">
+  
+  <mkdir dir="testbin"/>
+  
+  <target name="test">
+    <javac srcdir="test" destdir="testbin" classpath="purecollections.jar" includeAntRuntime="true" debug="yes"/>
+    <junit fork="yes" haltonfailure="yes">
+      <classpath>
+        <pathelement location="purecollections.jar"/>
+        <pathelement location="testbin"/>
+      </classpath>
+      <formatter type="plain" usefile="false"/>
+      <batchtest>
+        <fileset dir="test">
+          <include name="purecollections/*Test*.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+  
+  <target name="clean">
+    <delete dir="testbin"/>
+  </target>
+  
+</project>
