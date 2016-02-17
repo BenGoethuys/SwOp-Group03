@@ -2,11 +2,8 @@ package bugdomain;
 
 import java.util.Date;
 
-public class Project extends System {
+public class Project extends AbstractSystem {
 
-	private VersionID version;
-	private String name = "";
-	private String description = "";
 	private Date creationDate;
 	private Date startDate;
 
@@ -25,22 +22,8 @@ public class Project extends System {
 	 * @param startDate
 	 *            The start date of the project.
 	 */
-	public Project(VersionID version, String name, String description, Date creationDate, Date startDate) {
-		if (version != null) {
-			setVersionID(version);
-		} else {
-			throw new IllegalArgumentException("Illegal version");
-		}
-		if (name != "") {
-			setName(name);
-		} else {
-			throw new IllegalArgumentException("The project name can't be empty.");
-		}
-		if (description != "") {
-			setDescription(description);
-		} else {
-			throw new IllegalArgumentException("The project description can't be empty.");
-		}
+	public Project(VersionID version, String name, String description, Date creationDate, Date startDate) throws IllegalArgumentException{
+		super(version,name,description);
 		if (isValidStartDate()) {
 			setCreationDate(creationDate);
 			setStartDate(startDate);
@@ -50,57 +33,16 @@ public class Project extends System {
 	}
 
 	/**
-	 * 
-	 * @return The versionID of the project.
-	 */
-	public VersionID getVersionID() {
-		return version;
-	}
-
-	/**
-	 * Sets the versionID of the project to the given versionID.
-	 * 
-	 * @param version
-	 *            The versionID of the project.
-	 */
-	private void setVersionID(VersionID version) {
-		this.version = version;
-	}
-
-	/**
-	 * 
-	 * @return The name of the project.
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Sets the name of the project to the given name.
-	 * 
-	 * @param name
-	 *            The name of the project.
-	 */
-	private void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * 
-	 * @return The description of the project.
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * Sets the description of the project to the given description.
-	 * 
-	 * @param description
-	 *            The description of the project.
-	 */
-	private void setDescription(String description) {
-		this.description = description;
+	 * This method evaluates the validity of the given name.
+	 * It cannot be an empty name string.
+	 * @param name The given string to be set as name.
+	 * @return ture if the name is not empty.
+     */
+	protected boolean isValidName(String name){
+		if (name != ""){
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -150,8 +92,13 @@ public class Project extends System {
 		this.creationDate = creationDate;
 	}
 
+	 protected boolean isValidParent(AbstractSystem Parent){
+		 return false;
+	 }
+
+	protected AbstractSystem
 	protected void addSubsystem(Subsystem subsystem) {
-		// TODO
+		// TODO;
 		return;
 	}
 
