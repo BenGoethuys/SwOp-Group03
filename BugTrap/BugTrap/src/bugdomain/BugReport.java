@@ -2,10 +2,10 @@ package bugdomain;
 
 import java.util.Date;
 
-// !!! At  this point BugReport does not check if uniqueID is unique !! -> outsource problem ?
+//TODO  !!! At  this point BugReport does not check if uniqueID is unique !! -> outsource problem ?
 // -> change constructors to PROTECTED !!
 /**
- * This class represents a bu report
+ * This class represents a Bug report
  * 
  * @author Ben Goethuys
  */
