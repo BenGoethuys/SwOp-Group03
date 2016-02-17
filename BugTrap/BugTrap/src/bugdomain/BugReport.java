@@ -2,10 +2,11 @@ package bugdomain;
 
 import java.util.Date;
 
-// !!! At  this point BugReport does not check if uniqueID is unique !! -> outsource problem ?
+//TODO !!! At  this point BugReport does not check if uniqueID is unique !! -> outsource problem ?
 // -> change constructors to PROTECTED !!
+
 /**
- * This class represents a bu report
+ * This class represents a bug report
  * 
  * @author Ben Goethuys
  */
@@ -21,12 +22,18 @@ public class BugReport {
 	 * @param tag The tag of the bugReport
 	 * 
 	 * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
-	 * @throws NullPointerException if description is null
-	 * @throws NullPointerException if creationDate is null
-	 * @throws NullPointerException if tag is null
-	 * @throws NullPointerException if title is null
+	 * @throws IllegalArgumentException if isValidTitle(title) fails
+	 * @throws IllegalArgumentException if isValidDescription(description) fails
+	 * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
+	 * @throws IllegalArgumentException if isValidTag(tag) fails
+	 * 
+	 * @see isValidUniqueID(uniqueID)
+	 * @see isValidTitle(title)
+	 * @see isValidDescription(description)
+	 * @see isValidCreationDate(creationDate)
+	 * @see isValidTag(tag)
 	 */
-	public BugReport(long uniqueID, String title, String description, Date creationDate, Tag tag) throws IllegalArgumentException, NullPointerException {
+	public BugReport(long uniqueID, String title, String description, Date creationDate, Tag tag) throws IllegalArgumentException {
 		this.setUniqueID(uniqueID);
 		this.setTitle(title);
 		this.setDescription(description);
@@ -43,13 +50,18 @@ public class BugReport {
 	 * @param creationDate The creationDate of the bugReport
 	 * 
 	 * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
-	 * @throws NullPointerException if description is null
-	 * @throws NullPointerException if creationDate is null
-	 * @throws NullPointerException if title is null
+	 * @throws IllegalArgumentException if isValidTitle(title) fails
+	 * @throws IllegalArgumentException if isValidDescription(description) fails
+	 * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
+	 * 
+	 * @see isValidUniqueID(uniqueID)
+	 * @see isValidTitle(title)
+	 * @see isValidDescription(description)
+	 * @see isValidCreationDate(creationDate)
 	 * 
 	 * @post new.getTag() == Tag.New
 	 */
-	public BugReport(long uniqueID, String title, String description, Date creationDate) throws IllegalArgumentException, NullPointerException {
+	public BugReport(long uniqueID, String title, String description, Date creationDate) throws IllegalArgumentException {
 		this(uniqueID, title, description, creationDate, Tag.New);
 	}
 	
@@ -62,13 +74,17 @@ public class BugReport {
 	 * @param creationDate The creationDate of the bugReport
 	 * 
 	 * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
-	 * @throws NullPointerException if description is null
-	 * @throws NullPointerException if title is null
+	 * @throws IllegalArgumentException if isValidTitle(title) fails
+	 * @throws IllegalArgumentException if isValidDescription(description) fails
+	 * 
+	 * @see isValidUniqueID(uniqueID)
+	 * @see isValidTitle(title)
+	 * @see isValidDescription(description)
 	 * 
 	 * @post new.getDate() == current date at the moment of initialisation
 	 * @post new.getTag() == Tag.New
 	 */
-	public BugReport(long uniqueID, String title, String description) throws IllegalArgumentException, NullPointerException {
+	public BugReport(long uniqueID, String title, String description) throws IllegalArgumentException {
 		this(uniqueID, title, description, new Date());
 	}
 
@@ -105,8 +121,8 @@ public class BugReport {
 	 * 
 	 * @param uniqueID
 	 */
-	public boolean isValidUniqueID(long uniqueID) throws IllegalArgumentException {
-		// Add check for unique ID
+	public boolean isValidUniqueID(long uniqueID) {
+		//TODO Add check for unique ID
 		return true;
 	}
 	
@@ -122,13 +138,26 @@ public class BugReport {
 	 * This method sets the title of the bug report
 	 * @param title the title to set
 	 * 
-	 * @throws NullPointerException if title is null
+	 * @throws IllegalArgumentException if title is invalid
+	 * @see isValidTitle(String)
 	 */
-	private void setTitle(String title) throws NullPointerException {
-		if (title == null){
-			throw new NullPointerException("The given title for the bug report is a nullpointer");
+	private void setTitle(String title) throws IllegalArgumentException {
+		if (! this.isValidTitle(title)){
+			throw new IllegalArgumentException("The given title for the bug report is not valid");
 		}
 		this.title = title;
+	}
+	
+	/**
+	 * This method checks if the given argument is a valid argument for a bug report
+	 * @param title the argument to check
+	 * @return true if the argument is a valid argument
+	 */
+	public boolean isValidTitle(String title) {
+		if (title == null){
+			return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -142,13 +171,26 @@ public class BugReport {
 	/**
 	 * @param description the description to set
 	 * 
-	 * @throws NullPointerException if the given description is null
+	 * @throws IllegalArgumentException if the given description is invalid
+	 * @see isValidDescription(String)
 	 */
-	private void setDescription(String description) throws NullPointerException {
-		if (description == null){
-			throw new NullPointerException("The description given for the bug report is a nullpointer");
+	private void setDescription(String description) throws IllegalArgumentException {
+		if (! this.isValidDescription(description)){
+			throw new IllegalArgumentException("The description given for the bug report is invalid");
 		}
 		this.description = description;
+	}
+	
+	/**
+	 * This method check if the given description is valid for a bug report
+	 * @param description the description to check
+	 * @return true if the description is valid
+	 */
+	public boolean isValidDescription(String description){
+		if (description == null){
+			return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -163,13 +205,26 @@ public class BugReport {
 	 * This method sets the creation date of the bug report
 	 * @param creationDate the creationDate to set
 	 * 
-	 * @throws NullPointerException if the given creation date is null
+	 * @throws IllegalArgumentException if the given creation date is invalid
+	 * @see isValidCreationDate(Date)
 	 */
-	private void setCreationDate(Date creationDate) throws NullPointerException {
-		if (creationDate == null){
-			throw new NullPointerException("The givien creation date in bug report is a nullpointer");
+	private void setCreationDate(Date creationDate) throws IllegalArgumentException {
+		if (! this.isValidCreationDate(creationDate)){
+			throw new IllegalArgumentException("The givien creation date in bug report is a nullpointer");
 		}
 		this.creationDate = creationDate;
+	}
+	
+	/**
+	 * This method check if the given creationDate is valid for the bug report
+	 * @param creationDate the Date to check
+	 * @return true if the date is a valid date for the bug report
+	 */
+	public boolean isValidCreationDate(Date creationDate){
+		if (creationDate == null){
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -182,12 +237,24 @@ public class BugReport {
 	/**
 	 * @param tag the tag to set
 	 * 
-	 * @throws NullPointerException if the given tag is null
+	 * @throws IllegalArgumentException if the given tag is null
 	 */
-	private void setTag(Tag tag) throws NullPointerException {
-		if (tag == null){
-			throw new NullPointerException("The given tag for bug report is a nullpointer");
+	private void setTag(Tag tag) throws IllegalArgumentException {
+		if (! this.isValidTag(tag)){
+			throw new IllegalArgumentException("The given tag for bug report is a nullpointer");
 		}
 		this.tag = tag;
+	}
+	
+	/**
+	 * This method check if the given tag is valid for the bug report
+	 * @param tag the tag to check
+	 * @return true if the tag is a valid tag
+	 */
+	public boolean isValidTag(Tag tag){
+		if (tag == null){
+			return false;
+		}
+		return true;
 	}
 }
