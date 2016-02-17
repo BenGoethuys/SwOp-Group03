@@ -34,15 +34,9 @@ public class Project extends AbstractSystem {
 		}
 	}
 
-	/**
-	 * This method evaluates the validity of the given name.
-	 * It cannot be an empty name string.
-	 * @param name The given string to be set as name.
-	 * @return ture if the name is not empty.
-     */
-	protected boolean isValidName(String name){
-		if (name != ""){
-			return true;
+	protected boolean isValidName(String name, AbstractSystem parent){
+		if (this.isValidName(name)) {
+			return parent == null;
 		}
 		return false;
 	}
@@ -94,18 +88,9 @@ public class Project extends AbstractSystem {
 		this.creationDate = creationDate;
 	}
 
-	 protected boolean isValidParent(AbstractSystem Parent){
+	 protected boolean isValidParent(AbstractSystem parent){
+		 //null is de standaarwaarde voor een niet geïmplementeerde parent van project. Indien we true zouden teruggeven,
+		 //kan er een nullpointer exception ontstaan bij setParent.
 		 return false;
 	 }
-
-	protected AbstractSystem
-	protected void addSubsystem(Subsystem subsystem) {
-		// TODO;
-		return;
-	}
-
-	protected Subsystem[] getSubsystems() {
-		// TODO
-		return null;
-	}
 }

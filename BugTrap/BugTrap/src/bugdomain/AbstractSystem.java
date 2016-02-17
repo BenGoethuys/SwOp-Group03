@@ -11,10 +11,13 @@ public abstract class AbstractSystem {
     private String name = "";
     private String description = "";
     private AbstractSystem parent;
-    private ArrayList<AbstractSystem> childs;
+    private ArrayList<Subsystem> childs;
 
     public AbstractSystem(VersionID version, String name, String description, AbstractSystem parent)throws NullPointerException, IllegalArgumentException{
         this(version, name, description);
+        if (! this.isValidName(name, parent)) {
+            throw new IllegalArgumentException("The name is invalid");
+        }
         this.setParent(parent);
     }
 
@@ -27,15 +30,15 @@ public abstract class AbstractSystem {
         }
         if (this.isValidName(name)) {
             this.setName(name);
-        } else {
-            throw new IllegalArgumentException("The name is invalid")
+        } else {throw new IllegalArgumentException("The name is invalid");
+
         }
         if (description != "") {
             setDescription(description);
         } else {
             throw new IllegalArgumentException("The project description can't be empty.");
         }
-        this.childs = new ArrayList<AbstractSystem>();
+        this.childs = new ArrayList<Subsystem>();
     }
     // Exceptions werpen in de isValid in plaats van in de constructor, en de isValid in de set...
 
@@ -75,7 +78,11 @@ public abstract class AbstractSystem {
         this.name = name;
     }
 
-    protected abstract boolean isValidName(String name);
+    protected boolean isValidName(String name){
+        return (name != "");
+    }
+
+    protected abstract boolean isValidName(String name, AbstractSystem parent);
 
     /**
      *
@@ -102,6 +109,8 @@ public abstract class AbstractSystem {
     private void setParent(AbstractSystem parent){
         if (isValidParent(parent)){
             this.parent = parent;
+            //only a element from type subsystem has a parent
+            parent.addChild((Subsystem)this);
         }
     }
     protected abstract boolean isValidParent(AbstractSystem parent);
@@ -118,19 +127,20 @@ public abstract class AbstractSystem {
         }
     }
 
-    protected ArrayList<AbstractSystem> getChilds(){
+    protected ArrayList<Subsystem> getChilds(){
         return this.childs;
     }
 
-    protected void addChild(AbstractSystem child){
+    protected void addChild(Subsystem child){
         this.getChilds().add(child);
     }
 
-    protected AbstractSystem getParentProject(){
+    protected Project getParentProject(){
         AbstractSystem localParent = this.getParent();
-        while (! localParent instanceof Project){
+        while (localParent != null){
             localParent = localParent.getParent();
         }
-        return localParent;
+        //only an element of type project has null as parent value
+        return (Project)localParent;
     }
 }
