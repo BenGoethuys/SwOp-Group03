@@ -2,7 +2,7 @@ package bugdomain;
 
 import java.util.Date;
 
-public class Project extends System {
+public class Project extends Systems {
 
 	private VersionID version;
 	private String name = "";
