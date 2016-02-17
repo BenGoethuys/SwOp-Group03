@@ -1,7 +1,7 @@
 package usersystem;
 
 /**
- * A {User} can be identified by his/her unique username. The uniqueness of this
+ * A {User} can be identified by his/her username. The uniqueness of this
  * username is not guaranteed within this class.
  *
  * @author Admin
@@ -10,80 +10,80 @@ package usersystem;
 public class User {
 
     /**
-     * Create a {@link User} with a unique username, a firstName, middelName and
+     * Create a {@link User} with a username, a firstName, middelName and
      * lastName.
      *
-     * @param uniqueUsername The unique username of this user.
+     * @param username The unique username of this user.
      * @param firstName The first name of this user.
      * @param middleName The middle name of this user.
      * @param lastName The last name of this user.
      *
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * @see isValidUniqueUsername(String uniqueUsername)
+     * @see isValidUsername(String username)
      * @see isValidFirstName(String firstName)
      * @see isValidMiddleName(String middleName)
      * @see isValidLastName(String lastName)
      */
-    public User(String uniqueUsername, String firstName, String middleName, String lastName) throws IllegalArgumentException {
-        setUniqueUsername(uniqueUsername);
+    public User(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
+        setUsername(username);
         setFirstName(firstName);
         setMiddleName(middleName);
         setLastName(lastName);
     }
 
     /**
-     * Create a {@link User} with a unique username, a firstName and lastName.
+     * Create a {@link User} with a username, a firstName and lastName.
      *
-     * @param uniqueUsername The unique username of this user.
+     * @param username The unique username of this user.
      * @param firstName The first name of this user.
      * @param lastName The last name of this user.
      *
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * @see isValidUniqueUsername(String uniqueUsername)
+     * @see isValidUsername(String username)
      * @see isValidFirstName(String firstName)
      * @see isValidLastName(String lastName)
      */
-    public User(String uniqueUsername, String firstName, String lastName) {
-        this(uniqueUsername, firstName, "", lastName);
+    public User(String username, String firstName, String lastName) {
+        this(username, firstName, "", lastName);
     }
 
-    private String uniqueUsername;
+    private String username;
     private String firstName;
     private String middleName;
     private String lastName;
 
     /**
-     * Get the unique username of this {@link User}
+     * Get the username of this {@link User}
      *
-     * @return The last name of this user.
+     * @return The username of this user.
      */
-    public String getUniqueUsername() {
-        return this.uniqueUsername;
+    public String getUsername() {
+        return this.username;
     }
 
     /**
-     * Set uniqueUsername as the unique username of this user, if it is valid.
+     * Set username as the username of this user, if it is valid.
      *
-     * @param uniqueUsername The new unique username.
-     * @throws IllegalArgumentException When the uniqueUsername is not valid.
-     * @see isValidUniqueUsername(String uniqueUsername)
+     * @param username The new username.
+     * @throws IllegalArgumentException When the username is not valid.
+     * @see isValidUsername(String username)
      */
-    private void setUniqueUsername(String uniqueUsername) throws IllegalArgumentException {
-        if (isValidUniqueUsername(uniqueUsername)) {
-            this.uniqueUsername = uniqueUsername;
+    private void setUsername(String username) throws IllegalArgumentException {
+        if (isValidUsername(username)) {
+            this.username = username;
         } else {
-            throw new IllegalArgumentException("Unique username:" + uniqueUsername + " is not a valid unique username.");
+            throw new IllegalArgumentException("username:" + username + " is not a valid username.");
         }
     }
 
     /**
-     * Check if uniqueUsername is a valid username. Uniqueness is not checked.
+     * Check if username is a valid username. Uniqueness is not checked.
      *
-     * @param uniqueUsername The username to check.
-     * @return Whether the uniqueUsername is valid.
+     * @param username The username to check.
+     * @return Whether the username is valid.
      */
-    public boolean isValidUniqueUsername(String uniqueUsername) {
-        return (uniqueUsername != null && !uniqueUsername.equalsIgnoreCase(""));
+    public boolean isValidUsername(String username) {
+        return (username != null && !username.equalsIgnoreCase(""));
     }
 
     /**

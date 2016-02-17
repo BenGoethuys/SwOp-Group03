@@ -25,14 +25,14 @@ public class UserTest {
 
         User user = new User(unique, firstName, middleName, lastName);
 
-        assertEquals(user.getUniqueUsername(), unique);
+        assertEquals(user.getUsername(), unique);
         assertEquals(user.getFirstName(), firstName);
         assertEquals(user.getMiddleName(), middleName);
         assertEquals(user.getLastName(), lastName);
     }
 
     /**
-     * Test constructor of User with using
+     * Test constructor of User using User(String, String, String)
      */
     @Test
     public void testConsWithoutMiddle() {
@@ -43,7 +43,7 @@ public class UserTest {
 
         User user = new User(unique, firstName, middleName, lastName);
 
-        assertEquals(user.getUniqueUsername(), unique);
+        assertEquals(user.getUsername(), unique);
         assertEquals(user.getFirstName(), firstName);
         assertEquals(user.getMiddleName(), middleName);
         assertEquals(user.getLastName(), lastName);
@@ -58,7 +58,7 @@ public class UserTest {
 
         User user = new User(unique, firstName, middleName, lastName);
 
-        assertTrue(user.isValidUniqueUsername("Vincent"));
+        assertTrue(user.isValidUsername("Vincent"));
         assertTrue(user.isValidFirstName("V"));
         assertTrue(user.isValidMiddleName(""));
         assertTrue(user.isValidMiddleName(" "));
@@ -76,8 +76,8 @@ public class UserTest {
 
         User user = new User(unique, firstName, middleName, lastName);
 
-        assertFalse(user.isValidUniqueUsername(""));
-        assertFalse(user.isValidUniqueUsername(null));
+        assertFalse(user.isValidUsername(""));
+        assertFalse(user.isValidUsername(null));
 
         assertFalse(user.isValidFirstName(""));
         assertFalse(user.isValidFirstName(null));
@@ -89,7 +89,7 @@ public class UserTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIsValidUniqueUsernameNullException() {
+    public void testIsValidUsernameNullException() {
         String unique = null;
         String firstName = "Vincent";
         String middleName = "";
