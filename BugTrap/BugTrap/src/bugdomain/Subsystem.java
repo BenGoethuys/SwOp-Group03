@@ -31,22 +31,24 @@ public class Subsystem extends AbstractSystem {
             if (child.getName() == name) {
                 return false;
             }
-            if (! childNamesEqual(name, child){
+            if (! childNamesEqual(name, child)){
                 return false;
             }
         }
         return true;
     }
-    //TODO check recursively to itself
-    protected boolean isValidParent(AbstractSystem parent){
+
+    protected boolean isValidParent(AbstractSystem parent) {
         Project parentProject = parent.getParentProject();
         AbstractSystem currentSystem = parent;
-        while (currentSystem != parentProject){
-            if (currentSystem == this){
+        while (currentSystem != parentProject) {
+            if (currentSystem == this) {
                 return false;
             }
             currentSystem = currentSystem.getParent();
         }
+        return true;
     }
 }
+
 
