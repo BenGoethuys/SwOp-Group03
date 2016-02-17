@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="purecollections">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/purecollections-1.0/purecollections.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
