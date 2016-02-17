@@ -4,7 +4,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
@@ -117,3 +116,4 @@ dist/
 nbdist/
 nbactions.xml
 .nb-gradle/
+/BugTrap/BugTrap/BugTrap/nbproject/private/
