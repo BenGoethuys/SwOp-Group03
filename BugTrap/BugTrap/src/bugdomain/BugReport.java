@@ -4,14 +4,20 @@ import java.util.Date;
 
 // !!! At  this point BugReport does not check if uniqueID is unique !! -> outsource problem ?
 // -> change constructors to PROTECTED !!
+/**
+ * This class represents a bu report
+ * 
+ * @author Ben Goethuys
+ */
 public class BugReport {
 	
 	/**
+	 * General constructor for initialising a bug report
 	 * 
-	 * @param uniqueID The unique ID for the bugReport
+	 * @param uniqueID The unique ID for the bug report
 	 * @param title The title of the bugReport
-	 * @param description The description of the bugReport
-	 * @param creationDate The creationDate of the bugReport
+	 * @param description The description of the bug report
+	 * @param creationDate The creationDate of the bug report
 	 * @param tag The tag of the bugReport
 	 * 
 	 * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
@@ -29,6 +35,7 @@ public class BugReport {
 	}
 	
 	/**
+	 * Constructor for creating a bug report with default tag "New"
 	 * 
 	 * @param uniqueID The unique ID for the bugReport
 	 * @param title The title of the bugReport
@@ -43,15 +50,11 @@ public class BugReport {
 	 * @post new.getTag() == Tag.New
 	 */
 	public BugReport(long uniqueID, String title, String description, Date creationDate) throws IllegalArgumentException, NullPointerException {
-		this.setUniqueID(uniqueID);
-		this.setTitle(title);
-		this.setDescription(description);
-		this.setCreationDate(creationDate);
-		
-		this.setTag(Tag.New);
+		this(uniqueID, title, description, creationDate, Tag.New);
 	}
 	
 	/**
+	 * Constructor for creating a bug report with default tag "New" and the current time as creationDate
 	 * 
 	 * @param uniqueID The unique ID for the bugReport
 	 * @param title The title of the bugReport
@@ -66,12 +69,7 @@ public class BugReport {
 	 * @post new.getTag() == Tag.New
 	 */
 	public BugReport(long uniqueID, String title, String description) throws IllegalArgumentException, NullPointerException {
-		this.setUniqueID(uniqueID);
-		this.setTitle(title);
-		this.setDescription(description);
-		
-		this.setCreationDate(new Date());
-		this.setTag(Tag.New);
+		this(uniqueID, title, description, new Date());
 	}
 
 	private long uniqueID;
@@ -82,17 +80,22 @@ public class BugReport {
 	
 	/**
 	 * This method returns the unique ID for the BugReport
-	 * @return the uniqueID
+	 * 
+	 * @return the uniqueID of this bug report
 	 */
 	public long getUniqueID() {
 		return uniqueID;
 	}
 	
 	/**
-	 * This method sets the ID of the BugReport
+	 * This method sets the ID of the BugReport 
+	 *  
 	 * @param uniqueID the uniqueID to set
+	 * 
+	 * @throws IllegalArgumentException when the uniqueID is invalid
+	 * @see isValidUniqueID
 	 */
-	private void setUniqueID(long uniqueID) {
+	private void setUniqueID(long uniqueID) throws IllegalArgumentException {
 		this.isValidUniqueID(uniqueID);
 		this.uniqueID = uniqueID;
 	}
