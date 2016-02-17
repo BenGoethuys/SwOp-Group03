@@ -27,11 +27,11 @@ public class BugReport {
 	 * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
 	 * @throws IllegalArgumentException if isValidTag(tag) fails
 	 * 
-	 * @see isValidUniqueID(uniqueID)
-	 * @see isValidTitle(title)
-	 * @see isValidDescription(description)
-	 * @see isValidCreationDate(creationDate)
-	 * @see isValidTag(tag)
+	 * @see isValidUniqueID(long)
+	 * @see isValidTitle(String)
+	 * @see isValidDescription(String)
+	 * @see isValidCreationDate(Date)
+	 * @see isValidTag(Tag)
 	 */
 	public BugReport(long uniqueID, String title, String description, Date creationDate, Tag tag) throws IllegalArgumentException {
 		this.setUniqueID(uniqueID);
