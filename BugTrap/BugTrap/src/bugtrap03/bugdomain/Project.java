@@ -39,6 +39,7 @@ public class Project extends AbstractSystem {
 	 * @return True if creation date <= start date.
 	 */
 	private boolean isValidStartDate() {
+		System.out.println(creationDate.before(startDate)); // TODO NullPointer?
 		if (creationDate.before(startDate) || creationDate.compareTo(startDate) == 0) {
 			return true;
 		}
@@ -58,9 +59,14 @@ public class Project extends AbstractSystem {
 	 * Sets the start date of the project to the given date.
 	 * 
 	 * @param startDate The start date of the project.
+	 * @throws NullPointerException if the given date is equal to null.
 	 */
 	private void setStartDate(Date startDate) {
-		this.startDate = startDate;
+		if (startDate != null) {
+			this.startDate = startDate;
+		} else {
+			throw new NullPointerException("A date can't be null.");
+		}
 	}
 
 	/**
@@ -76,9 +82,14 @@ public class Project extends AbstractSystem {
 	 * Sets the creation date of the project to the given date.
 	 * 
 	 * @param creationDate The creation date of the project.
+	 * @throws NullPointerException if the given date is equal to null.
 	 */
 	private void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
+		if (creationDate != null) {
+			this.creationDate = creationDate;
+		} else {
+			throw new NullPointerException("A date can't be null.");
+		}
 	}
 
 	/**

@@ -1,12 +1,17 @@
 /**
  * 
  */
-package bugdomain;
+package bugtrap03.bugdomain;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.VersionID;
 
 /**
  * @author Mathias
@@ -21,41 +26,24 @@ public class ProjectTest {
 	public void setUp() throws Exception {
 	}
 
-	// /**
-	// * Test method for
-	// * {@link bugdomain.Project#isValidName(java.lang.String,
-	// bugdomain.AbstractSystem)}
-	// * .
-	// */
-	// @Test
-	// public void testIsValidNameStringAbstractSystem() {
-	// fail("Not yet implemented");
-	// }
+	@Test
+	public void testProject() {
+		try {
+			VersionID version = new VersionID(1, 0, 0);
+			String name = "test";
+			String description = "Dit is een testproject";
+			Date startDate = new Date();
+			Date creationDate = new Date();
+			//TODO fail with dates.
+			Project project = new Project(version, name, description, creationDate, startDate);
+			System.out.println(project);
+		} catch (Exception e) {
+			System.out.println(e);
+			fail("Mag niet");
+		}
+	}
+	
 	//
-	// /**
-	// * Test method for
-	// * {@link bugdomain.Project#isValidParent(bugdomain.AbstractSystem)}.
-	// */
-	// @Test
-	// public void testIsValidParent() {
-	// fail("Not yet implemented");
-	// }
-	//
-	// /**
-	// * Test method for
-	// * {@link bugdomain.Project#Project(bugdomain.VersionID, java.lang.String,
-	// java.lang.String, java.util.Date, java.util.Date)}
-	// * .
-	// */
-	// @Test
-	// public void testProject() {
-	// fail("Not yet implemented");
-	// }
-	//
-	// /**
-	// * Test method for {@link bugdomain.Project#getStartDate()}.
-	// */
-	// @Test
 	// public void testGetStartDate() {
 	// fail("Not yet implemented");
 	// }

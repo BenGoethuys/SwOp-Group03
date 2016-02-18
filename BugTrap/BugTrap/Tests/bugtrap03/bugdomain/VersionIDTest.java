@@ -1,7 +1,7 @@
 /**
  * 
  */
-package bugdomain;
+package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.VersionID;
 import static org.junit.Assert.*;

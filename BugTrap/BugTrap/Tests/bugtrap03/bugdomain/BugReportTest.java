@@ -1,4 +1,4 @@
-package bugdomain;
+package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.Tag;
 import bugtrap03.bugdomain.BugReport;

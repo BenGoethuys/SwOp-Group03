@@ -1,4 +1,4 @@
-package usersystem;
+package bugtrap03.usersystem;
 
 import bugtrap03.usersystem.User;
 import org.junit.Test;
@@ -37,7 +37,7 @@ public class UserTest {
      */
     @Test
     public void testConsWithoutMiddle() {
-        String unique = "Vincent046";
+        String unique = "Vincent045";
         String firstName = "Vincent";
         String middleName = "";
         String lastName = "Derk";
@@ -50,19 +50,16 @@ public class UserTest {
         assertEquals(user.getLastName(), lastName);
     }
 
-    /**
-     * Test valid username, firstname, middlename, lastname.
-     */
     @Test
     public void testIsValidTrue() {
-        String unique = "Vincent047";
+        String unique = "Vincent045";
         String firstName = "Vincent";
         String middleName = "";
         String lastName = "Derk";
 
         User user = new User(unique, firstName, middleName, lastName);
 
-        assertTrue(user.isValidUsername("Vincent048"));
+        assertTrue(user.isValidUsername("Vincent"));
         assertTrue(user.isValidFirstName("V"));
         assertTrue(user.isValidMiddleName(""));
         assertTrue(user.isValidMiddleName(" "));
@@ -71,19 +68,15 @@ public class UserTest {
         assertTrue(user.isValidLastName("K98L.,?"));
     }
 
-    /**
-     * Test invalid username/firstname/middlename/lastname.
-     */
     @Test
     public void testIsValidFalse() {
-        String unique = "Vincent049";
+        String unique = "Vincent045";
         String firstName = "Vincent";
         String middleName = "";
         String lastName = "Derk";
 
         User user = new User(unique, firstName, middleName, lastName);
 
-        assertFalse(user.isValidUsername(unique));
         assertFalse(user.isValidUsername(""));
         assertFalse(user.isValidUsername(null));
 
@@ -96,22 +89,6 @@ public class UserTest {
         assertFalse(user.isValidLastName(null));
     }
 
-    /**
-     * Test username not unique should throw error.
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void testIsValidUsernameAlreadyUsedException() {
-        String unique = "Vincent047";
-        String firstName = "Vincent";
-        String middleName = "";
-        String lastName = "Derk";
-
-        User user = new User(unique, firstName, middleName, lastName);
-    }
-
-    /**
-     * Test username == null should throw error.
-     */
     @Test(expected = IllegalArgumentException.class)
     public void testIsValidUsernameNullException() {
         String unique = null;
@@ -122,9 +99,6 @@ public class UserTest {
         User user = new User(unique, firstName, middleName, lastName);
     }
 
-    /**
-     * Test firstname == null should throw error.
-     */
     @Test(expected = IllegalArgumentException.class)
     public void testIsValidFirstNameNullException() {
         String unique = "Vincent";
@@ -135,9 +109,6 @@ public class UserTest {
         User user = new User(unique, firstName, middleName, lastName);
     }
 
-    /**
-     * Test middle == null should throw error.
-     */
     @Test(expected = IllegalArgumentException.class)
     public void testIsValidMiddleNameNullException() {
         String unique = "Vincent";
@@ -148,9 +119,6 @@ public class UserTest {
         User user = new User(unique, firstName, middleName, lastName);
     }
 
-    /**
-     * Test lastName == null should throw error.
-     */
     @Test(expected = IllegalArgumentException.class)
     public void testIsValidLastNameNullException() {
         String unique = "Vincent";
