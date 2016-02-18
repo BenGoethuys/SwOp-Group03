@@ -12,7 +12,6 @@ public abstract class AbstractSystem {
 	private VersionID version;
 	private String name = "";
 	private String description = "";
-	private AbstractSystem parent;
 	private ArrayList<Subsystem> childs;
 
 	/**
@@ -28,8 +27,6 @@ public abstract class AbstractSystem {
 	 *            The string name for this element.
 	 * @param description
 	 *            The string description of this element.
-	 * @param parent
-	 *            The parent (a Project or Subsystem) of this element.
 	 * @throws NullPointerException
 	 *             if the versionID is null.
 	 * @throws IllegalArgumentException
@@ -38,14 +35,11 @@ public abstract class AbstractSystem {
 	public AbstractSystem(VersionID version, String name, String description, AbstractSystem parent)
 			throws NullPointerException, IllegalArgumentException {
 		this(version, name, description);
-		if (!this.isValidName(name, parent)) {
-			throw new IllegalArgumentException("The name is invalid");
-		}
-		this.setParent(parent);
+
 	}
 
 	/**
-	 * This constructor is used for all elements of type 'AbstracSystem',
+	 * This constructor is used for all elements of type AbstractSystem,
 	 * although possibly indirect.
 	 * 
 	 * @param version
@@ -95,8 +89,7 @@ public abstract class AbstractSystem {
 	/**
 	 * Sets the versionID of the project to the given versionID.
 	 * 
-	 * @param version
-	 *            The versionID of the project.
+	 * @param version The versionID of the project.
 	 */
 	private void setVersionID(VersionID version) {
 		this.version = version;
@@ -114,8 +107,7 @@ public abstract class AbstractSystem {
 	/**
 	 * Sets the name of the project to the given name.
 	 * 
-	 * @param name
-	 *            The name of the project.
+	 * @param name The name of the project.
 	 */
 	private void setName(String name) {
 		this.name = name;
@@ -124,28 +116,12 @@ public abstract class AbstractSystem {
 	/**
 	 * This method checks the validity of the given name.
 	 * 
-	 * @param name
-	 *            The string argument to used as name.
+	 * @param name The string argument to used as name.
 	 * @return true if the name is not an empty string or null.
 	 */
 	protected boolean isValidName(String name) {
 		return (name != "" && name != null);
 	}
-
-	/**
-	 * CAN BE PUSHED DOWN IN HIERARCHY --> remove because only necessary in
-	 * Subsystem
-	 *
-	 * This is an abstract heading for the function that chekcs the validity of
-	 * the given name, in combination with its parent.
-	 * 
-	 * @param name
-	 *            The string argument to be used as name.
-	 * @param parent
-	 *            The parent of the element to be named.
-	 * @return true is valid.
-	 */
-	protected abstract boolean isValidName(String name, AbstractSystem parent);
 
 	/**
 	 * This is a getter for the description variable.
@@ -159,57 +135,18 @@ public abstract class AbstractSystem {
 	/**
 	 * Sets the description of the AbstractSystem to the given description.
 	 * 
-	 * @param description
-	 *            The description of the project.
+	 * @param description The description of the project.
 	 */
 	private void setDescription(String description) {
 		this.description = description;
 	}
 
 	/**
-	 * CAN BE PUSHED DOWN IN HIERARCHY--> only necessary for Subsystem
-	 *
-	 * Sets the parent of the AbstractSystem to the given parent, if valid. Only
-	 * elements of subclass subsystems have a parent different from null.
-	 * 
-	 * @param parent
-	 *            The given parent of the AbstractSystem
-	 */
-	private void setParent(AbstractSystem parent) {
-		if (isValidParent(parent)) {
-			this.parent = parent;
-			// only a element from type subsystem has a parent
-			parent.addChild((Subsystem) this);
-		}
-	}
-
-	/**
-	 * CAN BE PUSHED DOWN IN HIERARCHY --> remove because only necessary in
-	 * Subsystem
-	 *
-	 * This abstract method is the heading for a validity check on the parent.
-	 * 
-	 * @param parent
-	 *            The given parent to be checked.
-	 * @return true if valid.
-	 */
-	protected abstract boolean isValidParent(AbstractSystem parent);
-
-	/**
-	 * CAN BE PUSHED DOWN IN HIERARCHY
-	 *
-	 * This is a getter for the parent of the AbstractSystem. A project is it's
-	 * own parent.
-	 * 
+	 * This is an abstract getter for the parent of the AbstractSystem.
 	 * @return The parent of an element with type Subclass or the Project.
 	 */
-	protected AbstractSystem getParent() {
-		if (this.parent != null) {
-			return this.parent;
-		} else {
-			return this;
-		}
-	}
+    protected abstract AbstractSystem getParent();
+
 
 	/**
 	 * This method returns the head of the subsystem tree structure. This is an

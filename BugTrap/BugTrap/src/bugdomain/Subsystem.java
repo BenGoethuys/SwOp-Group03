@@ -5,9 +5,12 @@ package bugdomain;
  * Created by Kwinten on 17/02/2016.
  */
 public class Subsystem extends AbstractSystem {
+
+
+    private AbstractSystem parent;
 	/**
-	 * This constructor makes an element of the class subsyste, using it's
-	 * superclass, AbstracSystem, constructor.
+	 * This constructor makes an element of the class subsystem, using it's
+	 * superclass, AbstractSystem, constructor.
 	 * 
 	 * @param version
 	 *            The versionID (of that type) of this element.
@@ -15,8 +18,8 @@ public class Subsystem extends AbstractSystem {
 	 *            The string name for this element.
 	 * @param description
 	 *            The string description of this element.
-	 * @param parent
-	 *            The parent (a Project or Subsystem) of this element.
+     * @param parent
+     *            The parent (a Project or Subsystem) of this element.
 	 * @throws NullPointerException
 	 *             if the versionID is null.
 	 * @throws IllegalArgumentException
@@ -25,6 +28,10 @@ public class Subsystem extends AbstractSystem {
 	public Subsystem(AbstractSystem parent, VersionID version, String name, String description)
 			throws NullPointerException, IllegalArgumentException {
 		super(version, name, description, parent);
+        if (!this.isValidName(name, parent)) {
+            throw new IllegalArgumentException("The name is invalid with the given parent");
+        }
+        this.setParent(parent);
 	}
 
 	/**
@@ -73,12 +80,24 @@ public class Subsystem extends AbstractSystem {
 		return true;
 	}
 
+    /**
+     * Sets the parent of the AbstractSystem to the given parent, if valid. Only
+     * elements of subclass subsystems have a parent different from null.
+     *
+     * @param parent
+     *            The given parent of the AbstractSystem
+     */
+    private void setParent(AbstractSystem parent) {
+        if (isValidParent(parent)) {
+            this.parent = parent;
+            parent.addChild(this);
+        }
+    }
+
 	/**
 	 * This function checks or the given parent isn't one of subsystem's own
-	 * childs
-	 * 
-	 * @param parent
-	 *            The given parent to be checked.
+	 * child
+	 * @param parent The given parent to be checked.
 	 * @return true is the given parent isn't the subsystem's own child
 	 */
 	protected boolean isValidParent(AbstractSystem parent) {
@@ -92,4 +111,12 @@ public class Subsystem extends AbstractSystem {
 		}
 		return true;
 	}
+
+    /**
+     * This is a getter for the setted parent of the Subsystem;
+     * @return the parent of instance AbstractSystem.
+     */
+    protected AbstractSystem getParent(){
+        return this.parent;
+    }
 }

@@ -40,27 +40,6 @@ public class Project extends AbstractSystem {
 	}
 
 	/**
-	 * CAN BE REMOVED WITH PARENT PUSHED DOWN IN HIERARCHY
-	 *
-	 * This method checks the validity of the given name with the given parent.
-	 * A Project is initialised with null as parent value and will return itself
-	 * as parent.
-	 * 
-	 * @param name
-	 *            The string argument to be used as name.
-	 * @param parent
-	 *            The parent of the element to be named.
-	 * @return true if the name is valid on its own and the parent is null or
-	 *         itself
-	 */
-	protected boolean isValidName(String name, AbstractSystem parent) {
-		if (this.isValidName(name)) {
-			return parent == null || parent == this;
-		}
-		return false;
-	}
-
-	/**
 	 * This method checks the validity of the startdate.
 	 * 
 	 * @return True if creation date <= start date.
@@ -124,5 +103,13 @@ public class Project extends AbstractSystem {
 		// project. Indien we true zouden teruggeven,
 		// kan er een nullpointer exception ontstaan bij setParent.
 		return false;
+	}
+
+	/**
+	 * This is a getter for the parent. Since a Project doesn't have a parent, it returns itself.
+	 * @return this;
+     */
+	protected Project getParent(){
+		return this;
 	}
 }
