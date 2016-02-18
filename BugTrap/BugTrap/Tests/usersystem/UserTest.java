@@ -1,5 +1,6 @@
 package usersystem;
 
+import bugtrap03.usersystem.User;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

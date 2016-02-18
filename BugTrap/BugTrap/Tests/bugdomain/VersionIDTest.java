@@ -3,6 +3,7 @@
  */
 package bugdomain;
 
+import bugtrap03.bugdomain.VersionID;
 import static org.junit.Assert.*;
 
 import org.junit.Before;

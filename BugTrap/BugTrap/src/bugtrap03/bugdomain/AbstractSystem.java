@@ -1,4 +1,4 @@
-package bugdomain;
+package bugtrap03.bugdomain;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package usersystem;
+package bugtrap03.usersystem;
 
 /**
  * A {User} can be identified by his/her username. The uniqueness of this

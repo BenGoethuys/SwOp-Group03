@@ -1,4 +1,4 @@
-package usersystem;
+package bugtrap03.usersystem;
 
 public class Administrator extends User {
 

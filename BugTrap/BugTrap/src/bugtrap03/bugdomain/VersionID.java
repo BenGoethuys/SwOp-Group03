@@ -1,4 +1,4 @@
-package bugdomain;
+package bugtrap03.bugdomain;
 
 public class VersionID implements Comparable<VersionID> {
 
