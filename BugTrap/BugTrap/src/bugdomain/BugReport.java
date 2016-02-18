@@ -11,21 +11,31 @@ import java.util.Date;
  * @author Ben Goethuys
  */
 public class BugReport {
-	
+
 	/**
 	 * General constructor for initialising a bug report
 	 * 
-	 * @param uniqueID The unique ID for the bug report
-	 * @param title The title of the bugReport
-	 * @param description The description of the bug report
-	 * @param creationDate The creationDate of the bug report
-	 * @param tag The tag of the bugReport
+	 * @param uniqueID
+	 *            The unique ID for the bug report
+	 * @param title
+	 *            The title of the bugReport
+	 * @param description
+	 *            The description of the bug report
+	 * @param creationDate
+	 *            The creationDate of the bug report
+	 * @param tag
+	 *            The tag of the bugReport
 	 * 
-	 * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
-	 * @throws IllegalArgumentException if isValidTitle(title) fails
-	 * @throws IllegalArgumentException if isValidDescription(description) fails
-	 * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
-	 * @throws IllegalArgumentException if isValidTag(tag) fails
+	 * @throws IllegalArgumentException
+	 *             if isValidUniqueID(uniqueID) fails
+	 * @throws IllegalArgumentException
+	 *             if isValidTitle(title) fails
+	 * @throws IllegalArgumentException
+	 *             if isValidDescription(description) fails
+	 * @throws IllegalArgumentException
+	 *             if isValidCreationDate(creationDate) fails
+	 * @throws IllegalArgumentException
+	 *             if isValidTag(tag) fails
 	 * 
 	 * @see isValidUniqueID(long)
 	 * @see isValidTitle(String)
@@ -33,26 +43,35 @@ public class BugReport {
 	 * @see isValidCreationDate(Date)
 	 * @see isValidTag(Tag)
 	 */
-	public BugReport(long uniqueID, String title, String description, Date creationDate, Tag tag) throws IllegalArgumentException {
+	public BugReport(long uniqueID, String title, String description, Date creationDate, Tag tag)
+			throws IllegalArgumentException {
 		this.setUniqueID(uniqueID);
 		this.setTitle(title);
 		this.setDescription(description);
 		this.setCreationDate(creationDate);
 		this.setTag(tag);
 	}
-	
+
 	/**
 	 * Constructor for creating a bug report with default tag "New"
 	 * 
-	 * @param uniqueID The unique ID for the bugReport
-	 * @param title The title of the bugReport
-	 * @param description The description of the bugReport
-	 * @param creationDate The creationDate of the bugReport
+	 * @param uniqueID
+	 *            The unique ID for the bugReport
+	 * @param title
+	 *            The title of the bugReport
+	 * @param description
+	 *            The description of the bugReport
+	 * @param creationDate
+	 *            The creationDate of the bugReport
 	 * 
-	 * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
-	 * @throws IllegalArgumentException if isValidTitle(title) fails
-	 * @throws IllegalArgumentException if isValidDescription(description) fails
-	 * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
+	 * @throws IllegalArgumentException
+	 *             if isValidUniqueID(uniqueID) fails
+	 * @throws IllegalArgumentException
+	 *             if isValidTitle(title) fails
+	 * @throws IllegalArgumentException
+	 *             if isValidDescription(description) fails
+	 * @throws IllegalArgumentException
+	 *             if isValidCreationDate(creationDate) fails
 	 * 
 	 * @see isValidUniqueID(uniqueID)
 	 * @see isValidTitle(title)
@@ -61,21 +80,30 @@ public class BugReport {
 	 * 
 	 * @post new.getTag() == Tag.New
 	 */
-	public BugReport(long uniqueID, String title, String description, Date creationDate) throws IllegalArgumentException {
+	public BugReport(long uniqueID, String title, String description, Date creationDate)
+			throws IllegalArgumentException {
 		this(uniqueID, title, description, creationDate, Tag.New);
 	}
-	
+
 	/**
-	 * Constructor for creating a bug report with default tag "New" and the current time as creationDate
+	 * Constructor for creating a bug report with default tag "New" and the
+	 * current time as creationDate
 	 * 
-	 * @param uniqueID The unique ID for the bugReport
-	 * @param title The title of the bugReport
-	 * @param description The description of the bugReport
-	 * @param creationDate The creationDate of the bugReport
+	 * @param uniqueID
+	 *            The unique ID for the bugReport
+	 * @param title
+	 *            The title of the bugReport
+	 * @param description
+	 *            The description of the bugReport
+	 * @param creationDate
+	 *            The creationDate of the bugReport
 	 * 
-	 * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
-	 * @throws IllegalArgumentException if isValidTitle(title) fails
-	 * @throws IllegalArgumentException if isValidDescription(description) fails
+	 * @throws IllegalArgumentException
+	 *             if isValidUniqueID(uniqueID) fails
+	 * @throws IllegalArgumentException
+	 *             if isValidTitle(title) fails
+	 * @throws IllegalArgumentException
+	 *             if isValidDescription(description) fails
 	 * 
 	 * @see isValidUniqueID(uniqueID)
 	 * @see isValidTitle(title)
@@ -93,7 +121,7 @@ public class BugReport {
 	private String description;
 	private Date creationDate;
 	private Tag tag;
-	
+
 	/**
 	 * This method returns the unique ID for the BugReport
 	 * 
@@ -102,126 +130,146 @@ public class BugReport {
 	public long getUniqueID() {
 		return uniqueID;
 	}
-	
+
 	/**
-	 * This method sets the ID of the BugReport 
-	 *  
-	 * @param uniqueID the uniqueID to set
+	 * This method sets the ID of the BugReport
 	 * 
-	 * @throws IllegalArgumentException when the uniqueID is invalid
+	 * @param uniqueID
+	 *            the uniqueID to set
+	 * 
+	 * @throws IllegalArgumentException
+	 *             when the uniqueID is invalid
 	 * @see isValidUniqueID
 	 */
 	private void setUniqueID(long uniqueID) throws IllegalArgumentException {
 		this.isValidUniqueID(uniqueID);
 		this.uniqueID = uniqueID;
 	}
-	
+
 	/**
 	 * This method checks if the given ID is valid for this object.
 	 * 
 	 * @param uniqueID
 	 */
 	public boolean isValidUniqueID(long uniqueID) {
-		//TODO Add check for unique ID
+		// TODO Add check for unique ID
 		return true;
 	}
-	
+
 	/**
 	 * This method returns the title of the bug report
+	 * 
 	 * @return the title
 	 */
 	public String getTitle() {
 		return title;
 	}
-	
+
 	/**
 	 * This method sets the title of the bug report
-	 * @param title the title to set
 	 * 
-	 * @throws IllegalArgumentException if title is invalid
+	 * @param title
+	 *            the title to set
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if title is invalid
 	 * @see isValidTitle(String)
 	 */
 	private void setTitle(String title) throws IllegalArgumentException {
-		if (! this.isValidTitle(title)){
+		if (!this.isValidTitle(title)) {
 			throw new IllegalArgumentException("The given title for the bug report is not valid");
 		}
 		this.title = title;
 	}
-	
+
 	/**
-	 * This method checks if the given argument is a valid argument for a bug report
-	 * @param title the argument to check
+	 * This method checks if the given argument is a valid argument for a bug
+	 * report
+	 * 
+	 * @param title
+	 *            the argument to check
 	 * @return true if the argument is a valid argument
 	 */
 	public boolean isValidTitle(String title) {
-		if (title == null){
+		if (title == null) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * This method returns the description of the bug report
+	 * 
 	 * @return the description
 	 */
 	public String getDescription() {
 		return description;
 	}
-	
+
 	/**
-	 * @param description the description to set
+	 * @param description
+	 *            the description to set
 	 * 
-	 * @throws IllegalArgumentException if the given description is invalid
+	 * @throws IllegalArgumentException
+	 *             if the given description is invalid
 	 * @see isValidDescription(String)
 	 */
 	private void setDescription(String description) throws IllegalArgumentException {
-		if (! this.isValidDescription(description)){
+		if (!this.isValidDescription(description)) {
 			throw new IllegalArgumentException("The description given for the bug report is invalid");
 		}
 		this.description = description;
 	}
-	
+
 	/**
 	 * This method check if the given description is valid for a bug report
-	 * @param description the description to check
+	 * 
+	 * @param description
+	 *            the description to check
 	 * @return true if the description is valid
 	 */
-	public boolean isValidDescription(String description){
-		if (description == null){
+	public boolean isValidDescription(String description) {
+		if (description == null) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * This method returns the creation date for the project
+	 * 
 	 * @return the creationDate
 	 */
 	public Date getCreationDate() {
 		return (Date) creationDate.clone();
 	}
-	
+
 	/**
 	 * This method sets the creation date of the bug report
-	 * @param creationDate the creationDate to set
 	 * 
-	 * @throws IllegalArgumentException if the given creation date is invalid
+	 * @param creationDate
+	 *            the creationDate to set
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if the given creation date is invalid
 	 * @see isValidCreationDate(Date)
 	 */
 	private void setCreationDate(Date creationDate) throws IllegalArgumentException {
-		if (! this.isValidCreationDate(creationDate)){
+		if (!this.isValidCreationDate(creationDate)) {
 			throw new IllegalArgumentException("The givien creation date in bug report is a nullpointer");
 		}
 		this.creationDate = creationDate;
 	}
-	
+
 	/**
 	 * This method check if the given creationDate is valid for the bug report
-	 * @param creationDate the Date to check
+	 * 
+	 * @param creationDate
+	 *            the Date to check
 	 * @return true if the date is a valid date for the bug report
 	 */
-	public boolean isValidCreationDate(Date creationDate){
-		if (creationDate == null){
+	public boolean isValidCreationDate(Date creationDate) {
+		if (creationDate == null) {
 			return false;
 		}
 		return true;
@@ -235,24 +283,28 @@ public class BugReport {
 	}
 
 	/**
-	 * @param tag the tag to set
+	 * @param tag
+	 *            the tag to set
 	 * 
-	 * @throws IllegalArgumentException if the given tag is null
+	 * @throws IllegalArgumentException
+	 *             if the given tag is null
 	 */
 	private void setTag(Tag tag) throws IllegalArgumentException {
-		if (! this.isValidTag(tag)){
+		if (!this.isValidTag(tag)) {
 			throw new IllegalArgumentException("The given tag for bug report is a nullpointer");
 		}
 		this.tag = tag;
 	}
-	
+
 	/**
 	 * This method check if the given tag is valid for the bug report
-	 * @param tag the tag to check
+	 * 
+	 * @param tag
+	 *            the tag to check
 	 * @return true if the tag is a valid tag
 	 */
-	public boolean isValidTag(Tag tag){
-		if (tag == null){
+	public boolean isValidTag(Tag tag) {
+		if (tag == null) {
 			return false;
 		}
 		return true;
