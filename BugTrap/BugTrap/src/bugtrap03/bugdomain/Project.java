@@ -39,6 +39,7 @@ public class Project extends AbstractSystem {
 	 * @return True if creation date <= start date.
 	 */
 	private boolean isValidStartDate() {
+		System.out.println(creationDate.before(startDate)); // TODO NullPointer?
 		if (creationDate.before(startDate) || creationDate.compareTo(startDate) == 0) {
 			return true;
 		}

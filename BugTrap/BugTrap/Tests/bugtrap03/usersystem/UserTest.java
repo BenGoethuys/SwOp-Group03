@@ -1,4 +1,4 @@
-package usersystem;
+package bugtrap03.usersystem;
 
 import bugtrap03.usersystem.User;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package usersystem;
+package bugtrap03.usersystem;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
