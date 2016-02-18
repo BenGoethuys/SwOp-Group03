@@ -33,17 +33,14 @@ public class VersionIDTest {
 
 	@Test
 	public void testIllegalArgument() {
-		
-			try {
-				VersionID test = new VersionID(0, 0, 0);
-				fail("There must be an exception");
-			} catch (Exception e) {
-			}
-		
-		
+		try {
+			@SuppressWarnings("unused")
+			VersionID test = new VersionID(0, 0, 0);
+			fail("There must be an exception");
+		} catch (Exception e) {
+		}
 	}
-	
-	
+
 	/**
 	 * Test method for {@link bugdomain.VersionID#getFirstNb()}.
 	 */
