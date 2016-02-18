@@ -1,11 +1,13 @@
 package bugtrap03.usersystem;
 
+import java.util.HashSet;
+
 /**
  * A {User} can be identified by his/her username. The uniqueness of this
- * username is not guaranteed within this class.
+ * username is guaranteed by checking with all other ever created Users.
  *
  * @author Admin
- * @version 1.0
+ * @version 1.1
  */
 public class User {
 
@@ -52,6 +54,8 @@ public class User {
     private String middleName;
     private String lastName;
 
+    private static HashSet<String> takenUsernames = new HashSet();
+
     /**
      * Get the username of this {@link User}
      *
@@ -71,129 +75,123 @@ public class User {
     private void setUsername(String username) throws IllegalArgumentException {
         if (isValidUsername(username)) {
             this.username = username;
+            takenUsernames.add(username); //not concurrent
         } else {
             throw new IllegalArgumentException("username:" + username + " is not a valid username.");
         }
     }
 
     /**
-     * Check if username is a valid username. Uniqueness is not checked.
+     * Check if username is a valid username. Uniqueness is checked with all
+     * ever created Users.
      *
      * @param username The username to check.
-     * @return Whether the username is valid.
+     * @return Whether the username is valid. False when null.
      */
     public boolean isValidUsername(String username) {
-        return (username != null && !username.equalsIgnoreCase(""));
+        return (username != null && !username.equalsIgnoreCase("") && !takenUsernames.contains(username));
     }
 
-	/**
-	 * Get the first name of this {@link User}
-	 *
-	 * @return The first name of this user.
-	 */
-	public String getFirstName() {
-		return this.firstName;
-	}
+    /**
+     * Get the first name of this {@link User}
+     *
+     * @return The first name of this user.
+     */
+    public String getFirstName() {
+        return this.firstName;
+    }
 
-	/**
-	 * Set firstName as the first name of this user, if it is valid.
-	 *
-	 * @param firstName
-	 *            The new first name.
-	 * @throws IllegalArgumentException
-	 *             When the firstName is not valid.
-	 * @see isValidFirstName(String firstName)
-	 */
-	private void setFirstName(String firstName) throws IllegalArgumentException {
-		if (isValidFirstName(firstName)) {
-			this.firstName = firstName;
-		} else {
-			throw new IllegalArgumentException("First name:" + firstName + " is not a valid first name.");
-		}
-	}
+    /**
+     * Set firstName as the first name of this user, if it is valid.
+     *
+     * @param firstName The new first name.
+     * @throws IllegalArgumentException When the firstName is not valid.
+     * @see isValidFirstName(String firstName)
+     */
+    private void setFirstName(String firstName) throws IllegalArgumentException {
+        if (isValidFirstName(firstName)) {
+            this.firstName = firstName;
+        } else {
+            throw new IllegalArgumentException("First name:" + firstName + " is not a valid first name.");
+        }
+    }
 
-	/**
-	 * Check if firstName is a valid first name.
-	 *
-	 * @param firstName
-	 *            The first name to check.
-	 * @return Whether the first name is valid.
-	 */
-	public boolean isValidFirstName(String firstName) {
-		return (firstName != null && !firstName.equalsIgnoreCase(""));
-	}
+    /**
+     * Check if firstName is a valid first name.
+     *
+     * @param firstName The first name to check.
+     * @return Whether the first name is valid. False when null or equal to "".
+     */
+    public boolean isValidFirstName(String firstName) {
+        return (firstName != null && !firstName.equalsIgnoreCase(""));
+    }
 
-	/**
-	 * Get the middle name of this {@link User}
-	 *
-	 * @return The middle name of this user.
-	 */
-	public String getMiddleName() {
-		return this.middleName;
-	}
+    /**
+     * Get the middle name of this {@link User}
+     *
+     * @return The middle name of this user.
+     */
+    public String getMiddleName() {
+        return this.middleName;
+    }
 
-	/**
-	 * Set middleName as the middle name of this user, if it is valid.
-	 *
-	 * @param middleName
-	 *            The new middle name.
-	 * @throws IllegalArgumentException
-	 *             When the middleName is not valid.
-	 * @see isValidmiddleName(String middleName)
-	 */
-	private void setMiddleName(String middleName) {
-		if (isValidMiddleName(middleName)) {
-			this.middleName = middleName;
-		} else {
-			throw new IllegalArgumentException("Middle name:" + middleName + " is not a valid middle name.");
-		}
-	}
+    /**
+     * Set middleName as the middle name of this user, if it is valid.
+     *
+     * @param middleName The new middle name.
+     * @throws IllegalArgumentException When the middleName is not valid.
+     * @see isValidmiddleName(String middleName)
+     */
+    private void setMiddleName(String middleName) {
+        if (isValidMiddleName(middleName)) {
+            this.middleName = middleName;
+        } else {
+            throw new IllegalArgumentException("Middle name:" + middleName + " is not a valid middle name.");
+        }
+    }
 
-	/**
-	 * Check if middle name is a valid middle name.
-	 *
-	 * @param middleName
-	 *            The middle name to check.
-	 * @return Whether the middle name is valid.
-	 */
-	public boolean isValidMiddleName(String middleName) {
-		return middleName != null;
-	}
+    /**
+     * Check if middle name is a valid middle name.
+     *
+     * @param middleName The middle name to check.
+     * @return Whether the middle name is valid. False when null.
+     */
+    public boolean isValidMiddleName(String middleName) {
+        return middleName != null;
+    }
 
-	/**
-	 * Get the last name of this {@link User}
-	 *
-	 * @return The last name of this user.
-	 */
-	public String getLastName() {
-		return this.lastName;
-	}
+    /**
+     * Get the last name of this {@link User}
+     *
+     * @return The last name of this user.
+     */
+    public String getLastName() {
+        return this.lastName;
+    }
 
-	/**
-	 * Set lastName as the last name of this user, if it is valid.
-	 *
-	 * @param lastName
-	 *            The new last name.
-	 * @throws IllegalArgumentException
-	 *             When the last name is not valid.
-	 * @see isValidLastName(String lastName)
-	 */
-	private void setLastName(String lastName) {
-		if (isValidLastName(lastName)) {
-			this.lastName = lastName;
-		} else {
-			throw new IllegalArgumentException("Middle name:" + middleName + " is not a valid middle name.");
-		}
-	}
+    /**
+     * Set lastName as the last name of this user, if it is valid.
+     *
+     * @param lastName The new last name.
+     * @throws IllegalArgumentException When the last name is not valid.
+     * @see isValidLastName(String lastName)
+     */
+    private void setLastName(String lastName) {
+        if (isValidLastName(lastName)) {
+            this.lastName = lastName;
+        } else {
+            throw new IllegalArgumentException("Middle name:" + middleName + " is not a valid middle name.");
+        }
+    }
 
-	/**
-	 * Check if lastName is a valid last name.
-	 *
-	 * @param lastName
-	 *            The last name to check.
-	 * @return Whether the lastName is valid.
-	 */
-	public boolean isValidLastName(String lastName) {
-		return (lastName != null && !lastName.equals(""));
-	}
+    /**
+     * Check if lastName is a valid last name.
+     *
+     * @param lastName The last name to check.
+     * @return Whether the lastName is valid. False when null or equal to "".
+     */
+    public boolean isValidLastName(String lastName) {
+        return (lastName != null && !lastName.equals(""));
+    }
+
 }
