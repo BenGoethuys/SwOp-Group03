@@ -1,6 +1,5 @@
 package bugdomain;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 
 /**
  * Created by Kwinten on 17/02/2016.
@@ -24,7 +23,7 @@ public class Subsystem extends AbstractSystem {
 	 *             if one of the String arguments is invalid.
 	 **/
 	public Subsystem(AbstractSystem parent, VersionID version, String name, String description)
-			throws NullPointerException, InvalidArgumentException {
+			throws NullPointerException, IllegalArgumentException {
 		super(version, name, description, parent);
 	}
 
