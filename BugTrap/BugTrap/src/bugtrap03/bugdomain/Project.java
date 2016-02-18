@@ -25,7 +25,7 @@ public class Project extends AbstractSystem {
 	public Project(VersionID version, String name, String description, Date creationDate, Date startDate)
 			throws IllegalArgumentException, NullPointerException {
 		super(version, name, description);
-		if (isValidStartDate()) {
+		if (isValidStartDate(creationDate, startDate)) {
 			setCreationDate(creationDate);
 			setStartDate(startDate);
 		} else {
@@ -36,10 +36,12 @@ public class Project extends AbstractSystem {
 	/**
 	 * This method checks the validity of the startdate.
 	 * 
+	 * @param creationDate The creation date.
+	 * @param startDate The start date.
+	 * 
 	 * @return True if creation date <= start date.
 	 */
-	private boolean isValidStartDate() {
-		System.out.println(creationDate.before(startDate)); // TODO NullPointer?
+	private boolean isValidStartDate(Date creationDate, Date startDate) {
 		if (creationDate.before(startDate) || creationDate.compareTo(startDate) == 0) {
 			return true;
 		}
