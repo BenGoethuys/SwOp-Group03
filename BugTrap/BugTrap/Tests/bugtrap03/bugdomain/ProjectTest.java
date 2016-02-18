@@ -41,29 +41,43 @@ public class ProjectTest {
 	@Test
 	public void testGetStartDate() {
 		assertEquals(project.getStartDate(), startDate);
+
+		Date date = new Date(10000000);
+		assertNotEquals(project.getStartDate(), date);
 	}
 
 	@Test
 	public void testGetCreationDate() {
 		assertEquals(project.getCreationDate(), creationDate);
+
+		Date date = new Date(10000000);
+		assertNotEquals(project.getCreationDate(), date);
 	}
 
 	@Test
 	public void testGetVersionID() {
 		assertEquals(project.getVersionID(), version);
+
+		VersionID version2 = new VersionID(2, 0, 0);
+		assertNotEquals(project.getVersionID(), version2);
 	}
 
 	@Test
 	public void testGetName() {
 		assertEquals(project.getName(), "test");
+
+		assertNotEquals(project.getName(), "");
+		assertNotEquals(project.getName(), null);
 	}
 
 	@Test
 	public void testGetDescription() {
 		assertEquals(project.getDescription(), "testproject");
 
+		assertNotEquals(project.getDescription(), "");
+		assertNotEquals(project.getDescription(), null);
 	}
-	
+
 	// @Test //TODO
 	// public void testGetParent() {
 	// fail("Not yet implemented");
@@ -85,26 +99,15 @@ public class ProjectTest {
 	// }
 	//
 
-	// @Test //TODO
-	// public void testObject() {
-	// fail("Not yet implemented");
-	// }
-	
-	// @Test //TODO
-	// public void testGetClass() {
-	// fail("Not yet implemented");
-	// }
-	
-	// @Test //TODO
-	// public void testHashCode() {
-	// fail("Not yet implemented");
-	// }
+	@Test
+	public void testEquals() {
+		assertEquals(project, project);
 
-	// @Test //TODO
-	// public void testEquals() {
-	// fail("Not yet implemented");
-	// }
-	
+		Project project2 = new Project(version, "test", "testproject", creationDate, startDate);
+		assertNotEquals(project, project2);
+		assertNotEquals(project, null);
+	}
+
 	// @Test //TODO
 	// public void testToString() {
 	// fail("Not yet implemented");
