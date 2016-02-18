@@ -1,3 +1,4 @@
+package bugtrap03;
 
 public class Main {
 
