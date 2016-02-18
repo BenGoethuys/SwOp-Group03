@@ -29,7 +29,7 @@ public class Project extends AbstractSystem {
 	 *             if one of the String arguments or dates is invalid.
 	 */
 	public Project(VersionID version, String name, String description, Date creationDate, Date startDate)
-			throws IllegalArgumentException {
+			throws IllegalArgumentException, NullPointerException {
 		super(version, name, description);
 		if (isValidStartDate()) {
 			setCreationDate(creationDate);
