@@ -13,20 +13,14 @@ public class Project extends AbstractSystem {
 	 * Creates a project with a given versionID, name, description, creationDate
 	 * and startDate.
 	 * 
-	 * @param version
-	 *            The versionID of the project.
-	 * @param name
-	 *            The name of the project.
-	 * @param description
-	 *            The description of the project.
-	 * @param creationDate
-	 *            The creation date of the project.
-	 * @param startDate
-	 *            The start date of the project.
-	 * @throws NullPointerException
-	 *             if the versionID is null.
-	 * @throws IllegalArgumentException
-	 *             if one of the String arguments or dates is invalid.
+	 * @param version The versionID of the project.
+	 * @param name The name of the project.
+	 * @param description The description of the project.
+	 * @param creationDate The creation date of the project.
+	 * @param startDate The start date of the project.
+	 * @throws NullPointerException if the versionID is null.
+	 * @throws IllegalArgumentException if one of the String arguments or dates
+	 *             is invalid.
 	 */
 	public Project(VersionID version, String name, String description, Date creationDate, Date startDate)
 			throws IllegalArgumentException, NullPointerException {
@@ -52,7 +46,7 @@ public class Project extends AbstractSystem {
 	}
 
 	/**
-	 * This i a getter for the startdate variable.
+	 * This is a getter for the startdate variable.
 	 * 
 	 * @return The start date of the project.
 	 */
@@ -63,8 +57,7 @@ public class Project extends AbstractSystem {
 	/**
 	 * Sets the start date of the project to the given date.
 	 * 
-	 * @param startDate
-	 *            The start date of the project.
+	 * @param startDate The start date of the project.
 	 */
 	private void setStartDate(Date startDate) {
 		this.startDate = startDate;
@@ -82,8 +75,7 @@ public class Project extends AbstractSystem {
 	/**
 	 * Sets the creation date of the project to the given date.
 	 * 
-	 * @param creationDate
-	 *            The creation date of the project.
+	 * @param creationDate The creation date of the project.
 	 */
 	private void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
@@ -94,8 +86,7 @@ public class Project extends AbstractSystem {
 	 * to be kept at null. It will however return itself as parent in the
 	 * getter.
 	 * 
-	 * @param parent
-	 *            The given parent to be checked.
+	 * @param parent The given parent to be checked.
 	 * @return false
 	 */
 	protected boolean isValidParent(AbstractSystem parent) {
@@ -106,10 +97,12 @@ public class Project extends AbstractSystem {
 	}
 
 	/**
-	 * This is a getter for the parent. Since a Project doesn't have a parent, it returns itself.
+	 * This is a getter for the parent. Since a Project doesn't have a parent,
+	 * it returns itself.
+	 * 
 	 * @return this;
-     */
-	protected Project getParent(){
+	 */
+	protected Project getParent() {
 		return this;
 	}
 }

@@ -1,9 +1,9 @@
 package bugdomain;
 
 import java.util.Date;
+import java.util.HashMap;
 
-// TODO !!! At  this point BugReport does not check if uniqueID is unique !! -> outsource problem ?
-// -> change constructors to PROTECTED !!
+// TODO BugReport checks uniqueness locally at this point
 
 /**
  * This class represents a bug report
@@ -43,7 +43,7 @@ public class BugReport {
 	 * @see isValidCreationDate(Date)
 	 * @see isValidTag(Tag)
 	 */
-	public BugReport(long uniqueID, String title, String description, Date creationDate, Tag tag)
+	protected BugReport(long uniqueID, String title, String description, Date creationDate, Tag tag)
 			throws IllegalArgumentException {
 		this.setUniqueID(uniqueID);
 		this.setTitle(title);
@@ -121,6 +121,9 @@ public class BugReport {
 	private String description;
 	private Date creationDate;
 	private Tag tag;
+	
+	//HashMap to guarantee uniqueness of IDs
+	private static final HashMap<Long, Long> allTakenIDs = new HashMap<Long, Long>();
 
 	/**
 	 * This method returns the unique ID for the BugReport
@@ -143,16 +146,25 @@ public class BugReport {
 	 */
 	private void setUniqueID(long uniqueID) throws IllegalArgumentException {
 		this.isValidUniqueID(uniqueID);
+		BugReport.allTakenIDs.put(uniqueID, uniqueID);
 		this.uniqueID = uniqueID;
 	}
 
 	/**
 	 * This method checks if the given ID is valid for this object.
 	 * 
-	 * @param uniqueID
+	 * @param uniqueID 
+	 * 				the ID to check
+	 * 
+	 * @return true if the key is not taken at this point and is a valid ID for a bug report
 	 */
 	public boolean isValidUniqueID(long uniqueID) {
-		// TODO Add check for unique ID
+		if (BugReport.allTakenIDs.containsKey(uniqueID)){
+			return false;
+		}
+		if (uniqueID < 0){
+			return false;
+		}
 		return true;
 	}
 
@@ -175,7 +187,7 @@ public class BugReport {
 	 *             if title is invalid
 	 * @see isValidTitle(String)
 	 */
-	private void setTitle(String title) throws IllegalArgumentException {
+	public void setTitle(String title) throws IllegalArgumentException {
 		if (!this.isValidTitle(title)) {
 			throw new IllegalArgumentException("The given title for the bug report is not valid");
 		}
@@ -214,7 +226,7 @@ public class BugReport {
 	 *             if the given description is invalid
 	 * @see isValidDescription(String)
 	 */
-	private void setDescription(String description) throws IllegalArgumentException {
+	public void setDescription(String description) throws IllegalArgumentException {
 		if (!this.isValidDescription(description)) {
 			throw new IllegalArgumentException("The description given for the bug report is invalid");
 		}
@@ -281,6 +293,8 @@ public class BugReport {
 	public Tag getTag() {
 		return tag;
 	}
+	
+	//TODO make function that allows specific users to change the tag
 
 	/**
 	 * @param tag
@@ -289,7 +303,7 @@ public class BugReport {
 	 * @throws IllegalArgumentException
 	 *             if the given tag is null
 	 */
-	private void setTag(Tag tag) throws IllegalArgumentException {
+	protected void setTag(Tag tag) throws IllegalArgumentException {
 		if (!this.isValidTag(tag)) {
 			throw new IllegalArgumentException("The given tag for bug report is a nullpointer");
 		}
@@ -307,6 +321,7 @@ public class BugReport {
 		if (tag == null) {
 			return false;
 		}
+		//TODO check for correct new tag (this tag can only be set if this tag is now assigned and stuff)
 		return true;
 	}
 }
