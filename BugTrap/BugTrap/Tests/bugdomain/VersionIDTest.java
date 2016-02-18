@@ -14,15 +14,13 @@ import org.junit.Test;
  */
 public class VersionIDTest {
 	VersionID versionID;
-	VersionID versionIDcomp;
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
 		versionID = new VersionID(1, 2, 3);
-		versionIDcomp = new VersionID(2, 3, 4);
 	}
 
 	/**
@@ -65,109 +63,40 @@ public class VersionIDTest {
 		String test = "1.2.3";
 		assertEquals(versionID.toString(), test);
 	}
-//
-//	/**
-//	 * Test method for {@link bugdomain.VersionID#compareTo(bugdomain.VersionID)}.
-//	 */
-//	@Test
-//	public void testCompareTo() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link java.lang.Object#Object()}.
-//	 */
-//	@Test
-//	public void testObject() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link java.lang.Object#getClass()}.
-//	 */
-//	@Test
-//	public void testGetClass() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link java.lang.Object#hashCode()}.
-//	 */
-//	@Test
-//	public void testHashCode() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link java.lang.Object#equals(java.lang.Object)}.
-//	 */
-//	@Test
-//	public void testEquals() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link java.lang.Object#clone()}.
-//	 */
-//	@Test
-//	public void testClone() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link java.lang.Object#toString()}.
-//	 */
-//	@Test
-//	public void testToString1() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link java.lang.Object#notify()}.
-//	 */
-//	@Test
-//	public void testNotify() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link java.lang.Object#notifyAll()}.
-//	 */
-//	@Test
-//	public void testNotifyAll() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link java.lang.Object#wait(long)}.
-//	 */
-//	@Test
-//	public void testWaitLong() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link java.lang.Object#wait(long, int)}.
-//	 */
-//	@Test
-//	public void testWaitLongInt() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link java.lang.Object#wait()}.
-//	 */
-//	@Test
-//	public void testWait() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link java.lang.Object#finalize()}.
-//	 */
-//	@Test
-//	public void testFinalize() {
-//		fail("Not yet implemented");
-//	}
+
+	/**
+	 * Test method for
+	 * {@link bugdomain.VersionID#compareTo(bugdomain.VersionID)}.
+	 */
+	@Test
+	public void testCompareTo() {
+		VersionID versionIDcomp1 = new VersionID(2, 3, 4);
+
+		VersionID versionIDcomp2 = new VersionID(1, 2, 2);
+		VersionID versionIDcomp3 = new VersionID(1, 2, 4);
+
+		VersionID versionIDcomp4 = new VersionID(1, 1, 3);
+		VersionID versionIDcomp5 = new VersionID(1, 3, 3);
+
+		assertEquals(versionID.compareTo(versionIDcomp1), -1);
+		assertEquals(versionIDcomp1.compareTo(versionID), 1);
+
+		assertEquals(versionID.compareTo(versionIDcomp2), 1);
+		assertEquals(versionID.compareTo(versionIDcomp3), -1);
+
+		assertEquals(versionID.compareTo(versionIDcomp4), 1);
+		assertEquals(versionID.compareTo(versionIDcomp5), -1);
+	}
+
+	/**
+	 * Test method for {@link java.lang.Object#equals(java.lang.Object)}.
+	 */
+	@Test
+	public void testEquals() {
+		assertEquals(versionID.compareTo(versionID), 0);
+
+		VersionID versionID2 = new VersionID(1, 2, 3);
+		assertEquals(versionID.compareTo(versionID2), 0);
+	}
 
 }
