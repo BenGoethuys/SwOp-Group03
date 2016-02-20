@@ -21,6 +21,7 @@ import bugtrap03.bugdomain.VersionID;
 public class ProjectTest {
 
 	static Project project;
+	static Project projectFail;
 	static Date startDate;
 	static Date creationDate;
 	static VersionID version;
@@ -36,6 +37,13 @@ public class ProjectTest {
 
 	@Before
 	public void setUp() throws Exception {
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testExceptionDates() {
+		projectFail = new Project(version, "test", "zou moeten falen", creationDate, null);
+		projectFail = new Project(version, "test", "zou moeten falen", null, startDate);
+		projectFail = new Project(version, "test", "zou moeten falen", null, null);
 	}
 
 	@Test
@@ -78,10 +86,10 @@ public class ProjectTest {
 		assertNotEquals(project.getDescription(), null);
 	}
 
-	// @Test //TODO
-	// public void testGetParent() {
-	// fail("Not yet implemented");
-	// }
+	 @Test
+	 public void testGetParent() {
+		 assertEquals(project.getParent(), project);
+	 }
 
 	// @Test //TODO
 	// public void testGetParentProject() {

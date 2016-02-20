@@ -15,6 +15,7 @@ import org.junit.Test;
  */
 public class VersionIDTest {
 	VersionID versionID;
+	VersionID versionIDfail;
 
 	/**
 	 * @throws java.lang.Exception
@@ -32,14 +33,9 @@ public class VersionIDTest {
 		System.out.println(versionID);
 	}
 
-	@Test
+	@Test (expected = IllegalArgumentException.class)
 	public void testIllegalArgument() {
-		try {
-			@SuppressWarnings("unused")
-			VersionID test = new VersionID(0, 0, 0);
-			fail("There must be an exception");
-		} catch (Exception e) {
-		}
+			versionIDfail = new VersionID(0, 0, 0);
 	}
 
 	/**
