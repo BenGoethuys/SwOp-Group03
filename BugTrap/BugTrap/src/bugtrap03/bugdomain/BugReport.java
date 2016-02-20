@@ -3,7 +3,6 @@ package bugtrap03.bugdomain;
 import java.util.Date;
 import java.util.HashMap;
 
-// TODO BugReport checks uniqueness locally at this point
 /**
  * This class represents a bug report
  *
@@ -282,7 +281,21 @@ public class BugReport {
         if (tag == null) {
             return false;
         }
-        //TODO check for correct new tag (this tag can only be set if this tag is now assigned and stuff)
+        if (tag == Tag.Assigned && (this.getTag() != Tag.New || this.getTag() != Tag.UnderReview)){
+        	return false;
+        }
+        if (tag == Tag.UnderReview && this.getTag() != Tag.Assigned){
+        	return false;
+        }
+        if (this.getTag() == Tag.Closed){
+        	return false;
+        }
+        if (this.getTag() == Tag.Duplicate){
+        	return false;
+        }
+        if (this.getTag() == Tag.NotABug){
+        	return false;
+        }
         return true;
     }
 }
