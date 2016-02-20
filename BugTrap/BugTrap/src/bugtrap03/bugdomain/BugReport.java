@@ -3,7 +3,8 @@ package bugtrap03.bugdomain;
 import java.util.Date;
 import java.util.HashMap;
 
-// TODO BugReport checks uniqueness locally at this point
+import purecollections.PList;
+
 /**
  * This class represents a bug report
  *
@@ -12,7 +13,7 @@ import java.util.HashMap;
 public class BugReport {
 
     /**
-     * General constructor for initializing a bug report
+     * General constructor for initialising a bug report
      *
      * @param uniqueID The unique ID for the bug report
      * @param title The title of the bugReport
@@ -40,6 +41,8 @@ public class BugReport {
         this.setDescription(description);
         this.setCreationDate(creationDate);
         this.setTag(tag);
+        
+        this.setCommentList(PList.<Comment>empty());
     }
 
     /**
@@ -97,6 +100,7 @@ public class BugReport {
     private String description;
     private Date creationDate;
     private Tag tag;
+    private PList<Comment> commentList;
 
     //HashMap to guarantee uniqueness of IDs
     private static final HashMap<Long, Long> allTakenIDs = new HashMap<Long, Long>();
@@ -282,7 +286,88 @@ public class BugReport {
         if (tag == null) {
             return false;
         }
-        //TODO check for correct new tag (this tag can only be set if this tag is now assigned and stuff)
+        if (tag == Tag.Assigned && (this.getTag() != Tag.New || this.getTag() != Tag.UnderReview)){
+        	return false;
+        }
+        if (tag == Tag.UnderReview && this.getTag() != Tag.Assigned){
+        	return false;
+        }
+        if (this.getTag() == Tag.Closed){
+        	return false;
+        }
+        if (this.getTag() == Tag.Duplicate){
+        	return false;
+        }
+        if (this.getTag() == Tag.NotABug){
+        	return false;
+        }
         return true;
     }
+    
+    /**
+	 * This method returns the comments on this bug report
+	 * @return the commentList of this bug report
+	 */
+	public PList<Comment> getCommentList() {
+		return this.commentList;
+	}
+	
+	/**
+	 * This method sets the comment list for this bug report
+	 * @param commentList the comment list for this bug report
+	 * 
+	 * @throws IllegalArgumentException if the given PList is not valid for this bug report
+	 * 
+	 * @see isValidCommentList(PList<Comment>)
+	 */
+	private void setCommentList(PList<Comment> commentList) throws IllegalArgumentException {
+		if (! isValidCommentList(commentList)){
+			throw new IllegalArgumentException("The given PList is invalid as comment-list for this bug report");
+		}
+		this.commentList = commentList;
+	}
+	
+	/**
+	 * This method check if the given PList is valid as the comment-list of this bug report
+	 * @param commentList the list to check
+	 * 
+	 * @return true if the given PList is valid for this bug report
+	 */
+	protected boolean isValidCommentList(PList<Comment> commentList){
+		if (commentList == null){
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * This method adds a comment to this bug report
+	 * @param comment to add to this bug report
+	 * 
+	 * @throws IllegalArgumentException if the given comment is not valid for this bug report
+	 * 
+	 * @see isValidComment(Comment)
+	 */
+	public void addComment(Comment comment) throws IllegalArgumentException {
+		if (! this.isValidComment(comment)){
+			throw new IllegalArgumentException("The given comment is not a valid comment for this bug report");
+		}
+		this.commentList = this.commentList.plus(comment);
+	}
+	
+	/**
+	 * This method checks if the given comment is a valid comment for this bug report
+	 * @param comment to check
+	 * 
+	 * @return true if the given comment is valid as a comment for this bug report
+	 */
+	public boolean isValidComment(Comment comment){
+		if (comment == null){
+			return false;
+		}
+		if (this.getCommentList().contains(comment)){
+			return false;
+		}
+		return true;
+	}
 }
