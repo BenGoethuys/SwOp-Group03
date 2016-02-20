@@ -94,20 +94,7 @@ public class Project extends AbstractSystem {
 		}
 	}
 
-	/**
-	 * This method checks the validity of a given parent. A project's parent is
-	 * to be kept at null. It will however return itself as parent in the
-	 * getter.
-	 * 
-	 * @param parent The given parent to be checked.
-	 * @return false
-	 */
-	protected boolean isValidParent(AbstractSystem parent) {
-		// null is de standaarwaarde voor een niet geïmplementeerde parent van
-		// project. Indien we true zouden teruggeven,
-		// kan er een nullpointer exception ontstaan bij setParent.
-		return false;
-	}
+
 
 	/**
 	 * This is a getter for the parent. Since a Project doesn't have a parent,
