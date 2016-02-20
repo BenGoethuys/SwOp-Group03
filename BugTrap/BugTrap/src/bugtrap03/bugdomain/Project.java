@@ -42,6 +42,9 @@ public class Project extends AbstractSystem {
 	 * @return True if creation date <= start date.
 	 */
 	private boolean isValidStartDate(Date creationDate, Date startDate) {
+		if (creationDate == null || startDate == null) {
+			throw new NullPointerException("A date can't be null");
+		}
 		if (creationDate.before(startDate) || creationDate.compareTo(startDate) == 0) {
 			return true;
 		}
@@ -93,8 +96,6 @@ public class Project extends AbstractSystem {
 			throw new NullPointerException("A date can't be null.");
 		}
 	}
-
-
 
 	/**
 	 * This is a getter for the parent. Since a Project doesn't have a parent,
