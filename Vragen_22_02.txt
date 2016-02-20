@@ -1,0 +1,22 @@
+* Java 8 ook mogelijk?
+
+* When Project and subsystems get removed. What about bugreports > comments? (always in both directions?)
+
+* When bugreports have to be removed due to subsystems removal. What about the unique identifier? is it available again?
+
+* How will we handle initialization state?
+
+* How to test abstract classes?
+
+* Creator of BugReport pass at constructor and final? or the first developer assigned to
+
+* Name of subsystem unique within a project?
+
+* BugReport identifier unique globally or only within a subsystem?
+
+* Does updating Project's versionID mean we still need to hold the previous versions of the Project?
+(Although there is no use case to update versionID currently so updating is not required in this iteration??)
+
+* What is de attribute 'participation' of Role in the domain model?
+
+* 

@@ -1,0 +1,35 @@
+{unique}
+User = abstract
+
+
+
+
+
+
+
+
+static = underlined
+
+# protected
+- private
+~ default package
++ public
+
+italic = abstract
+
+
+
+loosely coupled (used in a method para) = stippelijn + arrowhead > (often not shown)
+
+association : line (geen pijlen) - direct relationship but not necesaarily attributes for it.
+
+aggregation: line + ingekleurd vierkant
+
+composition : line + open diamond (attribute inside the class)
+Dog has a breed = Dog -D Breed
+
+Inheritance : pijl + driehoek open driehoek
+
+rules : dash line + comment
+
+<<interface>>

@@ -1,0 +1,45 @@
+* InvalidPermissionException <-
+
+Ask Jafar
+
+
+
+1) Permissions represented as classes.
+Each user has list of permissions.
++ Easy to understand
+- Object overhead
+- Design clutter (many classes)
++ Flexible
++ OO
+
+
+- Overhead
+- Veel Permission Objects
++ Zeer dynamisch & flexibel
+
+
+2) User heeft abstract methods canUpdateProject, canDelete...
++ easy
++ inheritance
+- static, niet dynamisch
+- Many Many methods
+- Lot of overriding & double code.
+
+3) Elke user heeft een BitMap die permissions voorstellen.
+- Presentatie Bitmap inflexibel, static (same presentation everywhere) (-> solution keep representation within and use function to check permission)
++ not too much memory overhead
++ flexibel/easy permission grant/remove
+- Permissions afh van Roles handled seperately
+	(2) User heeft methode canDo...(Project) en dit checkt dan bij Project of die user die rol heeft.
+
+
+4) PermissionManager - given a User can tell you if it has permission
+uses - every permission is still an object.
+Use design of 1 + methods to use information of e.g User & Project to figure out permission
++ Reduces permissionObjects in comparison w 1
++ OO
++ Flexible
+- Overhead
+- Design clutter
++ Low coupling - outsourced the problem more away from User class.
+

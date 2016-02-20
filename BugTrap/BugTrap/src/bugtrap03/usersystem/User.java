@@ -9,7 +9,7 @@ import java.util.HashSet;
  * @author Admin
  * @version 1.1
  */
-public class User {
+public abstract class User {
 
     /**
      * Create a {@link User} with a username, a firstName, middelName and
