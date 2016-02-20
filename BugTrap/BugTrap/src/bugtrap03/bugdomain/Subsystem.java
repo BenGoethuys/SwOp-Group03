@@ -27,7 +27,7 @@ public class Subsystem extends AbstractSystem {
 	 **/
 	public Subsystem(AbstractSystem parent, VersionID version, String name, String description)
 			throws NullPointerException, IllegalArgumentException {
-		super(version, name, description, parent);
+		super(version, name, description);
         if (!this.isValidName(name, parent)) {
             throw new IllegalArgumentException("The name is invalid with the given parent");
         }
