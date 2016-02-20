@@ -15,25 +15,7 @@ public abstract class AbstractSystem {
 	private String description = "";
 	private ArrayList<Subsystem> childs;
 
-	/**
-	 * CAN BE PUSHED DOWN IN HIERARCHY --> remove because only necessary in
-	 * Subsystem //TODO Kwinten
-	 *
-	 * This constructor is used for elements of the subclass Subsyste, since
-	 * they have a parent.
-	 * 
-	 * @param version The versionID (of that type) of this element.
-	 * @param name The string name for this element.
-	 * @param description The string description of this element.
-	 * @throws NullPointerException if the versionID is null.
-	 * @throws IllegalArgumentException if one of the String arguments is
-	 *             invalid.
-	 */
-	public AbstractSystem(VersionID version, String name, String description, AbstractSystem parent)
-			throws NullPointerException, IllegalArgumentException {
-		this(version, name, description);
 
-	}
 
 	/**
 	 * This constructor is used for all elements of type AbstractSystem,
