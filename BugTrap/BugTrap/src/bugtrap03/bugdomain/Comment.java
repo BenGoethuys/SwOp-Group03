@@ -154,6 +154,8 @@ public class Comment {
 			throw new IllegalArgumentException("The given comment is not a valid sub-comment for this comment");
 		}
 		this.SubComments = this.SubComments.plus(comment);
+		
+		//TODO check if comment doesn't already exist in the comment hierarchy
 	}
 	
 	/**

@@ -123,5 +123,7 @@ public class BugReportTest {
 	public void testIsValidTag() {
 		//TODO implement this this if code in bugReport is complete
 	}
+	
+	//TODO add tests for comment
 
 }
