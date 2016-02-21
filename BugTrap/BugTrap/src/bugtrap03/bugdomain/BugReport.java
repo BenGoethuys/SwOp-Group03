@@ -35,7 +35,7 @@ public class BugReport {
      * @see isValidCreationDate(Date)
      * @see isValidTag(Tag)
      */
-    protected BugReport(long uniqueID, String title, String description, Date creationDate, Tag tag)
+    private BugReport(long uniqueID, String title, String description, Date creationDate, Tag tag)
             throws IllegalArgumentException {
         this.setUniqueID(uniqueID);
         this.setTitle(title);
@@ -286,6 +286,10 @@ public class BugReport {
     public boolean isValidTag(Tag tag) {
         if (tag == null) {
             return false;
+        }
+        if (tag == Tag.New && this.getTag() != null){
+        	// will be null in initialisation: only moment Tag.New can be assigned
+        	return false;
         }
         if (tag == Tag.Assigned && (this.getTag() != Tag.New || this.getTag() != Tag.UnderReview)){
         	return false;
