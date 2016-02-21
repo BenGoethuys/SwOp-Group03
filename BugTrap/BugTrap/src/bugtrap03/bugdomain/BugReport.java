@@ -3,6 +3,7 @@ package bugtrap03.bugdomain;
 import java.util.Date;
 import java.util.HashMap;
 
+import bugtrap03.usersystem.Issuer;
 import purecollections.PList;
 
 /**
@@ -348,11 +349,24 @@ public class BugReport {
 	 * 
 	 * @see isValidComment(Comment)
 	 */
-	public void addComment(Comment comment) throws IllegalArgumentException {
+	protected void addComment(Comment comment) throws IllegalArgumentException {
 		if (! this.isValidComment(comment)){
 			throw new IllegalArgumentException("The given comment is not a valid comment for this bug report");
 		}
 		this.commentList = this.commentList.plus(comment);
+	}
+	
+	/**
+	 * This method makes a Comment object and adds it to the sub-comment list
+	 * @param creator the creator of the comment
+	 * @param text the text of the comment
+	 * 
+	 * @throws IllegalArgumentException if the given parameters are not valid for a comment
+	 * 
+	 * @see Comment(Issuer creator, String text)
+	 */
+	public void addComment(Issuer creator, String text) throws IllegalArgumentException {
+		this.addComment(new Comment(creator, text));
 	}
 	
 	/**

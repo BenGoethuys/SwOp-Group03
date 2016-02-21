@@ -17,7 +17,7 @@ public class Comment {
 	 * 
 	 * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
 	 * 
-	 * @see isValidCreator(Issuer)
+	 * @see Comment.isValidCreator(Issuer)
 	 */
 	public Comment(Issuer issuer, String text) throws IllegalArgumentException {
 		this.setCreator(issuer);
@@ -149,13 +149,24 @@ public class Comment {
 	 * 
 	 * @see isValidSubComment(Comment)
 	 */
-	public void addSubComment(Comment comment) throws IllegalArgumentException {
+	protected void addSubComment(Comment comment) throws IllegalArgumentException {
 		if (! this.isValidSubComment(comment)){
 			throw new IllegalArgumentException("The given comment is not a valid sub-comment for this comment");
 		}
 		this.SubComments = this.SubComments.plus(comment);
-		
-		//TODO check if comment doesn't already exist in the comment hierarchy
+	}
+	
+	/**
+	 * This method makes a Comment object and adds it to the sub-comment list
+	 * @param creator the creator of the comment
+	 * @param text the text of the comment
+	 * 
+	 * @throws IllegalArgumentException if the given parameters are not valid for a comment
+	 * 
+	 * @see Comment(Issuer creator, String text)
+	 */
+	public void addSubComment(Issuer creator, String text) throws IllegalArgumentException {
+		this.addSubComment(new Comment(creator, text));
 	}
 	
 	/**
