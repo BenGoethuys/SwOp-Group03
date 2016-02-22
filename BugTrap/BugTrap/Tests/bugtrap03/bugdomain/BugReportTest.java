@@ -1,6 +1,7 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.Tag;
+import bugtrap03.usersystem.Issuer;
 import bugtrap03.bugdomain.BugReport;
 import static org.junit.Assert.*;
 
@@ -14,12 +15,15 @@ public class BugReportTest {
 	static BugReport bugReport1;
 	static BugReport bugReport2;
 	static Date date;
+	static Issuer issuer;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		date = new Date();
-		bugReport1 = new BugReport(1, "NastyBug", "bla bla", date);
-		bugReport2 = new BugReport(2, "FoundBug", "");
+		issuer = new Issuer("blaDitGebruiktNiemandAnders", "bla", "bla");
+		
+		bugReport1 = new BugReport(issuer, 1, "NastyBug", "bla bla", date);
+		bugReport2 = new BugReport(issuer, 2, "FoundBug", "");
 	}
 	
 	@Before
@@ -54,8 +58,9 @@ public class BugReportTest {
 	
 	@Test
 	public void testSetTitle() {
-		bugReport1.setTitle("NewTitle");
-		assertEquals("NewTitle", bugReport1.getTitle());
+		BugReport tempBugReport = new BugReport(issuer, 3, "bla", "bla");
+		tempBugReport.setTitle("NewTitle");
+		assertEquals("NewTitle", tempBugReport.getTitle());
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
@@ -79,8 +84,9 @@ public class BugReportTest {
 	
 	@Test
 	public void testSetDescription() {
-		bugReport1.setDescription("NewDescription");
-		assertEquals("NewDescription", bugReport1.getDescription());
+		BugReport tempBugReport = new BugReport(issuer, 4, "bla", "bla");
+		tempBugReport.setDescription("NewDescription");
+		assertEquals("NewDescription", tempBugReport.getDescription());
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
@@ -125,5 +131,7 @@ public class BugReportTest {
 	}
 	
 	//TODO add tests for comment
+	
+	
 
 }
