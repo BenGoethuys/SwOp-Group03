@@ -54,7 +54,7 @@ public abstract class User {
     private String middleName;
     private String lastName;
 
-    private static HashSet<String> takenUsernames = new HashSet();
+    private static HashSet<String> takenUsernames = new HashSet<String>();
 
     /**
      * Get the username of this {@link User}

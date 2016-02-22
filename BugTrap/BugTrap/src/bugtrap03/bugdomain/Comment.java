@@ -17,7 +17,7 @@ public class Comment {
 	 * 
 	 * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
 	 * 
-	 * @see Comment.isValidCreator(Issuer)
+	 * @see isValidCreator(Issuer)
 	 */
 	public Comment(Issuer issuer, String text) throws IllegalArgumentException {
 		this.setCreator(issuer);
@@ -138,6 +138,11 @@ public class Comment {
 		if (subComments == null){
 			return false;
 		}
+		for (Comment comment : subComments){
+			if (comment == null){
+				return false;
+			}
+		}
 		return true;
 	}
 	
@@ -163,7 +168,7 @@ public class Comment {
 	 * 
 	 * @throws IllegalArgumentException if the given parameters are not valid for a comment
 	 * 
-	 * @see Comment(Issuer creator, String text)
+	 * @see Comment(Issuer, String)
 	 */
 	public void addSubComment(Issuer creator, String text) throws IllegalArgumentException {
 		this.addSubComment(new Comment(creator, text));

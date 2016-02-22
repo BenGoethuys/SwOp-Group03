@@ -1,7 +1,7 @@
 package bugtrap03.bugdomain;
 
 import java.util.Date;
-import java.util.HashMap;
+import java.util.HashSet;
 
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;
@@ -27,7 +27,7 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
-     * @throws IllegalArgumentException if isValidCreationDate(creationDate)
+     * @throws IllegalArgumentException if isValidCreationDate(creationDate) 
      * fails
      * @throws IllegalArgumentException if isValidTag(tag) fails
      *
@@ -67,10 +67,10 @@ public class BugReport {
      * fails
      *
      * @see isValidCreator(Issuer)
-     * @see isValidUniqueID(uniqueID)
-     * @see isValidTitle(title)
-     * @see isValidDescription(description)
-     * @see isValidCreationDate(creationDate)
+     * @see isValidUniqueID(long)
+     * @see isValidTitle(String)
+     * @see isValidDescription(String)
+     * @see isValidCreationDate(Date)
      *
      * @post new.getTag() == Tag.New
      */
@@ -94,9 +94,9 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidDescription(description) fails
      *
      * @see isValidCreator(Issuer)
-     * @see isValidUniqueID(uniqueID)
-     * @see isValidTitle(title)
-     * @see isValidDescription(description)
+     * @see isValidUniqueID(long)
+     * @see isValidTitle(String)
+     * @see isValidDescription(String)
      *
      * @post new.getDate() == current date at the moment of initialisation
      * @post new.getTag() == Tag.New
@@ -115,9 +115,8 @@ public class BugReport {
     private Issuer creator;
     private PList<Developer> userList;
     
-
     //HashMap to guarantee uniqueness of IDs
-    private static final HashMap<Long, Long> allTakenIDs = new HashMap<Long, Long>();
+    private static final HashSet<Long> allTakenIDs = new HashSet<Long>();
 
     /**
      * This method returns the unique ID for the BugReport
@@ -134,11 +133,11 @@ public class BugReport {
      * @param uniqueID the uniqueID to set
      *
      * @throws IllegalArgumentException when the uniqueID is invalid
-     * @see isValidUniqueID
+     * @see isValidUniqueID(long)
      */
     private void setUniqueID(long uniqueID) throws IllegalArgumentException {
         this.isValidUniqueID(uniqueID);
-        BugReport.allTakenIDs.put(uniqueID, uniqueID);
+        BugReport.allTakenIDs.add(uniqueID);
         this.uniqueID = uniqueID;
     }
 
@@ -151,7 +150,7 @@ public class BugReport {
      * a bug report
      */
     public boolean isValidUniqueID(long uniqueID) {
-        if (BugReport.allTakenIDs.containsKey(uniqueID)) {
+        if (BugReport.allTakenIDs.contains(uniqueID)) {
             return false;
         }
         if (uniqueID < 0) {
@@ -278,6 +277,7 @@ public class BugReport {
     }
 
 	//TODO make function that allows specific users to change the tag
+    
     /**
      * @param tag the tag to set
      *
@@ -285,7 +285,7 @@ public class BugReport {
      */
     protected void setTag(Tag tag) throws IllegalArgumentException {
         if (!this.isValidTag(tag)) {
-            throw new IllegalArgumentException("The given tag for bug report is a nullpointer");
+            throw new IllegalArgumentException("The given tag for bug report is not valid for this state of the bug report");
         }
         this.tag = tag;
     }
@@ -355,6 +355,11 @@ public class BugReport {
 		if (commentList == null){
 			return false;
 		}
+		for (Comment comment: commentList){
+			if (comment == null){
+				return false;
+			}
+		}
 		return true;
 	}
 	
@@ -370,7 +375,7 @@ public class BugReport {
 		if (! this.isValidComment(comment)){
 			throw new IllegalArgumentException("The given comment is not a valid comment for this bug report");
 		}
-		this.commentList = this.commentList.plus(comment);
+		this.commentList = this.getCommentList().plus(comment);
 	}
 	
 	/**
@@ -380,7 +385,7 @@ public class BugReport {
 	 * 
 	 * @throws IllegalArgumentException if the given parameters are not valid for a comment
 	 * 
-	 * @see Comment(Issuer creator, String text)
+	 * @see Comment(Issuer, String)
 	 */
 	public void addComment(Issuer creator, String text) throws IllegalArgumentException {
 		this.addComment(new Comment(creator, text));
@@ -462,6 +467,34 @@ public class BugReport {
 			if (user == null){
 				return false;
 			}
+		}
+		return true;
+	}
+	
+	/**
+	 * This method adds a developer to the associated developers list of this bug report
+	 * @param dev he developer to check
+	 */
+	public void addUser(Developer dev){
+		if (! isValidUser(dev)){
+			throw new IllegalArgumentException("The given developer is not a valid developer to associate with this bug report");
+		}
+		
+		// first time user associated check
+		if (this.getTag() == Tag.New && this.getUserList().isEmpty()){
+			this.setTag(Tag.Assigned);
+		}
+		this.userList = this.getUserList().plus(dev);
+	}
+	
+	/**
+	 * This method check if the given developer is valid for adding to the associated developers list
+	 * @param dev the developer to check
+	 * @return true if the given developer is a valid developer for this bug report
+	 */
+	public boolean isValidUser(Developer dev){
+		if (dev == null){
+			return false;
 		}
 		return true;
 	}
