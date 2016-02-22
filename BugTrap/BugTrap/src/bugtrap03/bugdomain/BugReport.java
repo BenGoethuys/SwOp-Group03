@@ -3,6 +3,7 @@ package bugtrap03.bugdomain;
 import java.util.Date;
 import java.util.HashMap;
 
+import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;
 import purecollections.PList;
 
@@ -22,6 +23,7 @@ public class BugReport {
      * @param creationDate The creationDate of the bug report
      * @param tag The tag of the bugReport
      *
+     * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
@@ -29,14 +31,16 @@ public class BugReport {
      * fails
      * @throws IllegalArgumentException if isValidTag(tag) fails
      *
+     * @see isValidCreator(Issuer)
      * @see isValidUniqueID(long)
      * @see isValidTitle(String)
      * @see isValidDescription(String)
      * @see isValidCreationDate(Date)
      * @see isValidTag(Tag)
      */
-    private BugReport(long uniqueID, String title, String description, Date creationDate, Tag tag)
+    private BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate, Tag tag)
             throws IllegalArgumentException {
+    	this.setCreator(creator);
         this.setUniqueID(uniqueID);
         this.setTitle(title);
         this.setDescription(description);
@@ -44,6 +48,7 @@ public class BugReport {
         this.setTag(tag);
         
         this.setCommentList(PList.<Comment>empty());
+        this.setUserList(PList.<Developer>empty());
     }
 
     /**
@@ -54,12 +59,14 @@ public class BugReport {
      * @param description The description of the bugReport
      * @param creationDate The creationDate of the bugReport
      *
+     * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidCreationDate(creationDate)
      * fails
      *
+     * @see isValidCreator(Issuer)
      * @see isValidUniqueID(uniqueID)
      * @see isValidTitle(title)
      * @see isValidDescription(description)
@@ -67,9 +74,9 @@ public class BugReport {
      *
      * @post new.getTag() == Tag.New
      */
-    public BugReport(long uniqueID, String title, String description, Date creationDate)
+    public BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate)
             throws IllegalArgumentException {
-        this(uniqueID, title, description, creationDate, Tag.New);
+        this(creator, uniqueID, title, description, creationDate, Tag.New);
     }
 
     /**
@@ -81,10 +88,12 @@ public class BugReport {
      * @param description The description of the bugReport
      * @param creationDate The creationDate of the bugReport
      *
+     * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      *
+     * @see isValidCreator(Issuer)
      * @see isValidUniqueID(uniqueID)
      * @see isValidTitle(title)
      * @see isValidDescription(description)
@@ -92,8 +101,8 @@ public class BugReport {
      * @post new.getDate() == current date at the moment of initialisation
      * @post new.getTag() == Tag.New
      */
-    public BugReport(long uniqueID, String title, String description) throws IllegalArgumentException {
-        this(uniqueID, title, description, new Date());
+    public BugReport(Issuer creator, long uniqueID, String title, String description) throws IllegalArgumentException {
+        this(creator, uniqueID, title, description, new Date());
     }
 
     private long uniqueID;
@@ -102,6 +111,10 @@ public class BugReport {
     private Date creationDate;
     private Tag tag;
     private PList<Comment> commentList;
+    
+    private Issuer creator;
+    private PList<Developer> userList;
+    
 
     //HashMap to guarantee uniqueness of IDs
     private static final HashMap<Long, Long> allTakenIDs = new HashMap<Long, Long>();
@@ -385,6 +398,70 @@ public class BugReport {
 		}
 		if (this.getCommentList().contains(comment)){
 			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * This method returns the creator of this bug report
+	 * @return the creator of the bug report
+	 */
+	public Issuer getCreator() {
+		return creator;
+	}
+
+	/**
+	 * This method sets the creator for this bug report
+	 * @param creator the creator to set
+	 */
+	private void setCreator(Issuer creator) throws IllegalArgumentException {
+		if (! isValidCreator(creator)){
+			throw new IllegalArgumentException("The given creator is not valid for this bug report");
+		}
+		this.creator = creator;
+	}
+	
+	/**
+	 * This method checks if the given creator is a valid creator for this bug report
+	 * @param creator the creator to check
+	 * @return true if the given creator is a valid creator
+	 */
+	public boolean isValidCreator(Issuer creator){
+		if (creator == null){
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * This method returns the list of Developers associated with this bug report
+	 * @return the userList the list of developers assigned to the bug report
+	 */
+	public PList<Developer> getUserList() {
+		return userList;
+	}
+
+	/**
+	 * This method sets the list of developers associated with this bug report
+	 * @param userList the userList to set
+	 */
+	private void setUserList(PList<Developer> userList) {
+		this.userList = userList;
+	}
+	
+	/**
+	 * This method checks if the given list of Developers is valid for this bug report
+	 * @param userList the list of developers for this bug report
+	 * @return true if the given list is a valid list of developers
+	 */
+	public boolean isValidUserList(PList<Developer> userList){
+		if (userList == null){
+			return false;
+		}
+		for (Developer user : userList){
+			if (user == null){
+				return false;
+			}
 		}
 		return true;
 	}
