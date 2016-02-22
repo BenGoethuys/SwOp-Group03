@@ -135,7 +135,34 @@ public class BugReportTest {
 
 	@Test
 	public void testIsValidTag() {
-		//TODO implement further
+		// For bugReport with Tag.New
+		assertFalse(bugReport1.isValidTag(Tag.New));
+		assertTrue(bugReport1.isValidTag(Tag.Closed));
+		assertTrue(bugReport1.isValidTag(Tag.Duplicate));
+		assertTrue(bugReport1.isValidTag(Tag.NotABug));
+		
+		assertTrue(bugReport1.isValidTag(Tag.Assigned));
+		assertFalse(bugReport1.isValidTag(Tag.UnderReview));
+		assertFalse(bugReport1.isValidTag(Tag.Resolved));
+		
+		// For bugReport with Tag.Assigned
+		BugReport tempBugReport = new BugReport(issuer, getNext(), "bla", "bla");
+		tempBugReport.setTag(Tag.Assigned);
+		assertFalse(bugReport1.isValidTag(Tag.New));
+		assertTrue(bugReport1.isValidTag(Tag.Closed));
+		assertTrue(bugReport1.isValidTag(Tag.Duplicate));
+		assertTrue(bugReport1.isValidTag(Tag.NotABug));
+		
+		assertTrue(bugReport1.isValidTag(Tag.Assigned));
+		assertTrue(bugReport1.isValidTag(Tag.UnderReview));
+		assertFalse(bugReport1.isValidTag(Tag.Resolved));
+		
+		// For bugReport with Tag.UnderReview
+		tempBugReport.setTag(Tag.UnderReview);
+		
+		//TODO complete tests
+		
+		
 	}
 	
 	//TODO add tests for comment

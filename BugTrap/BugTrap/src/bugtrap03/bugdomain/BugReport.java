@@ -310,6 +310,9 @@ public class BugReport {
         if (tag == Tag.UnderReview && this.getTag() != Tag.Assigned){
         	return false;
         }
+        if (tag == Tag.Resolved && this.getTag() != Tag.UnderReview){
+        	return false;
+        }
         if (this.getTag() == Tag.Closed){
         	return false;
         }
