@@ -203,7 +203,7 @@ public class BugReport {
      * @return the description
      */
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     /**

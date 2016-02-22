@@ -17,6 +17,14 @@ public class BugReportTest {
 	static Date date;
 	static Issuer issuer;
 	
+	static int counter = 100;
+	
+	public static int getNext(){
+		int temp = counter;
+		counter += 1;
+		return temp;
+	}
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		date = new Date();
@@ -58,7 +66,7 @@ public class BugReportTest {
 	
 	@Test
 	public void testSetTitle() {
-		BugReport tempBugReport = new BugReport(issuer, 3, "bla", "bla");
+		BugReport tempBugReport = new BugReport(issuer, getNext(), "bla", "bla");
 		tempBugReport.setTitle("NewTitle");
 		assertEquals("NewTitle", tempBugReport.getTitle());
 	}
@@ -84,7 +92,7 @@ public class BugReportTest {
 	
 	@Test
 	public void testSetDescription() {
-		BugReport tempBugReport = new BugReport(issuer, 4, "bla", "bla");
+		BugReport tempBugReport = new BugReport(issuer, getNext(), "bla", "bla");
 		tempBugReport.setDescription("NewDescription");
 		assertEquals("NewDescription", tempBugReport.getDescription());
 	}
@@ -127,7 +135,7 @@ public class BugReportTest {
 
 	@Test
 	public void testIsValidTag() {
-		//TODO implement this this if code in bugReport is complete
+		//TODO implement further
 	}
 	
 	//TODO add tests for comment
