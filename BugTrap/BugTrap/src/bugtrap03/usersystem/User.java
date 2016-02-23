@@ -3,7 +3,7 @@ package bugtrap03.usersystem;
 import java.util.HashSet;
 
 /**
- * A {User} can be identified by his/her username. The uniqueness of this
+ * A User can be identified by his/her username. The uniqueness of this
  * username is guaranteed by checking with all other ever created Users.
  *
  * @author Admin
