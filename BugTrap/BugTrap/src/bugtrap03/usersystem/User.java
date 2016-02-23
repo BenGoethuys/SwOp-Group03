@@ -45,7 +45,7 @@ public abstract class User {
      * @see isValidFirstName(String firstName)
      * @see isValidLastName(String lastName)
      */
-    public User(String username, String firstName, String lastName) {
+    public User(String username, String firstName, String lastName) throws IllegalArgumentException {
         this(username, firstName, "", lastName);
     }
 
