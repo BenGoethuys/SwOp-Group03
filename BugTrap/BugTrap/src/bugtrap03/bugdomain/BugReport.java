@@ -304,10 +304,13 @@ public class BugReport {
         	// will be null in initialisation: only moment Tag.New can be assigned
         	return false;
         }
-        if (tag == Tag.Assigned && (this.getTag() != Tag.New || this.getTag() != Tag.UnderReview)){
+        if (tag == Tag.Assigned && (this.getTag() != Tag.New && this.getTag() != Tag.UnderReview)){
         	return false;
         }
         if (tag == Tag.UnderReview && this.getTag() != Tag.Assigned){
+        	return false;
+        }
+        if (tag == Tag.Resolved && this.getTag() != Tag.UnderReview){
         	return false;
         }
         if (this.getTag() == Tag.Closed){
@@ -355,11 +358,13 @@ public class BugReport {
 		if (commentList == null){
 			return false;
 		}
-		for (Comment comment: commentList){
-			if (comment == null){
-				return false;
-			}
-		}
+		// cannot add null object to purecollections list! -> redundant to check
+		
+//		for (Comment comment: commentList){
+//			if (comment == null){
+//				return false;
+//			}
+//		}
 		return true;
 	}
 	
@@ -463,11 +468,14 @@ public class BugReport {
 		if (userList == null){
 			return false;
 		}
-		for (Developer user : userList){
-			if (user == null){
-				return false;
-			}
-		}
+		
+		// cannot add null object to purecollections list! -> redundant to check
+		
+//		for (Developer user : userList){
+//			if (user == null){
+//				return false;
+//			}
+//		}
 		return true;
 	}
 	
@@ -494,6 +502,9 @@ public class BugReport {
 	 */
 	public boolean isValidUser(Developer dev){
 		if (dev == null){
+			return false;
+		}
+		if (this.getUserList().contains(dev)){
 			return false;
 		}
 		return true;

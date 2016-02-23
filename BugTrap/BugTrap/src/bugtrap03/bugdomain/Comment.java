@@ -138,8 +138,11 @@ public class Comment {
 		if (subComments == null){
 			return false;
 		}
+		
+		// cannot add null to PList -> no check needed
+		
 		for (Comment comment : subComments){
-			if (comment == null){
+			if (comment == this){
 				return false;
 			}
 		}
