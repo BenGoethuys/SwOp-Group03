@@ -9,9 +9,6 @@ import static org.junit.Assert.*;
  */
 public class UserTest {
 
-    public UserTest() {
-    }
-
     /**
      * Test the constructor of usersystem.User using User(String, String,
      * String, String).
@@ -178,8 +175,8 @@ public class UserTest {
      * Test middle == null should throw error.
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testIsValidMiddleNameNullException() {
-        String unique = "Vincent";
+    public void testConcMiddleNameNullException() {
+        String unique = "VincentXD";
         String firstName = "Vin";
         String middleName = null;
         String lastName = "Derk";
@@ -196,6 +193,19 @@ public class UserTest {
         String firstName = "Vin";
         String middleName = "";
         String lastName = null;
+
+        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+    }
+
+    /**
+     * Test middle == null should throw error.
+     */
+    @Test
+    public void testConcMiddleNameValid() {
+        String unique = "VDA";
+        String firstName = "Vin";
+        String middleName = "";
+        String lastName = "Derk";
 
         User user = new UserTestDummy(unique, firstName, middleName, lastName);
     }
