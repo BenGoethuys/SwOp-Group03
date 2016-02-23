@@ -96,6 +96,45 @@ public class UserTest {
     }
 
     /**
+     * Test username == "" should throw error.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testConsUsernameEmptyException() {
+        String unique = "";
+        String firstName = "Vincent";
+        String middleName = "";
+        String lastName = "Derk";
+
+        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+    }
+
+    /**
+     * Test firstName == "" should throw error.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testConsFirstNameEmptyException() {
+        String unique = "VBA1";
+        String firstName = "";
+        String middleName = "";
+        String lastName = "Derk";
+
+        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+    }
+
+    /**
+     * Test lastName == "" should throw error.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testConsLastNameEmptyException() {
+        String unique = "VBA2";
+        String firstName = "Vincent";
+        String middleName = "";
+        String lastName = "";
+
+        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+    }
+
+    /**
      * Test username not unique should throw error.
      */
     @Test(expected = IllegalArgumentException.class)

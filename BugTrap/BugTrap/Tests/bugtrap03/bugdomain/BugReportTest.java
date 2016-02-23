@@ -1,8 +1,6 @@
 package bugtrap03.bugdomain;
 
-import bugtrap03.bugdomain.Tag;
 import bugtrap03.usersystem.Issuer;
-import bugtrap03.bugdomain.BugReport;
 import static org.junit.Assert.*;
 
 import java.util.Date;
