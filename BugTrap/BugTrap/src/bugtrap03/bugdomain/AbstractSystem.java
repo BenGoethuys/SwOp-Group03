@@ -114,7 +114,7 @@ public abstract class AbstractSystem {
 		}
 	}
 	
-	protected void setChilds(PList<Subsystem> childlist) {
+	private void setChilds(PList<Subsystem> childlist) {
 		this.childs = childlist;
 	}
 	
@@ -127,13 +127,18 @@ public abstract class AbstractSystem {
 		return this.childs;
 	}
 
+	protected void makeSubsystemChild(VersionID version, String name, String description){
+		Subsystem newChild = new Subsystem(version, name, description, this);
+		this.addChild(newChild);
+	}
+	
 	/**
 	 * This method adds the given child to the PList of childs. A child is of
 	 * type Subsystem.
 	 * 
 	 * @param child The given subsystem to set as child.
 	 */
-	protected void addChild(Subsystem child) {
+	private void addChild(Subsystem child) {
 		this.getChilds().plus(child);
 	}
 

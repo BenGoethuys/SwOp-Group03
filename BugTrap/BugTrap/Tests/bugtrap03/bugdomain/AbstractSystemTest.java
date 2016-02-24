@@ -2,7 +2,7 @@ package bugtrap03.bugdomain;
 
 import static org.junit.Assert.*;
 
-
+import org.junit.Before;
 
 import purecollections.PList;
 
@@ -11,8 +11,6 @@ import org.junit.Test;
 
 public class AbstractSystemTest {
 	static AbstractSystem testSystem1;
-	static Subsystem testChild1;
-	static Subsystem testChild2;
 	static VersionID testVersion1; 
 	static String testDescript1; 
 	static String testName1;
@@ -22,9 +20,13 @@ public class AbstractSystemTest {
 		testVersion1 = new VersionID(1,2,3);
 		testDescript1 = "This is a testdescription";
 		testName1 = "Swop";		
-		testSystem1 = new AbstractSystemDummy(testVersion1, testName1, testDescript1);
 	}
 
+	@Before
+	public void setUp(){
+		testSystem1 = new AbstractSystemDummy(testVersion1, testName1, testDescript1);
+	}
+	
 	@Test
 	public void testConstructorWGetters() {
 		assertEquals(testSystem1.getVersionID(), testVersion1);
@@ -36,7 +38,22 @@ public class AbstractSystemTest {
 	@Test 
 	public void testisValidName(){
 		assertFalse(testSystem1.isValidName(""));
-		assertTrue(testSystem1.isValidName("kwinten"));
+		assertTrue(testSystem1.isValidName(testName1));
+	}
+	
+	@Test
+	public void testMakeSubsystemChild(){
+		testSystem1.makeSubsystemChild(testVersion1, testName1, testDescript1);
+		
+		assertEquals(testSystem1.getChilds().size(), 1);
+		assertEquals(testSystem1.getChilds().get(0).getVersionID(), testVersion1);
+		assertEquals(testSystem1.getChilds().get(0).getName(), testName1);
+		assertEquals(testSystem1.getChilds().get(0).getDescription(), testDescript1);
+	}
+	
+	@Test (expected = NullPointerException.class)
+	public void testGetParentProject(){
+		
 	}
 
 }

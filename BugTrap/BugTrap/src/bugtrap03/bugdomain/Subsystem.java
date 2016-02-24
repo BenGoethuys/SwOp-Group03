@@ -25,7 +25,7 @@ public class Subsystem extends AbstractSystem {
 	 * @throws IllegalArgumentException
 	 *             if one of the String arguments is invalid.
 	 **/
-	public Subsystem(AbstractSystem parent, VersionID version, String name, String description)
+	public Subsystem(VersionID version, String name, String description, AbstractSystem parent)
 			throws NullPointerException, IllegalArgumentException {
 		super(version, name, description);
 //        if (!this.isValidName(name, parent)) {
@@ -42,12 +42,14 @@ public class Subsystem extends AbstractSystem {
      *
      * @param parent
      *            The given parent of the AbstractSystem
+     * @throws IllegalArgumentException
+     * 				if the given parent isn't valid for this subsystem
      */
-    private void setParent(AbstractSystem parent) {
-        if (isValidParent(parent)) {
-            this.parent = parent;
-            parent.addChild(this);
+    private void setParent(AbstractSystem parent) throws IllegalArgumentException{
+        if (! isValidParent(parent)) {
+            throw new IllegalArgumentException("Illegal parent for this subsystem");
         }
+        this.parent = parent;
     }
 
 	/**
