@@ -12,7 +12,6 @@ Each user has list of permissions.
 + Flexible
 + OO
 
-
 - Overhead
 - Veel Permission Objects
 + Zeer dynamisch & flexibel
