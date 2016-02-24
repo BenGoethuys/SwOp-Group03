@@ -34,6 +34,48 @@ public class Subsystem extends AbstractSystem {
         this.setParent(parent);
 	}
 
+
+
+    /**
+     * Sets the parent of the AbstractSystem to the given parent, if valid. Only
+     * elements of subclass subsystems have a parent different from null.
+     *
+     * @param parent
+     *            The given parent of the AbstractSystem
+     */
+    private void setParent(AbstractSystem parent) {
+        if (isValidParent(parent)) {
+            this.parent = parent;
+            parent.addChild(this);
+        }
+    }
+
+	/**
+	 * This function checks or the given parent isn't one of subsystem's own
+	 * child
+	 * @param parent The given parent to be checked.
+	 * @return true is the given parent isn't the subsystem's own child
+	 */
+	protected boolean isValidParent(AbstractSystem parent) {
+		Project parentProject = parent.getParentProject();
+		AbstractSystem currentSystem = parent;
+		while (currentSystem != parentProject) {
+			if (currentSystem == this) {
+				return false;
+			}
+			currentSystem = currentSystem.getParent();
+		}
+		return true;
+	}
+
+    /**
+     * This is a getter for the set parent of the Subsystem;
+     * @return the parent of instance AbstractSystem.
+     */
+    protected AbstractSystem getParent(){
+        return this.parent;
+    }
+    
 	/**
 	 * This function checks the validity of the given name, in combination with
 	 * its parent.
@@ -79,44 +121,4 @@ public class Subsystem extends AbstractSystem {
 //		}
 //		return true;
 //	}
-
-    /**
-     * Sets the parent of the AbstractSystem to the given parent, if valid. Only
-     * elements of subclass subsystems have a parent different from null.
-     *
-     * @param parent
-     *            The given parent of the AbstractSystem
-     */
-    private void setParent(AbstractSystem parent) {
-        if (isValidParent(parent)) {
-            this.parent = parent;
-            parent.addChild(this);
-        }
-    }
-
-	/**
-	 * This function checks or the given parent isn't one of subsystem's own
-	 * child
-	 * @param parent The given parent to be checked.
-	 * @return true is the given parent isn't the subsystem's own child
-	 */
-	protected boolean isValidParent(AbstractSystem parent) {
-		Project parentProject = parent.getParentProject();
-		AbstractSystem currentSystem = parent;
-		while (currentSystem != parentProject) {
-			if (currentSystem == this) {
-				return false;
-			}
-			currentSystem = currentSystem.getParent();
-		}
-		return true;
-	}
-
-    /**
-     * This is a getter for the setted parent of the Subsystem;
-     * @return the parent of instance AbstractSystem.
-     */
-    protected AbstractSystem getParent(){
-        return this.parent;
-    }
 }
