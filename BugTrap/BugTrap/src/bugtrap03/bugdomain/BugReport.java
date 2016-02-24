@@ -3,6 +3,7 @@ package bugtrap03.bugdomain;
 import java.util.Date;
 import java.util.HashSet;
 
+import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;
 import purecollections.PList;
@@ -13,6 +14,8 @@ import purecollections.PList;
  * @author Ben Goethuys
  */
 public class BugReport {
+	
+	//TODO add Subsystem to constructors
 
     /**
      * General constructor for initialising a bug report
@@ -28,8 +31,10 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidCreationDate(creationDate) 
-     * fails
+     * 										fails
      * @throws IllegalArgumentException if isValidTag(tag) fails
+     * @throws IllegalArgumentException if isValidDependencies(PList<BugReport>) 
+     * 										fails
      *
      * @see isValidCreator(Issuer)
      * @see isValidUniqueID(long)
@@ -37,8 +42,9 @@ public class BugReport {
      * @see isValidDescription(String)
      * @see isValidCreationDate(Date)
      * @see isValidTag(Tag)
+     * @see isValidDependencies(PList<BugReport>)
      */
-    private BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate, Tag tag)
+    private BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate, Tag tag, PList<BugReport> dependencies)
             throws IllegalArgumentException {
     	this.setCreator(creator);
         this.setUniqueID(uniqueID);
@@ -49,6 +55,7 @@ public class BugReport {
         
         this.setCommentList(PList.<Comment>empty());
         this.setUserList(PList.<Developer>empty());
+        this.setDependencies(dependencies);
     }
 
     /**
@@ -64,7 +71,7 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidCreationDate(creationDate)
-     * fails
+     * 									fails
      *
      * @see isValidCreator(Issuer)
      * @see isValidUniqueID(long)
@@ -74,9 +81,9 @@ public class BugReport {
      *
      * @post new.getTag() == Tag.New
      */
-    public BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate)
+    public BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate, PList<BugReport> dependencies)
             throws IllegalArgumentException {
-        this(creator, uniqueID, title, description, creationDate, Tag.New);
+        this(creator, uniqueID, title, description, creationDate, Tag.NEW, dependencies);
     }
 
     /**
@@ -101,8 +108,8 @@ public class BugReport {
      * @post new.getDate() == current date at the moment of initialisation
      * @post new.getTag() == Tag.New
      */
-    public BugReport(Issuer creator, long uniqueID, String title, String description) throws IllegalArgumentException {
-        this(creator, uniqueID, title, description, new Date());
+    public BugReport(Issuer creator, long uniqueID, String title, String description, PList<BugReport> dependencies) throws IllegalArgumentException {
+        this(creator, uniqueID, title, description, new Date(), dependencies);
     }
 
     private long uniqueID;
@@ -114,6 +121,9 @@ public class BugReport {
     
     private Issuer creator;
     private PList<Developer> userList;
+    private PList<BugReport> dependencies;
+    
+    private Subsystem subsytem;
     
     //HashMap to guarantee uniqueness of IDs
     private static final HashSet<Long> allTakenIDs = new HashSet<Long>();
@@ -270,21 +280,39 @@ public class BugReport {
     }
 
     /**
+     * This method returns the current tag of the bug report
      * @return the tag
      */
     public Tag getTag() {
         return tag;
     }
 
-	//TODO make function that allows specific users to change the tag
+	//TODO heading 
+    /**
+     * 
+     * @param tag
+     * @param issuer
+     * @throws IllegalArgumentException
+     * @throws PermissionException
+     */
+    public void setTag(Tag tag, Issuer issuer) throws IllegalArgumentException, PermissionException {
+    	if (issuer == this.getCreator() && this.getTag() == Tag.UNDER_REVIEW && tag == Tag.ASSIGNED){
+    		this.setTag(tag);
+    	}
+    	if (issuer instanceof Developer){
+    		this.getSubsystem().hasPermission((Developer) issuer, tag.getNeededPerm());
+    	} else {
+    		throw new PermissionException("The given issuer doens't have the needed permission to change the tag of this bug report");
+    	}
+    }
     
     /**
      * @param tag the tag to set
      *
      * @throws IllegalArgumentException if the given tag is null
      */
-    protected void setTag(Tag tag) throws IllegalArgumentException {
-        if (!this.isValidTag(tag)) {
+    private void setTag(Tag tag) throws IllegalArgumentException {
+        if (! this.isValidTag(tag)) {
             throw new IllegalArgumentException("The given tag for bug report is not valid for this state of the bug report");
         }
         this.tag = tag;
@@ -297,32 +325,10 @@ public class BugReport {
      * @return true if the tag is a valid tag
      */
     public boolean isValidTag(Tag tag) {
-        if (tag == null) {
-            return false;
-        }
-        if (tag == Tag.New && this.getTag() != null){
-        	// will be null in initialisation: only moment Tag.New can be assigned
-        	return false;
-        }
-        if (tag == Tag.Assigned && (this.getTag() != Tag.New && this.getTag() != Tag.UnderReview)){
-        	return false;
-        }
-        if (tag == Tag.UnderReview && this.getTag() != Tag.Assigned){
-        	return false;
-        }
-        if (tag == Tag.Resolved && this.getTag() != Tag.UnderReview){
-        	return false;
-        }
-        if (this.getTag() == Tag.Closed){
-        	return false;
-        }
-        if (this.getTag() == Tag.Duplicate){
-        	return false;
-        }
-        if (this.getTag() == Tag.NotABug){
-        	return false;
-        }
-        return true;
+    	if (this.getTag() == null){
+    		return tag == Tag.NEW;
+    	}
+        return this.getTag().isValidTag(tag);
     }
     
     /**
@@ -489,8 +495,8 @@ public class BugReport {
 		}
 		
 		// first time user associated check
-		if (this.getTag() == Tag.New && this.getUserList().isEmpty()){
-			this.setTag(Tag.Assigned);
+		if (this.getTag() == Tag.NEW && this.getUserList().isEmpty()){
+			this.setTag(Tag.ASSIGNED);
 		}
 		this.userList = this.getUserList().plus(dev);
 	}
@@ -508,5 +514,41 @@ public class BugReport {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * This method returns the dependencyList of this bug report
+	 * @return the dependencies of the bug report
+	 */
+	public PList<BugReport> getDependencies() {
+		return dependencies;
+	}
+
+	/**
+	 * This method sets the dependencies of the bug report
+	 * @param dependencies the dependencies to set for this bug report
+	 */
+	private void setDependencies(PList<BugReport> dependencies) throws IllegalArgumentException {
+		if (! this.isValidDependencies(dependencies)){
+			throw new IllegalArgumentException("The given dependency list is invalid for this bug report");
+		}
+		this.dependencies = dependencies;
+	}
+	
+	/**
+	 * This method checks if the given dependency list valid is for this bug report
+	 * @param dependencies to check
+	 * @return true if the given list is valid for this bug report
+	 */
+	public boolean isValidDependencies(PList<BugReport> dependencies){
+		if (dependencies == null){
+			return false;
+		}
+		return true;
+	}
+	
+	//TODO heading
+	public Subsystem getSubsystem(){
+		return this.subsytem;
 	}
 }

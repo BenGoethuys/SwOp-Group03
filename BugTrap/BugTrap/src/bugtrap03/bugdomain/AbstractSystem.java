@@ -1,19 +1,18 @@
 package bugtrap03.bugdomain;
 
-import java.util.ArrayList;
+import bugtrap03.permission.RolePerm;
+import bugtrap03.usersystem.Developer;
+import purecollections.PList;
 
 /**
- * @author Group 03
- *
- *         TODO if parent is pushed down to subclass, methods can be pushed down
- *         to...
+ * @author Group 03.
  */
 public abstract class AbstractSystem {
 
 	private VersionID version;
 	private String name = "";
 	private String description = "";
-	private ArrayList<Subsystem> childs;
+	private PList<Subsystem> childs;
 
 
 
@@ -33,7 +32,7 @@ public abstract class AbstractSystem {
 		setVersionID(version);
 		setName(name);
 		setDescription(description);
-		this.childs = new ArrayList<Subsystem>();
+		this.setChilds(PList.<Subsystem>empty());
 	}
 
 	/**
@@ -116,6 +115,34 @@ public abstract class AbstractSystem {
 			throw new IllegalArgumentException("The project description can't be empty.");
 		}
 	}
+	
+	private void setChilds(PList<Subsystem> childlist) {
+		this.childs = childlist;
+	}
+	
+	/**
+	 * A getter for the Plist of childs.
+	 * 
+	 * @return an Plist of childs.
+	 */
+	protected PList<Subsystem> getChilds() {
+		return this.childs;
+	}
+
+	protected void makeSubsystemChild(VersionID version, String name, String description){
+		Subsystem newChild = new Subsystem(version, name, description, this);
+		this.addChild(newChild);
+	}
+	
+	/**
+	 * This method adds the given child to the PList of childs. A child is of
+	 * type Subsystem.
+	 * 
+	 * @param child The given subsystem to set as child.
+	 */
+	private void addChild(Subsystem child) {
+		this.getChilds().plus(child);
+	}
 
 	/**
 	 * This is an abstract getter for the parent of the AbstractSystem.
@@ -141,24 +168,13 @@ public abstract class AbstractSystem {
 		// only an element of type project has itself as parent value
 		return (Project) localParent;
 	}
-
+	
 	/**
-	 * A getter for the arraylist of childs.
-	 * 
-	 * @return an arraylist of childs.
+	 * This method checks if the given developer has the requested permission for this subsystem
+	 * @param dev the developer to check
+	 * @param perm the requested permission
+	 * @return true if the developer has the requested permission
 	 */
-	protected ArrayList<Subsystem> getChilds() {
-		return this.childs;
-	}
-
-	/**
-	 * This method sets the child variable to the given child. A child is of
-	 * type Subsystem.
-	 * 
-	 * @param child The given subsystem to set as child.
-	 */
-	protected void addChild(Subsystem child) {
-		this.getChilds().add(child);
-	}
+	public abstract boolean hasPermission(Developer dev, RolePerm perm);
 
 }

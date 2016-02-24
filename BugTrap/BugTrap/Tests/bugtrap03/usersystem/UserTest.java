@@ -9,6 +9,9 @@ import static org.junit.Assert.*;
  */
 public class UserTest {
 
+	static User user;
+	static User user2;
+	
     /**
      * Test the constructor of usersystem.User using User(String, String,
      * String, String).
@@ -20,7 +23,7 @@ public class UserTest {
         String middleName = "Mi";
         String lastName = "Derk";
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
 
         assertEquals(user.getUsername(), unique);
         assertEquals(user.getFirstName(), firstName);
@@ -38,7 +41,7 @@ public class UserTest {
         String middleName = "";
         String lastName = "Derk";
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
 
         assertEquals(user.getUsername(), unique);
         assertEquals(user.getFirstName(), firstName);
@@ -56,7 +59,7 @@ public class UserTest {
         String middleName = "";
         String lastName = "Derk";
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
 
         assertTrue(user.isValidUsername("Vincent048"));
         assertTrue(user.isValidFirstName("V"));
@@ -77,7 +80,7 @@ public class UserTest {
         String middleName = "";
         String lastName = "Derk";
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
 
         assertFalse(user.isValidUsername(unique));
         assertFalse(user.isValidUsername(""));
@@ -102,7 +105,7 @@ public class UserTest {
         String middleName = "";
         String lastName = "Derk";
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
     }
 
     /**
@@ -115,7 +118,7 @@ public class UserTest {
         String middleName = "";
         String lastName = "Derk";
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
     }
 
     /**
@@ -128,7 +131,7 @@ public class UserTest {
         String middleName = "";
         String lastName = "";
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
     }
 
     /**
@@ -141,8 +144,8 @@ public class UserTest {
         String middleName = "";
         String lastName = "Derk";
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
-        User user2 = new UserTestDummy(unique, "L", "A", "B");
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user2 = new UserTestDummy(unique, "L", "A", "B");
     }
 
     /**
@@ -155,7 +158,7 @@ public class UserTest {
         String middleName = "";
         String lastName = "Derk";
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
     }
 
     /**
@@ -168,7 +171,7 @@ public class UserTest {
         String middleName = "";
         String lastName = "Derk";
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
     }
 
     /**
@@ -181,20 +184,20 @@ public class UserTest {
         String middleName = null;
         String lastName = "Derk";
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
     }
 
     /**
      * Test lastName == null should throw error.
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testIsValidLastNameNullException() {
+    public void testConcLastNameNullException() {
         String unique = "Vincent";
         String firstName = "Vin";
         String middleName = "";
         String lastName = null;
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
     }
 
     /**
@@ -207,7 +210,6 @@ public class UserTest {
         String middleName = "";
         String lastName = "Derk";
 
-        User user = new UserTestDummy(unique, firstName, middleName, lastName);
+        user = new UserTestDummy(unique, firstName, middleName, lastName);
     }
-
 }

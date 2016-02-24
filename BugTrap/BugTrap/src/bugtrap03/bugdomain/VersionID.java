@@ -14,9 +14,9 @@ public class VersionID implements Comparable<VersionID> {
 	 * @param nb3 The third digit of the versionID.
 	 */
 	public VersionID(int nb1, int nb2, int nb3) {
-		setFirstNb(nb1);
-		setSecondNb(nb2);
-		setThirdNb(nb3);
+		this.setFirstNb(nb1);
+		this.setSecondNb(nb2);
+		this.setThirdNb(nb3);
 	}
 
 	/**
