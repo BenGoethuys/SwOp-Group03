@@ -523,6 +523,4 @@ public class BugReport {
 		}
 		return true;
 	}
-	
-	//TODO recursive ref. for dependencies
 }
