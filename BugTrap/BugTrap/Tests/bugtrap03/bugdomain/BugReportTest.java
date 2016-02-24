@@ -14,6 +14,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class BugReportTest {
+	//TODO FIX TAGS
+	
 	static BugReport bugReport1;
 	static BugReport bugReport2;
 	static Date date;

@@ -14,37 +14,39 @@ import purecollections.PList;
  * @author Ben Goethuys
  */
 public class BugReport {
-	
-	//TODO add Subsystem to constructors
 
     /**
      * General constructor for initialising a bug report
      *
-     * @param uniqueID The unique ID for the bug report
+     * @param creator The Issuer that wants to create this bug report
+     * @param uniqueID The unique ID for the bugReport
      * @param title The title of the bugReport
-     * @param description The description of the bug report
-     * @param creationDate The creationDate of the bug report
+     * @param description The description of the bugReport
+     * @param creationDate The creationDate of the bugReport
      * @param tag The tag of the bugReport
+     * @param dependencies The depended bug reports of this bug report
+     * @param subsystem The subsystem this bug report belongs to
      *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
-     * @throws IllegalArgumentException if isValidCreationDate(creationDate) 
-     * 										fails
+     * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
      * @throws IllegalArgumentException if isValidTag(tag) fails
-     * @throws IllegalArgumentException if isValidDependencies(PList<BugReport>) 
-     * 										fails
+     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
+     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      *
-     * @see isValidCreator(Issuer)
-     * @see isValidUniqueID(long)
-     * @see isValidTitle(String)
-     * @see isValidDescription(String)
-     * @see isValidCreationDate(Date)
-     * @see isValidTag(Tag)
-     * @see isValidDependencies(PList<BugReport>)
+     * @see BugReport#isValidCreator(Issuer)
+     * @see BugReport#isValidUniqueID(long)
+     * @see BugReport#isValidTitle(String)
+     * @see BugReport#isValidDescription(String)
+     * @see BugReport#isValidCreationDate(Date)
+     * @see BugReport#isValidTag(Tag)
+     * @see BugReport#isValidDependencies(PList)
+     * @see BugReport#isValidSubsystem(Subsystem)
      */
-    private BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate, Tag tag, PList<BugReport> dependencies)
+    private BugReport(Issuer creator, long uniqueID, String title, String description, 
+    		Date creationDate, Tag tag, PList<BugReport> dependencies, Subsystem subsystem)
             throws IllegalArgumentException {
     	this.setCreator(creator);
         this.setUniqueID(uniqueID);
@@ -56,60 +58,106 @@ public class BugReport {
         this.setCommentList(PList.<Comment>empty());
         this.setUserList(PList.<Developer>empty());
         this.setDependencies(dependencies);
+        this.setSubsystem(subsystem);
     }
 
     /**
      * Constructor for creating a bug report with default tag "New"
      *
+     * @param creator The Issuer that wants to create this bug report
      * @param uniqueID The unique ID for the bugReport
      * @param title The title of the bugReport
      * @param description The description of the bugReport
      * @param creationDate The creationDate of the bugReport
+     * @param dependencies The depended bug reports of this bug report
+     * @param subsystem The subsystem this bug report belongs to
      *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
-     * @throws IllegalArgumentException if isValidCreationDate(creationDate)
-     * 									fails
+     * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
+     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
+     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      *
-     * @see isValidCreator(Issuer)
-     * @see isValidUniqueID(long)
-     * @see isValidTitle(String)
-     * @see isValidDescription(String)
-     * @see isValidCreationDate(Date)
+     * @see BugReport#isValidCreator(Issuer)
+     * @see BugReport#isValidUniqueID(long)
+     * @see BugReport#isValidTitle(String)
+     * @see BugReport#isValidDescription(String)
+     * @see BugReport#isValidCreationDate(Date)
+     * @see BugReport#isValidDependencies(PList)
+     * @see BugReport#isValidSubsystem(Subsystem)
      *
-     * @post new.getTag() == Tag.New
+     * @Ensures new.getTag() == Tag.New
      */
-    public BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate, PList<BugReport> dependencies)
+    public BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate, 
+    		PList<BugReport> dependencies, Subsystem subsystem)
             throws IllegalArgumentException {
-        this(creator, uniqueID, title, description, creationDate, Tag.NEW, dependencies);
+        this(creator, uniqueID, title, description, creationDate, Tag.NEW, dependencies, subsystem);
     }
 
     /**
      * Constructor for creating a bug report with default tag "New" and the
      * current time as creationDate
      *
+     * @param creator The Issuer that wants to create this bug report
      * @param uniqueID The unique ID for the bugReport
      * @param title The title of the bugReport
      * @param description The description of the bugReport
-     * @param creationDate The creationDate of the bugReport
+     * @param dependencies The depended bug reports of this bug report
+     * @param subsystem The subsystem this bug report belongs to
      *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
+     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
+     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      *
-     * @see isValidCreator(Issuer)
-     * @see isValidUniqueID(long)
-     * @see isValidTitle(String)
-     * @see isValidDescription(String)
+     * @see BugReport#isValidCreator(Issuer)
+     * @see BugReport#isValidUniqueID(long)
+     * @see BugReport#isValidTitle(String)
+     * @see BugReport#isValidDescription(String)
+     * @see BugReport#isValidDependencies(PList)
+     * @see BugReport#isValidSubsystem(Subsystem)
      *
-     * @post new.getDate() == current date at the moment of initialisation
-     * @post new.getTag() == Tag.New
+     * @Ensures new.getDate() == current date at the moment of initialisation
+     * @Ensures new.getTag() == Tag.New
      */
-    public BugReport(Issuer creator, long uniqueID, String title, String description, PList<BugReport> dependencies) throws IllegalArgumentException {
-        this(creator, uniqueID, title, description, new Date(), dependencies);
+    public BugReport(Issuer creator, long uniqueID, String title, String description, 
+    		PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException {
+        this(creator, uniqueID, title, description, new Date(), dependencies, subsystem);
+    }
+    
+    /**
+     * Constructor for creating a bug report with default tag "New" and the
+     * current time as creationDate
+     *
+     * @param creator The Issuer that wants to create this bug report
+     * @param title The title of the bugReport
+     * @param description The description of the bugReport
+     * @param dependencies The depended bug reports of this bug report
+     * @param subsystem The subsystem this bug report belongs to
+     *
+     * @throws IllegalArgumentException if isValidCreator(creator) fails
+     * @throws IllegalArgumentException if isValidTitle(title) fails
+     * @throws IllegalArgumentException if isValidDescription(description) fails
+     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
+     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     *
+     * @see BugReport#isValidCreator(Issuer)
+     * @see BugReport#isValidTitle(String)
+     * @see BugReport#isValidDescription(String)
+     * @see BugReport#isValidDependencies(PList)
+     * @see BugReport#isValidSubsystem(Subsystem)
+     *
+     * @Ensures new.getDate() == current date at the moment of initialisation
+     * @Ensures new.getTag() == Tag.New
+     * @Ensures new.getUniqueID() is initialised with a valid ID
+     */
+    public BugReport(Issuer creator, String title, String description, 
+    		PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException {
+        this(creator, BugReport.getNewUniqueID(), title, description, new Date(), dependencies, subsystem);
     }
 
     private long uniqueID;
@@ -123,10 +171,11 @@ public class BugReport {
     private PList<Developer> userList;
     private PList<BugReport> dependencies;
     
-    private Subsystem subsytem;
+    private Subsystem subsystem;
     
     //HashMap to guarantee uniqueness of IDs
     private static final HashSet<Long> allTakenIDs = new HashSet<Long>();
+    private static long uniqueIDCounter = 0;
 
     /**
      * This method returns the unique ID for the BugReport
@@ -136,6 +185,17 @@ public class BugReport {
     public long getUniqueID() {
         return uniqueID;
     }
+    
+    /**
+     * This method returns the first available uniqueID for a bug report
+     * @return a new uniqueId for a bug report
+     */
+    public static long getNewUniqueID(){
+    	while (BugReport.allTakenIDs.contains(BugReport.uniqueIDCounter)){
+    		BugReport.uniqueIDCounter ++;
+    	}
+    	return BugReport.uniqueIDCounter;
+    }
 
     /**
      * This method sets the ID of the BugReport
@@ -143,7 +203,7 @@ public class BugReport {
      * @param uniqueID the uniqueID to set
      *
      * @throws IllegalArgumentException when the uniqueID is invalid
-     * @see isValidUniqueID(long)
+     * @see BugReport#isValidUniqueID(long)
      */
     private void setUniqueID(long uniqueID) throws IllegalArgumentException {
         this.isValidUniqueID(uniqueID);
@@ -184,7 +244,7 @@ public class BugReport {
      * @param title the title to set
      *
      * @throws IllegalArgumentException if title is invalid
-     * @see isValidTitle(String)
+     * @see BugReport#isValidTitle(String)
      */
     public void setTitle(String title) throws IllegalArgumentException {
         if (!this.isValidTitle(title)) {
@@ -220,7 +280,7 @@ public class BugReport {
      * @param description the description to set
      *
      * @throws IllegalArgumentException if the given description is invalid
-     * @see isValidDescription(String)
+     * @see BugReport#isValidDescription(String)
      */
     public void setDescription(String description) throws IllegalArgumentException {
         if (!this.isValidDescription(description)) {
@@ -257,7 +317,7 @@ public class BugReport {
      * @param creationDate the creationDate to set
      *
      * @throws IllegalArgumentException if the given creation date is invalid
-     * @see isValidCreationDate(Date)
+     * @see BugReport#isValidCreationDate(Date)
      */
     private void setCreationDate(Date creationDate) throws IllegalArgumentException {
         if (!this.isValidCreationDate(creationDate)) {
@@ -287,13 +347,15 @@ public class BugReport {
         return tag;
     }
 
-	//TODO heading 
     /**
+     * This method sets the current tag for this bug report
+     * @param tag The new tag of this bug report
+     * @param issuer The issuer that wants to change the tag of this bug report
      * 
-     * @param tag
-     * @param issuer
-     * @throws IllegalArgumentException
-     * @throws PermissionException
+     * @throws IllegalArgumentException if isValidTag(tag) throws this exception
+     * @throws PermissionException if the given user doesn't have the needed permission to change the tag of this bug report
+     * 
+     * @see BugReport#isValidTag(Tag)
      */
     public void setTag(Tag tag, Issuer issuer) throws IllegalArgumentException, PermissionException {
     	if (issuer == this.getCreator() && this.getTag() == Tag.UNDER_REVIEW && tag == Tag.ASSIGNED){
@@ -307,9 +369,12 @@ public class BugReport {
     }
     
     /**
+     * This method sets the current tag for this bug report
      * @param tag the tag to set
      *
-     * @throws IllegalArgumentException if the given tag is null
+     * @throws IllegalArgumentException if isValidTag(tag) fails
+     * 
+     * @see BugReport#isValidTag(Tag)
      */
     private void setTag(Tag tag) throws IllegalArgumentException {
         if (! this.isValidTag(tag)) {
@@ -345,7 +410,7 @@ public class BugReport {
 	 * 
 	 * @throws IllegalArgumentException if the given PList is not valid for this bug report
 	 * 
-	 * @see isValidCommentList(PList<Comment>)
+	 * @see BugReport#isValidCommentList(PList<Comment>)
 	 */
 	private void setCommentList(PList<Comment> commentList) throws IllegalArgumentException {
 		if (! isValidCommentList(commentList)){
@@ -380,7 +445,7 @@ public class BugReport {
 	 * 
 	 * @throws IllegalArgumentException if the given comment is not valid for this bug report
 	 * 
-	 * @see isValidComment(Comment)
+	 * @see BugReport#isValidComment(Comment)
 	 */
 	protected void addComment(Comment comment) throws IllegalArgumentException {
 		if (! this.isValidComment(comment)){
@@ -396,7 +461,7 @@ public class BugReport {
 	 * 
 	 * @throws IllegalArgumentException if the given parameters are not valid for a comment
 	 * 
-	 * @see Comment(Issuer, String)
+	 * @see BugReport#Comment(Issuer, String)
 	 */
 	public void addComment(Issuer creator, String text) throws IllegalArgumentException {
 		this.addComment(new Comment(creator, text));
@@ -546,9 +611,39 @@ public class BugReport {
 		}
 		return true;
 	}
+
+	/**
+	 * This method returns the subsystem to which this bug report belongs
+	 * @return the subsystem the subsystem of this bug report
+	 */
+	public Subsystem getSubsystem() {
+		return subsystem;
+	}
+
+	/**
+	 * This method sets the subsystem of this bug report
+	 * @param subsystem the subsystem to set
+	 * 
+	 * @throws IllegalArgumentException if isValidSubsystem(subsystem) fails
+	 * 
+	 * @see BugReport#isValidSubsystem(Subsystem)
+	 */
+	private void setSubsystem(Subsystem subsystem) throws IllegalArgumentException {
+		if (! this.isValidSubsystem(subsystem)){
+			throw new IllegalArgumentException("The given subsystem is invalid for this bug report");
+		}
+		this.subsystem = subsystem;
+	}
 	
-	//TODO heading
-	public Subsystem getSubsystem(){
-		return this.subsytem;
+	/**
+	 * This method check if the given subsystem is valid for this bug report
+	 * @param subsystem the subsystem to check
+	 * @return true if the given subsystem is valid for this bug report
+	 */
+	public boolean isValidSubsystem(Subsystem subsystem){
+		if (subsystem == null){
+			return false;
+		}
+		return true;
 	}
 }
