@@ -3,8 +3,8 @@ package bugtrap03.bugdomain;
 import java.util.Date;
 import java.util.HashMap;
 
+import bugtrap03.permission.PermissionException;
 import bugtrap03.permission.RolePerm;
-import bugtrap03.usersystem.Administrator;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Role;
 import bugtrap03.usersystem.User;
@@ -14,64 +14,150 @@ import purecollections.PList;
  * This class extends AbstractSystem (versionID, name and description) and
  * extends it with dates.
  * 
- * @Invariant
- * @author
+ * @author Kwinten Buytaert & Ben Goethuys
  *
  */
 public class Project extends AbstractSystem {
+	
+	//TODO isValid functions are always public - Ben ;)
 
+	/**
+	 * Creates a project with a given versionID, name, description, creationDate, lead,
+	 * startDate, budgetEstimate.
+	 * 
+	 * @param version The versionID of this project.
+	 * @param name The name of this project.
+	 * @param description The description of this project.
+	 * @param creationDate The creation date of this project.
+	 * @param lead The lead developer of this project
+	 * @param startDate The start date of this project.
+	 * @param budgetEstimate The budget estimate of this project
+	 * 
+	 * @throws IllegalArgumentException if any of the arguments is invalid
+	 * 
+	 * @see AbstractSystem#AbstractSystem(VersionID, String, String)
+	 * @see Project#isValidCreationDate(Date)
+	 * @see Project#isValidLead(Developer)
+	 * @see Project#isValidStartDate(Date, Date)
+	 * @see Project#isValidBudgetEstimate(long)
+	 * 
+	 */
+	public Project(VersionID version, String name, String description, Date creationDate, Developer lead, Date startDate,
+			long budgetEstimate) throws IllegalArgumentException {
+		super(version, name, description);
+		this.setCreationDate(creationDate);
+		this.setLead(lead);
+		this.setStartDate(startDate);
+		this.setBudgetEstimate(budgetEstimate);
+		
+		this.projectParticipants = new HashMap<>();
+	}
+	
+	/**
+	 * Creates a project with a given versionID, name, description, lead,
+	 * startDate, budgetEstimate.
+	 * 
+	 * @param version The versionID of this project.
+	 * @param name The name of this project.
+	 * @param description The description of this project.
+	 * @param lead The lead developer of this project
+	 * @param startDate The start date of this project.
+	 * @param budgetEstimate The budget estimate of this project
+	 * 
+	 * @throws IllegalArgumentException if any of the arguments is invalid
+	 * 
+	 * @see AbstractSystem#AbstractSystem(VersionID, String, String)
+	 * @see Project#isValidLead(Developer)
+	 * @see Project#isValidStartDate(Date, Date)
+	 * @see Project#isValidBudgetEstimate(long)
+	 * 
+	 */
+	public Project(VersionID version, String name, String description, Developer lead, Date startDate,
+			long budgetEstimate) throws IllegalArgumentException {
+		super(version, name, description);
+		this.setCreationDate(new Date());
+		this.setLead(lead);
+		this.setStartDate(startDate);
+		this.setBudgetEstimate(budgetEstimate);
+		
+		this.projectParticipants = new HashMap<>();
+	}
+	
+	/**
+	 * Creates a project with a given versionID, name, description, lead,
+	 * startDate, budgetEstimate.
+	 * 
+	 * @param name The name of this project.
+	 * @param description The description of this project.
+	 * @param lead The lead developer of this project
+	 * @param startDate The start date of this project.
+	 * @param budgetEstimate The budget estimate of this project
+	 * 
+	 * @throws IllegalArgumentException if any of the arguments is invalid
+	 * 
+	 * @see AbstractSystem#AbstractSystem(String, String)
+	 * @see Project#isValidLead(Developer)
+	 * @see Project#isValidStartDate(Date, Date)
+	 * @see Project#isValidBudgetEstimate(long)
+	 * 
+	 */
+	public Project(String name, String description, Developer lead, Date startDate,
+			long budgetEstimate) throws IllegalArgumentException {
+		super(name, description);
+		this.setCreationDate(new Date());
+		this.setLead(lead);
+		this.setStartDate(startDate);
+		this.setBudgetEstimate(budgetEstimate);
+		
+		this.projectParticipants = new HashMap<>();
+	}
+	
+	private Developer lead;
 	private Date creationDate;
 	private Date startDate;
 	private HashMap<Developer, PList<Role>> projectParticipants;
 	private long budgetEstimate;
-
-	/**
-	 * Creates a project with a given versionID, name, description, creationDate
-	 * and startDate.
-	 * 
-	 * @param version The versionID of the project.
-	 * @param name The name of the project.
-	 * @param description The description of the project.
-	 * @param creationDate The creation date of the project.
-	 * @param startDate The start date of the project.
-	 * @throws NullPointerException if the versionID is null.
-	 * @throws IllegalArgumentException if one of the String arguments or dates
-	 *             is invalid.
-	 */
-	public Project(VersionID version, String name, String description, Date creationDate, Date startDate,
-			long budgetEstimate) throws IllegalArgumentException, NullPointerException {
-		super(version, name, description);
-		if (!isValidStartDate(creationDate, startDate)) {
-			throw new IllegalArgumentException("The project hasn't a valid creation and start date");
-		}
-		setCreationDate(creationDate);
-		setStartDate(startDate);
-		setBudgetEstimate(budgetEstimate);
-	}
-	//TODO add lead dev in contructors
 	
-	//TODO constructor without Date (set to current date, see bugReport constructor)
-	//TODO constructor without Date and versionID (init op 1.0.0 ofzo)
-	
-
 	/**
-	 * This method checks the validity of the start date.
-	 * 
-	 * @param creationDate The creation date.
-	 * @param startDate The start date.
-	 * 
-	 * @return True if creation date <= start date.
+	 * This method returns the lead of this project
+	 * @return the lead developer of this project
 	 */
-	private boolean isValidStartDate(Date creationDate, Date startDate) {
-		if (creationDate == null || startDate == null) {
-			throw new NullPointerException("A date can't be null");
-		}
-		if (creationDate.before(startDate) || creationDate.compareTo(startDate) == 0) {
-			return true;
-		}
-		return false;
+	public Developer getLead(){
+		return this.lead;
 	}
-
+	
+	/**
+	 * This method sets the lead of this project
+	 * @param lead The new lead of this project
+	 * 
+	 * @throws IllegalArgumentException if isValidLead(lead) fails
+	 * 
+	 * @see Project#isValidLead(Developer)
+	 * 
+	 * @Ensures if the lead was already set, the lead will not change
+	 */
+	private void setLead(Developer lead) throws IllegalArgumentException {
+		if (! this.isValidLead(lead)){
+			throw new IllegalArgumentException("The given developer is invalid as lead for this project");
+		}
+		if (this.lead == null){
+			this.lead = lead;
+			this.setRole(lead, Role.LEAD);
+		}
+	}
+	
+	/**
+	 * This method checks if a given lead is a valid lead for the given project
+	 * @param lead The lead of the Project
+	 * @return true if the given lead is valid for this project
+	 */
+	public boolean isValidLead(Developer lead){
+		if (lead == null){
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	 * This is a getter for the startdate variable.
 	 * 
@@ -85,14 +171,34 @@ public class Project extends AbstractSystem {
 	 * Sets the start date of the project to the given date.
 	 * 
 	 * @param startDate The start date of the project.
-	 * @throws NullPointerException if the given date is equal to null.
+	 * 
+	 * @throws IllegalArgumentException if the given date is invalid
+	 * 
+	 * @see Project#isValidStartDate(Date, Date)
 	 */
-	private void setStartDate(Date startDate) {
-		if (startDate != null) {
-			this.startDate = startDate;
-		} else {
-			throw new NullPointerException("A date can't be null.");
+	private void setStartDate(Date startDate) throws IllegalArgumentException {
+		if (!isValidStartDate(this.creationDate, startDate)) {
+			throw new IllegalArgumentException("The project hasn't a valid creation and start date");
 		}
+		this.startDate = startDate;
+	}
+	
+	/**
+	 * This method checks the validity of the start date.
+	 * 
+	 * @param creationDate The creation date.
+	 * @param startDate The start date.
+	 * 
+	 * @return True if creation date <= start date.
+	 */
+	public boolean isValidStartDate(Date creationDate, Date startDate) {
+		if (creationDate == null || startDate == null) {
+			return false;
+		}
+		if (creationDate.before(startDate) || creationDate.compareTo(startDate) == 0) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -108,18 +214,40 @@ public class Project extends AbstractSystem {
 	 * Sets the creation date of the project to the given date.
 	 * 
 	 * @param creationDate The creation date of the project.
-	 * @throws NullPointerException if the given date is equal to null.
+	 * 
+	 * @throws IllegalArgumentException if the given date is invalid
+	 * 
+	 * @see Project#isValidCreationDate(Date)
 	 */
-	private void setCreationDate(Date creationDate) {
-		if (creationDate != null) {
-			this.creationDate = creationDate;
-		} else {
-			throw new NullPointerException("A date can't be null.");
+	private void setCreationDate(Date creationDate) throws IllegalArgumentException {
+		if (! this.isValidCreationDate(creationDate)){
+			throw new IllegalArgumentException("The given creation date is invalid for this project");
 		}
+		this.creationDate = creationDate;
+	}
+	
+	/**
+	 * This method check if the given creation date is a valid date for this project
+	 * @param date the date to check
+	 * @return true if the given date is valid
+	 */
+	public boolean isValidCreationDate(Date date){
+		if (date == null){
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * //TODO
+	 * @return
+	 */
+	protected long getBudgetEstimate() {
+		return this.budgetEstimate;
 	}
 
 	/**
-	 * 
+	 * //TODO
 	 * @param budgetEstimate
 	 * @throws IllegalArgumentException
 	 */
@@ -131,23 +259,15 @@ public class Project extends AbstractSystem {
 	}
 
 	/**
-	 * 
+	 * //TODO
 	 * @param budgetEstimate
 	 * @return
 	 */
-	private boolean isValidBudgetEstimate(long budgetEstimate) {
+	public boolean isValidBudgetEstimate(long budgetEstimate) {
 		if (budgetEstimate < 0) {
 			return false;
 		}
 		return true;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	protected long getBudgetEstimate() {
-		return this.budgetEstimate;
 	}
 	
 	/**
@@ -159,46 +279,73 @@ public class Project extends AbstractSystem {
 	protected Project getParent() {
 		return this;
 	}
-
-	private void setParticipants(Developer dev, Role role) {
-		if (projectParticipants == null) {
-			throw new NullPointerException("Project Participants Map must not be null.");
-		}
+	
+	/**
+	 * This method sets the role for a given developer
+	 * @param dev The developer to give a role
+	 * @param role The role the developer has in this project
+	 */
+	private void setRole(Developer dev, Role role) {
 		PList<Role> roleList = projectParticipants.get(dev);
 		if (roleList == null) {
 			projectParticipants.put(dev, PList.<Role> empty().plus(role));
 		} else {
-			//TODO
+			if (! roleList.contains(role)){
+				this.projectParticipants.put(dev, roleList.plus(role));
+			}
+			// else already has that role
 		}
 	}
-
+	
+	/**
+	 * //TODO heading
+	 * @param user
+	 * @param dev
+	 * @param role
+	 * @throws PermissionException
+	 */
+	public void setRole(User user, Developer dev, Role role) throws PermissionException {
+		if (! this.hasPermission(user, role.getNeededPerm())){
+			throw new PermissionException("The given user doesn't have the needed permission to set the role");
+		}
+		this.setRole(dev, role);
+	}
+	
+	/**
+	 * This method returns all the roles associated with the developers of this project
+	 * @param dev The developer to get the roles for
+	 * 
+	 * @return The roles the developer has in this project
+	 */
 	public PList<Role> getAllRolesDev(Developer dev) {
 		return projectParticipants.get(dev);
 	}
-
-	public boolean hasPermissionToSet(User user, Developer dev, Role role) {
-		if (user instanceof Administrator) {
-			if (role.equals(Role.LEAD)) {
-				return projectParticipants.values().parallelStream().anyMatch(k -> k.contains(role));
-			} else {
-				return true;
-			}
+	
+	/**
+	 * This method checks if the given user has the requested permission for this subsystem
+	 * @param user the user to check
+	 * @param perm the requested permission
+	 * 
+	 * @return true if the user has the requested permission
+	 */
+	public boolean hasPermission(User user, RolePerm perm) {
+		if (user == null){
+			return false;
 		}
-		if (user instanceof Developer) {
-			if (role.equals(Role.LEAD)) {
-				return false;
-			} else {
-				//TODO
-			}
+		if (! (user instanceof Developer)){
+			return false;
 		}
-
-		return false;
+		if (! this.hasPermission((Developer) user, perm)){
+			return false;
+		}
+		return true;
 	}
 	
 	/**
 	 * This method checks if the given developer has the requested permission for this subsystem
 	 * @param dev the developer to check
 	 * @param perm the requested permission
+	 * 
 	 * @return true if the developer has the requested permission
 	 */
 	public boolean hasPermission(Developer dev, RolePerm perm){

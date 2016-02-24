@@ -159,7 +159,7 @@ public class DataModel {
     	if (! creator.hasPermission(UserPerm.CREATE_PROJ)){
     		throw new PermissionException("The given user doesn't have the permission to create a project");
     	}
-    	Project project = new Project(name, description, startDate, budget, lead);
+    	Project project = new Project(name, description, lead, startDate, budget);
     	this.projectList.add(project);
     	return project;
     }

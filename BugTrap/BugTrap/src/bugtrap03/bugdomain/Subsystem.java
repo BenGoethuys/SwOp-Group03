@@ -1,7 +1,11 @@
 package bugtrap03.bugdomain;
 
+import java.util.ArrayList;
+
 import bugtrap03.permission.RolePerm;
 import bugtrap03.usersystem.Developer;
+import bugtrap03.usersystem.Issuer;
+import purecollections.PList;
 
 /**
  * Created by Kwinten on 17/02/2016.
@@ -33,9 +37,11 @@ public class Subsystem extends AbstractSystem {
 //            throw new IllegalArgumentException("The name is invalid with the given parent");
 //        }
         this.setParent(parent);
+        this.bugReportList = PList.<BugReport>empty();
 	}
 
 	private AbstractSystem parent;
+	private PList<BugReport> bugReportList;
 
     /**
      * Sets the parent of the AbstractSystem to the given parent, if valid. Only
@@ -134,4 +140,45 @@ public class Subsystem extends AbstractSystem {
 	public boolean hasPermission(Developer dev, RolePerm perm){
 		return this.getParentProject().hasPermission(dev, perm);
 	}
+	
+	/**
+	 * This method returns the list of bug reports of this subsystem
+	 * @return the list of bug reports of this subsystem
+	 */
+	public PList<BugReport> getBugReportList(){
+		return this.bugReportList;
+	}
+	
+	/**
+	 * This method returns all the bug reports associated with this Subsytem
+	 * @return the list of all bugReports
+	 */
+	@Override
+	public ArrayList<BugReport> getAllBugReports(){
+		ArrayList<BugReport> list = super.getAllBugReports();
+		list.addAll(this.getBugReportList());
+		return list;
+	}
+	
+	/**
+	 * This method creates and adds a bug report to the list of associated bugReports of this subsystem
+	 * @param creator The issuer that wants to create the bug report
+	 * @param title The title of this bugReport
+	 * @param description The description of this bug report
+	 * @param dependencies The dependencies of the bug report
+	 * 
+	 * @throws IllegalArgumentException If BugReport(creator, title, description, dependencies, this) fails
+	 * 
+	 * @see BugReport#BugReport(Issuer, String, String, PList, Subsystem)
+	 * 
+	 * @return the created bug report
+	 */
+	public BugReport addBugReport(Issuer creator, String title, String description, 
+    		PList<BugReport> dependencies) throws IllegalArgumentException {
+		BugReport bugReport = new BugReport(creator, title, description, dependencies, this);
+		this.bugReportList = this.getBugReportList().plus(bugReport);
+		return bugReport;
+	}
+	
+	
 }

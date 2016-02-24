@@ -9,15 +9,17 @@ import bugtrap03.permission.RolePerm;
  */
 public enum Role {
     
-    LEAD(RolePerm.SET_TAG_RESOLVED, RolePerm.SET_TAG_CLOSED, 
+    LEAD(RolePerm.SPECIAL, RolePerm.SET_TAG_RESOLVED, RolePerm.SET_TAG_CLOSED, 
     		RolePerm.SET_TAG_NOT_A_BUG, RolePerm.SET_TAG_DUPLICATE, RolePerm.ASSIGN_DEV_PROJECT, RolePerm.ASSIGN_DEV_BUGREPORT),
-    TESTER(RolePerm.SET_TAG_UNDER_REVIEW),
-    PROGRAMMER(RolePerm.SET_TAG_UNDER_REVIEW);
+    TESTER(RolePerm.ASSIGN_TEST_ROLE ,RolePerm.SET_TAG_UNDER_REVIEW),
+    PROGRAMMER(RolePerm.ASSIGN_PROG_ROLE ,RolePerm.SET_TAG_UNDER_REVIEW);
 	
-	private Role(RolePerm... perms){
+	private Role(RolePerm neededPerm, RolePerm... perms){
+		this.neededPerm = neededPerm;
 		this.permissions = perms;
 	}
 	
+	private RolePerm neededPerm;
 	private RolePerm[] permissions;
 	
 	public boolean hasPermission(RolePerm perm){
@@ -30,5 +32,9 @@ public enum Role {
 			}
 		}
 		return false;
+	}
+	
+	public RolePerm getNeededPerm(){
+		return this.neededPerm;
 	}
 }

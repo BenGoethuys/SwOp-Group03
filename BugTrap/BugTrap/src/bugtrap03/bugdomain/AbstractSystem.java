@@ -1,5 +1,7 @@
 package bugtrap03.bugdomain;
 
+import java.util.ArrayList;
+
 import bugtrap03.permission.RolePerm;
 import bugtrap03.usersystem.Developer;
 import purecollections.PList;
@@ -14,8 +16,6 @@ public abstract class AbstractSystem {
 	private String description = "";
 	private PList<Subsystem> childs;
 
-
-
 	/**
 	 * This constructor is used for all elements of type AbstractSystem,
 	 * although possibly indirect.
@@ -23,9 +23,12 @@ public abstract class AbstractSystem {
 	 * @param version The versionID (of that type) of this element.
 	 * @param name The string name for this element.
 	 * @param description The string description of this element.
+	 * 
 	 * @throws NullPointerException if the versionID is null.
 	 * @throws IllegalArgumentException if one of the String arguments is
 	 *             invalid.
+	 *             
+	 * //TODO @ see to isValid functions
 	 */
 	public AbstractSystem(VersionID version, String name, String description)
 			throws NullPointerException, IllegalArgumentException {
@@ -33,6 +36,23 @@ public abstract class AbstractSystem {
 		setName(name);
 		setDescription(description);
 		this.setChilds(PList.<Subsystem>empty());
+		
+		//TODO remove NullPointers via isValid functions and throw illegalArg in setters - Ben ;)
+	}
+	
+	/**
+	 * This constructor is used for all elements of type AbstractSystem,
+	 * although possibly indirect.
+	 * 
+	 * @param name The string name for this element.
+	 * @param description The string description of this element.
+	 * 
+	 * @throws IllegalArgumentException if one of the String arguments is
+	 *             invalid.
+	 *             
+	 */
+	public AbstractSystem(String name, String description) throws IllegalArgumentException {
+		this(new VersionID(0, 0, 1), name, description);
 	}
 
 	/**
@@ -89,7 +109,7 @@ public abstract class AbstractSystem {
 	 * @param name The string argument to used as name.
 	 * @return true if the name is not an empty string or null.
 	 */
-	protected boolean isValidName(String name) {
+	public boolean isValidName(String name) {
 		return (name != "" && name != null);
 	}
 
@@ -109,6 +129,8 @@ public abstract class AbstractSystem {
 	 * @throws IllegalArgumentException //TODO
 	 */
 	private void setDescription(String description) throws IllegalArgumentException {
+		//TODO check null !
+		//TODO make separate isValid function
 		if (description != "") {
 			this.description = description;
 		} else {
@@ -167,6 +189,18 @@ public abstract class AbstractSystem {
 		}
 		// only an element of type project has itself as parent value
 		return (Project) localParent;
+	}
+	
+	/**
+	 * This method returns all the bug reports associated with this AbstractSystem
+	 * @return the list of all bugReports
+	 */
+	public ArrayList<BugReport> getAllBugReports(){
+		ArrayList<BugReport> list = new ArrayList<>();
+		for (Subsystem subsystem : this.getChilds()){
+			list.addAll(subsystem.getAllBugReports());
+		}
+		return list;
 	}
 	
 	/**
