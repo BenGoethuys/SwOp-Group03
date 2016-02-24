@@ -3,8 +3,6 @@ package bugtrap03.bugdomain;
 import java.util.Date;
 import java.util.HashMap;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParameterList;
-
 import bugtrap03.usersystem.Administrator;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Role;
@@ -164,7 +162,7 @@ public class Project extends AbstractSystem {
 		if (roleList == null) {
 			projectParticipants.put(dev, PList.<Role> empty().plus(role));
 		} else {
-
+			//TODO
 		}
 	}
 
@@ -184,7 +182,7 @@ public class Project extends AbstractSystem {
 			if (role.equals(Role.LEAD)) {
 				return false;
 			} else {
-
+				//TODO
 			}
 		}
 
