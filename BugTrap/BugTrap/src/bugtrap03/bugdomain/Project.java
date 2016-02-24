@@ -7,7 +7,7 @@ public class Project extends AbstractSystem {
 	private Date creationDate;
 	private Date startDate;
 
-	// testing comments because you know
+	// hoi iedereen, nu werk ik met eclipse
 
 	/**
 	 * Creates a project with a given versionID, name, description, creationDate
