@@ -3,10 +3,7 @@ package bugtrap03.bugdomain;
 import purecollections.PList;
 
 /**
- * @author Group 03
- *
- *         TODO if parent is pushed down to subclass, methods can be pushed down
- *         to...
+ * @author Group 03.
  */
 public abstract class AbstractSystem {
 

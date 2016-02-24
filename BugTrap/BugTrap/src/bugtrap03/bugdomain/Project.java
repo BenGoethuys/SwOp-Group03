@@ -1,13 +1,16 @@
 package bugtrap03.bugdomain;
 
 import java.util.Date;
-
+/**
+ * This class extends AbstractSystem (versionID, name and description) and extends it with dates.
+ * @author Kwinten
+ *
+ */
 public class Project extends AbstractSystem {
 
 	private Date creationDate;
 	private Date startDate;
-
-	// hoi iedereen, nu werk ik met eclipse
+	private long budgetEstimate;
 
 	/**
 	 * Creates a project with a given versionID, name, description, creationDate
@@ -22,15 +25,15 @@ public class Project extends AbstractSystem {
 	 * @throws IllegalArgumentException if one of the String arguments or dates
 	 *             is invalid.
 	 */
-	public Project(VersionID version, String name, String description, Date creationDate, Date startDate)
+	public Project(VersionID version, String name, String description, Date creationDate, Date startDate, long budgetEstimate)
 			throws IllegalArgumentException, NullPointerException {
 		super(version, name, description);
-		if (isValidStartDate(creationDate, startDate)) {
-			setCreationDate(creationDate);
-			setStartDate(startDate);
-		} else {
+		if (! isValidStartDate(creationDate, startDate)) {
 			throw new IllegalArgumentException("The project hasn't a valid creation and start date");
-		}
+		} 
+		setCreationDate(creationDate);
+		setStartDate(startDate);
+		setBudgetEstimate(budgetEstimate);	
 	}
 
 	/**
@@ -96,7 +99,40 @@ public class Project extends AbstractSystem {
 			throw new NullPointerException("A date can't be null.");
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @param budgetEstimate
+	 * @throws IllegalArgumentException
+	 */
+	private void setBudgetEstimate(long budgetEstimate) throws IllegalArgumentException{
+		if (! isValidBudgetEstimate(budgetEstimate)){
+			throw new IllegalArgumentException("invalid budgetestimate");
+		}
+		this.budgetEstimate = budgetEstimate;
+	}	
+	
+	/**
+	 * 
+	 * @param budgetEstimate
+	 * @return
+	 */
+	private boolean isValidBudgetEstimate(long budgetEstimate){
+		if (budgetEstimate < 0){
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	protected long getBudgetEstimate(){
+		return this.budgetEstimate;
+	}
+		
+		
 	/**
 	 * This is a getter for the parent. Since a Project doesn't have a parent,
 	 * it returns itself.
