@@ -76,7 +76,7 @@ public class BugReport {
      */
     public BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate)
             throws IllegalArgumentException {
-        this(creator, uniqueID, title, description, creationDate, Tag.New);
+        this(creator, uniqueID, title, description, creationDate, Tag.NEW);
     }
 
     /**
@@ -298,7 +298,7 @@ public class BugReport {
      */
     public boolean isValidTag(Tag tag) {
     	if (this.getTag() == null){
-    		return tag == Tag.New;
+    		return tag == Tag.NEW;
     	}
         return this.getTag().isValidTag(tag);
     }
@@ -467,8 +467,8 @@ public class BugReport {
 		}
 		
 		// first time user associated check
-		if (this.getTag() == Tag.New && this.getUserList().isEmpty()){
-			this.setTag(Tag.Assigned);
+		if (this.getTag() == Tag.NEW && this.getUserList().isEmpty()){
+			this.setTag(Tag.ASSIGNED);
 		}
 		this.userList = this.getUserList().plus(dev);
 	}
