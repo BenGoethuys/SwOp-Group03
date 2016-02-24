@@ -297,32 +297,10 @@ public class BugReport {
      * @return true if the tag is a valid tag
      */
     public boolean isValidTag(Tag tag) {
-        if (tag == null) {
-            return false;
-        }
-        if (tag == Tag.New && this.getTag() != null){
-        	// will be null in initialisation: only moment Tag.New can be assigned
-        	return false;
-        }
-        if (tag == Tag.Assigned && (this.getTag() != Tag.New && this.getTag() != Tag.UnderReview)){
-        	return false;
-        }
-        if (tag == Tag.UnderReview && this.getTag() != Tag.Assigned){
-        	return false;
-        }
-        if (tag == Tag.Resolved && this.getTag() != Tag.UnderReview){
-        	return false;
-        }
-        if (this.getTag() == Tag.Closed){
-        	return false;
-        }
-        if (this.getTag() == Tag.Duplicate){
-        	return false;
-        }
-        if (this.getTag() == Tag.NotABug){
-        	return false;
-        }
-        return true;
+    	if (this.getTag() == null){
+    		return tag == Tag.New;
+    	}
+        return this.getTag().isValidTag(tag);
     }
     
     /**
