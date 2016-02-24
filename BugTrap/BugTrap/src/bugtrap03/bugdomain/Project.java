@@ -1,16 +1,31 @@
 package bugtrap03.bugdomain;
 
 import java.util.Date;
+<<<<<<< HEAD
+
+import bugtrap03.usersystem.Developer;
+import bugtrap03.usersystem.Role;
+import purecollections.PList;
+import purecollections.PMap;
+
+=======
 /**
  * This class extends AbstractSystem (versionID, name and description) and extends it with dates.
  * @author Kwinten
  *
  */
+>>>>>>> fb1167a0928146628d1303528203fda4f1f5f014
 public class Project extends AbstractSystem {
 
 	private Date creationDate;
 	private Date startDate;
+<<<<<<< HEAD
+	private PMap<Developer, PList<Role>> projectParticipants;
+
+	// hoi iedereen, nu werk ik met eclipse
+=======
 	private long budgetEstimate;
+>>>>>>> fb1167a0928146628d1303528203fda4f1f5f014
 
 	/**
 	 * Creates a project with a given versionID, name, description, creationDate
@@ -142,4 +157,6 @@ public class Project extends AbstractSystem {
 	protected Project getParent() {
 		return this;
 	}
+	
+	
 }
