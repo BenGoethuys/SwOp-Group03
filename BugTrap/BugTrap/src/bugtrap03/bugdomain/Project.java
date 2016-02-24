@@ -2,10 +2,16 @@ package bugtrap03.bugdomain;
 
 import java.util.Date;
 
+import bugtrap03.usersystem.Developer;
+import bugtrap03.usersystem.Role;
+import purecollections.PList;
+import purecollections.PMap;
+
 public class Project extends AbstractSystem {
 
 	private Date creationDate;
 	private Date startDate;
+	private PMap<Developer, PList<Role>> projectParticipants;
 
 	// hoi iedereen, nu werk ik met eclipse
 
@@ -106,4 +112,6 @@ public class Project extends AbstractSystem {
 	protected Project getParent() {
 		return this;
 	}
+	
+	
 }
