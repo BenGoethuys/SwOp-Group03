@@ -1,23 +1,29 @@
 package bugtrap03.bugdomain;
 
 import java.util.Date;
+import java.util.HashMap;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParameterList;
+
+import bugtrap03.usersystem.Administrator;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Role;
+import bugtrap03.usersystem.User;
 import purecollections.PList;
-import purecollections.PMap;
-
 
 /**
- * This class extends AbstractSystem (versionID, name and description) and extends it with dates.
- * @author Kwinten
+ * This class extends AbstractSystem (versionID, name and description) and
+ * extends it with dates.
+ * 
+ * @Invariant
+ * @author
  *
  */
 public class Project extends AbstractSystem {
 
 	private Date creationDate;
 	private Date startDate;
-	private PMap<Developer, PList<Role>> projectParticipants;
+	private HashMap<Developer, PList<Role>> projectParticipants;
 	private long budgetEstimate;
 
 	/**
@@ -33,15 +39,15 @@ public class Project extends AbstractSystem {
 	 * @throws IllegalArgumentException if one of the String arguments or dates
 	 *             is invalid.
 	 */
-	public Project(VersionID version, String name, String description, Date creationDate, Date startDate, long budgetEstimate)
-			throws IllegalArgumentException, NullPointerException {
+	public Project(VersionID version, String name, String description, Date creationDate, Date startDate,
+			long budgetEstimate) throws IllegalArgumentException, NullPointerException {
 		super(version, name, description);
-		if (! isValidStartDate(creationDate, startDate)) {
+		if (!isValidStartDate(creationDate, startDate)) {
 			throw new IllegalArgumentException("The project hasn't a valid creation and start date");
-		} 
+		}
 		setCreationDate(creationDate);
 		setStartDate(startDate);
-		setBudgetEstimate(budgetEstimate);	
+		setBudgetEstimate(budgetEstimate);
 	}
 
 	/**
@@ -107,39 +113,38 @@ public class Project extends AbstractSystem {
 			throw new NullPointerException("A date can't be null.");
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param budgetEstimate
 	 * @throws IllegalArgumentException
 	 */
-	private void setBudgetEstimate(long budgetEstimate) throws IllegalArgumentException{
-		if (! isValidBudgetEstimate(budgetEstimate)){
+	private void setBudgetEstimate(long budgetEstimate) throws IllegalArgumentException {
+		if (!isValidBudgetEstimate(budgetEstimate)) {
 			throw new IllegalArgumentException("invalid budgetestimate");
 		}
 		this.budgetEstimate = budgetEstimate;
-	}	
-	
+	}
+
 	/**
 	 * 
 	 * @param budgetEstimate
 	 * @return
 	 */
-	private boolean isValidBudgetEstimate(long budgetEstimate){
-		if (budgetEstimate < 0){
+	private boolean isValidBudgetEstimate(long budgetEstimate) {
+		if (budgetEstimate < 0) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * 
 	 * @return
 	 */
-	protected long getBudgetEstimate(){
+	protected long getBudgetEstimate() {
 		return this.budgetEstimate;
 	}
-		
 	
 	/**
 	 * This is a getter for the parent. Since a Project doesn't have a parent,
@@ -150,8 +155,39 @@ public class Project extends AbstractSystem {
 	protected Project getParent() {
 		return this;
 	}
-	
-	
-	
-	
+
+	private void setParticipants(Developer dev, Role role) {
+		if (projectParticipants == null) {
+			throw new NullPointerException("Project Participants Map must not be null.");
+		}
+		PList<Role> roleList = projectParticipants.get(dev);
+		if (roleList == null) {
+			projectParticipants.put(dev, PList.<Role> empty().plus(role));
+		} else {
+
+		}
+	}
+
+	public PList<Role> getAllRolesDev(Developer dev) {
+		return projectParticipants.get(dev);
+	}
+
+	public boolean hasPermissionToSet(User user, Developer dev, Role role) {
+		if (user instanceof Administrator) {
+			if (role.equals(Role.LEAD)) {
+				return projectParticipants.values().parallelStream().anyMatch(k -> k.contains(role));
+			} else {
+				return true;
+			}
+		}
+		if (user instanceof Developer) {
+			if (role.equals(Role.LEAD)) {
+				return false;
+			} else {
+
+			}
+		}
+
+		return false;
+	}
 }
