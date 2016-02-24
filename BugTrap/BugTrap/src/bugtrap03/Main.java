@@ -1,10 +1,20 @@
 package bugtrap03;
 
+import bugtrap03.gui.terminal.Terminal;
+
+/**
+ * 
+ * @author Group 03
+ */
 public class Main {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("Hello world");
-	}
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        Terminal terminal = new Terminal();
+        terminal.openView();
+    }
 
 }
