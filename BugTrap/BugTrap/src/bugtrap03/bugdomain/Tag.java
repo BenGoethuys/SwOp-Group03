@@ -8,7 +8,7 @@ package bugtrap03.bugdomain;
  *
  */
 public enum Tag {
-	Closed, New, Assigned, NotABug, UnderReview, Resolved, Duplicate;
+	CLOSED, NEW, ASSIGNED, NOT_A_BUG, UNDER_REVIEW, RESOLVED, DUPLICATE;
 	
 	/**
      * This method check if the given tag is valid for the bug report
@@ -21,23 +21,23 @@ public enum Tag {
             return false;
         }
         // Closed, Duplicate, NotABug is unchangeable
-        if (this == Tag.Closed || this == Tag.Duplicate || this == Tag.NotABug){
+        if (this == Tag.CLOSED || this == Tag.DUPLICATE || this == Tag.NOT_A_BUG){
         	return false;
         }
         // will be null in initialisation: only moment Tag.New can be assigned
-        if (tag == Tag.New){
+        if (tag == Tag.NEW){
         	return false;
         }
-        if (tag == Tag.Assigned && (this != Tag.New && this != Tag.UnderReview)){
+        if (tag == Tag.ASSIGNED && (this != Tag.NEW && this != Tag.UNDER_REVIEW)){
         	return false;
         }
-        if (tag == Tag.UnderReview && this != Tag.Assigned){
+        if (tag == Tag.UNDER_REVIEW && this != Tag.ASSIGNED){
         	return false;
         }
-        if (tag == Tag.Resolved && this != Tag.UnderReview){
+        if (tag == Tag.RESOLVED && this != Tag.UNDER_REVIEW){
         	return false;
         }
-        if (tag == Tag.Closed && (this != Tag.Resolved && this != Tag.UnderReview)){
+        if (tag == Tag.CLOSED && (this != Tag.RESOLVED && this != Tag.UNDER_REVIEW)){
         	return false;
         }
         return true;

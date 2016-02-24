@@ -9,6 +9,6 @@ public enum Role {
     
     LEAD,
     TESTER,
-    PROGRAMMER
+    PROGRAMMER;
 
 }

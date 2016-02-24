@@ -135,9 +135,9 @@ public class BugReportTest {
 
 	@Test
 	public void testGetTag() {
-		assertEquals(Tag.New, bugReport1.getTag());
+		assertEquals(Tag.NEW, bugReport1.getTag());
 		
-		assertEquals(Tag.New, bugReport2.getTag());
+		assertEquals(Tag.NEW, bugReport2.getTag());
 	}
 	
 	//TODO new setTag function
@@ -145,8 +145,8 @@ public class BugReportTest {
 	@Test
 	public void testSetTag(){
 		BugReport tempBugReport = new BugReport(issuer, getNext(), "bla", "bla");
-		tempBugReport.setTag(Tag.Assigned);
-		assertTrue(tempBugReport.getTag() == Tag.Assigned);
+		tempBugReport.setTag(Tag.ASSIGNED);
+		assertTrue(tempBugReport.getTag() == Tag.ASSIGNED);
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
@@ -159,87 +159,87 @@ public class BugReportTest {
 		BugReport tempBugReport = new BugReport(issuer, getNext(), "bla", "bla");
 		assertFalse(tempBugReport.isValidTag(null));
 		
-		// For bugReport with Tag.New
-		assertFalse(tempBugReport.isValidTag(Tag.New));
-		assertFalse(tempBugReport.isValidTag(Tag.Closed));
-		assertTrue(tempBugReport.isValidTag(Tag.Duplicate));
-		assertTrue(tempBugReport.isValidTag(Tag.NotABug));
+		// For bugReport with Tag.NEW
+		assertFalse(tempBugReport.isValidTag(Tag.NEW));
+		assertFalse(tempBugReport.isValidTag(Tag.CLOSED));
+		assertTrue(tempBugReport.isValidTag(Tag.DUPLICATE));
+		assertTrue(tempBugReport.isValidTag(Tag.NOT_A_BUG));
 		
-		assertTrue(tempBugReport.isValidTag(Tag.Assigned));
-		assertFalse(tempBugReport.isValidTag(Tag.UnderReview));
-		assertFalse(tempBugReport.isValidTag(Tag.Resolved));
+		assertTrue(tempBugReport.isValidTag(Tag.ASSIGNED));
+		assertFalse(tempBugReport.isValidTag(Tag.UNDER_REVIEW));
+		assertFalse(tempBugReport.isValidTag(Tag.RESOLVED));
 		
-		// For bugReport with Tag.Assigned
-		tempBugReport.setTag(Tag.Assigned);
-		assertFalse(tempBugReport.isValidTag(Tag.New));
-		assertFalse(tempBugReport.isValidTag(Tag.Closed));
-		assertTrue(tempBugReport.isValidTag(Tag.Duplicate));
-		assertTrue(tempBugReport.isValidTag(Tag.NotABug));
+		// For bugReport with Tag.ASSIGNED
+		tempBugReport.setTag(Tag.ASSIGNED);
+		assertFalse(tempBugReport.isValidTag(Tag.NEW));
+		assertFalse(tempBugReport.isValidTag(Tag.CLOSED));
+		assertTrue(tempBugReport.isValidTag(Tag.DUPLICATE));
+		assertTrue(tempBugReport.isValidTag(Tag.NOT_A_BUG));
 		
-		assertFalse(tempBugReport.isValidTag(Tag.Assigned));
-		assertTrue(tempBugReport.isValidTag(Tag.UnderReview));
-		assertFalse(tempBugReport.isValidTag(Tag.Resolved));
+		assertFalse(tempBugReport.isValidTag(Tag.ASSIGNED));
+		assertTrue(tempBugReport.isValidTag(Tag.UNDER_REVIEW));
+		assertFalse(tempBugReport.isValidTag(Tag.RESOLVED));
 		
-		// For bugReport with Tag.UnderReview
-		tempBugReport.setTag(Tag.UnderReview);
-		assertFalse(tempBugReport.isValidTag(Tag.New));
-		assertTrue(tempBugReport.isValidTag(Tag.Closed));
-		assertTrue(tempBugReport.isValidTag(Tag.Duplicate));
-		assertTrue(tempBugReport.isValidTag(Tag.NotABug));
+		// For bugReport with Tag.UNDER_REVIEW
+		tempBugReport.setTag(Tag.UNDER_REVIEW);
+		assertFalse(tempBugReport.isValidTag(Tag.NEW));
+		assertTrue(tempBugReport.isValidTag(Tag.CLOSED));
+		assertTrue(tempBugReport.isValidTag(Tag.DUPLICATE));
+		assertTrue(tempBugReport.isValidTag(Tag.NOT_A_BUG));
 		
-		assertTrue(tempBugReport.isValidTag(Tag.Assigned));
-		assertFalse(tempBugReport.isValidTag(Tag.UnderReview));
-		assertTrue(tempBugReport.isValidTag(Tag.Resolved));
+		assertTrue(tempBugReport.isValidTag(Tag.ASSIGNED));
+		assertFalse(tempBugReport.isValidTag(Tag.UNDER_REVIEW));
+		assertTrue(tempBugReport.isValidTag(Tag.RESOLVED));
 		
-		// For bugReport with Tag.Resolved
-		tempBugReport.setTag(Tag.Resolved);
-		assertFalse(tempBugReport.isValidTag(Tag.New));
-		assertTrue(tempBugReport.isValidTag(Tag.Closed));
-		assertTrue(tempBugReport.isValidTag(Tag.Duplicate));
-		assertTrue(tempBugReport.isValidTag(Tag.NotABug));
+		// For bugReport with Tag.RESOLVED
+		tempBugReport.setTag(Tag.RESOLVED);
+		assertFalse(tempBugReport.isValidTag(Tag.NEW));
+		assertTrue(tempBugReport.isValidTag(Tag.CLOSED));
+		assertTrue(tempBugReport.isValidTag(Tag.DUPLICATE));
+		assertTrue(tempBugReport.isValidTag(Tag.NOT_A_BUG));
 		
-		assertFalse(tempBugReport.isValidTag(Tag.Assigned));
-		assertFalse(tempBugReport.isValidTag(Tag.UnderReview));
-		assertFalse(tempBugReport.isValidTag(Tag.Resolved));
+		assertFalse(tempBugReport.isValidTag(Tag.ASSIGNED));
+		assertFalse(tempBugReport.isValidTag(Tag.UNDER_REVIEW));
+		assertFalse(tempBugReport.isValidTag(Tag.RESOLVED));
 		
-		// For bugReport with Tag.Closed
-		tempBugReport.setTag(Tag.Closed);
-		assertFalse(tempBugReport.isValidTag(Tag.New));
-		assertFalse(tempBugReport.isValidTag(Tag.Closed));
-		assertFalse(tempBugReport.isValidTag(Tag.Duplicate));
-		assertFalse(tempBugReport.isValidTag(Tag.NotABug));
+		// For bugReport with Tag.CLOSED
+		tempBugReport.setTag(Tag.CLOSED);
+		assertFalse(tempBugReport.isValidTag(Tag.NEW));
+		assertFalse(tempBugReport.isValidTag(Tag.CLOSED));
+		assertFalse(tempBugReport.isValidTag(Tag.DUPLICATE));
+		assertFalse(tempBugReport.isValidTag(Tag.NOT_A_BUG));
 		
-		assertFalse(tempBugReport.isValidTag(Tag.Assigned));
-		assertFalse(tempBugReport.isValidTag(Tag.UnderReview));
-		assertFalse(tempBugReport.isValidTag(Tag.Resolved));
+		assertFalse(tempBugReport.isValidTag(Tag.ASSIGNED));
+		assertFalse(tempBugReport.isValidTag(Tag.UNDER_REVIEW));
+		assertFalse(tempBugReport.isValidTag(Tag.RESOLVED));
 		
 		// For bugReport with Tag.Duplicate
 		tempBugReport = new BugReport(issuer, getNext(), "bla", "bla");
-		tempBugReport.setTag(Tag.Assigned);
-		tempBugReport.setTag(Tag.UnderReview);
-		tempBugReport.setTag(Tag.Duplicate);
-		assertFalse(tempBugReport.isValidTag(Tag.New));
-		assertFalse(tempBugReport.isValidTag(Tag.Closed));
-		assertFalse(tempBugReport.isValidTag(Tag.Duplicate));
-		assertFalse(tempBugReport.isValidTag(Tag.NotABug));
+		tempBugReport.setTag(Tag.ASSIGNED);
+		tempBugReport.setTag(Tag.UNDER_REVIEW);
+		tempBugReport.setTag(Tag.DUPLICATE);
+		assertFalse(tempBugReport.isValidTag(Tag.NEW));
+		assertFalse(tempBugReport.isValidTag(Tag.CLOSED));
+		assertFalse(tempBugReport.isValidTag(Tag.DUPLICATE));
+		assertFalse(tempBugReport.isValidTag(Tag.NOT_A_BUG));
 		
-		assertFalse(tempBugReport.isValidTag(Tag.Assigned));
-		assertFalse(tempBugReport.isValidTag(Tag.UnderReview));
-		assertFalse(tempBugReport.isValidTag(Tag.Resolved));
+		assertFalse(tempBugReport.isValidTag(Tag.ASSIGNED));
+		assertFalse(tempBugReport.isValidTag(Tag.UNDER_REVIEW));
+		assertFalse(tempBugReport.isValidTag(Tag.RESOLVED));
 		
-		// For bugReport with Tag.NotABug
+		// For bugReport with Tag.NOT_A_BUG
 		tempBugReport = new BugReport(issuer, getNext(), "bla", "bla");
-		tempBugReport.setTag(Tag.Assigned);
-		tempBugReport.setTag(Tag.UnderReview);
-		tempBugReport.setTag(Tag.NotABug);
-		assertFalse(tempBugReport.isValidTag(Tag.New));
-		assertFalse(tempBugReport.isValidTag(Tag.Closed));
-		assertFalse(tempBugReport.isValidTag(Tag.Duplicate));
-		assertFalse(tempBugReport.isValidTag(Tag.NotABug));
+		tempBugReport.setTag(Tag.ASSIGNED);
+		tempBugReport.setTag(Tag.UNDER_REVIEW);
+		tempBugReport.setTag(Tag.NOT_A_BUG);
+		assertFalse(tempBugReport.isValidTag(Tag.NEW));
+		assertFalse(tempBugReport.isValidTag(Tag.CLOSED));
+		assertFalse(tempBugReport.isValidTag(Tag.DUPLICATE));
+		assertFalse(tempBugReport.isValidTag(Tag.NOT_A_BUG));
 		
-		assertFalse(tempBugReport.isValidTag(Tag.Assigned));
-		assertFalse(tempBugReport.isValidTag(Tag.UnderReview));
-		assertFalse(tempBugReport.isValidTag(Tag.Resolved));
+		assertFalse(tempBugReport.isValidTag(Tag.ASSIGNED));
+		assertFalse(tempBugReport.isValidTag(Tag.UNDER_REVIEW));
+		assertFalse(tempBugReport.isValidTag(Tag.RESOLVED));
 	}
 	
 	@Test
@@ -334,16 +334,16 @@ public class BugReportTest {
 	public void testAddUser(){
 		BugReport tempBugReport = new BugReport(issuer, getNext(), "bla", "bla");
 		assertTrue(tempBugReport.getUserList().isEmpty());
-		assertTrue(tempBugReport.getTag() == Tag.New);
+		assertTrue(tempBugReport.getTag() == Tag.NEW);
 		tempBugReport.addUser(dev);
 		assertTrue(tempBugReport.getUserList().contains(dev));
-		assertTrue(tempBugReport.getTag() == Tag.Assigned);
+		assertTrue(tempBugReport.getTag() == Tag.ASSIGNED);
 		
 		Developer temp = new Developer("barDitGebruiktNiemandAnders", "bla", "la");
 		tempBugReport.addUser(temp);
 		assertTrue(tempBugReport.getUserList().contains(dev));
 		assertTrue(tempBugReport.getUserList().contains(temp));
-		assertTrue(tempBugReport.getTag() == Tag.Assigned);
+		assertTrue(tempBugReport.getTag() == Tag.ASSIGNED);
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
