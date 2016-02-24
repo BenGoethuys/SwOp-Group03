@@ -5,11 +5,10 @@ import bugtrap03.usersystem.Developer;
 
 /**
  * Created by Kwinten on 17/02/2016.
+ * @author Kwinten Buytaert, Ben Goethuys & Vincent Derkinderen.
  */
 public class Subsystem extends AbstractSystem {
 
-
-    private AbstractSystem parent;
 	/**
 	 * This constructor makes an element of the class subsystem, using it's
 	 * superclass, AbstractSystem, constructor.
@@ -36,7 +35,7 @@ public class Subsystem extends AbstractSystem {
         this.setParent(parent);
 	}
 
-
+	private AbstractSystem parent;
 
     /**
      * Sets the parent of the AbstractSystem to the given parent, if valid. Only

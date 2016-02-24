@@ -144,17 +144,17 @@ public class BugReportTest {
 	
 	//TODO new setTag function
 	
-	@Test
-	public void testSetTag(){
-		BugReport tempBugReport = new BugReport(issuer, getNext(), "bla", "bla", depList);
-		tempBugReport.setTag(Tag.ASSIGNED);
-		assertTrue(tempBugReport.getTag() == Tag.ASSIGNED);
-	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void testSetInvalidTag(){
-		bugReport1.setTag(null);
-	}
+//	@Test
+//	public void testSetTag(){
+//		BugReport tempBugReport = new BugReport(issuer, getNext(), "bla", "bla", depList);
+//		tempBugReport.setTag(Tag.ASSIGNED);
+//		assertTrue(tempBugReport.getTag() == Tag.ASSIGNED);
+//	}
+//	
+//	@Test (expected = IllegalArgumentException.class)
+//	public void testSetInvalidTag(){
+//		bugReport1.setTag(null);
+//	}
 
 	@Test
 	public void testIsValidTag() {
