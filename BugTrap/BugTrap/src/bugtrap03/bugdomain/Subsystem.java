@@ -28,9 +28,9 @@ public class Subsystem extends AbstractSystem {
 	public Subsystem(AbstractSystem parent, VersionID version, String name, String description)
 			throws NullPointerException, IllegalArgumentException {
 		super(version, name, description);
-        if (!this.isValidName(name, parent)) {
-            throw new IllegalArgumentException("The name is invalid with the given parent");
-        }
+//        if (!this.isValidName(name, parent)) {
+//            throw new IllegalArgumentException("The name is invalid with the given parent");
+//        }
         this.setParent(parent);
 	}
 
@@ -45,16 +45,16 @@ public class Subsystem extends AbstractSystem {
 	 * @return true if no of the other child of the projectParent has the same
 	 *         name.
 	 */
-	protected boolean isValidName(String name, AbstractSystem parent) {
-		if (!this.isValidName(name)) {
-			return false;
-		}
-		Project parentProject = parent.getParentProject();
-		if (name == parentProject.getName()) {
-			return false;
-		}
-		return childNamesNotEqual(name, parentProject);
-	}
+//	protected boolean isValidName(String name, AbstractSystem parent) {
+//		if (!this.isValidName(name)) {
+//			return false;
+//		}
+//		Project parentProject = parent.getParentProject();
+//		if (name == parentProject.getName()) {
+//			return false;
+//		}
+//		return childNamesNotEqual(name, parentProject);
+//	}
 
 	/**
 	 * This function checks of none of the other subsystems (childs) of the
@@ -68,17 +68,17 @@ public class Subsystem extends AbstractSystem {
 	 *            The given parent.
 	 * @return True if the name is unique.
 	 */
-	private boolean childNamesNotEqual(String name, AbstractSystem parent) {
-		for (Subsystem child : parent.getChilds()) {
-			if (child.getName() == name) {
-				return false;
-			}
-			if (!childNamesNotEqual(name, child)) {
-				return false;
-			}
-		}
-		return true;
-	}
+//	private boolean childNamesNotEqual(String name, AbstractSystem parent) {
+//		for (Subsystem child : parent.getChilds()) {
+//			if (child.getName() == name) {
+//				return false;
+//			}
+//			if (!childNamesNotEqual(name, child)) {
+//				return false;
+//			}
+//		}
+//		return true;
+//	}
 
     /**
      * Sets the parent of the AbstractSystem to the given parent, if valid. Only
