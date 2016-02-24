@@ -363,5 +363,7 @@ public class BugReportTest {
 		tempBugReport.addUser(dev);
 		assertFalse(tempBugReport.isValidUser(dev));
 	}
+	
+	//TODO add tests for dependencies
 
 }
