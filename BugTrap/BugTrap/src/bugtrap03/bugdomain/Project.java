@@ -74,13 +74,7 @@ public class Project extends AbstractSystem {
 	 */
 	public Project(VersionID version, String name, String description, Developer lead, Date startDate,
 			long budgetEstimate) throws IllegalArgumentException {
-		super(version, name, description);
-		this.setCreationDate(new Date());
-		this.setLead(lead);
-		this.setStartDate(startDate);
-		this.setBudgetEstimate(budgetEstimate);
-		
-		this.projectParticipants = new HashMap<>();
+		this(version, name, description, new Date(), lead, startDate, budgetEstimate);
 	}
 	
 	/**
