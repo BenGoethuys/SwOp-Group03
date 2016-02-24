@@ -161,7 +161,7 @@ public class BugReportTest {
 		
 		// For bugReport with Tag.New
 		assertFalse(tempBugReport.isValidTag(Tag.New));
-		assertTrue(tempBugReport.isValidTag(Tag.Closed));
+		assertFalse(tempBugReport.isValidTag(Tag.Closed));
 		assertTrue(tempBugReport.isValidTag(Tag.Duplicate));
 		assertTrue(tempBugReport.isValidTag(Tag.NotABug));
 		
@@ -172,7 +172,7 @@ public class BugReportTest {
 		// For bugReport with Tag.Assigned
 		tempBugReport.setTag(Tag.Assigned);
 		assertFalse(tempBugReport.isValidTag(Tag.New));
-		assertTrue(tempBugReport.isValidTag(Tag.Closed));
+		assertFalse(tempBugReport.isValidTag(Tag.Closed));
 		assertTrue(tempBugReport.isValidTag(Tag.Duplicate));
 		assertTrue(tempBugReport.isValidTag(Tag.NotABug));
 		
