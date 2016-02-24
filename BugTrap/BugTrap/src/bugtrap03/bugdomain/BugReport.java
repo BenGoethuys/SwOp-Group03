@@ -313,7 +313,7 @@ public class BugReport {
         if (tag == Tag.Resolved && this.getTag() != Tag.UnderReview){
         	return false;
         }
-        if (this.getTag() == Tag.Closed){
+        if (this.getTag() == Tag.Closed && (this.getTag() != Tag.Resolved && this.getTag() != Tag.UnderReview)){
         	return false;
         }
         if (this.getTag() == Tag.Duplicate){
