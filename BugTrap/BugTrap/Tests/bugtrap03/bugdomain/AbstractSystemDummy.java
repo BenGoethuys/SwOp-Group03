@@ -13,7 +13,7 @@ public class AbstractSystemDummy extends AbstractSystem {
 
 	@Override
 	protected AbstractSystem getParent() {
-		return null;
+		return this;
 	}
 
 }
