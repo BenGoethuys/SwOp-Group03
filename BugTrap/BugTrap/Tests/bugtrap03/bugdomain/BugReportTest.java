@@ -242,6 +242,8 @@ public class BugReportTest {
 		assertFalse(tempBugReport.isValidTag(Tag.RESOLVED));
 	}
 	
+	//TODO move to TagTest class
+	
 	@Test
 	public void testGetCommentList(){
 		assertTrue(bugReport1.getCommentList().isEmpty());
