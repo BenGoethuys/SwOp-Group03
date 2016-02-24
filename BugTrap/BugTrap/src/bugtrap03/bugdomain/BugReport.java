@@ -28,8 +28,10 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidCreationDate(creationDate) 
-     * fails
+     * 										fails
      * @throws IllegalArgumentException if isValidTag(tag) fails
+     * @throws IllegalArgumentException if isValidDependencies(PList<BugReport>) 
+     * 										fails
      *
      * @see isValidCreator(Issuer)
      * @see isValidUniqueID(long)
@@ -37,8 +39,9 @@ public class BugReport {
      * @see isValidDescription(String)
      * @see isValidCreationDate(Date)
      * @see isValidTag(Tag)
+     * @see isValidDependencies(PList<BugReport>)
      */
-    private BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate, Tag tag)
+    private BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate, Tag tag, PList<BugReport> dependencies)
             throws IllegalArgumentException {
     	this.setCreator(creator);
         this.setUniqueID(uniqueID);
@@ -49,6 +52,7 @@ public class BugReport {
         
         this.setCommentList(PList.<Comment>empty());
         this.setUserList(PList.<Developer>empty());
+        this.setDependencies(dependencies);
     }
 
     /**
@@ -64,7 +68,7 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidCreationDate(creationDate)
-     * fails
+     * 									fails
      *
      * @see isValidCreator(Issuer)
      * @see isValidUniqueID(long)
@@ -74,9 +78,9 @@ public class BugReport {
      *
      * @post new.getTag() == Tag.New
      */
-    public BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate)
+    public BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate, PList<BugReport> dependencies)
             throws IllegalArgumentException {
-        this(creator, uniqueID, title, description, creationDate, Tag.NEW);
+        this(creator, uniqueID, title, description, creationDate, Tag.NEW, dependencies);
     }
 
     /**
@@ -101,8 +105,8 @@ public class BugReport {
      * @post new.getDate() == current date at the moment of initialisation
      * @post new.getTag() == Tag.New
      */
-    public BugReport(Issuer creator, long uniqueID, String title, String description) throws IllegalArgumentException {
-        this(creator, uniqueID, title, description, new Date());
+    public BugReport(Issuer creator, long uniqueID, String title, String description, PList<BugReport> dependencies) throws IllegalArgumentException {
+        this(creator, uniqueID, title, description, new Date(), dependencies);
     }
 
     private long uniqueID;
@@ -114,6 +118,7 @@ public class BugReport {
     
     private Issuer creator;
     private PList<Developer> userList;
+    private PList<BugReport> dependencies;
     
     //HashMap to guarantee uniqueness of IDs
     private static final HashSet<Long> allTakenIDs = new HashSet<Long>();
@@ -483,6 +488,37 @@ public class BugReport {
 			return false;
 		}
 		if (this.getUserList().contains(dev)){
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * This method returns the dependencyList of this bug report
+	 * @return the dependencies of the bug report
+	 */
+	public PList<BugReport> getDependencies() {
+		return dependencies;
+	}
+
+	/**
+	 * This method sets the dependencies of the bug report
+	 * @param dependencies the dependencies to set for this bug report
+	 */
+	private void setDependencies(PList<BugReport> dependencies) throws IllegalArgumentException {
+		if (! this.isValidDependencies(dependencies)){
+			throw new IllegalArgumentException("The given dependency list is invalid for this bug report");
+		}
+		this.dependencies = dependencies;
+	}
+	
+	/**
+	 * This method checks if the given dependency list valid is for this bug report
+	 * @param dependencies to check
+	 * @return true if the given list is valid for this bug report
+	 */
+	public boolean isValidDependencies(PList<BugReport> dependencies){
+		if (dependencies == null){
 			return false;
 		}
 		return true;
