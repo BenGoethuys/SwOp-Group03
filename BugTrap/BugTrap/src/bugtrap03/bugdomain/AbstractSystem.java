@@ -1,6 +1,6 @@
 package bugtrap03.bugdomain;
 
-import java.util.ArrayList;
+import purecollections.PList;
 
 /**
  * @author Group 03
@@ -13,7 +13,7 @@ public abstract class AbstractSystem {
 	private VersionID version;
 	private String name = "";
 	private String description = "";
-	private ArrayList<Subsystem> childs;
+	private PList<Subsystem> childs;
 
 
 
@@ -33,7 +33,7 @@ public abstract class AbstractSystem {
 		setVersionID(version);
 		setName(name);
 		setDescription(description);
-		this.childs = new ArrayList<Subsystem>();
+		this.setChilds(PList.<Subsystem>empty());
 	}
 
 	/**
@@ -116,6 +116,29 @@ public abstract class AbstractSystem {
 			throw new IllegalArgumentException("The project description can't be empty.");
 		}
 	}
+	
+	protected void setChilds(PList<Subsystem> childlist) {
+		this.childs = childlist;
+	}
+	
+	/**
+	 * A getter for the Plist of childs.
+	 * 
+	 * @return an Plist of childs.
+	 */
+	protected PList<Subsystem> getChilds() {
+		return this.childs;
+	}
+
+	/**
+	 * This method adds the given child to the PList of childs. A child is of
+	 * type Subsystem.
+	 * 
+	 * @param child The given subsystem to set as child.
+	 */
+	protected void addChild(Subsystem child) {
+		this.getChilds().plus(child);
+	}
 
 	/**
 	 * This is an abstract getter for the parent of the AbstractSystem.
@@ -142,23 +165,6 @@ public abstract class AbstractSystem {
 		return (Project) localParent;
 	}
 
-	/**
-	 * A getter for the arraylist of childs.
-	 * 
-	 * @return an arraylist of childs.
-	 */
-	protected ArrayList<Subsystem> getChilds() {
-		return this.childs;
-	}
 
-	/**
-	 * This method sets the child variable to the given child. A child is of
-	 * type Subsystem.
-	 * 
-	 * @param child The given subsystem to set as child.
-	 */
-	protected void addChild(Subsystem child) {
-		this.getChilds().add(child);
-	}
 
 }
