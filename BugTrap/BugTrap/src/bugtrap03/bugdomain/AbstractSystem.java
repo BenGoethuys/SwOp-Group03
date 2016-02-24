@@ -1,5 +1,7 @@
 package bugtrap03.bugdomain;
 
+import bugtrap03.permission.RolePerm;
+import bugtrap03.usersystem.Developer;
 import purecollections.PList;
 
 /**
@@ -166,7 +168,13 @@ public abstract class AbstractSystem {
 		// only an element of type project has itself as parent value
 		return (Project) localParent;
 	}
-
-
+	
+	/**
+	 * This method checks if the given developer has the requested permission for this subsystem
+	 * @param dev the developer to check
+	 * @param perm the requested permission
+	 * @return true if the developer has the requested permission
+	 */
+	public abstract boolean hasPermission(Developer dev, RolePerm perm);
 
 }

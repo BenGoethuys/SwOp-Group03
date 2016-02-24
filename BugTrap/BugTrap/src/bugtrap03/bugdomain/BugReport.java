@@ -3,6 +3,7 @@ package bugtrap03.bugdomain;
 import java.util.Date;
 import java.util.HashSet;
 
+import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;
 import purecollections.PList;
@@ -13,6 +14,8 @@ import purecollections.PList;
  * @author Ben Goethuys
  */
 public class BugReport {
+	
+	//TODO add Subsystem to constructors
 
     /**
      * General constructor for initialising a bug report
@@ -119,6 +122,8 @@ public class BugReport {
     private Issuer creator;
     private PList<Developer> userList;
     private PList<BugReport> dependencies;
+    
+    private Subsystem subsytem;
     
     //HashMap to guarantee uniqueness of IDs
     private static final HashSet<Long> allTakenIDs = new HashSet<Long>();
@@ -275,21 +280,39 @@ public class BugReport {
     }
 
     /**
+     * This method returns the current tag of the bug report
      * @return the tag
      */
     public Tag getTag() {
         return tag;
     }
 
-	//TODO make function that allows specific users to change the tag
+	//TODO heading 
+    /**
+     * 
+     * @param tag
+     * @param issuer
+     * @throws IllegalArgumentException
+     * @throws PermissionException
+     */
+    public void setTag(Tag tag, Issuer issuer) throws IllegalArgumentException, PermissionException {
+    	if (issuer == this.getCreator() && this.getTag() == Tag.UNDER_REVIEW && tag == Tag.ASSIGNED){
+    		this.setTag(tag);
+    	}
+    	if (issuer instanceof Developer){
+    		this.getSubsystem().hasPermission((Developer) issuer, tag.getNeededPerm());
+    	} else {
+    		throw new PermissionException("The given issuer doens't have the needed permission to change the tag of this bug report");
+    	}
+    }
     
     /**
      * @param tag the tag to set
      *
      * @throws IllegalArgumentException if the given tag is null
      */
-    protected void setTag(Tag tag) throws IllegalArgumentException {
-        if (!this.isValidTag(tag)) {
+    private void setTag(Tag tag) throws IllegalArgumentException {
+        if (! this.isValidTag(tag)) {
             throw new IllegalArgumentException("The given tag for bug report is not valid for this state of the bug report");
         }
         this.tag = tag;
@@ -522,5 +545,10 @@ public class BugReport {
 			return false;
 		}
 		return true;
+	}
+	
+	//TODO heading
+	public Subsystem getSubsystem(){
+		return this.subsytem;
 	}
 }

@@ -2,6 +2,8 @@ package bugtrap03.usersystem;
 
 import java.util.HashSet;
 
+import bugtrap03.permission.UserPerm;
+
 /**
  * A User can be identified by his/her username. The uniqueness of this
  * username is guaranteed by checking with all other ever created Users.
@@ -192,6 +194,16 @@ public abstract class User {
      */
     public boolean isValidLastName(String lastName) {
         return (lastName != null && !lastName.equals(""));
+    }
+    
+    //TODO Headings
+    /**
+     * 
+     * @param perm
+     * @return
+     */
+    public boolean hasPermission(UserPerm perm){
+    	return false;
     }
 
 }

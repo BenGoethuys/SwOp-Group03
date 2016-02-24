@@ -1,5 +1,9 @@
 package bugtrap03.usersystem;
 
+import java.util.Arrays;
+
+import bugtrap03.permission.UserPerm;
+
 /**
  *
  * @author Admin
@@ -35,5 +39,18 @@ public class Administrator extends User {
     public Administrator(String uniqueUsername, String firstName, String lastName) throws IllegalArgumentException {
         super(uniqueUsername, firstName, lastName);
     }
-
+    
+    private UserPerm[] permissions = {
+    		//TODO nakijken Update permission
+    		UserPerm.CREATE_PROJ, UserPerm.ASSIGN_PROJ_LEAD, UserPerm.UPDATE_PROJ
+    };
+    
+    //TODO Heading
+    /**
+     * 
+     */
+    @Override
+    public boolean hasPermission(UserPerm perm){
+		return Arrays.stream(this.permissions).anyMatch(permission -> permission == perm);
+    }
 }

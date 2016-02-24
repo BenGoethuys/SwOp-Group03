@@ -3,6 +3,7 @@ package bugtrap03.bugdomain;
 import java.util.Date;
 import java.util.HashMap;
 
+import bugtrap03.permission.RolePerm;
 import bugtrap03.usersystem.Administrator;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Role;
@@ -47,9 +48,14 @@ public class Project extends AbstractSystem {
 		setStartDate(startDate);
 		setBudgetEstimate(budgetEstimate);
 	}
+	//TODO add lead dev in contructors
+	
+	//TODO constructor without Date (set to current date, see bugReport constructor)
+	//TODO constructor without Date and versionID (init op 1.0.0 ofzo)
+	
 
 	/**
-	 * This method checks the validity of the startdate.
+	 * This method checks the validity of the start date.
 	 * 
 	 * @param creationDate The creation date.
 	 * @param startDate The start date.
@@ -187,5 +193,19 @@ public class Project extends AbstractSystem {
 		}
 
 		return false;
+	}
+	
+	/**
+	 * This method checks if the given developer has the requested permission for this subsystem
+	 * @param dev the developer to check
+	 * @param perm the requested permission
+	 * @return true if the developer has the requested permission
+	 */
+	public boolean hasPermission(Developer dev, RolePerm perm){
+		PList<Role> roleList = this.projectParticipants.get(dev);
+		if (roleList == null){
+			return false;
+		}
+		return roleList.parallelStream().anyMatch(role -> role.hasPermission(perm));
 	}
 }

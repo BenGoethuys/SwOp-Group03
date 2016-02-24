@@ -1,11 +1,31 @@
 package bugtrap03.bugdomain;
 
+import bugtrap03.permission.RolePerm;
+
 /**
- * @author Ben
+ * @author Ben Goethuys & Vincent Derkinderen
  *
  */
 public enum Tag {
-	CLOSED, NEW, ASSIGNED, NOT_A_BUG, UNDER_REVIEW, RESOLVED, DUPLICATE;
+	CLOSED(RolePerm.SET_TAG_CLOSED), 
+	NEW(RolePerm.SPECIAL), 
+	ASSIGNED(RolePerm.SPECIAL), 
+	NOT_A_BUG(RolePerm.SET_TAG_NOT_A_BUG), 
+	UNDER_REVIEW(RolePerm.SET_TAG_UNDER_REVIEW), 
+	RESOLVED(RolePerm.SET_TAG_RESOLVED), 
+	DUPLICATE(RolePerm.SET_TAG_DUPLICATE);
+	
+	//TODO headings + tests
+	
+	private Tag(RolePerm neededPerm){
+		this.neededPerm = neededPerm;
+	}
+	
+	private RolePerm neededPerm;
+	
+	public RolePerm getNeededPerm(){
+		return this.neededPerm;
+	}
 	
 	/**
      * This method check if the given tag is valid for the bug report
