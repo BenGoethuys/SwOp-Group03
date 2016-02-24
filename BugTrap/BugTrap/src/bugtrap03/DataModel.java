@@ -6,6 +6,7 @@ import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;
 import bugtrap03.usersystem.User;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -24,6 +25,16 @@ public class DataModel {
 
     private final ArrayList<User> userList;
     private final ArrayList<Project> projectList;
+
+    /**
+     * Get the {@link Collection} of users.
+     *
+     * @return An array of the users currently held by the system. This is a
+     * safe reference so no changes will effect the list in the model.
+     */
+    protected User[] getUsers() {
+        return (User[]) this.userList.toArray();
+    }
 
     /**
      * Add the {@link User} to the list of users.
