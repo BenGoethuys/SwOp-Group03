@@ -60,11 +60,7 @@ public class VersionID implements Comparable<VersionID> {
 	 * @param firstNb The first digit of the versionID.
 	 */
 	private void setFirstNb(int firstNb) {
-		if (firstNb != 0) {
-			this.firstNb = firstNb;
-		} else {
-			throw new IllegalArgumentException("The fist digit in the versionID must be greather than 0.");
-		}
+		this.firstNb = firstNb;
 	}
 
 	/**
