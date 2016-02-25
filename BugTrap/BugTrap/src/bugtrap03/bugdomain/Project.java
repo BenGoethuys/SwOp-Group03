@@ -106,6 +106,33 @@ public class Project extends AbstractSystem {
 		this.projectParticipants = new HashMap<>();
 	}
 	
+	/**
+	 * Creates a project with a given versionID, name, description, lead,
+	 * startDate, budgetEstimate.
+	 * 
+	 * @param name The name of this project.
+	 * @param description The description of this project.
+	 * @param lead The lead developer of this project
+	 * @param budgetEstimate The budget estimate of this project
+	 * 
+	 * @throws IllegalArgumentException if any of the arguments is invalid
+	 * 
+	 * @see AbstractSystem#AbstractSystem(String, String)
+	 * @see Project#isValidLead(Developer)
+	 * @see Project#isValidBudgetEstimate(long)
+	 * 
+	 */
+	public Project(String name, String description, Developer lead, long budgetEstimate) 
+			throws IllegalArgumentException {
+		super(name, description);
+		this.setCreationDate(new Date());
+		this.setLead(lead);
+		this.setStartDate(new Date());
+		this.setBudgetEstimate(budgetEstimate);
+		
+		this.projectParticipants = new HashMap<>();
+	}
+	
 	private Developer lead;
 	private Date creationDate;
 	private Date startDate;
