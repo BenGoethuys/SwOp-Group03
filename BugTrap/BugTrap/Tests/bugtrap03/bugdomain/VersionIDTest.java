@@ -15,27 +15,42 @@ import org.junit.Test;
  */
 public class VersionIDTest {
 	VersionID versionID;
-	VersionID versionIDfail;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Before
 	public void setUp() throws Exception {
 		versionID = new VersionID(1, 2, 3);
 	}
 
-	/**
-	 * Test method for {@link bugdomain.VersionID#VersionID(int, int, int)}.
-	 */
 	@Test
-	public void testVersionID() {
-		System.out.println(versionID);
+	public void testCreateVersionID1() {
+		versionID = new VersionID(0, 0, 0);
+		assertEquals(versionID.getFirstNb(), 0);
+		assertEquals(versionID.getSecondNb(), 0);
+		assertEquals(versionID.getThirdNb(), 0);
 	}
 
-	@Test (expected = IllegalArgumentException.class)
-	public void testIllegalArgument() {
-			versionIDfail = new VersionID(0, 0, 0);
+	@Test
+	public void testCreateVersionID2() {
+		versionID = new VersionID(0, 0);
+		assertEquals(versionID.getFirstNb(), 0);
+		assertEquals(versionID.getSecondNb(), 0);
+		assertEquals(versionID.getThirdNb(), 0);
+	}
+
+	@Test
+	public void testCreateVersionID3() {
+		versionID = new VersionID(0);
+		assertEquals(versionID.getFirstNb(), 0);
+		assertEquals(versionID.getSecondNb(), 0);
+		assertEquals(versionID.getThirdNb(), 0);
+	}
+
+	@Test
+	public void testCreateVersionID4() {
+		versionID = new VersionID();
+		assertEquals(versionID.getFirstNb(), 0);
+		assertEquals(versionID.getSecondNb(), 0);
+		assertEquals(versionID.getThirdNb(), 0);
 	}
 
 	/**
