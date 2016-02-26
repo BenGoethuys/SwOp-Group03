@@ -45,7 +45,7 @@ public class BugReport {
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      */
-    private BugReport(Issuer creator, long uniqueID, String title, String description, 
+    protected BugReport(Issuer creator, long uniqueID, String title, String description, 
     		Date creationDate, Tag tag, PList<BugReport> dependencies, Subsystem subsystem)
             throws IllegalArgumentException {
     	this.setCreator(creator);
@@ -358,11 +358,16 @@ public class BugReport {
      * @see BugReport#isValidTag(Tag)
      */
     public void setTag(Tag tag, Issuer issuer) throws IllegalArgumentException, PermissionException {
-    	if (issuer == this.getCreator() && this.getTag() == Tag.UNDER_REVIEW && tag == Tag.ASSIGNED){
+    	if (issuer == this.getCreator() && this.getTag() == Tag.UNDER_REVIEW && (tag == Tag.ASSIGNED || tag == Tag.RESOLVED)){
     		this.setTag(tag);
-    	}
-    	if (issuer instanceof Developer){
-    		this.getSubsystem().hasPermission((Developer) issuer, tag.getNeededPerm());
+    	} else if (tag == null){
+            throw new IllegalArgumentException("The given tag for bug report is not valid for this state of the bug report");
+    	} else if (issuer instanceof Developer){
+    		if (! this.getSubsystem().hasPermission((Developer) issuer, tag.getNeededPerm())){
+    			throw new PermissionException("The given issuer doens't have the needed permission to change the tag of this bug report");
+    		} else {
+    			this.setTag(tag);
+    		}
     	} else {
     		throw new PermissionException("The given issuer doens't have the needed permission to change the tag of this bug report");
     	}

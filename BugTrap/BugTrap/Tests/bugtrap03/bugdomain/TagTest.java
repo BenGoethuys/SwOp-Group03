@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import bugtrap03.permission.RolePerm;
+
 public class TagTest {
 
 	@BeforeClass
@@ -94,6 +96,17 @@ public class TagTest {
 		assertFalse(Tag.NOT_A_BUG.isValidTag(Tag.ASSIGNED));
 		assertFalse(Tag.NOT_A_BUG.isValidTag(Tag.UNDER_REVIEW));
 		assertFalse(Tag.NOT_A_BUG.isValidTag(Tag.RESOLVED));
+	}
+	
+	@Test
+	public void testGetNeededTag(){
+		assertEquals(Tag.NEW.getNeededPerm(), RolePerm.SPECIAL);
+		assertEquals(Tag.ASSIGNED.getNeededPerm(), RolePerm.SPECIAL);
+		assertEquals(Tag.UNDER_REVIEW.getNeededPerm(), RolePerm.SET_TAG_UNDER_REVIEW);
+		assertEquals(Tag.RESOLVED.getNeededPerm(), RolePerm.SET_TAG_RESOLVED);
+		assertEquals(Tag.CLOSED.getNeededPerm(), RolePerm.SET_TAG_CLOSED);
+		assertEquals(Tag.DUPLICATE.getNeededPerm(), RolePerm.SET_TAG_DUPLICATE);
+		assertEquals(Tag.NOT_A_BUG.getNeededPerm(), RolePerm.SET_TAG_NOT_A_BUG);
 	}
 
 }

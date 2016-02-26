@@ -304,9 +304,9 @@ public class Project extends AbstractSystem {
 	 * @param role The role the developer has in this project
 	 */
 	private void setRole(Developer dev, Role role) {
-		PList<Role> roleList = projectParticipants.get(dev);
+		PList<Role> roleList = this.projectParticipants.get(dev);
 		if (roleList == null) {
-			projectParticipants.put(dev, PList.<Role> empty().plus(role));
+			this.projectParticipants.put(dev, PList.<Role> empty().plus(role));
 		} else {
 			if (! roleList.contains(role)){
 				this.projectParticipants.put(dev, roleList.plus(role));
@@ -336,7 +336,7 @@ public class Project extends AbstractSystem {
 	 * @return The roles the developer has in this project
 	 */
 	public PList<Role> getAllRolesDev(Developer dev) {
-		return projectParticipants.get(dev);
+		return this.projectParticipants.get(dev);
 	}
 	
 	/**
