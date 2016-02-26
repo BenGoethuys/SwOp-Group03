@@ -8,9 +8,9 @@ import bugtrap03.usersystem.User;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
+import purecollections.PList;
 
 /**
  *
@@ -22,19 +22,33 @@ public class LoginCmd implements Cmd {
         initLoginInfo();
     }
 
+    private ArrayList<SimpleEntry<String, Class<? extends User>>> classList;
+    private HashMap<String, Class<? extends User>> optionMap;
+
+    /**
+     * Execute the login scenario.
+     * <br> 1. Ask the person which type to login as.
+     * <br> 2. Show the person all users of that type
+     * <br> 3. Ask the person which user to login as.
+     * <br> 4. Welcome the user.
+     *
+     * @param scan The {@link Scanner} trough which to ask the questions.
+     * @param controller The controller to use to access the model.
+     * @param dummy Dummy, as the person isn't a specific user yet. Use
+     * whatever.
+     * @return The user chosen by the person to login as.
+     */
     @Override
     public Object exec(Scanner scan, DataController controller, User dummy) {
         //Ask which type to login as.
         Class<? extends User> classType = getWantedUserType(scan);
-        
-        User user = getWantedUserOfType(classType);
-        
-        System.out.println("Welcome " + user.toFullNameString());
+        //Ask which user to login as.
+        User user = getWantedUserOfType(scan, controller, classType);
+
+        //Welcome user.
+        System.out.println("Welcome " + user.getFullName() + "(" + user.getUsername() + ")");
         return user;
     }
-
-    private ArrayList<SimpleEntry<String, Class<? extends User>>> classList;
-    private HashMap<String, Class<? extends User>> optionMap;
 
     /**
      * Initialize login information. This includes the selectable classes to
@@ -75,7 +89,7 @@ public class LoginCmd implements Cmd {
 
         //Print the users options.
         for (int i = 0; i < this.classList.size(); i++) {
-            System.out.println(i + "." + this.classList.get(i).getKey());
+            System.out.println(i + ". " + this.classList.get(i).getKey());
         }
 
         //Retrieve user input.
@@ -89,8 +103,47 @@ public class LoginCmd implements Cmd {
         return (Class<U>) chosenClass;
     }
 
-    private User getWantedUserOfType(Class<? extends User> classType) {
+    /**
+     * Get the user the person wants to login as.
+     * This asks the person which user to login as by presenting him a list of
+     * users of the class, classType (classType, subclasses excluded).
+     * @param <U> extends User, The type of the user to login as.
+     * 
+     * @param scan The {@link Scanner} used to interact with the person.
+     * @param con The controller used to get access to the model.
+     * @param classType The class type of the possible users to login as. (classType, excludes subclass).
+     * @return The user to login as.
+     */
+    private <U extends User> U getWantedUserOfType(Scanner scan, DataController con, Class<U> classType) {
+        //Print available user options of given type
+        PList<U> usersOfType = con.getUsersOfExactType(classType);
+        System.out.println("Available of chosen type:");
+        for (int i = 0; i < usersOfType.size(); i++) {
+            System.out.println(i + ". " + usersOfType.get(i).getUsername());
+        }
 
+        //Retrieve & process user input.
+        U user = null;
+        do {
+            System.out.print("I chose: ");
+            if (scan.hasNextInt()) { //by index
+                int index = scan.nextInt(); //input
+                if (index >= 0 && index < usersOfType.size()) {
+                    user = usersOfType.get(index);
+                } else {
+                    System.out.println("Invalid input.");
+                }
+            } else { //by username
+                String input = scan.nextLine(); //input
+                try {
+                    user = usersOfType.parallelStream().filter(u -> u.getUsername().equalsIgnoreCase(input)).findFirst().get();
+                } catch (NoSuchElementException ex) {
+                    System.out.println("Invalid input.");
+                }
+            }
+        } while (user == null);
+
+        return user;
     }
 
 }
