@@ -1,5 +1,10 @@
 package bugtrap03.permission;
 
+/**
+ * This enum contains objects of Type RolePerm, representing permissions that a role can have
+ * 
+ * @author Ben Goethuys & Vincent Derkinderen
+ */
 public enum RolePerm {
 	ASSIGN_DEV_PROJECT, 
 	ASSIGN_DEV_BUGREPORT,
