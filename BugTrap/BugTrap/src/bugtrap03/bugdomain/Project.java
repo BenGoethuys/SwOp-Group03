@@ -46,11 +46,10 @@ public class Project extends AbstractSystem {
 			long budgetEstimate) throws IllegalArgumentException {
 		super(version, name, description);
 		this.setCreationDate(creationDate);
+		this.projectParticipants = new HashMap<>();
 		this.setLead(lead);
 		this.setStartDate(startDate);
 		this.setBudgetEstimate(budgetEstimate);
-		
-		this.projectParticipants = new HashMap<>();
 	}
 	
 	/**
@@ -99,11 +98,10 @@ public class Project extends AbstractSystem {
 			long budgetEstimate) throws IllegalArgumentException {
 		super(name, description);
 		this.setCreationDate(new Date());
+		this.projectParticipants = new HashMap<>();
 		this.setLead(lead);
 		this.setStartDate(startDate);
 		this.setBudgetEstimate(budgetEstimate);
-		
-		this.projectParticipants = new HashMap<>();
 	}
 	
 	/**
@@ -126,11 +124,10 @@ public class Project extends AbstractSystem {
 			throws IllegalArgumentException {
 		super(name, description);
 		this.setCreationDate(new Date());
+		this.projectParticipants = new HashMap<>();
 		this.setLead(lead);
 		this.setStartDate(new Date());
 		this.setBudgetEstimate(budgetEstimate);
-		
-		this.projectParticipants = new HashMap<>();
 	}
 	
 	private Developer lead;
