@@ -3,26 +3,35 @@ package bugtrap03.bugdomain;
 import bugtrap03.permission.RolePerm;
 
 /**
+ * This enum contains objects of Type Tag
+ * 
  * @author Ben Goethuys & Vincent Derkinderen
- *
  */
 public enum Tag {
-	CLOSED(RolePerm.SET_TAG_CLOSED), 
 	NEW(RolePerm.SPECIAL), 
 	ASSIGNED(RolePerm.SPECIAL), 
 	NOT_A_BUG(RolePerm.SET_TAG_NOT_A_BUG), 
-	UNDER_REVIEW(RolePerm.SET_TAG_UNDER_REVIEW), 
+	UNDER_REVIEW(RolePerm.SET_TAG_UNDER_REVIEW),
+	CLOSED(RolePerm.SET_TAG_CLOSED), 
 	RESOLVED(RolePerm.SET_TAG_RESOLVED), 
 	DUPLICATE(RolePerm.SET_TAG_DUPLICATE);
 	
-	//TODO headings + tests
-	
+	/**
+	 * General constructor for objects of Type Tag
+	 * @param neededPerm the needed RolePerm to set this tag
+	 * 
+	 * @see RolePerm
+	 */
 	private Tag(RolePerm neededPerm){
 		this.neededPerm = neededPerm;
 	}
 	
 	private RolePerm neededPerm;
 	
+	/**
+	 * This method returns the needed permission to set this object
+	 * @return the needed permission
+	 */
 	public RolePerm getNeededPerm(){
 		return this.neededPerm;
 	}
