@@ -46,7 +46,7 @@ public class LoginCmd implements Cmd {
         User user = getWantedUserOfType(scan, controller, classType);
 
         //Welcome user.
-        System.out.println("Welcome " + user.getFullName() + "(" + user.getUsername() + ")");
+        System.out.println("Welcome " + user.getFullName() + " (" + user.getUsername() + ")");
         return user;
     }
 
@@ -95,6 +95,7 @@ public class LoginCmd implements Cmd {
         //Retrieve user input.
         Class<? extends User> chosenClass;
         do {
+            System.out.print("I chose: ");
             if ((chosenClass = this.optionMap.get(scan.next().toLowerCase())) == null) {
                 System.out.println("invalid input.");
             }
