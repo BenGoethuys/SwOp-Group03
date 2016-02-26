@@ -45,7 +45,7 @@ public class BugReport {
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      */
-    private BugReport(Issuer creator, long uniqueID, String title, String description, 
+    protected BugReport(Issuer creator, long uniqueID, String title, String description, 
     		Date creationDate, Tag tag, PList<BugReport> dependencies, Subsystem subsystem)
             throws IllegalArgumentException {
     	this.setCreator(creator);
