@@ -139,29 +139,31 @@ public class DataModel {
         addUser(admin);
         return admin;
     }
-    
+
     /**
      * This method creates a new {@link Project} in the system
+     *
      * @param name The name of the project
      * @param description The description of the project
      * @param startDate The start date of the project
      * @param budget The budget estimate for this project
      * @param lead The lead developer of this project
-     * 
+     *
      * @throws IllegalArgumentException if the constructor of project fails
-     * @throws PermissionException If the given creator has insufficient permissions
-     * 
+     * @throws PermissionException If the given creator has insufficient
+     * permissions
+     *
      * @see Project#Project(String, String, Date, long, Developer)
      * @return the created project
      */
-    public Project createProject(String name, String description, Date startDate, Developer lead, long budget, User creator) 
-    		throws IllegalArgumentException, PermissionException {
-    	if (! creator.hasPermission(UserPerm.CREATE_PROJ)){
-    		throw new PermissionException("The given user doesn't have the permission to create a project");
-    	}
-    	Project project = new Project(name, description, lead, startDate, budget);
-    	this.projectList.add(project);
-    	return project;
+    public Project createProject(String name, String description, Date startDate, Developer lead, long budget, User creator)
+            throws IllegalArgumentException, PermissionException {
+        if (!creator.hasPermission(UserPerm.CREATE_PROJ)) {
+            throw new PermissionException("The given user doesn't have the permission to create a project");
+        }
+        Project project = new Project(name, description, lead, startDate, budget);
+        this.projectList.add(project);
+        return project;
     }
 
 }
