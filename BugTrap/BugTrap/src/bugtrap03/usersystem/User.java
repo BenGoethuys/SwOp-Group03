@@ -196,6 +196,18 @@ public abstract class User {
         return (lastName != null && !lastName.equals(""));
     }
     
+    /**
+     * Get the full name of this {@link User}.
+     * This means the first, middle and last name in that order.
+     * @return The full name of this user.
+     * @see #getFirstName() 
+     * @see #getMiddleName() 
+     * @see #getLastName() 
+     */
+    public String getFullName() {
+        return this.firstName + this.middleName + this.lastName;
+    }
+    
     //TODO Headings
     /**
      * 
