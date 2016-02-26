@@ -7,8 +7,8 @@ import bugtrap03.usersystem.Administrator;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;
 import bugtrap03.usersystem.User;
-import java.util.ArrayList;
 import java.util.Date;
+import purecollections.PList;
 
 /**
  *
@@ -21,12 +21,21 @@ public class DataModel {
      *
      */
     public DataModel() {
-        this.userList = new ArrayList<>();
-        this.projectList = new ArrayList<>();
+        this.userList = PList.<User>empty();
+        this.projectList = PList.<Project>empty();
     }
 
-    private final ArrayList<User> userList;
-    private final ArrayList<Project> projectList;
+    private PList<User> userList;
+    private PList<Project> projectList;
+
+    /**
+     * Get the list of users in this system.
+     *
+     * @return The list of users currently in this system.
+     */
+    public PList<User> getUserList() {
+        return userList;
+    }
 
     /**
      * Add the {@link User} to the list of users.
@@ -35,10 +44,44 @@ public class DataModel {
      * @throws NullPointerException If user is null.
      */
     private void addUser(User user) throws NullPointerException {
-        if (user == null) {
-            throw new NullPointerException();
+        this.userList = userList.plus(user);
+    }
+
+    /**
+     * Get the list of users in this system who have the exact class type
+     * userType.
+     *
+     * @param <U> extends User type.
+     * @param userType The type of users returned.
+     * @return All users of this system who have the exact class type userType.
+     */
+    public <U extends User> PList<U> getUserListOfExactType(Class<U> userType) {
+        PList<U> result = PList.<U>empty();
+        for (User user : userList) {
+            if (user.getClass().equals(userType)) {
+                result = result.plus((U) user);
+            }
         }
-        this.userList.add(user);
+        return result;
+    }
+
+    /**
+     * Get the list of users in this system who are of type that is or extends
+     * userType.
+     *
+     * @param <U> extends User type.
+     * @param userType The type of users returned.
+     * @return All users of this system who have the exact class type userType
+     * or a class type that extends userType.
+     */
+    public <U extends User> PList<U> getUserListOfType(Class<U> userType) {
+        PList<U> result = PList.<U>empty();
+        for (User user : userList) {
+            if (userType.isInstance(user)) {
+                result = result.plus((U) user);
+            }
+        }
+        return result;
     }
 
     /**
@@ -139,29 +182,31 @@ public class DataModel {
         addUser(admin);
         return admin;
     }
-    
+
     /**
      * This method creates a new {@link Project} in the system
+     *
      * @param name The name of the project
      * @param description The description of the project
      * @param startDate The start date of the project
      * @param budget The budget estimate for this project
      * @param lead The lead developer of this project
-     * 
+     *
      * @throws IllegalArgumentException if the constructor of project fails
-     * @throws PermissionException If the given creator has insufficient permissions
-     * 
+     * @throws PermissionException If the given creator has insufficient
+     * permissions
+     *
      * @see Project#Project(String, String, Date, long, Developer)
      * @return the created project
      */
-    public Project createProject(String name, String description, Date startDate, Developer lead, long budget, User creator) 
-    		throws IllegalArgumentException, PermissionException {
-    	if (! creator.hasPermission(UserPerm.CREATE_PROJ)){
-    		throw new PermissionException("The given user doesn't have the permission to create a project");
-    	}
-    	Project project = new Project(name, description, lead, startDate, budget);
-    	this.projectList.add(project);
-    	return project;
+    public Project createProject(String name, String description, Date startDate, Developer lead, long budget, User creator)
+            throws IllegalArgumentException, PermissionException {
+        if (!creator.hasPermission(UserPerm.CREATE_PROJ)) {
+            throw new PermissionException("The given user doesn't have the permission to create a project");
+        }
+        Project project = new Project(name, description, lead, startDate, budget);
+        this.projectList = projectList.plus(project);
+        return project;
     }
 
 }

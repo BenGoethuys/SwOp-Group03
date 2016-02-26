@@ -1,6 +1,7 @@
 package bugtrap03;
 
 import bugtrap03.gui.terminal.Terminal;
+import bugtrap03.usersystem.Administrator;
 
 /**
  * 
