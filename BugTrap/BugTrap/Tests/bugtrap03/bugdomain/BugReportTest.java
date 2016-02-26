@@ -1,8 +1,10 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.Tag;
+import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;
+import bugtrap03.usersystem.Role;
 import purecollections.PList;
 import bugtrap03.bugdomain.BugReport;
 import static org.junit.Assert.*;
@@ -14,19 +16,22 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class BugReportTest {
-	//TODO FIX TAGS
-	
+	// classes for testing
 	static BugReport bugReport1;
 	static BugReport bugReport2;
 	
+	// classes for initialisation
 	static Date date;
 	static Issuer issuer;
 	static Developer dev;
+	static Developer lead;
+	static Developer programer;
+	static Developer tester;
 	static PList<BugReport> depList;
-	
 	static Project project;
 	static Subsystem subsystem;
 	
+	// static counter, for older tests that don't use getUniqueId yet
 	static int counter = 100;
 	
 	public static int getNext(){
@@ -40,9 +45,14 @@ public class BugReportTest {
 		date = new Date();
 		issuer = new Issuer("blaDitGebruiktNiemandAnders", "bla", "bla");
 		dev = new Developer("booDitGebruiktNiemandAnders", "Jan", "Smidt");
+		lead = new Developer("ditGebruiktNiemandAnders", "Jan", "Smidt");
+		programer = new Developer("ditGebruiktNiemandAnders2", "Jos", "Smidt");
+		tester = new Developer("ditGebruiktNiemandAnders3", "Jantje", "Smidt");
 		depList = PList.<BugReport>empty();
 		
-		project = new Project("ANewProject", "the description of the project", dev, 0);
+		project = new Project("ANewProject", "the description of the project", lead, 0);
+		project.setRole(lead, programer, Role.PROGRAMMER);
+		project.setRole(lead, tester, Role.TESTER);
 		subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project);
 		
 		bugReport1 = new BugReport(issuer, 1, "NastyBug", "bla bla", date, depList, subsystem);
@@ -151,19 +161,45 @@ public class BugReportTest {
 		assertEquals(Tag.NEW, bugReport2.getTag());
 	}
 	
-	//TODO new setTag function
+	@Test
+	public void testSetTag() throws IllegalArgumentException, PermissionException{
+		// Test for normal situation
+		BugReport tempBugReport = new BugReport(issuer, getNext(), "bla", "bla", depList, subsystem);
+		assertTrue(tempBugReport.getTag() == Tag.NEW);
+		tempBugReport.addUser(dev);
+		assertTrue(tempBugReport.getTag() == Tag.ASSIGNED);
+		tempBugReport.setTag(Tag.UNDER_REVIEW, programer);
+		assertTrue(tempBugReport.getTag() == Tag.UNDER_REVIEW);
+		tempBugReport.setTag(Tag.ASSIGNED, issuer);
+		assertTrue(tempBugReport.getTag() == Tag.ASSIGNED);
+		tempBugReport.setTag(Tag.UNDER_REVIEW, tester);
+		assertTrue(tempBugReport.getTag() == Tag.UNDER_REVIEW);
+		tempBugReport.setTag(Tag.RESOLVED, issuer);
+		assertTrue(tempBugReport.getTag() == Tag.RESOLVED);
+		tempBugReport.setTag(Tag.CLOSED, lead);
+	}
 	
-//	@Test
-//	public void testSetTag(){
-//		BugReport tempBugReport = new BugReport(issuer, getNext(), "bla", "bla", depList);
-//		tempBugReport.setTag(Tag.ASSIGNED);
-//		assertTrue(tempBugReport.getTag() == Tag.ASSIGNED);
-//	}
-//	
-//	@Test (expected = IllegalArgumentException.class)
-//	public void testSetInvalidTag(){
-//		bugReport1.setTag(null);
-//	}
+	@Test (expected = PermissionException.class)
+	public void testSetTagInvalid() throws IllegalArgumentException, PermissionException {
+		BugReport tempBugReport = new BugReport(issuer, getNext(), "bla", "bla", depList, subsystem);
+		tempBugReport.setTag(Tag.ASSIGNED, issuer);
+	}
+	
+	@Test (expected = PermissionException.class)
+	public void testSetTagInvalidNoPermission() throws IllegalArgumentException, PermissionException {
+		BugReport tempBugReport = new BugReport(issuer, getNext(), "bla", "bla", depList, subsystem);
+		tempBugReport.setTag(Tag.ASSIGNED, dev);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testSetInvalidTagNullPRogrammer() throws IllegalArgumentException, PermissionException{
+		bugReport1.setTag(null, programer);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testSetInvalidTagNullTester() throws IllegalArgumentException, PermissionException{
+		bugReport1.setTag(null, tester);
+	}
 
 	@Test
 	public void testIsValidTag() {
@@ -252,8 +288,6 @@ public class BugReportTest {
 //		assertFalse(tempBugReport.isValidTag(Tag.UNDER_REVIEW));
 //		assertFalse(tempBugReport.isValidTag(Tag.RESOLVED));
 	}
-	
-	//TODO move to TagTest class
 	
 	@Test
 	public void testGetCommentList(){
@@ -373,6 +407,10 @@ public class BugReportTest {
 		assertFalse(tempBugReport.isValidUser(dev));
 	}
 	
+	
+	
 	//TODO add tests for dependencies
+	
+	//TODO add tests for subsystem
 
 }
