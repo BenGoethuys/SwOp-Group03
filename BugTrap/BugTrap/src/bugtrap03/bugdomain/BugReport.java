@@ -462,7 +462,7 @@ public class BugReport {
 	 * 
 	 * @throws IllegalArgumentException if the given parameters are not valid for a comment
 	 * 
-	 * @see BugReport#Comment(Issuer, String)
+	 * @see Comment#Comment(Issuer, String)
 	 */
 	public void addComment(Issuer creator, String text) throws IllegalArgumentException {
 		this.addComment(new Comment(creator, text));

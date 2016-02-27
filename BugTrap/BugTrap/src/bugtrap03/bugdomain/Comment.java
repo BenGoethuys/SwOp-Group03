@@ -17,7 +17,7 @@ public class Comment {
 	 * 
 	 * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
 	 * 
-	 * @see isValidCreator(Issuer)
+	 * @see Comment#isValidCreator(Issuer)
 	 */
 	public Comment(Issuer issuer, String text) throws IllegalArgumentException {
 		this.setCreator(issuer);
@@ -45,8 +45,8 @@ public class Comment {
 	 * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
 	 * @throws IllegalArgumentException if the given text is not valid for this comment
 	 * 
-	 * @see isValidCreator(Issuer)
-	 * @see isValidText(String)
+	 * @see Comment#isValidCreator(Issuer)
+	 * @see Comment#isValidText(String)
 	 */
 	private void setCreator(Issuer creator) throws IllegalArgumentException {
 		if (! this.isValidCreator(creator)){
@@ -83,7 +83,7 @@ public class Comment {
 	 * 
 	 * @throws IllegalArgumentException if the given text is not valid for this comment
 	 * 
-	 * @see isValidText(String)
+	 * @see Comment#isValidText(String)
 	 */
 	private void setText(String text) throws IllegalArgumentException {
 		if (! this.isValidText(text)){
@@ -119,7 +119,7 @@ public class Comment {
 	 * 
 	 * @throws IllegalArgumentException if the given PList is not valid for this comment
 	 * 
-	 * @see isValidSubComments(PList<Comment>)
+	 * @see Comment#isValidSubComments(PList<Comment>)
 	 */
 	private void setSubComments(PList<Comment> subComments) throws IllegalArgumentException {
 		if (! isValidSubComments(subComments)){
@@ -155,7 +155,7 @@ public class Comment {
 	 * 
 	 * @throws IllegalArgumentException if the given comment is not valid for this comment
 	 * 
-	 * @see isValidSubComment(Comment)
+	 * @see Comment#isValidSubComment(Comment)
 	 */
 	protected void addSubComment(Comment comment) throws IllegalArgumentException {
 		if (! this.isValidSubComment(comment)){
