@@ -14,8 +14,22 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        Terminal terminal = new Terminal();
+        DataModel model = new DataModel();
+        DataController controller = new DataController(model);
+        
+        initDemoSystem(controller);
+        
+        Terminal terminal = new Terminal(controller);
         terminal.openView();
     }
+    
+    public static void initDemoSystem(DataController con) {
+        
+        
+        
+        
+    }
 
+            
+            
 }

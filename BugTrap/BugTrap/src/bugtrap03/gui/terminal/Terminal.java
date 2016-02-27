@@ -1,5 +1,6 @@
 package bugtrap03.gui.terminal;
 
+import bugtrap03.DataController;
 import java.util.Scanner;
 
 /**
@@ -8,9 +9,19 @@ import java.util.Scanner;
  */
 public class Terminal {
     
-    private static final String WELCOME_MESSAGE = "Welcome ";
+    
+    public Terminal(DataController con) {
+        this.con = con;
+        this.parser = new CmdParser();
+    }
+    
+    private DataController con;
+    private CmdParser parser;
     
     public void openView() {
+        
+        //Login
+        //TODO: Finish parser.getLoginCmd()
         
         Scanner scan = new Scanner(System.in);
         System.out.println(scan.hasNextInt());

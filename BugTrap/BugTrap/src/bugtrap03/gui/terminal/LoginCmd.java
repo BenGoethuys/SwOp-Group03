@@ -70,7 +70,6 @@ public class LoginCmd implements Cmd {
             this.optionMap.put(Integer.toString(i), entry.getValue());
         }
         this.optionMap.put("admin", Administrator.class);
-        this.optionMap.put("issuer", Issuer.class);
         this.optionMap.put("dev", Developer.class);
     }
 
@@ -146,5 +145,5 @@ public class LoginCmd implements Cmd {
 
         return user;
     }
-
+    
 }

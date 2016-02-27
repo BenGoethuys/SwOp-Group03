@@ -7,6 +7,7 @@ import bugtrap03.permission.UserPerm;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.User;
 import java.util.Scanner;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -46,9 +47,7 @@ public class CreateProjectCmd implements Cmd {
         }
 
         System.out.println("Create or clone a new project?");
-
         String answer = null;
-
         do {
             System.out.print("Create or clone: ");
             answer = scan.next();
@@ -56,7 +55,7 @@ public class CreateProjectCmd implements Cmd {
             if (answer.equalsIgnoreCase("create")) {
                 return createProjectScenario(scan, con, user);
             } else if (answer.equalsIgnoreCase("clone")) {
-                return cloneProject(scan, con, user);
+                return cloneProjectScenario(scan, con, user);
             } else {
                 System.out.println("Invalid input. Use create or clone.");
                 answer = null;
@@ -88,16 +87,20 @@ public class CreateProjectCmd implements Cmd {
         System.out.println("");
         //TODO: Do we use isValid (static??) to check if input is correct or
         //do we just catch the error when constructing in the end and let the user 
-        //be responsible for starting the cmd all over again.
+        //be responsible for starting the cmd all over again.$
+        
+        throw new NotImplementedException();
     }
 
     private Project cloneProjectScenario(Scanner scan, DataController con, User user) {
-
+        throw new NotImplementedException();
     }
 
     //TODO: Do we need to check if this user can assign leads?
     private Developer askLeadDeveloper(Scanner scan, DataController con) {
-
+        throw new NotImplementedException();
     }
+
+
 
 }
