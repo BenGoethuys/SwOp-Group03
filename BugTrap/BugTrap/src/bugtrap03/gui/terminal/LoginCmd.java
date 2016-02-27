@@ -39,7 +39,7 @@ public class LoginCmd implements Cmd {
      * @return The user chosen by the person to login as.
      */
     @Override
-    public Object exec(Scanner scan, DataController controller, User dummy) {
+    public User exec(Scanner scan, DataController controller, User dummy) {
         //Ask which type to login as.
         Class<? extends User> classType = getWantedUserType(scan);
         //Ask which user to login as.
