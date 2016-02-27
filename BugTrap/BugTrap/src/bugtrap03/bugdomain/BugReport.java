@@ -1,6 +1,7 @@
 package bugtrap03.bugdomain;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 
 import bugtrap03.permission.PermissionException;
@@ -40,13 +41,13 @@ public class BugReport {
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
      * @see BugReport#isValidDescription(String)
-     * @see BugReport#isValidCreationDate(Date)
+     * @see BugReport#isValidCreationDate(GregorianCalendar)
      * @see BugReport#isValidTag(Tag)
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      */
-    protected BugReport(Issuer creator, long uniqueID, String title, String description, 
-    		Date creationDate, Tag tag, PList<BugReport> dependencies, Subsystem subsystem)
+    protected BugReport(Issuer creator, long uniqueID, String title, String description,
+						GregorianCalendar creationDate, Tag tag, PList<BugReport> dependencies, Subsystem subsystem)
             throws IllegalArgumentException {
     	this.setCreator(creator);
         this.setUniqueID(uniqueID);
@@ -84,14 +85,14 @@ public class BugReport {
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
      * @see BugReport#isValidDescription(String)
-     * @see BugReport#isValidCreationDate(Date)
+     * @see BugReport#isValidCreationDate(GregorianCalendar)
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      *
      * @Ensures new.getTag() == Tag.New
      */
-    public BugReport(Issuer creator, long uniqueID, String title, String description, Date creationDate, 
-    		PList<BugReport> dependencies, Subsystem subsystem)
+    public BugReport(Issuer creator, long uniqueID, String title, String description, GregorianCalendar creationDate,
+					 PList<BugReport> dependencies, Subsystem subsystem)
             throws IllegalArgumentException {
         this(creator, uniqueID, title, description, creationDate, Tag.NEW, dependencies, subsystem);
     }
@@ -126,7 +127,7 @@ public class BugReport {
      */
     public BugReport(Issuer creator, long uniqueID, String title, String description, 
     		PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException {
-        this(creator, uniqueID, title, description, new Date(), dependencies, subsystem);
+        this(creator, uniqueID, title, description, new GregorianCalendar(), dependencies, subsystem);
     }
     
     /**
@@ -157,13 +158,13 @@ public class BugReport {
      */
     public BugReport(Issuer creator, String title, String description, 
     		PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException {
-        this(creator, BugReport.getNewUniqueID(), title, description, new Date(), dependencies, subsystem);
+        this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(), dependencies, subsystem);
     }
 
     private long uniqueID;
     private String title;
     private String description;
-    private Date creationDate;
+    private GregorianCalendar creationDate;
     private Tag tag;
     private PList<Comment> commentList;
     
@@ -307,8 +308,8 @@ public class BugReport {
      *
      * @return the creationDate
      */
-    public Date getCreationDate() {
-        return (Date) creationDate.clone();
+    public GregorianCalendar getCreationDate() {
+        return (GregorianCalendar) creationDate.clone();
     }
 
     /**
@@ -317,9 +318,9 @@ public class BugReport {
      * @param creationDate the creationDate to set
      *
      * @throws IllegalArgumentException if the given creation date is invalid
-     * @see BugReport#isValidCreationDate(Date)
+     * @see BugReport#isValidCreationDate(GregorianCalendar)
      */
-    private void setCreationDate(Date creationDate) throws IllegalArgumentException {
+    private void setCreationDate(GregorianCalendar creationDate) throws IllegalArgumentException {
         if (!this.isValidCreationDate(creationDate)) {
             throw new IllegalArgumentException("The givien creation date in bug report is a nullpointer");
         }
@@ -332,7 +333,7 @@ public class BugReport {
      * @param creationDate the Date to check
      * @return true if the date is a valid date for the bug report
      */
-    public boolean isValidCreationDate(Date creationDate) {
+    public boolean isValidCreationDate(GregorianCalendar creationDate) {
         if (creationDate == null) {
             return false;
         }
@@ -462,7 +463,7 @@ public class BugReport {
 	 * 
 	 * @throws IllegalArgumentException if the given parameters are not valid for a comment
 	 * 
-	 * @see BugReport#Comment(Issuer, String)
+	 * @see Comment#Comment(Issuer, String)
 	 */
 	public void addComment(Issuer creator, String text) throws IllegalArgumentException {
 		this.addComment(new Comment(creator, text));

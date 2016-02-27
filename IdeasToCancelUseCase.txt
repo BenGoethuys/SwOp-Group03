@@ -1,0 +1,2 @@
+1 -- to all lists add option cancel
+		then throw CancelException if cancel is chosen and only catch it in terminal

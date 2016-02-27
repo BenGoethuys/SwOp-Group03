@@ -1,15 +1,13 @@
 package bugtrap03.bugdomain;
 
-import bugtrap03.bugdomain.Tag;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;
 import bugtrap03.usersystem.Role;
 import purecollections.PList;
-import bugtrap03.bugdomain.BugReport;
 import static org.junit.Assert.*;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -21,7 +19,7 @@ public class BugReportTest {
 	static BugReport bugReport2;
 	
 	// classes for initialisation
-	static Date date;
+	static GregorianCalendar date;
 	static Issuer issuer;
 	static Developer dev;
 	static Developer lead;
@@ -42,7 +40,7 @@ public class BugReportTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		date = new Date();
+		date = new GregorianCalendar();
 		issuer = new Issuer("blaDitGebruiktNiemandAnders", "bla", "bla");
 		dev = new Developer("booDitGebruiktNiemandAnders", "Jan", "Smidt");
 		lead = new Developer("ditGebruiktNiemandAnders", "Jan", "Smidt");
