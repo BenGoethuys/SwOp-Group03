@@ -80,15 +80,15 @@ public class BugReportTest {
 
 	@Test
 	public void testIsValidUniqueID() {
-		assertFalse(bugReport1.isValidUniqueID(1));
-		assertFalse(bugReport1.isValidUniqueID(2));
+		assertFalse(BugReport.isValidUniqueID(1));
+		assertFalse(BugReport.isValidUniqueID(2));
 		
-		assertFalse(bugReport2.isValidUniqueID(1));
-		assertFalse(bugReport2.isValidUniqueID(2));
+		assertFalse(BugReport.isValidUniqueID(1));
+		assertFalse(BugReport.isValidUniqueID(2));
 		
-		assertTrue(bugReport1.isValidUniqueID(BugReport.getNewUniqueID()));
+		assertTrue(BugReport.isValidUniqueID(BugReport.getNewUniqueID()));
 		
-		assertFalse(bugReport1.isValidUniqueID(-5));
+		assertFalse(BugReport.isValidUniqueID(-5));
 	}
 
 	@Test
@@ -111,10 +111,10 @@ public class BugReportTest {
 
 	@Test
 	public void testIsValidTitle() {
-		assertTrue(bugReport1.isValidTitle("NastyBug"));
-		assertTrue(bugReport1.isValidTitle(""));
+		assertTrue(BugReport.isValidTitle("NastyBug"));
+		assertTrue(BugReport.isValidTitle(""));
 		
-		assertFalse(bugReport1.isValidTitle(null));
+		assertFalse(BugReport.isValidTitle(null));
 	}
 
 	@Test
@@ -137,10 +137,10 @@ public class BugReportTest {
 
 	@Test
 	public void testIsValidDescription() {
-		assertTrue(bugReport1.isValidDescription("bla"));
-		assertTrue(bugReport1.isValidDescription(""));
+		assertTrue(BugReport.isValidDescription("bla"));
+		assertTrue(BugReport.isValidDescription(""));
 		
-		assertFalse(bugReport1.isValidDescription(null));
+		assertFalse(BugReport.isValidDescription(null));
 	}
 
 	@Test
@@ -152,9 +152,9 @@ public class BugReportTest {
 
 	@Test
 	public void testIsValidCreationDate() {
-		assertTrue(bugReport1.isValidCreationDate(date));
+		assertTrue(BugReport.isValidCreationDate(date));
 		
-		assertFalse(bugReport1.isValidCreationDate(null));
+		assertFalse(BugReport.isValidCreationDate(null));
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
@@ -322,9 +322,9 @@ public class BugReportTest {
 		PList<Comment> validList = validListEmpty.plus(comment);
 		PList<Comment> nullPointer = null;
 		
-		assertTrue(bugReport1.isValidCommentList(validListEmpty));
-		assertTrue(bugReport1.isValidCommentList(validList));
-		assertFalse(bugReport1.isValidCommentList(nullPointer));
+		assertTrue(BugReport.isValidCommentList(validListEmpty));
+		assertTrue(BugReport.isValidCommentList(validList));
+		assertFalse(BugReport.isValidCommentList(nullPointer));
 	}
 	
 	@Test
@@ -366,8 +366,8 @@ public class BugReportTest {
 	
 	@Test
 	public void testIsValidCreator(){
-		assertTrue(bugReport1.isValidCreator(issuer));
-		assertFalse(bugReport1.isValidCreator(null));
+		assertTrue(BugReport.isValidCreator(issuer));
+		assertFalse(BugReport.isValidCreator(null));
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
@@ -390,9 +390,9 @@ public class BugReportTest {
 		PList<Developer> validList = validListEmpty.plus(dev);
 		PList<Developer> nullPointer = null;
 		
-		assertTrue(bugReport1.isValidUserList(validListEmpty));
-		assertTrue(bugReport1.isValidUserList(validList));
-		assertFalse(bugReport1.isValidUserList(nullPointer));
+		assertTrue(BugReport.isValidUserList(validListEmpty));
+		assertTrue(BugReport.isValidUserList(validList));
+		assertFalse(BugReport.isValidUserList(nullPointer));
 	}
 	
 	@Test
@@ -439,9 +439,9 @@ public class BugReportTest {
 	public void testIsValidDependencies(){
 		PList<BugReport> validDepList = depList.plus(bugReport1);
 		PList<BugReport> nullList = null;
-		assertTrue(bugReport1.isValidDependencies(depList));
-		assertTrue(bugReport1.isValidDependencies(validDepList));
-		assertFalse(bugReport1.isValidDependencies(nullList));
+		assertTrue(BugReport.isValidDependencies(depList));
+		assertTrue(BugReport.isValidDependencies(validDepList));
+		assertFalse(BugReport.isValidDependencies(nullList));
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
@@ -456,8 +456,8 @@ public class BugReportTest {
 	
 	@Test
 	public void testIsValidSubsystem(){
-		assertTrue(bugReport1.isValidSubsystem(subsystem));
-		assertFalse(bugReport1.isValidSubsystem(null));
+		assertTrue(BugReport.isValidSubsystem(subsystem));
+		assertFalse(BugReport.isValidSubsystem(null));
 	}
 	
 	@Test (expected = IllegalArgumentException.class)

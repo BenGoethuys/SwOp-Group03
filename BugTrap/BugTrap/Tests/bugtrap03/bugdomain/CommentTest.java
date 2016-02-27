@@ -72,8 +72,8 @@ public class CommentTest {
 	 */
 	@Test
 	public void testIsValidCreator() {
-		assertTrue(comment1.isValidCreator(issuer));
-		assertFalse(comment1.isValidCreator(null));
+		assertTrue(Comment.isValidCreator(issuer));
+		assertFalse(Comment.isValidCreator(null));
 	}
 
 	/**
@@ -89,8 +89,8 @@ public class CommentTest {
 	 */
 	@Test
 	public void testIsValidText() {
-		assertTrue(comment1.isValidText(text));
-		assertFalse(comment1.isValidText(null));
+		assertTrue(Comment.isValidText(text));
+		assertFalse(Comment.isValidText(null));
 	}
 
 	/**

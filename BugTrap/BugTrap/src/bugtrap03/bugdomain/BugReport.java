@@ -207,7 +207,7 @@ public class BugReport {
      * @see BugReport#isValidUniqueID(long)
      */
     private void setUniqueID(long uniqueID) throws IllegalArgumentException {
-        this.isValidUniqueID(uniqueID);
+        BugReport.isValidUniqueID(uniqueID);
         BugReport.allTakenIDs.add(uniqueID);
         this.uniqueID = uniqueID;
     }
@@ -220,7 +220,7 @@ public class BugReport {
      * @return true if the key is not taken at this point and is a valid ID for
      * a bug report
      */
-    public boolean isValidUniqueID(long uniqueID) {
+    public static boolean isValidUniqueID(long uniqueID) {
         if (BugReport.allTakenIDs.contains(uniqueID)) {
             return false;
         }
@@ -248,7 +248,7 @@ public class BugReport {
      * @see BugReport#isValidTitle(String)
      */
     public void setTitle(String title) throws IllegalArgumentException {
-        if (!this.isValidTitle(title)) {
+        if (! BugReport.isValidTitle(title)) {
             throw new IllegalArgumentException("The given title for the bug report is not valid");
         }
         this.title = title;
@@ -261,7 +261,7 @@ public class BugReport {
      * @param title the argument to check
      * @return true if the argument is a valid argument
      */
-    public boolean isValidTitle(String title) {
+    public static boolean isValidTitle(String title) {
         if (title == null) {
             return false;
         }
@@ -284,7 +284,7 @@ public class BugReport {
      * @see BugReport#isValidDescription(String)
      */
     public void setDescription(String description) throws IllegalArgumentException {
-        if (!this.isValidDescription(description)) {
+        if (! BugReport.isValidDescription(description)) {
             throw new IllegalArgumentException("The description given for the bug report is invalid");
         }
         this.description = description;
@@ -296,7 +296,7 @@ public class BugReport {
      * @param description the description to check
      * @return true if the description is valid
      */
-    public boolean isValidDescription(String description) {
+    public static boolean isValidDescription(String description) {
         if (description == null) {
             return false;
         }
@@ -321,7 +321,7 @@ public class BugReport {
      * @see BugReport#isValidCreationDate(GregorianCalendar)
      */
     private void setCreationDate(GregorianCalendar creationDate) throws IllegalArgumentException {
-        if (!this.isValidCreationDate(creationDate)) {
+        if (! BugReport.isValidCreationDate(creationDate)) {
             throw new IllegalArgumentException("The givien creation date in bug report is a nullpointer");
         }
         this.creationDate = creationDate;
@@ -333,7 +333,7 @@ public class BugReport {
      * @param creationDate the Date to check
      * @return true if the date is a valid date for the bug report
      */
-    public boolean isValidCreationDate(GregorianCalendar creationDate) {
+    public static boolean isValidCreationDate(GregorianCalendar creationDate) {
         if (creationDate == null) {
             return false;
         }
@@ -427,7 +427,7 @@ public class BugReport {
 	 * 
 	 * @return true if the given PList is valid for this bug report
 	 */
-	protected boolean isValidCommentList(PList<Comment> commentList){
+	protected static boolean isValidCommentList(PList<Comment> commentList){
 		if (commentList == null){
 			return false;
 		}
@@ -509,7 +509,7 @@ public class BugReport {
 	 * @param creator the creator to check
 	 * @return true if the given creator is a valid creator
 	 */
-	public boolean isValidCreator(Issuer creator){
+	public static boolean isValidCreator(Issuer creator){
 		if (creator == null){
 			return false;
 		}
@@ -537,7 +537,7 @@ public class BugReport {
 	 * @param userList the list of developers for this bug report
 	 * @return true if the given list is a valid list of developers
 	 */
-	public boolean isValidUserList(PList<Developer> userList){
+	public static boolean isValidUserList(PList<Developer> userList){
 		if (userList == null){
 			return false;
 		}
@@ -596,7 +596,7 @@ public class BugReport {
 	 * @param dependencies the dependencies to set for this bug report
 	 */
 	private void setDependencies(PList<BugReport> dependencies) throws IllegalArgumentException {
-		if (! this.isValidDependencies(dependencies)){
+		if (! BugReport.isValidDependencies(dependencies)){
 			throw new IllegalArgumentException("The given dependency list is invalid for this bug report");
 		}
 		this.dependencies = dependencies;
@@ -607,7 +607,7 @@ public class BugReport {
 	 * @param dependencies to check
 	 * @return true if the given list is valid for this bug report
 	 */
-	public boolean isValidDependencies(PList<BugReport> dependencies){
+	public static boolean isValidDependencies(PList<BugReport> dependencies){
 		if (dependencies == null){
 			return false;
 		}
@@ -631,7 +631,7 @@ public class BugReport {
 	 * @see BugReport#isValidSubsystem(Subsystem)
 	 */
 	private void setSubsystem(Subsystem subsystem) throws IllegalArgumentException {
-		if (! this.isValidSubsystem(subsystem)){
+		if (! BugReport.isValidSubsystem(subsystem)){
 			throw new IllegalArgumentException("The given subsystem is invalid for this bug report");
 		}
 		this.subsystem = subsystem;
@@ -642,7 +642,7 @@ public class BugReport {
 	 * @param subsystem the subsystem to check
 	 * @return true if the given subsystem is valid for this bug report
 	 */
-	public boolean isValidSubsystem(Subsystem subsystem){
+	public static boolean isValidSubsystem(Subsystem subsystem){
 		if (subsystem == null){
 			return false;
 		}

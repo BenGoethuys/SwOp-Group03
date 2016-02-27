@@ -49,7 +49,7 @@ public class Comment {
 	 * @see Comment#isValidText(String)
 	 */
 	private void setCreator(Issuer creator) throws IllegalArgumentException {
-		if (! this.isValidCreator(creator)){
+		if (! Comment.isValidCreator(creator)){
 			throw new IllegalArgumentException("The given Issuer is not a valid creator for this comment");
 		}
 		this.creator = creator;
@@ -61,7 +61,7 @@ public class Comment {
 	 * 
 	 * @return true if the creator is a valid creator
 	 */
-	public boolean isValidCreator(Issuer creator){
+	public static boolean isValidCreator(Issuer creator){
 		if (creator == null){
 			return false;
 		}
@@ -86,7 +86,7 @@ public class Comment {
 	 * @see Comment#isValidText(String)
 	 */
 	private void setText(String text) throws IllegalArgumentException {
-		if (! this.isValidText(text)){
+		if (! Comment.isValidText(text)){
 			throw new IllegalArgumentException("The given text is not valid for this comment");
 		}
 		this.text = text;
@@ -98,7 +98,7 @@ public class Comment {
 	 * 
 	 * @return true if the given text is a valid text for this comment
 	 */
-	public boolean isValidText(String text){
+	public static boolean isValidText(String text){
 		if (text == null){
 			return false;
 		}
