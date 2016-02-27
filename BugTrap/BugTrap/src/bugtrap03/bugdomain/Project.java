@@ -315,19 +315,23 @@ public class Project extends AbstractSystem {
 		}
 	}
 	
-	/**
-	 * //TODO heading
-	 * @param user
-	 * @param dev
-	 * @param role
-	 * @throws PermissionException
-	 */
-	public void setRole(User user, Developer dev, Role role) throws PermissionException {
-		if (! this.hasPermission(user, role.getNeededPerm())){
-			throw new PermissionException("The given user doesn't have the needed permission to set the role");
-		}
-		this.setRole(dev, role);
-	}
+    /**
+     * //TODO heading
+     *
+     * @param user
+     * @param dev
+     * @param role
+     * @throws PermissionException
+     */
+    public void setRole(User user, Developer dev, Role role) throws IllegalArgumentException, PermissionException {
+        if (user == null) {
+            throw new IllegalArgumentException("setRole(User, Developer, Role) does not allow a null-reference for user.");
+        }
+        if (!user.hasRolePermission(role.getNeededPerm(), this)) {
+            throw new PermissionException("The given user doesn't have the needed permission to set the role");
+        }
+        this.setRole(dev, role);
+    }
 	
 	/**
 	 * This method returns all the roles associated with the developers of this project
@@ -337,27 +341,7 @@ public class Project extends AbstractSystem {
 	 */
 	public PList<Role> getAllRolesDev(Developer dev) {
 		return this.projectParticipants.get(dev);
-	}
-	
-	/**
-	 * This method checks if the given user has the requested permission for this subsystem
-	 * @param user the user to check
-	 * @param perm the requested permission
-	 * 
-	 * @return true if the user has the requested permission
-	 */
-	public boolean hasPermission(User user, RolePerm perm) {
-		if (user == null){
-			return false;
-		}
-		if (! (user instanceof Developer)){
-			return false;
-		}
-		if (! this.hasPermission((Developer) user, perm)){
-			return false;
-		}
-		return true;
-	}
+        }
 	
 	/**
 	 * This method checks if the given developer has the requested permission for this subsystem
@@ -366,6 +350,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @return true if the developer has the requested permission
 	 */
+        @Override
 	public boolean hasPermission(Developer dev, RolePerm perm){
 		PList<Role> roleList = this.projectParticipants.get(dev);
 		if (roleList == null){

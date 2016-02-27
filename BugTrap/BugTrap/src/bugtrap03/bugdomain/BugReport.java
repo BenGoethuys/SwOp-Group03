@@ -361,15 +361,11 @@ public class BugReport {
     	if (issuer == this.getCreator() && this.getTag() == Tag.UNDER_REVIEW && (tag == Tag.ASSIGNED || tag == Tag.RESOLVED)){
     		this.setTag(tag);
     	} else if (tag == null){
-            throw new IllegalArgumentException("The given tag for bug report is not valid for this state of the bug report");
-    	} else if (issuer instanceof Developer){
-    		if (! this.getSubsystem().hasPermission((Developer) issuer, tag.getNeededPerm())){
-    			throw new PermissionException("The given issuer doens't have the needed permission to change the tag of this bug report");
-    		} else {
-    			this.setTag(tag);
-    		}
-    	} else {
+                throw new IllegalArgumentException("The given tag for bug report is not valid for this state of the bug report");
+    	} else if(! issuer.hasRolePermission(tag.getNeededPerm(), this.getSubsystem().getParentProject())) {
     		throw new PermissionException("The given issuer doens't have the needed permission to change the tag of this bug report");
+    	} else {
+    		this.setTag(tag);
     	}
     }
     

@@ -1,5 +1,8 @@
 package bugtrap03.usersystem;
 
+import bugtrap03.bugdomain.Project;
+import bugtrap03.permission.RolePerm;
+
 /**
  * 
  * @author Admin
@@ -34,6 +37,17 @@ public class Developer extends Issuer {
      */
     public Developer(String uniqueUsername, String firstName, String lastName) throws IllegalArgumentException {
         super(uniqueUsername, firstName, lastName);
+    }
+    
+    /**
+     * TODO: Heading - check User.
+     * @param perm
+     * @param project
+     * @return 
+     */
+    @Override
+    public boolean hasRolePermission(RolePerm perm, Project project) {
+        return project.hasPermission(this, perm);
     }
 
 }

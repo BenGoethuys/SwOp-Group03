@@ -1,5 +1,7 @@
 package bugtrap03.usersystem;
 
+import bugtrap03.bugdomain.Project;
+import bugtrap03.permission.RolePerm;
 import java.util.HashSet;
 
 import bugtrap03.permission.UserPerm;
@@ -218,4 +220,13 @@ public abstract class User {
     	return false;
     }
 
+    /**
+     * TODO: headings
+     * @param perm
+     * @param project
+     * @return 
+     */
+    public boolean hasRolePermission(RolePerm perm, Project project) {
+        return false;
+    }
 }
