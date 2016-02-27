@@ -8,6 +8,7 @@ import bugtrap03.permission.RolePerm;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Role;
 import bugtrap03.usersystem.User;
+import java.util.GregorianCalendar;
 import purecollections.PList;
 
 /**
@@ -42,7 +43,7 @@ public class Project extends AbstractSystem {
 	 * @see Project#isValidBudgetEstimate(long)
 	 * 
 	 */
-	public Project(VersionID version, String name, String description, Date creationDate, Developer lead, Date startDate,
+	public Project(VersionID version, String name, String description, GregorianCalendar creationDate, Developer lead, GregorianCalendar startDate,
 			long budgetEstimate) throws IllegalArgumentException {
 		super(version, name, description);
 		this.setCreationDate(creationDate);
@@ -71,9 +72,9 @@ public class Project extends AbstractSystem {
 	 * @see Project#isValidBudgetEstimate(long)
 	 * 
 	 */
-	public Project(VersionID version, String name, String description, Developer lead, Date startDate,
+	public Project(VersionID version, String name, String description, Developer lead, GregorianCalendar startDate,
 			long budgetEstimate) throws IllegalArgumentException {
-		this(version, name, description, new Date(), lead, startDate, budgetEstimate);
+		this(version, name, description, new GregorianCalendar(), lead, startDate, budgetEstimate);
 	}
 	
 	/**
@@ -94,10 +95,10 @@ public class Project extends AbstractSystem {
 	 * @see Project#isValidBudgetEstimate(long)
 	 * 
 	 */
-	public Project(String name, String description, Developer lead, Date startDate,
+	public Project(String name, String description, Developer lead, GregorianCalendar startDate,
 			long budgetEstimate) throws IllegalArgumentException {
 		super(name, description);
-		this.setCreationDate(new Date());
+		this.setCreationDate(new GregorianCalendar());
 		this.projectParticipants = new HashMap<>();
 		this.setLead(lead);
 		this.setStartDate(startDate);
@@ -123,16 +124,16 @@ public class Project extends AbstractSystem {
 	public Project(String name, String description, Developer lead, long budgetEstimate) 
 			throws IllegalArgumentException {
 		super(name, description);
-		this.setCreationDate(new Date());
+		this.setCreationDate(new GregorianCalendar());
 		this.projectParticipants = new HashMap<>();
 		this.setLead(lead);
-		this.setStartDate(new Date());
+		this.setStartDate(new GregorianCalendar());
 		this.setBudgetEstimate(budgetEstimate);
 	}
 	
 	private Developer lead;
-	private Date creationDate;
-	private Date startDate;
+	private GregorianCalendar creationDate;
+	private GregorianCalendar startDate;
 	private HashMap<Developer, PList<Role>> projectParticipants;
 	private long budgetEstimate;
 	
@@ -181,7 +182,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @return The start date of the project.
 	 */
-	public Date getStartDate() {
+	public GregorianCalendar getStartDate() {
 		return startDate;
 	}
 
@@ -194,7 +195,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @see Project#isValidStartDate(Date, Date)
 	 */
-	private void setStartDate(Date startDate) throws IllegalArgumentException {
+	private void setStartDate(GregorianCalendar startDate) throws IllegalArgumentException {
 		if (!isValidStartDate(this.creationDate, startDate)) {
 			throw new IllegalArgumentException("The project hasn't a valid creation and start date");
 		}
@@ -209,7 +210,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @return True if creation date <= start date.
 	 */
-	public boolean isValidStartDate(Date creationDate, Date startDate) {
+	public boolean isValidStartDate(GregorianCalendar creationDate, GregorianCalendar startDate) {
 		if (creationDate == null || startDate == null) {
 			return false;
 		}
@@ -224,7 +225,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @return The creation date of the project.
 	 */
-	public Date getCreationDate() {
+	public GregorianCalendar getCreationDate() {
 		return creationDate;
 	}
 
@@ -237,7 +238,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @see Project#isValidCreationDate(Date)
 	 */
-	private void setCreationDate(Date creationDate) throws IllegalArgumentException {
+	private void setCreationDate(GregorianCalendar creationDate) throws IllegalArgumentException {
 		if (! this.isValidCreationDate(creationDate)){
 			throw new IllegalArgumentException("The given creation date is invalid for this project");
 		}
@@ -249,7 +250,7 @@ public class Project extends AbstractSystem {
 	 * @param date the date to check
 	 * @return true if the given date is valid
 	 */
-	public boolean isValidCreationDate(Date date){
+	public boolean isValidCreationDate(GregorianCalendar date){
 		if (date == null){
 			return false;
 		}
