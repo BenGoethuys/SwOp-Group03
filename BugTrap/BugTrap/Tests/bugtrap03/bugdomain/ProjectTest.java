@@ -5,14 +5,13 @@ package bugtrap03.bugdomain;
 
 import static org.junit.Assert.*;
 
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.VersionID;
+import java.util.GregorianCalendar;
 
 /**
  * @author Mathias
@@ -22,15 +21,15 @@ public class ProjectTest {
 
 	static Project project;
 	static Project projectFail;
-	static Date startDate;
-	static Date creationDate;
+	static GregorianCalendar startDate;
+	static GregorianCalendar creationDate;
 	static VersionID version;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		version = new VersionID(1, 0, 0);
-		startDate = new Date();
-		creationDate = new Date();
+		startDate = new GregorianCalendar();
+		creationDate = new GregorianCalendar();
 
 		project = new Project(version, "test", "testproject", creationDate, startDate);
 	}
@@ -49,17 +48,11 @@ public class ProjectTest {
 	@Test
 	public void testGetStartDate() {
 		assertEquals(project.getStartDate(), startDate);
-
-		Date date = new Date(10000000);
-		assertNotEquals(project.getStartDate(), date);
 	}
 
 	@Test
 	public void testGetCreationDate() {
 		assertEquals(project.getCreationDate(), creationDate);
-
-		Date date = new Date(10000000);
-		assertNotEquals(project.getCreationDate(), date);
 	}
 
 	@Test

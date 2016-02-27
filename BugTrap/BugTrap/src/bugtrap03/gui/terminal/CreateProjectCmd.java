@@ -6,6 +6,9 @@ import bugtrap03.permission.PermissionException;
 import bugtrap03.permission.UserPerm;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.User;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -26,7 +29,7 @@ public class CreateProjectCmd implements Cmd {
      * <br> a5. Ask user the lead developer by providing a list of
      * possibilities.
      * <br> a6. Show the user the details of the created project.
-     * <br> b) Clone project
+     * <br> b) Clone project (without BugReports)
      * <br> b1. Ask user which project by providing a list of possibilities.
      * <br> b2. Ask user the version number
      * <br> b3. Ask user the starting date
@@ -50,7 +53,7 @@ public class CreateProjectCmd implements Cmd {
         String answer = null;
         do {
             System.out.print("Create or clone: ");
-            answer = scan.next();
+            answer = scan.nextLine();
 
             if (answer.equalsIgnoreCase("create")) {
                 return createProjectScenario(scan, con, user);
@@ -84,11 +87,40 @@ public class CreateProjectCmd implements Cmd {
      * permissions to create/clone a project.
      */
     private Project createProjectScenario(Scanner scan, DataController con, User user) {
-        System.out.println("");
-        //TODO: Do we use isValid (static??) to check if input is correct or
-        //do we just catch the error when constructing in the end and let the user 
-        //be responsible for starting the cmd all over again.$
+        //Project name
+        System.out.print("Project name:");
+        String projName = scan.nextLine();
         
+        //Project description
+        System.out.print("Project description:");
+        String projDesc = scan.nextLine();
+        System.out.println(projDesc);
+
+        //Project start date
+        Calendar projStartDate = null;
+        do {
+            System.out.print("Project starting date (YYYY-MM-DD):");
+            String[] projDateStr = scan.nextLine().split("-");
+            try {
+                projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]), Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
+            } catch(IndexOutOfBoundsException | NumberFormatException e) {
+                System.out.println("Invalid input.");
+            }
+        } while (projStartDate == null);
+        
+        //Project budget estimate
+        Integer projBudgetEstimate = null;
+        do {
+            System.out.print("Project budget estimate:");
+            try {
+            projBudgetEstimate = Integer.parseInt(scan.nextLine());
+            } catch(NumberFormatException e) {
+                System.out.println("Invalid input.");
+            }
+        } while (projBudgetEstimate == null);
+        
+        
+
         throw new NotImplementedException();
     }
 
@@ -100,7 +132,5 @@ public class CreateProjectCmd implements Cmd {
     private Developer askLeadDeveloper(Scanner scan, DataController con) {
         throw new NotImplementedException();
     }
-
-
 
 }
