@@ -354,10 +354,11 @@ public class BugReportTest {
 		
 		tempBugReport = new BugReport(issuer, getNext(), "bla", "bla", depList, subsystem);
 		assertTrue(tempBugReport.getCommentList().isEmpty());
-		tempBugReport.addComment(issuer, "Bla");
+		Comment returnComment = tempBugReport.addComment(issuer, "Bla");
 		assertFalse(tempBugReport.getCommentList().isEmpty());
 		assertTrue(tempBugReport.getCommentList().getFirst().getCreator() == issuer);
 		assertTrue(tempBugReport.getCommentList().getFirst().getText() == "Bla");
+		assertEquals(tempBugReport.getCommentList().getFirst(), returnComment);
 	}
 	
 	@Test (expected = IllegalArgumentException.class)

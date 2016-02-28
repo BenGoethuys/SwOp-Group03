@@ -1,7 +1,6 @@
 package bugtrap03.bugdomain;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
@@ -462,11 +461,12 @@ public class BugReport {
 	 * 
 	 * @see BugReport#isValidComment(Comment)
 	 */
-	protected void addComment(Comment comment) throws IllegalArgumentException {
+	protected Comment addComment(Comment comment) throws IllegalArgumentException {
 		if (! this.isValidComment(comment)){
 			throw new IllegalArgumentException("The given comment is not a valid comment for this bug report");
 		}
 		this.commentList = this.getCommentList().plus(comment);
+		return comment;
 	}
 	
 	/**
@@ -478,8 +478,8 @@ public class BugReport {
 	 * 
 	 * @see Comment#Comment(Issuer, String)
 	 */
-	public void addComment(Issuer creator, String text) throws IllegalArgumentException {
-		this.addComment(new Comment(creator, text));
+	public Comment addComment(Issuer creator, String text) throws IllegalArgumentException {
+		return this.addComment(new Comment(creator, text));
 	}
 	
 	/**

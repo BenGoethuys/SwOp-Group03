@@ -172,11 +172,12 @@ public class Comment {
 	 * 
 	 * @see Comment#isValidSubComment(Comment)
 	 */
-	protected void addSubComment(Comment comment) throws IllegalArgumentException {
+	protected Comment addSubComment(Comment comment) throws IllegalArgumentException {
 		if (! this.isValidSubComment(comment)){
 			throw new IllegalArgumentException("The given comment is not a valid sub-comment for this comment");
 		}
 		this.SubComments = this.SubComments.plus(comment);
+		return comment;
 	}
 	
 	/**
@@ -188,8 +189,8 @@ public class Comment {
 	 * 
 	 * @see Comment(Issuer, String)
 	 */
-	public void addSubComment(Issuer creator, String text) throws IllegalArgumentException {
-		this.addSubComment(new Comment(creator, text));
+	public Comment addSubComment(Issuer creator, String text) throws IllegalArgumentException {
+		return this.addSubComment(new Comment(creator, text));
 	}
 	
 	/**

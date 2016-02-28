@@ -61,5 +61,12 @@ public class DataController {
     public <U extends User> PList<U> getUsersOfExactType(Class<U> userType) {
         return model.getUserListOfExactType(userType);
     }
+    
+    /**
+     * @see DataModel#getProjectList()
+     */
+    public PList<Project> getProjectList(){
+    	return this.model.getProjectList();
+    }
 
 }
