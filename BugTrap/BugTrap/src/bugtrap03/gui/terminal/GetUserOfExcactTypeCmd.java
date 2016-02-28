@@ -53,7 +53,7 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
             return null;
         }
 
-        System.out.println("Available of chosen type:");
+        System.out.println("Available options:");
         for (int i = 0; i < usersOfType.size(); i++) {
             System.out.println(i + ". " + usersOfType.get(i).getUsername());
         }
