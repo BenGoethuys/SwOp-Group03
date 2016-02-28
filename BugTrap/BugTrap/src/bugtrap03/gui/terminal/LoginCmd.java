@@ -8,9 +8,7 @@ import bugtrap03.usersystem.User;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
-import purecollections.PList;
 
 /**
  *
@@ -18,6 +16,7 @@ import purecollections.PList;
  */
 public class LoginCmd implements Cmd {
 
+    //TODO: Header
     public LoginCmd(Terminal terminal) {
         this.terminal = terminal;
         initLoginInfo();
@@ -39,16 +38,19 @@ public class LoginCmd implements Cmd {
      * @param dummy Dummy, as the person isn't a specific user yet. Use
      * whatever.
      * @return The user chosen by the person to login as.
+     * 
+     * @throws CancelException When the cancel operation was executed.
+     *
      */
     @Override
-    public User exec(Scanner scan, DataController controller, User dummy) {
+    public User exec(Scanner scan, DataController controller, User dummy) throws CancelException {
         //Login
         User user;
         do {
             //Ask which type to login as.
             Class<? extends User> classType = getWantedUserType(scan);
             //Ask which user to login as.
-            user = getWantedUserOfType(scan, controller, classType);
+            user = (new GetUserOfExcactTypeCmd<>(classType)).exec(scan, controller, dummy);
         } while (user == null);
 
         terminal.setUser(user);
@@ -64,7 +66,6 @@ public class LoginCmd implements Cmd {
      * login as, as well as a map linking all input values to the associated
      * answer.
      */
-
     private void initLoginInfo() {
         //Create Entries linking what to print with a certain class.
         this.classList = new ArrayList();
@@ -112,57 +113,4 @@ public class LoginCmd implements Cmd {
 
         return (Class<U>) chosenClass;
     }
-
-    /**
-     * Get the user the person wants to login as. This asks the person which
-     * user to login as by presenting him a list of users of the class,
-     * classType (classType, subclasses excluded).
-     *
-     * @param <U> extends User, The type of the user to login as.
-     *
-     * @param scan The {@link Scanner} used to interact with the person.
-     * @param con The controller used to get access to the model.
-     * @param classType The class type of the possible users to login as.
-     * (classType, excludes subclass).
-     * @return The user to login as. Null if there was no option of that type.
-     */
-    private <U extends User> U getWantedUserOfType(Scanner scan, DataController con, Class<U> classType) {
-        //Print available user options of given type
-        PList<U> usersOfType = con.getUsersOfExactType(classType);
-        
-        if(usersOfType.isEmpty()) {
-            System.out.println("No users of this type found. Please chose another type.");
-            return null;
-        }
-        
-        System.out.println("Available of chosen type:");
-        for (int i = 0; i < usersOfType.size(); i++) {
-            System.out.println(i + ". " + usersOfType.get(i).getUsername());
-        }
-
-        //Retrieve & process user input.
-        U user = null;
-        do {
-            System.out.print("I chose: ");
-            if (scan.hasNextInt()) { //by index
-                int index = scan.nextInt();//input
-                scan.nextLine();
-                if (index >= 0 && index < usersOfType.size()) {
-                    user = usersOfType.get(index);
-                } else {
-                    System.out.println("Invalid input.");
-                }
-            } else { //by username
-                String input = scan.nextLine(); //input
-                try {
-                    user = usersOfType.parallelStream().filter(u -> u.getUsername().equals(input)).findFirst().get();
-                } catch (NoSuchElementException ex) {
-                    System.out.println("Invalid input.");
-                }
-            }
-        } while (user == null);
-
-        return user;
-    }
-
 }
