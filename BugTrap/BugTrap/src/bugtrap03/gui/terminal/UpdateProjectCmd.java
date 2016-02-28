@@ -70,7 +70,7 @@ public class UpdateProjectCmd implements Cmd {
 				} else {
 					System.out.println("Invalid input.");
 				}
-			} else { // by username
+			} else { // by name
 				String input = scan.nextLine(); // input
 				try {
 					proj = projectList.parallelStream().filter(u -> u.getName().equals(input)).findFirst().get();
@@ -90,7 +90,7 @@ public class UpdateProjectCmd implements Cmd {
 		do {
 			System.out.println("Give new name: (leave blank for old name)");
 			newName = scan.nextLine();
-			if (newName == "") {
+			if (newName.equalsIgnoreCase("")) {
 				done = true;
 				System.out.println("The name was not updated.");
 			} else {
@@ -109,8 +109,8 @@ public class UpdateProjectCmd implements Cmd {
 		done = false;
 		do {
 			System.out.println("Give new description: (leave blank for old description)");
-			newName = scan.nextLine();
-			if (newName == "") {
+			newDesc = scan.nextLine();
+			if (newDesc.equalsIgnoreCase("")) {
 				done = true;
 				System.out.println("Description not updated.");
 			} else {
@@ -130,9 +130,9 @@ public class UpdateProjectCmd implements Cmd {
 		String[] projDateStr;
 		done = false;
 		do {
-			System.out.print("Give new project starting date (YYYY-MM-DD): (leave blank for old date");
+			System.out.println("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
 			dateStr = scan.nextLine();
-			if (dateStr == "") {
+			if (dateStr.equalsIgnoreCase("")) {
 				done = true;
 				System.out.println("Start date not updated.");
 			} else {
@@ -142,6 +142,7 @@ public class UpdateProjectCmd implements Cmd {
 							Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
 					proj.setCreationDate(projStartDate);
 					done = true;
+					//TODO find better string rep for creationdate!
 					System.out.println("The new creation date of the prject: " + proj.getStartDate().toString());
 				} catch (IndexOutOfBoundsException | IllegalArgumentException e) {
 					System.out.println("Invalid input. Please try again");
@@ -154,9 +155,9 @@ public class UpdateProjectCmd implements Cmd {
 		String str;
 		done = false;
 		do {
-			System.out.print("Give new project budget estimate:");
+			System.out.println("Give new project budget estimate:");
 			str = scan.nextLine();
-			if (str == "") {
+			if (str.equalsIgnoreCase("")) {
 				done = true;
 				System.out.println("Buget estimate not updated.");
 			} else {
