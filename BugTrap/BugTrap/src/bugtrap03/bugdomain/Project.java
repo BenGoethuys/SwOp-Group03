@@ -218,6 +218,24 @@ public class Project extends AbstractSystem {
 		}
 		return false;
 	}
+	
+	/**
+	 * This method checks the validity of the start date.
+	 * 
+	 * @param creationDate The creation date.
+	 * @param startDate The start date.
+	 * 
+	 * @return True if creation date <= start date.
+	 */
+	public boolean isValidStartDate(GregorianCalendar startDate) {
+		if (startDate == null) {
+			return false;
+		}
+		if (this.creationDate.before(startDate) || this.creationDate.compareTo(startDate) == 0) {
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * This is a getter for the CreationDate variable.
@@ -237,7 +255,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @see Project#isValidCreationDate(GregorianCalendar)
 	 */
-	private void setCreationDate(GregorianCalendar creationDate) throws IllegalArgumentException {
+	public void setCreationDate(GregorianCalendar creationDate) throws IllegalArgumentException {
 		if (! this.isValidCreationDate(creationDate)){
 			throw new IllegalArgumentException("The given creation date is invalid for this project");
 		}
@@ -260,7 +278,7 @@ public class Project extends AbstractSystem {
 	 * //TODO
 	 * @return
 	 */
-	protected long getBudgetEstimate() {
+	public long getBudgetEstimate() {
 		return this.budgetEstimate;
 	}
 
@@ -269,7 +287,7 @@ public class Project extends AbstractSystem {
 	 * @param budgetEstimate
 	 * @throws IllegalArgumentException
 	 */
-	private void setBudgetEstimate(long budgetEstimate) throws IllegalArgumentException {
+	public void setBudgetEstimate(long budgetEstimate) throws IllegalArgumentException {
 		if (!isValidBudgetEstimate(budgetEstimate)) {
 			throw new IllegalArgumentException("invalid budgetestimate");
 		}

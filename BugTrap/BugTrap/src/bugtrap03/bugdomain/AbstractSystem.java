@@ -70,7 +70,7 @@ public abstract class AbstractSystem {
 	 * @param version The versionID of the project.
 	 * @throws NullPointerException //TODO
 	 */
-	private void setVersionID(VersionID version) throws NullPointerException {
+	public void setVersionID(VersionID version) throws NullPointerException {
 		if (version != null) {
 			this.version = version;
 		} else {
@@ -93,7 +93,7 @@ public abstract class AbstractSystem {
 	 * @param name The name of the project.
 	 * @throws IllegalArgumentException //TODO
 	 */
-	private void setName(String name) throws IllegalArgumentException {
+	public void setName(String name) throws IllegalArgumentException {
 		if (isValidName(name)) {
 			this.name = name;
 		} else {
@@ -128,7 +128,7 @@ public abstract class AbstractSystem {
 	 * @param description The description of the project.
 	 * @throws IllegalArgumentException //TODO
 	 */
-	private void setDescription(String description) throws IllegalArgumentException {
+	public void setDescription(String description) throws IllegalArgumentException {
 		//TODO check null !
 		//TODO make separate isValid function
 		if (description != "") {
@@ -151,7 +151,7 @@ public abstract class AbstractSystem {
 		return this.childs;
 	}
 
-	protected void makeSubsystemChild(VersionID version, String name, String description){
+	public void makeSubsystemChild(VersionID version, String name, String description){
 		Subsystem newChild = new Subsystem(version, name, description, this);
 		this.addChild(newChild);
 	}
