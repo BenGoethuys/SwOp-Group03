@@ -79,6 +79,7 @@ public class Terminal {
         //Query
         String input;
         while (true) {
+        	System.out.println("Give new command");
             try {
                 input = scan.nextLine();
                 parser.performCmd(scan, con, user, input);
