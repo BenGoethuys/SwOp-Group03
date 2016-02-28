@@ -107,7 +107,23 @@ public class CommentTest {
 		assertTrue(comment.getSubComments().contains(comment2));
 	}
 
-	//TODO add test for getAllComments
+	@Test
+	public void testGetAllComments(){
+		Comment comment = new Comment(issuer, "bla bla");
+		assertTrue(comment.getSubComments().isEmpty());
+		assertTrue(comment.getAllComments().contains(comment));
+		assertEquals(comment.getAllComments().size(), 1);
+
+		Comment comment2 = new Comment(issuer, "hihi");
+		comment.addSubComment(comment2);
+		assertTrue(comment.getSubComments().contains(comment2));
+		assertTrue(comment.getAllComments().contains(comment2));
+
+		Comment comment3 = new Comment(issuer, "hoho");
+		comment2.addSubComment(comment3);
+		assertFalse(comment.getSubComments().contains(comment3));
+		assertTrue(comment.getAllComments().contains(comment3));
+	}
 
 	/**
 	 * Test method for {@link bugtrap03.bugdomain.Comment#isValidSubComments(purecollections.PList)}.

@@ -315,7 +315,22 @@ public class BugReportTest {
 		assertTrue(bugReport1.getCommentList().contains(comment));
 	}
 
-	//TODO add test for getAllComments
+	@Test
+	public void testGetAllComments(){
+		BugReport tempBugReport = new BugReport(issuer, "bla", "hihi", depList, subsystem);
+		assertTrue(tempBugReport.getCommentList().isEmpty());
+		assertTrue(tempBugReport.getAllComments().isEmpty());
+		
+		Comment comment = new Comment(issuer, "bla bla");
+		tempBugReport.addComment(comment);
+		assertTrue(tempBugReport.getCommentList().contains(comment));
+		assertTrue(tempBugReport.getAllComments().contains(comment));
+		
+		Comment comment2 = new Comment(issuer, "hello world");
+		comment.addSubComment(comment2);
+		assertFalse(tempBugReport.getCommentList().contains(comment2));
+		assertTrue(tempBugReport.getAllComments().contains(comment2));
+	}
 	
 	@Test
 	public void testIsValidCommentList(){

@@ -125,7 +125,7 @@ public class Comment {
 		for (Comment comment : this.getSubComments()){
 			list.addAll(comment.getAllComments());
 		}
-		return null;
+		return list;
 	}
 	
 	/**
