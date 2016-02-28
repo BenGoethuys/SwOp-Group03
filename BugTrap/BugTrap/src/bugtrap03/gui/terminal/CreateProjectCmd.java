@@ -44,10 +44,6 @@ public class CreateProjectCmd implements Cmd {
      */
     @Override
     public Project exec(TerminalScanner scan, DataController con, User user) throws PermissionException, CancelException {
-        if (!user.hasPermission(UserPerm.CREATE_PROJ)) {
-            throw new PermissionException("Insufficient permissions.");
-        }
-
         System.out.println("Create or clone a new project?");
         String answer = null;
         do {
@@ -121,19 +117,17 @@ public class CreateProjectCmd implements Cmd {
         System.out.println("Chose a lead developer.");
         Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, con, user);
         
-        con.createProject(projName, projDesc, projStartDate, lead, projBudgetEstimate, user);
+        //Create Project
+        Project proj = con.createProject(projName, projDesc, projStartDate, lead, projBudgetEstimate, user);
         
-
-        throw new NotImplementedException();
+        //Print created project details
+        System.out.println(proj.getDetails());
+        
+        return proj;
     }
 
+    
     private Project cloneProjectScenario(TerminalScanner scan, DataController con, User user) {
         throw new NotImplementedException();
     }
-
-    //TODO: Do we need to check if this user can assign leads?
-    private Developer askLeadDeveloper(TerminalScanner scan, DataController con) {
-        throw new NotImplementedException();
-    }
-
 }

@@ -213,6 +213,15 @@ public class DataModel {
         this.projectList = projectList.plus(project);
         return project;
     }
+    
+    /**
+     * Get the list of projects in this system.
+     *
+     * @return The list of projects currently in this system.
+     */
+    public PList<Project> getProjectList() {
+        return this.projectList;
+    }
 
     /**
      * This method gets all bug reports in the system
