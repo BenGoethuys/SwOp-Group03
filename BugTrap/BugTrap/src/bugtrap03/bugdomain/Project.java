@@ -37,9 +37,9 @@ public class Project extends AbstractSystem {
 	 * @throws IllegalArgumentException if any of the arguments is invalid
 	 * 
 	 * @see AbstractSystem#AbstractSystem(VersionID, String, String)
-	 * @see Project#isValidCreationDate(Date)
+	 * @see Project#isValidCreationDate(GregorianCalendar)
 	 * @see Project#isValidLead(Developer)
-	 * @see Project#isValidStartDate(Date, Date)
+	 * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
 	 * @see Project#isValidBudgetEstimate(long)
 	 * 
 	 */
@@ -68,7 +68,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @see AbstractSystem#AbstractSystem(VersionID, String, String)
 	 * @see Project#isValidLead(Developer)
-	 * @see Project#isValidStartDate(Date, Date)
+	 * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
 	 * @see Project#isValidBudgetEstimate(long)
 	 * 
 	 */
@@ -91,7 +91,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @see AbstractSystem#AbstractSystem(String, String)
 	 * @see Project#isValidLead(Developer)
-	 * @see Project#isValidStartDate(Date, Date)
+	 * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
 	 * @see Project#isValidBudgetEstimate(long)
 	 * 
 	 */
@@ -193,7 +193,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @throws IllegalArgumentException if the given date is invalid
 	 * 
-	 * @see Project#isValidStartDate(Date, Date)
+	 * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
 	 */
 	private void setStartDate(GregorianCalendar startDate) throws IllegalArgumentException {
 		if (!isValidStartDate(this.creationDate, startDate)) {
@@ -236,7 +236,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @throws IllegalArgumentException if the given date is invalid
 	 * 
-	 * @see Project#isValidCreationDate(Date)
+	 * @see Project#isValidCreationDate(GregorianCalendar)
 	 */
 	private void setCreationDate(GregorianCalendar creationDate) throws IllegalArgumentException {
 		if (! this.isValidCreationDate(creationDate)){
