@@ -19,8 +19,6 @@ import purecollections.PList;
  *
  */
 public class Project extends AbstractSystem {
-	
-	//TODO isValid functions are always public - Ben ;)
 
 	/**
 	 * Creates a project with a given versionID, name, description, creationDate, lead,
@@ -351,7 +349,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @return true if the developer has the requested permission
 	 */
-        @Override
+	@Override
 	public boolean hasPermission(Developer dev, RolePerm perm){
 		PList<Role> roleList = this.projectParticipants.get(dev);
 		if (roleList == null){

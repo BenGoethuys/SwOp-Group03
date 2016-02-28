@@ -8,6 +8,8 @@ import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;
 import bugtrap03.usersystem.User;
 import java.util.Date;
+import java.util.GregorianCalendar;
+
 import purecollections.PList;
 
 /**
@@ -196,10 +198,10 @@ public class DataModel {
      * @throws PermissionException If the given creator has insufficient
      * permissions
      *
-     * @see Project#Project(String, String, Date, long, Developer)
+     * @see Project#Project(String, String, Developer, GregorianCalendar, long)
      * @return the created project
      */
-    public Project createProject(String name, String description, Date startDate, Developer lead, long budget, User creator)
+    public Project createProject(String name, String description, GregorianCalendar startDate, Developer lead, long budget, User creator)
             throws IllegalArgumentException, PermissionException {
         if (!creator.hasPermission(UserPerm.CREATE_PROJ)) {
             throw new PermissionException("The given user doesn't have the permission to create a project");
