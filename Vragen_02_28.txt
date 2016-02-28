@@ -1,0 +1,5 @@
+* Cloning a Project: what about participants? 
+
+* Controller <-> Model. Isn 't our dataModel class a Controller currently?
+
+* When will Kwinten finish his tests?
