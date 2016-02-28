@@ -151,9 +151,10 @@ public abstract class AbstractSystem {
 		return this.childs;
 	}
 
-	public void makeSubsystemChild(VersionID version, String name, String description){
+	public Subsystem makeSubsystemChild(VersionID version, String name, String description){
 		Subsystem newChild = new Subsystem(version, name, description, this);
 		this.addChild(newChild);
+		return newChild;
 	}
 	
 	/**
