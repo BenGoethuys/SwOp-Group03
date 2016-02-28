@@ -5,7 +5,8 @@ package bugtrap03.gui.terminal;
  * Created by Ben Goethuys on 28/02/2016.
  */
 public class CancelException extends Exception {
-
+    
+    
     /**
      *
      */
@@ -43,5 +44,6 @@ public class CancelException extends Exception {
     public CancelException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
 
 }
