@@ -107,6 +107,8 @@ public class CommentTest {
 		assertTrue(comment.getSubComments().contains(comment2));
 	}
 
+	//TODO add test for getAllComments
+
 	/**
 	 * Test method for {@link bugtrap03.bugdomain.Comment#isValidSubComments(purecollections.PList)}.
 	 */

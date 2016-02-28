@@ -1,5 +1,6 @@
 package bugtrap03;
 
+import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.permission.UserPerm;
@@ -7,6 +8,8 @@ import bugtrap03.usersystem.Administrator;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;
 import bugtrap03.usersystem.User;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -209,6 +212,18 @@ public class DataModel {
         Project project = new Project(name, description, lead, startDate, budget);
         this.projectList = projectList.plus(project);
         return project;
+    }
+
+    /**
+     * This method gets all bug reports in the system
+     * @return a list of all bugreports in the system
+     */
+    public ArrayList<BugReport> getAllBugReports(){
+        ArrayList<BugReport> list = new ArrayList<>();
+        for (Project project : this.projectList){
+            list.addAll(project.getAllBugReports());
+        }
+        return list;
     }
 
 }

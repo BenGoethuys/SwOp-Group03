@@ -3,6 +3,8 @@ package bugtrap03.bugdomain;
 import bugtrap03.usersystem.Issuer;
 import purecollections.PList;
 
+import java.util.ArrayList;
+
 /**
  * This is a class representing a comment.
  * 
@@ -111,6 +113,19 @@ public class Comment {
 	 */
 	public PList<Comment> getSubComments() {
 		return SubComments;
+	}
+
+	/**
+	 * This method returns all comments in this comment (deep search) including this comment
+	 * @return all the comments in this comment
+     */
+	public ArrayList<Comment> getAllComments(){
+		ArrayList<Comment> list = new ArrayList<>();
+		list.add(this);
+		for (Comment comment : this.getSubComments()){
+			list.addAll(comment.getAllComments());
+		}
+		return null;
 	}
 	
 	/**

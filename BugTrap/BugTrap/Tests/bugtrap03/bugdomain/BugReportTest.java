@@ -314,6 +314,8 @@ public class BugReportTest {
 		bugReport1.addComment(comment);
 		assertTrue(bugReport1.getCommentList().contains(comment));
 	}
+
+	//TODO add test for getAllComments
 	
 	@Test
 	public void testIsValidCommentList(){

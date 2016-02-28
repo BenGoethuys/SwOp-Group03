@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -404,6 +405,18 @@ public class BugReport {
 	 */
 	public PList<Comment> getCommentList() {
 		return this.commentList;
+	}
+
+	/**
+	 * This method returns all comments in this bugreport (deep search)
+	 * @return all the comments in this bug report
+     */
+	public ArrayList<Comment> getAllComments(){
+		ArrayList<Comment> list = new ArrayList<>();
+		for (Comment comment : this.getCommentList()){
+			list.addAll(comment.getAllComments());
+		}
+		return list;
 	}
 	
 	/**
