@@ -110,7 +110,7 @@ public abstract class AbstractSystem {
 	 * @return true if the name is not an empty string or null.
 	 */
 	public boolean isValidName(String name) {
-		return (name != "" && name != null);
+		return (!"".equals(name) && name != null);
 	}
 
 	/**
@@ -143,9 +143,9 @@ public abstract class AbstractSystem {
 	}
 	
 	/**
-	 * A getter for the Plist of childs.
+	 * A getter for the PList of childs.
 	 * 
-	 * @return an Plist of childs.
+	 * @return an PList of childs.
 	 */
 	protected PList<Subsystem> getChilds() {
 		return this.childs;
