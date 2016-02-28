@@ -53,7 +53,7 @@ public class CmdParser {
      * @param command
      * @return
      */
-    public void performCmd(Scanner scan, DataController con, User user, String command) {
+    public void performCmd(Scanner scan, DataController con, User user, String command) throws CancelException {
         if (command == null) {
             new InvalidCmd().exec(scan, con, user);
         }

@@ -19,7 +19,8 @@ public interface Cmd {
      * @return null if there is no result specified.
      * @throws PermissionException When the user does not have sufficient
      * permissions.
+     * @throws  CancelException When the users wants to abort the current cmd
      */
-    public Object exec(Scanner scan, DataController controller, User user) throws PermissionException;
+    public Object exec(Scanner scan, DataController controller, User user) throws PermissionException, CancelException;
 
 }

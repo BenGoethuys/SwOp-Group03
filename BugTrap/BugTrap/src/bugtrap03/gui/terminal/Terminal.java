@@ -71,8 +71,12 @@ public class Terminal {
         //Query
         String input;
         while (true) {
-            input = scan.nextLine();
-            parser.performCmd(scan, con, user, input);
+            try {
+                input = scan.nextLine();
+                parser.performCmd(scan, con, user, input);
+            } catch (CancelException ex) {
+                // aborted current cmd, ask user for new cmd -> do nothing
+            }
         }
     }
 
