@@ -1,6 +1,7 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
+import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.User;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -82,7 +83,11 @@ public class Terminal {
                 input = scan.nextLine();
                 parser.performCmd(scan, con, user, input);
             } catch (CancelException ex) {
+                System.out.println("Cancelled. Execute a new command.");
                 // aborted current cmd, ask user for new cmd -> do nothing
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                System.out.println("Command cancelled. Execute a new command.");
             }
         }
     }

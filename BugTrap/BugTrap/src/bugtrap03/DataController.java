@@ -1,7 +1,10 @@
 package bugtrap03;
 
+import bugtrap03.bugdomain.Project;
+import bugtrap03.permission.PermissionException;
+import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.User;
-import java.util.Collection;
+import java.util.GregorianCalendar;
 import purecollections.PList;
 
 /**
@@ -10,20 +13,42 @@ import purecollections.PList;
  * @version 0.1
  */
 public class DataController {
-    
+
     /**
      * TODO
-     * @param model 
+     *
+     * @param model
      * @throws NullPointerException
      */
     public DataController(DataModel model) throws NullPointerException {
-        if(model == null) {
+        if (model == null) {
             throw new NullPointerException("DataController requires a non-null DataModel.");
         }
         this.model = model;
     }
 
     private final DataModel model;
+
+    /**
+     * This method uses the {@link DataModel} to create a new {@link Project}.
+     *
+     * @param name The name of the project
+     * @param description The description of the project
+     * @param startDate The start date of the project
+     * @param budget The budget estimate for this project
+     * @param lead The lead developer of this project
+     *
+     * @throws IllegalArgumentException if the constructor of project fails
+     * @throws PermissionException If the given creator has insufficient
+     * permissions
+     *
+     * @see DataModel#createProject(java.lang.String, java.lang.String, java.util.GregorianCalendar, bugtrap03.usersystem.Developer, long, bugtrap03.usersystem.User) 
+     * @see Project#Project(String, String, Developer, GregorianCalendar, long)
+     * @return the created project
+     */
+    public Project createProject(String name, String description, GregorianCalendar startDate, Developer lead, long budget, User creator) throws PermissionException {
+        return model.createProject(name, description, startDate, lead, budget, creator);
+    }
 
     /**
      * Get the list of users in this system who have the exact class type

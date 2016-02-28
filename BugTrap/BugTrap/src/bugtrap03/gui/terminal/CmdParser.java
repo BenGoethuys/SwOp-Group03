@@ -16,12 +16,12 @@ import java.util.logging.Logger;
 public class CmdParser {
 
     public CmdParser(Terminal terminal) throws IllegalArgumentException {
-        if(terminal == null) {
+        if (terminal == null) {
             throw new IllegalArgumentException("CmdParser needs a non-null reference for Terminal.");
         }
-        
+
         this.terminal = terminal;
-        
+
         initCmdList();
     }
 
@@ -49,23 +49,18 @@ public class CmdParser {
 
     /**
      * TODO: Complete header.
+     *
      * @param command
      * @return
      */
-    public void performCmd(TerminalScanner scan, DataController con, User user, String command) throws CancelException {
+    public void performCmd(TerminalScanner scan, DataController con, User user, String command) throws CancelException, PermissionException {
         if (command == null) {
             new InvalidCmd().exec(scan, con, user);
         }
 
         Cmd cmd = cmdMap.get(command);
         cmd = (cmd != null) ? cmd : new InvalidCmd();
-        
-        try {
-            cmd.exec(scan, con, user);
-        } catch (PermissionException ex) {
-            Logger.getLogger(CmdParser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+
+        cmd.exec(scan, con, user);
     }
 }

@@ -85,7 +85,7 @@ public class CreateProjectCmd implements Cmd {
      * @throws PermissionException When the user does not have sufficient
      * permissions to create/clone a project.
      */
-    private Project createProjectScenario(TerminalScanner scan, DataController con, User user) throws CancelException {
+    private Project createProjectScenario(TerminalScanner scan, DataController con, User user) throws CancelException, PermissionException {
         //Project name
         System.out.print("Project name:");
         String projName = scan.nextLine();
@@ -93,10 +93,9 @@ public class CreateProjectCmd implements Cmd {
         //Project description
         System.out.print("Project description:");
         String projDesc = scan.nextLine();
-        System.out.println(projDesc);
 
         //Project start date
-        Calendar projStartDate = null;
+        GregorianCalendar projStartDate = null;
         do {
             System.out.print("Project starting date (YYYY-MM-DD):");
             String[] projDateStr = scan.nextLine().split("-");
@@ -118,6 +117,11 @@ public class CreateProjectCmd implements Cmd {
             }
         } while (projBudgetEstimate == null);
         
+        //Project lead developer
+        System.out.println("Chose a lead developer.");
+        Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, con, user);
+        
+        con.createProject(projName, projDesc, projStartDate, lead, projBudgetEstimate, user);
         
 
         throw new NotImplementedException();
