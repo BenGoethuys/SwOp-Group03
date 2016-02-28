@@ -154,8 +154,9 @@ public class CommentTest {
 		assertTrue(comment.getSubComments().contains(comment2));
 		
 		assertTrue(comment2.getSubComments().isEmpty());
-		comment2.addSubComment(issuer, text);
+		Comment returnComment = comment2.addSubComment(issuer, text);
 		assertFalse(comment2.getSubComments().isEmpty());
+		assertEquals(comment2.getSubComments().getFirst(), returnComment);
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
