@@ -10,6 +10,7 @@ import bugtrap03.usersystem.Role;
 import bugtrap03.usersystem.User;
 import java.util.GregorianCalendar;
 import purecollections.PList;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * This class extends AbstractSystem (versionID, name and description) and
@@ -357,4 +358,14 @@ public class Project extends AbstractSystem {
 		}
 		return roleList.parallelStream().anyMatch(role -> role.hasPermission(perm));
 	}
+        
+        //TODO: Implement
+        /**
+         * Get the Project details in string format so it is nice to print out.
+         * (Includes Project name, description, budgetEstimate, startDate, Lead, creationDate)
+         * @return //TODO Print details
+         */
+        public String getDetails() {
+            throw new NotImplementedException();
+        }
 }
