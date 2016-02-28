@@ -368,4 +368,21 @@ public class Project extends AbstractSystem {
         public String getDetails() {
             throw new NotImplementedException();
         }
+        
+        /**
+         * Performs a deep clone on this Project. excluding all bugReports.
+         * @param version The versionID of this project.
+	 * @param lead The lead developer of this project
+	 * @param startDate The start date of this project.
+	 * @param budgetEstimate The budget estimate of this project
+         * @return The deep-cloned project.
+         */
+        public Project cloneProject(VersionID version, Developer lead, GregorianCalendar startDate, long budgetEstimate) {
+            //TODO: Implement a clone of this Project with new versionID, lead, startDate, budgetEstimate
+            //Clone subsystems as well but no BugReports!
+            //No idea about participants
+            
+            //make new Project and initialise all the stuff the right way (clones).
+            throw new NotImplementedException();
+        }
 }
