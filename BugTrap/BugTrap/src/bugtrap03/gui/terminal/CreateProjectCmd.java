@@ -1,7 +1,6 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
-import bugtrap03.TerminalScanner;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.permission.UserPerm;

@@ -1,7 +1,6 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
-import bugtrap03.TerminalScanner;
 import bugtrap03.usersystem.Administrator;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;

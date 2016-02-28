@@ -1,7 +1,6 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
-import bugtrap03.TerminalScanner;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.User;
 import java.util.AbstractMap.SimpleEntry;
