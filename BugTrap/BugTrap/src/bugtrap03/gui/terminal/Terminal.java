@@ -1,9 +1,11 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
+import bugtrap03.TerminalScanner;
 import bugtrap03.usersystem.User;
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,13 +18,13 @@ public class Terminal {
             throw new IllegalArgumentException("Terminal does not allow a null-reference for DataController.");
         }
         this.con = con;
-        this.scan = new Scanner(System.in);
+        this.scan = new TerminalScanner(System.in);
         this.parser = new CmdParser(this);
     }
 
     private DataController con;
     private CmdParser parser;
-    private final Scanner scan;
+    private final TerminalScanner scan;
     private User user;
 
     /**
@@ -55,17 +57,23 @@ public class Terminal {
     }
 
     /**
-     * Get the {@link Scanner} currently in use.
+     * Get the {@link TerminalScanner} currently in use.
      *
      * @return The currently used scanner.
      */
-    public Scanner getScanner() {
+    public TerminalScanner getScanner() {
         return this.scan;
     }
 
     public void openView() {
-        //Login
-        new LoginCmd(this).exec(scan, con, null);
+        do {
+            try {
+                //Login
+                new LoginCmd(this).exec(scan, con, null);
+            } catch (CancelException ex) {
+                //Abort received, ignored because we really need a user.
+            }
+        } while(user == null);
         System.out.println("");
 
         //Query

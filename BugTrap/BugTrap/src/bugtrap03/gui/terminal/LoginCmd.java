@@ -1,6 +1,7 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
+import bugtrap03.TerminalScanner;
 import bugtrap03.usersystem.Administrator;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;
@@ -43,7 +44,7 @@ public class LoginCmd implements Cmd {
      *
      */
     @Override
-    public User exec(Scanner scan, DataController controller, User dummy) throws CancelException {
+    public User exec(TerminalScanner scan, DataController controller, User dummy) throws CancelException {
         //Login
         User user;
         do {
@@ -93,7 +94,7 @@ public class LoginCmd implements Cmd {
      * @return The Class of the type the person wants to login as. (e.g
      * Administrator).
      */
-    private <U extends User> Class<U> getWantedUserType(Scanner scan) {
+    private <U extends User> Class<U> getWantedUserType(TerminalScanner scan) throws CancelException {
         //Ask question
         System.out.println("Please chose your type of login.");
 

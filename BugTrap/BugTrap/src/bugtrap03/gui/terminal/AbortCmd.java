@@ -1,6 +1,7 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
+import bugtrap03.TerminalScanner;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.User;
 
@@ -13,18 +14,19 @@ import java.util.Scanner;
 public class AbortCmd implements Cmd {
 
     /**
-     * Execute this command and possibly return a result.
+     * Throws a {@link CancelException} representing an indication of abort.
      *
-     * @param scan
-     * @param controller The controller used for model access.
-     * @param user       The {@link User} who wants to executes this command.
-     * @return null if there is no result specified.
-     * @throws PermissionException When the user does not have sufficient
-     *                             permissions.
+     * @param dummy1 Does not matter.
+     * @param dummy2 Does not matter.
+     * @param dummy3 Does not matter.
+     * @return Returns never.
+     * @throws CancelException Always.
      */
     @Override
-    public Object exec(Scanner scan, DataController controller, User user) throws PermissionException, CancelException {
+    public Object exec(TerminalScanner dummy1, DataController dummy2, User dummy3) throws CancelException {
         throw new CancelException("User wants to abort current cmd");
     }
+    
+    public static final String ABORT_CMD = "abort";
 
 }

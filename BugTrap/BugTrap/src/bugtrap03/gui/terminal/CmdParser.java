@@ -1,12 +1,12 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
+import bugtrap03.TerminalScanner;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.User;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,7 +53,7 @@ public class CmdParser {
      * @param command
      * @return
      */
-    public void performCmd(Scanner scan, DataController con, User user, String command) throws CancelException {
+    public void performCmd(TerminalScanner scan, DataController con, User user, String command) throws CancelException {
         if (command == null) {
             new InvalidCmd().exec(scan, con, user);
         }

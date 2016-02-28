@@ -1,13 +1,13 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
+import bugtrap03.TerminalScanner;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.permission.UserPerm;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.User;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -44,7 +44,7 @@ public class CreateProjectCmd implements Cmd {
      * permissions to create/clone a project.
      */
     @Override
-    public Project exec(Scanner scan, DataController con, User user) throws PermissionException {
+    public Project exec(TerminalScanner scan, DataController con, User user) throws PermissionException, CancelException {
         if (!user.hasPermission(UserPerm.CREATE_PROJ)) {
             throw new PermissionException("Insufficient permissions.");
         }
@@ -86,7 +86,7 @@ public class CreateProjectCmd implements Cmd {
      * @throws PermissionException When the user does not have sufficient
      * permissions to create/clone a project.
      */
-    private Project createProjectScenario(Scanner scan, DataController con, User user) {
+    private Project createProjectScenario(TerminalScanner scan, DataController con, User user) throws CancelException {
         //Project name
         System.out.print("Project name:");
         String projName = scan.nextLine();
@@ -124,12 +124,12 @@ public class CreateProjectCmd implements Cmd {
         throw new NotImplementedException();
     }
 
-    private Project cloneProjectScenario(Scanner scan, DataController con, User user) {
+    private Project cloneProjectScenario(TerminalScanner scan, DataController con, User user) {
         throw new NotImplementedException();
     }
 
     //TODO: Do we need to check if this user can assign leads?
-    private Developer askLeadDeveloper(Scanner scan, DataController con) {
+    private Developer askLeadDeveloper(TerminalScanner scan, DataController con) {
         throw new NotImplementedException();
     }
 

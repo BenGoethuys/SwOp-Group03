@@ -1,8 +1,8 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
+import bugtrap03.TerminalScanner;
 import bugtrap03.usersystem.User;
-import java.util.Scanner;
 
 /**
  *
@@ -19,7 +19,7 @@ public class InvalidCmd implements Cmd {
      * @return A null reference.
      */
     @Override
-    public Object exec(Scanner sdummy, DataController cdummy, User udummy) {
+    public Object exec(TerminalScanner sdummy, DataController cdummy, User udummy) {
         System.out.println("Invalid command.");
         return null;
     }
