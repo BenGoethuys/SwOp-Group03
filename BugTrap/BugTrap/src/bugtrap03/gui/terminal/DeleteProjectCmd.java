@@ -11,7 +11,7 @@ import bugtrap03.usersystem.User;
  * @author group 03
  *
  */
-public class DeleteProjectCmd implements Cmd { // TODO
+public class DeleteProjectCmd implements Cmd {
 
     /**
      * 
@@ -21,7 +21,7 @@ public class DeleteProjectCmd implements Cmd { // TODO
      * 1. The administrator indicates he wants to delete a project. <br>
      * 2. The system shows a list of all projects. <br>
      * 3. The administrator selects a project. <br>
-     * 4. The system deletes a project and recursively all subsystems that are
+     * 4. The system deletes a project and recursively all subsystems that are //TODO??
      * part of the project. All bug reports fore those subsystem are also
      * removed from BugTrap.
      * 
@@ -40,6 +40,7 @@ public class DeleteProjectCmd implements Cmd { // TODO
         // Get project
         Project proj = new GetProjectCmd().exec(scan, con, user);
 
+        // Delete the project 
         con.deleteProject(proj);
 
         return proj;
