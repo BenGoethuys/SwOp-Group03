@@ -29,7 +29,7 @@ public class ProjectTest {
         testVersion = new VersionID(1,2,3);
         testName = "testProj";
         testDescription = "This is an description";
-        testStartDate = new GregorianCalendar(2016, 01, 01);
+        testStartDate = new GregorianCalendar(2016, 1, 1);
         testCreationDate = new GregorianCalendar(2000,12,25);   
         testBudget = 1000;
     }
@@ -84,38 +84,45 @@ public class ProjectTest {
         Project testProject2 =  new Project(testVersion, testName, testDescription, testDev, testStartDate, testBudget);
         VersionID vglVersion =  new VersionID();
         GregorianCalendar vglGreg1 = new GregorianCalendar();
-        GregorianCalendar vglGreg2 = new GregorianCalendar();
         assertEquals(testVersion, testProject2.getVersionID());
         assertEquals(testName, testProject2.getName());
         assertEquals(testDescription, testProject2.getDescription());
-        assertEquals(vglGreg1., testProject2.getCreationDate());
+        assertEquals(vglGreg1, testProject2.getCreationDate());
         assertEquals(testDev, testProject2.getLead());
-        assertEquals(vglGreg2, testProject2.getStartDate());
+        assertEquals(vglGreg1, testProject2.getStartDate());
     }
 
     @Test
     public void testGetLead() {
-        fail("Not yet implemented");
+        assertEquals(testDev, testProject.getLead());
     }
 
     @Test
     public void testIsValidLead() {
-        fail("Not yet implemented");
+        assertTrue(Project.isValidLead(testDev));
+        assertFalse(Project.isValidLead(null));
     }
 
     @Test
     public void testGetStartDate() {
-        fail("Not yet implemented");
+        assertEquals(testStartDate, testProject.getStartDate());
     }
 
     @Test
     public void testSetStartDate() {
-        fail("Not yet implemented");
+        GregorianCalendar testStartDate2 = new GregorianCalendar(1888, 8, 18);
+        testProject.setStartDate(testStartDate2);
+        assertNotEquals(testStartDate, testProject.getStartDate());
+        assertEquals(testStartDate2, testProject.getStartDate());
     }
 
     @Test
     public void testIsValidStartDateGregorianCalendarGregorianCalendar() {
-        fail("Not yet implemented");
+        assertFalse(Project.isValidStartDate(null, testStartDate));
+        assertFalse(Project.isValidStartDate(testCreationDate, null));
+        assertFalse(Project.isValidStartDate(testStartDate, testCreationDate));
+        assertTrue(Project.isValidStartDate(testCreationDate, testStartDate));
+        
     }
 
     @Test
