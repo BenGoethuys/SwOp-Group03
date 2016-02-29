@@ -260,4 +260,28 @@ public class DataModel {
         return list;
     }
 
+    /**
+     *  This method updates the given project with the new given attributes
+     *
+     * @param name The new name of the given project
+     * @param description The new description of the given project
+     * @param startDate The new startDate of the given project
+     * @param budgetEstimate The new budget estimate of the given project
+     *
+     * @Ensures The attributes of the given project will not be updated if an error was thrown
+     */
+    public void updateProject(Project proj, String name, String description, GregorianCalendar startDate, Long budgetEstimate) throws IllegalArgumentException {
+        // Test to prevent inconsistent updating of vars
+        Project.isValidName(name);
+        Project.isValidDescription(description);
+        proj.isValidStartDate(startDate);
+        Project.isValidBudgetEstimate(budgetEstimate);
+
+        // update the vars in proj
+        proj.setName(name);
+        proj.setDescription(description);
+        proj.setStartDate(startDate);
+        proj.setBudgetEstimate(budgetEstimate);
+    }
+
 }
