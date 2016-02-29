@@ -34,124 +34,16 @@ public class IssuerTest {
 	public void setUp() throws Exception {
 	}
 
-	/**
-	 * Test method for {@link bugtrap03.usersystem.Issuer#Issuer(java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
-	 */
 	@Test
-	public void testIssuerStringStringStringString() {
-		fail("Not yet implemented");
-	}
+	public void testNames() {
+		assertEquals(issuer.getFirstName(), "Ifirst");
+		assertEquals(issuer.getLastName(), "Ilast");
+		assertEquals(issuer.getUsername(), "Issuer");
 
-	/**
-	 * Test method for {@link bugtrap03.usersystem.Issuer#Issuer(java.lang.String, java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	public void testIssuerStringStringString() {
-		fail("Not yet implemented");
+		assertEquals(issuer2.getFirstName(), "I2first");
+		assertEquals(issuer2.getLastName(), "I2last");
+		assertEquals(issuer2.getMiddleName(), "I2middle");
+		assertEquals(issuer2.getUsername(), "Issuer2");
 	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#User(java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	public void testUserStringStringStringString() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#User(java.lang.String, java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	public void testUserStringStringString() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#getUsername()}.
-	 */
-	@Test
-	public void testGetUsername() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#isValidUsername(java.lang.String)}.
-	 */
-	@Test
-	public void testIsValidUsername() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#getFirstName()}.
-	 */
-	@Test
-	public void testGetFirstName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#isValidFirstName(java.lang.String)}.
-	 */
-	@Test
-	public void testIsValidFirstName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#getMiddleName()}.
-	 */
-	@Test
-	public void testGetMiddleName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#isValidMiddleName(java.lang.String)}.
-	 */
-	@Test
-	public void testIsValidMiddleName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#getLastName()}.
-	 */
-	@Test
-	public void testGetLastName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#isValidLastName(java.lang.String)}.
-	 */
-	@Test
-	public void testIsValidLastName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#getFullName()}.
-	 */
-	@Test
-	public void testGetFullName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#hasPermission(bugtrap03.permission.UserPerm)}.
-	 */
-	@Test
-	public void testHasPermission() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.User#hasRolePermission(bugtrap03.permission.RolePerm, bugtrap03.bugdomain.Project)}.
-	 */
-	@Test
-	public void testHasRolePermission() {
-		fail("Not yet implemented");
-	}
-
+	
 }
