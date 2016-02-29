@@ -50,7 +50,7 @@ public class VersionIDTest {
 		versionID = new VersionID();
 		assertEquals(versionID.getFirstNb(), 0);
 		assertEquals(versionID.getSecondNb(), 0);
-		assertEquals(versionID.getThirdNb(), 0);
+		assertEquals(versionID.getThirdNb(), 1);
 	}
 
 	/**
