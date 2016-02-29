@@ -6,6 +6,8 @@ import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.User;
+
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import purecollections.PList;
 
@@ -83,6 +85,20 @@ public class DataController {
      */
     public Project deleteProject(User user, Project project) throws PermissionException {
         return this.model.deleteProject(user, project);
+    }
+
+    /**
+     * @see DataModel#getAllSubsystems(Project)
+     */
+    public PList<Subsystem> getAllSubsystems(Project project) {
+        return this.model.getAllSubsystems(project);
+    }
+
+    /**
+     * @see DataModel#getAllProjectsAndSubsystems()
+     */
+    public PList<AbstractSystem> getAllProjectsAndSubsystems() {
+        return this.getAllProjectsAndSubsystems();
     }
 
     /**
