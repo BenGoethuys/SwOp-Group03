@@ -215,7 +215,6 @@ public abstract class User {
         }
     }
 
-    //TODO Headings
     /**
      * Check if this {@link User} has the given {@link UserPerm}.
      * @param perm The userPermission to check for.
