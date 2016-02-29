@@ -1,6 +1,6 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.User;
 import java.util.AbstractMap.SimpleEntry;
@@ -59,7 +59,7 @@ public class CmdParser {
      *
      * @param command The string that would initiate a certain command.
      */
-    public void performCmd(TerminalScanner scan, DataController con, User user, String command) throws CancelException, PermissionException {
+    public void performCmd(TerminalScanner scan, DataModel con, User user, String command) throws CancelException, PermissionException {
         if (command == null) {
             new InvalidCmd().exec(scan, con, user);
         }

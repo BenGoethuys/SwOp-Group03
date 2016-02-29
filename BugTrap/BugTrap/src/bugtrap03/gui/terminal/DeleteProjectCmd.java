@@ -2,7 +2,7 @@ package bugtrap03.gui.terminal;
 
 import java.util.Scanner;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.User;
@@ -34,7 +34,7 @@ public class DeleteProjectCmd implements Cmd {
      * 
      */
     @Override
-    public Project exec(TerminalScanner scan, DataController con, User user)
+    public Project exec(TerminalScanner scan, DataModel con, User user)
             throws PermissionException, CancelException {
 
         // Get project

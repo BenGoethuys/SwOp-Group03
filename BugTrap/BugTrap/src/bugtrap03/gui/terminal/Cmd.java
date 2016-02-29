@@ -1,6 +1,6 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.User;
 
@@ -21,6 +21,6 @@ public interface Cmd {
      * permissions.
      * @throws  CancelException When the users wants to abort the current cmd
      */
-    public Object exec(TerminalScanner scan, DataController controller, User user) throws PermissionException, CancelException;
+    public Object exec(TerminalScanner scan, DataModel controller, User user) throws PermissionException, CancelException;
 
 }

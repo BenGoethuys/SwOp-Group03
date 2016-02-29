@@ -1,6 +1,6 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.usersystem.Administrator;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Issuer;
@@ -43,7 +43,7 @@ public class LoginCmd implements Cmd {
      *
      */
     @Override
-    public User exec(TerminalScanner scan, DataController controller, User dummy) throws CancelException {
+    public User exec(TerminalScanner scan, DataModel controller, User dummy) throws CancelException {
         //Login
         User user;
         do {

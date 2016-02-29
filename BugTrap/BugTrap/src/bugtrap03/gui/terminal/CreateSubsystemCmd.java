@@ -1,6 +1,6 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.permission.PermissionException;
@@ -33,7 +33,7 @@ public class CreateSubsystemCmd implements Cmd {
      * @return null if there is no result specified.
      */
     @Override
-    public Subsystem exec(TerminalScanner scan, DataController con, User user) throws PermissionException, CancelException, IllegalArgumentException {
+    public Subsystem exec(TerminalScanner scan, DataModel con, User user) throws PermissionException, CancelException, IllegalArgumentException {
 
         // show all projects
         PList<AbstractSystem> list = con.getAllProjectsAndSubsystems();

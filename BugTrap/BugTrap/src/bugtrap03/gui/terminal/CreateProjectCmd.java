@@ -1,6 +1,6 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.permission.PermissionException;
@@ -41,7 +41,7 @@ public class CreateProjectCmd implements Cmd {
      * permissions to create/clone a project.
      */
     @Override
-    public Project exec(TerminalScanner scan, DataController con, User user) throws PermissionException, CancelException {
+    public Project exec(TerminalScanner scan, DataModel con, User user) throws PermissionException, CancelException {
         System.out.println("Create or clone a new project?");
         String answer = null;
         do {
@@ -79,7 +79,7 @@ public class CreateProjectCmd implements Cmd {
      * @throws PermissionException When the user does not have sufficient
      * permissions to create/clone a project.
      */
-    private Project createProjectScenario(TerminalScanner scan, DataController con, User user) throws CancelException, PermissionException {
+    private Project createProjectScenario(TerminalScanner scan, DataModel con, User user) throws CancelException, PermissionException {
         //Project name
         System.out.print("Project name:");
         String projName = scan.nextLine();
@@ -140,7 +140,7 @@ public class CreateProjectCmd implements Cmd {
      * @throws PermissionException When the user does not have sufficient
      * permissions to create/clone a project.
      */
-    private Project cloneProjectScenario(TerminalScanner scan, DataController con, User user) throws CancelException {
+    private Project cloneProjectScenario(TerminalScanner scan, DataModel con, User user) throws CancelException {
         Project project = (new GetProjectCmd()).exec(scan, con, user);
 
         //Update versionID

@@ -23,18 +23,16 @@ public class Main {
      */
     public static void main(String[] args) {
         model = new DataModel();
-        controller = new DataController(model);
 
-        initDemoSystem(controller);
+        initDemoSystem(model);
 
-        Terminal terminal = new Terminal(controller);
+        Terminal terminal = new Terminal(model);
         terminal.openView();
     }
 
     private static DataModel model;
-    private static DataController controller;
 
-    public static void initDemoSystem(DataController con) {
+    public static void initDemoSystem(DataModel con) {
         Administrator admin = model.createAdministrator("curt", "Frederick", "Sam", "Curtis");
         model.createIssuer("doc", "John", "Doctor");
         model.createIssuer("charlie", "Charles", "Arnold", "Berg");

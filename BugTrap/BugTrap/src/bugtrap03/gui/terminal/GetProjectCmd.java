@@ -2,7 +2,7 @@ package bugtrap03.gui.terminal;
 
 import java.util.NoSuchElementException;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.usersystem.User;
 import purecollections.PList;
@@ -31,7 +31,7 @@ public class GetProjectCmd implements Cmd {
      *
      */
     @Override
-    public Project exec(TerminalScanner scan, DataController con, User user) throws CancelException {
+    public Project exec(TerminalScanner scan, DataModel con, User user) throws CancelException {
         // show all projects
         PList<Project> projectList = con.getProjectList();
         System.out.println("Available projects:");

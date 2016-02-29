@@ -1,6 +1,6 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.usersystem.User;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -44,9 +44,9 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
      * @throws CancelException When the cancel operation was executed.
      */
     @Override
-    public U exec(TerminalScanner scan, DataController con, User dummy) throws CancelException {
+    public U exec(TerminalScanner scan, DataModel con, User dummy) throws CancelException {
         //Print available user options of given type
-        PList<U> usersOfType = con.getUsersOfExactType(classType);
+        PList<U> usersOfType = con.getUserListOfExactType(classType);
 
         if (usersOfType.isEmpty()) {
             System.out.println("No users of this type found.");

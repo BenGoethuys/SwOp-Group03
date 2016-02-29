@@ -1,6 +1,6 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.User;
@@ -27,7 +27,7 @@ public class ShowProjectCmd implements Cmd {
      * @throws CancelException     When the users wants to abort the current cmd
      */
     @Override
-    public Object exec(TerminalScanner scan, DataController controller, User user) throws CancelException {
+    public Object exec(TerminalScanner scan, DataModel controller, User user) throws CancelException {
         Project proj = new GetProjectCmd().exec(scan, controller, user);
         System.out.println(proj.getDetails());
         return null;

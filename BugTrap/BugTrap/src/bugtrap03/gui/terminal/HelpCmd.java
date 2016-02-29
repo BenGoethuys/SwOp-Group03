@@ -5,7 +5,7 @@
  */
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.usersystem.User;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class HelpCmd implements Cmd {
      * @return null.
      */
     @Override
-    public Object exec(TerminalScanner dummy1, DataController dummy2, User dummy3) {
+    public Object exec(TerminalScanner dummy1, DataModel dummy2, User dummy3) {
         System.out.println("List of possible commands:");
         for (SimpleEntry cmdEntry : cmdList) {
             System.out.println(cmdEntry.getKey());

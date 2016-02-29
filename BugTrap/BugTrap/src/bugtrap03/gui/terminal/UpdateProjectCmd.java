@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.permission.UserPerm;
@@ -39,7 +39,7 @@ public class UpdateProjectCmd implements Cmd {
      *                             a project.
      */
     @Override
-    public Project exec(TerminalScanner scan, DataController con, User user)
+    public Project exec(TerminalScanner scan, DataModel con, User user)
             throws PermissionException, CancelException {
 
         // Get project
