@@ -387,8 +387,9 @@ public class Project extends AbstractSystem {
          */
         public String getDetails() {
         	String details = "";
-        	details.concat(this.getName())
+        	details.concat(this.getName());
             
+        	return details;
         }
         
         /**
@@ -408,7 +409,7 @@ public class Project extends AbstractSystem {
             for(Subsystem subsystemChild: this.getChilds()){
             	cloneChilds.add(subsystemChild.cloneSubsystem());
             }
-            
+            return cloneProject;
   
         }
 }
