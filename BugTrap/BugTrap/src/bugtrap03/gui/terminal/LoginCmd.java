@@ -34,7 +34,7 @@ public class LoginCmd implements Cmd {
      * <br> 4. Welcome the user.
      *
      * @param scan The {@link Scanner} trough which to ask the questions.
-     * @param controller The controller to use to access the model.
+     * @param model The model to use to access the model.
      * @param dummy Dummy, as the person isn't a specific user yet. Use
      * whatever.
      * @return The user chosen by the person to login as.
@@ -43,20 +43,20 @@ public class LoginCmd implements Cmd {
      *
      */
     @Override
-    public User exec(TerminalScanner scan, DataModel controller, User dummy) throws CancelException {
+    public User exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException {
         //Login
         User user;
         do {
             //Ask which type to login as.
             Class<? extends User> classType = getWantedUserType(scan);
             //Ask which user to login as.
-            user = (new GetUserOfExcactTypeCmd<>(classType)).exec(scan, controller, dummy);
+            user = (new GetUserOfExcactTypeCmd<>(classType)).exec(scan, model, dummy);
         } while (user == null);
 
         terminal.setUser(user);
 
         //Welcome user.
-        (new ClearCmd()).exec(scan, controller, user);
+        (new ClearCmd()).exec(scan, model, user);
         System.out.println("Welcome " + user.getFullName() + " (" + user.getUsername() + ")");
         return user;
     }

@@ -10,16 +10,16 @@ import java.io.IOException;
  */
 public class Terminal {
 
-    public Terminal(DataModel con) throws IllegalArgumentException {
-        if (con == null) {
+    public Terminal(DataModel model) throws IllegalArgumentException {
+        if (model == null) {
             throw new IllegalArgumentException("Terminal does not allow a null-reference for DataController.");
         }
-        this.con = con;
+        this.model = model;
         this.scan = new TerminalScanner(System.in);
         this.parser = new CmdParser(this);
     }
 
-    private DataModel con;
+    private DataModel model;
     private CmdParser parser;
     private final TerminalScanner scan;
     private User user;
@@ -47,10 +47,10 @@ public class Terminal {
     /**
      * Get the {@link DataModel} currently in use.
      *
-     * @return The currently used controller.
+     * @return The currently used model.
      */
     public DataModel getController() {
-        return this.con;
+        return this.model;
     }
 
     /**
@@ -66,7 +66,7 @@ public class Terminal {
         do {
             try {
                 //Login
-                new LoginCmd(this).exec(scan, con, null);
+                new LoginCmd(this).exec(scan, model, null);
             } catch (CancelException ex) {
                 //Abort received, ignored because we really need a user.
             }
@@ -79,7 +79,7 @@ public class Terminal {
         	System.out.println("Give new command");
             try {
                 input = scan.nextLine().toLowerCase();
-                parser.performCmd(scan, con, user, input);
+                parser.performCmd(scan, model, user, input);
             } catch (CancelException ex) {
                 System.out.println("Cancelled. Execute a new command.");
                 // aborted current cmd, ask user for new cmd -> do nothing

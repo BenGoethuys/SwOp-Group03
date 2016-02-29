@@ -23,7 +23,7 @@ public class GetProjectCmd implements Cmd {
      * <br> 2. The person selects an existing project of the list.
      *
      * @param scan The scanner used to interact with the person.
-     * @param con The controller used for model access.
+     * @param model The model used for model access.
      * @param user The {@link User} who wants to executes this command.
      * @return The chosen project.
      * @throws CancelException When the users wants to abort the current cmd
@@ -31,9 +31,9 @@ public class GetProjectCmd implements Cmd {
      *
      */
     @Override
-    public Project exec(TerminalScanner scan, DataModel con, User user) throws CancelException {
+    public Project exec(TerminalScanner scan, DataModel model, User user) throws CancelException {
         // show all projects
-        PList<Project> projectList = con.getProjectList();
+        PList<Project> projectList = model.getProjectList();
         System.out.println("Available projects:");
         for (int i = 0; i < projectList.size(); i++) {
             System.out.println(i + ". " + projectList.get(i).getName());

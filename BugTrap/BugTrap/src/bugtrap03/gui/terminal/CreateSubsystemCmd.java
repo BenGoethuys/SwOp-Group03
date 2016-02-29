@@ -24,7 +24,7 @@ public class CreateSubsystemCmd implements Cmd {
      * <br> 6. The system creates the subsystem.
      *
      * @param scan       The scanner used to interact with the person.
-     * @param con The controller used for model access.
+     * @param model The model used for model access.
      * @param user       The {@link User} who wants to executes this command.
      *
      * @throws PermissionException When the user does not have sufficient permissions.
@@ -33,10 +33,10 @@ public class CreateSubsystemCmd implements Cmd {
      * @return null if there is no result specified.
      */
     @Override
-    public Subsystem exec(TerminalScanner scan, DataModel con, User user) throws PermissionException, CancelException, IllegalArgumentException {
+    public Subsystem exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
 
         // show all projects
-        PList<AbstractSystem> list = con.getAllProjectsAndSubsystems();
+        PList<AbstractSystem> list = model.getAllProjectsAndSubsystems();
         System.out.println("Available projects and subsytems:");
         for (int i = 0; i < list.size(); i++) {
             System.out.println(i + ". " + list.get(i).getName());
@@ -74,7 +74,7 @@ public class CreateSubsystemCmd implements Cmd {
         String sysDesc = scan.nextLine();
 
         //Create subsystem
-        Subsystem subsytem = con.createSubsystem(user, system, sysName, sysDesc);
+        Subsystem subsytem = model.createSubsystem(user, system, sysName, sysDesc);
         System.out.println("Create subsystem.");
         return subsytem;
     }

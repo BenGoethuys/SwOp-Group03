@@ -59,14 +59,14 @@ public class CmdParser {
      *
      * @param command The string that would initiate a certain command.
      */
-    public void performCmd(TerminalScanner scan, DataModel con, User user, String command) throws CancelException, PermissionException {
+    public void performCmd(TerminalScanner scan, DataModel model, User user, String command) throws CancelException, PermissionException {
         if (command == null) {
-            new InvalidCmd().exec(scan, con, user);
+            new InvalidCmd().exec(scan, model, user);
         }
 
         Cmd cmd = cmdMap.get(command);
         cmd = (cmd != null) ? cmd : new InvalidCmd();
 
-        cmd.exec(scan, con, user);
+        cmd.exec(scan, model, user);
     }
 }

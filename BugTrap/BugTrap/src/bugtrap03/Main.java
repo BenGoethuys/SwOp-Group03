@@ -32,7 +32,7 @@ public class Main {
 
     private static DataModel model;
 
-    public static void initDemoSystem(DataModel con) {
+    public static void initDemoSystem(DataModel model) {
         Administrator admin = model.createAdministrator("curt", "Frederick", "Sam", "Curtis");
         model.createIssuer("doc", "John", "Doctor");
         model.createIssuer("charlie", "Charles", "Arnold", "Berg");

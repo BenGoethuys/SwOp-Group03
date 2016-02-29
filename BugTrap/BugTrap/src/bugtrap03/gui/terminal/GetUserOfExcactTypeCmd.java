@@ -36,7 +36,7 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
      * @param <U> extends User, The type of the users to chose from.
      *
      * @param scan The {@link Scanner} used to interact with the person.
-     * @param con The controller used to get access to the model.
+     * @param model The model used to get access to the model.
      * @param classType The class type of the possible users to chose from.
      * (classType, excludes subclass).
      * @return The chosen user. Null if there was no option of that type.
@@ -44,9 +44,9 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
      * @throws CancelException When the cancel operation was executed.
      */
     @Override
-    public U exec(TerminalScanner scan, DataModel con, User dummy) throws CancelException {
+    public U exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException {
         //Print available user options of given type
-        PList<U> usersOfType = con.getUserListOfExactType(classType);
+        PList<U> usersOfType = model.getUserListOfExactType(classType);
 
         if (usersOfType.isEmpty()) {
             System.out.println("No users of this type found.");
