@@ -1,6 +1,5 @@
 package bugtrap03.bugdomain;
 
-import java.util.ArrayList;
 
 import bugtrap03.permission.RolePerm;
 import bugtrap03.usersystem.Developer;

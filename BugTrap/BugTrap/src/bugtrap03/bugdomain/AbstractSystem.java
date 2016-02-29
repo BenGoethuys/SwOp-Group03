@@ -52,7 +52,7 @@ public abstract class AbstractSystem {
 	 *             
 	 */
 	public AbstractSystem(String name, String description) throws IllegalArgumentException {
-		this(new VersionID(0, 0, 1), name, description);
+		this(new VersionID(), name, description);
 	}
 
 	/**
