@@ -20,9 +20,6 @@ public class AdministratorTest {
 	Administrator admin2;
 	UserPerm up;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Before
 	public void setUp() throws Exception {
 	}

@@ -14,59 +14,20 @@ import org.junit.Test;
  *
  */
 public class DeveloperTest {
+	
+	static Developer dev;
+	static Developer dev2;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		dev = new Developer("Dev1", "Dfirst", "Dmiddle", "Dlast");
+		dev2 = new Developer("Dev2", "Dfirst", "Dlast");
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Before
 	public void setUp() throws Exception {
 	}
 
-	/**
-	 * Test method for {@link bugtrap03.usersystem.Developer#hasRolePermission(bugtrap03.permission.RolePerm, bugtrap03.bugdomain.Project)}.
-	 */
-	@Test
-	public void testHasRolePermission() {
-		fail("Not yet implemented");
-	}
 
-	/**
-	 * Test method for {@link bugtrap03.usersystem.Developer#Developer(java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	public void testDeveloperStringStringStringString() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.Developer#Developer(java.lang.String, java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	public void testDeveloperStringStringString() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.Issuer#Issuer(java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	public void testIssuerStringStringStringString() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link bugtrap03.usersystem.Issuer#Issuer(java.lang.String, java.lang.String, java.lang.String)}.
-	 */
-	@Test
-	public void testIssuerStringStringString() {
-		fail("Not yet implemented");
-	}
 
 }
