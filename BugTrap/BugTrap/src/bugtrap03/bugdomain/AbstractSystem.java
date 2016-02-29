@@ -211,12 +211,12 @@ public abstract class AbstractSystem {
 	 * This method returns all the bug reports associated with this AbstractSystem
 	 * @return the list of all bugReports
 	 */
-	public ArrayList<BugReport> getAllBugReports(){
+	public PList<BugReport> getAllBugReports(){
 		ArrayList<BugReport> list = new ArrayList<>();
 		for (Subsystem subsystem : this.getChilds()){
 			list.addAll(subsystem.getAllBugReports());
 		}
-		return list;
+		return PList.<BugReport>empty().plusAll(list);
 	}
 	
 	/**

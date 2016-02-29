@@ -178,10 +178,10 @@ public class Subsystem extends AbstractSystem {
 	 * @return the list of all bugReports
 	 */
 	@Override
-	public ArrayList<BugReport> getAllBugReports(){
-		ArrayList<BugReport> list = super.getAllBugReports();
-		list.addAll(this.getBugReportList());
-		return list;
+	public PList<BugReport> getAllBugReports(){
+		PList<BugReport> list = super.getAllBugReports();
+		list = list.plusAll(this.getBugReportList());
+		return PList.<BugReport>empty().plusAll(list);
 	}
 	
 	/**

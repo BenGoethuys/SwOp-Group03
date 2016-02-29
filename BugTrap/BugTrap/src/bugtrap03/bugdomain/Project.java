@@ -194,7 +194,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
 	 */
-	private void setStartDate(GregorianCalendar startDate) throws IllegalArgumentException {
+	public void setStartDate(GregorianCalendar startDate) throws IllegalArgumentException {
 		if (!isValidStartDate(this.creationDate, startDate)) {
 			throw new IllegalArgumentException("Invalid startDate/creationDate.");
 		}
@@ -255,7 +255,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @see Project#isValidCreationDate(GregorianCalendar)
 	 */
-	public void setCreationDate(GregorianCalendar creationDate) throws IllegalArgumentException {
+	protected void setCreationDate(GregorianCalendar creationDate) throws IllegalArgumentException {
 		if (! this.isValidCreationDate(creationDate)){
 			throw new IllegalArgumentException("The given creation date is invalid for this project");
 		}
