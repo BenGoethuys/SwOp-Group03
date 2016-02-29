@@ -270,7 +270,7 @@ public class DataModel {
      *
      * @Ensures The attributes of the given project will not be updated if an error was thrown
      */
-    public void updateProject(Project proj, String name, String description, GregorianCalendar startDate, Long budgetEstimate) throws IllegalArgumentException {
+    public Project updateProject(Project proj, String name, String description, GregorianCalendar startDate, Long budgetEstimate) throws IllegalArgumentException {
         // Test to prevent inconsistent updating of vars
         Project.isValidName(name);
         Project.isValidDescription(description);
@@ -282,6 +282,8 @@ public class DataModel {
         proj.setDescription(description);
         proj.setStartDate(startDate);
         proj.setBudgetEstimate(budgetEstimate);
+
+        return proj;
     }
 
 }

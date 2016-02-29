@@ -69,4 +69,10 @@ public class DataController {
     	return this.model.getProjectList();
     }
 
+    /**
+     * @see DataModel#updateProject(Project, String, String, GregorianCalendar, Long)
+     */
+    public Project updateProject(Project proj, String name, String description, GregorianCalendar startDate, Long budgetEstimate) throws IllegalArgumentException {
+        return this.model.updateProject(proj, name, description, startDate, budgetEstimate);
+    }
 }
