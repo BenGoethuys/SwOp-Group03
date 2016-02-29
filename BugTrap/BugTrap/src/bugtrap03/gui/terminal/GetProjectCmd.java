@@ -18,16 +18,17 @@ public class GetProjectCmd implements Cmd {
      * Get a Project chosen by the person by presenting him a list of all
      * projects.
      *
-     * @param scan The scanner used to interact with the person.
-     * @param con  The controller used for model access.
-     * @param user The {@link User} who wants to executes this command.
-     * @return null if there is no result specified.
-     * @throws CancelException When the users wants to abort the current cmd
-     * @see bugtrap03.gui.terminal.Cmd#exec(bugtrap03.gui.terminal.TerminalScanner,
-     * bugtrap03.DataController, bugtrap03.usersystem.User)
      * <p>
      * <br> 1. The system shows a list of existing projects.
-     * <br> 2. The administrator selects an existing project.
+     * <br> 2. The person selects an existing project of the list.
+     *
+     * @param scan The scanner used to interact with the person.
+     * @param con The controller used for model access.
+     * @param user The {@link User} who wants to executes this command.
+     * @return The chosen project.
+     * @throws CancelException When the users wants to abort the current cmd
+     * @see Cmd#exec(TerminalScanner, DataController, User)
+     *
      */
     @Override
     public Project exec(TerminalScanner scan, DataController con, User user) throws CancelException {
