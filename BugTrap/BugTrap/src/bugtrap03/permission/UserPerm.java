@@ -1,6 +1,3 @@
-/**
- * 
- */
 package bugtrap03.permission;
 
 /**
