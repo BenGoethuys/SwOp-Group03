@@ -10,7 +10,6 @@ import bugtrap03.usersystem.Issuer;
 import bugtrap03.usersystem.User;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import purecollections.PList;
