@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.permission.UserPerm;
@@ -32,18 +32,18 @@ public class UpdateProjectCmd implements Cmd {
      * 6. The system updates the project.
      *
      * @param scan The {@link Scanner} trough which to ask the questions.
-     * @param con  The controller to use to access the model.
+     * @param model  The model to use to access the model.
      * @param user The user who wants to execute this {@link Cmd}.
      * @return The new updated project
      * @throws PermissionException When the user does not have sufficient permissions to update
      *                             a project.
      */
     @Override
-    public Project exec(TerminalScanner scan, DataController con, User user)
+    public Project exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException {
 
         // Get project
-        Project proj = new GetProjectCmd().exec(scan, con, user);
+        Project proj = new GetProjectCmd().exec(scan, model, user);
 
         // update name:
         String newName = null;
@@ -105,7 +105,7 @@ public class UpdateProjectCmd implements Cmd {
         } while (projBudgetEstimate == null);
 
         System.out.println("Project updated.");
-        con.updateProject(proj, user, newName, newDesc, projStartDate, projBudgetEstimate);
+        model.updateProject(proj, user, newName, newDesc, projStartDate, projBudgetEstimate);
         return proj;
     }
 

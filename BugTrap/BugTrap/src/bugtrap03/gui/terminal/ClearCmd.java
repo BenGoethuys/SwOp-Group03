@@ -1,6 +1,6 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.usersystem.User;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class ClearCmd implements Cmd {
      * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
-    public Object exec(TerminalScanner dummy1, DataController dummy2, User dummy3) {
+    public Object exec(TerminalScanner dummy1, DataModel dummy2, User dummy3) {
         this.clearConsole();
         return null;
     }

@@ -1,6 +1,6 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.usersystem.User;
 
 
@@ -20,7 +20,7 @@ public class AbortCmd implements Cmd {
      * @throws CancelException Always.
      */
     @Override
-    public Object exec(TerminalScanner dummy1, DataController dummy2, User dummy3) throws CancelException {
+    public Object exec(TerminalScanner dummy1, DataModel dummy2, User dummy3) throws CancelException {
         throw new CancelException("User wants to abort current cmd");
     }
     

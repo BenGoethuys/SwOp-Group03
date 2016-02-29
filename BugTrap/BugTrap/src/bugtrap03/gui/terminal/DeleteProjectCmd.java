@@ -2,7 +2,7 @@ package bugtrap03.gui.terminal;
 
 import java.util.Scanner;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.User;
@@ -26,7 +26,7 @@ public class DeleteProjectCmd implements Cmd {
      * removed from BugTrap.
      * 
      * @param scan The {@link Scanner} trough which to ask the questions.
-     * @param con The controller to use to access the model.
+     * @param model The model to use to access the model.
      * @param user The user who wants to execute this {@link Cmd}.
      * @return The deleted project
      * @throws PermissionException When the user does not have sufficient
@@ -34,14 +34,14 @@ public class DeleteProjectCmd implements Cmd {
      * 
      */
     @Override
-    public Project exec(TerminalScanner scan, DataController con, User user)
+    public Project exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException {
 
         // Get project
-        Project proj = new GetProjectCmd().exec(scan, con, user);
+        Project proj = new GetProjectCmd().exec(scan, model, user);
 
         // Delete the project 
-        con.deleteProject(user, proj);
+        model.deleteProject(user, proj);
 
         return proj;
     }

@@ -1,6 +1,6 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.usersystem.User;
 import java.io.IOException;
 
@@ -10,16 +10,16 @@ import java.io.IOException;
  */
 public class Terminal {
 
-    public Terminal(DataController con) throws IllegalArgumentException {
-        if (con == null) {
+    public Terminal(DataModel model) throws IllegalArgumentException {
+        if (model == null) {
             throw new IllegalArgumentException("Terminal does not allow a null-reference for DataController.");
         }
-        this.con = con;
+        this.model = model;
         this.scan = new TerminalScanner(System.in);
         this.parser = new CmdParser(this);
     }
 
-    private DataController con;
+    private DataModel model;
     private CmdParser parser;
     private final TerminalScanner scan;
     private User user;
@@ -45,12 +45,12 @@ public class Terminal {
     }
 
     /**
-     * Get the {@link DataController} currently in use.
+     * Get the {@link DataModel} currently in use.
      *
-     * @return The currently used controller.
+     * @return The currently used model.
      */
-    public DataController getController() {
-        return this.con;
+    public DataModel getController() {
+        return this.model;
     }
 
     /**
@@ -66,7 +66,7 @@ public class Terminal {
         do {
             try {
                 //Login
-                new LoginCmd(this).exec(scan, con, null);
+                new LoginCmd(this).exec(scan, model, null);
             } catch (CancelException ex) {
                 //Abort received, ignored because we really need a user.
             }
@@ -79,7 +79,7 @@ public class Terminal {
         	System.out.println("Give new command");
             try {
                 input = scan.nextLine().toLowerCase();
-                parser.performCmd(scan, con, user, input);
+                parser.performCmd(scan, model, user, input);
             } catch (CancelException ex) {
                 System.out.println("Cancelled. Execute a new command.");
                 // aborted current cmd, ask user for new cmd -> do nothing

@@ -1,13 +1,13 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.User;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -34,14 +34,14 @@ public class CreateProjectCmd implements Cmd {
      * <br> b5. Go to step a5
      *
      * @param scan The {@link Scanner} trough which to ask the questions.
-     * @param con The controller to use to access the model.
+     * @param model The model to use to access the model.
      * @param user The user who wants to execute this {@link Cmd}.
      * @return The user chosen by the person to login as.
      * @throws PermissionException When the user does not have sufficient
      * permissions to create/clone a project.
      */
     @Override
-    public Project exec(TerminalScanner scan, DataController con, User user) throws PermissionException, CancelException {
+    public Project exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
         System.out.println("Create or clone a new project?");
         String answer = null;
         do {
@@ -49,9 +49,9 @@ public class CreateProjectCmd implements Cmd {
             answer = scan.nextLine();
 
             if (answer.equalsIgnoreCase("create")) {
-                return createProjectScenario(scan, con, user);
+                return createProjectScenario(scan, model, user);
             } else if (answer.equalsIgnoreCase("clone")) {
-                return cloneProjectScenario(scan, con, user);
+                return cloneProjectScenario(scan, model, user);
             } else {
                 System.out.println("Invalid input. Use create or clone.");
                 answer = null;
@@ -73,13 +73,13 @@ public class CreateProjectCmd implements Cmd {
      * <br> a6. Show the user the details of the created project.
      *
      * @param scan The {@link Scanner} trough which to ask the questions.
-     * @param con The controller to use to access the model.
+     * @param model The model to use to access the model.
      * @param user The user who wants to execute this {@link Cmd}.
      * @return The user chosen by the person to login as.
      * @throws PermissionException When the user does not have sufficient
      * permissions to create/clone a project.
      */
-    private Project createProjectScenario(TerminalScanner scan, DataController con, User user) throws CancelException, PermissionException {
+    private Project createProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException, PermissionException {
         //Project name
         System.out.print("Project name:");
         String projName = scan.nextLine();
@@ -113,10 +113,10 @@ public class CreateProjectCmd implements Cmd {
 
         //Project lead developer
         System.out.println("Chose a lead developer.");
-        Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, con, user);
+        Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
 
         //Create Project
-        Project proj = con.createProject(projName, projDesc, projStartDate, lead, projBudgetEstimate, user);
+        Project proj = model.createProject(projName, projDesc, projStartDate, lead, projBudgetEstimate, user);
 
         //Print created project details
         System.out.println(proj.getDetails());
@@ -134,16 +134,68 @@ public class CreateProjectCmd implements Cmd {
      * <br> b5. Go to step a5
      *
      * @param scan The {@link Scanner} trough which to ask the questions.
-     * @param con The controller to use to access the model.
+     * @param model The model to use to access the model.
      * @param user The user who wants to execute this {@link Cmd}.
      * @return The user chosen by the person to login as.
      * @throws PermissionException When the user does not have sufficient
      * permissions to create/clone a project.
      */
-    private Project cloneProjectScenario(TerminalScanner scan, DataController con, User user) throws CancelException {
-        Project project = (new GetProjectCmd()).exec(scan, con, user);
+    private Project cloneProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException {
+        Project project = (new GetProjectCmd()).exec(scan, model, user);
+
+        //Update versionID
+        VersionID versionID = null;
+        do {
+            System.out.print("new VersionID (format=a.b.c):");
+            String[] versionIDStr = scan.nextLine().split(".");
+
+            int nb1, nb2, nb3;
+            try {
+                nb1 = Integer.parseInt(versionIDStr[0]);
+                nb2 = Integer.parseInt(versionIDStr[1]);
+                nb3 = Integer.parseInt(versionIDStr[2]);
+                versionID = new VersionID(nb1, nb2, nb3);
+            } catch (IndexOutOfBoundsException | NumberFormatException ex) {
+                System.out.println("Invalid input. Please try again using format: a.b.c");
+            }
+        } while (versionID == null);
+
+        //Start Date
+        GregorianCalendar startDate = null;
+        do {
+            System.out.print("New starting date (format=YYYY-MM-DD):");
+            String[] startDateStr = scan.nextLine().split("-");
+            try {
+                startDate = new GregorianCalendar(Integer.parseInt(startDateStr[0]),
+                        Integer.parseInt(startDateStr[1]), Integer.parseInt(startDateStr[2]));
+            } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+                System.out.println("Invalid input. Please try again using format YYYY-MM-DD");
+            }
+        } while (startDate == null);
+
+        //Budget estimate
+        Long budgetEstimate = null;
+        do {
+            System.out.print("New budget Estimate:");
+            String budgetEstimateStr = scan.nextLine();
+            try {
+                budgetEstimate = Long.parseLong(budgetEstimateStr);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please try again.");
+            }
+        } while (budgetEstimate == null);
+
+        //Lead developer
+        System.out.println("Chose a lead developer.");
+        Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
+
+        //Clone Project
+        Project newProject = project.cloneProject(versionID, lead, startDate, budgetEstimate);
+                
+        //Print created project details
+        System.out.println("Project details:");
+        System.out.println(newProject.getDetails());
         
-        
-        throw new NotImplementedException();
+        return newProject;
     }
 }
