@@ -9,8 +9,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.sun.javafx.image.impl.General;
+import com.sun.xml.internal.ws.wsdl.writer.document.StartWithExtensionsType;
 
+import bugtrap03.permission.PermissionException;
+import bugtrap03.permission.RolePerm;
 import bugtrap03.usersystem.Developer;
+import bugtrap03.usersystem.Role;
+import purecollections.PList;
 
 public class ProjectTest {
     static Developer testDev;
@@ -29,7 +34,7 @@ public class ProjectTest {
         testVersion = new VersionID(1,2,3);
         testName = "testProj";
         testDescription = "This is an description";
-        testStartDate = new GregorianCalendar(2016, 1, 1);
+        testStartDate = new GregorianCalendar(3016, 1, 1);
         testCreationDate = new GregorianCalendar(2000,12,25);   
         testBudget = 1000;
     }
@@ -41,7 +46,9 @@ public class ProjectTest {
     
     @Test
     public void testHasPermission() {
-        fail("Not yet implemented");
+        Developer programmer = new Developer("ladiedadieda", "ladie", "da");
+        assertTrue(testProject.hasPermission(testDev, RolePerm.ASSIGN_DEV_PROJECT));
+        assertFalse(testProject.hasPermission(programmer, RolePerm.SET_TAG_RESOLVED));
     }
 
     @Test
@@ -54,42 +61,45 @@ public class ProjectTest {
         assertEquals(testStartDate, testProject.getStartDate());
     }
 
+    //TODO VGL DATES
     @Test
     public void testProjectVersionIDStringStringDeveloperGregorianCalendarLong() {
         Project testProject2 =  new Project(testVersion, testName, testDescription, testDev, testStartDate, testBudget);
-        GregorianCalendar vglGreg = new GregorianCalendar();
+        GregorianCalendar vglGregDate = new GregorianCalendar();
         assertEquals(testVersion, testProject2.getVersionID());
         assertEquals(testName, testProject2.getName());
         assertEquals(testDescription, testProject2.getDescription());
-        assertEquals(vglGreg, testProject2.getCreationDate());
+        assertEquals(vglGregDate, testProject2.getCreationDate());
         assertEquals(testDev, testProject2.getLead());
         assertEquals(testStartDate, testProject2.getStartDate());
     }
 
+    //TODO VGL dates
     @Test
     public void testProjectStringStringDeveloperGregorianCalendarLong() {
         Project testProject2 =  new Project(testName, testDescription, testDev, testStartDate, testBudget);
         VersionID vglVersion =  new VersionID();
-        GregorianCalendar vglGreg = new GregorianCalendar();
+        GregorianCalendar vglCreation = new GregorianCalendar();
         assertEquals(vglVersion, testProject2.getVersionID());
         assertEquals(testName, testProject2.getName());
         assertEquals(testDescription, testProject2.getDescription());
-        assertEquals(vglGreg, testProject2.getCreationDate());
+        assertEquals(vglCreation, testProject2.getCreationDate());
         assertEquals(testDev, testProject2.getLead());
         assertEquals(testStartDate, testProject2.getStartDate());
     }
 
+    //TODO VGL DATES
     @Test
     public void testProjectStringStringDeveloperLong() {
-        Project testProject2 =  new Project(testVersion, testName, testDescription, testDev, testStartDate, testBudget);
+        Project testProject2 =  new Project(testName, testDescription, testDev, testBudget);
         VersionID vglVersion =  new VersionID();
-        GregorianCalendar vglGreg1 = new GregorianCalendar();
-        assertEquals(testVersion, testProject2.getVersionID());
+        GregorianCalendar vglGregDate = new GregorianCalendar();
+        assertEquals(vglVersion, testProject2.getVersionID());
         assertEquals(testName, testProject2.getName());
         assertEquals(testDescription, testProject2.getDescription());
-        assertEquals(vglGreg1, testProject2.getCreationDate());
+        assertEquals(vglGregDate, testProject2.getCreationDate());
         assertEquals(testDev, testProject2.getLead());
-        assertEquals(vglGreg1, testProject2.getStartDate());
+        assertEquals(vglGregDate, testProject2.getStartDate());
     }
 
     @Test
@@ -110,7 +120,7 @@ public class ProjectTest {
 
     @Test
     public void testSetStartDate() {
-        GregorianCalendar testStartDate2 = new GregorianCalendar(1888, 8, 18);
+        GregorianCalendar testStartDate2 = new GregorianCalendar(2888, 8, 18);
         testProject.setStartDate(testStartDate2);
         assertNotEquals(testStartDate, testProject.getStartDate());
         assertEquals(testStartDate2, testProject.getStartDate());
@@ -122,67 +132,131 @@ public class ProjectTest {
         assertFalse(Project.isValidStartDate(testCreationDate, null));
         assertFalse(Project.isValidStartDate(testStartDate, testCreationDate));
         assertTrue(Project.isValidStartDate(testCreationDate, testStartDate));
+        assertTrue(Project.isValidStartDate(testStartDate, testStartDate));
         
     }
 
     @Test
     public void testIsValidStartDateGregorianCalendar() {
-        fail("Not yet implemented");
+        GregorianCalendar invalidStartD = new GregorianCalendar(1888, 8, 18);
+        assertFalse(testProject.isValidStartDate(invalidStartD));
+        assertFalse(testProject.isValidStartDate(null));
+        assertTrue(testProject.isValidStartDate(testCreationDate));
+        assertTrue(testProject.isValidStartDate(testStartDate));
     }
 
     @Test
     public void testGetCreationDate() {
-        fail("Not yet implemented");
+        assertNotEquals(testStartDate, testProject.getCreationDate());
+        assertEquals(testCreationDate, testProject.getCreationDate());
     }
 
     @Test
     public void testSetCreationDate() {
-        fail("Not yet implemented");
+        GregorianCalendar testCreationDate2 = new GregorianCalendar(1888, 8, 18);
+        testProject.setCreationDate(testCreationDate2);
+        assertNotEquals(testCreationDate, testProject.getCreationDate());
+        assertEquals(testCreationDate2, testProject.getCreationDate());
     }
 
     @Test
     public void testIsValidCreationDate() {
-        fail("Not yet implemented");
+        assertFalse(Project.isValidCreationDate(null));
+        assertTrue(Project.isValidCreationDate(testCreationDate));
     }
 
     @Test
     public void testGetBudgetEstimate() {
-        fail("Not yet implemented");
+        assertEquals(testBudget, testProject.getBudgetEstimate());
+        assertNotEquals(13, testProject.getBudgetEstimate());
     }
 
     @Test
     public void testSetBudgetEstimate() {
-        fail("Not yet implemented");
+        testProject.setBudgetEstimate(10);
+        assertNotEquals(testBudget, testProject.getBudgetEstimate());
+        assertEquals(10, testProject.getBudgetEstimate());
     }
 
     @Test
     public void testIsValidBudgetEstimate() {
-        fail("Not yet implemented");
+        assertFalse(Project.isValidBudgetEstimate(-120));
+        assertTrue(Project.isValidBudgetEstimate(0));
+        assertTrue(Project.isValidBudgetEstimate(testBudget));
     }
 
     @Test
     public void testGetParent() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSetRole() {
-        fail("Not yet implemented");
+        assertNotEquals(null, testProject.getParent());
+        assertEquals(testProject, testProject.getParent());
     }
 
     @Test
     public void testGetAllRolesDev() {
-        fail("Not yet implemented");
+        PList<Role> rolesList = PList.<Role>empty().plus(Role.LEAD);
+        assertNotEquals(null, testProject.getAllRolesDev(testDev));
+        assertEquals(rolesList, testProject.getAllRolesDev(testDev));
     }
+    
+    @Test
+    public void testSetRole() throws IllegalArgumentException, PermissionException {
+        Developer programmer = new Developer("ikGebruikDit", "Joshua", "de Smidt");
+        testProject.setRole(testDev, programmer, Role.PROGRAMMER);
+        testProject.setRole(testDev, testDev, Role.TESTER); 
+        PList<Role> programmerRoleList = PList.<Role>empty().plus(Role.PROGRAMMER);
+        PList<Role> notProgrammerRoles = PList.<Role>empty().plus(Role.LEAD);
+        assertNotEquals(notProgrammerRoles, testProject.getAllRolesDev(programmer));
+        assertNotEquals(programmerRoleList, testProject.getAllRolesDev(testDev));
+        notProgrammerRoles = notProgrammerRoles.plus(Role.TESTER);
+        assertEquals(notProgrammerRoles, testProject.getAllRolesDev(testDev));
+        assertEquals(programmerRoleList, testProject.getAllRolesDev(programmer));
+    }
+
+    
 
     @Test
     public void testGetDetails() {
-        fail("Not yet implemented");
+        String details = testProject.getDetails();
+        System.out.println(details);
+        assertTrue(details.contains(testName));
+        assertTrue(details.contains(testDescription));
+        assertTrue(details.contains(testVersion.toString()));
+        //TODO string representation of Gregorian Calendar
+        assertTrue(details.contains(testStartDate.getTime().toString()));
+        assertTrue(details.contains(testCreationDate.getTime().toString()));
+        assertTrue(details.contains("1000"));
+        assertTrue(details.contains(testDev.getFullName()));
+        assertTrue(details.contains(testDev.getUsername()));
+        System.out.println(details);
     }
 
+    //TODO add subsystem and check childs
     @Test
     public void testCloneProject() {
-        fail("Not yet implemented");
+        VersionID cversion =  new VersionID(6,6,6);
+        Developer clead = new Developer("cloneClown","cclone","cclown");
+        GregorianCalendar cstart = new GregorianCalendar(3000, 1, 1);
+        long cestimate = 4567;
+        Project cloneProject = testProject.cloneProject(cversion, clead, cstart, cestimate);
+        GregorianCalendar temp = new GregorianCalendar();
+        assertEquals(4567, cloneProject.getBudgetEstimate());
+        assertEquals(cstart, cloneProject.getStartDate());
+        assertEquals(clead, cloneProject.getLead());
+        assertEquals(cversion, cloneProject.getVersionID());
+        
+        assertNotEquals(testBudget, cloneProject.getBudgetEstimate());
+        assertNotEquals(testStartDate, cloneProject.getStartDate());
+        assertNotEquals(testDev, cloneProject.getLead());
+        assertNotEquals(testVersion, cloneProject.getVersionID());
+        
+        
+        System.out.println("\n temptime: " + temp.getTime().toString());
+        System.out.println("\n cloneTime: " + cloneProject.getCreationDate().getTime().toString());
+        
+        //TODO Compare Dates??
+        assertEquals(temp.getTime(), cloneProject.getCreationDate().getTime());
+        assertEquals(testName, cloneProject.getName());
+        assertEquals(testDescription, cloneProject.getDescription());
     }
 
 }

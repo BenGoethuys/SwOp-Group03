@@ -129,4 +129,15 @@ public class VersionID implements Comparable<VersionID> {
 		}
 		return 1;
 	}
+	
+	//TODO: HEADING
+	//TODO: No problem for any one?
+	@Override
+	public boolean equals(Object other){
+	    if (other instanceof VersionID) {
+            VersionID otherID = (VersionID) other;
+            return (this.compareTo(otherID) == 0);            
+        }
+	    return false;
+	}
 }
