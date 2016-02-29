@@ -11,7 +11,7 @@ import bugtrap03.usersystem.User;
  * @author group 03
  *
  */
-public class DeleteProjectCmd implements Cmd { //TODO
+public class DeleteProjectCmd implements Cmd { // TODO
 
     /**
      * 
@@ -39,11 +39,10 @@ public class DeleteProjectCmd implements Cmd { //TODO
 
         // Get project
         Project proj = new GetProjectCmd().exec(scan, con, user);
-        
-        
-        
-        return proj;
 
+        con.deleteProject(proj);
+
+        return proj;
     }
 
 }
