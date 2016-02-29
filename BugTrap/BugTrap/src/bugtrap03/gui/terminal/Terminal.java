@@ -1,6 +1,6 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.DataController;
+import bugtrap03.DataModel;
 import bugtrap03.usersystem.User;
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import java.io.IOException;
  */
 public class Terminal {
 
-    public Terminal(DataController con) throws IllegalArgumentException {
+    public Terminal(DataModel con) throws IllegalArgumentException {
         if (con == null) {
             throw new IllegalArgumentException("Terminal does not allow a null-reference for DataController.");
         }
@@ -19,7 +19,7 @@ public class Terminal {
         this.parser = new CmdParser(this);
     }
 
-    private DataController con;
+    private DataModel con;
     private CmdParser parser;
     private final TerminalScanner scan;
     private User user;
@@ -45,11 +45,11 @@ public class Terminal {
     }
 
     /**
-     * Get the {@link DataController} currently in use.
+     * Get the {@link DataModel} currently in use.
      *
      * @return The currently used controller.
      */
-    public DataController getController() {
+    public DataModel getController() {
         return this.con;
     }
 
