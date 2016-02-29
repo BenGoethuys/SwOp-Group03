@@ -35,7 +35,14 @@ public class GetProjectCmd implements Cmd {
     @Override
     public Project exec(TerminalScanner scan, DataController con, User user) throws CancelException {
 
-        // show all projects
+	/* (non-Javadoc)
+	 * //TODO write heading
+	 * @see bugtrap03.gui.terminal.Cmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.DataController, bugtrap03.usersystem.User)
+	 */
+	@Override
+	public Project exec(TerminalScanner scan, DataController con, User user) throws CancelException {
+		
+		// show all projects
         PList<Project> projectList = con.getProjectList();
         System.out.println("Available projects:");
         for (int i = 0; i < projectList.size(); i++) {
