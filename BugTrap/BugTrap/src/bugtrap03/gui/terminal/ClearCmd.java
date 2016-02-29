@@ -1,7 +1,6 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
-import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.User;
 
 import java.io.IOException;
@@ -12,22 +11,23 @@ import java.io.IOException;
 public class ClearCmd implements Cmd {
 
     /**
-     * Execute this command and possibly return a result.
+     * Attempt to clear the console screen.
      *
-     * @param scan       The scanner used to interact with the person.
-     * @param controller The controller used for model access.
-     * @param user       The {@link User} who wants to executes this command.
-     * @return null if there is no result specified.
-     * @throws PermissionException When the user does not have sufficient
-     *                             permissions.
-     * @throws CancelException     When the users wants to abort the current cmd
+     * @param dummy1
+     * @param dummy2 
+     * @param dummy3 
+     * @return null 
+     * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
-    public Object exec(TerminalScanner scan, DataController controller, User user) throws PermissionException, CancelException {
+    public Object exec(TerminalScanner dummy1, DataController dummy2, User dummy3) {
         this.clearConsole();
         return null;
     }
 
+    /**
+     * Attempt to clear the console screen.
+     */
     private void clearConsole() {
         try {
             final String os = System.getProperty("os.name");
