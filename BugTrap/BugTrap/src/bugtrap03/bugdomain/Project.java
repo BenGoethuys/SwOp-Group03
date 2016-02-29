@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -120,6 +121,7 @@ public class Project extends AbstractSystem {
 	 * @see Project#isValidBudgetEstimate(long)
 	 * 
 	 */
+	//TODO: Call this instead of super?
 	public Project(String name, String description, Developer lead, long budgetEstimate) 
 			throws IllegalArgumentException {
 		super(name, description);
@@ -384,7 +386,10 @@ public class Project extends AbstractSystem {
          * @return //TODO Print details
          */
         public String getDetails() {
-            throw new NotImplementedException();
+        	String details = "";
+        	details.concat(this.getName());
+            
+        	return details;
         }
         
         /**
@@ -399,8 +404,12 @@ public class Project extends AbstractSystem {
             //TODO: Implement a clone of this Project with new versionID, lead, startDate, budgetEstimate
             //Clone subsystems as well but no BugReports!
             //No idea about participants
-            
-            //make new Project and initialise all the stuff the right way (clones).
-            throw new NotImplementedException();
+        	Project cloneProject = new Project(version, this.getName(), this.getDescription(), this.getLead(), startDate, budgetEstimate);
+        	ArrayList<Subsystem> cloneChilds = new ArrayList<>();
+            for(Subsystem subsystemChild: this.getChilds()){
+            	cloneChilds.add(subsystemChild.cloneSubsystem());
+            }
+            return cloneProject;
+  
         }
 }

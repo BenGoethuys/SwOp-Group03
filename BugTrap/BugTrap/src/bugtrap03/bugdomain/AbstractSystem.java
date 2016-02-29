@@ -220,6 +220,19 @@ public abstract class AbstractSystem {
 	}
 	
 	/**
+	 * This recursive method returns all the subsystems that are a child of this AbstracSystem
+	 * @return the list of all Subsystem childs. 
+	 */
+	public PList<Subsystem> getAllSubsystems(){
+		ArrayList<Subsystem> list = new ArrayList<>();
+		for (Subsystem subsystem : this.getChilds()){
+			list.add(subsystem);
+			list.addAll(subsystem.getAllSubsystems());
+		}
+		return PList.<Subsystem>empty().plusAll(list);
+	}
+	
+	/**
 	 * This method checks if the given developer has the requested permission for this subsystem
 	 * @param dev the developer to check
 	 * @param perm the requested permission
