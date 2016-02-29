@@ -141,6 +141,6 @@ public class CreateProjectCmd implements Cmd {
      * permissions to create/clone a project.
      */
     private Project cloneProjectScenario(TerminalScanner scan, DataController con, User user) {
-        
+        throw new NotImplementedException();
     }
 }

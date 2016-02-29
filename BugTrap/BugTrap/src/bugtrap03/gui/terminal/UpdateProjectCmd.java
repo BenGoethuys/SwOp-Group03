@@ -47,6 +47,9 @@ public class UpdateProjectCmd implements Cmd {
 	@Override
 	public Project exec(TerminalScanner scan, DataController con, User user)
 			throws PermissionException, CancelException {
+            //TODO: Sure? Maybe we should create a method in model to updateProject(...para..)
+            //then this method checks for permissions and updates everything at once.
+            //It would be more in line with CreateProjectCmd.
 		// check needed permission
 		if (!user.hasPermission(UserPerm.UPDATE_PROJ)) {
 			throw new PermissionException("You dont have the needed permission to update a project!");
