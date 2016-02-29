@@ -166,8 +166,27 @@ public abstract class AbstractSystem {
 		return this.childs;
 	}
 
+	/**
+	 *  //TODO
+	 * @param version
+	 * @param name
+	 * @param description
+     * @return
+     */
 	public Subsystem makeSubsystemChild(VersionID version, String name, String description){
 		Subsystem newChild = new Subsystem(version, name, description, this);
+		this.addChild(newChild);
+		return newChild;
+	}
+
+	/**
+	 *  //TODO
+	 * @param name
+	 * @param description
+     * @return
+     */
+	public Subsystem makeSubsystemChild(String name, String description){
+		Subsystem newChild = new Subsystem(name, description, this);
 		this.addChild(newChild);
 		return newChild;
 	}
