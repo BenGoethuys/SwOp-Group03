@@ -1,11 +1,8 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
-import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.User;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

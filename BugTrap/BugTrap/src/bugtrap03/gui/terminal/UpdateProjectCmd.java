@@ -145,8 +145,7 @@ public class UpdateProjectCmd implements Cmd {
 							Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
 					proj.setCreationDate(projStartDate);
 					done = true;
-					//TODO find better string rep for creationdate!
-					System.out.println("The new creation date of the prject: " + proj.getStartDate().toString());
+					System.out.println("The new creation date of the prject: " + proj.getStartDate().getTime().toString());
 				} catch (IndexOutOfBoundsException | IllegalArgumentException e) {
 					System.out.println("Invalid input. Please try again");
 				}
