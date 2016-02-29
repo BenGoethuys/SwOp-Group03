@@ -41,69 +41,37 @@ public class UpdateProjectCmd implements Cmd {
     @Override
     public Project exec(TerminalScanner scan, DataController con, User user)
             throws PermissionException, CancelException {
-        //TODO: Sure? Maybe we should create a method in model to updateProject(...para..)
-        //then this method checks for permissions and updates everything at once.
-        //It would be more in line with CreateProjectCmd.
-        // check needed permission
-        if (!user.hasPermission(UserPerm.UPDATE_PROJ)) {
-            throw new PermissionException("You dont have the needed permission to update a project!");
-        }
-        
+
         // Get project
         Project proj = new GetProjectCmd().exec(scan, con, user);
 
-        boolean done = false;
-
         // update name:
         String newName = null;
-        done = false;
-        do {
-            System.out.println("Give new name: (leave blank for old name)");
-            newName = scan.nextLine();
-            if (newName.equalsIgnoreCase("")) {
-                done = true;
-                System.out.println("The name was not updated.");
-            } else {
-                try {
-                    proj.setName(newName);
-                    done = true;
-                    System.out.println("The new name of the project is: " + proj.getName());
-                } catch (IllegalArgumentException ex) {
-                    System.out.println("The given name was invalid, please try again.");
-                }
-            }
-        } while (!done);
+        System.out.println("Give new name: (leave blank for old name)");
+        newName = scan.nextLine();
+        if (newName.equalsIgnoreCase("")) {
+            newName = proj.getName();
+            System.out.println("The name was not updated.");
+        }
 
         // update description:
         String newDesc = null;
-        done = false;
-        do {
-            System.out.println("Give new description: (leave blank for old description)");
-            newDesc = scan.nextLine();
-            if (newDesc.equalsIgnoreCase("")) {
-                done = true;
-                System.out.println("Description not updated.");
-            } else {
-                try {
-                    proj.setDescription(newDesc);
-                    done = true;
-                    System.out.println("The new description of the project is: " + proj.getDescription());
-                } catch (IllegalArgumentException ex) {
-                    System.out.println("The given description was invalid, please try again.");
-                }
-            }
-        } while (!done);
+        System.out.println("Give new description: (leave blank for old description)");
+        newDesc = scan.nextLine();
+        if (newDesc.equalsIgnoreCase("")) {
+            System.out.println("Description not updated.");
+            newDesc = proj.getDescription();
+        }
 
         // update start date
         GregorianCalendar projStartDate = null;
         String dateStr;
         String[] projDateStr;
-        done = false;
         do {
             System.out.println("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
             dateStr = scan.nextLine();
             if (dateStr.equalsIgnoreCase("")) {
-                done = true;
+                projStartDate = proj.getStartDate();
                 System.out.println("Start date not updated.");
             } else {
                 projDateStr = dateStr.split("-");
@@ -111,37 +79,33 @@ public class UpdateProjectCmd implements Cmd {
                     projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]),
                             Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
                     proj.setStartDate(projStartDate);
-                    done = true;
-                    System.out.println("The new creation date of the prject: " + proj.getStartDate().getTime().toString());
                 } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
                     System.out.println("Invalid input. Please try again");
                 }
             }
-        } while (!done);
+        } while (projStartDate == null);
 
         // update budget estimate
-        Integer projBudgetEstimate = null;
+        Long projBudgetEstimate = null;
         String str;
-        done = false;
         do {
             System.out.println("Give new project budget estimate:");
             str = scan.nextLine();
             if (str.equalsIgnoreCase("")) {
-                done = true;
+                projBudgetEstimate = proj.getBudgetEstimate();
                 System.out.println("Buget estimate not updated.");
             } else {
                 try {
-                    projBudgetEstimate = Integer.parseInt(str);
+                    projBudgetEstimate = Long.parseLong(str);
                     proj.setBudgetEstimate(projBudgetEstimate);
-                    done = true;
-                    System.out.println("The new budget estimate for the system: " + proj.getBudgetEstimate());
                 } catch (IllegalArgumentException e) {
                     System.out.println("Invalid input.");
                 }
             }
-        } while (!done);
+        } while (projBudgetEstimate == null);
 
         System.out.println("Project updated.");
+        con.updateProject(proj, user, newName, newDesc, projStartDate, projBudgetEstimate);
         return proj;
     }
 
