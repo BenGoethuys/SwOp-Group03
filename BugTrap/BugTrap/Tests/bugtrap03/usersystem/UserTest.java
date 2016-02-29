@@ -1,17 +1,20 @@
 package bugtrap03.usersystem;
 
 import org.junit.Test;
+
+import bugtrap03.permission.UserPerm;
+
 import static org.junit.Assert.*;
 
 /**
  *
- * @author Admin
+ * @author Mathias
  */
 public class UserTest {
 
-	static User user;
-	static User user2;
-	
+    static User user;
+    static User user2;
+
     /**
      * Test the constructor of usersystem.User using User(String, String,
      * String, String).
@@ -211,5 +214,25 @@ public class UserTest {
         String lastName = "Derk";
 
         user = new UserTestDummy(unique, firstName, middleName, lastName);
+    }
+
+    @Test
+    public void testGetFullName() {
+        user = new UserTestDummy("User1", "First", "Last");
+        String str = "First Last";
+        assertEquals(user.getFullName(), str);
+
+        user2 = new UserTestDummy("User2", "First", "Middle", "Last");
+        String str2 = "First Middle Last";
+        assertEquals(user2.getFullName(), str2);
+    }
+    
+    @Test
+    public void testHasPermission() {
+        user = new UserTestDummy("AlwaysFalse", "First", "Last");
+        assertFalse(user.hasPermission(UserPerm.ASSIGN_PROJ_LEAD));
+        assertFalse(user.hasPermission(UserPerm.CREATE_PROJ));
+        assertFalse(user.hasPermission(UserPerm.DELETE_PROJ));
+        assertFalse(user.hasPermission(UserPerm.UPDATE_PROJ));
     }
 }

@@ -28,6 +28,17 @@ public class DeveloperTest {
 	public void setUp() throws Exception {
 	}
 
+	@Test
+	public void testNames() {
+		assertEquals(dev.getFirstName(), "Dfirst");
+		assertEquals(dev.getMiddleName(), "Dmiddle");
+		assertEquals(dev.getLastName(), "Dlast");
+		assertEquals(dev.getUsername(), "Dev1");
+
+		assertEquals(dev2.getFirstName(), "Dfirst");
+		assertEquals(dev2.getLastName(), "Dlast");
+		assertEquals(dev2.getUsername(), "Dev2");
+	}
 
 
 }
