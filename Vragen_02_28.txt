@@ -1,4 +1,0 @@
-* Cloning a Project: what about participants? 
-copy them, and their roles
-
-* Controller <-> Model. Isn 't our dataModel class a Controller currently?

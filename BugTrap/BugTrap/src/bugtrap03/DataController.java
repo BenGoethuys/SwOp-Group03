@@ -75,4 +75,11 @@ public class DataController {
     public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate, Long budgetEstimate) throws IllegalArgumentException, PermissionException {
         return this.model.updateProject(proj, user, name, description, startDate, budgetEstimate);
     }
+    
+    /**
+     * @see DataModel#deleteProject(Project)
+     */
+    public Project deleteProject(Project project) {
+        return this.model.deleteProject(project);
+    }
 }

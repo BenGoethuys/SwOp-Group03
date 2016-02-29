@@ -1,7 +1,9 @@
 package bugtrap03;
 
+import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.permission.UserPerm;
 import bugtrap03.usersystem.Administrator;
@@ -10,7 +12,6 @@ import bugtrap03.usersystem.Issuer;
 import bugtrap03.usersystem.User;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import purecollections.PList;
@@ -26,8 +27,8 @@ public class DataModel {
      *
      */
     public DataModel() {
-        this.userList = PList.<User>empty();
-        this.projectList = PList.<Project>empty();
+        this.userList = PList.<User> empty();
+        this.projectList = PList.<Project> empty();
     }
 
     private PList<User> userList;
@@ -61,7 +62,7 @@ public class DataModel {
      * @return All users of this system who have the exact class type userType.
      */
     public <U extends User> PList<U> getUserListOfExactType(Class<U> userType) {
-        PList<U> result = PList.<U>empty();
+        PList<U> result = PList.<U> empty();
         for (User user : userList) {
             if (user.getClass().equals(userType)) {
                 result = result.plus((U) user);
@@ -77,10 +78,10 @@ public class DataModel {
      * @param <U> extends User type.
      * @param userType The type of users returned.
      * @return All users of this system who have the exact class type userType
-     * or a class type that extends userType.
+     *         or a class type that extends userType.
      */
     public <U extends User> PList<U> getUserListOfType(Class<U> userType) {
-        PList<U> result = PList.<U>empty();
+        PList<U> result = PList.<U> empty();
         for (User user : userList) {
             if (userType.isInstance(user)) {
                 result = result.plus((U) user);
@@ -100,7 +101,8 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Issuer#Issuer(String, String, String, String)
      */
-    public Issuer createIssuer(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
+    public Issuer createIssuer(String username, String firstName, String middleName, String lastName)
+            throws IllegalArgumentException {
         Issuer issuer = new Issuer(username, firstName, middleName, lastName);
         addUser(issuer);
         return issuer;
@@ -133,7 +135,8 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Developer#Developer(String, String, String, String)
      */
-    public Developer createDeveloper(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
+    public Developer createDeveloper(String username, String firstName, String middleName, String lastName)
+            throws IllegalArgumentException {
         Developer dev = new Developer(username, firstName, middleName, lastName);
         addUser(dev);
         return dev;
@@ -149,7 +152,8 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Developer#Developer(String, String, String)
      */
-    public Developer createDeveloper(String username, String firstName, String lastName) throws IllegalArgumentException {
+    public Developer createDeveloper(String username, String firstName, String lastName)
+            throws IllegalArgumentException {
         Developer dev = new Developer(username, firstName, lastName);
         addUser(dev);
         return dev;
@@ -166,7 +170,8 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Administrator#Administrator(String, String, String, String)
      */
-    public Administrator createAdministrator(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
+    public Administrator createAdministrator(String username, String firstName, String middleName, String lastName)
+            throws IllegalArgumentException {
         Administrator admin = new Administrator(username, firstName, middleName, lastName);
         addUser(admin);
         return admin;
@@ -182,7 +187,8 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Administrator#Administrator(String, String, String)
      */
-    public Administrator createAdministrator(String username, String firstName, String lastName) throws IllegalArgumentException {
+    public Administrator createAdministrator(String username, String firstName, String lastName)
+            throws IllegalArgumentException {
         Administrator admin = new Administrator(username, firstName, lastName);
         addUser(admin);
         return admin;
@@ -199,13 +205,13 @@ public class DataModel {
      *
      * @throws IllegalArgumentException if the constructor of project fails
      * @throws PermissionException If the given creator has insufficient
-     * permissions
+     *             permissions
      *
      * @see Project#Project(String, String, Developer, GregorianCalendar, long)
      * @return the created project
      */
-    public Project createProject(String name, String description, GregorianCalendar startDate, Developer lead, long budget, User creator)
-            throws IllegalArgumentException, PermissionException {
+    public Project createProject(String name, String description, GregorianCalendar startDate, Developer lead,
+            long budget, User creator) throws IllegalArgumentException, PermissionException {
         if (!creator.hasPermission(UserPerm.CREATE_PROJ)) {
             throw new PermissionException("The given user doesn't have the permission to create a project");
         }
@@ -213,7 +219,7 @@ public class DataModel {
         this.projectList = projectList.plus(project);
         return project;
     }
-    
+
     /**
      * This method creates a new {@link Project} in the system
      *
@@ -224,7 +230,7 @@ public class DataModel {
      *
      * @throws IllegalArgumentException if the constructor of project fails
      * @throws PermissionException If the given creator has insufficient
-     * permissions
+     *             permissions
      *
      * @see Project#Project(String, String, Developer, long)
      * @return the created project
@@ -238,7 +244,7 @@ public class DataModel {
         this.projectList = projectList.plus(project);
         return project;
     }
-    
+
     /**
      * Get the list of projects in this system.
      *
@@ -250,31 +256,35 @@ public class DataModel {
 
     /**
      * This method gets all bug reports in the system
+     * 
      * @return a list of all bugreports in the system
      */
-    public ArrayList<BugReport> getAllBugReports(){
+    public ArrayList<BugReport> getAllBugReports() {
         ArrayList<BugReport> list = new ArrayList<>();
-        for (Project project : this.projectList){
+        for (Project project : this.projectList) {
             list.addAll(project.getAllBugReports());
         }
         return list;
     }
 
     /**
-     *  This method updates the given project with the new given attributes
+     * This method updates the given project with the new given attributes
      *
      * @param name The new name of the given project
      * @param description The new description of the given project
      * @param startDate The new startDate of the given project
      * @param budgetEstimate The new budget estimate of the given project
      *
-     * @Ensures The attributes of the given project will not be updated if an error was thrown
+     * @Ensures The attributes of the given project will not be updated if an
+     *          error was thrown
      *
-     * @throws PermissionException if the given user doesn't have the needed permission to update a project.
+     * @throws PermissionException if the given user doesn't have the needed
+     *             permission to update a project.
      */
-    public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate, Long budgetEstimate) throws IllegalArgumentException, PermissionException {
+    public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate,
+            Long budgetEstimate) throws IllegalArgumentException, PermissionException {
         // check needed permission
-        if (! user.hasPermission(UserPerm.UPDATE_PROJ)) {
+        if (!user.hasPermission(UserPerm.UPDATE_PROJ)) {
             throw new PermissionException("You dont have the needed permission to update a project!");
         }
 
@@ -291,6 +301,44 @@ public class DataModel {
         proj.setBudgetEstimate(budgetEstimate);
 
         return proj;
+    }
+
+    /**
+     * This method returns all subsystems of a given project
+     * 
+     * @param project The project to print the subsystems from
+     * @return a PList containing all subsystems of a project
+     *
+     * @see AbstractSystem#getAllSubsystems()
+     */
+    public PList<Subsystem> getAllSubsystems(Project project) {
+        return project.getAllSubsystems();
+    }
+
+    /**
+     * This method returns all projects and there subsystems in the system
+     * 
+     * @return the list of all projects and there subsystems
+     */
+    public PList<AbstractSystem> getAllProjectsAndSubsystems() {
+        PList<AbstractSystem> list = PList.<AbstractSystem> empty();
+        for (Project proj : this.projectList) {
+            list = list.plus(proj);
+            list = list.plusAll(new ArrayList<AbstractSystem>(proj.getAllSubsystems()));
+        }
+        return list;
+    }
+
+    /**
+     * This method removes a project from the projectlist.
+     * 
+     * @param project The project which has to be removed
+     * @return The removed project
+     */
+    public Project deleteProject(Project project) {
+        this.projectList = projectList.minus(project);
+
+        return project;
     }
 
 }

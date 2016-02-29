@@ -9,6 +9,8 @@ import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Role;
 import bugtrap03.usersystem.User;
 import java.util.GregorianCalendar;
+import java.util.NoSuchElementException;
+
 import purecollections.PList;
 
 /**
@@ -130,7 +132,6 @@ public class Project extends AbstractSystem {
         this.setBudgetEstimate(budgetEstimate);
     }
 
-    private Developer lead;
     private GregorianCalendar creationDate;
     private GregorianCalendar startDate;
     private HashMap<Developer, PList<Role>> projectParticipants;
@@ -139,10 +140,18 @@ public class Project extends AbstractSystem {
     /**
      * This method returns the lead of this project
      * 
-     * @return the lead developer of this project
+     * @return the lead developer of this project, null if no exists yet
      */
     public Developer getLead() {
-        return this.lead;
+        Developer lead = null;
+        try {
+            lead = this.projectParticipants.entrySet().parallelStream()
+                    .filter(u -> u.getValue().contains(Role.LEAD))
+                    .findFirst().get().getKey();
+        } catch (NoSuchElementException ex){
+            // no lead -> return null;
+        }
+        return lead;
     }
 
     /**
@@ -160,8 +169,7 @@ public class Project extends AbstractSystem {
         if (!Project.isValidLead(lead)) {
             throw new IllegalArgumentException("The given developer is invalid as lead for this project");
         }
-        if (this.lead == null) {
-            this.lead = lead;
+        if (this.getLead() == null) {
             this.setRole(lead, Role.LEAD);
         }
     }
@@ -306,7 +314,7 @@ public class Project extends AbstractSystem {
      * Checks the validity of the given budgetEstimate. 
      * The value must be positive (or zero)
      * 
-     * @param the budget estimate to check of type long
+     * @param budgetEstimate The budget estimate to check of type long
      * @return false if budgetEstimate is smaller than zero
      */
     public static boolean isValidBudgetEstimate(long budgetEstimate) {
