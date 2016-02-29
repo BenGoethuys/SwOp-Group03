@@ -51,7 +51,7 @@ public class CmdParser {
     }
 
     /**
-     * Performs the {@link cmd} associated with the given command. When the
+     * Performs the {@link Cmd} associated with the given command. When the
      * given command string is not associated with any {@link Cmd} an
      * {@link InvalidCmd} is executed.
      *
