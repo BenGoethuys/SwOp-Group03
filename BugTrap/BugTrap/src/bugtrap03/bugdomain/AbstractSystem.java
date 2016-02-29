@@ -110,7 +110,7 @@ public abstract class AbstractSystem {
 	 * @param name The string argument to used as name.
 	 * @return true if the name is not an empty string or null.
 	 */
-	public boolean isValidName(String name) {
+	public static boolean isValidName(String name) {
 		return (!"".equals(name) && name != null);
 	}
 
