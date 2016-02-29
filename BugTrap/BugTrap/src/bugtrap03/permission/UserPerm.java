@@ -12,5 +12,5 @@ public enum UserPerm {
 	CREATE_PROJ,
 	ASSIGN_PROJ_LEAD,
 	UPDATE_PROJ,
-	DELTE_PROJ;
+	DELETE_PROJ;
 }

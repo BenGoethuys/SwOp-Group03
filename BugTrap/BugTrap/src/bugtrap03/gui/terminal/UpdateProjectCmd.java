@@ -48,36 +48,9 @@ public class UpdateProjectCmd implements Cmd {
         if (!user.hasPermission(UserPerm.UPDATE_PROJ)) {
             throw new PermissionException("You dont have the needed permission to update a project!");
         }
-
-        // show all projects
-        PList<Project> projectList = con.getProjectList();
-        System.out.println("Available projects:");
-        for (int i = 0; i < projectList.size(); i++) {
-            System.out.println(i + ". " + projectList.get(i).getName());
-        }
-
-        // Retrieve & process user input.
-        Project proj = null;
-        do {
-            System.out.print("I chose: ");
-            if (scan.hasNextInt()) { // by index
-                int index = scan.nextInt();// input
-                if (index >= 0 && index < projectList.size()) {
-                    proj = projectList.get(index);
-                } else {
-                    System.out.println("Invalid input.");
-                }
-            } else { // by name
-                String input = scan.nextLine(); // input
-                try {
-                    proj = projectList.parallelStream().filter(u -> u.getName().equals(input)).findFirst().get();
-                } catch (NoSuchElementException ex) {
-                    System.out.println("Invalid input.");
-                }
-            }
-        } while (proj == null);
-        System.out.println("You have chosen:");
-        System.out.println(proj.getDetails());
+        
+        // Get project
+        Project proj = new GetProjectCmd().exec(scan, con, user);
 
         boolean done = false;
 
@@ -137,7 +110,7 @@ public class UpdateProjectCmd implements Cmd {
                 try {
                     projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]),
                             Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
-                    proj.setCreationDate(projStartDate);
+                    proj.setStartDate(projStartDate);
                     done = true;
                     System.out.println("The new creation date of the prject: " + proj.getStartDate().getTime().toString());
                 } catch (IndexOutOfBoundsException | IllegalArgumentException e) {

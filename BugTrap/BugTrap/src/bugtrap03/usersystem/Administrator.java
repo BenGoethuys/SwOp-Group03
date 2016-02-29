@@ -43,7 +43,7 @@ public class Administrator extends User {
 
     private UserPerm[] permissions = {
         //TODO nakijken Update permission
-        UserPerm.CREATE_PROJ, UserPerm.ASSIGN_PROJ_LEAD, UserPerm.UPDATE_PROJ, UserPerm.DELTE_PROJ
+        UserPerm.CREATE_PROJ, UserPerm.ASSIGN_PROJ_LEAD, UserPerm.UPDATE_PROJ, UserPerm.DELETE_PROJ
     };
 
     /**
