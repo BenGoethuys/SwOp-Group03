@@ -25,10 +25,10 @@ public abstract class User {
      * @param lastName The last name of this user.
      *
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * @see isValidUsername(String username)
-     * @see isValidFirstName(String firstName)
-     * @see isValidMiddleName(String middleName)
-     * @see isValidLastName(String lastName)
+     * @see #isValidUsername(String username)
+     * @see #isValidFirstName(String firstName)
+     * @see #isValidMiddleName(String middleName)
+     * @see #isValidLastName(String lastName)
      */
     public User(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
         setUsername(username);
@@ -45,9 +45,9 @@ public abstract class User {
      * @param lastName The last name of this user.
      *
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * @see isValidUsername(String username)
-     * @see isValidFirstName(String firstName)
-     * @see isValidLastName(String lastName)
+     * @see #isValidUsername(String username)
+     * @see #isValidFirstName(String firstName)
+     * @see #isValidLastName(String lastName)
      */
     public User(String username, String firstName, String lastName) throws IllegalArgumentException {
         this(username, firstName, "", lastName);
@@ -74,7 +74,7 @@ public abstract class User {
      *
      * @param username The new username.
      * @throws IllegalArgumentException When the username is not valid.
-     * @see isValidUsername(String username)
+     * @see #isValidUsername(String username)
      */
     private void setUsername(String username) throws IllegalArgumentException {
         if (isValidUsername(username)) {
@@ -110,7 +110,7 @@ public abstract class User {
      *
      * @param firstName The new first name.
      * @throws IllegalArgumentException When the firstName is not valid.
-     * @see isValidFirstName(String firstName)
+     * @see #isValidFirstName(String firstName)
      */
     private void setFirstName(String firstName) throws IllegalArgumentException {
         if (isValidFirstName(firstName)) {
@@ -144,7 +144,7 @@ public abstract class User {
      *
      * @param middleName The new middle name.
      * @throws IllegalArgumentException When the middleName is not valid.
-     * @see isValidmiddleName(String middleName)
+     * @see #isValidMiddleName(String middleName)
      */
     private void setMiddleName(String middleName) {
         if (isValidMiddleName(middleName)) {
@@ -178,7 +178,7 @@ public abstract class User {
      *
      * @param lastName The new last name.
      * @throws IllegalArgumentException When the last name is not valid.
-     * @see isValidLastName(String lastName)
+     * @see #isValidLastName(String lastName)
      */
     private void setLastName(String lastName) {
         if (isValidLastName(lastName)) {

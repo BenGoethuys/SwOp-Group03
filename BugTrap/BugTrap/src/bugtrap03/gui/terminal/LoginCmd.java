@@ -56,7 +56,7 @@ public class LoginCmd implements Cmd {
         terminal.setUser(user);
 
         //Welcome user.
-        Terminal.clearConsole();
+        (new ClearCmd()).exec(scan, controller, user);
         System.out.println("Welcome " + user.getFullName() + " (" + user.getUsername() + ")");
         return user;
     }
