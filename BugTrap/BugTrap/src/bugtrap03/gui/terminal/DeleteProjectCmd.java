@@ -41,7 +41,7 @@ public class DeleteProjectCmd implements Cmd {
         Project proj = new GetProjectCmd().exec(scan, con, user);
 
         // Delete the project 
-        con.deleteProject(proj);
+        con.deleteProject(user, proj);
 
         return proj;
     }
