@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package bugtrap03.gui.terminal;
 
@@ -13,18 +13,27 @@ import purecollections.PList;
 
 /**
  *  //TODO write heading
- * 
+ *
  * @author Ben Goethuys
  *
  */
 public class GetProjectCmd implements Cmd {
 
-	/**
-	 * 
-	 */
-	public GetProjectCmd() {
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * Get a Project chosen by the person by presenting him a list of all
+     * projects.
+     *
+     * @param scan The scanner used to interact with the person.
+     * @param controller The controller used for model access.
+     * @param user The {@link User} who wants to executes this command.
+     * @return null if there is no result specified.
+     * @throws CancelException When the users wants to abort the current cmd
+     * @see
+     * bugtrap03.gui.terminal.Cmd#exec(bugtrap03.gui.terminal.TerminalScanner,
+     * bugtrap03.DataController, bugtrap03.usersystem.User)
+     */
+    @Override
+    public Project exec(TerminalScanner scan, DataController con, User user) throws CancelException {
 
 	/* (non-Javadoc)
 	 * //TODO write heading
@@ -62,8 +71,8 @@ public class GetProjectCmd implements Cmd {
         } while (proj == null);
         System.out.println("You have chosen:");
         System.out.println(proj.getDetails());
-        
-		return proj;
-	}
+
+        return proj;
+    }
 
 }

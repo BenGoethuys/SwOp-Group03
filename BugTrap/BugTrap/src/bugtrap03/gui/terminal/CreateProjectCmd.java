@@ -140,7 +140,10 @@ public class CreateProjectCmd implements Cmd {
      * @throws PermissionException When the user does not have sufficient
      * permissions to create/clone a project.
      */
-    private Project cloneProjectScenario(TerminalScanner scan, DataController con, User user) {
+    private Project cloneProjectScenario(TerminalScanner scan, DataController con, User user) throws CancelException {
+        Project project = (new GetProjectCmd()).exec(scan, con, user);
+        
+        
         throw new NotImplementedException();
     }
 }
