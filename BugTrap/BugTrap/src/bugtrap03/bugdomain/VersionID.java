@@ -42,7 +42,7 @@ public class VersionID implements Comparable<VersionID> {
 	 * Creates a basic versionID.
 	 */
 	public VersionID() {
-		this(0, 0, 0);
+		this(0, 0, 1);
 	}
 
 	/**
