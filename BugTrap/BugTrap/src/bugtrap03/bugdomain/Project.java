@@ -171,7 +171,7 @@ public class Project extends AbstractSystem {
 	 * @param lead The lead of the Project
 	 * @return true if the given lead is valid for this project
 	 */
-	public boolean isValidLead(Developer lead){
+	public static boolean isValidLead(Developer lead){
 		if (lead == null){
 			return false;
 		}
@@ -211,7 +211,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @return True if creation date <= start date.
 	 */
-	public boolean isValidStartDate(GregorianCalendar creationDate, GregorianCalendar startDate) {
+	public static boolean isValidStartDate(GregorianCalendar creationDate, GregorianCalendar startDate) {
 		if (creationDate == null || startDate == null) {
 			return false;
 		}
@@ -224,7 +224,6 @@ public class Project extends AbstractSystem {
 	/**
 	 * This method checks the validity of the start date.
 	 * 
-	 * @param creationDate The creation date.
 	 * @param startDate The start date.
 	 * 
 	 * @return True if creation date <= start date.
@@ -269,7 +268,7 @@ public class Project extends AbstractSystem {
 	 * @param date the date to check
 	 * @return true if the given date is valid
 	 */
-	public boolean isValidCreationDate(GregorianCalendar date){
+	public static boolean isValidCreationDate(GregorianCalendar date){
 		if (date == null){
 			return false;
 		}
@@ -301,7 +300,7 @@ public class Project extends AbstractSystem {
 	 * @param budgetEstimate
 	 * @return
 	 */
-	public boolean isValidBudgetEstimate(long budgetEstimate) {
+	public static boolean isValidBudgetEstimate(long budgetEstimate) {
 		if (budgetEstimate < 0) {
 			return false;
 		}
