@@ -137,7 +137,7 @@ public class UpdateProjectCmd implements Cmd {
                 try {
                     projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]),
                             Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
-                    proj.setCreationDate(projStartDate);
+                    proj.setStartDate(projStartDate);
                     done = true;
                     System.out.println("The new creation date of the prject: " + proj.getStartDate().getTime().toString());
                 } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
