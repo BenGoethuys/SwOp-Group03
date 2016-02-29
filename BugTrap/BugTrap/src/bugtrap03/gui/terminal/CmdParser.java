@@ -6,8 +6,6 @@ import bugtrap03.usersystem.User;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -37,7 +35,7 @@ public class CmdParser {
         cmdList.add(new SimpleEntry("login", new LoginCmd(this.terminal)));
         cmdList.add(new SimpleEntry("createproject", new CreateProjectCmd()));
         cmdList.add(new SimpleEntry("updateproject", new UpdateProjectCmd()));
-        
+
         //Custom abbreviations.
         cmdList.add(new SimpleEntry("createproj", new CreateProjectCmd()));
         cmdList.add(new SimpleEntry("updateproj", new UpdateProjectCmd()));
@@ -46,14 +44,15 @@ public class CmdParser {
         for (int i = 0; i < cmdList.size(); i++) {
             cmdMap.put(cmdList.get(i).getKey(), cmdList.get(i).getValue());
             //cmdMap.put(Integer.toString(i), cmdList.get(i).getValue());
-        } 
+        }
     }
 
     /**
-     * TODO: Complete header.
+     * Performs the {@link cmd} associated with the given command. When the
+     * given command string is not associated with any {@link Cmd} an
+     * {@link InvalidCmd} is executed.
      *
-     * @param command
-     * @return
+     * @param command The string that would initiate a certain command.
      */
     public void performCmd(TerminalScanner scan, DataController con, User user, String command) throws CancelException, PermissionException {
         if (command == null) {
