@@ -158,6 +158,17 @@ public class Subsystem extends AbstractSystem {
 		this.bugReportList = this.getBugReportList().plus(bugReport);
 		return bugReport;
 	}
+	
+	/**
+	 * Returns a copy of the current subsystem,
+	 * using the same versionID, name, description and parent, 
+	 * but with a removal of the bug reports addressed to this subsystem.
+	 * @return the clone of the subsystem
+	 */
+	protected Subsystem cloneSubsystem(){
+		return new Subsystem(this.getVersionID(), this.getName(), this.getDescription(), this.getParent());
+	}
+	
 	/**
 	 * This function checks the validity of the given name, in combination with
 	 * its parent.
