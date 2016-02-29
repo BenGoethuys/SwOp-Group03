@@ -1,7 +1,9 @@
 package bugtrap03;
 
+import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.permission.UserPerm;
 import bugtrap03.usersystem.Administrator;
@@ -290,5 +292,34 @@ public class DataModel {
         proj.setBudgetEstimate(budgetEstimate);
 
         return proj;
+<<<<<<< HEAD
     }   
+=======
+    }
+
+    /**
+     * This method returns all subsystems of a given project
+     * @param project The project to print the subsystems from
+     * @return a PList containing all subsystems of a project
+     *
+     * @see AbstractSystem#getAllSubsystems()
+     */
+    public PList<Subsystem> getAllSubsystems(Project project){
+        return project.getAllSubsystems();
+    }
+
+    /**
+     * This method returns all projects and there subsystems in the system
+     * @return the list of all projects and there subsystems
+     */
+    public PList<AbstractSystem> getAllProjectsAndSubsystems() {
+        PList<AbstractSystem> list = PList.<AbstractSystem>empty();
+        for (Project proj : this.projectList) {
+            list = list.plus(proj);
+            list = list.plusAll(new ArrayList<AbstractSystem>(proj.getAllSubsystems()));
+        }
+        return list;
+    }
+
+>>>>>>> c84ba6fa2c40896026d3a8ad97ef4475c0bb6ce6
 }
