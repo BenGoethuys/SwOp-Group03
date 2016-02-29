@@ -1,6 +1,8 @@
 package bugtrap03;
 
+import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.User;
@@ -77,9 +79,16 @@ public class DataController {
     }
     
     /**
-     * @see DataModel#deleteProject(Project)
+     * @see DataModel#deleteProject(User, Project)
      */
-    public Project deleteProject(Project project) {
-        return this.model.deleteProject(project);
+    public Project deleteProject(User user, Project project) throws PermissionException {
+        return this.model.deleteProject(user, project);
+    }
+
+    /**
+     * @see DataModel#createSubsystem(User, AbstractSystem, String, String)
+     */
+    public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, String name, String description) throws PermissionException, IllegalArgumentException {
+        return this.model.createSubsystem(user, abstractSystem, name, description);
     }
 }
