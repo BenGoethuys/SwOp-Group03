@@ -110,7 +110,7 @@ public abstract class AbstractSystem {
 	 * @param name The string argument to used as name.
 	 * @return true if the name is not an empty string or null.
 	 */
-	public boolean isValidName(String name) {
+	public static boolean isValidName(String name) {
 		return (!"".equals(name) && name != null);
 	}
 
@@ -217,6 +217,19 @@ public abstract class AbstractSystem {
 			list.addAll(subsystem.getAllBugReports());
 		}
 		return PList.<BugReport>empty().plusAll(list);
+	}
+	
+	/**
+	 * This recursive method returns all the subsystems that are a child of this AbstracSystem
+	 * @return the list of all Subsystem childs. 
+	 */
+	public PList<Subsystem> getAllSubsystems(){
+		ArrayList<Subsystem> list = new ArrayList<>();
+		for (Subsystem subsystem : this.getChilds()){
+			list.add(subsystem);
+			list.addAll(subsystem.getAllSubsystems());
+		}
+		return PList.<Subsystem>empty().plusAll(list);
 	}
 	
 	/**

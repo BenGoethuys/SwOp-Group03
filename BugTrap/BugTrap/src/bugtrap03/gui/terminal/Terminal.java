@@ -78,7 +78,7 @@ public class Terminal {
         while (true) {
         	System.out.println("Give new command");
             try {
-                input = scan.nextLine();
+                input = scan.nextLine().toLowerCase();
                 parser.performCmd(scan, con, user, input);
             } catch (CancelException ex) {
                 System.out.println("Cancelled. Execute a new command.");
@@ -87,21 +87,6 @@ public class Terminal {
                 System.out.println(ex.getMessage());
                 System.out.println("Command cancelled. Execute a new command.");
             }
-        }
-    }
-
-    public final static void clearConsole() {
-        try {
-            final String os = System.getProperty("os.name");
-
-            if (os.contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else { //ANSI & Pray :P
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (final IOException | InterruptedException e) {
-            //  Handle any exceptions.
         }
     }
 

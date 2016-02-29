@@ -109,52 +109,7 @@ public class Subsystem extends AbstractSystem {
         return this.parent;
     }
     
-	/**
-	 * This function checks the validity of the given name, in combination with
-	 * its parent.
-	 * 
-	 * @param name
-	 *            The string argument to be used as name.
-	 * @param parent
-	 *            The parent of the element to be named.
-	 * @return true if no of the other child of the projectParent has the same
-	 *         name.
-	 */
-//	protected boolean isValidName(String name, AbstractSystem parent) {
-//		if (!this.isValidName(name)) {
-//			return false;
-//		}
-//		Project parentProject = parent.getParentProject();
-//		if (name == parentProject.getName()) {
-//			return false;
-//		}
-//		return childNamesNotEqual(name, parentProject);
-//	}
 
-	/**
-	 * This function checks of none of the other subsystems (childs) of the
-	 * AbstracSystem (parent) have the same name. This is done recursively. To
-	 * be correctly used, the function should be called the first time with the
-	 * Project of the three.
-	 * 
-	 * @param name
-	 *            The name to check.
-	 * @param parent
-	 *            The given parent.
-	 * @return True if the name is unique.
-	 */
-//	private boolean childNamesNotEqual(String name, AbstractSystem parent) {
-//		for (Subsystem child : parent.getChilds()) {
-//			if (child.getName() == name) {
-//				return false;
-//			}
-//			if (!childNamesNotEqual(name, child)) {
-//				return false;
-//			}
-//		}
-//		return true;
-//	}
-    
     /**
 	 * This method checks if the given developer has the requested permission for this subsystem
 	 * @param dev the developer to check
@@ -203,6 +158,51 @@ public class Subsystem extends AbstractSystem {
 		this.bugReportList = this.getBugReportList().plus(bugReport);
 		return bugReport;
 	}
-	
+	/**
+	 * This function checks the validity of the given name, in combination with
+	 * its parent.
+	 * 
+	 * @param name
+	 *            The string argument to be used as name.
+	 * @param parent
+	 *            The parent of the element to be named.
+	 * @return true if no of the other child of the projectParent has the same
+	 *         name.
+	 */
+//	protected boolean isValidName(String name, AbstractSystem parent) {
+//		if (!this.isValidName(name)) {
+//			return false;
+//		}
+//		Project parentProject = parent.getParentProject();
+//		if (name == parentProject.getName()) {
+//			return false;
+//		}
+//		return childNamesNotEqual(name, parentProject);
+//	}
+
+	/**
+	 * This function checks of none of the other subsystems (childs) of the
+	 * AbstracSystem (parent) have the same name. This is done recursively. To
+	 * be correctly used, the function should be called the first time with the
+	 * Project of the three.
+	 * 
+	 * @param name
+	 *            The name to check.
+	 * @param parent
+	 *            The given parent.
+	 * @return True if the name is unique.
+	 */
+//	private boolean childNamesNotEqual(String name, AbstractSystem parent) {
+//		for (Subsystem child : parent.getChilds()) {
+//			if (child.getName() == name) {
+//				return false;
+//			}
+//			if (!childNamesNotEqual(name, child)) {
+//				return false;
+//			}
+//		}
+//		return true;
+//	}
+    
 	
 }

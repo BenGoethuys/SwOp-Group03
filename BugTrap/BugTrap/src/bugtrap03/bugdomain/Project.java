@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -120,6 +121,7 @@ public class Project extends AbstractSystem {
 	 * @see Project#isValidBudgetEstimate(long)
 	 * 
 	 */
+	//TODO: Call this instead of super?
 	public Project(String name, String description, Developer lead, long budgetEstimate) 
 			throws IllegalArgumentException {
 		super(name, description);
@@ -169,7 +171,7 @@ public class Project extends AbstractSystem {
 	 * @param lead The lead of the Project
 	 * @return true if the given lead is valid for this project
 	 */
-	public boolean isValidLead(Developer lead){
+	public static boolean isValidLead(Developer lead){
 		if (lead == null){
 			return false;
 		}
@@ -209,7 +211,7 @@ public class Project extends AbstractSystem {
 	 * 
 	 * @return True if creation date <= start date.
 	 */
-	public boolean isValidStartDate(GregorianCalendar creationDate, GregorianCalendar startDate) {
+	public static boolean isValidStartDate(GregorianCalendar creationDate, GregorianCalendar startDate) {
 		if (creationDate == null || startDate == null) {
 			return false;
 		}
@@ -222,7 +224,6 @@ public class Project extends AbstractSystem {
 	/**
 	 * This method checks the validity of the start date.
 	 * 
-	 * @param creationDate The creation date.
 	 * @param startDate The start date.
 	 * 
 	 * @return True if creation date <= start date.
@@ -267,7 +268,7 @@ public class Project extends AbstractSystem {
 	 * @param date the date to check
 	 * @return true if the given date is valid
 	 */
-	public boolean isValidCreationDate(GregorianCalendar date){
+	public static boolean isValidCreationDate(GregorianCalendar date){
 		if (date == null){
 			return false;
 		}
@@ -299,7 +300,7 @@ public class Project extends AbstractSystem {
 	 * @param budgetEstimate
 	 * @return
 	 */
-	public boolean isValidBudgetEstimate(long budgetEstimate) {
+	public static boolean isValidBudgetEstimate(long budgetEstimate) {
 		if (budgetEstimate < 0) {
 			return false;
 		}
@@ -384,7 +385,10 @@ public class Project extends AbstractSystem {
          * @return //TODO Print details
          */
         public String getDetails() {
-            throw new NotImplementedException();
+        	String details = "";
+        	details.concat(this.getName());
+            
+        	return details;
         }
         
         /**
@@ -399,8 +403,12 @@ public class Project extends AbstractSystem {
             //TODO: Implement a clone of this Project with new versionID, lead, startDate, budgetEstimate
             //Clone subsystems as well but no BugReports!
             //No idea about participants
-            
-            //make new Project and initialise all the stuff the right way (clones).
-            throw new NotImplementedException();
+        	Project cloneProject = new Project(version, this.getName(), this.getDescription(), this.getLead(), startDate, budgetEstimate);
+        	ArrayList<Subsystem> cloneChilds = new ArrayList<>();
+            for(Subsystem subsystemChild: this.getChilds()){
+            	cloneChilds.add(subsystemChild.cloneSubsystem());
+            }
+            return cloneProject;
+  
         }
 }
