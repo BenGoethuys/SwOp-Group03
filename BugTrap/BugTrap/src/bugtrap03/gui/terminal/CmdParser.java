@@ -35,10 +35,13 @@ public class CmdParser {
         cmdList.add(new SimpleEntry("login", new LoginCmd(this.terminal)));
         cmdList.add(new SimpleEntry("createproject", new CreateProjectCmd()));
         cmdList.add(new SimpleEntry("updateproject", new UpdateProjectCmd()));
+        cmdList.add(new SimpleEntry("showprojectdetails", new ShowProjectCmd()));
         
         //Custom abbreviations.
         cmdList.add(new SimpleEntry("createproj", new CreateProjectCmd()));
         cmdList.add(new SimpleEntry("updateproj", new UpdateProjectCmd()));
+        cmdList.add(new SimpleEntry("showprojdetails", new ShowProjectCmd()));
+        cmdList.add(new SimpleEntry("showprojdet", new ShowProjectCmd()));
 
         cmdMap = new HashMap<>();
         for (int i = 0; i < cmdList.size(); i++) {
