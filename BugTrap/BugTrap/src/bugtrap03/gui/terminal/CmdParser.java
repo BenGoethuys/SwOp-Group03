@@ -17,9 +17,7 @@ public class CmdParser {
         if (terminal == null) {
             throw new IllegalArgumentException("CmdParser needs a non-null reference for Terminal.");
         }
-
         this.terminal = terminal;
-
         initCmdList();
     }
 
@@ -28,10 +26,11 @@ public class CmdParser {
     private HashMap<String, Cmd> cmdMap;
 
     /**
-     * TODO: Complete initCmdList header
+     * Initialize the cmdList.
      */
     private void initCmdList() {
         cmdList = new ArrayList<>();
+        cmdList.add(new SimpleEntry("help", new HelpCmd(cmdList)));
         cmdList.add(new SimpleEntry("clear", new ClearCmd()));
         cmdList.add(new SimpleEntry("login", new LoginCmd(this.terminal)));
         cmdList.add(new SimpleEntry("createproject", new CreateProjectCmd()));
@@ -44,7 +43,7 @@ public class CmdParser {
         cmdMap = new HashMap<>();
         for (int i = 0; i < cmdList.size(); i++) {
             cmdMap.put(cmdList.get(i).getKey(), cmdList.get(i).getValue());
-            //cmdMap.put(Integer.toString(i), cmdList.get(i).getValue());
+            cmdMap.put(Integer.toString(i), cmdList.get(i).getValue());
         } 
     }
 
