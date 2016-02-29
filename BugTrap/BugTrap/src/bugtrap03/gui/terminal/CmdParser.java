@@ -34,6 +34,7 @@ public class CmdParser {
      */
     private void initCmdList() {
         cmdList = new ArrayList<>();
+        cmdList.add(new SimpleEntry("clear", new ClearCmd()));
         cmdList.add(new SimpleEntry("login", new LoginCmd(this.terminal)));
         cmdList.add(new SimpleEntry("createproject", new CreateProjectCmd()));
         cmdList.add(new SimpleEntry("updateproject", new UpdateProjectCmd()));
