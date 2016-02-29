@@ -2,12 +2,12 @@ package bugtrap03.gui.terminal;
 
 import bugtrap03.DataController;
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.permission.PermissionException;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.User;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -142,8 +142,60 @@ public class CreateProjectCmd implements Cmd {
      */
     private Project cloneProjectScenario(TerminalScanner scan, DataController con, User user) throws CancelException {
         Project project = (new GetProjectCmd()).exec(scan, con, user);
+
+        //Update versionID
+        VersionID versionID = null;
+        do {
+            System.out.print("new VersionID (format=a.b.c):");
+            String[] versionIDStr = scan.nextLine().split(".");
+
+            int nb1, nb2, nb3;
+            try {
+                nb1 = Integer.parseInt(versionIDStr[0]);
+                nb2 = Integer.parseInt(versionIDStr[1]);
+                nb3 = Integer.parseInt(versionIDStr[2]);
+                versionID = new VersionID(nb1, nb2, nb3);
+            } catch (IndexOutOfBoundsException | NumberFormatException ex) {
+                System.out.println("Invalid input. Please try again using format: a.b.c");
+            }
+        } while (versionID == null);
+
+        //Start Date
+        GregorianCalendar startDate = null;
+        do {
+            System.out.print("New starting date (format=YYYY-MM-DD):");
+            String[] startDateStr = scan.nextLine().split("-");
+            try {
+                startDate = new GregorianCalendar(Integer.parseInt(startDateStr[0]),
+                        Integer.parseInt(startDateStr[1]), Integer.parseInt(startDateStr[2]));
+            } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+                System.out.println("Invalid input. Please try again using format YYYY-MM-DD");
+            }
+        } while (startDate == null);
+
+        //Budget estimate
+        Long budgetEstimate = null;
+        do {
+            System.out.print("New budget Estimate:");
+            String budgetEstimateStr = scan.nextLine();
+            try {
+                budgetEstimate = Long.parseLong(budgetEstimateStr);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please try again.");
+            }
+        } while (budgetEstimate == null);
+
+        //Lead developer
+        System.out.println("Chose a lead developer.");
+        Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, con, user);
+
+        //Clone Project
+        Project newProject = project.cloneProject(versionID, lead, startDate, budgetEstimate);
+                
+        //Print created project details
+        System.out.println("Project details:");
+        System.out.println(newProject.getDetails());
         
-        
-        throw new NotImplementedException();
+        return newProject;
     }
 }
