@@ -290,6 +290,5 @@ public class DataModel {
         proj.setBudgetEstimate(budgetEstimate);
 
         return proj;
-    }
-
+    }   
 }
