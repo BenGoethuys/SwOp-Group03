@@ -31,8 +31,7 @@ public class GetProjectCmd implements Cmd {
 	 * @see bugtrap03.gui.terminal.Cmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.DataController, bugtrap03.usersystem.User)
 	 */
 	@Override
-	public Project exec(TerminalScanner scan, DataController con, User user)
-			throws PermissionException, CancelException {
+	public Project exec(TerminalScanner scan, DataController con, User user) throws CancelException {
 		
 		// show all projects
         PList<Project> projectList = con.getProjectList();

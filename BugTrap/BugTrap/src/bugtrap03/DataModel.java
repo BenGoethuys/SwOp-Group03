@@ -269,8 +269,15 @@ public class DataModel {
      * @param budgetEstimate The new budget estimate of the given project
      *
      * @Ensures The attributes of the given project will not be updated if an error was thrown
+     *
+     * @throws PermissionException if the given user doesn't have the needed permission to update a project.
      */
-    public Project updateProject(Project proj, String name, String description, GregorianCalendar startDate, Long budgetEstimate) throws IllegalArgumentException {
+    public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate, Long budgetEstimate) throws IllegalArgumentException, PermissionException {
+        // check needed permission
+        if (! user.hasPermission(UserPerm.UPDATE_PROJ)) {
+            throw new PermissionException("You dont have the needed permission to update a project!");
+        }
+
         // Test to prevent inconsistent updating of vars
         Project.isValidName(name);
         Project.isValidDescription(description);
