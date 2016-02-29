@@ -68,7 +68,7 @@ public abstract class AbstractSystem {
 	 * Sets the versionID of the project to the given versionID.
 	 * 
 	 * @param version The versionID of the project.
-	 * @throws NullPointerException //TODO
+	 * @throws NullPointerException When version is a null-reference.
 	 */
 	public void setVersionID(VersionID version) throws NullPointerException {
 		if (version != null) {
@@ -91,7 +91,8 @@ public abstract class AbstractSystem {
 	 * Sets the name of the project to the given name.
 	 * 
 	 * @param name The name of the project.
-	 * @throws IllegalArgumentException //TODO
+	 * @throws IllegalArgumentException When the given name is invalid.
+         * @see #isValidName(java.lang.String) 
 	 */
 	public void setName(String name) throws IllegalArgumentException {
 		if (isValidName(name)) {
@@ -126,17 +127,31 @@ public abstract class AbstractSystem {
 	 * Sets the description of the AbstractSystem to the given description.
 	 * 
 	 * @param description The description of the project.
-	 * @throws IllegalArgumentException //TODO
+	 * @throws IllegalArgumentException When the description is invalid.
+         * @see #isValidDescription(java.lang.String) 
 	 */
 	public void setDescription(String description) throws IllegalArgumentException {
-		//TODO check null !
-		//TODO make separate isValid function
-		if (description != "") {
+		if (isValidDescription(description)) {
 			this.description = description;
 		} else {
-			throw new IllegalArgumentException("The project description can't be empty.");
+			throw new IllegalArgumentException("AbstractSystem requires a valid description.");
 		}
 	}
+        
+        /**
+         * Whether the given description is a valid description.
+         * @param desc The description to check.
+         * @return False when desc is a null reference or an empty string.
+         */
+        public static boolean isValidDescription(String desc) {
+            if(desc == null) {
+                return false;
+            }
+            if(desc.equals("")) {
+                return false;
+            }
+            return true;
+        }
 	
 	private void setChilds(PList<Subsystem> childlist) {
 		this.childs = childlist;

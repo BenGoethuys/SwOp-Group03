@@ -217,20 +217,19 @@ public abstract class User {
 
     //TODO Headings
     /**
-     *
-     * @param perm
-     * @return
+     * Check if this {@link User} has the given {@link UserPerm}.
+     * @param perm The userPermission to check for.
+     * @return Whether this has the permission.
      */
     public boolean hasPermission(UserPerm perm) {
         return false;
     }
 
     /**
-     * TODO: headings
-     *
-     * @param perm
-     * @param project
-     * @return
+     * Check if this {@link User} has the given {@link RolePerm} on a certain project.
+     * @param perm The rolePermission to check for.
+     * @param project The project to check for.
+     * @return Whether this has the permission perm for project.
      */
     public boolean hasRolePermission(RolePerm perm, Project project) {
         return false;

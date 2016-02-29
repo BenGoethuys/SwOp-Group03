@@ -46,9 +46,10 @@ public class Administrator extends User {
         UserPerm.CREATE_PROJ, UserPerm.ASSIGN_PROJ_LEAD, UserPerm.UPDATE_PROJ, UserPerm.DELTE_PROJ
     };
 
-    //TODO Heading
     /**
-     *
+     * Check if this {@link Administrator} has the given {@link UserPerm}.
+     * @param perm The userPermission to check for.
+     * @return Whether this has the permission.
      */
     @Override
     public boolean hasPermission(UserPerm perm) {

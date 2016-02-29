@@ -83,7 +83,7 @@ public class CreateProjectCmd implements Cmd {
         //Project name
         System.out.print("Project name:");
         String projName = scan.nextLine();
-        
+
         //Project description
         System.out.print("Project description:");
         String projDesc = scan.nextLine();
@@ -95,37 +95,52 @@ public class CreateProjectCmd implements Cmd {
             String[] projDateStr = scan.nextLine().split("-");
             try {
                 projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]), Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
-            } catch(IndexOutOfBoundsException | NumberFormatException e) {
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 System.out.println("Invalid input.");
             }
         } while (projStartDate == null);
-        
+
         //Project budget estimate
         Integer projBudgetEstimate = null;
         do {
             System.out.print("Project budget estimate:");
             try {
-            projBudgetEstimate = Integer.parseInt(scan.nextLine());
-            } catch(NumberFormatException e) {
+                projBudgetEstimate = Integer.parseInt(scan.nextLine());
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid input.");
             }
         } while (projBudgetEstimate == null);
-        
+
         //Project lead developer
         System.out.println("Chose a lead developer.");
         Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, con, user);
-        
+
         //Create Project
         Project proj = con.createProject(projName, projDesc, projStartDate, lead, projBudgetEstimate, user);
-        
+
         //Print created project details
         System.out.println(proj.getDetails());
-        
+
         return proj;
     }
 
-    
+    /**
+     * Execute the create project scenario.
+     * <br> b) Clone project (without BugReports)
+     * <br> b1. Ask user which project by providing a list of possibilities.
+     * <br> b2. Ask user the version number
+     * <br> b3. Ask user the starting date
+     * <br> b4. Ask user the budget estimate
+     * <br> b5. Go to step a5
+     *
+     * @param scan The {@link Scanner} trough which to ask the questions.
+     * @param con The controller to use to access the model.
+     * @param user The user who wants to execute this {@link Cmd}.
+     * @return The user chosen by the person to login as.
+     * @throws PermissionException When the user does not have sufficient
+     * permissions to create/clone a project.
+     */
     private Project cloneProjectScenario(TerminalScanner scan, DataController con, User user) {
-        throw new NotImplementedException();
+        
     }
 }
