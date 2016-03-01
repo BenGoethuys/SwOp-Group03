@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * @author Mathias //TODO
+ * @author Mathias
  *
  */
 public class DeveloperTest {
