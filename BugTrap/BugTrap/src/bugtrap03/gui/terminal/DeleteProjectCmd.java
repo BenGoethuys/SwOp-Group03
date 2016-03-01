@@ -42,7 +42,8 @@ public class DeleteProjectCmd implements Cmd {
 
         // Delete the project 
         model.deleteProject(user, proj);
-
+        
+        System.out.println("Project deleted.");
         return proj;
     }
 
