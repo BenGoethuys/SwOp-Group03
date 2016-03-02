@@ -29,7 +29,7 @@ public class GetProjectCmd implements Cmd {
      * @param user  The {@link User} who wants to executes this command.
      * @return The chosen project.
      * @throws CancelException When the users wants to abort the current cmd
-     * @see Cmd#exec(TerminalScanner, DataController, User)
+     * @see Cmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user) throws CancelException {
