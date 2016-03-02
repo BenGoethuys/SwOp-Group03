@@ -48,9 +48,9 @@ public class UITest {
         question.add("0. Administrator");
         question.add("1. Issuer");
         question.add("2. Developer");
-        question.add("I chose:");
+        question.add("I chose: ");
         answer.add("0");
-        question.add("I chose:");
+        question.add("I chose: ");
         answer.add("0");
         question.add("Welcome " + admin.getFullName() + " (" + admin.getUsername() + ")");
         
