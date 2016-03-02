@@ -235,7 +235,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="bugtrap03.gui.cmd.SelectBugReport" project="BugTrap" 
+  <class id="27" language="java" name="bugtrap03.gui.cmd.SelectBugReportCmd" project="BugTrap"
     file="/BugTrap/src/bugtrap03/gui/cmd/SelectBugReport.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="991" y="589"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
