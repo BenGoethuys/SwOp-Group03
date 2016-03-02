@@ -29,29 +29,23 @@ public class MultiByteArrayInputStream extends InputStream {
         if (byteSource == null) {
             return -1;
         }
-
-        //Ended a string last time.
-        /*if (flag) {
-         if (!queue.isEmpty()) {
-         byteSource = new ByteArrayInputStream(queue.poll().getBytes());
-         } else {
-         byteSource = null;
-         }
-         }*/
         //Read
         int nRead = byteSource.read();
 
         //Set flag.
         if (nRead == -1) {
             if (flag) {
+                flag = false;
                 if (!queue.isEmpty()) {
                     byteSource = new ByteArrayInputStream(queue.poll().getBytes());
+                    return byteSource.read();
                 } else {
                     byteSource = null;
                 }
             } else {
                 byteSource = new ByteArrayInputStream(WHITESPACE.getBytes());
                 flag = true;
+                return byteSource.read();
             }
         }
         return nRead;
