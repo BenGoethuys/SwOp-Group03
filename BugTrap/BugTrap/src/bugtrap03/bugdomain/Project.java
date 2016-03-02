@@ -420,7 +420,7 @@ public class Project extends AbstractSystem {
                 budgetEstimate);
         ArrayList<Subsystem> cloneChilds = new ArrayList<>();
         for (Subsystem subsystemChild : this.getChilds()) {
-            cloneChilds.add(subsystemChild.cloneSubsystem());
+            cloneChilds.add(subsystemChild.cloneSubsystem(cloneProject));
         }
         return cloneProject;
 
