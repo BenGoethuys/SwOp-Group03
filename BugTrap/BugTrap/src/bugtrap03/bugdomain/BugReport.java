@@ -37,7 +37,7 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidTag(tag) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @htrows PermissionException if the given creator doesn't have the needed permission to create a bug report
+     * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -80,7 +80,7 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @htrows PermissionException if the given creator doesn't have the needed permission to create a bug report
+     * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
      * @Ensures new.getTag() == Tag.New
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
@@ -112,7 +112,7 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @htrows PermissionException if the given creator doesn't have the needed permission to create a bug report
+     * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
      * @Ensures new.getDate() == current date at the moment of initialisation
      * @Ensures new.getTag() == Tag.New
      * @see BugReport#isValidCreator(User)
@@ -141,7 +141,7 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @htrows PermissionException if the given creator doesn't have the needed permission to create a bug report
+     * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
      * @Ensures new.getDate() == current date at the moment of initialisation
      * @Ensures new.getTag() == Tag.New
      * @Ensures new.getUniqueID() is initialised with a valid ID
