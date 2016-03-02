@@ -326,7 +326,6 @@ public class Project extends AbstractSystem {
             if (!roleList.contains(role)) {
                 this.projectParticipants.put(dev, roleList.plus(role));
             }
-            // TODO can multiple persons have the same role?
         }
     }
 
@@ -413,12 +412,10 @@ public class Project extends AbstractSystem {
      * @param startDate      The start date of this project.
      * @param budgetEstimate The budget estimate of this project
      * @return The deep-cloned project.
+     * @see Subsystem#cloneSubsystem()
      */
     public Project cloneProject(VersionID version, Developer lead, GregorianCalendar startDate, long budgetEstimate) {
-        // TODO: Implement a clone of this Project with new versionID, lead,
-        // startDate, budgetEstimate
-        // Clone subsystems as well but no BugReports!
-        // No idea about participants
+ 
         Project cloneProject = new Project(version, this.getName(), this.getDescription(), lead, startDate,
                 budgetEstimate);
         ArrayList<Subsystem> cloneChilds = new ArrayList<>();

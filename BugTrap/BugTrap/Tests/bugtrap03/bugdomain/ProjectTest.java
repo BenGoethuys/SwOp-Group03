@@ -58,45 +58,39 @@ public class ProjectTest {
         assertEquals(testStartDate, testProject.getStartDate());
     }
 
-    //TODO VGL DATES
     @Test
     public void testProjectVersionIDStringStringDeveloperGregorianCalendarLong() {
         Project testProject2 =  new Project(testVersion, testName, testDescription, testDev, testStartDate, testBudget);
-        GregorianCalendar vglGregDate = new GregorianCalendar();
         assertEquals(testVersion, testProject2.getVersionID());
         assertEquals(testName, testProject2.getName());
         assertEquals(testDescription, testProject2.getDescription());
-        assertEquals(vglGregDate, testProject2.getCreationDate());
+        assertNotEquals(null, testProject2.getCreationDate());
         assertEquals(testDev, testProject2.getLead());
         assertEquals(testStartDate, testProject2.getStartDate());
     }
 
-    //TODO VGL dates
     @Test
     public void testProjectStringStringDeveloperGregorianCalendarLong() {
         Project testProject2 =  new Project(testName, testDescription, testDev, testStartDate, testBudget);
         VersionID vglVersion =  new VersionID();
-        GregorianCalendar vglCreation = new GregorianCalendar();
         assertEquals(vglVersion, testProject2.getVersionID());
         assertEquals(testName, testProject2.getName());
         assertEquals(testDescription, testProject2.getDescription());
-        assertEquals(vglCreation, testProject2.getCreationDate());
+        assertNotEquals(null, testProject2.getCreationDate());
         assertEquals(testDev, testProject2.getLead());
         assertEquals(testStartDate, testProject2.getStartDate());
     }
 
-    //TODO VGL DATES
     @Test
     public void testProjectStringStringDeveloperLong() {
         Project testProject2 =  new Project(testName, testDescription, testDev, testBudget);
         VersionID vglVersion =  new VersionID();
-        GregorianCalendar vglGregDate = new GregorianCalendar();
         assertEquals(vglVersion, testProject2.getVersionID());
         assertEquals(testName, testProject2.getName());
         assertEquals(testDescription, testProject2.getDescription());
-        assertEquals(vglGregDate, testProject2.getCreationDate());
+        assertNotEquals(null, testProject2.getCreationDate());
         assertEquals(testDev, testProject2.getLead());
-        assertEquals(vglGregDate, testProject2.getStartDate());
+        assertNotEquals(null, testProject2.getStartDate());
     }
 
     @Test
@@ -121,6 +115,12 @@ public class ProjectTest {
         testProject.setStartDate(testStartDate2);
         assertNotEquals(testStartDate, testProject.getStartDate());
         assertEquals(testStartDate2, testProject.getStartDate());
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetInvalidStartDate() {
+        testProject.setStartDate(new GregorianCalendar(1999,1,1));
+        
     }
 
     @Test
@@ -155,6 +155,11 @@ public class ProjectTest {
         assertNotEquals(testCreationDate, testProject.getCreationDate());
         assertEquals(testCreationDate2, testProject.getCreationDate());
     }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetInvalidCreationDate() {
+        testProject.setCreationDate(null);        
+    }
 
     @Test
     public void testIsValidCreationDate() {
@@ -173,6 +178,11 @@ public class ProjectTest {
         testProject.setBudgetEstimate(10);
         assertNotEquals(testBudget, testProject.getBudgetEstimate());
         assertEquals(10, testProject.getBudgetEstimate());
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetInvalidBudgetEstimate() {
+        testProject.setBudgetEstimate(-10);
     }
 
     @Test
@@ -208,6 +218,18 @@ public class ProjectTest {
         assertEquals(notProgrammerRoles, testProject.getAllRolesDev(testDev));
         assertEquals(programmerRoleList, testProject.getAllRolesDev(programmer));
     }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetNullRole() throws IllegalArgumentException, PermissionException {
+        testProject.setRole(null, testDev, Role.TESTER); 
+    }
+    
+    @Test (expected = PermissionException.class)
+    public void testSetInvalidRole() throws IllegalArgumentException, PermissionException {
+        Developer programmer = new Developer("ikGebruikDitOok", "Joshua2", "de Smedt");
+        testProject.setRole(testDev, programmer, Role.PROGRAMMER);
+        testProject.setRole(programmer, testDev, Role.TESTER);
+    } 
 
     
 
@@ -218,7 +240,6 @@ public class ProjectTest {
         assertTrue(details.contains(testName));
         assertTrue(details.contains(testDescription));
         assertTrue(details.contains(testVersion.toString()));
-        //TODO string representation of Gregorian Calendar
         assertTrue(details.contains(testStartDate.getTime().toString()));
         assertTrue(details.contains(testCreationDate.getTime().toString()));
         assertTrue(details.contains("1000"));
@@ -235,7 +256,6 @@ public class ProjectTest {
         GregorianCalendar cstart = new GregorianCalendar(3000, 1, 1);
         long cestimate = 4567;
         Project cloneProject = testProject.cloneProject(cversion, clead, cstart, cestimate);
-        GregorianCalendar temp = new GregorianCalendar();
         assertEquals(4567, cloneProject.getBudgetEstimate());
         assertEquals(cstart, cloneProject.getStartDate());
         assertEquals(clead, cloneProject.getLead());
@@ -246,12 +266,8 @@ public class ProjectTest {
         assertNotEquals(testDev, cloneProject.getLead());
         assertNotEquals(testVersion, cloneProject.getVersionID());
         
-        
-        System.out.println("\n temptime: " + temp.getTime().toString());
-        System.out.println("\n cloneTime: " + cloneProject.getCreationDate().getTime().toString());
-        
         //TODO Compare Dates??
-        assertEquals(temp.getTime(), cloneProject.getCreationDate().getTime());
+        assertNotEquals(null, cloneProject.getCreationDate());
         assertEquals(testName, cloneProject.getName());
         assertEquals(testDescription, cloneProject.getDescription());
     }
