@@ -40,7 +40,7 @@ public class Main {
         Subsystem subsystemB2;
         try {
             projectA = model.createProject("ProjectA", "Description of projectA", major, 10000, admin);
-            projectA.setRole(admin, major, Role.PROGRAMMER);
+            projectA.setRole(major, major, Role.PROGRAMMER);
             projectA.setRole(major, maria, Role.TESTER);
             projectA.makeSubsystemChild(new VersionID(), "SubsystemA1", "Description of susbsystem A1");
             projectA.makeSubsystemChild(new VersionID(), "SubsystemA2", "Description of susbsystem A2");
