@@ -92,7 +92,7 @@ public abstract class User {
      * @return Whether the username is valid. False when null.
      */
     public boolean isValidUsername(String username) {
-        return (username != null && !username.equalsIgnoreCase("") && !takenUsernames.contains(username));
+        return (username != null && !username.equalsIgnoreCase("") && !takenUsernames.contains(username) && !username.matches("[0-9]+"));
     }
 
     /**
