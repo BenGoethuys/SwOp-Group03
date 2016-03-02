@@ -107,7 +107,7 @@ public class LoginCmd implements Cmd {
         //Retrieve user input.
         Class<? extends User> chosenClass;
         do {
-            System.out.print("I chose: ");
+            scan.print("I chose: ");
             if ((chosenClass = this.optionMap.get(scan.nextLine().toLowerCase())) == null) {
                 scan.println("invalid input.");
             }
