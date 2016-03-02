@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import purecollections.PList;
@@ -118,17 +119,29 @@ public class SubsystemTest {
 
     @Test
     public void testGetBugReportList() {
-        assertEquals(expected, actual);
+        PList<BugReport> expectedRep = PList.<BugReport>empty().plus(bugreport1).plus(bugreport2);
+        assertEquals(expectedRep, subSysTest.getBugReportList());
+        assertEquals(emptyDep, subSysTest2.getBugReportList());
     }
 
     @Test
-    public void testAddBugReport() {
-        fail("Not yet implemented");
+    public void testAddBugReport() throws IllegalArgumentException, PermissionException {
+       BugReport bugreport3 = subSysTest.addBugReport(testDev, "otherBug5", "i have a love/hate relation with testing", emptyDep);
+       PList<BugReport> expectedRep1 = PList.<BugReport>empty().plus(bugreport1).plus(bugreport2);
+       assertNotEquals(expectedRep1, subSysTest.getBugReportList());
+       PList<BugReport> expectedRep2 = expectedRep1.plus(bugreport3);
+       assertEquals(expectedRep2, subSysTest.getBugReportList());
     }
 
     @Test
     public void testCloneSubsystem() {
-        fail("Not yet implemented");
+        Project cloneProj = new Project("cloneProjTest", "this project is supposed to be a clone", testDev, 99);        
+        Subsystem cloneSub = subSysTest.cloneSubsystem(cloneProj);
+        assertEquals(subSysTest.getVersionID(), cloneSub.getVersionID());
+        assertEquals(subSysTest.getName(),cloneSub.getName());
+        assertEquals(subSysTest.getDescription(),cloneSub.getDescription());
+        assertNotEquals(subSysTest.getParent(), cloneSub.getParent());
+        assertEquals(cloneProj, cloneSub.getParent());
     }
 
 }
