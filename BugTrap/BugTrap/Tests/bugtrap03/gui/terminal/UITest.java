@@ -16,11 +16,11 @@ public class UITest {
         TextUITestScriptRunner.runTestScript(UITest.class, "testScript1.txt");
     }*/
 
-    @Test
-    public void test() {
-        TextUITester tester = new TextUITester("java -cp bin bugtrap03.Main");
-        tester.sendLine("0");
-        tester.expectExit(0);
-    }
+//    @Test
+//    public void test() {
+//        TextUITester tester = new TextUITester("java -cp bin bugtrap03.Main");
+//        tester.sendLine("0");
+//        tester.expectExit(0);
+//    }
 
 }
