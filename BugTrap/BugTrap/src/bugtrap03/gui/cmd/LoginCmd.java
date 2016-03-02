@@ -1,4 +1,4 @@
-package bugtrap03.gui.terminal;
+package bugtrap03.gui.cmd;
 
 import bugtrap03.DataModel;
 import bugtrap03.bugdomain.usersystem.Administrator;
@@ -9,6 +9,8 @@ import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.ClearCmd;
 import bugtrap03.gui.cmd.general.GetUserOfExcactTypeCmd;
+import bugtrap03.gui.terminal.Terminal;
+import bugtrap03.gui.terminal.TerminalScanner;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
