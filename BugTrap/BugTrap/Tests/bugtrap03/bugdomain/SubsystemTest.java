@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
+import purecollections.PList;
 
 public class SubsystemTest {
     static Developer testDev;
@@ -24,12 +26,18 @@ public class SubsystemTest {
     static String subName;
     static String subDescription;
     static Subsystem subSysTest;
+    static Subsystem subSysTest2;
+    
+    static PList<BugReport> emptyDep;
+    static PList<BugReport> depToRep1;
+    static BugReport bugreport1;
+    static BugReport bugreport2;
     
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         testDev = new Developer("subsysTester321", "Kwinten", "Buytaert");
-        testVersion = new VersionID(1,2,3);
+        testVersion = new VersionID(1,2,4);
         testName = "testProj";
         testDescription = "This is an description";
         testStartDate = new GregorianCalendar(3016, 1, 1);
@@ -40,9 +48,14 @@ public class SubsystemTest {
         subVersion = new VersionID(9,8,7);
         subName = "testSub";
         subDescription = "This is a test description of a subsystem";
-        subSysTest = new Subsystem (subVersion, subName, subDescription, testProject);
+        subSysTest = testProject.makeSubsystemChild(subVersion, subName, subDescription);
+        subSysTest2 = subSysTest.makeSubsystemChild("meh", "moeh");
         
-        
+        emptyDep = PList.<BugReport>empty();
+        bugreport1 = subSysTest.addBugReport(testDev, "testBug3", "this is description of testbug 3", emptyDep);
+
+        depToRep1 = PList.<BugReport>empty().plus(bugreport1);
+        bugreport2 = subSysTest.addBugReport(testDev, "otherBug4", "i like bananas", depToRep1);
     }
 
 
@@ -52,37 +65,60 @@ public class SubsystemTest {
 
     @Test
     public void testGetParent() {
-        fail("Not yet implemented");
+        assertNotEquals(null, subSysTest.getParent());
+        assertNotEquals(null, subSysTest2.getParent());
+        assertEquals(testProject, subSysTest.getParent());
+        assertEquals(subSysTest, subSysTest2.getParent());
     }
 
     @Test
     public void testGetAllBugReports() {
-        fail("Not yet implemented");
+        PList<BugReport> expectedRep = PList.<BugReport>empty().plus(bugreport1).plus(bugreport2);
+        PList<BugReport> getRep1 = subSysTest.getAllBugReports();
+        PList<BugReport> getRep2 = subSysTest2.getAllBugReports();
+        assertEquals(expectedRep, getRep1);
+        assertEquals(emptyDep, getRep2);
+        
     }
 
     @Test
     public void testHasPermission() {
-        fail("Not yet implemented");
+        Developer programmer = new Developer("ladiedadieda2", "ladie2", "da2");
+        assertTrue(testProject.hasPermission(testDev, RolePerm.ASSIGN_DEV_PROJECT));
+        assertFalse(testProject.hasPermission(programmer, RolePerm.SET_TAG_RESOLVED));
     }
 
     @Test
     public void testSubsystemVersionIDStringStringAbstractSystem() {
-        fail("Not yet implemented");
+        Subsystem tempSub = new Subsystem(testVersion, subName, testDescription, testProject);
+        assertEquals(testVersion, tempSub.getVersionID());
+        assertEquals(subName, tempSub.getName());
+        assertEquals(testDescription, tempSub.getDescription());
+        assertEquals(testProject, tempSub.getParent());
+        assertEquals(emptyDep, tempSub.getBugReportList());
+        
     }
 
     @Test
     public void testSubsystemStringStringAbstractSystem() {
-        fail("Not yet implemented");
+        Subsystem tempSub = new Subsystem(subName, testDescription, testProject);
+        assertEquals(new VersionID(), tempSub.getVersionID());
+        assertEquals(subName, tempSub.getName());
+        assertEquals(testDescription, tempSub.getDescription());
+        assertEquals(testProject, tempSub.getParent());
+        assertEquals(emptyDep, tempSub.getBugReportList());
     }
 
     @Test
     public void testIsValidParent() {
-        fail("Not yet implemented");
+        assertFalse(subSysTest.isValidParent(null));
+        assertFalse(subSysTest.isValidParent(subSysTest2));
+        assertTrue(subSysTest2.isValidParent(subSysTest));
     }
 
     @Test
     public void testGetBugReportList() {
-        fail("Not yet implemented");
+        assertEquals(expected, actual);
     }
 
     @Test

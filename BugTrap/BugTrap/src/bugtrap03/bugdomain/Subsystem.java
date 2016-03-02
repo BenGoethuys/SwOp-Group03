@@ -83,6 +83,9 @@ public class Subsystem extends AbstractSystem {
      * @return true is the given parent isn't the subsystem's own child
      */
     protected boolean isValidParent(AbstractSystem parent) {
+        if (parent == null){
+            return false;
+        }
         Project parentProject = parent.getParentProject();
         AbstractSystem currentSystem = parent;
         while (currentSystem != parentProject) {
@@ -133,7 +136,7 @@ public class Subsystem extends AbstractSystem {
     public PList<BugReport> getAllBugReports() {
         PList<BugReport> list = super.getAllBugReports();
         list = list.plusAll(this.getBugReportList());
-        return PList.<BugReport> empty().plusAll(list);
+        return list;
     }
 
     /**
