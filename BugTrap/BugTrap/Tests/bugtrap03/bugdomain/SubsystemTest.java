@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
+import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import purecollections.PList;
 
@@ -99,6 +100,11 @@ public class SubsystemTest {
         assertEquals(emptyDep, tempSub.getBugReportList());
         
     }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void testSubsystemVersionIDStringStringNullAbstractSystem() {
+        Subsystem tempSub = new Subsystem(testVersion, subName, testDescription, null);
+    }
 
     @Test
     public void testSubsystemStringStringAbstractSystem() {
@@ -124,6 +130,8 @@ public class SubsystemTest {
         assertEquals(emptyDep, subSysTest2.getBugReportList());
     }
 
+    
+    
     @Test
     public void testAddBugReport() throws IllegalArgumentException, PermissionException {
        BugReport bugreport3 = subSysTest.addBugReport(testDev, "otherBug5", "i have a love/hate relation with testing", emptyDep);
@@ -131,6 +139,18 @@ public class SubsystemTest {
        assertNotEquals(expectedRep1, subSysTest.getBugReportList());
        PList<BugReport> expectedRep2 = expectedRep1.plus(bugreport3);
        assertEquals(expectedRep2, subSysTest.getBugReportList());
+    }
+    
+    @Test (expected = PermissionException.class)
+    public void testAddInvalidPermissionBugReport() throws IllegalArgumentException, PermissionException {
+       Administrator admin = new Administrator("uniqueAdminunique", "adje", "minnie");
+       BugReport bugreport3 = subSysTest.addBugReport(admin, "otherBug5", "i have a love/hate relation with testing", emptyDep);
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void testAddInvalidTitleBugReport() throws IllegalArgumentException, PermissionException {
+       Administrator admin = new Administrator("UniqueAdminUnique2", "adje2", "minnie2");
+       BugReport bugreport3 = subSysTest.addBugReport(testDev, null, "i have a love/hate relation with testing", emptyDep);
     }
 
     @Test

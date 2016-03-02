@@ -4,6 +4,7 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
+import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
 /**
@@ -47,7 +48,7 @@ public class Subsystem extends AbstractSystem {
      *             invalid.
      **/
     public Subsystem(String name, String description, AbstractSystem parent)
-            throws NullPointerException, IllegalArgumentException {
+            throws IllegalArgumentException {
         super(name, description);
         // if (!this.isValidName(name, parent)) {
         // throw new IllegalArgumentException("The name is invalid with the
@@ -154,7 +155,7 @@ public class Subsystem extends AbstractSystem {
      * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
      *      String, PList, Subsystem)
      */
-    public BugReport addBugReport(Issuer creator, String title, String description, PList<BugReport> dependencies)
+    public BugReport addBugReport(User creator, String title, String description, PList<BugReport> dependencies)
             throws IllegalArgumentException, PermissionException {
         BugReport bugReport = new BugReport(creator, title, description, dependencies, this);
         this.bugReportList = this.getBugReportList().plus(bugReport);
