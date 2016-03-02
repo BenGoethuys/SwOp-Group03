@@ -1,5 +1,8 @@
 package bugtrap03.gui.terminal;
 
+import bugtrap03.gui.cmd.general.AbortCmd;
+import bugtrap03.gui.cmd.general.CancelException;
+
 import java.io.InputStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;

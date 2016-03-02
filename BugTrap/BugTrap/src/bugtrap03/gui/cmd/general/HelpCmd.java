@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bugtrap03.gui.terminal;
+package bugtrap03.gui.cmd.general;
 
 import bugtrap03.DataModel;
 import bugtrap03.bugdomain.usersystem.User;
+import bugtrap03.gui.cmd.Cmd;
+import bugtrap03.gui.terminal.TerminalScanner;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;

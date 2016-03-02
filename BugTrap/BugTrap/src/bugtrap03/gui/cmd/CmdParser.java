@@ -1,8 +1,15 @@
-package bugtrap03.gui.terminal;
+package bugtrap03.gui.cmd;
 
 import bugtrap03.DataModel;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
+import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.cmd.general.ClearCmd;
+import bugtrap03.gui.cmd.general.HelpCmd;
+import bugtrap03.gui.cmd.general.InvalidCmd;
+import bugtrap03.gui.terminal.LoginCmd;
+import bugtrap03.gui.terminal.Terminal;
+import bugtrap03.gui.terminal.TerminalScanner;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
