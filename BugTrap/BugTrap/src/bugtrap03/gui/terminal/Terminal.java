@@ -15,7 +15,7 @@ public class Terminal {
             throw new IllegalArgumentException("Terminal does not allow a null-reference for DataController.");
         }
         this.model = model;
-        this.scan = new TerminalScanner(System.in);
+        this.scan = new TerminalScanner(System.in, System.out);
         this.parser = new CmdParser(this);
     }
 
@@ -70,21 +70,21 @@ public class Terminal {
                 //Abort received, ignored because we really need a user.
             }
         } while (user == null);
-        System.out.println("");
+        scan.println("");
 
         //Query
         String input;
         while (true) {
-            System.out.println("Give new command");
+            scan.println("Give new command");
             try {
                 input = scan.nextLine().toLowerCase();
                 parser.performCmd(scan, model, user, input);
             } catch (CancelException ex) {
-                System.out.println("Cancelled. Execute a new command.");
+                scan.println("Cancelled. Execute a new command.");
                 // aborted current cmd, ask user for new cmd -> do nothing
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-                System.out.println("Command cancelled. Execute a new command.");
+                scan.println(ex.getMessage());
+                scan.println("Command cancelled. Execute a new command.");
             }
         }
     }

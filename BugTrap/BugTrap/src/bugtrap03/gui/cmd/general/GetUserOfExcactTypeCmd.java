@@ -49,13 +49,13 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
         PList<U> usersOfType = model.getUserListOfExactType(classType);
 
         if (usersOfType.isEmpty()) {
-            System.out.println("No users of this type found.");
+            scan.println("No users of this type found.");
             return null;
         }
 
-        System.out.println("Available options:");
+        scan.println("Available options:");
         for (int i = 0; i < usersOfType.size(); i++) {
-            System.out.println(i + ". " + usersOfType.get(i).getUsername());
+            scan.println(i + ". " + usersOfType.get(i).getUsername());
         }
 
         //Retrieve & process user input.
@@ -67,14 +67,14 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
                 if (index >= 0 && index < usersOfType.size()) {
                     user = usersOfType.get(index);
                 } else {
-                    System.out.println("Invalid input.");
+                    scan.println("Invalid input.");
                 }
             } else { //by username
                 String input = scan.nextLine(); //input
                 try {
                     user = usersOfType.parallelStream().filter(u -> u.getUsername().equals(input)).findFirst().get();
                 } catch (NoSuchElementException ex) {
-                    System.out.println("Invalid input.");
+                    scan.println("Invalid input.");
                 }
             }
         } while (user == null);

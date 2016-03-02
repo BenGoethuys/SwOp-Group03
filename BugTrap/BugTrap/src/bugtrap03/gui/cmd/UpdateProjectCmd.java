@@ -48,19 +48,19 @@ public class UpdateProjectCmd implements Cmd {
 
         // update name:
         String newName = null;
-        System.out.println("Give new name: (leave blank for old name)");
+        scan.println("Give new name: (leave blank for old name)");
         newName = scan.nextLine();
         if (newName.equalsIgnoreCase("")) {
             newName = proj.getName();
-            System.out.println("The name was not updated.");
+            scan.println("The name was not updated.");
         }
 
         // update description:
         String newDesc = null;
-        System.out.println("Give new description: (leave blank for old description)");
+        scan.println("Give new description: (leave blank for old description)");
         newDesc = scan.nextLine();
         if (newDesc.equalsIgnoreCase("")) {
-            System.out.println("Description not updated.");
+            scan.println("Description not updated.");
             newDesc = proj.getDescription();
         }
 
@@ -69,11 +69,11 @@ public class UpdateProjectCmd implements Cmd {
         String dateStr;
         String[] projDateStr;
         do {
-            System.out.println("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
+            scan.println("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
             dateStr = scan.nextLine();
             if (dateStr.equalsIgnoreCase("")) {
                 projStartDate = proj.getStartDate();
-                System.out.println("Start date not updated.");
+                scan.println("Start date not updated.");
             } else {
                 projDateStr = dateStr.split("-");
                 try {
@@ -81,7 +81,7 @@ public class UpdateProjectCmd implements Cmd {
                             Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
                     proj.setStartDate(projStartDate);
                 } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-                    System.out.println("Invalid input. Please try again");
+                    scan.println("Invalid input. Please try again");
                 }
             }
         } while (projStartDate == null);
@@ -90,22 +90,22 @@ public class UpdateProjectCmd implements Cmd {
         Long projBudgetEstimate = null;
         String str;
         do {
-            System.out.println("Give new project budget estimate:");
+            scan.println("Give new project budget estimate:");
             str = scan.nextLine();
             if (str.equalsIgnoreCase("")) {
                 projBudgetEstimate = proj.getBudgetEstimate();
-                System.out.println("Buget estimate not updated.");
+                scan.println("Buget estimate not updated.");
             } else {
                 try {
                     projBudgetEstimate = Long.parseLong(str);
                     proj.setBudgetEstimate(projBudgetEstimate);
                 } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid input.");
+                    scan.println("Invalid input.");
                 }
             }
         } while (projBudgetEstimate == null);
 
-        System.out.println("Project updated.");
+        scan.println("Project updated.");
         model.updateProject(proj, user, newName, newDesc, projStartDate, projBudgetEstimate);
         return proj;
     }

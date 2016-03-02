@@ -38,9 +38,9 @@ public class CreateSubsystemCmd implements Cmd {
 
         // show all projects
         PList<AbstractSystem> list = model.getAllProjectsAndSubsystems();
-        System.out.println("Available projects and subsytems:");
+        scan.println("Available projects and subsytems:");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + ". " + list.get(i).getName());
+            scan.println(i + ". " + list.get(i).getName());
         }
 
         // Retrieve & process user input.
@@ -52,19 +52,19 @@ public class CreateSubsystemCmd implements Cmd {
                 if (index >= 0 && index < list.size()) {
                     system = list.get(index);
                 } else {
-                    System.out.println("Invalid input.");
+                    scan.println("Invalid input.");
                 }
             } else { // by name
                 String input = scan.nextLine(); // input
                 try {
                     system = list.parallelStream().filter(u -> u.getName().equals(input)).findFirst().get();
                 } catch (NoSuchElementException ex) {
-                    System.out.println("Invalid input.");
+                    scan.println("Invalid input.");
                 }
             }
         } while (system == null);
-        System.out.println("You have chosen:");
-        System.out.println(system.getName());
+        scan.println("You have chosen:");
+        scan.println(system.getName());
 
         //Project name
         System.out.print("Subsystem name:");
@@ -76,7 +76,7 @@ public class CreateSubsystemCmd implements Cmd {
 
         //Create subsystem
         Subsystem subsytem = model.createSubsystem(user, system, sysName, sysDesc);
-        System.out.println("Create subsystem.");
+        scan.println("Create subsystem.");
         return subsytem;
     }
 }

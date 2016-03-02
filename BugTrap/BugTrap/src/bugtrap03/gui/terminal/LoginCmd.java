@@ -59,7 +59,7 @@ public class LoginCmd implements Cmd {
 
         //Welcome user.
         (new ClearCmd()).exec(scan, model, user);
-        System.out.println("Welcome " + user.getFullName() + " (" + user.getUsername() + ")");
+        scan.println("Welcome " + user.getFullName() + " (" + user.getUsername() + ")");
         return user;
     }
 
@@ -97,11 +97,11 @@ public class LoginCmd implements Cmd {
      */
     private <U extends User> Class<U> getWantedUserType(TerminalScanner scan) throws CancelException {
         //Ask question
-        System.out.println("Please chose your type of login.");
+        scan.println("Please chose your type of login.");
 
         //Print the users options.
         for (int i = 0; i < this.classList.size(); i++) {
-            System.out.println(i + ". " + this.classList.get(i).getKey());
+            scan.println(i + ". " + this.classList.get(i).getKey());
         }
 
         //Retrieve user input.
@@ -109,7 +109,7 @@ public class LoginCmd implements Cmd {
         do {
             System.out.print("I chose: ");
             if ((chosenClass = this.optionMap.get(scan.nextLine().toLowerCase())) == null) {
-                System.out.println("invalid input.");
+                scan.println("invalid input.");
             }
         } while (chosenClass == null);
 

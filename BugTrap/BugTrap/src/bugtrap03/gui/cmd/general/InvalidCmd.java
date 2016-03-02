@@ -13,14 +13,14 @@ public class InvalidCmd implements Cmd {
     /**
      * Inform the user of the invalid command.
      *
-     * @param sdummy
+     * @param scan The scanner used to print to
      * @param cdummy
      * @param udummy
      * @return A null reference.
      */
     @Override
-    public Object exec(TerminalScanner sdummy, DataModel cdummy, User udummy) {
-        System.out.println("Invalid command.");
+    public Object exec(TerminalScanner scan, DataModel cdummy, User udummy) {
+        scan.println("Invalid command.");
         return null;
     }
 

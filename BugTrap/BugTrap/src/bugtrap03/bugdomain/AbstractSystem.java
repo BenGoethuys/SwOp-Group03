@@ -263,5 +263,6 @@ public abstract class AbstractSystem {
      * @return true if the developer has the requested permission
      */
     public abstract boolean hasPermission(Developer dev, RolePerm perm);
+    
 
 }

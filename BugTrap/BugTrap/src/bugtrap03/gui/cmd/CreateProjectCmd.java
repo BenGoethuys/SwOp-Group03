@@ -47,7 +47,7 @@ public class CreateProjectCmd implements Cmd {
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
-        System.out.println("Create or clone a new project?");
+        scan.println("Create or clone a new project?");
         String answer = null;
         do {
             System.out.print("Create or clone: ");
@@ -58,7 +58,7 @@ public class CreateProjectCmd implements Cmd {
             } else if (answer.equalsIgnoreCase("clone")) {
                 return cloneProjectScenario(scan, model, user);
             } else {
-                System.out.println("Invalid input. Use create or clone.");
+                scan.println("Invalid input. Use create or clone.");
                 answer = null;
             }
         } while (answer == null);
@@ -101,7 +101,7 @@ public class CreateProjectCmd implements Cmd {
             try {
                 projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]), Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                System.out.println("Invalid input.");
+                scan.println("Invalid input.");
             }
         } while (projStartDate == null);
 
@@ -112,19 +112,19 @@ public class CreateProjectCmd implements Cmd {
             try {
                 projBudgetEstimate = Integer.parseInt(scan.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input.");
+                scan.println("Invalid input.");
             }
         } while (projBudgetEstimate == null);
 
         //Project lead developer
-        System.out.println("Chose a lead developer.");
+        scan.println("Chose a lead developer.");
         Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
 
         //Create Project
         Project proj = model.createProject(projName, projDesc, projStartDate, lead, projBudgetEstimate, user);
 
         //Print created project details
-        System.out.println(proj.getDetails());
+        scan.println(proj.getDetails());
 
         return proj;
     }
@@ -161,7 +161,7 @@ public class CreateProjectCmd implements Cmd {
                 nb3 = Integer.parseInt(versionIDStr[2]);
                 versionID = new VersionID(nb1, nb2, nb3);
             } catch (IndexOutOfBoundsException | NumberFormatException ex) {
-                System.out.println("Invalid input. Please try again using format: a.b.c");
+                scan.println("Invalid input. Please try again using format: a.b.c");
             }
         } while (versionID == null);
 
@@ -174,7 +174,7 @@ public class CreateProjectCmd implements Cmd {
                 startDate = new GregorianCalendar(Integer.parseInt(startDateStr[0]),
                         Integer.parseInt(startDateStr[1]), Integer.parseInt(startDateStr[2]));
             } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-                System.out.println("Invalid input. Please try again using format YYYY-MM-DD");
+                scan.println("Invalid input. Please try again using format YYYY-MM-DD");
             }
         } while (startDate == null);
 
@@ -186,20 +186,20 @@ public class CreateProjectCmd implements Cmd {
             try {
                 budgetEstimate = Long.parseLong(budgetEstimateStr);
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please try again.");
+                scan.println("Invalid input. Please try again.");
             }
         } while (budgetEstimate == null);
 
         //Lead developer
-        System.out.println("Chose a lead developer.");
+        scan.println("Chose a lead developer.");
         Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
 
         //Clone Project
         Project newProject = project.cloneProject(versionID, lead, startDate, budgetEstimate);
 
         //Print created project details
-        System.out.println("Project details:");
-        System.out.println(newProject.getDetails());
+        scan.println("Project details:");
+        scan.println(newProject.getDetails());
 
         return newProject;
     }

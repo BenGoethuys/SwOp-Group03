@@ -35,9 +35,9 @@ public class GetProjectCmd implements Cmd {
     public Project exec(TerminalScanner scan, DataModel model, User user) throws CancelException {
         // show all projects
         PList<Project> projectList = model.getProjectList();
-        System.out.println("Available projects:");
+        scan.println("Available projects:");
         for (int i = 0; i < projectList.size(); i++) {
-            System.out.println(i + ". " + projectList.get(i).getName());
+            scan.println(i + ". " + projectList.get(i).getName());
         }
 
         // Retrieve & process user input.
@@ -49,19 +49,19 @@ public class GetProjectCmd implements Cmd {
                 if (index >= 0 && index < projectList.size()) {
                     proj = projectList.get(index);
                 } else {
-                    System.out.println("Invalid input.");
+                    scan.println("Invalid input.");
                 }
             } else { // by name
                 String input = scan.nextLine(); // input
                 try {
                     proj = projectList.parallelStream().filter(u -> u.getName().equals(input)).findFirst().get();
                 } catch (NoSuchElementException ex) {
-                    System.out.println("Invalid input.");
+                    scan.println("Invalid input.");
                 }
             }
         } while (proj == null);
-        System.out.println("You have chosen:");
-        System.out.println(proj.getDetails());
+        scan.println("You have chosen:");
+        scan.println(proj.getDetails());
 
         return proj;
     }

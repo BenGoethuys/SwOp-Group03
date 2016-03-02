@@ -46,9 +46,9 @@ public class CreateBugReportCmd implements Cmd {
         Project proj = new GetProjectCmd().exec(scan, model, user);
 
         PList<Subsystem> subsysList = model.getAllSubsystems(proj);
-        System.out.println("Available subsystems:");
+        scan.println("Available subsystems:");
         for (int i = 0; i < subsysList.size(); i++) {
-            System.out.println(i + ". " + subsysList.get(i).getName());
+            scan.println(i + ". " + subsysList.get(i).getName());
         }
 
         // Retrieve & process user input.
@@ -60,19 +60,19 @@ public class CreateBugReportCmd implements Cmd {
                 if (index >= 0 && index < subsysList.size()) {
                     subsys = subsysList.get(index);
                 } else {
-                    System.out.println("Invalid input.");
+                    scan.println("Invalid input.");
                 }
             } else { // by name
                 String input = scan.nextLine(); // input
                 try {
                     subsys = subsysList.parallelStream().filter(u -> u.getName().equals(input)).findFirst().get();
                 } catch (NoSuchElementException ex) {
-                    System.out.println("Invalid input.");
+                    scan.println("Invalid input.");
                 }
             }
         } while (subsys == null);
-        System.out.println("You have chosen:");
-        System.out.println(subsys.getName());
+        scan.println("You have chosen:");
+        scan.println(subsys.getName());
 
         //BugReport title
         System.out.print("BugReport title:");
@@ -84,37 +84,39 @@ public class CreateBugReportCmd implements Cmd {
 
         // BugReport Dependencies
         PList<BugReport> possibleDeps = proj.getAllBugReports();
-        System.out.println("Available bugReports:");
-        for (int i = 0; i < subsysList.size(); i++) {
-            System.out.println(i + ". " + possibleDeps.get(i).getTitle());
+        scan.println("Available bugReports:");
+        for (int i = 0; i < possibleDeps.size(); i++) {
+            scan.println(i + ". " + possibleDeps.get(i).getTitle());
         }
 
         // Retrieve & process user input.
         HashSet<BugReport> depList = new HashSet<>();
         boolean done = false;
         do {
-            System.out.print("I chose: (leave blank if done");
-            if (scan.hasNextInt()) { // by index
-                int index = scan.nextInt();// input
-                if (index >= 0 && index < subsysList.size()) {
-                    depList.add(possibleDeps.get(index));
-                } else {
-                    System.out.println("Invalid input.");
-                }
-            } else { // by name
-                String input = scan.nextLine(); // input
-                if (input == ""){
-                    done = true;
+            System.out.print("I chose: (leave blank if done)");
+            String input = scan.nextLine(); // input
+            if (input.equalsIgnoreCase("")){
+                scan.println("Ended selection.");
+                done = true;
+            } else {
+                try {
+                    Integer index = Integer.parseInt(input);
+                    if (index >= 0 && index < depList.size()) {
+                        depList.add(possibleDeps.get(index));
+                    }
+                } catch (NumberFormatException ex) {
+                    // no int
                 }
                 try {
                     depList.add(possibleDeps.parallelStream().filter(u -> u.getTitle().equals(input)).findFirst().get());
                 } catch (NoSuchElementException ex) {
-                    System.out.println("Invalid input.");
+                    scan.println("Invalid input.");
                 }
             }
         } while (! done);
 
         BugReport bugreport = model.createBugReport(user, bugreportTitle, bugReportDesc, PList.<BugReport>empty().plusAll(depList), subsys);
+        scan.println("Created new bug report.");
         return bugreport;
     }
 }
