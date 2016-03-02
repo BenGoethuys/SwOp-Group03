@@ -33,7 +33,7 @@ public class ShowProjectCmd implements Cmd {
     @Override
     public Object exec(TerminalScanner scan, DataModel model, User user) throws CancelException {
         Project proj = new GetProjectCmd().exec(scan, model, user);
-        System.out.println(proj.getDetails());
+        scan.println(proj.getDetails());
         return null;
     }
 

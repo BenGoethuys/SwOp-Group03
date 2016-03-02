@@ -40,16 +40,16 @@ public class HelpCmd implements Cmd {
      * Print a 'list' of all possible commands currently in the map passed to
      * the constructor.
      *
-     * @param dummy1
+     * @param scan The scanner used to print to.
      * @param dummy2
      * @param dummy3
      * @return null.
      */
     @Override
-    public Object exec(TerminalScanner dummy1, DataModel dummy2, User dummy3) {
-        System.out.println("List of possible commands:");
+    public Object exec(TerminalScanner scan, DataModel dummy2, User dummy3) {
+        scan.println("List of possible commands:");
         for (SimpleEntry cmdEntry : cmdList) {
-            System.out.println(cmdEntry.getKey());
+            scan.println(cmdEntry.getKey().toString());
         }
 
         return null;
