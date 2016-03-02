@@ -115,10 +115,12 @@ public class VersionIDTest {
 	 */
 	@Test
 	public void testEquals() {
-		assertEquals(versionID.compareTo(versionID), 0);
-
-		VersionID versionID2 = new VersionID(1, 2, 3);
-		assertEquals(versionID.compareTo(versionID2), 0);
+	    assertTrue(versionID.equals(versionID));
+	    VersionID versionID2 = new VersionID();
+	    assertFalse(versionID.equals(versionID2));
+	    assertFalse(versionID.equals(null));
+	    VersionID versionID3 = new VersionID();
+	    assertTrue(versionID2.equals(versionID3));
 	}
 
 }

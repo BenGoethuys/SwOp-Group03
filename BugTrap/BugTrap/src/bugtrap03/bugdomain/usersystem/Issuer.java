@@ -1,5 +1,9 @@
 package bugtrap03.bugdomain.usersystem;
 
+import bugtrap03.bugdomain.permission.UserPerm;
+
+import java.util.Arrays;
+
 /**
  * @author Group 03
  * @version 0.1
@@ -31,6 +35,21 @@ public class Issuer extends User {
      */
     public Issuer(String uniqueUsername, String firstName, String lastName) throws IllegalArgumentException {
         super(uniqueUsername, firstName, lastName);
+    }
+
+    private UserPerm[] permissions = {
+            UserPerm.CREATE_BUGREPORT
+    };
+
+    /**
+     * Check if this {@link Administrator} has the given {@link UserPerm}.
+     *
+     * @param perm The userPermission to check for.
+     * @return Whether this has the permission.
+     */
+    @Override
+    public boolean hasPermission(UserPerm perm) {
+        return Arrays.stream(this.permissions).anyMatch(permission -> permission == perm);
     }
 
 }

@@ -140,7 +140,7 @@ public class Subsystem extends AbstractSystem {
      * @param dependencies The dependencies of the bug report
      * @return the created bug report
      * @throws IllegalArgumentException If BugReport(creator, title, description, dependencies, this) fails
-     * @see BugReport#BugReport(Issuer, String, String, PList, Subsystem)
+     * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String, String, PList, Subsystem)
      */
     public BugReport addBugReport(Issuer creator, String title, String description,
                                   PList<BugReport> dependencies) throws IllegalArgumentException {
