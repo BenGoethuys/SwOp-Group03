@@ -1,9 +1,11 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
+import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 import static org.junit.Assert.*;
 
@@ -28,6 +30,7 @@ public class BugReportTest {
 	static PList<BugReport> depList;
 	static Project project;
 	static Subsystem subsystem;
+	static Administrator admin;
 	
 	// static counter, for older tests that don't use getUniqueId yet
 	static int counter = 100;
@@ -47,6 +50,8 @@ public class BugReportTest {
 		programer = new Developer("ditGebruiktNiemandAnders2", "Jos", "Smidt");
 		tester = new Developer("ditGebruiktNiemandAnders3", "Jantje", "Smidt");
 		depList = PList.<BugReport>empty();
+		
+		admin = new Administrator("ditGebruiktNiemandAnders4", "bla", "hihi");
 		
 		project = new Project("ANewProject", "the description of the project", lead, 0);
 		project.setRole(lead, programer, Role.PROGRAMMER);
@@ -386,12 +391,19 @@ public class BugReportTest {
 	public void testIsValidCreator(){
 		assertTrue(BugReport.isValidCreator(issuer));
 		assertFalse(BugReport.isValidCreator(null));
+		assertFalse(BugReport.isValidCreator(admin));
+		assertTrue(BugReport.isValidCreator(dev));
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void testBugReportInvalidCreator() throws IllegalArgumentException, PermissionException{
 		new BugReport(null, getNext(), "Bla", "boo", depList, subsystem);
 	}
+	
+	@Test (expected = PermissionException.class)
+    public void testBugReportCreatorNoPermission() throws IllegalArgumentException, PermissionException{
+        new BugReport(admin, getNext(), "Bla", "boo", depList, subsystem);
+    }
 	
 	@Test
 	public void testGetUserList() throws IllegalArgumentException, PermissionException{
