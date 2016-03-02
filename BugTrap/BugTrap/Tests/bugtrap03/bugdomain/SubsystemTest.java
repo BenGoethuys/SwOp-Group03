@@ -135,7 +135,13 @@ public class SubsystemTest {
 
     @Test
     public void testCloneSubsystem() {
-        fail("Not yet implemented");
+        Project cloneProj = new Project("cloneProjTest", "this project is supposed to be a clone", testDev, 99);        
+        Subsystem cloneSub = subSysTest.cloneSubsystem(cloneProj);
+        assertEquals(subSysTest.getVersionID(), cloneSub.getVersionID());
+        assertEquals(subSysTest.getName(),cloneSub.getName());
+        assertEquals(subSysTest.getDescription(),cloneSub.getDescription());
+        assertNotEquals(subSysTest.getParent(), cloneSub.getParent());
+        assertEquals(cloneProj, cloneSub.getParent());
     }
 
 }

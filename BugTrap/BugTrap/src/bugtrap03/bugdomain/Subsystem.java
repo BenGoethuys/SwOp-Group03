@@ -168,9 +168,10 @@ public class Subsystem extends AbstractSystem {
      *
      * @return the clone of the subsystem
      */
-    protected Subsystem cloneSubsystem(AbstractSystem parent) {
+    public Subsystem cloneSubsystem(AbstractSystem parent) {
         return new Subsystem(this.getVersionID(), this.getName(), this.getDescription(), parent);
     }
+
 
     /**
      * This function checks the validity of the given name, in combination with
