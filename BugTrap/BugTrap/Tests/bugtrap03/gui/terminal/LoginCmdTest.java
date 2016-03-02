@@ -18,12 +18,12 @@ public class LoginCmdTest {
 
     @BeforeClass
     public static void SetUpBefore() {
-        String username = "007";
+        String username = "007a";
         String firstName = "James";
         String lastName = "Bond";
 
-        String username2 = "002";
-        String username3 = "008";
+        String username2 = "002a";
+        String username3 = "008a";
 
         model = new DataModel();
         admin1 = model.createAdministrator(username, firstName, lastName);
