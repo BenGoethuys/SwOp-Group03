@@ -9,7 +9,6 @@ import bugtrap03.usersystem.Administrator;
 import bugtrap03.usersystem.Developer;
 import bugtrap03.usersystem.Role;
 
-import java.util.Scanner;
 
 /**
  *
@@ -51,6 +50,8 @@ public class Main {
 			subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
 			subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
 		} catch (IllegalArgumentException | PermissionException e) {
+            System.err.println("Unexpected error at initDemo");
+            System.err.println(e.getMessage());
 			// should be valid
 		}
         Project projectB;
@@ -61,6 +62,8 @@ public class Main {
 			subsystemB2 = projectB.makeSubsystemChild(new VersionID(), "SubsystemB2", "Description of susbsystem B2");
 			subsystemB2.makeSubsystemChild(new VersionID(), "SubsystemB2.1", "Description of susbsystem B2.1");
 		} catch (IllegalArgumentException | PermissionException e) {
+            System.err.println("Unexpected error at initDemo");
+            System.err.println(e.getMessage());
 			// should be valid
 		}
         
