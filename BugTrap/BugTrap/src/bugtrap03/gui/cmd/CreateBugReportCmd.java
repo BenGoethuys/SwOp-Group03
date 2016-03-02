@@ -86,7 +86,8 @@ public class CreateBugReportCmd implements Cmd {
         PList<BugReport> possibleDeps = proj.getAllBugReports();
         scan.println("Available bugReports:");
         for (int i = 0; i < possibleDeps.size(); i++) {
-            scan.println(i + ". " + possibleDeps.get(i).getTitle());
+            BugReport bugrep = possibleDeps.get(i);
+            scan.println(i + ". " + bugrep.getTitle() + " " + bugrep.getUniqueID());
         }
 
         // Retrieve & process user input.
