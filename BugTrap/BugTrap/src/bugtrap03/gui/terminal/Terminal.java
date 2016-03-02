@@ -15,7 +15,7 @@ public class Terminal {
             throw new IllegalArgumentException("Terminal does not allow a null-reference for DataController.");
         }
         this.model = model;
-        this.scan = new TerminalScanner(System.in);
+        this.scan = new TerminalScanner(System.in, System.out);
         this.parser = new CmdParser(this);
     }
 

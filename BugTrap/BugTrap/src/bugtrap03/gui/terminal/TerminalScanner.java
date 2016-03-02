@@ -4,6 +4,8 @@ import bugtrap03.gui.cmd.general.AbortCmd;
 import bugtrap03.gui.cmd.general.CancelException;
 
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -17,15 +19,18 @@ public class TerminalScanner {
      * scanned from the specified input stream. Bytes from the stream are
      * converted into characters using the underlying platform's
      * {@linkplain java.nio.charset.Charset#defaultCharset() default charset}.
+     * It can also print to a given output stream.
      *
-     * @param source An input stream to be scanned
+     * @param input An input stream to be scanned
+     * @param output An output stream to print to.
      * @throws IllegalArgumentException When a null reference is passed.
      */
-    public TerminalScanner(InputStream source) throws IllegalArgumentException {
-        if (source == null) {
-            throw new IllegalArgumentException("TerminalScanner requires a non-null reference for source.");
+    public TerminalScanner(InputStream input, PrintStream output) throws IllegalArgumentException {
+        if (input == null || output == null) {
+            throw new IllegalArgumentException("TerminalScanner requires a non-null reference for input and output.");
         }
-        scan = new Scanner(source);
+        this.scan = new Scanner(input);
+        this.output = output;
     }
 
     /**
@@ -43,9 +48,9 @@ public class TerminalScanner {
      *
      * @return the line that was skipped
      * @throws NoSuchElementException if no line was found
-     * @throws IllegalStateException  if this scanner is closed
-     * @throws CancelException        If the scanner found an indication of willingness
-     *                                to abort.
+     * @throws IllegalStateException if this scanner is closed
+     * @throws CancelException If the scanner found an indication of willingness
+     * to abort.
      * @see Scanner#nextLine()
      */
     public String nextLine() throws CancelException {
@@ -76,8 +81,7 @@ public class TerminalScanner {
     }
 
     /**
-     * @return
-     * @see Scanner#hasNextInt()
+     * @return @see Scanner#hasNextInt()
      */
     public boolean hasNextInt() {
         return scan.hasNextInt();
@@ -87,7 +91,7 @@ public class TerminalScanner {
      * Execute as a {@link Scanner} except if the abort indication was given.
      *
      * @return
-     * @throws CancelException        When nextLine() would throw this.
+     * @throws CancelException When nextLine() would throw this.
      * @throws InputMismatchException When no Integer was found.
      * @see Scanner#nextInt()
      * @see #nextLine()
@@ -104,6 +108,14 @@ public class TerminalScanner {
     }
 
     /**
+     * @see PrintStream#println(java.lang.String)
+     */
+    public boolean println(String message) {
+        this.output.println(message);
+        return true;
+    }
+
+    /**
      * @see Scanner#close()
      */
     public void close() {
@@ -111,5 +123,6 @@ public class TerminalScanner {
     }
 
     private Scanner scan;
+    private PrintStream output;
 
 }
