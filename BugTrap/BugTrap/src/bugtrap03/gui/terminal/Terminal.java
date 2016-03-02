@@ -48,7 +48,7 @@ public class Terminal {
      *
      * @return The currently used model.
      */
-    public DataModel getController() {
+    public DataModel getModel() {
         return this.model;
     }
 

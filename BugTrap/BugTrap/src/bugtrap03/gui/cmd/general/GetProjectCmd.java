@@ -43,7 +43,7 @@ public class GetProjectCmd implements Cmd {
         // Retrieve & process user input.
         Project proj = null;
         do {
-            System.out.print("I chose: ");
+            scan.print("I chose: ");
             if (scan.hasNextInt()) { // by index
                 int index = scan.nextInt();// input
                 if (index >= 0 && index < projectList.size()) {

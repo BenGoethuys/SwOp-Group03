@@ -46,7 +46,7 @@ public class CreateSubsystemCmd implements Cmd {
         // Retrieve & process user input.
         AbstractSystem system = null;
         do {
-            System.out.print("I chose: ");
+            scan.print("I chose: ");
             if (scan.hasNextInt()) { // by index
                 int index = scan.nextInt();// input
                 if (index >= 0 && index < list.size()) {
@@ -67,11 +67,11 @@ public class CreateSubsystemCmd implements Cmd {
         scan.println(system.getName());
 
         //Project name
-        System.out.print("Subsystem name:");
+        scan.print("Subsystem name:");
         String sysName = scan.nextLine();
 
         //Project description
-        System.out.print("Subsystem description:");
+        scan.print("Subsystem description:");
         String sysDesc = scan.nextLine();
 
         //Create subsystem
