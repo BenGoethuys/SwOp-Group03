@@ -109,7 +109,7 @@ public class LoginCmd implements Cmd {
         do {
             scan.print("I chose: ");
             if ((chosenClass = this.optionMap.get(scan.nextLine().toLowerCase())) == null) {
-                scan.println("invalid input.");
+                scan.println("Invalid input.");
             }
         } while (chosenClass == null);
 
