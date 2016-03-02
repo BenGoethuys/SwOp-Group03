@@ -135,12 +135,14 @@ public class VersionID implements Comparable<VersionID> {
      * @param other The versionID to compare.
      * @return True if the version ID's are equal.
      */
-    public boolean equals(VersionID other) {
+    @Override
+    public boolean equals(Object other) {
         if (other == null) {
             return false;
         }
-        if (this.compareTo(other) == 0) {
-            return true;
+        if (other instanceof VersionID) {
+            VersionID otherID = (VersionID) other;
+            return this.compareTo(otherID) == 0;
         }
         return false;
     }
