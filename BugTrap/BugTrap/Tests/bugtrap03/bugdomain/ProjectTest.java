@@ -27,7 +27,7 @@ public class ProjectTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        testDev = new Developer("subsysTester", "Kwinten", "Buytaert");
+        testDev = new Developer("subsysTester123", "Kwinten", "Buytaert");
         testVersion = new VersionID(1,2,3);
         testName = "testProj";
         testDescription = "This is an description";

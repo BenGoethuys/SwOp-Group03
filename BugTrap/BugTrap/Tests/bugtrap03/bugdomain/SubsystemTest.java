@@ -23,11 +23,12 @@ public class SubsystemTest {
     static VersionID subVersion;
     static String subName;
     static String subDescription;
+    static Subsystem subSysTest;
     
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        testDev = new Developer("subsysTester", "Kwinten", "Buytaert");
+        testDev = new Developer("subsysTester321", "Kwinten", "Buytaert");
         testVersion = new VersionID(1,2,3);
         testName = "testProj";
         testDescription = "This is an description";
@@ -35,6 +36,11 @@ public class SubsystemTest {
         testCreationDate = new GregorianCalendar(2000,12,25);   
         testBudget = 1000;
         testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate, testBudget);
+        
+        subVersion = new VersionID(9,8,7);
+        subName = "testSub";
+        subDescription = "This is a test description of a subsystem";
+        subSysTest = new Subsystem (subVersion, subName, subDescription, testProject);
         
         
     }
