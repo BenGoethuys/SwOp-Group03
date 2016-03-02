@@ -502,11 +502,12 @@ public class BugReport {
      * @param creator the creator to set
      */
     private void setCreator(User creator) throws PermissionException, IllegalArgumentException {
-        if (!creator.hasPermission(UserPerm.CREATE_BUGREPORT)) {
-            throw new PermissionException("The given creator doesn't have the permission to create a bug report");
-        }
         if (!isValidCreator(creator)) {
-            throw new IllegalArgumentException("The given creator is not valid for this bug report");
+            if (!creator.hasPermission(UserPerm.CREATE_BUGREPORT)) {
+                throw new PermissionException("The given creator doesn't have the permission to create a bug report");
+            } else{
+                throw new IllegalArgumentException("The given creator is not valid for this bug report");
+            }
         }
         this.creator = creator;
     }
