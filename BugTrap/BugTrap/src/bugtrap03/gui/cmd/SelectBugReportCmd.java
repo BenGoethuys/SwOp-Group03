@@ -12,7 +12,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * Created by Ben on 02/03/2016.
+ * This class handles the SelectBugReport scenario
+ * Created by Ben Goethuys on 02/03/2016.
  */
 public class SelectBugReportCmd implements Cmd {
 
@@ -27,6 +28,9 @@ public class SelectBugReportCmd implements Cmd {
         this.initList();
     }
 
+    /**
+     * This method initialises the list of possible search methods
+     */
     private void initList() {
         modeList.add(new AbstractMap.SimpleEntry<String, Predicate<BugReport>>("title", u -> u.getTitle().equals(str)));
         modeList.add(new AbstractMap.SimpleEntry<String, Predicate<BugReport>>("description", u -> u.getDescription().equals(str)));
@@ -124,7 +128,7 @@ public class SelectBugReportCmd implements Cmd {
             }
         } while (bugrep == null);
 
-        //TODO sysout
+        scan.println("You have selected: "+bugrep.getTitle()+ " with uniqueId: "+bugrep.getUniqueID());
         return bugrep;
     }
 }
