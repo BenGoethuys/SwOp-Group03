@@ -83,6 +83,9 @@ public class Subsystem extends AbstractSystem {
      * @return true is the given parent isn't the subsystem's own child
      */
     protected boolean isValidParent(AbstractSystem parent) {
+        if (parent == null){
+            return false;
+        }
         Project parentProject = parent.getParentProject();
         AbstractSystem currentSystem = parent;
         while (currentSystem != parentProject) {
@@ -133,7 +136,7 @@ public class Subsystem extends AbstractSystem {
     public PList<BugReport> getAllBugReports() {
         PList<BugReport> list = super.getAllBugReports();
         list = list.plusAll(this.getBugReportList());
-        return PList.<BugReport> empty().plusAll(list);
+        return list;
     }
 
     /**
@@ -165,9 +168,10 @@ public class Subsystem extends AbstractSystem {
      *
      * @return the clone of the subsystem
      */
-    protected Subsystem cloneSubsystem() {
-        return new Subsystem(this.getVersionID(), this.getName(), this.getDescription(), this.getParent());
+    public Subsystem cloneSubsystem(AbstractSystem parent) {
+        return new Subsystem(this.getVersionID(), this.getName(), this.getDescription(), parent);
     }
+
 
     /**
      * This function checks the validity of the given name, in combination with

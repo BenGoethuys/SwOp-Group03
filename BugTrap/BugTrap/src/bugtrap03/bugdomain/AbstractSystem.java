@@ -198,7 +198,7 @@ public abstract class AbstractSystem {
      * @param child The given subsystem to set as child.
      */
     private void addChild(Subsystem child) {
-        this.getChilds().plus(child);
+        this.childs = this.getChilds().plus(child);
     }
 
     /**
@@ -238,6 +238,8 @@ public abstract class AbstractSystem {
         }
         return PList.<BugReport>empty().plusAll(list);
     }
+    
+    
 
     /**
      * This recursive method returns all the subsystems that are a child of this AbstracSystem
@@ -261,5 +263,6 @@ public abstract class AbstractSystem {
      * @return true if the developer has the requested permission
      */
     public abstract boolean hasPermission(Developer dev, RolePerm perm);
+    
 
 }
