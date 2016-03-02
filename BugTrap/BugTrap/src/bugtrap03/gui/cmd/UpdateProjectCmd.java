@@ -1,7 +1,7 @@
 /**
  *
  */
-package bugtrap03.gui.terminal;
+package bugtrap03.gui.cmd;
 
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -10,6 +10,10 @@ import bugtrap03.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
+import bugtrap03.gui.cmd.Cmd;
+import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.cmd.general.GetProjectCmd;
+import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
  * @author Ben

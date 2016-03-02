@@ -1,4 +1,4 @@
-package bugtrap03.gui.terminal;
+package bugtrap03.gui.cmd.general;
 
 import bugtrap03.DataModel;
 import bugtrap03.bugdomain.usersystem.User;
@@ -6,6 +6,8 @@ import bugtrap03.bugdomain.usersystem.User;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import bugtrap03.gui.cmd.Cmd;
+import bugtrap03.gui.terminal.TerminalScanner;
 import purecollections.PList;
 
 /**

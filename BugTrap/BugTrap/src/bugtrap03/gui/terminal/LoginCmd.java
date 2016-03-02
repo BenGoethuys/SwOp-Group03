@@ -5,6 +5,10 @@ import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.User;
+import bugtrap03.gui.cmd.Cmd;
+import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.cmd.general.ClearCmd;
+import bugtrap03.gui.cmd.general.GetUserOfExcactTypeCmd;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;

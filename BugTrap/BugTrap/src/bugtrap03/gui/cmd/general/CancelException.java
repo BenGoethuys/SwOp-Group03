@@ -1,4 +1,4 @@
-package bugtrap03.gui.terminal;
+package bugtrap03.gui.cmd.general;
 
 /**
  * This class represents a cancel exception that is thrown if the user want to cancel something
