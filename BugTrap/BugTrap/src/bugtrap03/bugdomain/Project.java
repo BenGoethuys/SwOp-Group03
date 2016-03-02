@@ -121,7 +121,6 @@ public class Project extends AbstractSystem {
      * @see Project#isValidBudgetEstimate(long)
      * 
      */
-    // TODO: Call this instead of super?
     public Project(String name, String description, Developer lead, long budgetEstimate)
             throws IllegalArgumentException {
         super(name, description);
@@ -348,7 +347,7 @@ public class Project extends AbstractSystem {
             if (!roleList.contains(role)) {
                 this.projectParticipants.put(dev, roleList.plus(role));
             }
-            // else already has that role
+            // TODO can multiple persons have the same role?
         }
     }
 
@@ -411,20 +410,21 @@ public class Project extends AbstractSystem {
      * lead developer and creation date
      */
     public String getDetails() {
-        String details = "Project name: \t";
-        details.concat(this.getName());
-        details += "\n Project version: \t";
-        details.concat(this.getVersionID().toString());
-        details += "\n Project description: \t";
-        details.concat(this.getDescription());
-        details += "\n Budget estimate: \t" + this.getBudgetEstimate() + "\n Start date: ";        
-        details.concat(this.getStartDate().toString());
-        details += "\n Lead dev. full name: \t";
-        details.concat(this.getLead().getFullName());
-        details += "\n Lead dev. user name: \t";
-        details.concat(this.getLead().getUsername());
-        details += "\n Creation date: \t";
-        details.concat(this.getCreationDate().toString());
+        String details = "Project name:\t \t";
+        details += this.getName();
+        details += "\nProject version:\t";
+        details += this.getVersionID().toString();
+        details += "\nProject description: \t";
+        details += this.getDescription();
+        details += "\nBudget estimate:\t" + this.getBudgetEstimate() + "\nStart date: \t \t";        
+        details += this.getStartDate().getTime();
+        details += "\nLead dev. full name:\t";
+        details += this.getLead().getFullName();
+        details += "\nLead dev. user name:\t";
+        details += this.getLead().getUsername();
+        details += "\nCreation date:\t \t";
+        details += this.getCreationDate().getTime();
+        details += "\n";
         return details;
     }
 
@@ -442,7 +442,7 @@ public class Project extends AbstractSystem {
         // startDate, budgetEstimate
         // Clone subsystems as well but no BugReports!
         // No idea about participants
-        Project cloneProject = new Project(version, this.getName(), this.getDescription(), this.getLead(), startDate,
+        Project cloneProject = new Project(version, this.getName(), this.getDescription(), lead, startDate,
                 budgetEstimate);
         ArrayList<Subsystem> cloneChilds = new ArrayList<>();
         for (Subsystem subsystemChild : this.getChilds()) {
