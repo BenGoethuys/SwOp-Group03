@@ -57,6 +57,11 @@ public class ProjectTest {
         assertEquals(testDev, testProject.getLead());
         assertEquals(testStartDate, testProject.getStartDate());
     }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void testNullDevProjectVersionIDStringStringGregorianCalendarDeveloperGregorianCalendarLong() {
+        Project proj2 = new Project(testVersion, testName, testDescription, testCreationDate, null, testStartDate, testBudget);
+    }
 
     @Test
     public void testProjectVersionIDStringStringDeveloperGregorianCalendarLong() {
