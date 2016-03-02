@@ -103,6 +103,7 @@ public class SubsystemTest {
     
     @Test (expected = IllegalArgumentException.class)
     public void testSubsystemVersionIDStringStringNullAbstractSystem() {
+        @SuppressWarnings("unused")
         Subsystem tempSub = new Subsystem(testVersion, subName, testDescription, null);
     }
 
@@ -144,13 +145,14 @@ public class SubsystemTest {
     @Test (expected = PermissionException.class)
     public void testAddInvalidPermissionBugReport() throws IllegalArgumentException, PermissionException {
        Administrator admin = new Administrator("uniqueAdminunique", "adje", "minnie");
-       BugReport bugreport3 = subSysTest.addBugReport(admin, "otherBug5", "i have a love/hate relation with testing", emptyDep);
+       @SuppressWarnings("unused")
+    BugReport bugreport3 = subSysTest.addBugReport(admin, "otherBug5", "i have a love/hate relation with testing", emptyDep);
     }
     
     @Test (expected = IllegalArgumentException.class)
     public void testAddInvalidTitleBugReport() throws IllegalArgumentException, PermissionException {
-       Administrator admin = new Administrator("UniqueAdminUnique2", "adje2", "minnie2");
-       BugReport bugreport3 = subSysTest.addBugReport(testDev, null, "i have a love/hate relation with testing", emptyDep);
+       @SuppressWarnings("unused")
+    BugReport bugreport3 = subSysTest.addBugReport(testDev, null, "i have a love/hate relation with testing", emptyDep);
     }
 
     @Test
