@@ -18,6 +18,11 @@ public class SubsystemTest {
     static GregorianCalendar testStartDate;
     static GregorianCalendar testCreationDate;
     static long testBudget;
+    static Project testProject;
+    
+    static VersionID subVersion;
+    static String subName;
+    static String subDescription;
     
 
     @BeforeClass
@@ -26,10 +31,14 @@ public class SubsystemTest {
         testVersion = new VersionID(1,2,3);
         testName = "testProj";
         testDescription = "This is an description";
-        testStartDate = new GregorianCalendar(2016, 01, 01);
+        testStartDate = new GregorianCalendar(3016, 1, 1);
         testCreationDate = new GregorianCalendar(2000,12,25);   
         testBudget = 1000;
+        testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate, testBudget);
+        
+        
     }
+
 
     @Before
     public void setUp() throws Exception {
