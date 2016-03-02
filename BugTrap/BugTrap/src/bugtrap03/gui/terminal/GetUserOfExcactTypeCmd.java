@@ -1,13 +1,14 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataModel;
-import bugtrap03.usersystem.User;
+import bugtrap03.bugdomain.usersystem.User;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
 import purecollections.PList;
 
 /**
- *
  * @author Admin
  */
 public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
@@ -15,6 +16,7 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
     /**
      * Create a 'chose user' scenario wherein the person can chose
      * a certain user from a list of users from a specific class.
+     *
      * @param classType The type of the users to chose from. (exclude subclasses).
      * @throws IllegalArgumentException When a non-null reference was given.
      */
@@ -33,14 +35,12 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
      * user to chose as by presenting him a list of users of the class,
      * classType (classType, subclasses excluded).
      *
-     * @param <U> extends User, The type of the users to chose from.
-     *
-     * @param scan The {@link Scanner} used to interact with the person.
-     * @param model The model used to get access to the model.
+     * @param <U>       extends User, The type of the users to chose from.
+     * @param scan      The {@link Scanner} used to interact with the person.
+     * @param model     The model used to get access to the model.
      * @param classType The class type of the possible users to chose from.
-     * (classType, excludes subclass).
+     *                  (classType, excludes subclass).
      * @return The chosen user. Null if there was no option of that type.
-     * 
      * @throws CancelException When the cancel operation was executed.
      */
     @Override

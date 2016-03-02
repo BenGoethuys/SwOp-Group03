@@ -6,13 +6,12 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataModel;
-import bugtrap03.usersystem.User;
+import bugtrap03.bugdomain.usersystem.User;
+
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
- *
  * @author Admin
  */
 public class HelpCmd implements Cmd {
@@ -23,7 +22,7 @@ public class HelpCmd implements Cmd {
      * this class.
      *
      * @param cmdList The list of commands used for printing. Any modification
-     * will be reflected.
+     *                will be reflected.
      */
     public HelpCmd(ArrayList<SimpleEntry<String, Cmd>> cmdList) {
         if (cmdList == null) {
@@ -40,9 +39,8 @@ public class HelpCmd implements Cmd {
      * the constructor.
      *
      * @param dummy1
-     * @param dummy2 
+     * @param dummy2
      * @param dummy3
-     * 
      * @return null.
      */
     @Override

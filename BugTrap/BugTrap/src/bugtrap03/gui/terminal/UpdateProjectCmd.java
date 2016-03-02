@@ -4,15 +4,12 @@
 package bugtrap03.gui.terminal;
 
 import java.util.GregorianCalendar;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import bugtrap03.DataModel;
 import bugtrap03.bugdomain.Project;
-import bugtrap03.permission.PermissionException;
-import bugtrap03.permission.UserPerm;
-import bugtrap03.usersystem.User;
-import purecollections.PList;
+import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.usersystem.User;
 
 /**
  * @author Ben
@@ -31,9 +28,9 @@ public class UpdateProjectCmd implements Cmd {
      * 5. The administrator modifies the details as he sees fit. <br>
      * 6. The system updates the project.
      *
-     * @param scan The {@link Scanner} trough which to ask the questions.
-     * @param model  The model to use to access the model.
-     * @param user The user who wants to execute this {@link Cmd}.
+     * @param scan  The {@link Scanner} trough which to ask the questions.
+     * @param model The model to use to access the model.
+     * @param user  The user who wants to execute this {@link Cmd}.
      * @return The new updated project
      * @throws PermissionException When the user does not have sufficient permissions to update
      *                             a project.

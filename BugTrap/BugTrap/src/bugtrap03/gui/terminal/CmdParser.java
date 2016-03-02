@@ -1,14 +1,14 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataModel;
-import bugtrap03.permission.PermissionException;
-import bugtrap03.usersystem.User;
+import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.usersystem.User;
+
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *
  * @author Admin
  */
 public class CmdParser {
@@ -37,7 +37,7 @@ public class CmdParser {
         cmdList.add(new SimpleEntry("updateproject", new UpdateProjectCmd()));
         cmdList.add(new SimpleEntry("showprojectdetails", new ShowProjectCmd()));
         cmdList.add(new SimpleEntry("createsubsystem", new CreateSubsystemCmd()));
-        
+
         //Custom abbreviations.
         cmdList.add(new SimpleEntry("createproj", new CreateProjectCmd()));
         cmdList.add(new SimpleEntry("updateproj", new UpdateProjectCmd()));
@@ -49,7 +49,7 @@ public class CmdParser {
         for (int i = 0; i < cmdList.size(); i++) {
             cmdMap.put(cmdList.get(i).getKey(), cmdList.get(i).getValue());
             cmdMap.put(Integer.toString(i), cmdList.get(i).getValue());
-        } 
+        }
     }
 
     /**

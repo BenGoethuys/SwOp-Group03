@@ -1,14 +1,15 @@
 /**
  * 
  */
-package bugtrap03.usersystem;
+package bugtrap03.bugdomain.usersystem;
 
 import static org.junit.Assert.*;
 
+import bugtrap03.bugdomain.usersystem.Administrator;
 import org.junit.Before;
 import org.junit.Test;
 
-import bugtrap03.permission.UserPerm;
+import bugtrap03.bugdomain.permission.UserPerm;
 
 /**
  * @author Mathias

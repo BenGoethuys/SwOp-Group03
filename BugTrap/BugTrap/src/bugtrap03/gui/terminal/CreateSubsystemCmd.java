@@ -3,8 +3,8 @@ package bugtrap03.gui.terminal;
 import bugtrap03.DataModel;
 import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.permission.PermissionException;
-import bugtrap03.usersystem.User;
+import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
 import java.util.NoSuchElementException;
@@ -23,14 +23,12 @@ public class CreateSubsystemCmd implements Cmd {
      * <br> 5. The administrator enters the subsystem details: name and description
      * <br> 6. The system creates the subsystem.
      *
-     * @param scan       The scanner used to interact with the person.
+     * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user       The {@link User} who wants to executes this command.
-     *
+     * @param user  The {@link User} who wants to executes this command.
+     * @return null if there is no result specified.
      * @throws PermissionException When the user does not have sufficient permissions.
      * @throws CancelException     When the users wants to abort the current cmd
-     *
-     * @return null if there is no result specified.
      */
     @Override
     public Subsystem exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {

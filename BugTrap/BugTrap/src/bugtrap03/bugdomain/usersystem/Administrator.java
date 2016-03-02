@@ -1,8 +1,8 @@
-package bugtrap03.usersystem;
+package bugtrap03.bugdomain.usersystem;
 
 import java.util.Arrays;
 
-import bugtrap03.permission.UserPerm;
+import bugtrap03.bugdomain.permission.UserPerm;
 
 /**
  * @author Admin

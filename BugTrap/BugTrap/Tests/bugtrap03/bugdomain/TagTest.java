@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import bugtrap03.permission.RolePerm;
+import bugtrap03.bugdomain.permission.RolePerm;
 
 public class TagTest {
 

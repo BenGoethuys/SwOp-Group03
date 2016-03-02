@@ -1,10 +1,9 @@
-package bugtrap03.usersystem;
+package bugtrap03.bugdomain.usersystem;
 
 import bugtrap03.bugdomain.Project;
-import bugtrap03.permission.RolePerm;
+import bugtrap03.bugdomain.permission.RolePerm;
 
 /**
- * 
  * @author Admin
  * @version 0.1
  */
@@ -15,9 +14,9 @@ public class Developer extends Issuer {
      * name.
      *
      * @param uniqueUsername The username
-     * @param firstName The first name
-     * @param middleName The middle name
-     * @param lastName The last name
+     * @param firstName      The first name
+     * @param middleName     The middle name
+     * @param lastName       The last name
      * @throws IllegalArgumentException When the creator of Issuer throws it.
      * @see Issuer#Issuer(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
@@ -30,20 +29,21 @@ public class Developer extends Issuer {
      * name.
      *
      * @param uniqueUsername The username
-     * @param firstName The first name
-     * @param lastName The last name
+     * @param firstName      The first name
+     * @param lastName       The last name
      * @throws IllegalArgumentException When the creator of Issuer throws it.
      * @see Issuer#Issuer(java.lang.String, java.lang.String, java.lang.String)
      */
     public Developer(String uniqueUsername, String firstName, String lastName) throws IllegalArgumentException {
         super(uniqueUsername, firstName, lastName);
     }
-    
+
     /**
      * TODO: Heading - check User.
+     *
      * @param perm
      * @param project
-     * @return 
+     * @return
      */
     @Override
     public boolean hasRolePermission(RolePerm perm, Project project) {

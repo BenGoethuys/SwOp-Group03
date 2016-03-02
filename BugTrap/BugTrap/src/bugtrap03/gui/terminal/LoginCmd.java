@@ -1,17 +1,17 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataModel;
-import bugtrap03.usersystem.Administrator;
-import bugtrap03.usersystem.Developer;
-import bugtrap03.usersystem.Issuer;
-import bugtrap03.usersystem.User;
+import bugtrap03.bugdomain.usersystem.Administrator;
+import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.Issuer;
+import bugtrap03.bugdomain.usersystem.User;
+
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- *
  * @author Admin
  */
 public class LoginCmd implements Cmd {
@@ -33,14 +33,12 @@ public class LoginCmd implements Cmd {
      * <br> 3. Ask the person which user to login as.
      * <br> 4. Welcome the user.
      *
-     * @param scan The {@link Scanner} trough which to ask the questions.
+     * @param scan  The {@link Scanner} trough which to ask the questions.
      * @param model The model to use to access the model.
      * @param dummy Dummy, as the person isn't a specific user yet. Use
-     * whatever.
+     *              whatever.
      * @return The user chosen by the person to login as.
-     * 
      * @throws CancelException When the cancel operation was executed.
-     *
      */
     @Override
     public User exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException {
@@ -88,7 +86,7 @@ public class LoginCmd implements Cmd {
      * Get the Class type the person wants to login as. This asks the person
      * which class type he wants by presenting a list of options to chose from.
      *
-     * @param <U> extends User.
+     * @param <U>  extends User.
      * @param scan The {@link Scanner} used to interact with the person.
      * @return The Class of the type the person wants to login as. (e.g
      * Administrator).

@@ -8,13 +8,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.sun.javafx.image.impl.General;
-import com.sun.xml.internal.ws.wsdl.writer.document.StartWithExtensionsType;
-
-import bugtrap03.permission.PermissionException;
-import bugtrap03.permission.RolePerm;
-import bugtrap03.usersystem.Developer;
-import bugtrap03.usersystem.Role;
+import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.permission.RolePerm;
+import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.Role;
 import purecollections.PList;
 
 public class ProjectTest {

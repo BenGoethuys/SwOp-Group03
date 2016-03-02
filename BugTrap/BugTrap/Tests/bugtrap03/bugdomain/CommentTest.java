@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import bugtrap03.usersystem.Issuer;
+import bugtrap03.bugdomain.usersystem.Issuer;
 import purecollections.PList;
 
 /**
@@ -40,7 +40,7 @@ public class CommentTest {
 	}
 
 	/**
-	 * Test method for {@link bugtrap03.bugdomain.Comment#Comment(bugtrap03.usersystem.Issuer, java.lang.String)}.
+	 * Test method for {@link bugtrap03.bugdomain.Comment#Comment(Issuer, java.lang.String)}.
 	 */
 	@Test
 	public void testComment() {
@@ -68,7 +68,7 @@ public class CommentTest {
 	}
 
 	/**
-	 * Test method for {@link bugtrap03.bugdomain.Comment#isValidCreator(bugtrap03.usersystem.Issuer)}.
+	 * Test method for {@link bugtrap03.bugdomain.Comment#isValidCreator(Issuer)}.
 	 */
 	@Test
 	public void testIsValidCreator() {

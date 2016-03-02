@@ -5,7 +5,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- *
  * @author Admin
  */
 public class TerminalScanner {
@@ -29,23 +28,22 @@ public class TerminalScanner {
     /**
      * Advances this scanner past the current line and returns the input that
      * was skipped.
-     *
+     * <p>
      * This method returns the rest of the current line, excluding any line
      * separator at the end. The position is set to the beginning of the next
      * line.
-     *
+     * <p>
      * <p>
      * Since this method continues to search through the input looking for a
      * line separator, it may buffer all of the input searching for the line to
      * skip if no line separators are present.
      *
-     * @see Scanner#nextLine()
-     *
      * @return the line that was skipped
      * @throws NoSuchElementException if no line was found
-     * @throws IllegalStateException if this scanner is closed
-     * @throws CancelException If the scanner found an indication of willingness
-     * to abort.
+     * @throws IllegalStateException  if this scanner is closed
+     * @throws CancelException        If the scanner found an indication of willingness
+     *                                to abort.
+     * @see Scanner#nextLine()
      */
     public String nextLine() throws CancelException {
         String result = scan.nextLine();
@@ -60,10 +58,10 @@ public class TerminalScanner {
     /**
      * Performs next() and then nextLine() to consume the rest of the sentence.
      *
-     * @see Scanner#next()
-     * @see Scanner#nextLine()
      * @return The result of performing {@link Scanner#next()}.
      * @throws CancelException When an abort indication was given.
+     * @see Scanner#next()
+     * @see Scanner#nextLine()
      */
     public String next() throws CancelException {
         String result = scan.next();
@@ -75,23 +73,21 @@ public class TerminalScanner {
     }
 
     /**
-     * @see Scanner#hasNextInt()
      * @return
+     * @see Scanner#hasNextInt()
      */
     public boolean hasNextInt() {
         return scan.hasNextInt();
     }
 
     /**
-     *
      * Execute as a {@link Scanner} except if the abort indication was given.
      *
+     * @return
+     * @throws CancelException        When nextLine() would throw this.
+     * @throws InputMismatchException When no Integer was found.
      * @see Scanner#nextInt()
      * @see #nextLine()
-     * @return
-     * @throws CancelException When nextLine() would throw this.
-     * @throws InputMismatchException When no Integer was found.
-     *
      */
     public int nextInt() throws CancelException {
         if (hasNextInt()) {

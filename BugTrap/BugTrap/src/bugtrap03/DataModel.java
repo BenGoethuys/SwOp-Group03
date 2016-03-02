@@ -4,12 +4,12 @@ import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.permission.PermissionException;
-import bugtrap03.permission.UserPerm;
-import bugtrap03.usersystem.Administrator;
-import bugtrap03.usersystem.Developer;
-import bugtrap03.usersystem.Issuer;
-import bugtrap03.usersystem.User;
+import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.permission.UserPerm;
+import bugtrap03.bugdomain.usersystem.Administrator;
+import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.Issuer;
+import bugtrap03.bugdomain.usersystem.User;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -347,7 +347,6 @@ public class DataModel {
      * @param description    The description of the new Subsytem
      * @return The created subsytem
      * @throws PermissionException If the user doesn't have the permission to create a subsystem
-     *
      * @see AbstractSystem#makeSubsystemChild(String, String)
      */
     public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, String name, String description) throws PermissionException, IllegalArgumentException {

@@ -5,8 +5,8 @@ package bugtrap03.gui.terminal;
  * Created by Ben Goethuys on 28/02/2016.
  */
 public class CancelException extends Exception {
-    
-    
+
+
     /**
      *
      */

@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import bugtrap03.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.Developer;
 
 public class SubsystemTest {
     static Developer testDev;

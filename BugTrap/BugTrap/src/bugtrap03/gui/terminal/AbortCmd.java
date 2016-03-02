@@ -1,7 +1,7 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataModel;
-import bugtrap03.usersystem.User;
+import bugtrap03.bugdomain.usersystem.User;
 
 
 /**
@@ -23,7 +23,7 @@ public class AbortCmd implements Cmd {
     public Object exec(TerminalScanner dummy1, DataModel dummy2, User dummy3) throws CancelException {
         throw new CancelException("User wants to abort current cmd");
     }
-    
+
     public static final String ABORT_CMD = "abort";
 
 }

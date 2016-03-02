@@ -1,9 +1,9 @@
 package bugtrap03.bugdomain;
 
-import bugtrap03.permission.PermissionException;
-import bugtrap03.usersystem.Developer;
-import bugtrap03.usersystem.Issuer;
-import bugtrap03.usersystem.Role;
+import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.Issuer;
+import bugtrap03.bugdomain.usersystem.Role;
 import purecollections.PList;
 import static org.junit.Assert.*;
 

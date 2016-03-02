@@ -1,20 +1,19 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataModel;
-import bugtrap03.usersystem.User;
+import bugtrap03.bugdomain.usersystem.User;
 
 /**
- *
  * @author Admin
  */
 public class InvalidCmd implements Cmd {
 
     /**
      * Inform the user of the invalid command.
-     * 
-     * @param sdummy 
-     * @param cdummy 
-     * @param udummy 
+     *
+     * @param sdummy
+     * @param cdummy
+     * @param udummy
      * @return A null reference.
      */
     @Override
@@ -22,5 +21,5 @@ public class InvalidCmd implements Cmd {
         System.out.println("Invalid command.");
         return null;
     }
-    
+
 }

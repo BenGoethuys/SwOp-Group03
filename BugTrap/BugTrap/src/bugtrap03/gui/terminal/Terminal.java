@@ -1,11 +1,9 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataModel;
-import bugtrap03.usersystem.User;
-import java.io.IOException;
+import bugtrap03.bugdomain.usersystem.User;
 
 /**
- *
  * @author Admin
  */
 public class Terminal {
@@ -34,7 +32,6 @@ public class Terminal {
     }
 
     /**
-     *
      * @param user
      */
     public void setUser(User user) throws IllegalArgumentException {
@@ -70,13 +67,13 @@ public class Terminal {
             } catch (CancelException ex) {
                 //Abort received, ignored because we really need a user.
             }
-        } while(user == null);
+        } while (user == null);
         System.out.println("");
 
         //Query
         String input;
         while (true) {
-        	System.out.println("Give new command");
+            System.out.println("Give new command");
             try {
                 input = scan.nextLine().toLowerCase();
                 parser.performCmd(scan, model, user, input);

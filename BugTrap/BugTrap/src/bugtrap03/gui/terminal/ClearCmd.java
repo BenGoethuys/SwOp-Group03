@@ -1,7 +1,7 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.DataModel;
-import bugtrap03.usersystem.User;
+import bugtrap03.bugdomain.usersystem.User;
 
 import java.io.IOException;
 
@@ -14,9 +14,9 @@ public class ClearCmd implements Cmd {
      * Attempt to clear the console screen.
      *
      * @param dummy1
-     * @param dummy2 
-     * @param dummy3 
-     * @return null 
+     * @param dummy2
+     * @param dummy3
+     * @return null
      * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
