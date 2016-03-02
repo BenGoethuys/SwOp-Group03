@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Ben on 02/03/2016.
  */
-public class SelectBugReport implements Cmd {
+public class SelectBugReportCmd implements Cmd {
 
     private ArrayList<AbstractMap.SimpleEntry<String, Predicate<BugReport>>> modeList;
     private ArrayList<AbstractMap.SimpleEntry<String, Predicate<BugReport>>> modeListExtra;
@@ -23,7 +23,7 @@ public class SelectBugReport implements Cmd {
     private User user = null;
     private long id = 0;
 
-    public SelectBugReport() {
+    public SelectBugReportCmd() {
         this.initList();
     }
 
