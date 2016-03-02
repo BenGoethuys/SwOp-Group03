@@ -37,11 +37,9 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
      * user to chose as by presenting him a list of users of the class,
      * classType (classType, subclasses excluded).
      *
-     * @param <U>       extends User, The type of the users to chose from.
      * @param scan      The {@link Scanner} used to interact with the person.
      * @param model     The model used to get access to the model.
-     * @param classType The class type of the possible users to chose from.
-     *                  (classType, excludes subclass).
+     *
      * @return The chosen user. Null if there was no option of that type.
      * @throws CancelException When the cancel operation was executed.
      */
