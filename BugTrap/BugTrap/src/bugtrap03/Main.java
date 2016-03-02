@@ -9,7 +9,6 @@ import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
 
-
 /**
  * @author Group 03
  */
@@ -22,12 +21,26 @@ public class Main {
         model = new DataModel();
 
         initDemoSystem(model);
+        //testSystem(model);
 
         Terminal terminal = new Terminal(model);
         terminal.openView();
     }
 
     private static DataModel model;
+
+    public static void testSystem(DataModel model) {
+        String username = "007a";
+        String firstName = "James";
+        String lastName = "Bond";
+
+        String username2 = "002a";
+        String username3 = "008a";
+
+        model.createAdministrator(username, firstName, lastName);
+        model.createAdministrator(username2, firstName, lastName);
+        model.createIssuer(username3, firstName, lastName);
+    }
 
     public static void initDemoSystem(DataModel model) {
         Administrator admin = model.createAdministrator("curt", "Frederick", "Sam", "Curtis");
