@@ -99,6 +99,9 @@ public class LoginCmdTest {
         question.add("1. Issuer");
         question.add("2. Developer");
         question.add("I chose: ");
+        answer.add("Wrong Input");
+        question.add("Invalid input.");
+        question.add("I chose: ");
         answer.add("2");
         question.add("No users of this type found.");
         question.add("Please chose your type of login.");
