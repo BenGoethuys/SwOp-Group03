@@ -50,7 +50,7 @@ public class CreateProjectCmd implements Cmd {
         scan.println("Create or clone a new project?");
         String answer = null;
         do {
-            System.out.print("Create or clone: ");
+            scan.print("Create or clone: ");
             answer = scan.nextLine();
 
             if (answer.equalsIgnoreCase("create")) {
@@ -86,17 +86,17 @@ public class CreateProjectCmd implements Cmd {
      */
     private Project createProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException, PermissionException {
         //Project name
-        System.out.print("Project name:");
+        scan.print("Project name:");
         String projName = scan.nextLine();
 
         //Project description
-        System.out.print("Project description:");
+        scan.print("Project description:");
         String projDesc = scan.nextLine();
 
         //Project start date
         GregorianCalendar projStartDate = null;
         do {
-            System.out.print("Project starting date (YYYY-MM-DD):");
+            scan.print("Project starting date (YYYY-MM-DD):");
             String[] projDateStr = scan.nextLine().split("-");
             try {
                 projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]), Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
@@ -108,7 +108,7 @@ public class CreateProjectCmd implements Cmd {
         //Project budget estimate
         Integer projBudgetEstimate = null;
         do {
-            System.out.print("Project budget estimate:");
+            scan.print("Project budget estimate:");
             try {
                 projBudgetEstimate = Integer.parseInt(scan.nextLine());
             } catch (NumberFormatException e) {
@@ -151,7 +151,7 @@ public class CreateProjectCmd implements Cmd {
         //Update versionID
         VersionID versionID = null;
         do {
-            System.out.print("new VersionID (format=a.b.c):");
+            scan.print("new VersionID (format=a.b.c):");
             String[] versionIDStr = scan.nextLine().split(".");
 
             int nb1, nb2, nb3;
@@ -168,7 +168,7 @@ public class CreateProjectCmd implements Cmd {
         //Start Date
         GregorianCalendar startDate = null;
         do {
-            System.out.print("New starting date (format=YYYY-MM-DD):");
+            scan.print("New starting date (format=YYYY-MM-DD):");
             String[] startDateStr = scan.nextLine().split("-");
             try {
                 startDate = new GregorianCalendar(Integer.parseInt(startDateStr[0]),
@@ -181,7 +181,7 @@ public class CreateProjectCmd implements Cmd {
         //Budget estimate
         Long budgetEstimate = null;
         do {
-            System.out.print("New budget Estimate:");
+            scan.print("New budget Estimate:");
             String budgetEstimateStr = scan.nextLine();
             try {
                 budgetEstimate = Long.parseLong(budgetEstimateStr);
