@@ -114,6 +114,14 @@ public class TerminalScanner {
         this.output.println(message);
         return true;
     }
+    
+    /**
+     * @see PrintStream#print(java.lang.String) 
+     */
+    public boolean print(String message) {
+        this.output.print(message);
+        return true;
+    }
 
     /**
      * @see Scanner#close()

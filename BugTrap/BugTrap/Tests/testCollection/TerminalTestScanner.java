@@ -36,4 +36,24 @@ public class TerminalTestScanner extends TerminalScanner {
         }
         return true;
     }
+
+    /**
+     *
+     * @param message
+     * @return
+     * @throws TestException When the message given does not equal the String at
+     * the head of the queue of this class.
+     */
+    @Override
+    public boolean print(String message) throws TestException {
+        String expect = expected.poll();
+        if (expect == null) {
+            return false;
+        }
+
+        if (!expect.equals(message)) {
+            throw new TestException("TestException. Expected:" + expect + " received:" + message);
+        }
+        return true;
+    }
 }

@@ -15,29 +15,30 @@ public class ClearCmd implements Cmd {
     /**
      * Attempt to clear the console screen.
      *
-     * @param dummy1
+     * @param scan The scanner to clear.
      * @param dummy2
      * @param dummy3
      * @return null
      * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
-    public Object exec(TerminalScanner dummy1, DataModel dummy2, User dummy3) {
-        this.clearConsole();
+    public Object exec(TerminalScanner scan, DataModel dummy2, User dummy3) {
+        this.clearConsole(scan);
         return null;
     }
 
     /**
      * Attempt to clear the console screen.
+     * @scan The scanner used to print.
      */
-    private void clearConsole() {
+    private void clearConsole(TerminalScanner scan) {
         try {
             final String os = System.getProperty("os.name");
 
             if (os.contains("Windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else { //ANSI & Pray :P
-                System.out.print("\033[H\033[2J");
+                scan.print("\033[H\033[2J");
                 System.out.flush();
             }
         } catch (final IOException | InterruptedException e) {

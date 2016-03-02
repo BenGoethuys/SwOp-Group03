@@ -1,6 +1,10 @@
+*.vpp~*
+*.vpp.working
+
 # MAC
 
 .DS_Store
+*.DS_Store
 
 # JAVA
 
