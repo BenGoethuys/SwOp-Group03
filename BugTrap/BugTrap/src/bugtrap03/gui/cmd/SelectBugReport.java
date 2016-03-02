@@ -7,11 +7,9 @@ import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Created by Ben on 02/03/2016.
@@ -29,7 +27,7 @@ public class SelectBugReport implements Cmd {
         this.initList();
     }
 
-    private void initList(){
+    private void initList() {
         modeList.add(new AbstractMap.SimpleEntry<String, Predicate<BugReport>>("title", u -> u.getTitle().equals(str)));
         modeList.add(new AbstractMap.SimpleEntry<String, Predicate<BugReport>>("description", u -> u.getDescription().equals(str)));
         modeListExtra.add(new AbstractMap.SimpleEntry<String, Predicate<BugReport>>("desc", u -> u.getDescription().equals(str)));
@@ -51,6 +49,15 @@ public class SelectBugReport implements Cmd {
 
     /**
      * Execute this command and possibly return a result.
+     * <p>
+     * <br> 1. The system shows a list of possible searching modes:
+     * <UL> <LI> Search for bug reports with a specific string in the title or description </LI> </UL>
+     * <UL> <LI> Search for bug reports filed by some specific user </LI> </UL>
+     * <UL> <LI> Search for bug reports assigned to specific user </LI> </UL>
+     * <UL> <LI> . . . </LI> </UL>
+     * <br> 2. The issuer selects a searching mode and provides the required search parameters.
+     * <br> 3. The system shows an ordered list of bug reports that matched the search query.
+     * <br> 4. The issuer selects a bug report from the ordered list.
      *
      * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
@@ -68,7 +75,7 @@ public class SelectBugReport implements Cmd {
         }
 
         Predicate<BugReport> mode = null;
-        do{
+        do {
             System.out.print("I chose: ");
             if (scan.hasNextInt()) { // by index
                 int index = scan.nextInt();// input
@@ -86,7 +93,38 @@ public class SelectBugReport implements Cmd {
             }
         } while (mode == null);
 
-        //TODO
-        return null;
+        ArrayList<BugReport> selected = model.getAllBugReports().parallelStream().filter(mode).collect(Collectors.toCollection(ArrayList::new));
+        Collections.sort(selected);
+
+        scan.println("Please select a bug report: ");
+        scan.println("Available bugReports:");
+        for (int i = 0; i < selected.size(); i++) {
+            BugReport bugrep = selected.get(i);
+            scan.println(i + ". " + bugrep.getTitle() + ", uniqueID: " + bugrep.getUniqueID());
+        }
+
+        BugReport bugrep = null;
+
+        do {
+            scan.print("I chose: ");
+            if (scan.hasNextInt()) { // by index
+                int index = scan.nextInt();// input
+                if (index >= 0 && index < selected.size()) {
+                    bugrep = selected.get(index);
+                } else {
+                    scan.println("Invalid input.");
+                }
+            } else { // by name
+                String input = scan.nextLine(); // input
+                try {
+                    bugrep = selected.parallelStream().filter(u -> u.getTitle().equals(input)).findFirst().get();
+                } catch (NoSuchElementException ex) {
+                    scan.println("Invalid input.");
+                }
+            }
+        } while (bugrep == null);
+
+        //TODO sysout
+        return bugrep;
     }
 }
