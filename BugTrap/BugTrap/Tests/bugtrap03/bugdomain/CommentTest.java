@@ -17,176 +17,185 @@ import purecollections.PList;
  *
  */
 public class CommentTest {
-	
-	static Issuer issuer;
-	static String text;
-	static Comment comment1;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		issuer = new Issuer("comment0DitGebruiktNiemandAnders", "bla", "bla");
-		text = "this is a comment";
-		comment1 = new Comment(issuer, text);
-	}
+    static Issuer issuer;
+    static String text;
+    static Comment comment1;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-	}
+    /**
+     * @throws java.lang.Exception
+     */
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        issuer = new Issuer("comment0DitGebruiktNiemandAnders", "bla", "bla");
+        text = "this is a comment";
+        comment1 = new Comment(issuer, text);
+    }
 
-	/**
-	 * Test method for {@link bugtrap03.bugdomain.Comment#Comment(Issuer, java.lang.String)}.
-	 */
-	@Test
-	public void testComment() {
-		Comment comment = new Comment(issuer, text);
-		assertEquals(issuer, comment.getCreator());
-		assertEquals(text, comment.getText());
-	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void testCommentInvalidIssuer() {
-		new Comment(null, text);
-	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void testCommentInvalidText() {
-		new Comment(issuer, null);
-	}
+    /**
+     * @throws java.lang.Exception
+     */
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	/**
-	 * Test method for {@link bugtrap03.bugdomain.Comment#getCreator()}.
-	 */
-	@Test
-	public void testGetCreator() {
-		assertEquals(issuer, comment1.getCreator());
-	}
+    /**
+     * Test method for
+     * {@link bugtrap03.bugdomain.Comment#Comment(Issuer, java.lang.String)}.
+     */
+    @Test
+    public void testComment() {
+        Comment comment = new Comment(issuer, text);
+        assertEquals(issuer, comment.getCreator());
+        assertEquals(text, comment.getText());
+    }
 
-	/**
-	 * Test method for {@link bugtrap03.bugdomain.Comment#isValidCreator(Issuer)}.
-	 */
-	@Test
-	public void testIsValidCreator() {
-		assertTrue(Comment.isValidCreator(issuer));
-		assertFalse(Comment.isValidCreator(null));
-	}
+    @Test(expected = IllegalArgumentException.class)
+    public void testCommentInvalidIssuer() {
+        new Comment(null, text);
+    }
 
-	/**
-	 * Test method for {@link bugtrap03.bugdomain.Comment#getText()}.
-	 */
-	@Test
-	public void testGetText() {
-		assertEquals(text, comment1.getText());
-	}
+    @Test(expected = IllegalArgumentException.class)
+    public void testCommentInvalidText() {
+        new Comment(issuer, null);
+    }
 
-	/**
-	 * Test method for {@link bugtrap03.bugdomain.Comment#isValidText(java.lang.String)}.
-	 */
-	@Test
-	public void testIsValidText() {
-		assertTrue(Comment.isValidText(text));
-		assertFalse(Comment.isValidText(null));
-	}
+    /**
+     * Test method for {@link bugtrap03.bugdomain.Comment#getCreator()}.
+     */
+    @Test
+    public void testGetCreator() {
+        assertEquals(issuer, comment1.getCreator());
+    }
 
-	/**
-	 * Test method for {@link bugtrap03.bugdomain.Comment#getSubComments()}.
-	 */
-	@Test
-	public void testGetSubComments() {
-		Comment comment = new Comment(issuer, text);
-		assertTrue(comment.getSubComments().isEmpty());
-		
-		Comment comment2 = new Comment(issuer, text);
-		comment.addSubComment(comment2);
-		assertFalse(comment.getSubComments().isEmpty());
-		assertTrue(comment.getSubComments().contains(comment2));
-	}
+    /**
+     * Test method for
+     * {@link bugtrap03.bugdomain.Comment#isValidCreator(Issuer)}.
+     */
+    @Test
+    public void testIsValidCreator() {
+        assertTrue(Comment.isValidCreator(issuer));
+        assertFalse(Comment.isValidCreator(null));
+    }
 
-	@Test
-	public void testGetAllComments(){
-		Comment comment = new Comment(issuer, "bla bla");
-		assertTrue(comment.getSubComments().isEmpty());
-		assertTrue(comment.getAllComments().contains(comment));
-		assertEquals(comment.getAllComments().size(), 1);
+    /**
+     * Test method for {@link bugtrap03.bugdomain.Comment#getText()}.
+     */
+    @Test
+    public void testGetText() {
+        assertEquals(text, comment1.getText());
+    }
 
-		Comment comment2 = new Comment(issuer, "hihi");
-		comment.addSubComment(comment2);
-		assertTrue(comment.getSubComments().contains(comment2));
-		assertTrue(comment.getAllComments().contains(comment2));
+    /**
+     * Test method for
+     * {@link bugtrap03.bugdomain.Comment#isValidText(java.lang.String)}.
+     */
+    @Test
+    public void testIsValidText() {
+        assertTrue(Comment.isValidText(text));
+        assertFalse(Comment.isValidText(null));
+    }
 
-		Comment comment3 = new Comment(issuer, "hoho");
-		comment2.addSubComment(comment3);
-		assertFalse(comment.getSubComments().contains(comment3));
-		assertTrue(comment.getAllComments().contains(comment3));
-	}
+    /**
+     * Test method for {@link bugtrap03.bugdomain.Comment#getSubComments()}.
+     */
+    @Test
+    public void testGetSubComments() {
+        Comment comment = new Comment(issuer, text);
+        assertTrue(comment.getSubComments().isEmpty());
 
-	/**
-	 * Test method for {@link bugtrap03.bugdomain.Comment#isValidSubComments(purecollections.PList)}.
-	 */
-	@Test
-	public void testIsValidSubComments() {
-		Comment comment = new Comment(issuer, text);
-		PList<Comment> validListEmpty = PList.<Comment>empty();
-		PList<Comment> validList = validListEmpty.plus(comment1);
-		PList<Comment> nullPointer = null;
-		PList<Comment> invalidListContSelf = validListEmpty.plus(comment);
-		
-		assertTrue(comment.isValidSubComments(validListEmpty));
-		assertTrue(comment.isValidSubComments(validList));
-		assertFalse(comment.isValidSubComments(nullPointer));
-		assertFalse(comment.isValidSubComments(invalidListContSelf));
-	}
+        Comment comment2 = new Comment(issuer, text);
+        comment.addSubComment(comment2);
+        assertFalse(comment.getSubComments().isEmpty());
+        assertTrue(comment.getSubComments().contains(comment2));
+    }
 
-	/**
-	 * Test method for {@link bugtrap03.bugdomain.Comment#addSubComment(bugtrap03.bugdomain.Comment)}.
-	 */
-	@Test
-	public void testAddSubComment() {
-		Comment comment = new Comment(issuer, text);
-		Comment comment2 = new Comment(issuer, text);
-		assertTrue(comment.getSubComments().isEmpty());
-		comment.addSubComment(comment2);
-		assertTrue(comment.getSubComments().contains(comment2));
-		
-		assertTrue(comment2.getSubComments().isEmpty());
-		Comment returnComment = comment2.addSubComment(issuer, text);
-		assertFalse(comment2.getSubComments().isEmpty());
-		assertEquals(comment2.getSubComments().getFirst(), returnComment);
-	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void testAddSubCommentInvalidNull(){
-		comment1.addSubComment(null);
-	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void testAddSubCommentInvalidSelf(){
-		comment1.addSubComment(comment1);
-	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void testAddSubCommentInvalidIssuer(){
-		comment1.addSubComment(null, text);
-	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void testAddSubCommentInvalidText(){
-		comment1.addSubComment(issuer, null);
-	}
+    @Test
+    public void testGetAllComments() {
+        Comment comment = new Comment(issuer, "bla bla");
+        assertTrue(comment.getSubComments().isEmpty());
+        assertTrue(comment.getAllComments().contains(comment));
+        assertEquals(comment.getAllComments().size(), 1);
 
-	/**
-	 * Test method for {@link bugtrap03.bugdomain.Comment#isValidSubComment(bugtrap03.bugdomain.Comment)}.
-	 */
-	@Test
-	public void testIsValidSubComment() {
-		Comment comment = new Comment(issuer, text);
-		assertTrue(comment1.isValidSubComment(comment));
-		assertFalse(comment1.isValidSubComment(null));
-	}
+        Comment comment2 = new Comment(issuer, "hihi");
+        comment.addSubComment(comment2);
+        assertTrue(comment.getSubComments().contains(comment2));
+        assertTrue(comment.getAllComments().contains(comment2));
+
+        Comment comment3 = new Comment(issuer, "hoho");
+        comment2.addSubComment(comment3);
+        assertFalse(comment.getSubComments().contains(comment3));
+        assertTrue(comment.getAllComments().contains(comment3));
+    }
+
+    /**
+     * Test method for
+     * {@link bugtrap03.bugdomain.Comment#isValidSubComments(purecollections.PList)}
+     * .
+     */
+    @Test
+    public void testIsValidSubComments() {
+        Comment comment = new Comment(issuer, text);
+        PList<Comment> validListEmpty = PList.<Comment> empty();
+        PList<Comment> validList = validListEmpty.plus(comment1);
+        PList<Comment> nullPointer = null;
+        PList<Comment> invalidListContSelf = validListEmpty.plus(comment);
+
+        assertTrue(comment.isValidSubComments(validListEmpty));
+        assertTrue(comment.isValidSubComments(validList));
+        assertFalse(comment.isValidSubComments(nullPointer));
+        assertFalse(comment.isValidSubComments(invalidListContSelf));
+    }
+
+    /**
+     * Test method for
+     * {@link bugtrap03.bugdomain.Comment#addSubComment(bugtrap03.bugdomain.Comment)}
+     * .
+     */
+    @Test
+    public void testAddSubComment() {
+        Comment comment = new Comment(issuer, text);
+        Comment comment2 = new Comment(issuer, text);
+        assertTrue(comment.getSubComments().isEmpty());
+        comment.addSubComment(comment2);
+        assertTrue(comment.getSubComments().contains(comment2));
+
+        assertTrue(comment2.getSubComments().isEmpty());
+        Comment returnComment = comment2.addSubComment(issuer, text);
+        assertFalse(comment2.getSubComments().isEmpty());
+        assertEquals(comment2.getSubComments().getFirst(), returnComment);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubCommentInvalidNull() {
+        comment1.addSubComment(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubCommentInvalidSelf() {
+        comment1.addSubComment(comment1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubCommentInvalidIssuer() {
+        comment1.addSubComment(null, text);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubCommentInvalidText() {
+        comment1.addSubComment(issuer, null);
+    }
+
+    /**
+     * Test method for
+     * {@link bugtrap03.bugdomain.Comment#isValidSubComment(bugtrap03.bugdomain.Comment)}
+     * .
+     */
+    @Test
+    public void testIsValidSubComment() {
+        Comment comment = new Comment(issuer, text);
+        assertTrue(comment1.isValidSubComment(comment));
+        assertFalse(comment1.isValidSubComment(null));
+    }
 
 }

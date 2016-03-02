@@ -111,8 +111,8 @@ public class VersionID implements Comparable<VersionID> {
      * Compares two versionIDs.
      *
      * @return 0 if and only if two versionIDs are equal, 1 if and only if the
-     * second versionID is greater than the first versionID, -1
-     * otherwise.
+     *         second versionID is greater than the first versionID, -1
+     *         otherwise.
      */
     @Override
     public int compareTo(VersionID other) {
@@ -123,19 +123,24 @@ public class VersionID implements Comparable<VersionID> {
         if ((this.getFirstNb() < other.getFirstNb())
                 || (this.getFirstNb() >= other.getFirstNb() && this.getSecondNb() < other.getSecondNb())
                 || (this.getFirstNb() >= other.getFirstNb() && this.getSecondNb() >= other.getSecondNb()
-                && this.getThirdNb() < other.getThirdNb())) {
+                        && this.getThirdNb() < other.getThirdNb())) {
             return -1;
         }
         return 1;
     }
 
-    //TODO: HEADING
-    //TODO: No problem for any one?
-    @Override
-    public boolean equals(Object other) {
-        if (other instanceof VersionID) {
-            VersionID otherID = (VersionID) other;
-            return (this.compareTo(otherID) == 0);
+    /**
+     * Checks if two versionIDs are equal.
+     * 
+     * @param other The versionID to compare.
+     * @return True if the version ID's are equal.
+     */
+    public boolean equals(VersionID other) {
+        if (other == null) {
+            return false;
+        }
+        if (this.compareTo(other) == 0) {
+            return true;
         }
         return false;
     }
