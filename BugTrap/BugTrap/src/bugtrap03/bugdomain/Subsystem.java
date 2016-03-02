@@ -1,6 +1,6 @@
 package bugtrap03.bugdomain;
 
-
+import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
@@ -17,40 +17,44 @@ public class Subsystem extends AbstractSystem {
      * This constructor makes an element of the class subsystem, using it's
      * superclass, AbstractSystem, constructor.
      *
-     * @param version     The versionID (of that type) of this element.
-     * @param name        The string name for this element.
+     * @param version The versionID (of that type) of this element.
+     * @param name The string name for this element.
      * @param description The string description of this element.
-     * @param parent      The parent (a Project or Subsystem) of this element.
-     * @throws NullPointerException     if the versionID is null.
-     * @throws IllegalArgumentException if one of the String arguments is invalid.
+     * @param parent The parent (a Project or Subsystem) of this element.
+     * @throws NullPointerException if the versionID is null.
+     * @throws IllegalArgumentException if one of the String arguments is
+     *             invalid.
      **/
     public Subsystem(VersionID version, String name, String description, AbstractSystem parent)
             throws NullPointerException, IllegalArgumentException {
         super(version, name, description);
-//        if (!this.isValidName(name, parent)) {
-//            throw new IllegalArgumentException("The name is invalid with the given parent");
-//        }
+        // if (!this.isValidName(name, parent)) {
+        // throw new IllegalArgumentException("The name is invalid with the
+        // given parent");
+        // }
         this.setParent(parent);
-        this.bugReportList = PList.<BugReport>empty();
+        this.bugReportList = PList.<BugReport> empty();
     }
 
     /**
      * This constructor makes an element of the class subsystem, using it's
      * superclass, AbstractSystem, constructor.
      *
-     * @param name        The string name for this element.
+     * @param name The string name for this element.
      * @param description The string description of this element.
-     * @param parent      The parent (a Project or Subsystem) of this element.
-     * @throws IllegalArgumentException if one of the String arguments is invalid.
+     * @param parent The parent (a Project or Subsystem) of this element.
+     * @throws IllegalArgumentException if one of the String arguments is
+     *             invalid.
      **/
     public Subsystem(String name, String description, AbstractSystem parent)
             throws NullPointerException, IllegalArgumentException {
         super(name, description);
-//        if (!this.isValidName(name, parent)) {
-//            throw new IllegalArgumentException("The name is invalid with the given parent");
-//        }
+        // if (!this.isValidName(name, parent)) {
+        // throw new IllegalArgumentException("The name is invalid with the
+        // given parent");
+        // }
         this.setParent(parent);
-        this.bugReportList = PList.<BugReport>empty();
+        this.bugReportList = PList.<BugReport> empty();
     }
 
     private AbstractSystem parent;
@@ -61,7 +65,8 @@ public class Subsystem extends AbstractSystem {
      * elements of subclass subsystems have a parent different from null.
      *
      * @param parent The given parent of the AbstractSystem
-     * @throws IllegalArgumentException if the given parent isn't valid for this subsystem
+     * @throws IllegalArgumentException if the given parent isn't valid for this
+     *             subsystem
      */
     private void setParent(AbstractSystem parent) throws IllegalArgumentException {
         if (!isValidParent(parent)) {
@@ -98,11 +103,11 @@ public class Subsystem extends AbstractSystem {
         return this.parent;
     }
 
-
     /**
-     * This method checks if the given developer has the requested permission for this subsystem
+     * This method checks if the given developer has the requested permission
+     * for this subsystem
      *
-     * @param dev  the developer to check
+     * @param dev the developer to check
      * @param perm the requested permission
      * @return true if the developer has the requested permission
      */
@@ -128,31 +133,35 @@ public class Subsystem extends AbstractSystem {
     public PList<BugReport> getAllBugReports() {
         PList<BugReport> list = super.getAllBugReports();
         list = list.plusAll(this.getBugReportList());
-        return PList.<BugReport>empty().plusAll(list);
+        return PList.<BugReport> empty().plusAll(list);
     }
 
     /**
-     * This method creates and adds a bug report to the list of associated bugReports of this subsystem
+     * This method creates and adds a bug report to the list of associated
+     * bugReports of this subsystem
      *
-     * @param creator      The issuer that wants to create the bug report
-     * @param title        The title of this bugReport
-     * @param description  The description of this bug report
+     * @param creator The issuer that wants to create the bug report
+     * @param title The title of this bugReport
+     * @param description The description of this bug report
      * @param dependencies The dependencies of the bug report
      * @return the created bug report
-     * @throws IllegalArgumentException If BugReport(creator, title, description, dependencies, this) fails
-     * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String, String, PList, Subsystem)
+     * @throws IllegalArgumentException If BugReport(creator, title,
+     *             description, dependencies, this) fails
+     * @throws PermissionException If the creation of a BugReport fails.
+     * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
+     *      String, PList, Subsystem)
      */
-    public BugReport addBugReport(Issuer creator, String title, String description,
-                                  PList<BugReport> dependencies) throws IllegalArgumentException {
+    public BugReport addBugReport(Issuer creator, String title, String description, PList<BugReport> dependencies)
+            throws IllegalArgumentException, PermissionException {
         BugReport bugReport = new BugReport(creator, title, description, dependencies, this);
         this.bugReportList = this.getBugReportList().plus(bugReport);
         return bugReport;
     }
 
     /**
-     * Returns a copy of the current subsystem,
-     * using the same versionID, name, description and parent,
-     * but with a removal of the bug reports addressed to this subsystem.
+     * Returns a copy of the current subsystem, using the same versionID, name,
+     * description and parent, but with a removal of the bug reports addressed
+     * to this subsystem.
      *
      * @return the clone of the subsystem
      */
@@ -164,23 +173,21 @@ public class Subsystem extends AbstractSystem {
      * This function checks the validity of the given name, in combination with
      * its parent.
      *
-     * @param name
-     *            The string argument to be used as name.
-     * @param parent
-     *            The parent of the element to be named.
+     * @param name The string argument to be used as name.
+     * @param parent The parent of the element to be named.
      * @return true if no of the other child of the projectParent has the same
      *         name.
      */
-//	protected boolean isValidName(String name, AbstractSystem parent) {
-//		if (!this.isValidName(name)) {
-//			return false;
-//		}
-//		Project parentProject = parent.getParentProject();
-//		if (name == parentProject.getName()) {
-//			return false;
-//		}
-//		return childNamesNotEqual(name, parentProject);
-//	}
+    // protected boolean isValidName(String name, AbstractSystem parent) {
+    // if (!this.isValidName(name)) {
+    // return false;
+    // }
+    // Project parentProject = parent.getParentProject();
+    // if (name == parentProject.getName()) {
+    // return false;
+    // }
+    // return childNamesNotEqual(name, parentProject);
+    // }
 
     /**
      * This function checks of none of the other subsystems (childs) of the
@@ -188,23 +195,20 @@ public class Subsystem extends AbstractSystem {
      * be correctly used, the function should be called the first time with the
      * Project of the three.
      *
-     * @param name
-     *            The name to check.
-     * @param parent
-     *            The given parent.
+     * @param name The name to check.
+     * @param parent The given parent.
      * @return True if the name is unique.
      */
-//	private boolean childNamesNotEqual(String name, AbstractSystem parent) {
-//		for (Subsystem child : parent.getChilds()) {
-//			if (child.getName() == name) {
-//				return false;
-//			}
-//			if (!childNamesNotEqual(name, child)) {
-//				return false;
-//			}
-//		}
-//		return true;
-//	}
-
+    // private boolean childNamesNotEqual(String name, AbstractSystem parent) {
+    // for (Subsystem child : parent.getChilds()) {
+    // if (child.getName() == name) {
+    // return false;
+    // }
+    // if (!childNamesNotEqual(name, child)) {
+    // return false;
+    // }
+    // }
+    // return true;
+    // }
 
 }
