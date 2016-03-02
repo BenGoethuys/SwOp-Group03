@@ -5,8 +5,10 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 
 import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
+import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
 /**
@@ -19,7 +21,7 @@ public class BugReport {
     /**
      * General constructor for initialising a bug report
      *
-     * @param creator      The Issuer that wants to create this bug report
+     * @param creator      The User that wants to create this bug report
      * @param uniqueID     The unique ID for the bugReport
      * @param title        The title of the bugReport
      * @param description  The description of the bugReport
@@ -35,7 +37,8 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidTag(tag) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @see BugReport#isValidCreator(Issuer)
+     * @htrows PermissionException if the given creator doesn't have the needed permission to create a bug report
+     * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
      * @see BugReport#isValidDescription(String)
@@ -44,9 +47,9 @@ public class BugReport {
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      */
-    protected BugReport(Issuer creator, long uniqueID, String title, String description,
+    protected BugReport(User creator, long uniqueID, String title, String description,
                         GregorianCalendar creationDate, Tag tag, PList<BugReport> dependencies, Subsystem subsystem)
-            throws IllegalArgumentException {
+            throws IllegalArgumentException, PermissionException {
         this.setCreator(creator);
         this.setUniqueID(uniqueID);
         this.setTitle(title);
@@ -63,7 +66,7 @@ public class BugReport {
     /**
      * Constructor for creating a bug report with default tag "New"
      *
-     * @param creator      The Issuer that wants to create this bug report
+     * @param creator      The User that wants to create this bug report
      * @param uniqueID     The unique ID for the bugReport
      * @param title        The title of the bugReport
      * @param description  The description of the bugReport
@@ -77,8 +80,9 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     * @htrows PermissionException if the given creator doesn't have the needed permission to create a bug report
      * @Ensures new.getTag() == Tag.New
-     * @see BugReport#isValidCreator(Issuer)
+     * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
      * @see BugReport#isValidDescription(String)
@@ -86,9 +90,9 @@ public class BugReport {
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      */
-    public BugReport(Issuer creator, long uniqueID, String title, String description, GregorianCalendar creationDate,
+    public BugReport(User creator, long uniqueID, String title, String description, GregorianCalendar creationDate,
                      PList<BugReport> dependencies, Subsystem subsystem)
-            throws IllegalArgumentException {
+            throws IllegalArgumentException, PermissionException {
         this(creator, uniqueID, title, description, creationDate, Tag.NEW, dependencies, subsystem);
     }
 
@@ -96,7 +100,7 @@ public class BugReport {
      * Constructor for creating a bug report with default tag "New" and the
      * current time as creationDate
      *
-     * @param creator      The Issuer that wants to create this bug report
+     * @param creator      The User that wants to create this bug report
      * @param uniqueID     The unique ID for the bugReport
      * @param title        The title of the bugReport
      * @param description  The description of the bugReport
@@ -108,17 +112,18 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     * @htrows PermissionException if the given creator doesn't have the needed permission to create a bug report
      * @Ensures new.getDate() == current date at the moment of initialisation
      * @Ensures new.getTag() == Tag.New
-     * @see BugReport#isValidCreator(Issuer)
+     * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
      * @see BugReport#isValidDescription(String)
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      */
-    public BugReport(Issuer creator, long uniqueID, String title, String description,
-                     PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException {
+    public BugReport(User creator, long uniqueID, String title, String description,
+                     PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException, PermissionException {
         this(creator, uniqueID, title, description, new GregorianCalendar(), dependencies, subsystem);
     }
 
@@ -126,7 +131,7 @@ public class BugReport {
      * Constructor for creating a bug report with default tag "New" and the
      * current time as creationDate
      *
-     * @param creator      The Issuer that wants to create this bug report
+     * @param creator      The User that wants to create this bug report
      * @param title        The title of the bugReport
      * @param description  The description of the bugReport
      * @param dependencies The depended bug reports of this bug report
@@ -136,17 +141,18 @@ public class BugReport {
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     * @htrows PermissionException if the given creator doesn't have the needed permission to create a bug report
      * @Ensures new.getDate() == current date at the moment of initialisation
      * @Ensures new.getTag() == Tag.New
      * @Ensures new.getUniqueID() is initialised with a valid ID
-     * @see BugReport#isValidCreator(Issuer)
+     * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidTitle(String)
      * @see BugReport#isValidDescription(String)
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      */
-    public BugReport(Issuer creator, String title, String description,
-                     PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException {
+    public BugReport(User creator, String title, String description,
+                     PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException, PermissionException {
         this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(), dependencies, subsystem);
     }
 
@@ -157,7 +163,7 @@ public class BugReport {
     private Tag tag;
     private PList<Comment> commentList;
 
-    private Issuer creator;
+    private User creator;
     private PList<Developer> userList;
     private PList<BugReport> dependencies;
 
@@ -486,7 +492,7 @@ public class BugReport {
      *
      * @return the creator of the bug report
      */
-    public Issuer getCreator() {
+    public User getCreator() {
         return creator;
     }
 
@@ -495,7 +501,10 @@ public class BugReport {
      *
      * @param creator the creator to set
      */
-    private void setCreator(Issuer creator) throws IllegalArgumentException {
+    private void setCreator(User creator) throws PermissionException, IllegalArgumentException {
+        if (!creator.hasPermission(UserPerm.CREATE_BUGREPORT)) {
+            throw new PermissionException("The given creator doesn't have the permission to create a bug report");
+        }
         if (!isValidCreator(creator)) {
             throw new IllegalArgumentException("The given creator is not valid for this bug report");
         }
@@ -508,8 +517,11 @@ public class BugReport {
      * @param creator the creator to check
      * @return true if the given creator is a valid creator
      */
-    public static boolean isValidCreator(Issuer creator) {
+    public static boolean isValidCreator(User creator) {
         if (creator == null) {
+            return false;
+        }
+        if (!creator.hasPermission(UserPerm.CREATE_BUGREPORT)) {
             return false;
         }
         return true;

@@ -10,5 +10,6 @@ public enum UserPerm {
     ASSIGN_PROJ_LEAD,
     UPDATE_PROJ,
     DELETE_PROJ,
-    CREATE_SUBSYS;
+    CREATE_SUBSYS,
+    CREATE_BUGREPORT;
 }
