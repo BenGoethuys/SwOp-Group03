@@ -85,7 +85,7 @@ public class CreateBugReportCmd implements Cmd {
         // BugReport Dependencies
         PList<BugReport> possibleDeps = proj.getAllBugReports();
         System.out.println("Available bugReports:");
-        for (int i = 0; i < subsysList.size(); i++) {
+        for (int i = 0; i < possibleDeps.size(); i++) {
             System.out.println(i + ". " + possibleDeps.get(i).getTitle());
         }
 
@@ -93,18 +93,19 @@ public class CreateBugReportCmd implements Cmd {
         HashSet<BugReport> depList = new HashSet<>();
         boolean done = false;
         do {
-            System.out.print("I chose: (leave blank if done");
-            if (scan.hasNextInt()) { // by index
-                int index = scan.nextInt();// input
-                if (index >= 0 && index < subsysList.size()) {
-                    depList.add(possibleDeps.get(index));
-                } else {
-                    System.out.println("Invalid input.");
-                }
-            } else { // by name
-                String input = scan.nextLine(); // input
-                if (input == ""){
-                    done = true;
+            System.out.print("I chose: (leave blank if done)");
+            String input = scan.nextLine(); // input
+            if (input.equalsIgnoreCase("")){
+                System.out.println("Ended selection.");
+                done = true;
+            } else {
+                try {
+                    Integer index = Integer.parseInt(input);
+                    if (index >= 0 && index < depList.size()) {
+                        depList.add(possibleDeps.get(index));
+                    }
+                } catch (NumberFormatException ex) {
+                    // no int
                 }
                 try {
                     depList.add(possibleDeps.parallelStream().filter(u -> u.getTitle().equals(input)).findFirst().get());
@@ -115,6 +116,7 @@ public class CreateBugReportCmd implements Cmd {
         } while (! done);
 
         BugReport bugreport = model.createBugReport(user, bugreportTitle, bugReportDesc, PList.<BugReport>empty().plusAll(depList), subsys);
+        System.out.println("Created new bug report.");
         return bugreport;
     }
 }
