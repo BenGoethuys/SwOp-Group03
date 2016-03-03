@@ -91,23 +91,28 @@ public class SelectBugReportCmd implements Cmd {
         }
 
         Predicate<BugReport> mode = null;
+        String modeStr = null;
         do {
             System.out.print("I chose: ");
             if (scan.hasNextInt()) { // by index
                 int index = scan.nextInt();// input
                 if (index >= 0 && index < this.modeList.size()) {
                     mode = this.modeList.get(index).getValue();
+                    modeStr = this.modeList.get(index).getKey();
                 } else {
                     scan.println("Invalid input.");
                 }
             } else { // by name
                 String input = scan.nextLine(); // input
                 mode = modeMap.get(input);
+                modeStr = input;
                 if (mode == null) {
                     scan.println("Invalid input.");
                 }
             }
         } while (mode == null);
+        
+        //TODO ask for user input
 
         ArrayList<BugReport> selected = model.getAllBugReports().parallelStream().filter(mode)
                 .collect(Collectors.toCollection(ArrayList::new));
