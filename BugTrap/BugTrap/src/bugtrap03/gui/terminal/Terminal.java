@@ -1,5 +1,6 @@
 package bugtrap03.gui.terminal;
 
+import bugtrap03.gui.cmd.LoginCmd;
 import bugtrap03.DataModel;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.CmdParser;

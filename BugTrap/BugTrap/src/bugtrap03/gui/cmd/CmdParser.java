@@ -7,7 +7,6 @@ import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.ClearCmd;
 import bugtrap03.gui.cmd.general.HelpCmd;
 import bugtrap03.gui.cmd.general.InvalidCmd;
-import bugtrap03.gui.terminal.LoginCmd;
 import bugtrap03.gui.terminal.Terminal;
 import bugtrap03.gui.terminal.TerminalScanner;
 
