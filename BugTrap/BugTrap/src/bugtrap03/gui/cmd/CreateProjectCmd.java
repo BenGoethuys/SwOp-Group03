@@ -151,7 +151,8 @@ public class CreateProjectCmd implements Cmd {
         VersionID versionID = null;
         do {
             scan.print("new VersionID (format=a.b.c):");
-            String[] versionIDStr = scan.nextLine().split(".");
+            String input = scan.nextLine();
+            String[] versionIDStr = input.split("\\.");
 
             int nb1, nb2, nb3;
             try {
