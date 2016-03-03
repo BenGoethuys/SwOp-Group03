@@ -4,13 +4,18 @@ import bugtrap03.gui.cmd.general.AbortCmd;
 import bugtrap03.gui.cmd.general.CancelException;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
+ * Class encapsulating our scanner (input methods) and print/println.. (output methpds).
+ * This can be used to provide custom out & input streams as well as
+ * provides a way to override certain methods for testing purposes.
+ * 
  * @author Admin
+ * @see Scanner
+ * @see testCollection#TerminalTestScanner
  */
 public class TerminalScanner {
 
