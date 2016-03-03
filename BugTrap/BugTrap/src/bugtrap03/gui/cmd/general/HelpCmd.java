@@ -46,7 +46,10 @@ public class HelpCmd implements Cmd {
      * @return null.
      */
     @Override
-    public Object exec(TerminalScanner scan, DataModel dummy2, User dummy3) {
+    public Object exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws IllegalArgumentException {
+        if(scan == null) {
+            throw new IllegalArgumentException("HelpCmd requires a non null reference as scan");
+        }
         scan.println("List of possible commands:");
         for (SimpleEntry cmdEntry : cmdList) {
             scan.println(cmdEntry.getKey().toString());
