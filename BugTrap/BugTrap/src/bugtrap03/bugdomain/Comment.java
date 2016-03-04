@@ -1,6 +1,9 @@
 package bugtrap03.bugdomain;
 
+import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Issuer;
+import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
 import java.util.ArrayList;
@@ -18,15 +21,16 @@ public class Comment {
      * @param issuer the issuer that creates this comment
      * @param text   the comment text for this comment
      * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
-     * @see Comment#isValidCreator(Issuer)
+     * @throws PermissionException if the given creator doesn't have the needed permissions
+     * @see Comment#isValidCreator(User)
      */
-    public Comment(Issuer issuer, String text) throws IllegalArgumentException {
+    public Comment(User issuer, String text) throws IllegalArgumentException, PermissionException {
         this.setCreator(issuer);
         this.setText(text);
         this.setSubComments(PList.<Comment>empty());
     }
 
-    private Issuer creator;
+    private User creator;
     private String text;
     private PList<Comment> SubComments;
 
@@ -35,7 +39,7 @@ public class Comment {
      *
      * @return the creator
      */
-    public Issuer getCreator() {
+    public User getCreator() {
         return creator;
     }
 
@@ -44,12 +48,15 @@ public class Comment {
      *
      * @param creator the creator to set
      * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
-     * @throws IllegalArgumentException if the given text is not valid for this comment
-     * @see Comment#isValidCreator(Issuer)
+     * @throws PermissionException if the given creator doesn't have the needed permissions
+     * @see Comment#isValidCreator(User)
      * @see Comment#isValidText(String)
      */
-    private void setCreator(Issuer creator) throws IllegalArgumentException {
-        if (!Comment.isValidCreator(creator)) {
+    private void setCreator(User creator) throws IllegalArgumentException, PermissionException {
+        if (creator != null && ! creator.hasPermission(UserPerm.CREATE_COMMENT)){
+            throw new PermissionException("The given creator for this comment doesn't have the needed permission");
+        }
+        if (! Comment.isValidCreator(creator)) {
             throw new IllegalArgumentException("The given Issuer is not a valid creator for this comment");
         }
         this.creator = creator;
@@ -61,8 +68,11 @@ public class Comment {
      * @param creator the creator to check
      * @return true if the creator is a valid creator
      */
-    public static boolean isValidCreator(Issuer creator) {
+    public static boolean isValidCreator(User creator) {
         if (creator == null) {
+            return false;
+        }
+        if (! creator.hasPermission(UserPerm.CREATE_COMMENT)){
             return false;
         }
         return true;
@@ -182,10 +192,11 @@ public class Comment {
      *
      * @param creator the creator of the comment
      * @param text    the text of the comment
-     * @throws IllegalArgumentException if the given parameters are not valid for a comment
+     * @throws IllegalArgumentException if the given parameters are not valid for this comment
+     * @throws PermissionException if the given creator doesn't have the needed permissions
      * @see Comment(Issuer, String)
      */
-    public Comment addSubComment(Issuer creator, String text) throws IllegalArgumentException {
+    public Comment addSubComment(Issuer creator, String text) throws IllegalArgumentException, PermissionException {
         return this.addSubComment(new Comment(creator, text));
     }
 

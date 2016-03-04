@@ -41,7 +41,7 @@ public class CommentTest {
 
     /**
      * Test method for
-     * {@link bugtrap03.bugdomain.Comment#Comment(Issuer, java.lang.String)}.
+     * {@link Comment#Comment(bugtrap03.bugdomain.usersystem.User, String)}.
      */
     @Test
     public void testComment() {
@@ -70,7 +70,7 @@ public class CommentTest {
 
     /**
      * Test method for
-     * {@link bugtrap03.bugdomain.Comment#isValidCreator(Issuer)}.
+     * {@link Comment#isValidCreator(bugtrap03.bugdomain.usersystem.User)}.
      */
     @Test
     public void testIsValidCreator() {
