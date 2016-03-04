@@ -715,4 +715,24 @@ public class BugReport implements Comparable<BugReport> {
         // cannot be the same
         return 1;
     }
+
+    /**
+     * This method returns all important details of this bug report:
+     * @return the most important details of this bug report
+     */
+    public String getDetails(){
+        String str = "Bug report id: " + this.getUniqueID();
+        str += "\n creator: " + this.getCreator().getFullName();
+        str += "\n title: " + this.getTitle();
+        str += "\n description: " + this.getDescription();
+        str += "\n creation date: " + this.getCreationDate().getTime();
+        str += "\n tag: " + this.getTag().name();
+        str += "\n dependencies: ";
+        for (BugReport bugrep : this.getDependencies()){
+            str += "\n \t id: " + bugrep.getUniqueID() + ", title: " + bugrep.getTitle();
+        }
+        str += "\n subsystem: " + this.getSubsystem().getName();
+
+        return str;
+    }
 }
