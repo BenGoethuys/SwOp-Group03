@@ -69,6 +69,8 @@ public class CmdParser {
         cmdListExtra.add(new SimpleEntry("selectbugrep", new SelectBugReportCmd()));
         cmdListExtra.add(new SimpleEntry("inspectbugrep", new InspectBugReportCmd()));
         cmdListExtra.add(new SimpleEntry("createcom", new CreateCommentCmd()));
+        cmdListExtra.add(new SimpleEntry("showbugreport", new InspectBugReportCmd()));
+        cmdListExtra.add(new SimpleEntry("showbugrep", new InspectBugReportCmd()));
 
         for (int i = 0; i < cmdListExtra.size(); i++) {
             cmdMap.put(cmdListExtra.get(i).getKey(), cmdListExtra.get(i).getValue());
