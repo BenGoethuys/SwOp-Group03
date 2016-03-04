@@ -235,4 +235,12 @@ public class UserTest {
         assertFalse(user.hasPermission(UserPerm.DELETE_PROJ));
         assertFalse(user.hasPermission(UserPerm.UPDATE_PROJ));
     }
+    
+    @Test
+    public void testEquals() {
+        user = new UserTestDummy("D", "um", "my");
+        assertFalse(user.equals(null));
+        int getal = 0;
+        assertFalse(user.equals(getal));
+    }
 }
