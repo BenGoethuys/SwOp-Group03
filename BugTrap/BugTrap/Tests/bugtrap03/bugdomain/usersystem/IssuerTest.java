@@ -54,6 +54,10 @@ public class IssuerTest {
         assertFalse(issuer.hasPermission(up));
         up = UserPerm.UPDATE_PROJ;
         assertFalse(issuer.hasPermission(up));
+        up = UserPerm.CREATE_BUGREPORT;
+        assertTrue(issuer.hasPermission(up));
+        up = UserPerm.CREATE_COMMENT;
+        assertTrue(issuer.hasPermission(up));
     }
 
 }
