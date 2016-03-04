@@ -1,13 +1,15 @@
 package bugtrap03;
 
-import bugtrap03.bugdomain.Project;
-import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.VersionID;
+import bugtrap03.bugdomain.*;
+import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.gui.terminal.Terminal;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
+import purecollections.PList;
+
+import java.util.GregorianCalendar;
 
 /**
  * @author Group 03
@@ -44,22 +46,30 @@ public class Main {
 
     public static void initDemoSystem(DataModel model) {
         Administrator admin = model.createAdministrator("curt", "Frederick", "Sam", "Curtis");
-        model.createIssuer("doc", "John", "Doctor");
-        model.createIssuer("charlie", "Charles", "Arnold", "Berg");
+        Issuer doc = model.createIssuer("doc", "John", "Doctor");
+        Issuer charlie = model.createIssuer("charlie", "Charles", "Arnold", "Berg");
         Developer major = model.createDeveloper("major", "Joseph", "Mays");
         Developer maria = model.createDeveloper("maria", "Maria", "Carney");
-        Project projectA;
-        Subsystem subsystemA3;
-        Subsystem subsystemB2;
+
+        //TODO add bugrep3
+
         try {
-            projectA = model.createProject("ProjectA", "Description of projectA", major, 10000, admin);
+            // create projectA
+            Project projectA = model.createProject("ProjectA", "Description of projectA", major, 10000, admin);
+            // add asked roles
             projectA.setRole(major, major, Role.PROGRAMMER);
             projectA.setRole(major, maria, Role.TESTER);
+            // make subsystems
             projectA.makeSubsystemChild(new VersionID(), "SubsystemA1", "Description of susbsystem A1");
             projectA.makeSubsystemChild(new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-            subsystemA3 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-            subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
+            Subsystem subsystemA3 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA3", "Description of susbsystem A3");
+            Subsystem subsystemA3_1 = subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
             subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+            // make bug reports
+            BugReport bugRep2 = subsystemA3_1.addBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty());
+            bugRep2.addUser(major);
+            bugRep2.addUser(maria);
+
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
             System.err.println(e.getMessage());
@@ -67,11 +77,20 @@ public class Main {
         }
         Project projectB;
         try {
+            // create projectB
             projectB = model.createProject("ProjectB", "Description of projectB", maria, 10000, admin);
+            // add asked roles
             projectB.setRole(maria, major, Role.PROGRAMMER);
-            projectB.makeSubsystemChild(new VersionID(), "SubsystemB1", "Description of susbsystem B1");
-            subsystemB2 = projectB.makeSubsystemChild(new VersionID(), "SubsystemB2", "Description of susbsystem B2");
+            // make subsystems
+            Subsystem subsystemB1 = projectB.makeSubsystemChild(new VersionID(), "SubsystemB1", "Description of susbsystem B1");
+            Subsystem subsystemB2 = projectB.makeSubsystemChild(new VersionID(), "SubsystemB2", "Description of susbsystem B2");
             subsystemB2.makeSubsystemChild(new VersionID(), "SubsystemB2.1", "Description of susbsystem B2.1");
+            // make bug reports
+            BugReport bugRep1 = subsystemB1.addBugReport(doc, "The function parse_ewd returns unexpected results", "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 1, 3), PList.<BugReport>empty());
+            bugRep1.addUser(maria);
+            bugRep1.setTag(Tag.UNDER_REVIEW, major);
+            bugRep1.setTag(Tag.RESOLVED, doc);
+            bugRep1.setTag(Tag.CLOSED, maria);
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
             System.err.println(e.getMessage());
