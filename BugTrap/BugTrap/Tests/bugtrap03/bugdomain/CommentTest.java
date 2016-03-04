@@ -85,6 +85,7 @@ public class CommentTest {
     public void testIsValidCreator() {
         assertTrue(Comment.isValidCreator(issuer));
         assertFalse(Comment.isValidCreator(null));
+        assertFalse(Comment.isValidCreator(admin));
     }
 
     /**
