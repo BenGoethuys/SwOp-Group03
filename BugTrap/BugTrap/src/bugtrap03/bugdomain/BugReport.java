@@ -362,7 +362,7 @@ public class BugReport implements Comparable<BugReport> {
         } else if (tag == null) {
             throw new IllegalArgumentException("The given tag for bug report is not valid for this state of the bug report");
         } else if (!issuer.hasRolePermission(tag.getNeededPerm(), this.getSubsystem().getParentProject())) {
-            throw new PermissionException("The given issuer doens't have the needed permission to change the tag of this bug report");
+            throw new PermissionException("The given issuer: " + issuer.getFullName() + ", doens't have the needed permission to change the tag of this bug report");
         } else {
             this.setTag(tag);
         }
