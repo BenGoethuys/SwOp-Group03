@@ -241,7 +241,7 @@ public class ProjectTest {
     @Test
     public void testGetDetails() {
         String details = testProject.getDetails();
-        System.out.println(details);
+        //System.out.println(details);
         assertTrue(details.contains(testName));
         assertTrue(details.contains(testDescription));
         assertTrue(details.contains(testVersion.toString()));
@@ -250,7 +250,7 @@ public class ProjectTest {
         assertTrue(details.contains("1000"));
         assertTrue(details.contains(testDev.getFullName()));
         assertTrue(details.contains(testDev.getUsername()));
-        System.out.println(details);
+        //System.out.println(details);
     }
 
     //TODO add subsystem and check childs
