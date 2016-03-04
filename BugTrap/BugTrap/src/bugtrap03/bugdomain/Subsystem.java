@@ -7,6 +7,8 @@ import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
+import java.util.GregorianCalendar;
+
 /**
  * Created by Kwinten on 17/02/2016.
  *
@@ -158,6 +160,28 @@ public class Subsystem extends AbstractSystem {
     public BugReport addBugReport(User creator, String title, String description, PList<BugReport> dependencies)
             throws IllegalArgumentException, PermissionException {
         BugReport bugReport = new BugReport(creator, title, description, dependencies, this);
+        this.bugReportList = this.getBugReportList().plus(bugReport);
+        return bugReport;
+    }
+
+    /**
+     * This method creates and adds a bug report to the list of associated
+     * bugReports of this subsystem
+     *
+     * @param creator The issuer that wants to create the bug report
+     * @param title The title of this bugReport
+     * @param description The description of this bug report
+     * @param dependencies The dependencies of the bug report
+     * @return the created bug report
+     * @throws IllegalArgumentException If BugReport(creator, title,
+     *             description, dependencies, this) fails
+     * @throws PermissionException If the creation of a BugReport fails.
+     * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
+     *      String, PList, Subsystem)
+     */
+    public BugReport addBugReport(User creator, String title, String description, GregorianCalendar creationDate, PList<BugReport> dependencies)
+            throws IllegalArgumentException, PermissionException {
+        BugReport bugReport = new BugReport(creator, title, description, creationDate, dependencies, this);
         this.bugReportList = this.getBugReportList().plus(bugReport);
         return bugReport;
     }
