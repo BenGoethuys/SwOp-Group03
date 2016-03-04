@@ -31,6 +31,7 @@ public class BugReportTest {
 	static Project project;
 	static Subsystem subsystem;
 	static Administrator admin;
+	static long id2;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -50,6 +51,7 @@ public class BugReportTest {
 		subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project);
 		
 		bugReport1 = new BugReport(issuer, 1, "NastyBug", "bla bla", date, depList, subsystem);
+		id2 = BugReport.getNewUniqueID();
 		bugReport2 = new BugReport(issuer, "FoundBug", "", depList, subsystem);
 	}
 	
@@ -60,7 +62,7 @@ public class BugReportTest {
 	@Test
 	public void testGetUniqueID() {
 		assertEquals(1, bugReport1.getUniqueID());
-		assertEquals(2, bugReport2.getUniqueID());
+		assertEquals(id2, bugReport2.getUniqueID());
 	}
 	
 	@Test
