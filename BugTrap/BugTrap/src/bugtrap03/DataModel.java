@@ -1,9 +1,6 @@
 package bugtrap03;
 
-import bugtrap03.bugdomain.AbstractSystem;
-import bugtrap03.bugdomain.BugReport;
-import bugtrap03.bugdomain.Project;
-import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.*;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Administrator;
@@ -17,7 +14,7 @@ import java.util.GregorianCalendar;
 import purecollections.PList;
 
 /**
- * @author Admin
+ * @author Vincent Derkinderen & Ben Goethuys
  * @version 0.1
  */
 public class DataModel {
@@ -356,14 +353,43 @@ public class DataModel {
         return abstractSystem.makeSubsystemChild(name, description);
     }
 
+    //do we need next 3 methods? -> yes Controller principle! Make new -> change internal -> via controller
+
     /**
      * This method creates a bug report in the system
      *
      * @see BugReport#BugReport(User, String, String, PList, Subsystem)
      */
     public BugReport createBugReport(User user, String title, String description, PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException{
-        BugReport bugReport = new BugReport(user, title, description, dependencies, subsystem);
-        return bugReport;
+        return new BugReport(user, title, description, dependencies, subsystem);
+    }
+
+    /**
+     * This method creates a comment on a given BugReport
+     * @param user      The creator of the comment
+     * @param bugReport The bug report to create the comment on
+     * @param text      The text of the new comment
+     * @return The new generated comment
+     * @throws PermissionException If the given User doesn't have the permission to create the comment
+     *
+     * @see BugReport#addComment(User, String)
+     */
+    public Comment createComment(User user, BugReport bugReport, String text) throws PermissionException {
+        return bugReport.addComment(user, text);
+    }
+
+    /**
+     * This method creates a comment on the given comment with the given text by the given user
+     * @param user      The creator of the new comment
+     * @param comment   The comment to create the comment on (= sub comment)
+     * @param text      The text of the new Comment
+     * @return The new generated comment
+     * @throws PermissionException If the given User doesn't have the permission to create the comment
+     *
+     * @see Comment#addSubComment(User, String)
+     */
+    public Comment createComment(User user, Comment comment, String text) throws PermissionException {
+        return comment.addSubComment(user, text);
     }
 
 }
