@@ -60,7 +60,7 @@ public class AbstractSystemTest {
         subSysTest2 = subSysTest.makeSubsystemChild("mehAS", "moehAS");
         bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", emptyDep);
         depToRep1 = PList.<BugReport>empty().plus(bugreport1);
-        bugreport2 = subSysTest.addBugReport(testDev, "otherBug4AS", "i like bonobos", depToRep1);
+        bugreport2 = subSysTest2.addBugReport(testDev, "otherBug4AS", "i like bonobos", depToRep1);
     }
 
     @Test
@@ -143,32 +143,58 @@ public class AbstractSystemTest {
 
     @Test
     public void testGetChilds() {
-        fail("Not yet implemented");
+        assertEquals(PList.<Subsystem>empty().plus(subSysTest), testProject.getChilds());
+        assertEquals(PList.<Subsystem>empty().plus(subSysTest2), subSysTest.getChilds());
+        assertEquals(PList.<Subsystem>empty(), subSysTest2.getChilds());
     }
 
     @Test
     public void testMakeSubsystemChildVersionIDStringString() {
-        fail("Not yet implemented");
+        VersionID extraVersion = new VersionID(5,3,7);
+        String extraName = "extra naam";
+        String extraDes = "extra des";
+        Subsystem extraSubsys = testProject.makeSubsystemChild(extraVersion, extraName, extraDes);
+        assertEquals(extraVersion, extraSubsys.getVersionID());
+        assertEquals(extraName, extraSubsys.getName());
+        assertEquals(extraDes, extraSubsys.getDescription());
+        assertTrue(testProject.getChilds().contains(extraSubsys));
     }
 
     @Test
     public void testMakeSubsystemChildStringString() {
-        fail("Not yet implemented");
+        String extraName = "extra naam2";
+        String extraDes = "extra des2";
+        Subsystem extraSubsys = testProject.makeSubsystemChild(extraName, extraDes);
+        assertEquals(new VersionID(), extraSubsys.getVersionID());
+        assertEquals(extraName, extraSubsys.getName());
+        assertEquals(extraDes, extraSubsys.getDescription());
+        assertTrue(testProject.getChilds().contains(extraSubsys));
     }
 
     @Test
     public void testGetParentProject() {
-        fail("Not yet implemented");
+        assertEquals(testProject, subSysTest.getParentProject());
+        assertEquals(testProject, subSysTest2.getParentProject());
+        assertEquals(testProject, testProject.getParentProject());
     }
 
     @Test
     public void testGetAllBugReports() {
-        fail("Not yet implemented");
+        PList<BugReport> buglist = PList.<BugReport>empty().plus(bugreport2);
+        assertEquals(buglist, subSysTest2.getAllBugReports());
+        buglist = buglist.plus(bugreport1);
+        assertEquals(buglist, subSysTest.getAllBugReports());
+        assertEquals(buglist, testProject.getAllBugReports());
     }
 
     @Test
     public void testGetAllSubsystems() {
-        fail("Not yet implemented");
+        PList<Subsystem> sublist = PList.<Subsystem>empty();
+        assertEquals(sublist, subSysTest2.getAllSubsystems());
+        sublist = sublist.plus(subSysTest2);
+        assertEquals(sublist, subSysTest.getAllSubsystems());
+        PList<Subsystem> sublist2 = PList.<Subsystem>empty().plus(subSysTest).plus(subSysTest2);
+        assertEquals(sublist2, testProject.getAllSubsystems());
     }
 
 }
