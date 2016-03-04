@@ -47,6 +47,7 @@ public class CmdParser {
         cmdList.add(new SimpleEntry("createbugreport", new CreateBugReportCmd()));
         cmdList.add(new SimpleEntry("selectbugreport", new SelectBugReportCmd()));
         cmdList.add(new SimpleEntry("inspectbugreport", new InspectBugReportCmd()));
+        cmdList.add(new SimpleEntry("createcomment", new CreateCommentCmd()));
 
         //Custom abbreviations.
         cmdList.add(new SimpleEntry("createproj", new CreateProjectCmd()));
@@ -59,6 +60,7 @@ public class CmdParser {
         cmdList.add(new SimpleEntry("createbugrep", new CreateBugReportCmd()));
         cmdList.add(new SimpleEntry("selectbugrep", new SelectBugReportCmd()));
         cmdList.add(new SimpleEntry("inspectbugrep", new InspectBugReportCmd()));
+        cmdList.add(new SimpleEntry("createcom", new CreateCommentCmd()));
 
         cmdMap = new HashMap<>();
         for (int i = 0; i < cmdList.size(); i++) {
