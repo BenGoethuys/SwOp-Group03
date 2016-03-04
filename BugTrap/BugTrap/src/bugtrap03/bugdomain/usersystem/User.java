@@ -6,6 +6,7 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import java.util.HashSet;
 
 import bugtrap03.bugdomain.permission.UserPerm;
+import java.util.Objects;
 
 /**
  * A User can be identified by his/her username. The uniqueness of this username
@@ -20,10 +21,10 @@ public abstract class User {
      * Create a {@link User} with a username, a firstName, middelName and
      * lastName.
      *
-     * @param username   The unique username of this user.
-     * @param firstName  The first name of this user.
+     * @param username The unique username of this user.
+     * @param firstName The first name of this user.
      * @param middleName The middle name of this user.
-     * @param lastName   The last name of this user.
+     * @param lastName The last name of this user.
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see #isValidUsername(String username)
      * @see #isValidFirstName(String firstName)
@@ -40,9 +41,9 @@ public abstract class User {
     /**
      * Create a {@link User} with a username, a firstName and lastName.
      *
-     * @param username  The unique username of this user.
+     * @param username The unique username of this user.
      * @param firstName The first name of this user.
-     * @param lastName  The last name of this user.
+     * @param lastName The last name of this user.
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see #isValidUsername(String username)
      * @see #isValidFirstName(String firstName)
@@ -215,6 +216,36 @@ public abstract class User {
     }
 
     /**
+     * Checks if two Users are equal.
+     *
+     * @param other The User to compare.
+     * @return True if the Users are equal concerning the username, firstname,
+     * middlename and lastname.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+        
+        if (other instanceof User) {
+            User otherUser = (User) other;
+            return otherUser.getFirstName().equals(getFirstName()) &&
+                    otherUser.getUsername().equals(getUsername()) &&
+                    otherUser.getMiddleName().equals(getMiddleName()) &&
+                    otherUser.getLastName().equals(getLastName());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.username);
+        return hash;
+    }
+
+    /**
      * Check if this {@link User} has the given {@link UserPerm}.
      *
      * @param perm The userPermission to check for.
@@ -225,9 +256,10 @@ public abstract class User {
     }
 
     /**
-     * Check if this {@link User} has the given {@link RolePerm} on a certain project.
+     * Check if this {@link User} has the given {@link RolePerm} on a certain
+     * project.
      *
-     * @param perm    The rolePermission to check for.
+     * @param perm The rolePermission to check for.
      * @param project The project to check for.
      * @return Whether this has the permission perm for project.
      */
