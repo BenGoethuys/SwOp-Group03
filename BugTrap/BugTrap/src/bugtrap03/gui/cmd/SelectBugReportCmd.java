@@ -114,6 +114,8 @@ public class SelectBugReportCmd implements Cmd {
         
         //TODO ask for user input
 
+        //FIXME ask for user input
+
         ArrayList<BugReport> selected = model.getAllBugReports().parallelStream().filter(mode)
                 .collect(Collectors.toCollection(ArrayList::new));
         Collections.sort(selected);
