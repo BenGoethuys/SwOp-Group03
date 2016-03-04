@@ -361,7 +361,16 @@ public class DataModel {
      * @see BugReport#BugReport(User, String, String, PList, Subsystem)
      */
     public BugReport createBugReport(User user, String title, String description, PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException{
-        return new BugReport(user, title, description, dependencies, subsystem);
+        return subsystem.addBugReport(user, title, description, dependencies);
+    }
+
+    /**
+     * This method creates a bug report in the system
+     *
+     * @see BugReport#BugReport(User, String, String, GregorianCalendar, PList, Subsystem)
+     */
+    public BugReport createBugReport(User user, String title, String description, GregorianCalendar calendar, PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException{
+        return subsystem.addBugReport(user, title, description, calendar, dependencies);
     }
 
     /**
