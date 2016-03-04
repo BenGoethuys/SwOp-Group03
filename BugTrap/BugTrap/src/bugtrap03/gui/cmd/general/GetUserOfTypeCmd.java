@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
-import java.lang.reflect.Method;
 import purecollections.PList;
 
 /**
@@ -20,7 +19,7 @@ public class GetUserOfTypeCmd<U extends User> implements Cmd {
      * Create a 'chose user' scenario wherein the person can chose
      * a certain user from a list of users from a specific class.
      *
-     * @param classType The type of the users to chose from. (exclude subclasses).
+     * @param classType The type of the users to chose from. (including subclasses)
      * @throws IllegalArgumentException When a non-null reference was given.
      */
     public GetUserOfTypeCmd(Class<U> classType) throws IllegalArgumentException {
@@ -36,7 +35,7 @@ public class GetUserOfTypeCmd<U extends User> implements Cmd {
     /**
      * Get the user the person chose. This asks the person which
      * user to chose as by presenting him a list of users of the class,
-     * classType (classType, subclasses excluded).
+     * classType (subclasses included).
      *
      * @param scan      The {@link Scanner} used to interact with the person.
      * @param model     The model used to get access to the model.

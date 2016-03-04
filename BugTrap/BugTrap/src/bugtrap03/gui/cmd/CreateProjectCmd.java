@@ -6,7 +6,6 @@ import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetProjectCmd;
 import bugtrap03.gui.cmd.general.GetUserOfExcactTypeCmd;
@@ -99,7 +98,7 @@ public class CreateProjectCmd implements Cmd {
             scan.print("Project starting date (YYYY-MM-DD):");
             String[] projDateStr = scan.nextLine().split("-");
             try {
-                projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]), Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
+                projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]), Integer.parseInt(projDateStr[1])-1, Integer.parseInt(projDateStr[2]));
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 scan.println("Invalid input.");
             }
@@ -152,7 +151,8 @@ public class CreateProjectCmd implements Cmd {
         VersionID versionID = null;
         do {
             scan.print("new VersionID (format=a.b.c):");
-            String[] versionIDStr = scan.nextLine().split(".");
+            String input = scan.nextLine();
+            String[] versionIDStr = input.split("\\.");
 
             int nb1, nb2, nb3;
             try {

@@ -1,8 +1,9 @@
-package bugtrap03.gui.terminal;
+package bugtrap03.gui.cmd;
 
 import bugtrap03.DataModel;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.terminal.Terminal;
 import java.util.ArrayDeque;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
@@ -98,6 +99,9 @@ public class LoginCmdTest {
         question.add("0. Administrator");
         question.add("1. Issuer");
         question.add("2. Developer");
+        question.add("I chose: ");
+        answer.add("Wrong Input");
+        question.add("Invalid input.");
         question.add("I chose: ");
         answer.add("2");
         question.add("No users of this type found.");

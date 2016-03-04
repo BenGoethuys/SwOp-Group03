@@ -17,9 +17,13 @@ public class InvalidCmd implements Cmd {
      * @param cdummy
      * @param udummy
      * @return A null reference.
+     * @throws IllegalArgumentException When scan is a null reference.
      */
     @Override
-    public Object exec(TerminalScanner scan, DataModel cdummy, User udummy) {
+    public Object exec(TerminalScanner scan, DataModel cdummy, User udummy) throws IllegalArgumentException {
+        if(scan == null) {
+            throw new IllegalArgumentException("InvalidCmd requires a non null reference as scan");
+        }
         scan.println("Invalid command.");
         return null;
     }
