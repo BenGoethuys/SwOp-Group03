@@ -465,9 +465,10 @@ public class BugReport implements Comparable<BugReport> {
      * @param creator the creator of the comment
      * @param text    the text of the comment
      * @throws IllegalArgumentException if the given parameters are not valid for a comment
-     * @see Comment#Comment(Issuer, String)
+     * @throws PermissionException if the given creator doesn't have the needed permissions
+     * @see Comment#Comment(User, String)
      */
-    public Comment addComment(Issuer creator, String text) throws IllegalArgumentException {
+    public Comment addComment(User creator, String text) throws IllegalArgumentException, PermissionException {
         return this.addComment(new Comment(creator, text));
     }
 

@@ -313,7 +313,7 @@ public class BugReportTest {
 	}
 	
 	@Test
-	public void testGetCommentList(){
+	public void testGetCommentList() throws PermissionException {
 		assertTrue(bugReport1.getCommentList().isEmpty());
 		Comment comment = new Comment(issuer, "Bla bla bla");
 		bugReport1.addComment(comment);
@@ -338,7 +338,7 @@ public class BugReportTest {
 	}
 	
 	@Test
-	public void testIsValidCommentList(){
+	public void testIsValidCommentList() throws PermissionException {
 		Comment comment = new Comment(issuer, "Bla bla bla");
 		PList<Comment> validListEmpty = PList.<Comment>empty();
 		PList<Comment> validList = validListEmpty.plus(comment);
@@ -370,6 +370,11 @@ public class BugReportTest {
 	public void testAddInvalidComment(){
 		bugReport1.addComment(null);
 	}
+
+    @Test (expected = PermissionException.class)
+    public void testAddCommentNoPermission() throws PermissionException {
+        bugReport1.addComment(admin, "This is a comment");
+    }
 	
 	@Test
 	public void testIsValidComment() throws IllegalArgumentException, PermissionException{

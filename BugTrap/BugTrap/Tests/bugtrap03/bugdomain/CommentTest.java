@@ -5,6 +5,8 @@ package bugtrap03.bugdomain;
 
 import static org.junit.Assert.*;
 
+import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.usersystem.Administrator;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,6 +23,7 @@ public class CommentTest {
     static Issuer issuer;
     static String text;
     static Comment comment1;
+    static Administrator admin;
 
     /**
      * @throws java.lang.Exception
@@ -28,6 +31,7 @@ public class CommentTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         issuer = new Issuer("comment0DitGebruiktNiemandAnders", "bla", "bla");
+        admin = new Administrator("comment1DitGebruiktNiemandAnders", "bla", "hihi");
         text = "this is a comment";
         comment1 = new Comment(issuer, text);
     }
@@ -41,22 +45,27 @@ public class CommentTest {
 
     /**
      * Test method for
-     * {@link bugtrap03.bugdomain.Comment#Comment(Issuer, java.lang.String)}.
+     * {@link Comment#Comment(bugtrap03.bugdomain.usersystem.User, String)}.
      */
     @Test
-    public void testComment() {
+    public void testComment() throws PermissionException {
         Comment comment = new Comment(issuer, text);
         assertEquals(issuer, comment.getCreator());
         assertEquals(text, comment.getText());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCommentInvalidIssuer() {
+    public void testCommentInvalidIssuer() throws PermissionException {
         new Comment(null, text);
     }
 
+    @Test (expected = PermissionException.class)
+    public void testCommentNoPermission() throws PermissionException {
+        new Comment(admin, "Valid text");
+    }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testCommentInvalidText() {
+    public void testCommentInvalidText() throws PermissionException {
         new Comment(issuer, null);
     }
 
@@ -70,7 +79,7 @@ public class CommentTest {
 
     /**
      * Test method for
-     * {@link bugtrap03.bugdomain.Comment#isValidCreator(Issuer)}.
+     * {@link Comment#isValidCreator(bugtrap03.bugdomain.usersystem.User)}.
      */
     @Test
     public void testIsValidCreator() {
@@ -100,7 +109,7 @@ public class CommentTest {
      * Test method for {@link bugtrap03.bugdomain.Comment#getSubComments()}.
      */
     @Test
-    public void testGetSubComments() {
+    public void testGetSubComments() throws PermissionException {
         Comment comment = new Comment(issuer, text);
         assertTrue(comment.getSubComments().isEmpty());
 
@@ -111,7 +120,7 @@ public class CommentTest {
     }
 
     @Test
-    public void testGetAllComments() {
+    public void testGetAllComments() throws PermissionException {
         Comment comment = new Comment(issuer, "bla bla");
         assertTrue(comment.getSubComments().isEmpty());
         assertTrue(comment.getAllComments().contains(comment));
@@ -134,7 +143,7 @@ public class CommentTest {
      * .
      */
     @Test
-    public void testIsValidSubComments() {
+    public void testIsValidSubComments() throws PermissionException {
         Comment comment = new Comment(issuer, text);
         PList<Comment> validListEmpty = PList.<Comment> empty();
         PList<Comment> validList = validListEmpty.plus(comment1);
@@ -153,7 +162,7 @@ public class CommentTest {
      * .
      */
     @Test
-    public void testAddSubComment() {
+    public void testAddSubComment() throws PermissionException {
         Comment comment = new Comment(issuer, text);
         Comment comment2 = new Comment(issuer, text);
         assertTrue(comment.getSubComments().isEmpty());
@@ -177,22 +186,27 @@ public class CommentTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testAddSubCommentInvalidIssuer() {
+    public void testAddSubCommentInvalidIssuer() throws PermissionException {
         comment1.addSubComment(null, text);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testAddSubCommentInvalidText() {
+    public void testAddSubCommentInvalidText() throws PermissionException {
         comment1.addSubComment(issuer, null);
     }
 
+    @Test (expected = PermissionException.class)
+    public void testAddSubCommentNoPermission() throws PermissionException {
+        comment1.addSubComment(admin, "Valid text");
+    }
+    
     /**
      * Test method for
      * {@link bugtrap03.bugdomain.Comment#isValidSubComment(bugtrap03.bugdomain.Comment)}
      * .
      */
     @Test
-    public void testIsValidSubComment() {
+    public void testIsValidSubComment() throws PermissionException {
         Comment comment = new Comment(issuer, text);
         assertTrue(comment1.isValidSubComment(comment));
         assertFalse(comment1.isValidSubComment(null));
