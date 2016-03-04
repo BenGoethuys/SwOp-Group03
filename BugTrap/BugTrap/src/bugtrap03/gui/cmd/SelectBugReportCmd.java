@@ -84,7 +84,7 @@ public class SelectBugReportCmd implements Cmd {
      * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
-    public Object exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
+    public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
         scan.println("Please select a search mode: ");
         for (int i = 0; i < this.modeList.size(); i++) {
             scan.println(i + ". " + this.modeList.get(i).getKey());
