@@ -3,8 +3,13 @@ package bugtrap03.gui.cmd;
 import bugtrap03.DataModel;
 import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.cmd.general.GetLongCmd;
+import bugtrap03.gui.cmd.general.GetStringCmd;
+import bugtrap03.gui.cmd.general.GetUserOfTypeCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 
 import java.util.*;
@@ -20,9 +25,8 @@ public class SelectBugReportCmd implements Cmd {
     private ArrayList<AbstractMap.SimpleEntry<String, Predicate<BugReport>>> modeList = new ArrayList<>();
     private ArrayList<AbstractMap.SimpleEntry<String, Predicate<BugReport>>> modeListExtra = new ArrayList<>();
     private HashMap<String, Predicate<BugReport>> modeMap = new HashMap<>();
-    private String str = "";
-    private User user = null;
-    private long id = 0;
+    private HashMap<String, Cmd> cmdMap = new HashMap<>();
+    private Object o;
 
     public SelectBugReportCmd() {
         this.initList();
@@ -32,22 +36,29 @@ public class SelectBugReportCmd implements Cmd {
      * This method initialises the list of possible search methods
      */
     private void initList() {
-        modeList.add(new AbstractMap.SimpleEntry<>("title", u -> u.getTitle().equals(str)));
-        modeList.add(new AbstractMap.SimpleEntry<>("description", u -> u.getDescription().equals(str)));
-        modeListExtra.add(new AbstractMap.SimpleEntry<>("desc", u -> u.getDescription().equals(str)));
-        modeList.add(new AbstractMap.SimpleEntry<>("user", u -> u.getCreator().equals(user)));
-        modeList.add(new AbstractMap.SimpleEntry<>("assigned", u -> u.getUserList().contains(user)));
-        modeList.add(new AbstractMap.SimpleEntry<>("uniqueId", u -> u.getUniqueID() == id));
-        modeListExtra.add(new AbstractMap.SimpleEntry<>("id", u -> u.getUniqueID() == id));
+        modeList.add(new AbstractMap.SimpleEntry<>("title", u -> u.getTitle().equals(o)));
+        modeList.add(new AbstractMap.SimpleEntry<>("description", u -> u.getDescription().equals(o)));
+        modeListExtra.add(new AbstractMap.SimpleEntry<>("desc", u -> u.getDescription().equals(o)));
+        modeList.add(new AbstractMap.SimpleEntry<>("user", u -> u.getCreator().equals(o)));
+        modeList.add(new AbstractMap.SimpleEntry<>("assigned", u -> u.getUserList().contains(o)));
+        modeList.add(new AbstractMap.SimpleEntry<>("uniqueId", u -> new Long(u.getUniqueID()).equals(o)));
+        modeListExtra.add(new AbstractMap.SimpleEntry<>("id", u -> new Long(u.getUniqueID()).equals(o)));
 
         for (int i = 0; i < modeList.size(); i++) {
             modeMap.put(modeList.get(i).getKey(), modeList.get(i).getValue());
             modeMap.put(Integer.toString(i), modeList.get(i).getValue());
         }
-
         for (int i = 0; i < modeListExtra.size(); i++) {
             modeMap.put(modeListExtra.get(i).getKey(), modeListExtra.get(i).getValue());
         }
+
+        cmdMap.put("title", new GetStringCmd());
+        cmdMap.put("description", new GetStringCmd());
+        cmdMap.put("desc", new GetStringCmd());
+        cmdMap.put("user", new GetUserOfTypeCmd<>(Issuer.class));
+        cmdMap.put("assigned", new GetUserOfTypeCmd<>(Developer.class));
+        cmdMap.put("uniqueId", new GetLongCmd());
+        cmdMap.put("id", new GetLongCmd());
     }
 
     /**
@@ -85,75 +96,77 @@ public class SelectBugReportCmd implements Cmd {
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
-        scan.println("Please select a search mode: ");
-        for (int i = 0; i < this.modeList.size(); i++) {
-            scan.println(i + ". " + this.modeList.get(i).getKey());
-        }
-
-        Predicate<BugReport> mode = null;
-        String modeStr = null;
-        do {
-            System.out.print("I chose: ");
-            if (scan.hasNextInt()) { // by index
-                int index = scan.nextInt();// input
-                if (index >= 0 && index < this.modeList.size()) {
-                    mode = this.modeList.get(index).getValue();
-                    modeStr = this.modeList.get(index).getKey();
-                } else {
-                    scan.println("Invalid input.");
-                }
-            } else { // by name
-                String input = scan.nextLine(); // input
-                mode = modeMap.get(input);
-                modeStr = input;
-                if (mode == null) {
-                    scan.println("Invalid input.");
-                }
-            }
-        } while (mode == null);
-        
-        //TODO ask for user input
-
-        //FIXME ask for user input
-
-        ArrayList<BugReport> selected = model.getAllBugReports().parallelStream().filter(mode)
-                .collect(Collectors.toCollection(ArrayList::new));
-        Collections.sort(selected);
-
-        if (selected.size() > 0) {
-            scan.println("Please select a bug report: ");
-            scan.println("Available bugReports:");
-            for (int i = 0; i < selected.size(); i++) {
-                BugReport bugrep = selected.get(i);
-                scan.println(i + ". " + bugrep.getTitle() + ", uniqueID: " + bugrep.getUniqueID());
+        while (true) {
+            scan.println("Please select a search mode: ");
+            for (int i = 0; i < this.modeList.size(); i++) {
+                scan.println(i + ". " + this.modeList.get(i).getKey());
             }
 
-            BugReport bugrep = null;
-
+            Predicate<BugReport> mode = null;
+            String modeStr = null;
             do {
-                scan.print("I chose: ");
+                System.out.print("I chose: ");
                 if (scan.hasNextInt()) { // by index
                     int index = scan.nextInt();// input
-                    if (index >= 0 && index < selected.size()) {
-                        bugrep = selected.get(index);
+                    if (index >= 0 && index < this.modeList.size()) {
+                        mode = this.modeList.get(index).getValue();
+                        modeStr = this.modeList.get(index).getKey();
                     } else {
                         scan.println("Invalid input.");
                     }
                 } else { // by name
                     String input = scan.nextLine(); // input
-                    try {
-                        bugrep = selected.parallelStream().filter(u -> u.getTitle().equals(input)).findFirst().get();
-                    } catch (NoSuchElementException ex) {
+                    mode = modeMap.get(input);
+                    modeStr = input;
+                    if (mode == null) {
                         scan.println("Invalid input.");
                     }
                 }
-            } while (bugrep == null);
+            } while (mode == null);
 
-            scan.println("You have selected: " + bugrep.getTitle() + " with uniqueId: " + bugrep.getUniqueID());
-            return bugrep;
-        } else {
-            scan.println("No bugreports in the system");
-            throw new NoSuchElementException("No bug report in the system, first add a bug report!");
+            // ask user for search term
+            scan.println("Please enter the required search term ...");
+            this.o = this.cmdMap.get(modeStr).exec(scan, model, user);
+
+            ArrayList<BugReport> selected = model.getAllBugReports().parallelStream().filter(mode)
+                    .collect(Collectors.toCollection(ArrayList::new));
+            Collections.sort(selected);
+
+            //select bugreport
+            if (selected.size() > 0) {
+                scan.println("Please select a bug report: ");
+                scan.println("Available bugReports:");
+                for (int i = 0; i < selected.size(); i++) {
+                    BugReport bugrep = selected.get(i);
+                    scan.println(i + ". " + bugrep.getTitle() + ", uniqueID: " + bugrep.getUniqueID());
+                }
+
+                BugReport bugrep = null;
+
+                do {
+                    scan.print("I chose: ");
+                    if (scan.hasNextInt()) { // by index
+                        int index = scan.nextInt();// input
+                        if (index >= 0 && index < selected.size()) {
+                            bugrep = selected.get(index);
+                        } else {
+                            scan.println("Invalid input.");
+                        }
+                    } else { // by name
+                        String input = scan.nextLine(); // input
+                        try {
+                            bugrep = selected.parallelStream().filter(u -> u.getTitle().equals(input)).findFirst().get();
+                        } catch (NoSuchElementException ex) {
+                            scan.println("Invalid input.");
+                        }
+                    }
+                } while (bugrep == null);
+
+                scan.println("You have selected: " + bugrep.getTitle() + " with uniqueId: " + bugrep.getUniqueID());
+                return bugrep;
+            } else {
+                scan.println("No bugreports in the system match the search term");
+            }
         }
     }
 }
