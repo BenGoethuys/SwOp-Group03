@@ -199,7 +199,7 @@ public class CommentTest {
     public void testAddSubCommentNoPermission() throws PermissionException {
         comment1.addSubComment(admin, "Valid text");
     }
-    
+
     /**
      * Test method for
      * {@link bugtrap03.bugdomain.Comment#isValidSubComment(bugtrap03.bugdomain.Comment)}
