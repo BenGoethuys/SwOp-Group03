@@ -41,14 +41,17 @@ public class CmdParser {
         cmdList.add(new SimpleEntry("login", new LoginCmd(this.terminal)));
         cmdList.add(new SimpleEntry("createproject", new CreateProjectCmd()));
         cmdList.add(new SimpleEntry("updateproject", new UpdateProjectCmd()));
+        cmdList.add(new SimpleEntry("deleteproject", new DeleteProjectCmd()));
         cmdList.add(new SimpleEntry("showprojectdetails", new ShowProjectCmd()));
         cmdList.add(new SimpleEntry("createsubsystem", new CreateSubsystemCmd()));
         cmdList.add(new SimpleEntry("createbugreport", new CreateBugReportCmd()));
-        cmdList.add(new SimpleEntry("slectbugreport", new SelectBugReportCmd()));
+        cmdList.add(new SimpleEntry("selectbugreport", new SelectBugReportCmd()));
 
         //Custom abbreviations.
         cmdList.add(new SimpleEntry("createproj", new CreateProjectCmd()));
         cmdList.add(new SimpleEntry("updateproj", new UpdateProjectCmd()));
+        cmdList.add(new SimpleEntry("deleteproj", new DeleteProjectCmd()));
+        cmdList.add(new SimpleEntry("delproj", new DeleteProjectCmd()));
         cmdList.add(new SimpleEntry("showprojdetails", new ShowProjectCmd()));
         cmdList.add(new SimpleEntry("showprojdet", new ShowProjectCmd()));
         cmdList.add(new SimpleEntry("createsubsys", new CreateSubsystemCmd()));
