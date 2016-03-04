@@ -29,6 +29,7 @@ public class CmdParser {
 
     private Terminal terminal;
     private ArrayList<SimpleEntry<String, Cmd>> cmdList;
+    private ArrayList<SimpleEntry<String, Cmd>> cmdListExtra;
     private HashMap<String, Cmd> cmdMap;
 
     /**
@@ -49,23 +50,27 @@ public class CmdParser {
         cmdList.add(new SimpleEntry("inspectbugreport", new InspectBugReportCmd()));
         cmdList.add(new SimpleEntry("createcomment", new CreateCommentCmd()));
 
-        //Custom abbreviations.
-        cmdList.add(new SimpleEntry("createproj", new CreateProjectCmd()));
-        cmdList.add(new SimpleEntry("updateproj", new UpdateProjectCmd()));
-        cmdList.add(new SimpleEntry("deleteproj", new DeleteProjectCmd()));
-        cmdList.add(new SimpleEntry("delproj", new DeleteProjectCmd()));
-        cmdList.add(new SimpleEntry("showprojdetails", new ShowProjectCmd()));
-        cmdList.add(new SimpleEntry("showprojdet", new ShowProjectCmd()));
-        cmdList.add(new SimpleEntry("createsubsys", new CreateSubsystemCmd()));
-        cmdList.add(new SimpleEntry("createbugrep", new CreateBugReportCmd()));
-        cmdList.add(new SimpleEntry("selectbugrep", new SelectBugReportCmd()));
-        cmdList.add(new SimpleEntry("inspectbugrep", new InspectBugReportCmd()));
-        cmdList.add(new SimpleEntry("createcom", new CreateCommentCmd()));
-
         cmdMap = new HashMap<>();
         for (int i = 0; i < cmdList.size(); i++) {
             cmdMap.put(cmdList.get(i).getKey(), cmdList.get(i).getValue());
             cmdMap.put(Integer.toString(i), cmdList.get(i).getValue());
+        }
+
+        //Custom abbreviations.
+        cmdListExtra.add(new SimpleEntry("createproj", new CreateProjectCmd()));
+        cmdListExtra.add(new SimpleEntry("updateproj", new UpdateProjectCmd()));
+        cmdListExtra.add(new SimpleEntry("deleteproj", new DeleteProjectCmd()));
+        cmdListExtra.add(new SimpleEntry("delproj", new DeleteProjectCmd()));
+        cmdListExtra.add(new SimpleEntry("showprojdetails", new ShowProjectCmd()));
+        cmdListExtra.add(new SimpleEntry("showprojdet", new ShowProjectCmd()));
+        cmdListExtra.add(new SimpleEntry("createsubsys", new CreateSubsystemCmd()));
+        cmdListExtra.add(new SimpleEntry("createbugrep", new CreateBugReportCmd()));
+        cmdListExtra.add(new SimpleEntry("selectbugrep", new SelectBugReportCmd()));
+        cmdListExtra.add(new SimpleEntry("inspectbugrep", new InspectBugReportCmd()));
+        cmdListExtra.add(new SimpleEntry("createcom", new CreateCommentCmd()));
+
+        for (int i = 0; i < cmdListExtra.size(); i++) {
+            cmdMap.put(cmdListExtra.get(i).getKey(), cmdListExtra.get(i).getValue());
         }
     }
 
