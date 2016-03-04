@@ -116,7 +116,7 @@ public class CreateProjectCmd implements Cmd {
         } while (projBudgetEstimate == null);
 
         //Project lead developer
-        scan.println("Chose a lead developer.");
+        scan.println("choose a lead developer.");
         Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
 
         //Create Project
@@ -191,7 +191,7 @@ public class CreateProjectCmd implements Cmd {
         } while (budgetEstimate == null);
 
         //Lead developer
-        scan.println("Chose a lead developer.");
+        scan.println("choose a lead developer.");
         Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
 
         //Clone Project

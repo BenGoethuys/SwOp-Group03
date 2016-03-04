@@ -82,16 +82,16 @@ public class CreateProjectCmdTest {
         question.add("Invalid input.");
         question.add("Project budget estimate:");
         answer.add(projBudget);
-        question.add("Chose a lead developer.");
+        question.add("choose a lead developer.");
         question.add("Available options:");
         question.add("0. " + lead.getUsername());
-        question.add("I chose: ");
+        question.add("I choose: ");
         answer.add("25");
         question.add("Invalid input.");
-        question.add("I chose: ");
+        question.add("I choose: ");
         answer.add("test");
         question.add("Invalid input.");
-        question.add("I chose: ");
+        question.add("I choose: ");
         answer.add(leadName);
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
@@ -137,10 +137,10 @@ public class CreateProjectCmdTest {
         answer.add("clOne");
         question.add("Available projects:");
         question.add("0. " + proj.getName());
-        question.add("I chose: ");
+        question.add("I choose: ");
         answer.add("lol");
         question.add("Invalid input.");
-        question.add("I chose: ");
+        question.add("I choose: ");
         answer.add("0");
         question.add("You have chosen:");
         question.add("" + proj.getDetails());
@@ -159,7 +159,7 @@ public class CreateProjectCmdTest {
         question.add("Invalid input. Please try again.");
         question.add("New budget Estimate:");
         answer.add(Long.toString(budget));
-        question.add("Chose a lead developer.");
+        question.add("choose a lead developer.");
         question.add("Available options:");
         question.add("0. " + lead.getUsername());
         answer.add(lead.getUsername());

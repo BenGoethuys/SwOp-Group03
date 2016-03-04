@@ -54,7 +54,7 @@ public class CreateBugReportCmd implements Cmd {
         // Retrieve & process user input.
         Subsystem subsys = null;
         do {
-            scan.print("I chose: ");
+            scan.print("I choose: ");
             if (scan.hasNextInt()) { // by index
                 int index = scan.nextInt();// input
                 if (index >= 0 && index < subsysList.size()) {
@@ -94,7 +94,7 @@ public class CreateBugReportCmd implements Cmd {
         HashSet<BugReport> depList = new HashSet<>();
         boolean done = false;
         do {
-            scan.print("I chose: (leave blank if done)");
+            scan.print("I choose: (leave blank if done)");
             String input = scan.nextLine(); // input
             if (input.equalsIgnoreCase("")){
                 scan.println("Ended selection.");

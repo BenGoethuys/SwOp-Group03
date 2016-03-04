@@ -46,7 +46,7 @@ public class CreateSubsystemCmd implements Cmd {
         // Retrieve & process user input.
         AbstractSystem system = null;
         do {
-            scan.print("I chose: ");
+            scan.print("I choose: ");
             if (scan.hasNextInt()) { // by index
                 int index = scan.nextInt();// input
                 if (index >= 0 && index < list.size()) {

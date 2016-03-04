@@ -50,20 +50,20 @@ public class CreateCommentCmd implements Cmd {
         Comment comment = null;
         boolean done = false;
         do {
-            scan.print("I chose: (leave blank to create comment on the bugreport)");
-            if (scan.hasNextInt()) { // by index
-                int index = scan.nextInt();// input
-                if (index >= 0 && index < list.size()) {
-                    comment = list.get(index);
-                    done = true;
-                } else {
-                    scan.println("Invalid input.");
-                }
-            } else { // by name
-                String input = scan.nextLine(); // input
-                if (input.equalsIgnoreCase("")) {
-                    done = true;
-                } else {
+            scan.print("I choose (Nr): (leave blank to create comment on the bugreport)");
+            String input = scan.nextLine();
+            if (input.equalsIgnoreCase("")) {
+                done = true;
+            } else {
+                try {
+                    int index = Integer.parseInt(input);
+                    if (index >= 0 && index < list.size()) {
+                        comment = list.get(index);
+                        done = true;
+                    } else {
+                        scan.println("Invalid input.");
+                    }
+                } catch (NumberFormatException ex) {
                     scan.println("Invalid input.");
                 }
             }

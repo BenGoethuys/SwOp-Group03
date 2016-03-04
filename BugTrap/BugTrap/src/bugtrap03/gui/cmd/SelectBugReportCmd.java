@@ -105,7 +105,7 @@ public class SelectBugReportCmd implements Cmd {
             Predicate<BugReport> mode = null;
             String modeStr = null;
             do {
-                System.out.print("I chose: ");
+                System.out.print("I choose: ");
                 if (scan.hasNextInt()) { // by index
                     int index = scan.nextInt();// input
                     if (index >= 0 && index < this.modeList.size()) {
@@ -144,7 +144,7 @@ public class SelectBugReportCmd implements Cmd {
                 BugReport bugrep = null;
 
                 do {
-                    scan.print("I chose: ");
+                    scan.print("I choose: ");
                     if (scan.hasNextInt()) { // by index
                         int index = scan.nextInt();// input
                         if (index >= 0 && index < selected.size()) {

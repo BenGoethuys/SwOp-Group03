@@ -16,10 +16,10 @@ import purecollections.PList;
 public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
 
     /**
-     * Create a 'chose user' scenario wherein the person can chose
+     * Create a 'choose user' scenario wherein the person can choose
      * a certain user from a list of users from a specific class.
      *
-     * @param classType The type of the users to chose from. (exclude subclasses).
+     * @param classType The type of the users to choose from. (exclude subclasses).
      * @throws IllegalArgumentException When a non-null reference was given.
      */
     public GetUserOfExcactTypeCmd(Class<U> classType) throws IllegalArgumentException {
@@ -33,8 +33,8 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
     private Class<U> classType;
 
     /**
-     * Get the user the person chose. This asks the person which
-     * user to chose as by presenting him a list of users of the class,
+     * Get the user the person choose. This asks the person which
+     * user to choose as by presenting him a list of users of the class,
      * classType (classType, subclasses excluded).
      *
      * @param scan      The {@link Scanner} used to interact with the person.
@@ -61,7 +61,7 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
         //Retrieve & process user input.
         U user = null;
         do {
-            scan.print("I chose: ");
+            scan.print("I choose: ");
             if (scan.hasNextInt()) { //by index
                 int index = scan.nextInt();//input
                 if (index >= 0 && index < usersOfType.size()) {

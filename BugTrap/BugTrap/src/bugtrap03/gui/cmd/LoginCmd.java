@@ -90,7 +90,7 @@ public class LoginCmd implements Cmd {
 
     /**
      * Get the Class type the person wants to login as. This asks the person
-     * which class type he wants by presenting a list of options to chose from.
+     * which class type he wants by presenting a list of options to choose from.
      *
      * @param <U>  extends User.
      * @param scan The {@link Scanner} used to interact with the person.
@@ -99,7 +99,7 @@ public class LoginCmd implements Cmd {
      */
     private <U extends User> Class<U> getWantedUserType(TerminalScanner scan) throws CancelException {
         //Ask question
-        scan.println("Please chose your type of login.");
+        scan.println("Please choose your type of login.");
 
         //Print the users options.
         for (int i = 0; i < this.classList.size(); i++) {
@@ -109,7 +109,7 @@ public class LoginCmd implements Cmd {
         //Retrieve user input.
         Class<? extends User> chosenClass;
         do {
-            scan.print("I chose: ");
+            scan.print("I choose: ");
             if ((chosenClass = this.optionMap.get(scan.nextLine().toLowerCase())) == null) {
                 scan.println("Invalid input.");
             }

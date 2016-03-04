@@ -55,16 +55,16 @@ public class LoginCmdTest {
         LoginCmd cmd = new LoginCmd(dummyTerminal);
 
         //Setup scenario
-        question.add("Please chose your type of login.");
+        question.add("Please choose your type of login.");
         question.add("0. Administrator");
         question.add("1. Issuer");
         question.add("2. Developer");
-        question.add("I chose: ");
+        question.add("I choose: ");
         answer.add("0");
         question.add("Available options:");
         question.add("0. " + admin1.getUsername());
         question.add("1. " + admin2.getUsername());
-        question.add("I chose: ");
+        question.add("I choose: ");
         answer.add("0");
         question.add("Welcome " + admin1.getFullName() + " (" + admin1.getUsername() + ")");
 
@@ -95,28 +95,28 @@ public class LoginCmdTest {
         LoginCmd cmd = new LoginCmd(dummyTerminal);
 
         //Setup scenario
-        question.add("Please chose your type of login.");
+        question.add("Please choose your type of login.");
         question.add("0. Administrator");
         question.add("1. Issuer");
         question.add("2. Developer");
-        question.add("I chose: ");
+        question.add("I choose: ");
         answer.add("Wrong Input");
         question.add("Invalid input.");
-        question.add("I chose: ");
+        question.add("I choose: ");
         answer.add("2");
         question.add("No users of this type found.");
-        question.add("Please chose your type of login.");
+        question.add("Please choose your type of login.");
         question.add("0. Administrator");
         question.add("1. Issuer");
         question.add("2. Developer");
-        question.add("I chose: ");
+        question.add("I choose: ");
         answer.add("1");
         question.add("Available options:");
         question.add("0. " + issuer.getUsername());
-        question.add("I chose: ");
+        question.add("I choose: ");
         answer.add("Ben");
         question.add("Invalid input.");
-        question.add("I chose: ");
+        question.add("I choose: ");
         answer.add(issuer.getUsername());
         question.add("Welcome " + issuer.getFullName() + " (" + issuer.getUsername() + ")");
 
