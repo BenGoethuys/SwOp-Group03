@@ -495,4 +495,55 @@ public class BugReportTest {
 		new BugReport(issuer, "Hello", "World", depList, null);
 	}
 
+	@Test
+	public void testCompareTo() throws PermissionException {
+
+		BugReport lowerId = new BugReport(issuer, "lowerId", "This has the lower id", depList, subsystem);
+		BugReport higherID = new BugReport(issuer, "higherId", "This has the higher id", depList, subsystem);
+
+		assertTrue(lowerId.getUniqueID() < higherID.getUniqueID());
+
+		assertEquals(lowerId.compareTo(higherID), 1);
+		assertEquals(higherID.compareTo(lowerId), -1);
+
+	}
+
+	@Test
+	public void testGetDetails() throws PermissionException {
+        // For bugRep with empty depList
+		long id = BugReport.getNewUniqueID();
+		GregorianCalendar cal = new GregorianCalendar();
+		BugReport bugRep = new BugReport(issuer, id, "This is a good title", "This is a good description", cal, depList, subsystem);
+
+        // expected response :
+		String response = "Bug report id: " + id;
+		response += "\n creator: " + issuer.getFullName();
+		response += "\n title: " + "This is a good title";
+		response += "\n description: " + "This is a good description";
+		response += "\n creation date: " + cal.getTime();
+		response += "\n tag: " + bugRep.getTag().name();
+		response += "\n dependencies: ";
+		response += "\n subsystem: " + subsystem.getName();
+
+		assertEquals(bugRep.getDetails(), response);
+
+        // For bugRep with non empty depList
+        long id2 = BugReport.getNewUniqueID();
+        PList<BugReport> depList = PList.<BugReport>empty().plus(bugRep);
+		BugReport bugRep2 = new BugReport(issuer, id2, "This is a better title", "This is a better description", cal, depList, subsystem);
+
+        // new response:
+        response = "Bug report id: " + id2;
+        response += "\n creator: " + issuer.getFullName();
+        response += "\n title: " + "This is a better title";
+        response += "\n description: " + "This is a better description";
+        response += "\n creation date: " + cal.getTime();
+        response += "\n tag: " + bugRep.getTag().name();
+        response += "\n dependencies: ";
+        response += "\n \t id: " + id + ", title: " + "This is a good title";
+        response += "\n subsystem: " + subsystem.getName();
+
+        assertEquals(bugRep2.getDetails(), response);
+	}
+
 }
