@@ -51,8 +51,6 @@ public class Main {
         Developer major = model.createDeveloper("major", "Joseph", "Mays");
         Developer maria = model.createDeveloper("maria", "Maria", "Carney");
 
-        //TODO add bugrep3
-
         try {
             // create projectA
             Project projectA = model.createProject("ProjectA", "Description of projectA", major, 10000, admin);
@@ -61,14 +59,16 @@ public class Main {
             projectA.setRole(major, maria, Role.TESTER);
             // make subsystems
             projectA.makeSubsystemChild(new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-            projectA.makeSubsystemChild(new VersionID(), "SubsystemA2", "Description of susbsystem A2");
+            Subsystem subsystemA2 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA2", "Description of susbsystem A2");
             Subsystem subsystemA3 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA3", "Description of susbsystem A3");
             Subsystem subsystemA3_1 = subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
             subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
-            // make bug reports
+            // make bug report 2
             BugReport bugRep2 = subsystemA3_1.addBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty());
             bugRep2.addUser(major);
             bugRep2.addUser(maria);
+            // mak bug report 3
+            subsystemA2.addBugReport(major, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty());
 
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
@@ -85,7 +85,7 @@ public class Main {
             Subsystem subsystemB1 = projectB.makeSubsystemChild(new VersionID(), "SubsystemB1", "Description of susbsystem B1");
             Subsystem subsystemB2 = projectB.makeSubsystemChild(new VersionID(), "SubsystemB2", "Description of susbsystem B2");
             subsystemB2.makeSubsystemChild(new VersionID(), "SubsystemB2.1", "Description of susbsystem B2.1");
-            // make bug reports
+            // make bug report 1
             BugReport bugRep1 = subsystemB1.addBugReport(doc, "The function parse_ewd returns unexpected results", "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 1, 3), PList.<BugReport>empty());
             bugRep1.addUser(maria);
             bugRep1.setTag(Tag.UNDER_REVIEW, major);
