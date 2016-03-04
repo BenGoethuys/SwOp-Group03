@@ -196,7 +196,7 @@ public class Comment {
      * @throws PermissionException if the given creator doesn't have the needed permissions
      * @see Comment(Issuer, String)
      */
-    public Comment addSubComment(Issuer creator, String text) throws IllegalArgumentException, PermissionException {
+    public Comment addSubComment(User creator, String text) throws IllegalArgumentException, PermissionException {
         return this.addSubComment(new Comment(creator, text));
     }
 
