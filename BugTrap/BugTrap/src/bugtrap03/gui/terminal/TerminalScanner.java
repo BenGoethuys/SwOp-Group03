@@ -102,12 +102,39 @@ public class TerminalScanner {
      * @see #nextLine()
      */
     public int nextInt() throws CancelException {
-        if (hasNextInt()) {
+        if (this.hasNextInt()) {
             int result = this.scan.nextInt();
             this.scan.nextLine();
             return result;
         } else {
-            String result = this.nextLine();
+            this.nextLine();
+            throw new InputMismatchException("An integer was expected but not found.");
+        }
+    }
+
+    /**
+     * @see Scanner#hasNextLong()
+     */
+    public boolean hasNextLong(){
+        return scan.hasNextLong();
+    }
+
+    /**
+     * Execute as a {@link Scanner} except if the abort indication was given.
+     *
+     * @return
+     * @throws CancelException When nextLong() would throw this.
+     * @throws InputMismatchException When no Integer was found.
+     * @see Scanner#nextLong()
+     * @see #nextLine()
+     */
+    public long nextLong() throws CancelException {
+        if (this.hasNextLong()) {
+            long result = this.scan.nextLong();
+            this.scan.nextLine();
+            return result;
+        } else {
+            this.nextLine();
             throw new InputMismatchException("An integer was expected but not found.");
         }
     }
