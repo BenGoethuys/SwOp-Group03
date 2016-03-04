@@ -36,10 +36,10 @@ public class SelectBugReportCmd implements Cmd {
      * This method initialises the list of possible search methods
      */
     private void initList() {
-        modeList.add(new AbstractMap.SimpleEntry<>("title", u -> u.getTitle().equals(o)));
-        modeList.add(new AbstractMap.SimpleEntry<>("description", u -> u.getDescription().equals(o)));
-        modeListExtra.add(new AbstractMap.SimpleEntry<>("desc", u -> u.getDescription().equals(o)));
-        modeList.add(new AbstractMap.SimpleEntry<>("user", u -> u.getCreator().equals(o)));
+        modeList.add(new AbstractMap.SimpleEntry<>("title", u -> u.getTitle().toLowerCase().contains(((String) o).toLowerCase())));
+        modeList.add(new AbstractMap.SimpleEntry<>("description", u -> u.getDescription().toLowerCase().contains(((String) o).toLowerCase())));
+        modeListExtra.add(new AbstractMap.SimpleEntry<>("desc", u -> u.getDescription().toLowerCase().contains(((String) o).toLowerCase())));
+        modeList.add(new AbstractMap.SimpleEntry<>("creator", u -> u.getCreator().equals(o)));
         modeList.add(new AbstractMap.SimpleEntry<>("assigned", u -> u.getUserList().contains(o)));
         modeList.add(new AbstractMap.SimpleEntry<>("uniqueId", u -> new Long(u.getUniqueID()).equals(o)));
         modeListExtra.add(new AbstractMap.SimpleEntry<>("id", u -> new Long(u.getUniqueID()).equals(o)));
@@ -55,7 +55,7 @@ public class SelectBugReportCmd implements Cmd {
         cmdMap.put("title", new GetStringCmd());
         cmdMap.put("description", new GetStringCmd());
         cmdMap.put("desc", new GetStringCmd());
-        cmdMap.put("user", new GetUserOfTypeCmd<>(Issuer.class));
+        cmdMap.put("creator", new GetUserOfTypeCmd<>(Issuer.class));
         cmdMap.put("assigned", new GetUserOfTypeCmd<>(Developer.class));
         cmdMap.put("uniqueId", new GetLongCmd());
         cmdMap.put("id", new GetLongCmd());
@@ -138,7 +138,7 @@ public class SelectBugReportCmd implements Cmd {
                 scan.println("Available bugReports:");
                 for (int i = 0; i < selected.size(); i++) {
                     BugReport bugrep = selected.get(i);
-                    scan.println(i + ". " + bugrep.getTitle() + ", uniqueID: " + bugrep.getUniqueID());
+                    scan.println(i + ". " + bugrep.getTitle() + "\t -UniqueID: " + bugrep.getUniqueID());
                 }
 
                 BugReport bugrep = null;
@@ -162,7 +162,7 @@ public class SelectBugReportCmd implements Cmd {
                     }
                 } while (bugrep == null);
 
-                scan.println("You have selected: " + bugrep.getTitle() + " with uniqueId: " + bugrep.getUniqueID());
+                scan.println("You have selected: " + bugrep.getTitle() + "\t -UniqueId: " + bugrep.getUniqueID());
                 return bugrep;
             } else {
                 scan.println("No bugreports in the system match the search term");
