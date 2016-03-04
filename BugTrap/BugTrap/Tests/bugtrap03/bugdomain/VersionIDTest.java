@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.omg.IOP.TAG_MULTIPLE_COMPONENTS;
 
 /**
  * @author Mathias
@@ -54,7 +55,7 @@ public class VersionIDTest {
 	}
 
 	/**
-	 * Test method for {@link bugdomain.VersionID#getFirstNb()}.
+	 * Test method for {@link VersionID#getFirstNb()}.
 	 */
 	@Test
 	public void testGetFirstNb() {
@@ -62,7 +63,7 @@ public class VersionIDTest {
 	}
 
 	/**
-	 * Test method for {@link bugdomain.VersionID#getSecondNb()}.
+	 * Test method for {@link VersionID#getSecondNb()}.
 	 */
 	@Test
 	public void testGetSecondNb() {
@@ -70,7 +71,7 @@ public class VersionIDTest {
 	}
 
 	/**
-	 * Test method for {@link bugdomain.VersionID#getThirdNb()}.
+	 * Test method for {@link VersionID#getThirdNb()}.
 	 */
 	@Test
 	public void testGetThirdNb() {
@@ -78,7 +79,7 @@ public class VersionIDTest {
 	}
 
 	/**
-	 * Test method for {@link bugdomain.VersionID#toString()}.
+	 * Test method for {@link VersionID#toString()}.
 	 */
 	@Test
 	public void testToString() {
@@ -88,7 +89,7 @@ public class VersionIDTest {
 
 	/**
 	 * Test method for
-	 * {@link bugdomain.VersionID#compareTo(bugdomain.VersionID)}.
+	 * {@link VersionID#compareTo(VersionID)}.
 	 */
 	@Test
 	public void testCompareTo() {
@@ -121,6 +122,9 @@ public class VersionIDTest {
 	    assertFalse(versionID.equals(null));
 	    VersionID versionID3 = new VersionID();
 	    assertTrue(versionID2.equals(versionID3));
+
+		// equals with other object
+		assertFalse(versionID.equals(new Object()));
 	}
 
 }
