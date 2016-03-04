@@ -56,6 +56,7 @@ public class CmdParser {
             cmdMap.put(Integer.toString(i), cmdList.get(i).getValue());
         }
 
+        cmdListExtra = new ArrayList<>();
         //Custom abbreviations.
         cmdListExtra.add(new SimpleEntry("createproj", new CreateProjectCmd()));
         cmdListExtra.add(new SimpleEntry("updateproj", new UpdateProjectCmd()));
