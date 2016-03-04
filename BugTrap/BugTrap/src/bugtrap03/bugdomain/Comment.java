@@ -128,13 +128,13 @@ public class Comment {
      *
      * @return all the comments in this comment
      */
-    public ArrayList<Comment> getAllComments() {
+    public PList<Comment> getAllComments() {
         ArrayList<Comment> list = new ArrayList<>();
         list.add(this);
         for (Comment comment : this.getSubComments()) {
             list.addAll(comment.getAllComments());
         }
-        return list;
+        return PList.<Comment>empty().plusAll(list);
     }
 
     /**

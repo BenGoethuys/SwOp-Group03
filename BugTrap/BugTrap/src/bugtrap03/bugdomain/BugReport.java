@@ -402,12 +402,12 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return all the comments in this bug report
      */
-    public ArrayList<Comment> getAllComments() {
+    public PList<Comment> getAllComments() {
         ArrayList<Comment> list = new ArrayList<>();
         for (Comment comment : this.getCommentList()) {
             list.addAll(comment.getAllComments());
         }
-        return list;
+        return PList.<Comment>empty().plusAll(list);
     }
 
     /**
