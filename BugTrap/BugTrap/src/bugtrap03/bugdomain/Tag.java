@@ -22,7 +22,7 @@ public enum Tag {
      * @param neededPerm the needed RolePerm to set this tag
      * @see RolePerm
      */
-    private Tag(RolePerm neededPerm) {
+    Tag(RolePerm neededPerm) {
         this.neededPerm = neededPerm;
     }
 
