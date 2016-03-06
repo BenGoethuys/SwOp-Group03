@@ -8,7 +8,8 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import java.io.IOException;
 
 /**
- * Created by Ben on 29/02/2016.
+ * This command clears the screen of the windows cmd and the linux/mac terminal
+ * Created by Ben Goethuys en Vincent Derkinderen on 29/02/2016.
  */
 public class ClearCmd implements Cmd {
 
@@ -16,10 +17,9 @@ public class ClearCmd implements Cmd {
      * Attempt to clear the console screen.
      *
      * @param scan The scanner to clear.
-     * @param dummy2
-     * @param dummy3
+     * @param dummy2 Doesn't matter
+     * @param dummy3 Doesn't matter
      * @return null
-     * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
     public Object exec(TerminalScanner scan, DataModel dummy2, User dummy3) {

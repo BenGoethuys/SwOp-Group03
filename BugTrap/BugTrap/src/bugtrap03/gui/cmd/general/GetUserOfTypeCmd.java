@@ -11,7 +11,8 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import purecollections.PList;
 
 /**
- * @author Admin
+ * This class represent the sub-scenario where the user selects an user of a given type
+ * @author Vincent Derkinderen
  */
 public class GetUserOfTypeCmd<U extends User> implements Cmd {
 

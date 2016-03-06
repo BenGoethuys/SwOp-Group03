@@ -10,7 +10,7 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import purecollections.PList;
 
 /**
- * //TODO write heading
+ * This command represents a sub use case where the user wants to select a project
  *
  * @author Ben Goethuys
  */
@@ -20,19 +20,18 @@ public class GetProjectCmd implements Cmd {
      * Get a Project chosen by the person by presenting him a list of all
      * projects.
      * <p>
-     * <p>
      * <br> 1. The system shows a list of existing projects.
      * <br> 2. The person selects an existing project of the list.
      *
      * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user  The {@link User} who wants to executes this command.
+     * @param dummy3 Doesn't matter
      * @return The chosen project.
      * @throws CancelException When the users wants to abort the current cmd
      * @see Cmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
-    public Project exec(TerminalScanner scan, DataModel model, User user) throws CancelException {
+    public Project exec(TerminalScanner scan, DataModel model, User dummy3) throws CancelException {
         // show all projects
         PList<Project> projectList = model.getProjectList();
         scan.println("Available projects:");

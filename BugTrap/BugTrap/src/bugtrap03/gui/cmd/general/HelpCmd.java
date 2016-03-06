@@ -14,7 +14,8 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
 /**
- * @author Admin
+ * This command prints all the commandos supplied when executed
+ * @author Vincent Derkinderen
  */
 public class HelpCmd implements Cmd {
 
@@ -41,8 +42,8 @@ public class HelpCmd implements Cmd {
      * the constructor.
      *
      * @param scan The scanner used to print to.
-     * @param dummy2
-     * @param dummy3
+     * @param dummy2 doesn't matter
+     * @param dummy3 doesn't matter
      * @return null.
      */
     @Override

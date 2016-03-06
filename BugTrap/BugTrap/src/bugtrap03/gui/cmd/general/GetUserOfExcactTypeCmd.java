@@ -11,7 +11,8 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import purecollections.PList;
 
 /**
- * @author Admin
+ * This class represent the sub-scenario where the user selects an user of a given type
+ * @author Vincent Derkinderen
  */
 public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
 
@@ -39,7 +40,7 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
      *
      * @param scan      The {@link Scanner} used to interact with the person.
      * @param model     The model used to get access to the model.
-     *
+     * @param dummy Doesn't matter
      * @return The chosen user. Null if there was no option of that type.
      * @throws CancelException When the cancel operation was executed.
      */
