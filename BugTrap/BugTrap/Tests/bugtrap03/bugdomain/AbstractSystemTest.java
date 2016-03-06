@@ -79,6 +79,13 @@ public class AbstractSystemTest {
     }
 
     @Test
+    public void isValidVersionID(){
+        assertTrue(AbstractSystem.isValidVersionId(new VersionID(0,0,2)));
+        assertTrue(AbstractSystem.isValidVersionId(new VersionID()));
+        assertFalse(AbstractSystem.isValidVersionId(null));
+    }
+
+    @Test
     public void testGetName() {
         assertEquals(subName, subSysTest.getName());
         assertEquals(testName, testProject.getName());
@@ -132,6 +139,16 @@ public class AbstractSystemTest {
     @Test (expected = IllegalArgumentException.class)
     public void testSetNullSubsDescription() {
         subSysTest.setDescription(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetNullProjVersionID() {
+        testProject.setVersionID(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetNullSubsVersionID() {
+        subSysTest.setVersionID(null);
     }
 
     @Test
