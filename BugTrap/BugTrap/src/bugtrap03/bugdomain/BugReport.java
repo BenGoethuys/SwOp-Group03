@@ -609,7 +609,9 @@ public class BugReport implements Comparable<BugReport> {
         if (this.getTag() == Tag.NEW && this.getUserList().isEmpty()) {
             this.setTag(Tag.ASSIGNED);
         }
-        this.userList = this.getUserList().plus(dev);
+        if (! this.userList.contains(dev)) {
+            this.userList = this.getUserList().plus(dev);
+        }
     }
 
     /**
