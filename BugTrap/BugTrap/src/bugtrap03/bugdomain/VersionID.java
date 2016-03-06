@@ -1,7 +1,7 @@
 package bugtrap03.bugdomain;
 
 /**
- *  //TODO heading
+ *  This class represents a version id consisting out of 3 numbers, separated by a dot
  */
 @DomainAPI
 public class VersionID implements Comparable<VersionID> {
