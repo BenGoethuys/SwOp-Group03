@@ -1,8 +1,5 @@
 package bugtrap03.gui.cmd.general;
 
-import bugtrap03.DataModel;
-import bugtrap03.bugdomain.Project;
-import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.Cmd;
 import java.util.AbstractMap.SimpleEntry;
@@ -57,7 +54,7 @@ public class HelpCmdTest {
         printList.add(new SimpleEntry("clear", new ClearCmd()));
         
         
-        HelpCmd cmd = new HelpCmd(null);
+        HelpCmd cmd = new HelpCmd(printList);
 
         question.add("List of possible commands:");
         question.add("test");
