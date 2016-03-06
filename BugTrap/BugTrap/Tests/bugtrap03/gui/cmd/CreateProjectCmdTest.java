@@ -103,6 +103,8 @@ public class CreateProjectCmdTest {
         Project project = cmd.exec(scan, model, admin);
 
         //Test effects.
+        assertEquals(model.getProjectList().size(), 1);
+        assertTrue(model.getProjectList().contains(project));
         assertEquals(leadName, project.getLead().getUsername());
         assertEquals(projName, project.getName());
         assertEquals(projDesc, project.getDescription());
@@ -173,6 +175,8 @@ public class CreateProjectCmdTest {
         Project project = cmd.exec(scan, model, admin);
 
         //Test effects.
+        assertEquals(model.getProjectList().size(), 2);
+        assertTrue(model.getProjectList().contains(project));
         assertEquals(lead.getUsername(), project.getLead().getUsername());
         assertEquals(project.getVersionID(), newVersionID);
         assertEquals(date.get(GregorianCalendar.YEAR), project.getStartDate().get(GregorianCalendar.YEAR));
