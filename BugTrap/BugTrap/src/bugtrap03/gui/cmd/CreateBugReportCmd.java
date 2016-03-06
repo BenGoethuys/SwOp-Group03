@@ -38,13 +38,13 @@ public class CreateBugReportCmd implements Cmd {
      * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user The {@link User} who wants to executes this command.
-     * @return null if there is no result specified.
+     * @return The created bug report.
      * @throws PermissionException When the user does not have sufficient
      * permissions.
      * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
-    public Object exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
+    public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
 
         Project proj = new GetProjectCmd().exec(scan, model, user);
 
