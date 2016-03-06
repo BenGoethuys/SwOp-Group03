@@ -47,20 +47,19 @@ public class CreateProjectCmd implements Cmd {
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
         scan.println("Create or clone a new project?");
-        String answer = null;
+        Project result = null;
         do {
             scan.print("Create or clone: ");
-            answer = scan.nextLine();
+            String answer = scan.nextLine();
 
             if (answer.equalsIgnoreCase("create")) {
-                return createProjectScenario(scan, model, user);
+                result = createProjectScenario(scan, model, user);
             } else if (answer.equalsIgnoreCase("clone")) {
-                return cloneProjectScenario(scan, model, user);
+                result = cloneProjectScenario(scan, model, user);
             } else {
                 scan.println("Invalid input. Use create or clone.");
-                answer = null;
             }
-        } while (answer == null);
+        } while (result == null);
         return null;
     }
 
