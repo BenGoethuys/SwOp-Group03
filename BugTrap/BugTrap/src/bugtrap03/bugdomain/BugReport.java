@@ -5,9 +5,9 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 
 import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
@@ -367,12 +367,12 @@ public class BugReport implements Comparable<BugReport> {
      * @throws PermissionException      if the given user doesn't have the needed permission to change the tag of this bug report
      * @see BugReport#isValidTag(Tag)
      */
-    public void setTag(Tag tag, Issuer issuer) throws IllegalArgumentException, PermissionException {
-        if (issuer == this.getCreator() && this.getTag() == Tag.UNDER_REVIEW && (tag == Tag.ASSIGNED || tag == Tag.RESOLVED)) {
+    public void setTag(Tag tag, User issuer) throws IllegalArgumentException, PermissionException {
+        if (this.getCreator().equals(issuer) && this.getTag() == Tag.UNDER_REVIEW && (tag == Tag.ASSIGNED || tag == Tag.RESOLVED)) {
             this.setTag(tag);
         } else if (tag == null) {
             throw new IllegalArgumentException("The given tag for bug report is not valid for this state of the bug report");
-        } else if (!issuer.hasRolePermission(tag.getNeededPerm(), this.getSubsystem().getParentProject())) {
+        } else if (! issuer.hasRolePermission(tag.getNeededPerm(), this.getSubsystem().getParentProject())) {
             throw new PermissionException("The given issuer: " + issuer.getFullName() + ", doens't have the needed permission to change the tag of this bug report");
         } else {
             this.setTag(tag);
@@ -597,8 +597,10 @@ public class BugReport implements Comparable<BugReport> {
      * This method adds a developer to the associated developers list of this bug report
      *
      * @param dev he developer to check
+     *
+     * @throws IllegalArgumentException If the given developer was not valid for this bug report
      */
-    public void addUser(Developer dev) {
+    protected void addUser(Developer dev) throws IllegalArgumentException {
         if (!isValidUser(dev)) {
             throw new IllegalArgumentException("The given developer is not a valid developer to associate with this bug report");
         }
@@ -608,6 +610,24 @@ public class BugReport implements Comparable<BugReport> {
             this.setTag(Tag.ASSIGNED);
         }
         this.userList = this.getUserList().plus(dev);
+    }
+
+    /**
+     * This method adds a developer to this bug report issued by the given user
+     * @param user  The user that wants to add a developer to this bugreport
+     * @param dev   The developper to assign to this bug report
+     * @throws IllegalArgumentException If the given user was null
+     * @throws PermissionException  If the given users doesn't have the needed permissions
+     * @see BugReport#addUser(Developer)
+     */
+    public void addUser(User user, Developer dev) throws IllegalArgumentException, PermissionException {
+        if (user == null){
+            throw new IllegalArgumentException("the given user was null");
+        }
+        if (! user.hasRolePermission(RolePerm.ASSIGN_DEV_BUGREPORT, this.getSubsystem().getParentProject())){
+            throw new PermissionException("The given user has insufficient permissions to assign the developer to this bug report");
+        }
+        this.addUser(dev);
     }
 
     /**
