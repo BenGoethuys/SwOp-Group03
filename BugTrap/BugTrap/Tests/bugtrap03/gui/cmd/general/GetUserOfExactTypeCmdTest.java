@@ -73,9 +73,9 @@ public class GetUserOfExactTypeCmdTest {
     public void testExecIndex() throws CancelException {
         //Setup variables.
         DataModel model = new DataModel();
-        Developer lead = model.createDeveloper("meGoodLead", "Luky", "Luke");
-        User issuer = model.createIssuer("noDev", "BadLuck", "Luke");
-        User admin = model.createAdministrator("admin", "adminT", "bie");
+        Developer lead = model.createDeveloper("meGoodLead20", "Luky", "Luke");
+        User issuer = model.createIssuer("noDev20", "BadLuck", "Luke");
+        User admin = model.createAdministrator("admin20", "adminT", "bie");
 
         ArrayDeque<String> question = new ArrayDeque();
         ArrayDeque<String> answer = new ArrayDeque();
