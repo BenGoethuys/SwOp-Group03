@@ -65,8 +65,8 @@ public class Main {
             subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
             // make bug report 2
             BugReport bugRep2 = subsystemA3_1.addBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty());
-            bugRep2.addUser(major);
-            bugRep2.addUser(maria);
+            bugRep2.addUser(major, major);
+            bugRep2.addUser(major, maria);
             // mak bug report 3
             subsystemA2.addBugReport(major, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty());
 
@@ -87,7 +87,7 @@ public class Main {
             subsystemB2.makeSubsystemChild(new VersionID(), "SubsystemB2.1", "Description of susbsystem B2.1");
             // make bug report 1
             BugReport bugRep1 = subsystemB1.addBugReport(doc, "The function parse_ewd returns unexpected results", "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 1, 3), PList.<BugReport>empty());
-            bugRep1.addUser(maria);
+            bugRep1.addUser(maria, maria);
             bugRep1.setTag(Tag.UNDER_REVIEW, major);
             bugRep1.setTag(Tag.RESOLVED, doc);
             bugRep1.setTag(Tag.CLOSED, maria);
