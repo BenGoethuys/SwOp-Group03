@@ -55,6 +55,9 @@ public class GetProjectCmdTest {
         answer.add("wrongInput");
         question.add("Invalid input.");
         question.add("I choose: ");
+        answer.add("-1");
+        question.add("Invalid input.");
+        question.add("I choose: ");
         answer.add("1");
         question.add("You have chosen:");
         question.add(proj1.getDetails());
