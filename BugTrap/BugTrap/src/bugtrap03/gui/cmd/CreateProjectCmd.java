@@ -60,7 +60,7 @@ public class CreateProjectCmd implements Cmd {
                 scan.println("Invalid input. Use create or clone.");
             }
         } while (result == null);
-        return null;
+        return result;
     }
 
     /**
@@ -194,7 +194,7 @@ public class CreateProjectCmd implements Cmd {
         Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
 
         //Clone Project
-        Project newProject = project.cloneProject(versionID, lead, startDate, budgetEstimate);
+        Project newProject = model.cloneProject(project, versionID, lead, startDate, budgetEstimate);
 
         //Print created project details
         scan.println("Project details:");
