@@ -3,7 +3,7 @@
  */
 package bugtrap03.gui.cmd;
 
-import bugtrap03.DataModel;
+import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
@@ -27,7 +27,7 @@ public class DeleteProjectCmdTest {
 
     /**
      * Test method for
-     * {@link bugtrap03.gui.cmd.CreateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.DataModel, bugtrap03.bugdomain.usersystem.User)}.
+     * {@link bugtrap03.gui.cmd.CreateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}.
      */
     @Test
     public void testExec() throws PermissionException, CancelException {

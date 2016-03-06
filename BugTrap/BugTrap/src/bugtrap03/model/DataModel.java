@@ -1,4 +1,4 @@
-package bugtrap03;
+package bugtrap03.model;
 
 import bugtrap03.bugdomain.*;
 import bugtrap03.bugdomain.permission.PermissionException;

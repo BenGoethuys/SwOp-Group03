@@ -5,7 +5,7 @@
  */
 package bugtrap03.gui.cmd.general;
 
-import bugtrap03.DataModel;
+import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -29,7 +29,7 @@ public class GetProjectCmdTest {
      * @throws PermissionException Never
      * @throws CancelException Never
      * @see GetProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner,
-     * bugtrap03.DataModel, bugtrap03.bugdomain.usersystem.User)
+     * DataModel, bugtrap03.bugdomain.usersystem.User)
      */
     @Test
     public void testExecByIndex() throws IllegalArgumentException, PermissionException, CancelException {
@@ -78,7 +78,7 @@ public class GetProjectCmdTest {
      * @throws PermissionException Never
      * @throws CancelException Never
      * @see GetProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner,
-     * bugtrap03.DataModel, bugtrap03.bugdomain.usersystem.User)
+     * DataModel, bugtrap03.bugdomain.usersystem.User)
      */
     @Test
     public void testExecName() throws IllegalArgumentException, PermissionException, CancelException {

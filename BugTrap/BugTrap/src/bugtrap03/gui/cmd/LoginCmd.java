@@ -1,6 +1,6 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.DataModel;
+import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;

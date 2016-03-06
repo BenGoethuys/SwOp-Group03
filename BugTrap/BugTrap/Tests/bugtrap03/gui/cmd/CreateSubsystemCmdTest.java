@@ -5,6 +5,7 @@ package bugtrap03.gui.cmd;
 
 import static org.junit.Assert.*;
 
+import bugtrap03.model.DataModel;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class CreateSubsystemCmdTest {
     }
 
     /**
-     * Test method for {@link bugtrap03.gui.cmd.CreateSubsystemCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.DataModel, bugtrap03.bugdomain.usersystem.User)}.
+     * Test method for {@link bugtrap03.gui.cmd.CreateSubsystemCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}.
      */
     @Test
     public void testExec() {
