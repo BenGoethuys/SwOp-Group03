@@ -13,6 +13,7 @@ import java.util.ArrayList;
  *
  * @author Ben Goethuys
  */
+@DomainAPI
 public class Comment {
 
     /**
@@ -39,6 +40,7 @@ public class Comment {
      *
      * @return the creator
      */
+    @DomainAPI
     public User getCreator() {
         return creator;
     }
@@ -68,6 +70,7 @@ public class Comment {
      * @param creator the creator to check
      * @return true if the creator is a valid creator
      */
+    @DomainAPI
     public static boolean isValidCreator(User creator) {
         if (creator == null) {
             return false;
@@ -83,6 +86,7 @@ public class Comment {
      *
      * @return the text
      */
+    @DomainAPI
     public String getText() {
         return text;
     }
@@ -107,6 +111,7 @@ public class Comment {
      * @param text the text to check
      * @return true if the given text is a valid text for this comment
      */
+    @DomainAPI
     public static boolean isValidText(String text) {
         if (text == null) {
             return false;
@@ -119,6 +124,7 @@ public class Comment {
      *
      * @return the subComments of this comment
      */
+    @DomainAPI
     public PList<Comment> getSubComments() {
         return SubComments;
     }
@@ -128,6 +134,7 @@ public class Comment {
      *
      * @return all the comments in this comment
      */
+    @DomainAPI
     public PList<Comment> getAllComments() {
         ArrayList<Comment> list = new ArrayList<>();
         list.add(this);
@@ -206,6 +213,7 @@ public class Comment {
      * @param comment the comment to check
      * @return true if the given comment is valid as a sub-comment for this comment
      */
+    @DomainAPI
     public boolean isValidSubComment(Comment comment) {
         if (comment == null) {
             return false;

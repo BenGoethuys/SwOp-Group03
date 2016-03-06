@@ -20,6 +20,7 @@ import purecollections.PList;
  *
  * @author Kwinten Buytaert & Ben Goethuys
  */
+@DomainAPI
 public class Project extends AbstractSystem {
 
     /**
@@ -129,6 +130,7 @@ public class Project extends AbstractSystem {
      *
      * @return the lead developer of this project, null if no exists yet
      */
+    @DomainAPI
     public Developer getLead() {
         Developer lead = null;
         try {
@@ -164,6 +166,7 @@ public class Project extends AbstractSystem {
      * @param lead The lead of the Project
      * @return true if the given lead is valid for this project
      */
+    @DomainAPI
     public static boolean isValidLead(Developer lead) {
         if (lead == null) {
             return false;
@@ -176,6 +179,7 @@ public class Project extends AbstractSystem {
      *
      * @return The start date of the project.
      */
+    @DomainAPI
     public GregorianCalendar getStartDate() {
         return startDate;
     }
@@ -201,6 +205,7 @@ public class Project extends AbstractSystem {
      * @param startDate    The start date.
      * @return True if creation date <= start date.
      */
+    @DomainAPI
     public static boolean isValidStartDate(GregorianCalendar creationDate, GregorianCalendar startDate) {
         if (creationDate == null || startDate == null) {
             return false;
@@ -217,6 +222,7 @@ public class Project extends AbstractSystem {
      * @param startDate The start date.
      * @return True if creation date <= start date.
      */
+    @DomainAPI
     public boolean isValidStartDate(GregorianCalendar startDate) {
         if (startDate == null) {
             return false;
@@ -232,6 +238,7 @@ public class Project extends AbstractSystem {
      *
      * @return The creation date of the project.
      */
+    @DomainAPI
     public GregorianCalendar getCreationDate() {
         return creationDate;
     }
@@ -257,6 +264,7 @@ public class Project extends AbstractSystem {
      * @param date the date to check
      * @return true if the given date is valid
      */
+    @DomainAPI
     public static boolean isValidCreationDate(GregorianCalendar date) {
         if (date == null) {
             return false;
@@ -269,6 +277,7 @@ public class Project extends AbstractSystem {
      *
      * @return the set budget estimate as a long
      */
+    @DomainAPI
     public long getBudgetEstimate() {
         return this.budgetEstimate;
     }
@@ -295,6 +304,7 @@ public class Project extends AbstractSystem {
      * @param budgetEstimate The budget estimate to check of type long
      * @return false if budgetEstimate is smaller than zero
      */
+    @DomainAPI
     public static boolean isValidBudgetEstimate(long budgetEstimate) {
         if (budgetEstimate < 0) {
             return false;
@@ -355,6 +365,7 @@ public class Project extends AbstractSystem {
      * @param dev The developer to get the roles for
      * @return The roles the developer has in this project
      */
+    @DomainAPI
     public PList<Role> getAllRolesDev(Developer dev) {
         return this.projectParticipants.get(dev);
     }
@@ -368,6 +379,7 @@ public class Project extends AbstractSystem {
      * @return true if the developer has the requested permission
      */
     @Override
+    @DomainAPI
     public boolean hasPermission(Developer dev, RolePerm perm) {
         PList<Role> roleList = this.projectParticipants.get(dev);
         if (roleList == null) {
@@ -385,6 +397,7 @@ public class Project extends AbstractSystem {
      * name, description, versionID, budget estimate, start date,
      * lead developer and creation date
      */
+    @DomainAPI
     public String getDetails() {
         String details = "Project name:\t \t";
         details += this.getName();

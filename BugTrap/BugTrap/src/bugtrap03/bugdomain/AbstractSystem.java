@@ -9,6 +9,7 @@ import purecollections.PList;
 /**
  * @author Group 03.
  */
+@DomainAPI
 public abstract class AbstractSystem {
 
     private VersionID version;
@@ -57,6 +58,7 @@ public abstract class AbstractSystem {
      *
      * @return The versionID of the project.
      */
+    @DomainAPI
     public VersionID getVersionID() {
         return version;
     }
@@ -80,6 +82,7 @@ public abstract class AbstractSystem {
      *
      * @return The name of the project.
      */
+    @DomainAPI
     public String getName() {
         return name;
     }
@@ -107,6 +110,7 @@ public abstract class AbstractSystem {
      * @param name The string argument to used as name.
      * @return true if the name is not an empty string or null.
      */
+    @DomainAPI
     public static boolean isValidName(String name) {
         return (!"".equals(name) && name != null);
     }
@@ -116,6 +120,7 @@ public abstract class AbstractSystem {
      *
      * @return The description of the project.
      */
+    @DomainAPI
     public String getDescription() {
         return description;
     }
@@ -141,6 +146,7 @@ public abstract class AbstractSystem {
      * @param desc The description to check.
      * @return False when desc is a null reference or an empty string.
      */
+    @DomainAPI
     public static boolean isValidDescription(String desc) {
         if (desc == null) {
             return false;
@@ -231,6 +237,7 @@ public abstract class AbstractSystem {
      *
      * @return the list of all bugReports
      */
+    @DomainAPI
     public PList<BugReport> getAllBugReports() {
         ArrayList<BugReport> list = new ArrayList<>();
         for (Subsystem subsystem : this.getChilds()) {
@@ -246,6 +253,7 @@ public abstract class AbstractSystem {
      *
      * @return the list of all Subsystem childs.
      */
+    @DomainAPI
     public PList<Subsystem> getAllSubsystems() {
         ArrayList<Subsystem> list = new ArrayList<>();
         for (Subsystem subsystem : this.getChilds()) {
@@ -262,6 +270,7 @@ public abstract class AbstractSystem {
      * @param perm the requested permission
      * @return true if the developer has the requested permission
      */
+    @DomainAPI
     public abstract boolean hasPermission(Developer dev, RolePerm perm);
     
 

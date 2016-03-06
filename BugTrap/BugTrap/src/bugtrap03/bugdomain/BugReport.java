@@ -16,6 +16,7 @@ import purecollections.PList;
  *
  * @author Ben Goethuys
  */
+@DomainAPI
 public class BugReport implements Comparable<BugReport> {
 
     /**
@@ -185,6 +186,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return the uniqueID of this bug report
      */
+    @DomainAPI
     public long getUniqueID() {
         return uniqueID;
     }
@@ -194,6 +196,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return a new uniqueId for a bug report
      */
+    @DomainAPI
     public static long getNewUniqueID() {
         while (BugReport.allTakenIDs.contains(BugReport.uniqueIDCounter)) {
             BugReport.uniqueIDCounter++;
@@ -221,6 +224,7 @@ public class BugReport implements Comparable<BugReport> {
      * @return true if the key is not taken at this point and is a valid ID for
      * a bug report
      */
+    @DomainAPI
     public static boolean isValidUniqueID(long uniqueID) {
         if (BugReport.allTakenIDs.contains(uniqueID)) {
             return false;
@@ -236,6 +240,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return the title
      */
+    @DomainAPI
     public String getTitle() {
         return title;
     }
@@ -261,6 +266,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param title the argument to check
      * @return true if the argument is a valid argument
      */
+    @DomainAPI
     public static boolean isValidTitle(String title) {
         if (title == null) {
             return false;
@@ -273,6 +279,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return the description
      */
+    @DomainAPI
     public String getDescription() {
         return this.description;
     }
@@ -295,6 +302,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param description the description to check
      * @return true if the description is valid
      */
+    @DomainAPI
     public static boolean isValidDescription(String description) {
         if (description == null) {
             return false;
@@ -307,6 +315,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return the creationDate
      */
+    @DomainAPI
     public GregorianCalendar getCreationDate() {
         return (GregorianCalendar) creationDate.clone();
     }
@@ -331,6 +340,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param creationDate the Date to check
      * @return true if the date is a valid date for the bug report
      */
+    @DomainAPI
     public static boolean isValidCreationDate(GregorianCalendar creationDate) {
         if (creationDate == null) {
             return false;
@@ -343,6 +353,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return the tag
      */
+    @DomainAPI
     public Tag getTag() {
         return tag;
     }
@@ -388,6 +399,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param tag the tag to check
      * @return true if the tag is a valid tag
      */
+    @DomainAPI
     public boolean isValidTag(Tag tag) {
         if (this.getTag() == null) {
             return tag == Tag.NEW;
@@ -400,6 +412,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return the commentList of this bug report
      */
+    @DomainAPI
     public PList<Comment> getCommentList() {
         return this.commentList;
     }
@@ -409,6 +422,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return all the comments in this bug report
      */
+    @DomainAPI
     public PList<Comment> getAllComments() {
         ArrayList<Comment> list = new ArrayList<>();
         for (Comment comment : this.getCommentList()) {
@@ -485,6 +499,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param comment to check
      * @return true if the given comment is valid as a comment for this bug report
      */
+    @DomainAPI
     public boolean isValidComment(Comment comment) {
         if (comment == null) {
             return false;
@@ -500,6 +515,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return the creator of the bug report
      */
+    @DomainAPI
     public User getCreator() {
         return creator;
     }
@@ -525,6 +541,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param creator the creator to check
      * @return true if the given creator is a valid creator
      */
+    @DomainAPI
     public static boolean isValidCreator(User creator) {
         if (creator == null) {
             return false;
@@ -540,6 +557,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return the userList the list of developers assigned to the bug report
      */
+    @DomainAPI
     public PList<Developer> getUserList() {
         return userList;
     }
@@ -559,6 +577,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param userList the list of developers for this bug report
      * @return true if the given list is a valid list of developers
      */
+    @DomainAPI
     public static boolean isValidUserList(PList<Developer> userList) {
         if (userList == null) {
             return false;
@@ -597,6 +616,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param dev the developer to check
      * @return true if the given developer is a valid developer for this bug report
      */
+    @DomainAPI
     public boolean isValidUser(Developer dev) {
         if (dev == null) {
             return false;
@@ -612,6 +632,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return the dependencies of the bug report
      */
+    @DomainAPI
     public PList<BugReport> getDependencies() {
         return dependencies;
     }
@@ -634,6 +655,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param dependencies to check
      * @return true if the given list is valid for this bug report
      */
+    @DomainAPI
     public static boolean isValidDependencies(PList<BugReport> dependencies) {
         if (dependencies == null) {
             return false;
@@ -646,6 +668,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @return the subsystem the subsystem of this bug report
      */
+    @DomainAPI
     public Subsystem getSubsystem() {
         return subsystem;
     }
@@ -670,6 +693,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param subsystem the subsystem to check
      * @return true if the given subsystem is valid for this bug report
      */
+    @DomainAPI
     public static boolean isValidSubsystem(Subsystem subsystem) {
         if (subsystem == null) {
             return false;
@@ -716,6 +740,7 @@ public class BugReport implements Comparable<BugReport> {
      *                              from being compared to this object.
      */
     @Override
+    @DomainAPI
     public int compareTo(BugReport o) {
         if (o.getUniqueID() < this.getUniqueID()){
             return -1;
@@ -728,6 +753,7 @@ public class BugReport implements Comparable<BugReport> {
      * This method returns all important details of this bug report:
      * @return the most important details of this bug report
      */
+    @DomainAPI
     public String getDetails(){
         String str = "Bug report id: " + this.getUniqueID();
         str += "\n creator: " + this.getCreator().getFullName();
