@@ -18,6 +18,7 @@ import java.util.NoSuchElementException;
  * Created by Ben on 02/03/2016.
  */
 public class CreateBugReportCmd implements Cmd {
+
     /**
      * Execute this command and possibly return a result.
      * <p>
@@ -28,17 +29,18 @@ public class CreateBugReportCmd implements Cmd {
      * <br> 5. The issuer selects a subsystem.
      * <br> 6. The system shows the bug report creation form.
      * <br> 7. The issuer enters the bug report details: title and description.
-     * <br> 8. The system shows a list of possible dependencies of this bug report. These are the bug reports of the same project.
+     * <br> 8. The system shows a list of possible dependencies of this bug
+     * report. These are the bug reports of the same project.
      * <br> 9. The issuer selects the dependencies.
      * <br> 10. The system creates the bug report.
      *
-     * @param scan  The scanner used to interact with the person.
+     * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user  The {@link User} who wants to executes this command.
+     * @param user The {@link User} who wants to executes this command.
      * @return null if there is no result specified.
      * @throws PermissionException When the user does not have sufficient
-     *                             permissions.
-     * @throws CancelException     When the users wants to abort the current cmd
+     * permissions.
+     * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
     public Object exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
@@ -83,6 +85,7 @@ public class CreateBugReportCmd implements Cmd {
         String bugReportDesc = scan.nextLine();
 
         // BugReport Dependencies
+        scan.println("Choose a dependency.");
         PList<BugReport> possibleDeps = proj.getAllBugReports();
         scan.println("Available bugReports:");
         for (int i = 0; i < possibleDeps.size(); i++) {
@@ -96,25 +99,31 @@ public class CreateBugReportCmd implements Cmd {
         do {
             scan.print("I choose: (leave blank if done)");
             String input = scan.nextLine(); // input
-            if (input.equalsIgnoreCase("")){
+            if (input.equalsIgnoreCase("")) {
                 scan.println("Ended selection.");
                 done = true;
             } else {
                 try {
                     Integer index = Integer.parseInt(input);
-                    if (index >= 0 && index < depList.size()) {
-                        depList.add(possibleDeps.get(index));
+                    if (index >= 0 && index < possibleDeps.size()) {
+                        BugReport currDep = possibleDeps.get(index);
+                        depList.add(currDep);
+                        scan.println("Added dependency: " + currDep.getTitle());
+                    } else {
+                        scan.println("Invalid input.");
                     }
                 } catch (NumberFormatException ex) {
-                    // no int
-                }
-                try {
-                    depList.add(possibleDeps.parallelStream().filter(u -> u.getTitle().equals(input)).findFirst().get());
-                } catch (NoSuchElementException ex) {
-                    scan.println("Invalid input.");
+                    try {
+                        //No int. Try title.
+                        BugReport currDep = possibleDeps.parallelStream().filter(u -> u.getTitle().equals(input)).findFirst().get();
+                        depList.add(currDep);
+                        scan.println("Added dependency: " + currDep.getTitle());
+                    } catch (NoSuchElementException ex2) {
+                        scan.println("Invalid input.");
+                    }
                 }
             }
-        } while (! done);
+        } while (!done);
 
         BugReport bugreport = model.createBugReport(user, bugreportTitle, bugReportDesc, PList.<BugReport>empty().plusAll(depList), subsys);
         scan.println("Created new bug report.");
