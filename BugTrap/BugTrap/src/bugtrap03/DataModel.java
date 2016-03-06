@@ -53,10 +53,37 @@ public class DataModel {
     }
 
     /**
+     * Add the {@link Project} to the list of projects.
+     *
+     * @param project The project to add.
+     * @throws NullPointerException If project is null.
+     */
+    private void addProject(Project project) throws NullPointerException {
+        this.projectList = projectList.plus(project);
+    }
+
+    /**
+     * Delete the {@link Project from the list of projects.
+     *
+     * @param project The project to delete.
+     * @return True if the project was found and deleted. If project is null it
+     * will always return false.
+     */
+    private boolean deleteProject(Project project) {
+        PList<Project> newList = projectList.minus(project);
+        if (newList == projectList) {
+            return false;
+        } else {
+            this.projectList = newList;
+            return true;
+        }
+    }
+
+    /**
      * Get the list of users in this system who have the exact class type
      * userType.
      *
-     * @param <U>      extends User type.
+     * @param <U> extends User type.
      * @param userType The type of users returned.
      * @return All users of this system who have the exact class type userType.
      */
@@ -75,7 +102,7 @@ public class DataModel {
      * Get the list of users in this system who are of type that is or extends
      * userType.
      *
-     * @param <U>      extends User type.
+     * @param <U> extends User type.
      * @param userType The type of users returned.
      * @return All users of this system who have the exact class type userType
      * or a class type that extends userType.
@@ -94,10 +121,10 @@ public class DataModel {
     /**
      * Create a new {@link Issuer} in this system.
      *
-     * @param username   The username of the issuer.
-     * @param firstName  The first name of the issuer.
+     * @param username The username of the issuer.
+     * @param firstName The first name of the issuer.
      * @param middleName The middle name of the issuer.
-     * @param lastName   The last name of the issuer.
+     * @param lastName The last name of the issuer.
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Issuer#Issuer(String, String, String, String)
@@ -113,9 +140,9 @@ public class DataModel {
     /**
      * Create a new {@link Issuer} in this system.
      *
-     * @param username  The username of the issuer.
+     * @param username The username of the issuer.
      * @param firstName The first name of the issuer.
-     * @param lastName  The last name of the issuer.
+     * @param lastName The last name of the issuer.
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Issuer#Issuer(String, String, String)
@@ -130,10 +157,10 @@ public class DataModel {
     /**
      * Create a new {@link Developer} in this system.
      *
-     * @param username   The username of the issuer.
-     * @param firstName  The first name of the issuer.
+     * @param username The username of the issuer.
+     * @param firstName The first name of the issuer.
      * @param middleName The middle name of the issuer.
-     * @param lastName   The last name of the issuer.
+     * @param lastName The last name of the issuer.
      * @return The created {@link Developer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Developer#Developer(String, String, String, String)
@@ -149,9 +176,9 @@ public class DataModel {
     /**
      * Create a new {@link Developer} in this system.
      *
-     * @param username  The username of the issuer.
+     * @param username The username of the issuer.
      * @param firstName The first name of the issuer.
-     * @param lastName  The last name of the issuer.
+     * @param lastName The last name of the issuer.
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Developer#Developer(String, String, String)
@@ -167,10 +194,10 @@ public class DataModel {
     /**
      * Create a new {@link Administrator} in this system.
      *
-     * @param username   The username of the issuer.
-     * @param firstName  The first name of the issuer.
+     * @param username The username of the issuer.
+     * @param firstName The first name of the issuer.
      * @param middleName The middle name of the issuer.
-     * @param lastName   The last name of the issuer.
+     * @param lastName The last name of the issuer.
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Administrator#Administrator(String, String, String, String)
@@ -186,9 +213,9 @@ public class DataModel {
     /**
      * Create a new {@link Administrator} in this system.
      *
-     * @param username  The username of the issuer.
+     * @param username The username of the issuer.
      * @param firstName The first name of the issuer.
-     * @param lastName  The last name of the issuer.
+     * @param lastName The last name of the issuer.
      * @return The created {@link Administrator}
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Administrator#Administrator(String, String, String)
@@ -204,39 +231,39 @@ public class DataModel {
     /**
      * This method creates a new {@link Project} in the system
      *
-     * @param name        The name of the project
+     * @param name The name of the project
      * @param description The description of the project
-     * @param startDate   The start date of the project
-     * @param budget      The budget estimate for this project
-     * @param lead        The lead developer of this project
+     * @param startDate The start date of the project
+     * @param budget The budget estimate for this project
+     * @param lead The lead developer of this project
      * @return the created project
      * @throws IllegalArgumentException if the constructor of project fails
-     * @throws PermissionException      If the given creator has insufficient
-     *                                  permissions
+     * @throws PermissionException If the given creator has insufficient
+     * permissions
      * @see Project#Project(String, String, Developer, GregorianCalendar, long)
      */
     @DomainAPI
     public Project createProject(String name, String description, GregorianCalendar startDate, Developer lead,
-                                 long budget, User creator) throws IllegalArgumentException, PermissionException {
+            long budget, User creator) throws IllegalArgumentException, PermissionException {
         if (!creator.hasPermission(UserPerm.CREATE_PROJ)) {
             throw new PermissionException("The given user doesn't have the permission to create a project");
         }
         Project project = new Project(name, description, lead, startDate, budget);
-        this.projectList = projectList.plus(project);
+        addProject(project);
         return project;
     }
 
     /**
      * This method creates a new {@link Project} in the system
      *
-     * @param name        The name of the project
+     * @param name The name of the project
      * @param description The description of the project
-     * @param budget      The budget estimate for this project
-     * @param lead        The lead developer of this project
+     * @param budget The budget estimate for this project
+     * @param lead The lead developer of this project
      * @return the created project
      * @throws IllegalArgumentException if the constructor of project fails
-     * @throws PermissionException      If the given creator has insufficient
-     *                                  permissions
+     * @throws PermissionException If the given creator has insufficient
+     * permissions
      * @see Project#Project(String, String, Developer, long)
      */
     @DomainAPI
@@ -246,7 +273,7 @@ public class DataModel {
             throw new PermissionException("The given user doesn't have the permission to create a project");
         }
         Project project = new Project(name, description, lead, budget);
-        this.projectList = projectList.plus(project);
+        addProject(project);
         return project;
     }
 
@@ -277,18 +304,18 @@ public class DataModel {
     /**
      * This method updates the given project with the new given attributes
      *
-     * @param name           The new name of the given project
-     * @param description    The new description of the given project
-     * @param startDate      The new startDate of the given project
+     * @param name The new name of the given project
+     * @param description The new description of the given project
+     * @param startDate The new startDate of the given project
      * @param budgetEstimate The new budget estimate of the given project
      * @throws PermissionException if the given user doesn't have the needed
-     *                             permission to update a project.
+     * permission to update a project.
      * @Ensures The attributes of the given project will not be updated if an
      * error was thrown
      */
     @DomainAPI
     public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate,
-                                 Long budgetEstimate) throws IllegalArgumentException, PermissionException {
+            Long budgetEstimate) throws IllegalArgumentException, PermissionException {
         // check needed permission
         if (!user.hasPermission(UserPerm.UPDATE_PROJ)) {
             throw new PermissionException("You dont have the needed permission to update a project!");
@@ -331,25 +358,26 @@ public class DataModel {
         PList<AbstractSystem> list = PList.<AbstractSystem>empty();
         for (Project proj : this.projectList) {
             list = list.plus(proj);
-            list = list.plusAll(new ArrayList<AbstractSystem>(proj.getAllSubsystems()));
+            list = list.plusAll(new ArrayList<>(proj.getAllSubsystems()));
         }
         return list;
     }
 
     /**
-     * This method removes a project from the projectlist.
+     * This method removes a project from the project list.
      *
-     * @param user    The user that wants to delete the project
+     * @param user The user that wants to delete the project
      * @param project The project which has to be removed
      * @return The removed project
-     * @throws PermissionException If the given user doesn't have the permission to delete a project
+     * @throws PermissionException If the given user doesn't have the permission
+     * to delete a project
      */
     @DomainAPI
     public Project deleteProject(User user, Project project) throws PermissionException {
         if (!user.hasPermission(UserPerm.DELETE_PROJ)) {
             throw new PermissionException("You dont have the needed permission to delete a project");
         }
-        this.projectList = projectList.minus(project);
+        deleteProject(project);
 
         return project;
     }
@@ -357,12 +385,13 @@ public class DataModel {
     /**
      * This method creates a new subsytem in the given Project/Subsystem
      *
-     * @param user           The user that wants to create the subsystem
+     * @param user The user that wants to create the subsystem
      * @param abstractSystem The Project/Subsystem to add the new subsytem to
-     * @param name           The name of the new Subsytem
-     * @param description    The description of the new Subsytem
+     * @param name The name of the new Subsytem
+     * @param description The description of the new Subsytem
      * @return The created subsytem
-     * @throws PermissionException If the user doesn't have the permission to create a subsystem
+     * @throws PermissionException If the user doesn't have the permission to
+     * create a subsystem
      * @see AbstractSystem#makeSubsystemChild(String, String)
      */
     @DomainAPI
@@ -374,34 +403,36 @@ public class DataModel {
     }
 
     //do we need next 3 methods? -> yes Controller principle! Make new -> change internal -> via controller
-
     /**
      * This method creates a bug report in the system
      *
      * @see BugReport#BugReport(User, String, String, PList, Subsystem)
      */
     @DomainAPI
-    public BugReport createBugReport(User user, String title, String description, PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException{
+    public BugReport createBugReport(User user, String title, String description, PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException {
         return subsystem.addBugReport(user, title, description, dependencies);
     }
 
     /**
      * This method creates a bug report in the system
      *
-     * @see BugReport#BugReport(User, String, String, GregorianCalendar, PList, Subsystem)
+     * @see BugReport#BugReport(User, String, String, GregorianCalendar, PList,
+     * Subsystem)
      */
     @DomainAPI
-    public BugReport createBugReport(User user, String title, String description, GregorianCalendar calendar, PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException{
+    public BugReport createBugReport(User user, String title, String description, GregorianCalendar calendar, PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException {
         return subsystem.addBugReport(user, title, description, calendar, dependencies);
     }
 
     /**
      * This method creates a comment on a given BugReport
-     * @param user      The creator of the comment
+     *
+     * @param user The creator of the comment
      * @param bugReport The bug report to create the comment on
-     * @param text      The text of the new comment
+     * @param text The text of the new comment
      * @return The new generated comment
-     * @throws PermissionException If the given User doesn't have the permission to create the comment
+     * @throws PermissionException If the given User doesn't have the permission
+     * to create the comment
      *
      * @see BugReport#addComment(User, String)
      */
@@ -411,18 +442,41 @@ public class DataModel {
     }
 
     /**
-     * This method creates a comment on the given comment with the given text by the given user
-     * @param user      The creator of the new comment
-     * @param comment   The comment to create the comment on (= sub comment)
-     * @param text      The text of the new Comment
+     * This method creates a comment on the given comment with the given text by
+     * the given user
+     *
+     * @param user The creator of the new comment
+     * @param comment The comment to create the comment on (= sub comment)
+     * @param text The text of the new Comment
      * @return The new generated comment
-     * @throws PermissionException If the given User doesn't have the permission to create the comment
+     * @throws PermissionException If the given User doesn't have the permission
+     * to create the comment
      *
      * @see Comment#addSubComment(User, String)
      */
     @DomainAPI
     public Comment createComment(User user, Comment comment, String text) throws PermissionException {
         return comment.addSubComment(user, text);
+    }
+
+    /**
+     * Clone the given {@link Project} and set a few attributes.
+     * 
+     * @param cloneSource The project to clone from.
+     * @param versionID The versionID for the clone project.
+     * @param lead The lead developer for the clone project.
+     * @param startDate The startDate for the clone project.
+     * @param budgetEstimate The budgetEstimate for the clone project.
+     * @return The resulting clone. Null if the source Clone is null.
+     * @see Project#cloneProject(bugtrap03.bugdomain.VersionID, bugtrap03.bugdomain.usersystem.Developer, java.util.GregorianCalendar, long) 
+     */
+    @DomainAPI
+    public Project cloneProject(Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate, long budgetEstimate) {
+        Project clone = cloneSource.cloneProject(versionID, lead, startDate, budgetEstimate);
+        if (clone != null) {
+            addProject(clone);
+        }
+        return clone;
     }
 
 }
