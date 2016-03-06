@@ -39,7 +39,7 @@ public class ShowProjectCmdTest {
 
         ArrayDeque<String> question = new ArrayDeque();
         ArrayDeque<String> answer = new ArrayDeque();
-        DeleteProjectCmd cmd = new DeleteProjectCmd();
+        ShowProjectCmd cmd = new ShowProjectCmd();
 
         //Setup scenario
         question.add("Available projects:");
@@ -47,6 +47,7 @@ public class ShowProjectCmdTest {
         question.add("1. " + proj1.getName());
         question.add("I choose: ");
         answer.add(proj0.getName());
+        question.add("You have chosen:");
         question.add(proj0.getDetails());
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
