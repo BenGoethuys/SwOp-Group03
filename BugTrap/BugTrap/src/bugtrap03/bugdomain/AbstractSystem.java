@@ -274,14 +274,17 @@ public abstract class AbstractSystem {
     }
 
     /**
-     * This method checks if the given developer has the requested permission for this subsystem
+     * This method checks if the given developer has the requested permission
+     * for this AbstractSystem
      *
-     * @param dev  the developer to check
+     * @param dev the developer to check
      * @param perm the requested permission
      * @return true if the developer has the requested permission
      */
     @DomainAPI
-    public abstract boolean hasPermission(Developer dev, RolePerm perm);
+    public boolean hasPermission(Developer dev, RolePerm perm) {
+        return this.getParentProject().hasPermission(dev, perm);
+    }
     
 
 }

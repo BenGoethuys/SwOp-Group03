@@ -113,19 +113,6 @@ public class Subsystem extends AbstractSystem {
     }
 
     /**
-     * This method checks if the given developer has the requested permission
-     * for this subsystem
-     *
-     * @param dev the developer to check
-     * @param perm the requested permission
-     * @return true if the developer has the requested permission
-     */
-    @DomainAPI
-    public boolean hasPermission(Developer dev, RolePerm perm) {
-        return this.getParentProject().hasPermission(dev, perm);
-    }
-
-    /**
      * This method returns the list of bug reports of this subsystem
      *
      * @return the list of bug reports of this subsystem
