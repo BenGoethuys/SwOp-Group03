@@ -88,6 +88,8 @@ public class CreateProjectCmdTest {
         question.add("I choose: ");
         answer.add("25");
         question.add("Invalid input.");
+        answer.add("-1");
+        question.add("Invalid input.");
         question.add("I choose: ");
         answer.add("test");
         question.add("Invalid input.");
@@ -121,11 +123,11 @@ public class CreateProjectCmdTest {
         ArrayDeque<String> question = new ArrayDeque();
         ArrayDeque<String> answer = new ArrayDeque();
         CreateProjectCmd cmd = new CreateProjectCmd();
-        
+
         GregorianCalendar date = new GregorianCalendar();
         date.add(GregorianCalendar.MONTH, 1);
         String dateStr = date.get(YEAR) + "-" + date.get(MONTH) + "-" + date.get(DATE);
-        VersionID newVersionID = new VersionID(1,2,3);
+        VersionID newVersionID = new VersionID(1, 2, 3);
         long budget = 50;
 
         //Setup scenario
