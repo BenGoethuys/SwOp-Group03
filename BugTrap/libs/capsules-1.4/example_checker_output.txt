@@ -1,0 +1,16 @@
+(capsulesexample/client/BadClientClass.java:17): Method not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:18): Method not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:19): Method not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:20): Method not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:21): Method not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:22): Method not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:23): Field not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:24): Field not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:25): Field not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:26): Field not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:27): Field not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:28): Field not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:31): Field not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:32): Method not exported by capsule capsulesexample/system
+(capsulesexample/client/BadClientClass.java:34): Method not exported by capsule capsulesexample/system
+15 errors found
