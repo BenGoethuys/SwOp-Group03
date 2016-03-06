@@ -11,6 +11,7 @@ import bugtrap03.gui.cmd.general.GetProjectCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
+ * This command represents the use case of deleting a project in the system
  * @author group 03
  */
 public class DeleteProjectCmd implements Cmd {

@@ -5,7 +5,6 @@ import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
 import purecollections.PList;
@@ -13,7 +12,8 @@ import purecollections.PList;
 import java.util.NoSuchElementException;
 
 /**
- * Created by Ben on 29/02/2016.
+ * This command represents the use case for creating a subsystem in the system
+ * Created by Ben Goethuys on 29/02/2016.
  */
 public class CreateSubsystemCmd implements Cmd {
     /**

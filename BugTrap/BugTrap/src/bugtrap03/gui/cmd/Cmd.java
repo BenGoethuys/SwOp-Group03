@@ -7,7 +7,8 @@ import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
- * @author Admin
+ * This interface should be implemented by all executable commands in the system
+ * @author Vincent Derkinderen
  */
 public interface Cmd {
 
@@ -22,6 +23,6 @@ public interface Cmd {
      *                             permissions.
      * @throws CancelException     When the users wants to abort the current cmd
      */
-    public Object exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException;
+    Object exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException;
 
 }

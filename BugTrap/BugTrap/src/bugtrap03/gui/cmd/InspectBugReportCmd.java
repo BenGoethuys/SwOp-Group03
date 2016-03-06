@@ -7,10 +7,9 @@ import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
 
-import java.util.Scanner;
-
 /**
- * Created by Ben on 04/03/2016.
+ * This command represents the use case of inspecting a bug report in the system
+ * Created by Ben Goethuys on 04/03/2016.
  */
 public class InspectBugReportCmd implements Cmd {
 

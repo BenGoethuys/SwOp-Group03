@@ -15,6 +15,7 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 /**
+ * This command represents the use case for creating a project in the system
  * @author Admin
  */
 public class CreateProjectCmd implements Cmd {

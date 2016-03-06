@@ -9,6 +9,7 @@ import bugtrap03.gui.cmd.general.GetProjectCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
+ * This command represents the show project use case scenario
  * Created by Ben Goethuys on 29/02/2016.
  */
 public class ShowProjectCmd implements Cmd {
