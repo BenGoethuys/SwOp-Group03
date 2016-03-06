@@ -42,7 +42,7 @@ public class CreateBugReportCmd implements Cmd {
      * @throws CancelException     When the users wants to abort the current cmd
      */
     @Override
-    public Object exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
+    public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
 
         Project proj = new GetProjectCmd().exec(scan, model, user);
 
@@ -50,7 +50,7 @@ public class CreateBugReportCmd implements Cmd {
         scan.println("Available subsystems:");
         for (int i = 0; i < subsysList.size(); i++) {
             scan.println(i + ". " + subsysList.get(i).getName());
-        }
+    }
 
         // Retrieve & process user input.
         Subsystem subsys = null;
