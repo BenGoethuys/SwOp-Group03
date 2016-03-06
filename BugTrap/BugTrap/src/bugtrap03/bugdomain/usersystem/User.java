@@ -7,13 +7,14 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import java.util.HashSet;
 
 import bugtrap03.bugdomain.permission.UserPerm;
+
 import java.util.Objects;
 
 /**
  * A User can be identified by his/her username. The uniqueness of this username
  * is guaranteed by checking with all other ever created Users.
  *
- * @author Admin
+ * @author Vincent Derkinderen
  * @version 1.1
  */
 @DomainAPI
@@ -23,10 +24,10 @@ public abstract class User {
      * Create a {@link User} with a username, a firstName, middelName and
      * lastName.
      *
-     * @param username The unique username of this user.
-     * @param firstName The first name of this user.
+     * @param username   The unique username of this user.
+     * @param firstName  The first name of this user.
      * @param middleName The middle name of this user.
-     * @param lastName The last name of this user.
+     * @param lastName   The last name of this user.
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see #isValidUsername(String username)
      * @see #isValidFirstName(String firstName)
@@ -43,9 +44,9 @@ public abstract class User {
     /**
      * Create a {@link User} with a username, a firstName and lastName.
      *
-     * @param username The unique username of this user.
+     * @param username  The unique username of this user.
      * @param firstName The first name of this user.
-     * @param lastName The last name of this user.
+     * @param lastName  The last name of this user.
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see #isValidUsername(String username)
      * @see #isValidFirstName(String firstName)
@@ -239,7 +240,7 @@ public abstract class User {
         if (other == null) {
             return false;
         }
-        
+
         if (other instanceof User) {
             User otherUser = (User) other;
             return otherUser.getFirstName().equals(getFirstName()) &&
@@ -273,7 +274,7 @@ public abstract class User {
      * Check if this {@link User} has the given {@link RolePerm} on a certain
      * project.
      *
-     * @param perm The rolePermission to check for.
+     * @param perm    The rolePermission to check for.
      * @param project The project to check for.
      * @return Whether this has the permission perm for project.
      */
