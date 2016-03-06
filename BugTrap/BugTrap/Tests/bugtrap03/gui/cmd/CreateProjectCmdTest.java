@@ -88,6 +88,7 @@ public class CreateProjectCmdTest {
         question.add("I choose: ");
         answer.add("25");
         question.add("Invalid input.");
+        question.add("I choose: ");
         answer.add("-1");
         question.add("Invalid input.");
         question.add("I choose: ");
