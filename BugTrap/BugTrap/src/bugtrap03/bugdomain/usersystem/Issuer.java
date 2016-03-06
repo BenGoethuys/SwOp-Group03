@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain.usersystem;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.permission.UserPerm;
 
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.Arrays;
  * @author Group 03
  * @version 0.1
  */
+@DomainAPI
 public class Issuer extends User {
 
     /**
@@ -48,6 +50,7 @@ public class Issuer extends User {
      * @return Whether this has the permission.
      */
     @Override
+    @DomainAPI
     public boolean hasPermission(UserPerm perm) {
         return Arrays.stream(this.permissions).anyMatch(permission -> permission == perm);
     }

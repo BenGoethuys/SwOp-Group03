@@ -2,12 +2,14 @@ package bugtrap03.bugdomain.usersystem;
 
 import java.util.Arrays;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.permission.UserPerm;
 
 /**
  * @author Admin
  * @version 0.1
  */
+@DomainAPI
 public class Administrator extends User {
 
     /**
@@ -52,6 +54,7 @@ public class Administrator extends User {
      * @return Whether this has the permission.
      */
     @Override
+    @DomainAPI
     public boolean hasPermission(UserPerm perm) {
         return Arrays.stream(this.permissions).anyMatch(permission -> permission == perm);
     }
