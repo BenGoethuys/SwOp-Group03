@@ -63,20 +63,12 @@ public class DataModel {
     }
 
     /**
-     * Delete the {@link Project from the list of projects.
+     * Delete the {@link Project} from the list of projects.
      *
      * @param project The project to delete.
-     * @return True if the project was found and deleted. If project is null it
-     * will always return false.
      */
-    private boolean deleteProject(Project project) {
-        PList<Project> newList = projectList.minus(project);
-        if (newList == projectList) {
-            return false;
-        } else {
-            this.projectList = newList;
-            return true;
-        }
+    private void deleteProject(Project project) {
+        this.projectList = projectList.minus(project);
     }
 
     /**
@@ -461,14 +453,16 @@ public class DataModel {
 
     /**
      * Clone the given {@link Project} and set a few attributes.
-     * 
+     *
      * @param cloneSource The project to clone from.
      * @param versionID The versionID for the clone project.
      * @param lead The lead developer for the clone project.
      * @param startDate The startDate for the clone project.
      * @param budgetEstimate The budgetEstimate for the clone project.
      * @return The resulting clone. Null if the source Clone is null.
-     * @see Project#cloneProject(bugtrap03.bugdomain.VersionID, bugtrap03.bugdomain.usersystem.Developer, java.util.GregorianCalendar, long) 
+     * @see Project#cloneProject(bugtrap03.bugdomain.VersionID,
+     * bugtrap03.bugdomain.usersystem.Developer, java.util.GregorianCalendar,
+     * long)
      */
     @DomainAPI
     public Project cloneProject(Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate, long budgetEstimate) {
