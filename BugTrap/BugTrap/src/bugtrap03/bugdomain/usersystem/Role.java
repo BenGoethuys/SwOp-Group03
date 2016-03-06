@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain.usersystem;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.permission.RolePerm;
 import java.util.Arrays;
 
@@ -9,6 +10,7 @@ import java.util.Arrays;
  * @author Group 03
  * @version 1.0
  */
+@DomainAPI
 public enum Role {
 
     LEAD(RolePerm.SPECIAL, RolePerm.SET_TAG_RESOLVED, RolePerm.SET_TAG_CLOSED,
@@ -23,7 +25,7 @@ public enum Role {
      * @param neededPerm The needed permission to assign this role.
      * @param perms The permissions that come with this role.
      */
-    private Role(RolePerm neededPerm, RolePerm... perms) {
+    Role(RolePerm neededPerm, RolePerm... perms) {
         this.neededPerm = neededPerm;
         this.permissions = perms;
     }
@@ -36,6 +38,7 @@ public enum Role {
      * @param perm The permission to check for.
      * @return True if the role has the permission.
      */
+    @DomainAPI
     public boolean hasPermission(RolePerm perm) {
         if (perm == RolePerm.SPECIAL) {
             return false;
@@ -47,6 +50,7 @@ public enum Role {
      * Get the permission required to assign someone this role.
      * @return The permission required to assign this role.
      */
+    @DomainAPI
     public RolePerm getNeededPerm() {
         return this.neededPerm;
     }

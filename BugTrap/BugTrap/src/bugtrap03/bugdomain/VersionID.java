@@ -1,5 +1,9 @@
 package bugtrap03.bugdomain;
 
+/**
+ *  //TODO heading
+ */
+@DomainAPI
 public class VersionID implements Comparable<VersionID> {
 
     private int firstNb;
@@ -50,6 +54,7 @@ public class VersionID implements Comparable<VersionID> {
      *
      * @return The first digit of the versionID.
      */
+    @DomainAPI
     public int getFirstNb() {
         return firstNb;
     }
@@ -68,6 +73,7 @@ public class VersionID implements Comparable<VersionID> {
      *
      * @return The second digit of the versionID.
      */
+    @DomainAPI
     public int getSecondNb() {
         return secondNb;
     }
@@ -86,6 +92,7 @@ public class VersionID implements Comparable<VersionID> {
      *
      * @return The third digit of the versionID.
      */
+    @DomainAPI
     public int getThirdNb() {
         return thirdNb;
     }
@@ -103,6 +110,7 @@ public class VersionID implements Comparable<VersionID> {
      * Visual representation of a versionID.
      */
     @Override
+    @DomainAPI
     public String toString() {
         return firstNb + "." + secondNb + "." + thirdNb;
     }
@@ -115,6 +123,7 @@ public class VersionID implements Comparable<VersionID> {
      *         otherwise.
      */
     @Override
+    @DomainAPI
     public int compareTo(VersionID other) {
         if (this.getFirstNb() == other.getFirstNb() && this.getSecondNb() == other.getSecondNb()
                 && this.getThirdNb() == other.getThirdNb()) {
@@ -136,6 +145,7 @@ public class VersionID implements Comparable<VersionID> {
      * @return True if the version ID's are equal.
      */
     @Override
+    @DomainAPI
     public boolean equals(Object other) {
         if (other == null) {
             return false;

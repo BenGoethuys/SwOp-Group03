@@ -7,6 +7,7 @@ import bugtrap03.bugdomain.permission.RolePerm;
  *
  * @author Ben Goethuys & Vincent Derkinderen
  */
+@DomainAPI
 public enum Tag {
     NEW(RolePerm.SPECIAL),
     ASSIGNED(RolePerm.SPECIAL),
@@ -33,6 +34,7 @@ public enum Tag {
      *
      * @return the needed permission
      */
+    @DomainAPI
     public RolePerm getNeededPerm() {
         return this.neededPerm;
     }
@@ -43,6 +45,7 @@ public enum Tag {
      * @param tag the tag to check
      * @return true if the tag is a valid tag
      */
+    @DomainAPI
     public boolean isValidTag(Tag tag) {
         if (tag == null) {
             return false;

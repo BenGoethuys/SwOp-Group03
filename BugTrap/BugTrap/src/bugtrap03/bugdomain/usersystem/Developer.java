@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain.usersystem;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.RolePerm;
 
@@ -7,6 +8,7 @@ import bugtrap03.bugdomain.permission.RolePerm;
  * @author Admin
  * @version 0.1
  */
+@DomainAPI
 public class Developer extends Issuer {
 
     /**
@@ -46,6 +48,7 @@ public class Developer extends Issuer {
      * @return
      */
     @Override
+    @DomainAPI
     public boolean hasRolePermission(RolePerm perm, Project project) {
         return project.hasPermission(this, perm);
     }

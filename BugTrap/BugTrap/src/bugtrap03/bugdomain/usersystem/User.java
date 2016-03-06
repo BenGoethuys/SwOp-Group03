@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain.usersystem;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.RolePerm;
 
@@ -15,6 +16,7 @@ import java.util.Objects;
  * @author Admin
  * @version 1.1
  */
+@DomainAPI
 public abstract class User {
 
     /**
@@ -65,6 +67,7 @@ public abstract class User {
      *
      * @return The username of this user.
      */
+    @DomainAPI
     public String getUsername() {
         return this.username;
     }
@@ -92,6 +95,7 @@ public abstract class User {
      * @param username The username to check.
      * @return Whether the username is valid. False when null.
      */
+    @DomainAPI
     public boolean isValidUsername(String username) {
         return (username != null && !username.equalsIgnoreCase("") && !takenUsernames.contains(username) && !username.matches("[0-9]+"));
     }
@@ -101,6 +105,7 @@ public abstract class User {
      *
      * @return The first name of this user.
      */
+    @DomainAPI
     public String getFirstName() {
         return this.firstName;
     }
@@ -126,6 +131,7 @@ public abstract class User {
      * @param firstName The first name to check.
      * @return Whether the first name is valid. False when null or equal to "".
      */
+    @DomainAPI
     public boolean isValidFirstName(String firstName) {
         return (firstName != null && !firstName.equalsIgnoreCase(""));
     }
@@ -135,6 +141,7 @@ public abstract class User {
      *
      * @return The middle name of this user.
      */
+    @DomainAPI
     public String getMiddleName() {
         return this.middleName;
     }
@@ -160,6 +167,7 @@ public abstract class User {
      * @param middleName The middle name to check.
      * @return Whether the middle name is valid. False when null.
      */
+    @DomainAPI
     public boolean isValidMiddleName(String middleName) {
         return middleName != null;
     }
@@ -169,6 +177,7 @@ public abstract class User {
      *
      * @return The last name of this user.
      */
+    @DomainAPI
     public String getLastName() {
         return this.lastName;
     }
@@ -194,6 +203,7 @@ public abstract class User {
      * @param lastName The last name to check.
      * @return Whether the lastName is valid. False when null or equal to "".
      */
+    @DomainAPI
     public boolean isValidLastName(String lastName) {
         return (lastName != null && !lastName.equals(""));
     }
@@ -207,6 +217,7 @@ public abstract class User {
      * @see #getMiddleName()
      * @see #getLastName()
      */
+    @DomainAPI
     public String getFullName() {
         if (middleName.equals("")) {
             return this.firstName + " " + this.lastName;
@@ -223,6 +234,7 @@ public abstract class User {
      * middlename and lastname.
      */
     @Override
+    @DomainAPI
     public boolean equals(Object other) {
         if (other == null) {
             return false;
@@ -239,6 +251,7 @@ public abstract class User {
     }
 
     @Override
+    @DomainAPI
     public int hashCode() {
         int hash = 7;
         hash = 47 * hash + Objects.hashCode(this.username);
@@ -251,6 +264,7 @@ public abstract class User {
      * @param perm The userPermission to check for.
      * @return Whether this has the permission.
      */
+    @DomainAPI
     public boolean hasPermission(UserPerm perm) {
         return false;
     }
@@ -263,6 +277,7 @@ public abstract class User {
      * @param project The project to check for.
      * @return Whether this has the permission perm for project.
      */
+    @DomainAPI
     public boolean hasRolePermission(RolePerm perm, Project project) {
         return false;
     }
