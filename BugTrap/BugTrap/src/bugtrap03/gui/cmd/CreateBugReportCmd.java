@@ -15,7 +15,8 @@ import java.util.HashSet;
 import java.util.NoSuchElementException;
 
 /**
- * Created by Ben on 02/03/2016.
+ * This commands represents the use case for creating a bug report in the system
+ * Created by Ben Goethuys on 02/03/2016.
  */
 public class CreateBugReportCmd implements Cmd {
 

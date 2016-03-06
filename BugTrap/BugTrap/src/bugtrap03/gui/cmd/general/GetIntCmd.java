@@ -7,7 +7,8 @@ import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
- * Created by Ben on 04/03/2016.
+ * This command asks an int from the user
+ * Created by Ben Goethuys on 04/03/2016.
  */
 public class GetIntCmd implements Cmd {
 
@@ -15,15 +16,15 @@ public class GetIntCmd implements Cmd {
      * Execute this command and possibly return a result.
      *
      * @param scan The scanner used to interact with the person.
-     * @param model The model used for model access.
-     * @param user The {@link User} who wants to executes this command.
-     * @return null if there is no result specified.
+     * @param dummy2 Doesn't matter
+     * @param dummy3 Doesn't matter
+     * @return The given integer
      * @throws PermissionException When the user does not have sufficient
      * permissions.
      * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
-    public Integer exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
+    public Integer exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws PermissionException, CancelException {
         scan.print("Give number: ");
         Integer integer = null;
         do {

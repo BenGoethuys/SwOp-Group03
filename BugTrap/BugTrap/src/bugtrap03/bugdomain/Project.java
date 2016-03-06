@@ -340,12 +340,12 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * //TODO heading
+     * The given user uses this method to set the role of a given developer to the given role
      *
-     * @param user
-     * @param dev
-     * @param role
-     * @throws PermissionException
+     * @param user  The user that wants to set the given role to the given developer
+     * @param dev   The developer to give the new role to
+     * @param role  The role that will be assigned to the given developer
+     * @throws PermissionException If the given user doesn't have the needed permission to assign the given role to the given developer
      */
     public void setRole(User user, Developer dev, Role role) throws IllegalArgumentException, PermissionException {
         if (user == null) {
@@ -425,7 +425,7 @@ public class Project extends AbstractSystem {
      * @param startDate      The start date of this project.
      * @param budgetEstimate The budget estimate of this project
      * @return The deep-cloned project.
-     * @see Subsystem#cloneSubsystem()
+     * @see Subsystem#cloneSubsystem(AbstractSystem)
      */
     public Project cloneProject(VersionID version, Developer lead, GregorianCalendar startDate, long budgetEstimate) {
  

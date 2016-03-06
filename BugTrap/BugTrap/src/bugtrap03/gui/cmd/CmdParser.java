@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * @author Admin
+ * This class parses the user input to executable commands and executes them
+ * @author Vincent Derkinderen
  */
 public class CmdParser {
 

@@ -7,7 +7,8 @@ package bugtrap03.gui.cmd.general;
 public class CancelException extends Exception {
     
     /**
-     * @param message
+     * This is the constructor for a CancelException
+     * @param message   The message that explains why the exception is thrown
      */
     public CancelException(String message) {
         super(message);

@@ -2,11 +2,12 @@ package bugtrap03.bugdomain.usersystem;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.permission.RolePerm;
+
 import java.util.Arrays;
 
 /**
- * 
- * 
+ * This class represents roles in the system
+ *
  * @author Group 03
  * @version 1.0
  */
@@ -22,8 +23,9 @@ public enum Role {
     /**
      * A Role with a certain permission required to assign someone this role and
      * a list of permissions users of this role have.
+     *
      * @param neededPerm The needed permission to assign this role.
-     * @param perms The permissions that come with this role.
+     * @param perms      The permissions that come with this role.
      */
     Role(RolePerm neededPerm, RolePerm... perms) {
         this.neededPerm = neededPerm;
@@ -35,6 +37,7 @@ public enum Role {
 
     /**
      * Check if this role comes with a certain permission.
+     *
      * @param perm The permission to check for.
      * @return True if the role has the permission.
      */
@@ -48,6 +51,7 @@ public enum Role {
 
     /**
      * Get the permission required to assign someone this role.
+     *
      * @return The permission required to assign this role.
      */
     @DomainAPI

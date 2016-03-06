@@ -11,6 +11,7 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import java.util.ArrayList;
 
 /**
+ * This command represents the use case for creating a comment in the system
  * Created by Ben Goethuys on 04/03/2016.
  */
 public class CreateCommentCmd implements Cmd {

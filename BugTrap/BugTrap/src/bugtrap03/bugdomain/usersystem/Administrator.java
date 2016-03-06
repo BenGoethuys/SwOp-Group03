@@ -6,7 +6,8 @@ import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.permission.UserPerm;
 
 /**
- * @author Admin
+ * This class represents an administrator in the system
+ * @author Vincent Derkideren
  * @version 0.1
  */
 @DomainAPI

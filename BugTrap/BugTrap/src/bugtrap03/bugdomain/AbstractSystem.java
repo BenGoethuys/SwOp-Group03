@@ -7,6 +7,7 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import purecollections.PList;
 
 /**
+ * This class represents a system
  * @author Group 03.
  */
 @DomainAPI
@@ -24,20 +25,18 @@ public abstract class AbstractSystem {
      * @param version     The versionID (of that type) of this element.
      * @param name        The string name for this element.
      * @param description The string description of this element.
-     * @throws NullPointerException     if the versionID is null.
-     * @throws IllegalArgumentException if one of the String arguments is
-     *                                  invalid.
-     *                                  <p>
-     *                                  //TODO @ see to isValid functions
+     * @throws IllegalArgumentException if one of the String arguments is invalid.
+     * @throws IllegalArgumentException if isValidVerionID(version) fails
+     * @see AbstractSystem#isValidVersionId(VersionID)
+     * @see AbstractSystem#isValidName(String)
+     * @see AbstractSystem#isValidDescription(String)
      */
     public AbstractSystem(VersionID version, String name, String description)
-            throws NullPointerException, IllegalArgumentException {
+            throws IllegalArgumentException {
         setVersionID(version);
         setName(name);
         setDescription(description);
         this.setChilds(PList.<Subsystem>empty());
-
-        //TODO remove NullPointers via isValid functions and throw illegalArg in setters - Ben ;)
     }
 
     /**
@@ -70,11 +69,23 @@ public abstract class AbstractSystem {
      * @throws NullPointerException When version is a null-reference.
      */
     public void setVersionID(VersionID version) throws NullPointerException {
-        if (version != null) {
-            this.version = version;
-        } else {
-            throw new NullPointerException("Illegal version is null");
+        if (! isValidVersionId(version)) {
+            throw new IllegalArgumentException("The given versionId is not valid for this abstractSystem");
         }
+        this.version = version;
+    }
+
+    /**
+     * This method check if the given VersionId is a valid verionId for an AbstractSystem
+     * @param versionID the versionId to check
+     * @return true if the given versionId is a valid i for an AbstractSystem
+     */
+    @DomainAPI
+    public static boolean isValidVersionId(VersionID versionID){
+        if (versionID == null){
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -99,9 +110,7 @@ public abstract class AbstractSystem {
             this.name = name;
         } else {
             throw new IllegalArgumentException("The name is invalid");
-
         }
-
     }
 
     /**
@@ -171,12 +180,12 @@ public abstract class AbstractSystem {
     }
 
     /**
-     * //TODO
+     * This method adds a subsystem to this AbstractSystem
      *
-     * @param version
-     * @param name
-     * @param description
-     * @return
+     * @param version       The versionID of the new subsystem
+     * @param name          The name of te new subsystem
+     * @param description   The description of the new subsystem
+     * @return  The new subsytems that was added to this AbstractSystem
      */
     public Subsystem makeSubsystemChild(VersionID version, String name, String description) {
         Subsystem newChild = new Subsystem(version, name, description, this);
@@ -185,11 +194,12 @@ public abstract class AbstractSystem {
     }
 
     /**
-     * //TODO
+     * This method adds a subsystem to this AbstractSystem
      *
-     * @param name
-     * @param description
-     * @return
+     * @param name          The name of te new subsystem
+     * @param description   The description of the new subsystem
+     * @return  The new subsytems that was added to this AbstractSystem
+     * @Ensures The new versionID will be equal to "new VersionID()"
      */
     public Subsystem makeSubsystemChild(String name, String description) {
         Subsystem newChild = new Subsystem(name, description, this);
@@ -264,14 +274,17 @@ public abstract class AbstractSystem {
     }
 
     /**
-     * This method checks if the given developer has the requested permission for this subsystem
+     * This method checks if the given developer has the requested permission
+     * for this AbstractSystem
      *
-     * @param dev  the developer to check
+     * @param dev the developer to check
      * @param perm the requested permission
      * @return true if the developer has the requested permission
      */
     @DomainAPI
-    public abstract boolean hasPermission(Developer dev, RolePerm perm);
+    public boolean hasPermission(Developer dev, RolePerm perm) {
+        return this.getParentProject().hasPermission(dev, perm);
+    }
     
 
 }

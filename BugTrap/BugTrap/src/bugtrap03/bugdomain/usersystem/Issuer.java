@@ -6,7 +6,8 @@ import bugtrap03.bugdomain.permission.UserPerm;
 import java.util.Arrays;
 
 /**
- * @author Group 03
+ * This class represents a User in the system
+ * @author Vincent Derkinderen
  * @version 0.1
  */
 @DomainAPI
