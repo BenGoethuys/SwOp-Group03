@@ -61,7 +61,7 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
         //Retrieve & process user input.
         U user = null;
         do {
-            scan.print("I choose: ");
+            scan.println("I choose: ");
             if (scan.hasNextInt()) { //by index
                 int index = scan.nextInt();//input
                 if (index >= 0 && index < usersOfType.size()) {
