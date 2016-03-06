@@ -135,7 +135,7 @@ public class TerminalScanner {
             return result;
         } else {
             this.nextLine();
-            throw new InputMismatchException("An integer was expected but not found.");
+            throw new InputMismatchException("A Long was expected but not found.");
         }
     }
 
