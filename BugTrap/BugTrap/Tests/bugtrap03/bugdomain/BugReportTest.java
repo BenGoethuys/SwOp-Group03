@@ -71,8 +71,8 @@ public class BugReportTest {
 		BugReport tempBugReport = new BugReport(issuer, "bla bla", "bla", depList, subsystem);
 		assertTrue(tempBugReport.getUniqueID() == id);
 		
-		id = BugReport.getNewUniqueID();
-		tempBugReport = new BugReport(issuer, "bla", "bla bla", depList, subsystem);
+		long id2 = BugReport.getNewUniqueID();
+		assertTrue(BugReport.getNewUniqueID() == id2);
 		assertTrue(BugReport.getNewUniqueID() != id);
 	}
 
@@ -437,6 +437,36 @@ public class BugReportTest {
 		assertTrue(tempBugReport.getUserList().contains(dev));
 		assertTrue(tempBugReport.getUserList().contains(temp));
 		assertTrue(tempBugReport.getTag() == Tag.ASSIGNED);
+
+		tempBugReport = new BugReport(issuer, "bla", "bla", depList, subsystem);
+		assertFalse(tempBugReport.getUserList().contains(dev));
+		tempBugReport.addUser(lead, dev);
+		assertTrue(tempBugReport.getUserList().contains(dev));
+
+		tempBugReport = new BugReport(issuer, "bla", "bla", depList, subsystem);
+		assertFalse(tempBugReport.getUserList().contains(dev));
+		tempBugReport.addUser(tester, dev);
+		assertTrue(tempBugReport.getUserList().contains(dev));
+	}
+
+	@Test (expected = PermissionException.class)
+	public void testAddUserNoPermProg() throws PermissionException {
+		bugReport1.addUser(programer, dev);
+	}
+
+	@Test (expected = PermissionException.class)
+	public void testAddUserNoPermIssuer() throws PermissionException {
+		bugReport1.addUser(issuer, dev);
+	}
+
+	@Test (expected = PermissionException.class)
+	public void testAddUserNoPermAdmin() throws PermissionException {
+		bugReport1.addUser(admin, dev);
+	}
+
+	@Test (expected = IllegalArgumentException.class)
+	public void testAddUserInvalidUser() throws PermissionException {
+		bugReport1.addUser(null, dev);
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
