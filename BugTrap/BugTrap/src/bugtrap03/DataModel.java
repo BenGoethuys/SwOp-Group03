@@ -17,11 +17,13 @@ import purecollections.PList;
  * @author Vincent Derkinderen & Ben Goethuys
  * @version 0.1
  */
+@DomainAPI
 public class DataModel {
 
     /**
      *
      */
+    @DomainAPI
     public DataModel() {
         this.userList = PList.<User>empty();
         this.projectList = PList.<Project>empty();
@@ -35,6 +37,7 @@ public class DataModel {
      *
      * @return The list of users currently in this system.
      */
+    @DomainAPI
     public PList<User> getUserList() {
         return userList;
     }
@@ -57,6 +60,7 @@ public class DataModel {
      * @param userType The type of users returned.
      * @return All users of this system who have the exact class type userType.
      */
+    @DomainAPI
     public <U extends User> PList<U> getUserListOfExactType(Class<U> userType) {
         PList<U> result = PList.<U>empty();
         for (User user : userList) {
@@ -76,6 +80,7 @@ public class DataModel {
      * @return All users of this system who have the exact class type userType
      * or a class type that extends userType.
      */
+    @DomainAPI
     public <U extends User> PList<U> getUserListOfType(Class<U> userType) {
         PList<U> result = PList.<U>empty();
         for (User user : userList) {
@@ -97,6 +102,7 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Issuer#Issuer(String, String, String, String)
      */
+    @DomainAPI
     public Issuer createIssuer(String username, String firstName, String middleName, String lastName)
             throws IllegalArgumentException {
         Issuer issuer = new Issuer(username, firstName, middleName, lastName);
@@ -114,6 +120,7 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Issuer#Issuer(String, String, String)
      */
+    @DomainAPI
     public Issuer createIssuer(String username, String firstName, String lastName) throws IllegalArgumentException {
         Issuer issuer = new Issuer(username, firstName, lastName);
         addUser(issuer);
@@ -131,6 +138,7 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Developer#Developer(String, String, String, String)
      */
+    @DomainAPI
     public Developer createDeveloper(String username, String firstName, String middleName, String lastName)
             throws IllegalArgumentException {
         Developer dev = new Developer(username, firstName, middleName, lastName);
@@ -148,6 +156,7 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Developer#Developer(String, String, String)
      */
+    @DomainAPI
     public Developer createDeveloper(String username, String firstName, String lastName)
             throws IllegalArgumentException {
         Developer dev = new Developer(username, firstName, lastName);
@@ -166,6 +175,7 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Administrator#Administrator(String, String, String, String)
      */
+    @DomainAPI
     public Administrator createAdministrator(String username, String firstName, String middleName, String lastName)
             throws IllegalArgumentException {
         Administrator admin = new Administrator(username, firstName, middleName, lastName);
@@ -183,6 +193,7 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      * @see Administrator#Administrator(String, String, String)
      */
+    @DomainAPI
     public Administrator createAdministrator(String username, String firstName, String lastName)
             throws IllegalArgumentException {
         Administrator admin = new Administrator(username, firstName, lastName);
@@ -204,6 +215,7 @@ public class DataModel {
      *                                  permissions
      * @see Project#Project(String, String, Developer, GregorianCalendar, long)
      */
+    @DomainAPI
     public Project createProject(String name, String description, GregorianCalendar startDate, Developer lead,
                                  long budget, User creator) throws IllegalArgumentException, PermissionException {
         if (!creator.hasPermission(UserPerm.CREATE_PROJ)) {
@@ -227,6 +239,7 @@ public class DataModel {
      *                                  permissions
      * @see Project#Project(String, String, Developer, long)
      */
+    @DomainAPI
     public Project createProject(String name, String description, Developer lead, long budget, User creator)
             throws IllegalArgumentException, PermissionException {
         if (!creator.hasPermission(UserPerm.CREATE_PROJ)) {
@@ -242,6 +255,7 @@ public class DataModel {
      *
      * @return The list of projects currently in this system.
      */
+    @DomainAPI
     public PList<Project> getProjectList() {
         return this.projectList;
     }
@@ -251,6 +265,7 @@ public class DataModel {
      *
      * @return a list of all bugreports in the system
      */
+    @DomainAPI
     public ArrayList<BugReport> getAllBugReports() {
         ArrayList<BugReport> list = new ArrayList<>();
         for (Project project : this.projectList) {
@@ -271,6 +286,7 @@ public class DataModel {
      * @Ensures The attributes of the given project will not be updated if an
      * error was thrown
      */
+    @DomainAPI
     public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate,
                                  Long budgetEstimate) throws IllegalArgumentException, PermissionException {
         // check needed permission
@@ -300,6 +316,7 @@ public class DataModel {
      * @return a PList containing all subsystems of a project
      * @see AbstractSystem#getAllSubsystems()
      */
+    @DomainAPI
     public PList<Subsystem> getAllSubsystems(Project project) {
         return project.getAllSubsystems();
     }
@@ -309,6 +326,7 @@ public class DataModel {
      *
      * @return the list of all projects and there subsystems
      */
+    @DomainAPI
     public PList<AbstractSystem> getAllProjectsAndSubsystems() {
         PList<AbstractSystem> list = PList.<AbstractSystem>empty();
         for (Project proj : this.projectList) {
@@ -326,6 +344,7 @@ public class DataModel {
      * @return The removed project
      * @throws PermissionException If the given user doesn't have the permission to delete a project
      */
+    @DomainAPI
     public Project deleteProject(User user, Project project) throws PermissionException {
         if (!user.hasPermission(UserPerm.DELETE_PROJ)) {
             throw new PermissionException("You dont have the needed permission to delete a project");
@@ -346,6 +365,7 @@ public class DataModel {
      * @throws PermissionException If the user doesn't have the permission to create a subsystem
      * @see AbstractSystem#makeSubsystemChild(String, String)
      */
+    @DomainAPI
     public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, String name, String description) throws PermissionException, IllegalArgumentException {
         if (!user.hasPermission(UserPerm.CREATE_SUBSYS)) {
             throw new PermissionException("You dont have the needed permission");
@@ -360,6 +380,7 @@ public class DataModel {
      *
      * @see BugReport#BugReport(User, String, String, PList, Subsystem)
      */
+    @DomainAPI
     public BugReport createBugReport(User user, String title, String description, PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException{
         return subsystem.addBugReport(user, title, description, dependencies);
     }
@@ -369,6 +390,7 @@ public class DataModel {
      *
      * @see BugReport#BugReport(User, String, String, GregorianCalendar, PList, Subsystem)
      */
+    @DomainAPI
     public BugReport createBugReport(User user, String title, String description, GregorianCalendar calendar, PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException{
         return subsystem.addBugReport(user, title, description, calendar, dependencies);
     }
@@ -383,6 +405,7 @@ public class DataModel {
      *
      * @see BugReport#addComment(User, String)
      */
+    @DomainAPI
     public Comment createComment(User user, BugReport bugReport, String text) throws PermissionException {
         return bugReport.addComment(user, text);
     }
@@ -397,6 +420,7 @@ public class DataModel {
      *
      * @see Comment#addSubComment(User, String)
      */
+    @DomainAPI
     public Comment createComment(User user, Comment comment, String text) throws PermissionException {
         return comment.addSubComment(user, text);
     }

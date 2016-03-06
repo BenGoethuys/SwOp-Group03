@@ -14,6 +14,7 @@ import java.util.GregorianCalendar;
  *
  * @author Kwinten Buytaert, Ben Goethuys & Vincent Derkinderen.
  */
+@DomainAPI
 public class Subsystem extends AbstractSystem {
 
     /**
@@ -85,6 +86,7 @@ public class Subsystem extends AbstractSystem {
      * @param parent The given parent to be checked.
      * @return true is the given parent isn't the subsystem's own child
      */
+    @DomainAPI
     protected boolean isValidParent(AbstractSystem parent) {
         if (parent == null){
             return false;
@@ -105,6 +107,7 @@ public class Subsystem extends AbstractSystem {
      *
      * @return the parent of instance AbstractSystem.
      */
+    @DomainAPI
     protected AbstractSystem getParent() {
         return this.parent;
     }
@@ -117,6 +120,7 @@ public class Subsystem extends AbstractSystem {
      * @param perm the requested permission
      * @return true if the developer has the requested permission
      */
+    @DomainAPI
     public boolean hasPermission(Developer dev, RolePerm perm) {
         return this.getParentProject().hasPermission(dev, perm);
     }
@@ -126,6 +130,7 @@ public class Subsystem extends AbstractSystem {
      *
      * @return the list of bug reports of this subsystem
      */
+    @DomainAPI
     public PList<BugReport> getBugReportList() {
         return this.bugReportList;
     }
@@ -136,6 +141,7 @@ public class Subsystem extends AbstractSystem {
      * @return the list of all bugReports
      */
     @Override
+    @DomainAPI
     public PList<BugReport> getAllBugReports() {
         PList<BugReport> list = super.getAllBugReports();
         list = list.plusAll(this.getBugReportList());
