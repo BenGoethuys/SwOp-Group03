@@ -39,7 +39,7 @@ public class ShowProjectCmdTest {
 
         ArrayDeque<String> question = new ArrayDeque();
         ArrayDeque<String> answer = new ArrayDeque();
-        DeleteProjectCmd cmd = new DeleteProjectCmd();
+        ShowProjectCmd cmd = new ShowProjectCmd();
 
         //Setup scenario
         question.add("Available projects:");
