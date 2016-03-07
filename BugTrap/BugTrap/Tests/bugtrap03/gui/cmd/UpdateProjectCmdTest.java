@@ -58,10 +58,18 @@ public class UpdateProjectCmdTest {
         answer.add(proj0.getName());
         question.add("You have chosen:");
         question.add(proj0.getDetails());
+        question.add("Give new name: (leave blank for old name)");
         answer.add("");
+        question.add("The name was not updated.");
+        question.add("Give new description: (leave blank for old description)");
         answer.add("");
+        question.add("Description not updated.");
+        question.add("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
         answer.add("");
+        question.add("Start date not updated.");
+        question.add("Give new project budget estimate:");
         answer.add("");
+        question.add("Budget estimate not updated.");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         Project chosen = cmd.exec(scan, model, admin);
@@ -89,10 +97,17 @@ public class UpdateProjectCmdTest {
         answer.add(proj0.getName());
         question.add("You have chosen:");
         question.add(proj0.getDetails());
+        question.add("Give new name: (leave blank for old name)");
         answer.add("NewName");
+        question.add("Give new description: (leave blank for old description)");
         answer.add("");
+        question.add("Description not updated.");
+        question.add("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
         answer.add("");
+        question.add("Start date not updated.");
+        question.add("Give new project budget estimate:");
         answer.add("");
+        question.add("Budget estimate not updated.");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         Project chosen = cmd.exec(scan, model, admin);
@@ -121,10 +136,17 @@ public class UpdateProjectCmdTest {
         answer.add(proj0.getName());
         question.add("You have chosen:");
         question.add(proj0.getDetails());
+        question.add("Give new name: (leave blank for old name)");
         answer.add("");
+        question.add("The name was not updated.");
+        question.add("Give new description: (leave blank for old description)");
         answer.add("NewDescription");
+        question.add("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
         answer.add("");
+        question.add("Start date not updated.");
+        question.add("Give new project budget estimate:");
         answer.add("");
+        question.add("Budget estimate not updated.");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         Project chosen = cmd.exec(scan, model, admin);
@@ -153,12 +175,24 @@ public class UpdateProjectCmdTest {
         answer.add(proj0.getName());
         question.add("You have chosen:");
         question.add(proj0.getDetails());
+        question.add("Give new name: (leave blank for old name)");
         answer.add("");
+        question.add("The name was not updated.");
+        question.add("Give new description: (leave blank for old description)");
         answer.add("");
+        question.add("Description not updated.");
+        question.add("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
         answer.add("2024");
+        question.add("Invalid input. Please try again");
+        question.add("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
         answer.add("2011-12-01");
+        question.add("Invalid input. Please try again");
+        question.add("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
         answer.add("");
+        question.add("Start date not updated.");
+        question.add("Give new project budget estimate:");
         answer.add("");
+        question.add("Budget estimate not updated.");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         Project chosen = cmd.exec(scan, model, admin);
@@ -185,10 +219,17 @@ public class UpdateProjectCmdTest {
         answer.add(proj0.getName());
         question.add("You have chosen:");
         question.add(proj0.getDetails());
+        question.add("Give new name: (leave blank for old name)");
         answer.add("");
+        question.add("The name was not updated.");
+        question.add("Give new description: (leave blank for old description)");
         answer.add("");
+        question.add("Description not updated.");
+        question.add("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
         answer.add("2016-12-31");
+        question.add("Give new project budget estimate:");
         answer.add("");
+        question.add("Budget estimate not updated.");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         Project chosen = cmd.exec(scan, model, admin);
@@ -216,10 +257,19 @@ public class UpdateProjectCmdTest {
         answer.add(proj0.getName());
         question.add("You have chosen:");
         question.add(proj0.getDetails());
+        question.add("Give new name: (leave blank for old name)");
         answer.add("");
+        question.add("The name was not updated.");
+        question.add("Give new description: (leave blank for old description)");
         answer.add("");
+        question.add("Description not updated.");
+        question.add("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
         answer.add("");
+        question.add("Start date not updated.");
+        question.add("Give new project budget estimate:");
         answer.add("Lalala");
+        question.add("Invalid input.");
+        question.add("Give new project budget estimate:");
         answer.add("123");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
