@@ -1,42 +1,33 @@
-/**
- * 
- */
 package bugtrap03.gui.cmd;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayDeque;
-import java.util.GregorianCalendar;
 
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * TODO
  * 
  * @author Group 03
  *
  */
 public class UpdateProjectCmdTest {
     private static DataModel model;
-    private static Issuer issuer;
     private static Administrator admin;
     private static Developer lead;
     private static Project proj0;
     private static Project proj1;
-    
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -44,32 +35,20 @@ public class UpdateProjectCmdTest {
     public static void setUpBeforeClass() throws Exception {
         model = new DataModel();
         lead = model.createDeveloper("theLeader", "the", "Leader");
-        issuer = model.createIssuer("theIssuer", "Iss", "Uer");
         admin = model.createAdministrator("theAdmin", "Ad", "Min");
         proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
         proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
     }
 
     /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    /**
      * Test method for
      * {@link bugtrap03.gui.cmd.UpdateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
-     * @throws PermissionException
-     * @throws IllegalArgumentException
-     * @throws CancelException
      */
     @Test
     public void testExecUpdateProjectNoUpdates() throws IllegalArgumentException, PermissionException, CancelException {
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         UpdateProjectCmd cmd = new UpdateProjectCmd();
 
         question.add("Available projects:");
@@ -90,20 +69,17 @@ public class UpdateProjectCmdTest {
         assertEquals(chosen, proj0);
         assertEquals(chosen.getDetails(), proj0.getDetails());
     }
-    
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.UpdateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
-     * @throws PermissionException
-     * @throws IllegalArgumentException
-     * @throws CancelException
      */
     @Test
-    public void testExecUpdateProjectUpdateName() throws IllegalArgumentException, PermissionException, CancelException {
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+    public void testExecUpdateProjectUpdateName()
+            throws IllegalArgumentException, PermissionException, CancelException {
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         UpdateProjectCmd cmd = new UpdateProjectCmd();
 
         question.add("Available projects:");
@@ -130,15 +106,12 @@ public class UpdateProjectCmdTest {
      * Test method for
      * {@link bugtrap03.gui.cmd.UpdateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
-     * @throws PermissionException
-     * @throws IllegalArgumentException
-     * @throws CancelException
      */
     @Test
-    public void testExecUpdateProjectUpdateDescription() throws IllegalArgumentException, PermissionException, CancelException {
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+    public void testExecUpdateProjectUpdateDescription()
+            throws IllegalArgumentException, PermissionException, CancelException {
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         UpdateProjectCmd cmd = new UpdateProjectCmd();
 
         question.add("Available projects:");
@@ -160,20 +133,17 @@ public class UpdateProjectCmdTest {
         assertEquals(proj0.getDescription(), "NewDescription");
         assertNotEquals(proj0.getDescription(), "Project for testing 0");
     }
-    
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.UpdateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
-     * @throws PermissionException
-     * @throws IllegalArgumentException
-     * @throws CancelException
      */
     @Test
-    public void testExecUpdateProjectUpdateDateFalse() throws IllegalArgumentException, PermissionException, CancelException {
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+    public void testExecUpdateProjectUpdateDateFalse()
+            throws IllegalArgumentException, PermissionException, CancelException {
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         UpdateProjectCmd cmd = new UpdateProjectCmd();
 
         question.add("Available projects:");
@@ -195,20 +165,17 @@ public class UpdateProjectCmdTest {
 
         assertEquals(chosen, proj0);
     }
-    
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.UpdateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
-     * @throws PermissionException
-     * @throws IllegalArgumentException
-     * @throws CancelException
      */
     @Test
-    public void testExecUpdateProjectUpdateDateTrue() throws IllegalArgumentException, PermissionException, CancelException {
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+    public void testExecUpdateProjectUpdateDateTrue()
+            throws IllegalArgumentException, PermissionException, CancelException {
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         UpdateProjectCmd cmd = new UpdateProjectCmd();
 
         question.add("Available projects:");
@@ -227,22 +194,19 @@ public class UpdateProjectCmdTest {
         Project chosen = cmd.exec(scan, model, admin);
 
         assertEquals(chosen, proj0);
-        
+
     }
-    
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.UpdateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
-     * @throws PermissionException
-     * @throws IllegalArgumentException
-     * @throws CancelException
      */
     @Test
-    public void testExecUpdateProjectUpdateBudget() throws IllegalArgumentException, PermissionException, CancelException {
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+    public void testExecUpdateProjectUpdateBudget()
+            throws IllegalArgumentException, PermissionException, CancelException {
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         UpdateProjectCmd cmd = new UpdateProjectCmd();
 
         question.add("Available projects:");
@@ -264,6 +228,6 @@ public class UpdateProjectCmdTest {
         assertEquals(chosen, proj0);
         assertEquals(proj0.getBudgetEstimate(), 123);
         assertNotEquals(proj0.getBudgetEstimate(), 500);
-        
+
     }
 }
