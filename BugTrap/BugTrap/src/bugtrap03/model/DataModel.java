@@ -10,6 +10,7 @@ import bugtrap03.bugdomain.usersystem.User;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 
 import purecollections.PList;
 
@@ -292,18 +293,6 @@ public class DataModel {
     public Subsystem createSubsystem(AbstractSystem parent, String name, String description) {
         return parent.makeSubsystemChild(name, description);
     }
-    
-    /**
-     * Create a new {@link VersionID} with the specified numbers.
-     * @param nb1 The first number
-     * @param nb2 The second number
-     * @param nb3 The third number.
-     * @return A VersionID nb1.nb2.nb3
-     */
-    @DomainAPI
-    public VersionID createVersionID(int nb1, int nb2, int nb3) {
-        return new VersionID(nb1, nb2, nb3);
-    }
 
     /**
      * Get the list of projects in this system.
@@ -495,7 +484,9 @@ public class DataModel {
      * @param lead The lead developer for the clone project.
      * @param startDate The startDate for the clone project.
      * @param budgetEstimate The budgetEstimate for the clone project.
+     *
      * @return The resulting clone. Null if the source Clone is null.
+     * 
      * @see Project#cloneProject(bugtrap03.bugdomain.VersionID,
      * bugtrap03.bugdomain.usersystem.Developer, java.util.GregorianCalendar,
      * long)
@@ -511,11 +502,31 @@ public class DataModel {
 
     /**
      * This method returns all the developers assiciated with the project the bug report belongs to
+     *
      * @param bugRep    The bug report
+     *
      * @return The list of all devs in the project
      */
+    @DomainAPI
     public PList<Developer> getDeveloperInproject(BugReport bugRep){
         return bugRep.getSubsystem().getAllDev();
     }
 
+    /**
+     * This method adds all the users of the given list to the given project by the given user
+     *
+     * @param user      The user that wants to add all the given developers to the bug report
+     * @param bugRep    The bug report to add all the developers to
+     * @param devList   The developers to add to the bug report
+     *
+     * @throws PermissionException  If the given user doesn't have the needed permission to add users to the given bug report
+     * @throws IllegalArgumentException If the given user was null
+     * @throws IllegalArgumentException If the given developer was not valid for this bug report
+     */
+    @DomainAPI
+    public void addUsersToBugReport(User user, BugReport bugRep, HashSet<Developer> devList) throws PermissionException, IllegalArgumentException {
+        for (Developer dev : devList){
+            bugRep.addUser(user, dev);
+        }
+    }
 }
