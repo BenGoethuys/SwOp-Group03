@@ -1,12 +1,5 @@
-/**
- * 
- */
 package bugtrap03.gui.cmd;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -17,34 +10,15 @@ import org.junit.Test;
  */
 public class CmdParserTest {
 
-    /**
-     * @throws java.lang.Exception
-     */
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-    }
+    CmdParser parser;
 
     /**
-     * @throws java.lang.Exception
+     * Test method for
+     * {@link bugtrap03.gui.cmd.CmdParser#CmdParser(bugtrap03.gui.terminal.Terminal)}
+     * .
      */
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    /**
-     * Test method for {@link bugtrap03.gui.cmd.CmdParser#CmdParser(bugtrap03.gui.terminal.Terminal)}.
-     */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testCmdParser() {
-        fail("Not yet implemented");
+        parser = new CmdParser(null);
     }
-
-    /**
-     * Test method for {@link bugtrap03.gui.cmd.CmdParser#performCmd(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User, java.lang.String)}.
-     */
-    @Test
-    public void testPerformCmd() {
-        fail("Not yet implemented");
-    }
-
 }
