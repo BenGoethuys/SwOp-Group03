@@ -38,7 +38,7 @@ public class CreateSubsystemCmd implements Cmd {
 
         // show all projects
         PList<AbstractSystem> list = model.getAllProjectsAndSubsystems();
-        scan.println("Available projects and subsytems:");
+        scan.println("Available projects and subsystems:");
         for (int i = 0; i < list.size(); i++) {
             scan.println(i + ". " + list.get(i).getName());
         }
