@@ -393,6 +393,26 @@ public class DataModel {
         return abstractSystem.makeSubsystemChild(name, description);
     }
 
+    /**
+     * This method creates a new subsytem in the given Project/Subsystem
+     *
+     * @param user The user that wants to create the subsystem
+     * @param abstractSystem The Project/Subsystem to add the new subsytem to
+     * @param name The name of the new Subsytem
+     * @param description The description of the new Subsytem
+     * @return The created subsytem
+     * @throws PermissionException If the user doesn't have the permission to
+     * create a subsystem
+     * @see AbstractSystem#makeSubsystemChild(String, String)
+     */
+    @DomainAPI
+    public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, VersionID versionID, String name, String description) throws PermissionException, IllegalArgumentException {
+        if (!user.hasPermission(UserPerm.CREATE_SUBSYS)) {
+            throw new PermissionException("You don't have the needed permission");
+        }
+        return abstractSystem.makeSubsystemChild(versionID, name, description);
+    }
+
     //do we need next 3 methods? -> yes Controller principle! Make new -> change internal -> via controller
     /**
      * This method creates a bug report in the system
