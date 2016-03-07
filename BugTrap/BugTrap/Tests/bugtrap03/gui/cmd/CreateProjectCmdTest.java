@@ -45,9 +45,9 @@ public class CreateProjectCmdTest {
     public void testCreateExec() throws PermissionException, CancelException {
         //Setup variables.
         DataModel model = new DataModel();
-        User lead = model.createDeveloper("meGoodLead", "Luky", "Luke");
-        User issuer = model.createIssuer("noDev", "BadLuck", "Luke");
-        User admin = model.createAdministrator("admIn", "adminT", "bie");
+        User lead = model.createDeveloper("meGoodLead14", "Luky", "Luke");
+        User issuer = model.createIssuer("noDev14", "BadLuck", "Luke");
+        User admin = model.createAdministrator("admIn14", "adminT", "bie");
 
         ArrayDeque<String> question = new ArrayDeque();
         ArrayDeque<String> answer = new ArrayDeque();
