@@ -17,6 +17,7 @@ public class VersionID implements Comparable<VersionID> {
      * @param nb2 The second digit of the versionID.
      * @param nb3 The third digit of the versionID.
      */
+    @DomainAPI
     public VersionID(int nb1, int nb2, int nb3) {
         this.setFirstNb(nb1);
         this.setSecondNb(nb2);
@@ -29,6 +30,7 @@ public class VersionID implements Comparable<VersionID> {
      * @param nb1 The first digit of the versionID.
      * @param nb2 The second digit of the versionID.
      */
+    @DomainAPI
     public VersionID(int nb1, int nb2) {
         this(nb1, nb2, 0);
     }
@@ -38,6 +40,7 @@ public class VersionID implements Comparable<VersionID> {
      *
      * @param nb1 The first digit of the versionID.
      */
+    @DomainAPI
     public VersionID(int nb1) {
         this(nb1, 0, 0);
     }
@@ -45,6 +48,7 @@ public class VersionID implements Comparable<VersionID> {
     /**
      * Creates a basic versionID.
      */
+    @DomainAPI
     public VersionID() {
         this(0, 0, 1);
     }
