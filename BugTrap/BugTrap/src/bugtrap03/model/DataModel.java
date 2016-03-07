@@ -10,6 +10,7 @@ import bugtrap03.bugdomain.usersystem.User;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 
 import purecollections.PList;
 
@@ -268,6 +269,30 @@ public class DataModel {
         addProject(project);
         return project;
     }
+    
+    /**
+     * Create a {@link Subsystem} in the specified parent system.
+     * @param parent The parent AbstractSystem to add the new Subsystem to.
+     * @param versionID The versionID of this new subsystem.
+     * @param name The name of this new Subsystem.
+     * @param description The description of this new description.
+     * @return The created Subsystem with the specified arguments.
+     */
+    //TODO: Check if everyone should be able to create a subsystem.
+    public Subsystem createSubsystem(AbstractSystem parent, VersionID versionID, String name, String description) {
+        return parent.makeSubsystemChild(versionID, name, description);
+    }
+    
+    /**
+     * Create a {@link Subsystem} in the specified parent system.
+     * @param parent The parent AbstractSystem to add the new Subsystem to.
+     * @param name The name of this new Subsystem.
+     * @param description The description of this new description.
+     * @return The created Subsystem with the specified arguments.
+     */
+    public Subsystem createSubsystem(AbstractSystem parent, String name, String description) {
+        return parent.makeSubsystemChild(name, description);
+    }
 
     /**
      * Get the list of projects in this system.
@@ -459,7 +484,9 @@ public class DataModel {
      * @param lead The lead developer for the clone project.
      * @param startDate The startDate for the clone project.
      * @param budgetEstimate The budgetEstimate for the clone project.
+     *
      * @return The resulting clone. Null if the source Clone is null.
+     * 
      * @see Project#cloneProject(bugtrap03.bugdomain.VersionID,
      * bugtrap03.bugdomain.usersystem.Developer, java.util.GregorianCalendar,
      * long)
@@ -473,4 +500,33 @@ public class DataModel {
         return clone;
     }
 
+    /**
+     * This method returns all the developers assiciated with the project the bug report belongs to
+     *
+     * @param bugRep    The bug report
+     *
+     * @return The list of all devs in the project
+     */
+    @DomainAPI
+    public PList<Developer> getDeveloperInproject(BugReport bugRep){
+        return bugRep.getSubsystem().getAllDev();
+    }
+
+    /**
+     * This method adds all the users of the given list to the given project by the given user
+     *
+     * @param user      The user that wants to add all the given developers to the bug report
+     * @param bugRep    The bug report to add all the developers to
+     * @param devList   The developers to add to the bug report
+     *
+     * @throws PermissionException  If the given user doesn't have the needed permission to add users to the given bug report
+     * @throws IllegalArgumentException If the given user was null
+     * @throws IllegalArgumentException If the given developer was not valid for this bug report
+     */
+    @DomainAPI
+    public void addUsersToBugReport(User user, BugReport bugRep, HashSet<Developer> devList) throws PermissionException, IllegalArgumentException {
+        for (Developer dev : devList){
+            bugRep.addUser(user, dev);
+        }
+    }
 }
