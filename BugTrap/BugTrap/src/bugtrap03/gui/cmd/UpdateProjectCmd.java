@@ -93,7 +93,7 @@ public class UpdateProjectCmd implements Cmd {
             str = scan.nextLine();
             if (str.equalsIgnoreCase("")) {
                 projBudgetEstimate = proj.getBudgetEstimate();
-                scan.println("Buget estimate not updated.");
+                scan.println("Budget estimate not updated.");
             } else {
                 try {
                     projBudgetEstimate = Long.parseLong(str);
