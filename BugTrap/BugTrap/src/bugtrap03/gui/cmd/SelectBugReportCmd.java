@@ -17,8 +17,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * This class handles the SelectBugReport scenario
- * Created by Ben Goethuys on 02/03/2016.
+ * This class handles the SelectBugReport scenario Created by Ben Goethuys on
+ * 02/03/2016.
  */
 public class SelectBugReportCmd implements Cmd {
 
@@ -91,7 +91,7 @@ public class SelectBugReportCmd implements Cmd {
      * @param user The {@link User} who wants to executes this command.
      * @return null if there is no result specified.
      * @throws PermissionException When the user does not have sufficient
-     *             permissions.
+     * permissions.
      * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
@@ -105,7 +105,7 @@ public class SelectBugReportCmd implements Cmd {
             Predicate<BugReport> mode = null;
             String modeStr = null;
             do {
-                System.out.print("I choose: ");
+                scan.print("I choose: ");
                 if (scan.hasNextInt()) { // by index
                     int index = scan.nextInt();// input
                     if (index >= 0 && index < this.modeList.size()) {
@@ -128,6 +128,7 @@ public class SelectBugReportCmd implements Cmd {
             scan.println("Please enter the required search term ...");
             this.o = this.cmdMap.get(modeStr).exec(scan, model, user);
 
+            //parallel can conflict w tests.
             ArrayList<BugReport> selected = model.getAllBugReports().parallelStream().filter(mode)
                     .collect(Collectors.toCollection(ArrayList::new));
             Collections.sort(selected);
@@ -162,7 +163,7 @@ public class SelectBugReportCmd implements Cmd {
                     }
                 } while (bugrep == null);
 
-                scan.println("You have selected: " + bugrep.getTitle() + "\t -UniqueId: " + bugrep.getUniqueID());
+                scan.println("You have selected: " + bugrep.getTitle() + "\t -UniqueID: " + bugrep.getUniqueID());
                 return bugrep;
             } else {
                 scan.println("No bugreports in the system match the search term");
