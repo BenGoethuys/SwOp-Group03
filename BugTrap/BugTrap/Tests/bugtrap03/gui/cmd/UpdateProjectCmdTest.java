@@ -161,7 +161,7 @@ public class UpdateProjectCmdTest {
      * {@link bugtrap03.gui.cmd.UpdateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
      */
-    @Test
+    @Test (expected = IllegalArgumentException.class)
     public void testExecUpdateProjectUpdateDateFalse()
             throws IllegalArgumentException, PermissionException, CancelException {
         ArrayDeque<String> question = new ArrayDeque<>();
@@ -186,10 +186,6 @@ public class UpdateProjectCmdTest {
         question.add("Invalid input. Please try again");
         question.add("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
         answer.add("2011-12-01");
-        question.add("Invalid input. Please try again");
-        question.add("Give new project starting date (YYYY-MM-DD): (leave blank for old date)");
-        answer.add("");
-        question.add("Start date not updated.");
         question.add("Give new project budget estimate:");
         answer.add("");
         question.add("Budget estimate not updated.");
