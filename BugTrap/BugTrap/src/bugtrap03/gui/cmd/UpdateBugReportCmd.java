@@ -62,7 +62,7 @@ public class UpdateBugReportCmd implements Cmd {
         PList<Tag> taglist = model.getAllTags();
         scan.println("Available tags: \n");
         for (int i=0; i < taglist.size(); i++){
-            scan.println(i + ": \t" + taglist.get(i).toString() + "\n");
+            scan.println(i + ": \t" + taglist.get(i).toString());
         }
         Tag tagToSet = null;
         do{
