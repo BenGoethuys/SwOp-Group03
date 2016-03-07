@@ -36,7 +36,7 @@ public class UpdateBugReportCmd implements Cmd {
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
 
         BugReport bugrep = new SelectBugReportCmd().exec(scan, model, user);
-        Tag tagToSet =  null;
+        Tag tagToSet;
         do {
             tagToSet = this.selectTag(scan, model);
             try {
