@@ -76,11 +76,8 @@ public class UpdateProjectCmd implements Cmd {
                 try {
                     projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]),
                             Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
-                } catch (IndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
                     scan.println("Invalid input. Please try again");
-                } catch (IllegalArgumentException e) {
-                    scan.println("Invalid input. Please try again");
-                    projStartDate = null;
                 }
             }
         } while (projStartDate == null);

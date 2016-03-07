@@ -182,7 +182,7 @@ public class CreateBugReportCmdTest {
         question.add("Choose a dependency.");
         question.add("Available bugReports:");
         question.add("0. " + bugRep1.getTitle() + " " + bugRep1.getUniqueID());
-        question.add("1. Crash while processing user input 0");
+        question.add("1. " + bugRep2.getTitle() + " " + bugRep2.getUniqueID());
         question.add("I choose: (leave blank if done)");
         answer.add("5");
         question.add("Invalid input.");
