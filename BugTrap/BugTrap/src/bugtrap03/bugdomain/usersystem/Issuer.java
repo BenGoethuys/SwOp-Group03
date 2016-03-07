@@ -41,7 +41,7 @@ public class Issuer extends User {
     }
 
     private UserPerm[] permissions = {
-            UserPerm.CREATE_BUGREPORT, UserPerm.CREATE_COMMENT
+            UserPerm.CREATE_BUGREPORT, UserPerm.CREATE_COMMENT, UserPerm.INSPECT_BUGREPORT
     };
 
     /**
