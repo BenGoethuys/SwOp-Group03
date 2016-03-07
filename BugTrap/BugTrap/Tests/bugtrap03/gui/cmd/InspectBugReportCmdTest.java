@@ -1,14 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bugtrap03.gui.cmd;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 /**
+ * TODO
+ * 
+ * @author Group 03
  *
- * @author Admin
  */
 public class InspectBugReportCmdTest {
-    
+
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+
+    }
+
+    /**
+     * Test method for {@link bugtrap03.gui.cmd.InspectBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}.
+     */
+    @Test
+    public void testExec() {
+        
+    }
+
 }
