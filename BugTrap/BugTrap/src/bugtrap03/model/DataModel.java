@@ -538,8 +538,7 @@ public class DataModel {
      */
     @DomainAPI
     public PList<Tag> getAllTags(){
-        PList<Tag> returnList = PList.<Tag>empty().plusAll(Arrays.asList(Tag.values()));
-        return returnList;
+        return PList.<Tag>empty().plusAll(Arrays.asList(Tag.values()));
     }
 
     /**
