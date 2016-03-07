@@ -63,7 +63,15 @@ public class UpdateBugReportCmd implements Cmd {
         }while (tagToSet == null);
 
         scan.println("You have selected: \t" + tagToSet.toString());
-        model.setTag(bugrep, tagToSet, user);
+        try{
+            model.setTag(bugrep, tagToSet, user);
+        } catch (IllegalArgumentException iae){
+            scan.println("The given tag is not valid, updating terminated");
+            return null;
+        } catch (PermissionException pme){
+            scan.println("You do not have the needed permissions to set this tag");
+            return null;
+        }
         scan.println("The tag has been set.");
         return bugrep;
     }
