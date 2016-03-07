@@ -62,7 +62,7 @@ public class UpdateBugReportCmd implements Cmd {
         PList<Tag> taglist = model.getAllTags();
         scan.println("Available tags: \n");
         for (int i=0; i < taglist.size(); i++){
-            scan.println(i + ": \t" + taglist.get(i).toString());
+            scan.println(i + ". " + taglist.get(i).name());
         }
         Tag tagToSet = null;
         do{
@@ -77,7 +77,7 @@ public class UpdateBugReportCmd implements Cmd {
             } else { // by name
                 String input = scan.nextLine(); // input
                 try {
-                    tagToSet = taglist.parallelStream().filter(u -> u.toString().equals(input)).findFirst().get();
+                    tagToSet = taglist.parallelStream().filter(u -> u.name().equals(input)).findFirst().get();
                 } catch (NoSuchElementException ex) {
                     scan.println("Invalid input.");
                 }
