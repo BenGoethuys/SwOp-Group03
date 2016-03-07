@@ -3,7 +3,6 @@ package bugtrap03.gui.cmd;
 import org.junit.Test;
 
 /**
- * TODO
  * 
  * @author Group 03
  *
