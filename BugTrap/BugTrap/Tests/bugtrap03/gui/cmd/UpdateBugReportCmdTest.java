@@ -15,7 +15,7 @@ import org.junit.Test;
  * @author Group 03
  *
  */
-public class AssignToBugReportCmdTest {
+public class UpdateBugReportCmdTest {
 
     /**
      * @throws java.lang.Exception
@@ -32,7 +32,7 @@ public class AssignToBugReportCmdTest {
     }
 
     /**
-     * Test method for {@link bugtrap03.gui.cmd.AssignToBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}.
+     * Test method for {@link bugtrap03.gui.cmd.UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}.
      */
     @Test
     public void testExec() {

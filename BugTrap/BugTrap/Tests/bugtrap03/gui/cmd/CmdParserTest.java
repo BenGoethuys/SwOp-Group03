@@ -15,7 +15,7 @@ import org.junit.Test;
  * @author Group 03
  *
  */
-public class AssignToBugReportCmdTest {
+public class CmdParserTest {
 
     /**
      * @throws java.lang.Exception
@@ -32,10 +32,18 @@ public class AssignToBugReportCmdTest {
     }
 
     /**
-     * Test method for {@link bugtrap03.gui.cmd.AssignToBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}.
+     * Test method for {@link bugtrap03.gui.cmd.CmdParser#CmdParser(bugtrap03.gui.terminal.Terminal)}.
      */
     @Test
-    public void testExec() {
+    public void testCmdParser() {
+        fail("Not yet implemented");
+    }
+
+    /**
+     * Test method for {@link bugtrap03.gui.cmd.CmdParser#performCmd(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User, java.lang.String)}.
+     */
+    @Test
+    public void testPerformCmd() {
         fail("Not yet implemented");
     }
 
