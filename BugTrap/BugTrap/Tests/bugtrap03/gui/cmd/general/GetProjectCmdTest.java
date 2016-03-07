@@ -85,7 +85,7 @@ public class GetProjectCmdTest {
         //Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead", "Luky", "Luke");
-        User admin = model.createAdministrator("admin", "adminT", "bie");
+        User admin = model.createAdministrator("adminB", "adminT", "bie");
         Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
