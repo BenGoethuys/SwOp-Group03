@@ -59,7 +59,7 @@ public class GetProjectCmd implements Cmd {
                 }
             }
         } while (proj == null);
-        scan.println("You have chosen: \n");
+        scan.println("You have chosen:");
         scan.println(proj.getDetails());
 
         return proj;
