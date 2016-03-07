@@ -30,7 +30,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param tag          The tag of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param subsystem    The subsystem this bug report belongs to
-     *                     
+     *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
