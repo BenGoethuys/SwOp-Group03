@@ -47,7 +47,7 @@ public class CreateProjectCmdTest {
         DataModel model = new DataModel();
         User lead = model.createDeveloper("meGoodLead", "Luky", "Luke");
         User issuer = model.createIssuer("noDev", "BadLuck", "Luke");
-        User admin = model.createAdministrator("admin", "adminT", "bie");
+        User admin = model.createAdministrator("admIn", "adminT", "bie");
 
         ArrayDeque<String> question = new ArrayDeque();
         ArrayDeque<String> answer = new ArrayDeque();
