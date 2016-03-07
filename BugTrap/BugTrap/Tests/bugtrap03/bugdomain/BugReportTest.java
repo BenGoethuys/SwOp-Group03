@@ -88,6 +88,11 @@ public class BugReportTest {
 		assertFalse(BugReport.isValidUniqueID(-1));
 	}
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testInValidUniqueId() throws PermissionException {
+        new BugReport(issuer, 0, "NastyBug", "bla bla", date, depList, subsystem);
+    }
+
 	@Test
 	public void testGetTitle() {
 		assertEquals("NastyBug", bugReport1.getTitle());
