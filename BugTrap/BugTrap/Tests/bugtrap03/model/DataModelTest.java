@@ -1,4 +1,4 @@
-package bugtrap03;
+package bugtrap03.model;
 
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -14,7 +14,7 @@ import purecollections.PList;
 
 /**
  *
- * @author Admin
+ * @author Group 03
  */
 public class DataModelTest {
 
@@ -85,4 +85,9 @@ public class DataModelTest {
         assertEquals(admin2.getLastName(), "adminMyLastName2");
     }
 
+    @Test
+    public void testCreateIssuer() {
+        DataModel model = new DataModel();
+        
+    }
 }
