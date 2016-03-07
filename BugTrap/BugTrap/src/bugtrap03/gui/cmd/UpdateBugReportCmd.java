@@ -29,20 +29,42 @@ public class UpdateBugReportCmd implements Cmd {
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
      * @return the bugreport of which the tag has been updated.
-     * @throws PermissionException
-     * @throws CancelException
+     * @throws PermissionException When the user doesn't have the needed permission to set the tag.
+     * @throws CancelException When the user wants to abort the process
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
 
         BugReport bugrep = new SelectBugReportCmd().exec(scan, model, user);
+        Tag tagToSet =  null;
+        do {
+            tagToSet = this.selectTag(scan, model);
+            try {
+                model.setTag(bugrep, tagToSet, user);
+            } catch (IllegalArgumentException iae) {
+                scan.println("Invalid tag, select other tag");
+                tagToSet = null;
+            }
+        }while (tagToSet == null);
+
+        scan.println("The tag " + tagToSet.toString() + " has been set.");
+        return bugrep;
+    }
+
+    /**
+     * This methods let's the user select a tag.
+     * @param @param scan  The scanner used to interact with the person.
+     * @param model The model used for model access.
+     * @return the selected tag
+     * @throws CancelException When the users wants to abort the process
+     */
+    private Tag selectTag(TerminalScanner scan, DataModel model) throws CancelException{
         PList<Tag> taglist = model.getAllTags();
         scan.println("Available tags: \n");
         for (int i=0; i < taglist.size(); i++){
             scan.println(i + ": \t" + taglist.get(i).toString() + "\n");
         }
         Tag tagToSet = null;
-
         do{
             scan.print("I choose tag: ");
             if (scan.hasNextInt()) { // by index
@@ -61,18 +83,7 @@ public class UpdateBugReportCmd implements Cmd {
                 }
             }
         }while (tagToSet == null);
-
         scan.println("You have selected: \t" + tagToSet.toString());
-        try{
-            model.setTag(bugrep, tagToSet, user);
-        } catch (IllegalArgumentException iae){
-            scan.println("The given tag is not valid, updating terminated");
-            return null;
-        } catch (PermissionException pme){
-            scan.println("You do not have the needed permissions to set this tag");
-            return null;
-        }
-        scan.println("The tag has been set.");
-        return bugrep;
+        return tagToSet;
     }
 }
