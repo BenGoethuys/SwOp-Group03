@@ -359,6 +359,16 @@ public class Project extends AbstractSystem {
     }
 
     /**
+     * This functions returns all the developers associated with this project
+     * @return The list of all developers associated with this project
+     */
+    @DomainAPI
+    @Override
+    public PList<Developer> getAllDev(){
+        return PList.<Developer>empty().plusAll(this.projectParticipants.keySet());
+    }
+
+    /**
      * This method returns all the roles associated with the developers of this
      * project
      *

@@ -473,4 +473,13 @@ public class DataModel {
         return clone;
     }
 
+    /**
+     * This method returns all the developers assiciated with the project the bug report belongs to
+     * @param bugRep    The bug report
+     * @return The list of all devs in the project
+     */
+    public PList<Developer> getDeveloperInproject(BugReport bugRep){
+        return bugRep.getSubsystem().getAllDev();
+    }
+
 }

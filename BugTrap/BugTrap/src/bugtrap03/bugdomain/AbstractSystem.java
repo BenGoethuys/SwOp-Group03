@@ -243,6 +243,15 @@ public abstract class AbstractSystem {
     }
 
     /**
+     * This functions returns all the developers associated with this project
+     * @return The list of all developers associated with this project
+     */
+    @DomainAPI
+    public PList<Developer> getAllDev(){
+        return this.getParentProject().getAllDev();
+    }
+
+    /**
      * This method returns all the bug reports associated with this AbstractSystem
      *
      * @return the list of all bugReports
