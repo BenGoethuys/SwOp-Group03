@@ -75,8 +75,8 @@ public class CreateSubsystemCmd implements Cmd {
         String sysDesc = scan.nextLine();
 
         //Create subsystem
-        Subsystem subsytem = model.createSubsystem(user, system, sysName, sysDesc);
-        scan.println("Create subsystem.");
-        return subsytem;
+        Subsystem subsystem = model.createSubsystem(user, system, sysName, sysDesc);
+        scan.println("Created subsystem " + subsystem.getName());
+        return subsystem;
     }
 }
