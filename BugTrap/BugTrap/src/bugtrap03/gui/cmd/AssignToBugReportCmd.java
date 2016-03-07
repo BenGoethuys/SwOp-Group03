@@ -79,7 +79,7 @@ public class AssignToBugReportCmd implements Cmd {
             dev = null;
         } while (! done);
 
-        model.addUsersToBugReport(user, bugRep, devList);
+        model.addUsersToBugReport(user, bugRep, PList.<Developer>empty().plusAll(devList));
 
         return null;
     }
