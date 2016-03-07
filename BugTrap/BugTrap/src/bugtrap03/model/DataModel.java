@@ -9,6 +9,7 @@ import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
@@ -528,5 +529,29 @@ public class DataModel {
         for (Developer dev : devList){
             bugRep.addUser(user, dev);
         }
+    }
+
+    /**
+     * This method return a PList of all the possible tags that can be set.
+     *
+     * @return a Plist of all the possible tags
+     */
+    @DomainAPI
+    public PList<Tag> getAllTags(){
+        PList<Tag> returnList = PList.<Tag>empty().plusAll(Arrays.asList(Tag.values()));
+        return returnList;
+    }
+
+    /**
+     * This method lets the given user set the tag of the given bug report to the given tag
+     * @param bugrep    The bugreport of which the tag gets to be set
+     * @param tag       The given tag to set
+     * @param user      The user that wishes to set the tag
+     * @throws PermissionException If the user doesn't have the needed permission to set the given tag to the bug report
+     * @throws IllegalArgumentException If the given tag isn't a valid tag to set to the bug report
+     */
+    @DomainAPI
+    public void setTag(BugReport bugrep, Tag tag, User user) throws PermissionException, IllegalArgumentException {
+        bugrep.setTag(tag, user);
     }
 }

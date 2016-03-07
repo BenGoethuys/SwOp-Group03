@@ -33,7 +33,7 @@ public class UpdateBugReportCmd implements Cmd {
         BugReport bugrep = new SelectBugReportCmd().exec(scan, model, user);
         //TODO make model method
         PList<Tag> taglist = model.getAllTags();
-        scan.println("Available tags: \n")
+        scan.println("Available tags: \n");
         for (int i=0; i < taglist.size(); i++){
             scan.println(i + ": \t" + taglist.get(i).toString() + "\n");
         }
@@ -59,9 +59,8 @@ public class UpdateBugReportCmd implements Cmd {
         }while (tagToSet == null);
 
         scan.println("You have selected: \t" + tagToSet.toString());
-        //TODO
         model.setTag(bugrep, tagToSet, user);
-        scan.println("The tag has been set");
+        scan.println("The tag has been set.");
         return bugrep;
     }
 }
