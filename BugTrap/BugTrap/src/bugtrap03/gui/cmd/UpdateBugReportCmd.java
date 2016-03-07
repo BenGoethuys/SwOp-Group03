@@ -24,14 +24,18 @@ public class UpdateBugReportCmd implements Cmd {
      * <br> 3. The developer suggests a new tag for the bug report.
      * <br> 4. The system gives the selected bug report the new tag.
      * <br> 4a. The developer does not have the permission to assign the tag:
+     *
+     * @param scan  The scanner used to interact with the person.
+     * @param model The model used for model access.
+     * @param user  The {@link User} who wants to executes this command.
+     * @return the bugreport of which the tag has been updated.
+     * @throws PermissionException
+     * @throws CancelException
      */
-
-
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
 
         BugReport bugrep = new SelectBugReportCmd().exec(scan, model, user);
-        //TODO make model method
         PList<Tag> taglist = model.getAllTags();
         scan.println("Available tags: \n");
         for (int i=0; i < taglist.size(); i++){
