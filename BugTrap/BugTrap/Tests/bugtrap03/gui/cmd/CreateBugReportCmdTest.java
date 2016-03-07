@@ -41,10 +41,10 @@ public class CreateBugReportCmdTest {
         projectA.setRole(lead, maria, Role.TESTER);
         // make subsystems
         projectA.makeSubsystemChild(new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(subsystemA3_1, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3_1, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
         // make bug report 2
         BugReport bugRep2 = model.createBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty(), subsystemA3_1);
         bugRep2.addUser(lead, lead);
