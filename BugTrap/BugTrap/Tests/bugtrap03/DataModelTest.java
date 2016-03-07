@@ -34,8 +34,8 @@ public class DataModelTest {
     @Test
     public void testGetUserList() {
         DataModel model = new DataModel();
-        Administrator admin = model.createAdministrator("admin", "Henk", "Bass");
-        Issuer issuer = model.createIssuer("issuer", "Ha", "skell");
+        Administrator admin = model.createAdministrator("adminL", "Henk", "Bass");
+        Issuer issuer = model.createIssuer("issuerL", "Ha", "skell");
 
         PList<User> userList = model.getUserList();
         assertEquals(userList.size(), 2);

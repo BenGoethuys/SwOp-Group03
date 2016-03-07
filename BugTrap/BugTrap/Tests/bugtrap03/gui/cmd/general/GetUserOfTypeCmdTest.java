@@ -39,9 +39,9 @@ public class GetUserOfTypeCmdTest {
     public void testExecName() throws CancelException {
         //Setup variables.
         DataModel model = new DataModel();
-        Developer lead = model.createDeveloper("meGoodLead", "Luky", "Luke");
-        Issuer issuer = model.createIssuer("noDev", "BadLuck", "Luke");
-        User admin = model.createAdministrator("admin", "adminT", "bie");
+        Developer lead = model.createDeveloper("meGoodLeadAX", "Luky", "Luke");
+        Issuer issuer = model.createIssuer("noDevAX", "BadLuck", "Luke");
+        User admin = model.createAdministrator("adminAX", "adminT", "bie");
 
         ArrayDeque<String> question = new ArrayDeque();
         ArrayDeque<String> answer = new ArrayDeque();
