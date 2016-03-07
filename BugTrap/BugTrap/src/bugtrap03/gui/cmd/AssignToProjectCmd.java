@@ -81,7 +81,6 @@ public class AssignToProjectCmd implements Cmd{
 
         Developer devToSet = new GetUserOfTypeCmd<Developer>(Developer.class).exec(scan,  model, user);
         PList<Role> currentRolesList = selectedProj.getAllRolesDev(devToSet);
-        //TODO datamodel function
         PList<Role> roleList = model.getAllRoles();
         for (Role role: currentRolesList){
             roleList.minus(role);
