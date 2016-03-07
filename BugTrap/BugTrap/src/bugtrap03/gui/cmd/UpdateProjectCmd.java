@@ -78,8 +78,11 @@ public class UpdateProjectCmd implements Cmd {
                             Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
                     //TODO via model!
                     proj.setStartDate(projStartDate);
-                } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+                } catch (IndexOutOfBoundsException e) {
                     scan.println("Invalid input. Please try again");
+                } catch (IllegalArgumentException e) {
+                    scan.println("Invalid input. Please try again");
+                    projStartDate = null;
                 }
             }
         } while (projStartDate == null);
