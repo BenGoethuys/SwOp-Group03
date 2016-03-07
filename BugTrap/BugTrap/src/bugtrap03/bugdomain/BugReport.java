@@ -212,7 +212,9 @@ public class BugReport implements Comparable<BugReport> {
      * @see BugReport#isValidUniqueID(long)
      */
     private void setUniqueID(long uniqueID) throws IllegalArgumentException {
-        BugReport.isValidUniqueID(uniqueID);
+        if (! BugReport.isValidUniqueID(uniqueID)){
+            throw new IllegalArgumentException("The given id is not unique");
+        }
         BugReport.allTakenIDs.add(uniqueID);
         this.uniqueID = uniqueID;
     }
