@@ -231,7 +231,7 @@ public abstract class AbstractSystem {
      *
      * @return the Project to which al the subsystems are linked.
      */
-    protected Project getParentProject() {
+    public Project getParentProject() {
         AbstractSystem localParent = this.getParent();
         AbstractSystem localGrandParent = localParent.getParent();
         while (localParent != localGrandParent) {
