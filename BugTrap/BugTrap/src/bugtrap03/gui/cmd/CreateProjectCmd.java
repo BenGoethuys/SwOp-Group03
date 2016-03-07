@@ -1,6 +1,6 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.DataModel;
+import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
@@ -159,6 +159,7 @@ public class CreateProjectCmd implements Cmd {
                 nb1 = Integer.parseInt(versionIDStr[0]);
                 nb2 = Integer.parseInt(versionIDStr[1]);
                 nb3 = Integer.parseInt(versionIDStr[2]);
+                // TODO add versionID to API or model?
                 versionID = new VersionID(nb1, nb2, nb3);
             } catch (IndexOutOfBoundsException | NumberFormatException ex) {
                 scan.println("Invalid input. Please try again using format: a.b.c");

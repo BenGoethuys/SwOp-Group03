@@ -2,7 +2,7 @@ package bugtrap03.gui.cmd.general;
 
 import java.util.NoSuchElementException;
 
-import bugtrap03.DataModel;
+import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.Cmd;

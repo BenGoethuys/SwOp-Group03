@@ -3,7 +3,7 @@ package bugtrap03.gui.cmd;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-import bugtrap03.DataModel;
+import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
@@ -76,6 +76,7 @@ public class UpdateProjectCmd implements Cmd {
                 try {
                     projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]),
                             Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
+                    //TODO via model!
                     proj.setStartDate(projStartDate);
                 } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
                     scan.println("Invalid input. Please try again");
@@ -95,6 +96,7 @@ public class UpdateProjectCmd implements Cmd {
             } else {
                 try {
                     projBudgetEstimate = Long.parseLong(str);
+                    // TODO via model!
                     proj.setBudgetEstimate(projBudgetEstimate);
                 } catch (IllegalArgumentException e) {
                     scan.println("Invalid input.");

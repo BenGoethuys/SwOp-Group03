@@ -4,7 +4,8 @@ import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.User;
-import org.junit.Assert;
+import bugtrap03.model.DataModel;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
