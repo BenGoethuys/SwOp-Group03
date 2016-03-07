@@ -553,4 +553,22 @@ public class DataModel {
     public void setTag(BugReport bugrep, Tag tag, User user) throws PermissionException, IllegalArgumentException {
         bugrep.setTag(tag, user);
     }
+
+    /**
+     * This method gets the details of a given bug report and checks the needed permission
+     *
+     * @param user      The user that wants to inspect the bugReport
+     * @param bugRep    The bug report that the user wants to inspect
+     *
+     * @return The details of the bug report
+     *
+     * @throws PermissionException If the given user doesn't have the needed permission
+     */
+    @DomainAPI
+    public String getDetails(User user, BugReport bugRep) throws PermissionException {
+        if (! user.hasPermission(UserPerm.INSPECT_BUGREPORT)){
+            throw new PermissionException("the given user doesn't have the needed permission!");
+        }
+        return bugRep.getDetails();
+    }
 }

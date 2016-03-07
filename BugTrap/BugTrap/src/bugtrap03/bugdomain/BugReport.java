@@ -775,7 +775,6 @@ public class BugReport implements Comparable<BugReport> {
      * This method returns all important details of this bug report:
      * @return the most important details of this bug report
      */
-    @DomainAPI
     public String getDetails(){
         String str = "Bug report id: " + this.getUniqueID();
         str += "\n creator: " + this.getCreator().getFullName();
