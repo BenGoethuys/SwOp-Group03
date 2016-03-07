@@ -33,7 +33,7 @@ public class InspectBugReportCmd implements Cmd {
 
         BugReport bugRep = new SelectBugReportCmd().exec(scan, model, user);
 
-        scan.println(bugRep.getDetails());
+        scan.println(model.getDetails(user, bugRep));
 
         return null;
     }

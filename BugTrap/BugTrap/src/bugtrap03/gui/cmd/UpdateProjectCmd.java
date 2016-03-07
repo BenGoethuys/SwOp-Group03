@@ -76,8 +76,6 @@ public class UpdateProjectCmd implements Cmd {
                 try {
                     projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]),
                             Integer.parseInt(projDateStr[1]), Integer.parseInt(projDateStr[2]));
-                    //TODO via model!
-                    proj.setStartDate(projStartDate);
                 } catch (IndexOutOfBoundsException e) {
                     scan.println("Invalid input. Please try again");
                 } catch (IllegalArgumentException e) {
@@ -95,12 +93,10 @@ public class UpdateProjectCmd implements Cmd {
             str = scan.nextLine();
             if (str.equalsIgnoreCase("")) {
                 projBudgetEstimate = proj.getBudgetEstimate();
-                scan.println("Buget estimate not updated.");
+                scan.println("Budget estimate not updated.");
             } else {
                 try {
                     projBudgetEstimate = Long.parseLong(str);
-                    // TODO via model!
-                    proj.setBudgetEstimate(projBudgetEstimate);
                 } catch (IllegalArgumentException e) {
                     scan.println("Invalid input.");
                 }
