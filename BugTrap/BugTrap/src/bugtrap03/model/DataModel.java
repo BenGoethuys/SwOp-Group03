@@ -518,7 +518,7 @@ public class DataModel {
      * @throws IllegalArgumentException If the given developer was not valid for this bug report
      */
     @DomainAPI
-    public void addUsersToBugReport(User user, BugReport bugRep, HashSet<Developer> devList) throws PermissionException, IllegalArgumentException {
+    public void addUsersToBugReport(User user, BugReport bugRep, PList<Developer> devList) throws PermissionException, IllegalArgumentException {
         for (Developer dev : devList){
             bugRep.addUser(user, dev);
         }

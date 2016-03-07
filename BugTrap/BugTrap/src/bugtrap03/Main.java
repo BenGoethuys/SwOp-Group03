@@ -10,6 +10,8 @@ import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 
 /**
@@ -56,21 +58,19 @@ public class Main {
             // create projectA
             Project projectA = model.createProject("ProjectA", "Description of projectA", major, 10000, admin);
             // add asked roles
-            projectA.setRole(major, major, Role.PROGRAMMER);
-            projectA.setRole(major, maria, Role.TESTER);
+            model.assignToProject(projectA, major, major, Role.PROGRAMMER);
+            model.assignToProject(projectA, major, maria, Role.TESTER);
             // make subsystems
-            projectA.makeSubsystemChild(new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-            Subsystem subsystemA2 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-            Subsystem subsystemA3 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-            Subsystem subsystemA3_1 = subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-            subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+            model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
+            Subsystem subsystemA2 = model.createSubsystem(admin, projectA, "SubsystemA2", "Description of susbsystem A2");
+            Subsystem subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
+            Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
+            model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
             // make bug report 2
-            BugReport bugRep2 = subsystemA3_1.addBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty());
-            bugRep2.addUser(major, major);
-            bugRep2.addUser(major, maria);
+            BugReport bugRep2 = model.createBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty(), subsystemA3_1);
+            model.addUsersToBugReport(major, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(major, maria)));
             // mak bug report 3
-            subsystemA2.addBugReport(major, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty());
-
+            model.createBugReport(major, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), subsystemA2);
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
             System.err.println(e.getMessage());
@@ -81,17 +81,17 @@ public class Main {
             // create projectB
             projectB = model.createProject("ProjectB", "Description of projectB", maria, 10000, admin);
             // add asked roles
-            projectB.setRole(maria, major, Role.PROGRAMMER);
+            model.assignToProject(projectB, maria, major, Role.PROGRAMMER);
             // make subsystems
-            Subsystem subsystemB1 = projectB.makeSubsystemChild(new VersionID(), "SubsystemB1", "Description of susbsystem B1");
-            Subsystem subsystemB2 = projectB.makeSubsystemChild(new VersionID(), "SubsystemB2", "Description of susbsystem B2");
-            subsystemB2.makeSubsystemChild(new VersionID(), "SubsystemB2.1", "Description of susbsystem B2.1");
+            Subsystem subsystemB1 = model.createSubsystem(admin, projectB, "SubsystemB1", "Description of susbsystem B1");
+            Subsystem subsystemB2 = model.createSubsystem(admin, projectB, "SubsystemB2", "Description of susbsystem B2");
+            model.createSubsystem(admin, subsystemB2, "SubsystemB2.1", "Description of susbsystem B2.1");
             // make bug report 1
-            BugReport bugRep1 = subsystemB1.addBugReport(doc, "The function parse_ewd returns unexpected results", "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 1, 3), PList.<BugReport>empty());
-            bugRep1.addUser(maria, maria);
-            bugRep1.setTag(Tag.UNDER_REVIEW, major);
-            bugRep1.setTag(Tag.RESOLVED, doc);
-            bugRep1.setTag(Tag.CLOSED, maria);
+            BugReport bugRep1 = model.createBugReport(doc, "The function parse_ewd returns unexpected results", "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 1, 3), PList.<BugReport>empty(), subsystemB1);
+            model.addUsersToBugReport(maria, bugRep1, PList.<Developer>empty().plus(maria));
+            model.setTag(bugRep1, Tag.UNDER_REVIEW, major);
+            model.setTag(bugRep1, Tag.RESOLVED, doc);
+            model.setTag(bugRep1, Tag.CLOSED, maria);
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
             System.err.println(e.getMessage());
