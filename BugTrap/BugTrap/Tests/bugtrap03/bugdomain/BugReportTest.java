@@ -31,6 +31,7 @@ public class BugReportTest {
 	static Project project;
 	static Subsystem subsystem;
 	static Administrator admin;
+	static long id1;
 	static long id2;
 	
 	@BeforeClass
@@ -49,8 +50,9 @@ public class BugReportTest {
 		project.setRole(lead, programer, Role.PROGRAMMER);
 		project.setRole(lead, tester, Role.TESTER);
 		subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project);
-		
-		bugReport1 = new BugReport(issuer, 1, "NastyBug", "bla bla", date, depList, subsystem);
+
+		id1 = BugReport.getNewUniqueID();
+		bugReport1 = new BugReport(issuer, id1, "NastyBug", "bla bla", date, depList, subsystem);
 		id2 = BugReport.getNewUniqueID();
 		bugReport2 = new BugReport(issuer, "FoundBug", "", depList, subsystem);
 	}
@@ -61,7 +63,7 @@ public class BugReportTest {
 
 	@Test
 	public void testGetUniqueID() {
-		assertEquals(1, bugReport1.getUniqueID());
+		assertEquals(id1, bugReport1.getUniqueID());
 		assertEquals(id2, bugReport2.getUniqueID());
 	}
 	
@@ -78,15 +80,12 @@ public class BugReportTest {
 
 	@Test
 	public void testIsValidUniqueID() {
-		assertFalse(BugReport.isValidUniqueID(1));
-		assertFalse(BugReport.isValidUniqueID(2));
-		
-		assertFalse(BugReport.isValidUniqueID(1));
-		assertFalse(BugReport.isValidUniqueID(2));
+		assertFalse(BugReport.isValidUniqueID(id1));
+		assertFalse(BugReport.isValidUniqueID(id2));
 		
 		assertTrue(BugReport.isValidUniqueID(BugReport.getNewUniqueID()));
 		
-		assertFalse(BugReport.isValidUniqueID(-5));
+		assertFalse(BugReport.isValidUniqueID(-1));
 	}
 
 	@Test
