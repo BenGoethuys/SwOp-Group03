@@ -50,6 +50,7 @@ public class CmdParser {
         cmdList.add(new SimpleEntry("selectbugreport", new SelectBugReportCmd()));
         cmdList.add(new SimpleEntry("inspectbugreport", new InspectBugReportCmd()));
         cmdList.add(new SimpleEntry("createcomment", new CreateCommentCmd()));
+        cmdList.add(new SimpleEntry("assigntobugreport", new CreateCommentCmd()));
 
         cmdMap = new HashMap<>();
         for (int i = 0; i < cmdList.size(); i++) {
@@ -72,6 +73,7 @@ public class CmdParser {
         cmdListExtra.add(new SimpleEntry("createcom", new CreateCommentCmd()));
         cmdListExtra.add(new SimpleEntry("showbugreport", new InspectBugReportCmd()));
         cmdListExtra.add(new SimpleEntry("showbugrep", new InspectBugReportCmd()));
+        cmdListExtra.add(new SimpleEntry("assigntobugrep", new CreateCommentCmd()));
 
         for (int i = 0; i < cmdListExtra.size(); i++) {
             cmdMap.put(cmdListExtra.get(i).getKey(), cmdListExtra.get(i).getValue());

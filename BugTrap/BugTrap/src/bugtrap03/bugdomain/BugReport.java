@@ -91,7 +91,7 @@ public class BugReport implements Comparable<BugReport> {
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      */
-    public BugReport(User creator, long uniqueID, String title, String description, GregorianCalendar creationDate,
+    protected BugReport(User creator, long uniqueID, String title, String description, GregorianCalendar creationDate,
                      PList<BugReport> dependencies, Subsystem subsystem)
             throws IllegalArgumentException, PermissionException {
         this(creator, uniqueID, title, description, creationDate, Tag.NEW, dependencies, subsystem);
@@ -212,7 +212,9 @@ public class BugReport implements Comparable<BugReport> {
      * @see BugReport#isValidUniqueID(long)
      */
     private void setUniqueID(long uniqueID) throws IllegalArgumentException {
-        BugReport.isValidUniqueID(uniqueID);
+        if (! BugReport.isValidUniqueID(uniqueID)){
+            throw new IllegalArgumentException("The given id is not unique");
+        }
         BugReport.allTakenIDs.add(uniqueID);
         this.uniqueID = uniqueID;
     }

@@ -3,10 +3,7 @@ package bugtrap03.model;
 import bugtrap03.bugdomain.*;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
-import bugtrap03.bugdomain.usersystem.Administrator;
-import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.Issuer;
-import bugtrap03.bugdomain.usersystem.User;
+import bugtrap03.bugdomain.usersystem.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -270,30 +267,6 @@ public class DataModel {
         addProject(project);
         return project;
     }
-    
-    /**
-     * Create a {@link Subsystem} in the specified parent system.
-     * @param parent The parent AbstractSystem to add the new Subsystem to.
-     * @param versionID The versionID of this new subsystem.
-     * @param name The name of this new Subsystem.
-     * @param description The description of this new description.
-     * @return The created Subsystem with the specified arguments.
-     */
-    //TODO: Check if everyone should be able to create a subsystem.
-    public Subsystem createSubsystem(AbstractSystem parent, VersionID versionID, String name, String description) {
-        return parent.makeSubsystemChild(versionID, name, description);
-    }
-    
-    /**
-     * Create a {@link Subsystem} in the specified parent system.
-     * @param parent The parent AbstractSystem to add the new Subsystem to.
-     * @param name The name of this new Subsystem.
-     * @param description The description of this new description.
-     * @return The created Subsystem with the specified arguments.
-     */
-    public Subsystem createSubsystem(AbstractSystem parent, String name, String description) {
-        return parent.makeSubsystemChild(name, description);
-    }
 
     /**
      * Get the list of projects in this system.
@@ -415,9 +388,29 @@ public class DataModel {
     @DomainAPI
     public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, String name, String description) throws PermissionException, IllegalArgumentException {
         if (!user.hasPermission(UserPerm.CREATE_SUBSYS)) {
-            throw new PermissionException("You dont have the needed permission");
+            throw new PermissionException("You don't have the needed permission");
         }
         return abstractSystem.makeSubsystemChild(name, description);
+    }
+
+    /**
+     * This method creates a new subsytem in the given Project/Subsystem
+     *
+     * @param user The user that wants to create the subsystem
+     * @param abstractSystem The Project/Subsystem to add the new subsytem to
+     * @param name The name of the new Subsytem
+     * @param description The description of the new Subsytem
+     * @return The created subsytem
+     * @throws PermissionException If the user doesn't have the permission to
+     * create a subsystem
+     * @see AbstractSystem#makeSubsystemChild(String, String)
+     */
+    @DomainAPI
+    public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, VersionID versionID, String name, String description) throws PermissionException, IllegalArgumentException {
+        if (!user.hasPermission(UserPerm.CREATE_SUBSYS)) {
+            throw new PermissionException("You don't have the needed permission");
+        }
+        return abstractSystem.makeSubsystemChild(versionID, name, description);
     }
 
     //do we need next 3 methods? -> yes Controller principle! Make new -> change internal -> via controller
@@ -570,5 +563,27 @@ public class DataModel {
             throw new PermissionException("the given user doesn't have the needed permission!");
         }
         return bugRep.getDetails();
+    }
+
+    /**
+     * This method returns a list of all possible roles in the system.
+     * @return a PList of all possible roles.
+     */
+    @DomainAPI
+    public PList<Role> getAllRoles(){
+        return PList.<Role>empty().plusAll(Arrays.asList(Role.values()));
+    }
+
+    /**
+     * This method let's a user assign a role to a developer in a given project .
+     * @param project The project in which the user will be assigned.
+     * @param user The user that assigns the role to the dev
+     * @param developer The developer that gets a role assigned
+     * @param role The role that will be assigned
+     * @throws PermissionException if the user doesn't have the needed permission.
+     */
+    @DomainAPI
+    public void assignToProject(Project project, User user, Developer developer, Role role) throws PermissionException {
+        project.setRole(user, developer, role);
     }
 }
