@@ -3,10 +3,7 @@ package bugtrap03.model;
 import bugtrap03.bugdomain.*;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
-import bugtrap03.bugdomain.usersystem.Administrator;
-import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.Issuer;
-import bugtrap03.bugdomain.usersystem.User;
+import bugtrap03.bugdomain.usersystem.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -570,5 +567,27 @@ public class DataModel {
             throw new PermissionException("the given user doesn't have the needed permission!");
         }
         return bugRep.getDetails();
+    }
+
+    /**
+     * This method returns a list of all possible roles in the system.
+     * @return a PList of all possible roles.
+     */
+    @DomainAPI
+    public PList<Role> getAllRoles(){
+        return PList.<Role>empty().plusAll(Arrays.asList(Role.values()));
+    }
+
+    /**
+     * This method let's a user assign a role to a developer in a given project .
+     * @param project The project in which the user will be assigned.
+     * @param user The user that assigns the role to the dev
+     * @param developer The developer that gets a role assigned
+     * @param role The role that will be assigned
+     * @throws PermissionException if the user doesn't have the needed permission.
+     */
+    @DomainAPI
+    public void assignToProject(Project project, User user, Developer developer, Role role) throws PermissionException {
+        project.setRole(user, developer, role);
     }
 }

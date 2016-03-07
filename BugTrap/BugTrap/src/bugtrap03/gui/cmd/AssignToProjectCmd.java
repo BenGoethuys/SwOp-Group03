@@ -33,7 +33,7 @@ public class AssignToProjectCmd implements Cmd{
      * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
-     * @return
+     * @return the project to which the selected developer is assigned the selected role
      * @throws PermissionException
      * @throws CancelException
      */
