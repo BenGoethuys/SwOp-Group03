@@ -31,8 +31,12 @@ public class CreateCommentCmdTest {
         CreateCommentCmd cmd = new CreateCommentCmd();
 
         //Setup scenario
-        question.add("Create or clone a new project?");
-        question.add("Create or clone: ");
+        question.add("Please select a search mode:");
+        question.add("0. title");
+        question.add("1. description");
+        question.add("2. creator");
+        question.add("3. assigned");
+        question.add("4. uniqueId");
         answer.add("expect wrong input");
         question.add("I choose: ");
         //answer.add(leadName);
