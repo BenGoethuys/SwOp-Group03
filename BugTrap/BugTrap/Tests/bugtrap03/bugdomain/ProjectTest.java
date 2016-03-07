@@ -276,5 +276,95 @@ public class ProjectTest {
         assertEquals(testName, cloneProject.getName());
         assertEquals(testDescription, cloneProject.getDescription());
     }
+//
+//    @Test
+//    public void testGetVersionID() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testSetVersionID() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testIsValidVersionId() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetName() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testSetName() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testIsValidName() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetDescription() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testSetDescription() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testIsValidDescription() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetChilds() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testMakeSubsystemChild() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testMakeSubsystemChild1() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetParent() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetParentProject() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetAllDev() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetAllBugReports() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testGetAllSubsystems() throws Exception {
+//
+//    }
+//
+//    @Test
+//    public void testHasPermission() throws Exception {
+//
+//    }
 
 }
