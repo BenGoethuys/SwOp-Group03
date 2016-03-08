@@ -31,7 +31,7 @@ public class GetIntCmd implements Cmd {
             try {
                 integer = scan.nextInt();
             } catch (InputMismatchException ex) {
-                scan.println("Invalid input, please enter an number");
+                scan.println("Invalid input, please enter a number");
             }
         } while (integer == null);
         return integer;
