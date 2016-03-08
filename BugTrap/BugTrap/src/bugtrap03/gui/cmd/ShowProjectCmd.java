@@ -9,8 +9,8 @@ import bugtrap03.gui.cmd.general.GetProjectCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
- * This command represents the show project use case scenario
- * Created by Ben Goethuys on 29/02/2016.
+ * This command represents the show project use case scenario Created by Ben
+ * Goethuys on 29/02/2016.
  */
 public class ShowProjectCmd implements Cmd {
 
@@ -33,7 +33,13 @@ public class ShowProjectCmd implements Cmd {
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user) throws CancelException {
+        //1. The user indicates he wants to take a look at some project.
+        //2. Shows a list of all projects.
+        //3. The user selects a project.
         Project proj = new GetProjectCmd().exec(scan, model, user);
+
+        //4. Sshow a detailed overview of the selected project and all its subsystems.
+        //TODO: getDetails() does not provide any information over subsystems!!!
         scan.println(proj.getDetails());
         return proj;
     }

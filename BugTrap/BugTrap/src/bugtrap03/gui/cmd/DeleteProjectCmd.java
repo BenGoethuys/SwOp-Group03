@@ -33,6 +33,7 @@ public class DeleteProjectCmd implements Cmd {
      * @return The deleted project
      * @throws PermissionException When the user does not have sufficient
      *             permissions to update a project.
+     * @throws CancelException When the user wants to abort the cmd.
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user)

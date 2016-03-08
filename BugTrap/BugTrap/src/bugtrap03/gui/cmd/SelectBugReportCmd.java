@@ -33,7 +33,7 @@ public class SelectBugReportCmd implements Cmd {
     }
 
     /**
-     * This method initialises the list of possible search methods
+     * This method initializes the list of possible search methods
      */
     private void initList() {
         modeList.add(new AbstractMap.SimpleEntry<>("title", u -> u.getTitle().toLowerCase().contains(((String) o).toLowerCase())));

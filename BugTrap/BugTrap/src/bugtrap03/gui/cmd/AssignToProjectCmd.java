@@ -31,7 +31,7 @@ public class AssignToProjectCmd implements Cmd {
      * <br> 7. The lead developer selects a role.
      * <br> 8. The systems assigns the selected role to the selected developer.
      *
-     * @param scan  The {@link scanner} used to interact with the person.
+     * @param scan  The {@link TerminalScanner} used to interact with the person.
      * @param model The {@link DataModel} used for model access.
      * @param user  The {@link User} who wants to executes this command.
      * @return The project to which the selected developer is assigned the selected role. Null if the user does not lead any projects.

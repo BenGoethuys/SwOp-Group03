@@ -6,7 +6,6 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
-import bugtrap03.gui.cmd.general.ClearCmd;
 import bugtrap03.gui.cmd.general.GetUserOfExcactTypeCmd;
 import bugtrap03.gui.terminal.Terminal;
 import bugtrap03.gui.terminal.TerminalScanner;
@@ -17,14 +16,17 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * This command represents the use case login, where a user logs in into the system
+ * This command represents the use case login, where a user logs in into the
+ * system
+ *
  * @author Vincent Derkinderen
  */
 public class LoginCmd implements Cmd {
 
     /**
      * The construct of this command
-     * @param terminal  The terminal of the system
+     *
+     * @param terminal The terminal of the system
      */
     public LoginCmd(Terminal terminal) {
         this.terminal = terminal;
@@ -42,10 +44,10 @@ public class LoginCmd implements Cmd {
      * <br> 3. Ask the person which user to login as.
      * <br> 4. Welcome the user.
      *
-     * @param scan  The {@link Scanner} trough which to ask the questions.
+     * @param scan The {@link Scanner} trough which to ask the questions.
      * @param model The model to use to access the model.
      * @param dummy Dummy, as the person isn't a specific user yet. Use
-     *              whatever.
+     * whatever.
      * @return The user chosen by the person to login as.
      * @throws CancelException When the cancel operation was executed.
      */
@@ -54,15 +56,17 @@ public class LoginCmd implements Cmd {
         //Login
         User user;
         do {
-            //Ask which type to login as.
+            //1. Ask which type to login as.
             Class<? extends User> classType = getWantedUserType(scan);
-            //Ask which user to login as.
+            
+            //2. Show the person all users of that type
+            //3. Ask the person which user to login as.
             user = (new GetUserOfExcactTypeCmd<>(classType)).exec(scan, model, dummy);
         } while (user == null);
 
         terminal.setUser(user);
 
-        //Welcome user.
+        //4. Welcome user.
         scan.println("Welcome " + user.getFullName() + " (" + user.getUsername() + ")");
         return user;
     }
@@ -94,7 +98,7 @@ public class LoginCmd implements Cmd {
      * Get the Class type the person wants to login as. This asks the person
      * which class type he wants by presenting a list of options to choose from.
      *
-     * @param <U>  extends User.
+     * @param <U> extends User.
      * @param scan The {@link Scanner} used to interact with the person.
      * @return The Class of the type the person wants to login as. (e.g
      * Administrator).

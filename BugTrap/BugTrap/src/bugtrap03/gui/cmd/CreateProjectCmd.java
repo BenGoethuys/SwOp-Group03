@@ -16,6 +16,7 @@ import java.util.Scanner;
 
 /**
  * This command represents the use case for creating a project in the system
+ *
  * @author Admin
  */
 public class CreateProjectCmd implements Cmd {
@@ -38,12 +39,14 @@ public class CreateProjectCmd implements Cmd {
      * <br> b4. Ask user the budget estimate
      * <br> b5. Go to step a5
      *
-     * @param scan  The {@link Scanner} trough which to ask the questions.
+     * @param scan The {@link Scanner} trough which to ask the questions.
      * @param model The model to use to access the model.
-     * @param user  The user who wants to execute this {@link Cmd}.
+     * @param user The user who wants to execute this {@link Cmd}.
      * @return The user chosen by the person to login as.
      * @throws PermissionException When the user does not have sufficient
-     *                             permissions to create/clone a project.
+     * permissions to create/clone a project.
+     * @throws CancelException When the user has indicated that he/she wants to
+     * abort the cmd.
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
@@ -76,12 +79,12 @@ public class CreateProjectCmd implements Cmd {
      * possibilities.
      * <br> a6. Show the user the details of the created project.
      *
-     * @param scan  The {@link Scanner} trough which to ask the questions.
+     * @param scan The {@link Scanner} trough which to ask the questions.
      * @param model The model to use to access the model.
-     * @param user  The user who wants to execute this {@link Cmd}.
+     * @param user The user who wants to execute this {@link Cmd}.
      * @return The user chosen by the person to login as.
      * @throws PermissionException When the user does not have sufficient
-     *                             permissions to create/clone a project.
+     * permissions to create/clone a project.
      */
     private Project createProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException, PermissionException {
         //Project name
@@ -98,7 +101,7 @@ public class CreateProjectCmd implements Cmd {
             scan.print("Project starting date (YYYY-MM-DD):");
             String[] projDateStr = scan.nextLine().split("-");
             try {
-                projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]), Integer.parseInt(projDateStr[1])-1, Integer.parseInt(projDateStr[2]));
+                projStartDate = new GregorianCalendar(Integer.parseInt(projDateStr[0]), Integer.parseInt(projDateStr[1]) - 1, Integer.parseInt(projDateStr[2]));
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 scan.println("Invalid input.");
             }
@@ -137,12 +140,12 @@ public class CreateProjectCmd implements Cmd {
      * <br> b4. Ask user the budget estimate
      * <br> b5. Go to step a5
      *
-     * @param scan  The {@link Scanner} trough which to ask the questions.
+     * @param scan The {@link Scanner} trough which to ask the questions.
      * @param model The model to use to access the model.
-     * @param user  The user who wants to execute this {@link Cmd}.
+     * @param user The user who wants to execute this {@link Cmd}.
      * @return The user chosen by the person to login as.
      * @throws PermissionException When the user does not have sufficient
-     *                             permissions to create/clone a project.
+     * permissions to create/clone a project.
      */
     private Project cloneProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException {
         Project project = (new GetProjectCmd()).exec(scan, model, user);
@@ -159,7 +162,7 @@ public class CreateProjectCmd implements Cmd {
                 nb1 = Integer.parseInt(versionIDStr[0]);
                 nb2 = Integer.parseInt(versionIDStr[1]);
                 nb3 = Integer.parseInt(versionIDStr[2]);
-                
+
                 versionID = new VersionID(nb1, nb2, nb3);
             } catch (IndexOutOfBoundsException | NumberFormatException ex) {
                 scan.println("Invalid input. Please try again using format: a.b.c");

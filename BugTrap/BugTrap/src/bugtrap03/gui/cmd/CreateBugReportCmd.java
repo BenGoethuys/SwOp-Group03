@@ -52,7 +52,7 @@ public class CreateBugReportCmd implements Cmd {
         scan.println("Available subsystems:");
         for (int i = 0; i < subsysList.size(); i++) {
             scan.println(i + ". " + subsysList.get(i).getName());
-    }
+        }
 
         // Retrieve & process user input.
         Subsystem subsys = null;
