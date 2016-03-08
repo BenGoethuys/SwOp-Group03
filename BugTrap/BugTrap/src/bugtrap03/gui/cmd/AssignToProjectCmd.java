@@ -40,7 +40,9 @@ public class AssignToProjectCmd implements Cmd {
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
-
+        //1. The developer indicates he wants to assign another developer.
+        
+        //Retrieve projects with user as lead.
         PList<Project> projectList = model.getProjectList();
         for (Project proj : projectList){
             if (! proj.getLead().equals(user)){
@@ -48,23 +50,33 @@ public class AssignToProjectCmd implements Cmd {
             }
         }
         
+        //2.a user is not assigned a lead role in any project: The use case ends here.
         if (projectList.isEmpty()){
             scan.println("You don't lead any projects.");
             return null;
         }
         
+        //2. The system shows a list of the projects in which the logged in user is assigned as lead developer.
+        //3. The lead developer selects one of his projects.
         Project selectedProj = (new GetProjectCmd(projectList)).exec(scan, model, user);
 
+        //4. The system shows a list of other developers to assign.
+        //5. The lead developer selects one of these other developers.
         Developer devToSet = new GetUserOfTypeCmd<>(Developer.class).exec(scan,  model, user);
+        
         PList<Role> currentRolesList = selectedProj.getAllRolesDev(devToSet);
         PList<Role> roleList = model.getAllRoles();
         for (Role role : currentRolesList){
             roleList.minus(role);
         }
+        
+        //6. Shows a list of possible (not yet assigned) roles for the selected dev.
         scan.println("Possible roles to assign: ");
         for (int i=0; i<roleList.size();i++){
             scan.println(i + ". " + roleList.get(i).name());
         }
+        
+        //7. The lead developer selects a role.
         Role selectedRole =  null;
         do{
             scan.print("I choose role: ");
@@ -85,6 +97,8 @@ public class AssignToProjectCmd implements Cmd {
             }
         } while(selectedRole == null);
         scan.println("Selected role: " + selectedRole.name());
+        
+        //8. The systems assigns the selected role to the selected developer.
         model.assignToProject(selectedProj, user, devToSet, selectedRole);
         scan.println(devToSet.getFullName() + " assigned to project: " + selectedProj.getName() + ", with role: " + selectedRole.name());
     
