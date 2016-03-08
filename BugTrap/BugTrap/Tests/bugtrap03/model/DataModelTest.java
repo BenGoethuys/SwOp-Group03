@@ -149,7 +149,7 @@ public class DataModelTest {
         Developer leadDev = new Developer("Haha1", "Ha", "Ha");
         project = model.createProject("Test", "TestProject", new GregorianCalendar(), leadDev, 1000, leadDev);
     }
-    
+
     @Test(expected = PermissionException.class)
     public void testCreateProjectExceptionB() throws IllegalArgumentException, PermissionException {
         DataModel model = new DataModel();
@@ -164,7 +164,7 @@ public class DataModelTest {
         Issuer creator = new Issuer("Again", "New", "Issuer");
         project = model.createProject("Test", "TestProject", new GregorianCalendar(), leadDev, 1000, creator);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testCreateProjectException2B() throws IllegalArgumentException, PermissionException {
         DataModel model = new DataModel();
@@ -180,4 +180,35 @@ public class DataModelTest {
         Administrator creator = new Administrator("Again2", "New", "Admin");
         project2 = model.createProject("Test", "TestProject", leadDev, 1000, creator);
     }
+
+    @Test
+    public void testUpdateProject() throws IllegalArgumentException, PermissionException {
+        DataModel model = new DataModel();
+        Developer leadDev = new Developer("Haha6", "Ha", "Ha");
+        Administrator creator = new Administrator("Again3", "New", "Admin");
+        project = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        model.updateProject(project, creator, "NewTest", "NewTestProject", new GregorianCalendar(), (long) 10);
+
+        assertEquals(project.getName(), "NewTest");
+        assertEquals(project.getDescription(), "NewTestProject");
+        assertEquals(project.getBudgetEstimate(), 10);
+    }
+
+    @Test(expected = PermissionException.class)
+    public void testUpdateProjectException1() throws IllegalArgumentException, PermissionException {
+        DataModel model = new DataModel();
+        Developer leadDev = new Developer("Haha7", "Ha", "Ha");
+        project = model.createProject("Test", "TestProject", leadDev, 1000, leadDev);
+        model.updateProject(project, leadDev, "NewTest", "NewTestProject", new GregorianCalendar(), (long) 10);
+    }
+
+    @Test(expected = PermissionException.class)
+    public void testUpdateProjectException2() throws IllegalArgumentException, PermissionException {
+        DataModel model = new DataModel();
+        Developer leadDev = new Developer("Haha8", "Ha", "Ha");
+        Issuer creator = new Issuer("Again4", "New", "Admin");
+        project = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        model.updateProject(project, creator, "NewTest", "NewTestProject", new GregorianCalendar(), (long) 10);
+    }
+   
 }
