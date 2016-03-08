@@ -39,7 +39,7 @@ public class AssignToBugReportCmd implements Cmd {
      * @throws CancelException     When the users wants to abort the current cmd
      */
     @Override
-    public Object exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
+    public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
         BugReport bugRep = new SelectBugReportCmd().exec(scan, model, user);
 
         if (! user.hasRolePermission(RolePerm.ASSIGN_DEV_BUGREPORT, bugRep.getSubsystem().getParentProject())){
