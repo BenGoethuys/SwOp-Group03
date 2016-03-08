@@ -12,6 +12,7 @@ import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -38,18 +39,17 @@ public class CreateBugReportCmdTest {
         // create projectA
         Project projectA = model.createProject("ProjectA", "Description of projectA", lead, 10000, admin);
         // add asked roles
-        projectA.setRole(lead, lead, Role.PROGRAMMER);
-        projectA.setRole(lead, maria, Role.TESTER);
+        model.assignToProject(projectA, lead, lead, Role.PROGRAMMER);
+        model.assignToProject(projectA, lead, maria, Role.TESTER);
         // make subsystems
-        projectA.makeSubsystemChild(new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3_1, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, "SubsystemA2", "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
+        model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
         // make bug report 2
         BugReport bugRep2 = model.createBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty(), subsystemA3_1);
-        bugRep2.addUser(lead, lead);
-        bugRep2.addUser(lead, maria);
+        model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(lead, maria)));
         // mak bug report 3
         BugReport bugRep1 = model.createBugReport(lead, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), subsystemA2);
 
@@ -131,20 +131,19 @@ public class CreateBugReportCmdTest {
         // create projectA
         Project projectA = model.createProject("ProjectA", "Description of projectA", lead, 10000, admin);
         // add asked roles
-        projectA.setRole(lead, lead, Role.PROGRAMMER);
-        projectA.setRole(lead, maria, Role.TESTER);
+        model.assignToProject(projectA, lead, lead, Role.PROGRAMMER);
+        model.assignToProject(projectA, lead, maria, Role.TESTER);
         // make subsystems
-        projectA.makeSubsystemChild(new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, "SubsystemA2", "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
+        model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
         // make bug report 2
-        BugReport bugRep2 = subsystemA3_1.addBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty());
-        bugRep2.addUser(lead, lead);
-        bugRep2.addUser(lead, maria);
+        BugReport bugRep2 = model.createBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty(), subsystemA3_1);
+        model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(lead, maria)));
         // mak bug report 3
-        BugReport bugRep1 = subsystemA2.addBugReport(lead, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty());
+        BugReport bugRep1 = model.createBugReport(lead, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), subsystemA2);
 
         ArrayDeque<String> question = new ArrayDeque();
         ArrayDeque<String> answer = new ArrayDeque();
