@@ -30,6 +30,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param tag          The tag of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param subsystem    The subsystem this bug report belongs to
+     *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -39,6 +40,7 @@ public class BugReport implements Comparable<BugReport> {
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
+     *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -74,6 +76,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param subsystem    The subsystem this bug report belongs to
+     *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -82,7 +85,9 @@ public class BugReport implements Comparable<BugReport> {
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
+     *
      * @Ensures new.getTag() == Tag.New
+     *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -107,6 +112,7 @@ public class BugReport implements Comparable<BugReport> {
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param subsystem    The subsystem this bug report belongs to
+     *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -115,9 +121,11 @@ public class BugReport implements Comparable<BugReport> {
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
+     *
      * @Ensures new.getDate() == current date at the moment of initialisation
      * @Ensures new.getTag() == Tag.New
      * @Ensures new.getUniqueID() is initialised with a valid ID
+     *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -142,15 +150,18 @@ public class BugReport implements Comparable<BugReport> {
      * @param description  The description of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param subsystem    The subsystem this bug report belongs to
+     *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
+     *
      * @Ensures new.getDate() == current date at the moment of initialisation
      * @Ensures new.getTag() == Tag.New
      * @Ensures new.getUniqueID() is initialised with a valid ID
+     *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidTitle(String)
      * @see BugReport#isValidDescription(String)
