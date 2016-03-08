@@ -17,7 +17,8 @@ import java.util.NoSuchElementException;
 /**
  * Created by Kwinten on 07/03/2016.
  */
-public class AssignToProjectCmd implements Cmd{
+public class AssignToProjectCmd implements Cmd {
+    
     /**
      * <p>
      * <br> 1. The developer indicates he wants to assign another developer.
@@ -30,59 +31,34 @@ public class AssignToProjectCmd implements Cmd{
      * <br> 7. The lead developer selects a role.
      * <br> 8. The systems assigns the selected role to the selected developer.
      *
-     * @param scan  The scanner used to interact with the person.
-     * @param model The model used for model access.
+     * @param scan  The {@link scanner} used to interact with the person.
+     * @param model The {@link DataModel} used for model access.
      * @param user  The {@link User} who wants to executes this command.
-     * @return the project to which the selected developer is assigned the selected role
-     * @throws PermissionException
-     * @throws CancelException
+     * @return The project to which the selected developer is assigned the selected role. Null if the user does not lead any projects.
+     * @throws PermissionException When the user does not have sufficient permissions.
+     * @throws CancelException When the user has indicated to abort the cmd.
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
 
         PList<Project> projectList = model.getProjectList();
-        for (Project proj: projectList){
+        for (Project proj : projectList){
             if (! proj.getLead().equals(user)){
                 projectList = projectList.minus(proj);
             }
         }
+        
         if (projectList.isEmpty()){
             scan.println("You don't lead any projects.");
             return null;
         }
-        scan.println("Projects you lead: ");
-        for (int i=0; i<projectList.size(); i++){
-            scan.println(i + ". " + projectList.get(i).getName() + projectList.get(i).getVersionID());
-        }
-        Project selectedProj = null;
-        do{
-            scan.print("I choose project: ");
-            if (scan.hasNextInt()) { // by index
-                int index = scan.nextInt();// input
-                if (index >= 0 && index < projectList.size()) {
-                    selectedProj = projectList.get(index);
-                } else {
-                    scan.println("Invalid input.");
-                }
-            } else { // by name
-                String input = scan.nextLine(); // input
-                try {
-                    selectedProj = projectList.parallelStream().filter(u -> u.getName().equals(input)).findFirst().get();
-                } catch (NoSuchElementException ex) {
-                    scan.println("Invalid input.");
-                }
-                try {
-                    selectedProj = projectList.parallelStream().filter(u -> (u.getName()+u.getVersionID()).equals(input)).findFirst().get();
-                } catch (NoSuchElementException ex) {
-                    scan.println("Invalid input.");
-                }
-            }
-        } while (selectedProj ==  null);
+        
+        Project selectedProj = (new GetProjectCmd(projectList)).exec(scan, model, user);
 
-        Developer devToSet = new GetUserOfTypeCmd<Developer>(Developer.class).exec(scan,  model, user);
+        Developer devToSet = new GetUserOfTypeCmd<>(Developer.class).exec(scan,  model, user);
         PList<Role> currentRolesList = selectedProj.getAllRolesDev(devToSet);
         PList<Role> roleList = model.getAllRoles();
-        for (Role role: currentRolesList){
+        for (Role role : currentRolesList){
             roleList.minus(role);
         }
         scan.println("Possible roles to assign: ");
@@ -111,6 +87,7 @@ public class AssignToProjectCmd implements Cmd{
         scan.println("Selected role: " + selectedRole.name());
         model.assignToProject(selectedProj, user, devToSet, selectedRole);
         scan.println(devToSet.getFullName() + " assigned to project: " + selectedProj.getName() + ", with role: " + selectedRole.name());
+    
         return selectedProj;
     }
 }
