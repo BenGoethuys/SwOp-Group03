@@ -23,6 +23,7 @@ public class ClearCmd implements Cmd {
      */
     @Override
     public Object exec(TerminalScanner scan, DataModel dummy2, User dummy3) {
+        //TODO: What about if scan == null??
         this.clearConsole(scan);
         return null;
     }
