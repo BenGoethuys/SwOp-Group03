@@ -5,10 +5,10 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
+import java.util.InputMismatchException;
 
 /**
- * This command asks an int from the user
- * Created by Ben Goethuys on 04/03/2016.
+ * This command asks an int from the user Created by Ben Goethuys on 04/03/2016.
  */
 public class GetIntCmd implements Cmd {
 
@@ -28,9 +28,9 @@ public class GetIntCmd implements Cmd {
         scan.print("Give number: ");
         Integer integer = null;
         do {
-            if (scan.hasNextInt()) {
+            try {
                 integer = scan.nextInt();
-            } else {
+            } catch (InputMismatchException ex) {
                 scan.println("Invalid input, please enter an number");
             }
         } while (integer == null);

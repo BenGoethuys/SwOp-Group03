@@ -5,10 +5,10 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
+import java.util.InputMismatchException;
 
 /**
- * This command asks a Long from the user
- * Created by Ben Goethuys on 04/03/2016.
+ * This command asks a Long from the user Created by Ben Goethuys on 04/03/2016.
  */
 public class GetLongCmd implements Cmd {
 
@@ -28,9 +28,9 @@ public class GetLongCmd implements Cmd {
         scan.print("Give number: ");
         Long longNb = null;
         do {
-            if (scan.hasNextLong()) {
+            try {
                 longNb = scan.nextLong();
-            } else {
+            } catch (InputMismatchException ex) {
                 scan.println("Invalid input, please enter a number");
             }
         } while (longNb == null);
