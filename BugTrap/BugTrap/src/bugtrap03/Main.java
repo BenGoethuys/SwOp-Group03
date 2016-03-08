@@ -34,7 +34,7 @@ public class Main {
 
     private static DataModel model;
 
-    public static void testSystem(DataModel model) {
+    /*public static void testSystem(DataModel model) {
         String username = "007a";
         String firstName = "James";
         String lastName = "Bond";
@@ -45,7 +45,7 @@ public class Main {
         model.createAdministrator(username, firstName, lastName);
         model.createAdministrator(username2, firstName, lastName);
         model.createIssuer(username3, firstName, lastName);
-    }
+    }*/
 
     public static void initDemoSystem(DataModel model) {
         Administrator admin = model.createAdministrator("curt", "Frederick", "Sam", "Curtis");
