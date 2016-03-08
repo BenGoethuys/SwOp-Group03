@@ -30,10 +30,10 @@ public class AssignToBugReportCmd implements Cmd {
      * <br> 3a. The selected bug report is of a project that the logged in developer is not involved in as lead or tester.
      * <br> 1. The use case returns to step 2.
      *
-     * @param scan  The scanner used to interact with the person.
-     * @param model The model used for model access.
+     * @param scan  The {@link Scanner} used to interact with the person.
+     * @param model The {@link DataModel} used for model access.
      * @param user  The {@link User} who wants to executes this command.
-     * @return null if there is no result specified.
+     * @return The {@link BugReport} selected to assign users to.
      * @throws PermissionException When the user does not have sufficient
      *                             permissions.
      * @throws CancelException     When the users wants to abort the current cmd
@@ -81,6 +81,6 @@ public class AssignToBugReportCmd implements Cmd {
 
         model.addUsersToBugReport(user, bugRep, PList.<Developer>empty().plusAll(devList));
 
-        return null;
+        return bugRep;
     }
 }
