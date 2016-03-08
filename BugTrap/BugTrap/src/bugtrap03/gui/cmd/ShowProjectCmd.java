@@ -27,8 +27,6 @@ public class ShowProjectCmd implements Cmd {
      * @param model The model used for model access.
      * @param user The {@link User} who wants to executes this command.
      * @return The project chosen.
-     * @throws PermissionException When the user does not have sufficient
-     * permissions.
      * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
