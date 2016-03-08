@@ -40,7 +40,7 @@ public class SelectBugReportCmd implements Cmd {
         modeList.add(new AbstractMap.SimpleEntry<>("description", u -> u.getDescription().toLowerCase().contains(((String) o).toLowerCase())));
         modeListExtra.add(new AbstractMap.SimpleEntry<>("desc", u -> u.getDescription().toLowerCase().contains(((String) o).toLowerCase())));
         modeList.add(new AbstractMap.SimpleEntry<>("creator", u -> u.getCreator().equals(o)));
-        modeList.add(new AbstractMap.SimpleEntry<>("assigned", u -> u.getUserList().contains(o)));
+        modeList.add(new AbstractMap.SimpleEntry<>("assigned", u -> u.getUserList().contains((Developer) o)));
         modeList.add(new AbstractMap.SimpleEntry<>("uniqueId", u -> new Long(u.getUniqueID()).equals(o)));
         modeListExtra.add(new AbstractMap.SimpleEntry<>("id", u -> new Long(u.getUniqueID()).equals(o)));
 
@@ -86,10 +86,10 @@ public class SelectBugReportCmd implements Cmd {
      * search query. <br>
      * 4. The issuer selects a bug report from the ordered list.
      *
-     * @param scan The scanner used to interact with the person.
-     * @param model The model used for model access.
+     * @param scan The {@link scanner} used to interact with the person.
+     * @param model The {@link DataModel} used for model access.
      * @param user The {@link User} who wants to executes this command.
-     * @return null if there is no result specified.
+     * @return The {@link BugReport} selected by the person.
      * @throws PermissionException When the user does not have sufficient
      * permissions.
      * @throws CancelException When the users wants to abort the current cmd
