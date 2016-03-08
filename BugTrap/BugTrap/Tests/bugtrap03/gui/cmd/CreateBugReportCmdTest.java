@@ -13,6 +13,7 @@ import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
 import java.util.ArrayDeque;
 import java.util.GregorianCalendar;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
@@ -209,5 +210,7 @@ public class CreateBugReportCmdTest {
         BugReport bugReport = cmd.exec(scan, model, maria);
 
         //Test effects.
+        assertEquals(bugReport.getTitle(), "BR Title");
+        assertEquals(bugReport.getDescription(), "tester description");
     }
 }
