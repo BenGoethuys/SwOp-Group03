@@ -43,11 +43,11 @@ public class CreateSubsystemCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, "SubsystemA2", "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
 
         ArrayDeque<String> question = new ArrayDeque();
         ArrayDeque<String> answer = new ArrayDeque();
@@ -111,11 +111,11 @@ public class CreateSubsystemCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = projectA.makeSubsystemChild(new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = subsystemA3.makeSubsystemChild(new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, "SubsystemA2", "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
 
         ArrayDeque<String> question = new ArrayDeque();
         ArrayDeque<String> answer = new ArrayDeque();
