@@ -10,20 +10,56 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import purecollections.PList;
 
 /**
- * This command represents a sub use case where the user wants to select a project
+ * This command represents a sub use case where the user wants to select a
+ * project
  *
  * @author Ben Goethuys
  */
 public class GetProjectCmd implements Cmd {
 
     /**
-     * Get a Project chosen by the person by presenting him a list of all
-     * projects.
+     * Default provided constructor. This implies that
+     * {@link #exec(TerminalScanner, DataModel, User)} uses the projectList
+     * provided by the given {@link DataModel}.
+     */
+    public GetProjectCmd() {
+    }
+
+    /**
+     *
+     * Create a GetProjectCmd with a specific list of projects used to provide
+     * the user as a list of options during the select process.
+     *
+     * @param specificList
+     */
+    public GetProjectCmd(PList<Project> projectOptionList) {
+        this.specificList = projectOptionList;
+    }
+
+    /**
+     * Set the project list used for the select process to projectOptionList.
+     * When this list is set to null the list of projects from model will be
+     * used during the select process.
+     *
+     * @param projectOptionList The new projectOptionList.
+     */
+    public void setOptionsList(PList<Project> projectOptionList) {
+        this.specificList = projectOptionList;
+    }
+
+    private PList<Project> specificList;
+
+    /**
+     * Get a Project chosen by the person by presenting him a list of projects.
+     * The option list used will be determined by the list passed to
+     * {@link #GetProjectCmd(purecollections.PList)} or
+     * {@link #setOptionsList(purecollections.PList)}. When this list is set to
+     * null the list of projects in the passed {@link DataModel} will be used.
      * <p>
      * <br> 1. The system shows a list of existing projects.
      * <br> 2. The person selects an existing project of the list.
      *
-     * @param scan  The scanner used to interact with the person.
+     * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param dummy3 Doesn't matter
      * @return The chosen project.
@@ -33,7 +69,14 @@ public class GetProjectCmd implements Cmd {
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User dummy3) throws CancelException {
         // show all projects
-        PList<Project> projectList = model.getProjectList();
+
+        PList<Project> projectList;
+        if (specificList == null) {
+            projectList = model.getProjectList();
+        } else {
+            projectList = specificList;
+        }
+
         scan.println("Available projects:");
         for (int i = 0; i < projectList.size(); i++) {
             scan.println(i + ". " + projectList.get(i).getName());
