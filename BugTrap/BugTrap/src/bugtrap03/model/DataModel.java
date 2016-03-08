@@ -8,7 +8,6 @@ import bugtrap03.bugdomain.usersystem.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 
 import purecollections.PList;
 
@@ -24,8 +23,8 @@ public class DataModel {
      */
     @DomainAPI
     public DataModel() {
-        this.userList = PList.<User>empty();
-        this.projectList = PList.<Project>empty();
+        this.userList = PList.<User> empty();
+        this.projectList = PList.<Project> empty();
     }
 
     private PList<User> userList;
@@ -80,7 +79,7 @@ public class DataModel {
      */
     @DomainAPI
     public <U extends User> PList<U> getUserListOfExactType(Class<U> userType) {
-        PList<U> result = PList.<U>empty();
+        PList<U> result = PList.<U> empty();
         for (User user : userList) {
             if (user.getClass().equals(userType)) {
                 result = result.plus((U) user);
@@ -96,11 +95,11 @@ public class DataModel {
      * @param <U> extends User type.
      * @param userType The type of users returned.
      * @return All users of this system who have the exact class type userType
-     * or a class type that extends userType.
+     *         or a class type that extends userType.
      */
     @DomainAPI
     public <U extends User> PList<U> getUserListOfType(Class<U> userType) {
-        PList<U> result = PList.<U>empty();
+        PList<U> result = PList.<U> empty();
         for (User user : userList) {
             if (userType.isInstance(user)) {
                 result = result.plus((U) user);
@@ -230,7 +229,7 @@ public class DataModel {
      * @return the created project
      * @throws IllegalArgumentException if the constructor of project fails
      * @throws PermissionException If the given creator has insufficient
-     * permissions
+     *             permissions
      * @see Project#Project(String, String, Developer, GregorianCalendar, long)
      */
     @DomainAPI
@@ -254,7 +253,7 @@ public class DataModel {
      * @return the created project
      * @throws IllegalArgumentException if the constructor of project fails
      * @throws PermissionException If the given creator has insufficient
-     * permissions
+     *             permissions
      * @see Project#Project(String, String, Developer, long)
      */
     @DomainAPI
@@ -300,9 +299,9 @@ public class DataModel {
      * @param startDate The new startDate of the given project
      * @param budgetEstimate The new budget estimate of the given project
      * @throws PermissionException if the given user doesn't have the needed
-     * permission to update a project.
+     *             permission to update a project.
      * @Ensures The attributes of the given project will not be updated if an
-     * error was thrown
+     *          error was thrown
      */
     @DomainAPI
     public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate,
@@ -346,7 +345,7 @@ public class DataModel {
      */
     @DomainAPI
     public PList<AbstractSystem> getAllProjectsAndSubsystems() {
-        PList<AbstractSystem> list = PList.<AbstractSystem>empty();
+        PList<AbstractSystem> list = PList.<AbstractSystem> empty();
         for (Project proj : this.projectList) {
             list = list.plus(proj);
             list = list.plusAll(new ArrayList<>(proj.getAllSubsystems()));
@@ -361,7 +360,7 @@ public class DataModel {
      * @param project The project which has to be removed
      * @return The removed project
      * @throws PermissionException If the given user doesn't have the permission
-     * to delete a project
+     *             to delete a project
      */
     @DomainAPI
     public Project deleteProject(User user, Project project) throws PermissionException {
@@ -382,11 +381,12 @@ public class DataModel {
      * @param description The description of the new Subsytem
      * @return The created subsytem
      * @throws PermissionException If the user doesn't have the permission to
-     * create a subsystem
+     *             create a subsystem
      * @see AbstractSystem#makeSubsystemChild(String, String)
      */
     @DomainAPI
-    public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, String name, String description) throws PermissionException, IllegalArgumentException {
+    public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, String name, String description)
+            throws PermissionException, IllegalArgumentException {
         if (!user.hasPermission(UserPerm.CREATE_SUBSYS)) {
             throw new PermissionException("You don't have the needed permission");
         }
@@ -402,25 +402,28 @@ public class DataModel {
      * @param description The description of the new Subsytem
      * @return The created subsytem
      * @throws PermissionException If the user doesn't have the permission to
-     * create a subsystem
+     *             create a subsystem
      * @see AbstractSystem#makeSubsystemChild(String, String)
      */
     @DomainAPI
-    public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, VersionID versionID, String name, String description) throws PermissionException, IllegalArgumentException {
+    public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, VersionID versionID, String name,
+            String description) throws PermissionException, IllegalArgumentException {
         if (!user.hasPermission(UserPerm.CREATE_SUBSYS)) {
             throw new PermissionException("You don't have the needed permission");
         }
         return abstractSystem.makeSubsystemChild(versionID, name, description);
     }
 
-    //do we need next 3 methods? -> yes Controller principle! Make new -> change internal -> via controller
+    // do we need next 3 methods? -> yes Controller principle! Make new ->
+    // change internal -> via controller
     /**
      * This method creates a bug report in the system
      *
      * @see BugReport#BugReport(User, String, String, PList, Subsystem)
      */
     @DomainAPI
-    public BugReport createBugReport(User user, String title, String description, PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException {
+    public BugReport createBugReport(User user, String title, String description, PList<BugReport> dependencies,
+            Subsystem subsystem) throws PermissionException, IllegalArgumentException {
         return subsystem.addBugReport(user, title, description, dependencies);
     }
 
@@ -428,10 +431,11 @@ public class DataModel {
      * This method creates a bug report in the system
      *
      * @see BugReport#BugReport(User, String, String, GregorianCalendar, PList,
-     * Subsystem)
+     *      Subsystem)
      */
     @DomainAPI
-    public BugReport createBugReport(User user, String title, String description, GregorianCalendar calendar, PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException {
+    public BugReport createBugReport(User user, String title, String description, GregorianCalendar calendar,
+            PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException {
         return subsystem.addBugReport(user, title, description, calendar, dependencies);
     }
 
@@ -443,7 +447,7 @@ public class DataModel {
      * @param text The text of the new comment
      * @return The new generated comment
      * @throws PermissionException If the given User doesn't have the permission
-     * to create the comment
+     *             to create the comment
      *
      * @see BugReport#addComment(User, String)
      */
@@ -461,7 +465,7 @@ public class DataModel {
      * @param text The text of the new Comment
      * @return The new generated comment
      * @throws PermissionException If the given User doesn't have the permission
-     * to create the comment
+     *             to create the comment
      *
      * @see Comment#addSubComment(User, String)
      */
@@ -482,11 +486,12 @@ public class DataModel {
      * @return The resulting clone. Null if the source Clone is null.
      * 
      * @see Project#cloneProject(bugtrap03.bugdomain.VersionID,
-     * bugtrap03.bugdomain.usersystem.Developer, java.util.GregorianCalendar,
-     * long)
+     *      bugtrap03.bugdomain.usersystem.Developer,
+     *      java.util.GregorianCalendar, long)
      */
     @DomainAPI
-    public Project cloneProject(Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate, long budgetEstimate) {
+    public Project cloneProject(Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate,
+            long budgetEstimate) {
         Project clone = cloneSource.cloneProject(versionID, lead, startDate, budgetEstimate);
         if (clone != null) {
             addProject(clone);
@@ -495,31 +500,37 @@ public class DataModel {
     }
 
     /**
-     * This method returns all the developers assiciated with the project the bug report belongs to
+     * This method returns all the developers assiciated with the project the
+     * bug report belongs to
      *
-     * @param bugRep    The bug report
+     * @param bugRep The bug report
      *
      * @return The list of all devs in the project
      */
     @DomainAPI
-    public PList<Developer> getDeveloperInproject(BugReport bugRep){
+    public PList<Developer> getDeveloperInproject(BugReport bugRep) {
         return bugRep.getSubsystem().getAllDev();
     }
 
     /**
-     * This method adds all the users of the given list to the given project by the given user
+     * This method adds all the users of the given list to the given project by
+     * the given user
      *
-     * @param user      The user that wants to add all the given developers to the bug report
-     * @param bugRep    The bug report to add all the developers to
-     * @param devList   The developers to add to the bug report
+     * @param user The user that wants to add all the given developers to the
+     *            bug report
+     * @param bugRep The bug report to add all the developers to
+     * @param devList The developers to add to the bug report
      *
-     * @throws PermissionException  If the given user doesn't have the needed permission to add users to the given bug report
+     * @throws PermissionException If the given user doesn't have the needed
+     *             permission to add users to the given bug report
      * @throws IllegalArgumentException If the given user was null
-     * @throws IllegalArgumentException If the given developer was not valid for this bug report
+     * @throws IllegalArgumentException If the given developer was not valid for
+     *             this bug report
      */
     @DomainAPI
-    public void addUsersToBugReport(User user, BugReport bugRep, PList<Developer> devList) throws PermissionException, IllegalArgumentException {
-        for (Developer dev : devList){
+    public void addUsersToBugReport(User user, BugReport bugRep, PList<Developer> devList)
+            throws PermissionException, IllegalArgumentException {
+        for (Developer dev : devList) {
             bugRep.addUser(user, dev);
         }
     }
@@ -530,17 +541,21 @@ public class DataModel {
      * @return a Plist of all the possible tags
      */
     @DomainAPI
-    public PList<Tag> getAllTags(){
-        return PList.<Tag>empty().plusAll(Arrays.asList(Tag.values()));
+    public PList<Tag> getAllTags() {
+        return PList.<Tag> empty().plusAll(Arrays.asList(Tag.values()));
     }
 
     /**
-     * This method lets the given user set the tag of the given bug report to the given tag
-     * @param bugrep    The bugreport of which the tag gets to be set
-     * @param tag       The given tag to set
-     * @param user      The user that wishes to set the tag
-     * @throws PermissionException If the user doesn't have the needed permission to set the given tag to the bug report
-     * @throws IllegalArgumentException If the given tag isn't a valid tag to set to the bug report
+     * This method lets the given user set the tag of the given bug report to
+     * the given tag
+     * 
+     * @param bugrep The bugreport of which the tag gets to be set
+     * @param tag The given tag to set
+     * @param user The user that wishes to set the tag
+     * @throws PermissionException If the user doesn't have the needed
+     *             permission to set the given tag to the bug report
+     * @throws IllegalArgumentException If the given tag isn't a valid tag to
+     *             set to the bug report
      */
     @DomainAPI
     public void setTag(BugReport bugrep, Tag tag, User user) throws PermissionException, IllegalArgumentException {
@@ -548,18 +563,20 @@ public class DataModel {
     }
 
     /**
-     * This method gets the details of a given bug report and checks the needed permission
+     * This method gets the details of a given bug report and checks the needed
+     * permission
      *
-     * @param user      The user that wants to inspect the bugReport
-     * @param bugRep    The bug report that the user wants to inspect
+     * @param user The user that wants to inspect the bugReport
+     * @param bugRep The bug report that the user wants to inspect
      *
      * @return The details of the bug report
      *
-     * @throws PermissionException If the given user doesn't have the needed permission
+     * @throws PermissionException If the given user doesn't have the needed
+     *             permission
      */
     @DomainAPI
     public String getDetails(User user, BugReport bugRep) throws PermissionException {
-        if (! user.hasPermission(UserPerm.INSPECT_BUGREPORT)){
+        if (!user.hasPermission(UserPerm.INSPECT_BUGREPORT)) {
             throw new PermissionException("the given user doesn't have the needed permission!");
         }
         return bugRep.getDetails();
@@ -567,20 +584,24 @@ public class DataModel {
 
     /**
      * This method returns a list of all possible roles in the system.
+     * 
      * @return a PList of all possible roles.
      */
     @DomainAPI
-    public PList<Role> getAllRoles(){
-        return PList.<Role>empty().plusAll(Arrays.asList(Role.values()));
+    public PList<Role> getAllRoles() {
+        return PList.<Role> empty().plusAll(Arrays.asList(Role.values()));
     }
 
     /**
-     * This method let's a user assign a role to a developer in a given project .
+     * This method let's a user assign a role to a developer in a given project
+     * .
+     * 
      * @param project The project in which the user will be assigned.
      * @param user The user that assigns the role to the dev
      * @param developer The developer that gets a role assigned
      * @param role The role that will be assigned
-     * @throws PermissionException if the user doesn't have the needed permission.
+     * @throws PermissionException if the user doesn't have the needed
+     *             permission.
      */
     @DomainAPI
     public void assignToProject(Project project, User user, Developer developer, Role role) throws PermissionException {
