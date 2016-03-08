@@ -19,12 +19,11 @@ public class GetIntCmd implements Cmd {
      * @param dummy2 Doesn't matter
      * @param dummy3 Doesn't matter
      * @return The given integer
-     * @throws PermissionException When the user does not have sufficient
-     * permissions.
+     * @throws PermissionException Never
      * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
-    public Integer exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws PermissionException, CancelException {
+    public Integer exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws CancelException {
         scan.print("Give number: ");
         Integer integer = null;
         do {
