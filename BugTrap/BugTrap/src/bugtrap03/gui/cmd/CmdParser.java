@@ -39,21 +39,21 @@ public class CmdParser {
      */
     private void initCmdList() {
         cmdList = new ArrayList<>();
-        cmdList.add(new SimpleEntry("help", new HelpCmd(cmdList)));
-        cmdList.add(new SimpleEntry("clear", new ClearCmd()));
-        cmdList.add(new SimpleEntry("login", new LoginCmd(this.terminal)));
-        cmdList.add(new SimpleEntry("createproject", new CreateProjectCmd()));
-        cmdList.add(new SimpleEntry("updateproject", new UpdateProjectCmd()));
-        cmdList.add(new SimpleEntry("deleteproject", new DeleteProjectCmd()));
-        cmdList.add(new SimpleEntry("showprojectdetails", new ShowProjectCmd()));
-        cmdList.add(new SimpleEntry("createsubsystem", new CreateSubsystemCmd()));
-        cmdList.add(new SimpleEntry("createbugreport", new CreateBugReportCmd()));
-        cmdList.add(new SimpleEntry("selectbugreport", new SelectBugReportCmd()));
-        cmdList.add(new SimpleEntry("inspectbugreport", new InspectBugReportCmd()));
-        cmdList.add(new SimpleEntry("createcomment", new CreateCommentCmd()));
-        cmdList.add(new SimpleEntry("assigntobugreport", new AssignToBugReportCmd()));
-        cmdList.add(new SimpleEntry("assigntoproject", new AssignToProjectCmd()));
-        cmdList.add(new SimpleEntry("updatebugreport", new UpdateBugReportCmd()));
+        cmdList.add(new SimpleEntry<>("help", new HelpCmd(cmdList)));
+        cmdList.add(new SimpleEntry<>("clear", new ClearCmd()));
+        cmdList.add(new SimpleEntry<>("login", new LoginCmd(this.terminal)));
+        cmdList.add(new SimpleEntry<>("createproject", new CreateProjectCmd()));
+        cmdList.add(new SimpleEntry<>("updateproject", new UpdateProjectCmd()));
+        cmdList.add(new SimpleEntry<>("deleteproject", new DeleteProjectCmd()));
+        cmdList.add(new SimpleEntry<>("showprojectdetails", new ShowProjectCmd()));
+        cmdList.add(new SimpleEntry<>("createsubsystem", new CreateSubsystemCmd()));
+        cmdList.add(new SimpleEntry<>("createbugreport", new CreateBugReportCmd()));
+        cmdList.add(new SimpleEntry<>("selectbugreport", new SelectBugReportCmd()));
+        cmdList.add(new SimpleEntry<>("inspectbugreport", new InspectBugReportCmd()));
+        cmdList.add(new SimpleEntry<>("createcomment", new CreateCommentCmd()));
+        cmdList.add(new SimpleEntry<>("assigntobugreport", new AssignToBugReportCmd()));
+        cmdList.add(new SimpleEntry<>("assigntoproject", new AssignToProjectCmd()));
+        cmdList.add(new SimpleEntry<>("updatebugreport", new UpdateBugReportCmd()));
 
         cmdMap = new HashMap<>();
         for (int i = 0; i < cmdList.size(); i++) {
@@ -63,22 +63,22 @@ public class CmdParser {
 
         cmdListExtra = new ArrayList<>();
         //Custom abbreviations.
-        cmdListExtra.add(new SimpleEntry("createproj", new CreateProjectCmd()));
-        cmdListExtra.add(new SimpleEntry("updateproj", new UpdateProjectCmd()));
-        cmdListExtra.add(new SimpleEntry("deleteproj", new DeleteProjectCmd()));
-        cmdListExtra.add(new SimpleEntry("delproj", new DeleteProjectCmd()));
-        cmdListExtra.add(new SimpleEntry("showprojdetails", new ShowProjectCmd()));
-        cmdListExtra.add(new SimpleEntry("showprojdet", new ShowProjectCmd()));
-        cmdListExtra.add(new SimpleEntry("createsubsys", new CreateSubsystemCmd()));
-        cmdListExtra.add(new SimpleEntry("createbugrep", new CreateBugReportCmd()));
-        cmdListExtra.add(new SimpleEntry("selectbugrep", new SelectBugReportCmd()));
-        cmdListExtra.add(new SimpleEntry("inspectbugrep", new InspectBugReportCmd()));
-        cmdListExtra.add(new SimpleEntry("createcom", new CreateCommentCmd()));
-        cmdListExtra.add(new SimpleEntry("showbugreport", new InspectBugReportCmd()));
-        cmdListExtra.add(new SimpleEntry("showbugrep", new InspectBugReportCmd()));
-        cmdListExtra.add(new SimpleEntry("assigntobugrep", new CreateCommentCmd()));
-        cmdListExtra.add(new SimpleEntry("assigntoproj", new AssignToProjectCmd()));
-        cmdListExtra.add(new SimpleEntry("updatebugrep", new UpdateBugReportCmd()));
+        cmdListExtra.add(new SimpleEntry<>("createproj", new CreateProjectCmd()));
+        cmdListExtra.add(new SimpleEntry<>("updateproj", new UpdateProjectCmd()));
+        cmdListExtra.add(new SimpleEntry<>("deleteproj", new DeleteProjectCmd()));
+        cmdListExtra.add(new SimpleEntry<>("delproj", new DeleteProjectCmd()));
+        cmdListExtra.add(new SimpleEntry<>("showprojdetails", new ShowProjectCmd()));
+        cmdListExtra.add(new SimpleEntry<>("showprojdet", new ShowProjectCmd()));
+        cmdListExtra.add(new SimpleEntry<>("createsubsys", new CreateSubsystemCmd()));
+        cmdListExtra.add(new SimpleEntry<>("createbugrep", new CreateBugReportCmd()));
+        cmdListExtra.add(new SimpleEntry<>("selectbugrep", new SelectBugReportCmd()));
+        cmdListExtra.add(new SimpleEntry<>("inspectbugrep", new InspectBugReportCmd()));
+        cmdListExtra.add(new SimpleEntry<>("createcom", new CreateCommentCmd()));
+        cmdListExtra.add(new SimpleEntry<>("showbugreport", new InspectBugReportCmd()));
+        cmdListExtra.add(new SimpleEntry<>("showbugrep", new InspectBugReportCmd()));
+        cmdListExtra.add(new SimpleEntry<>("assigntobugrep", new CreateCommentCmd()));
+        cmdListExtra.add(new SimpleEntry<>("assigntoproj", new AssignToProjectCmd()));
+        cmdListExtra.add(new SimpleEntry<>("updatebugrep", new UpdateBugReportCmd()));
 
         for (int i = 0; i < cmdListExtra.size(); i++) {
             cmdMap.put(cmdListExtra.get(i).getKey(), cmdListExtra.get(i).getValue());
