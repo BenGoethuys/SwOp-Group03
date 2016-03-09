@@ -84,7 +84,7 @@ public class UpdateBugReportCmd implements Cmd {
             } else { // by name
                 String input = scan.nextLine(); // input
                 try {
-                    tagToSet = taglist.parallelStream().filter(u -> u.name().equals(input)).findFirst().get();
+                    tagToSet = taglist.parallelStream().filter(u -> u.name().equalsIgnoreCase(input)).findFirst().get();
                 } catch (NoSuchElementException ex) {
                     scan.println("Invalid input.");
                 }
