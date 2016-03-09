@@ -78,13 +78,13 @@ public class LoginCmd implements Cmd {
      */
     private void initLoginInfo() {
         //Create Entries linking what to print with a certain class.
-        this.classList = new ArrayList();
-        this.classList.add(new SimpleEntry("Administrator", Administrator.class));
-        this.classList.add(new SimpleEntry("Issuer", Issuer.class));
-        this.classList.add(new SimpleEntry("Developer", Developer.class));
+        this.classList = new ArrayList<>();
+        this.classList.add(new SimpleEntry<>("Administrator", Administrator.class));
+        this.classList.add(new SimpleEntry<>("Issuer", Issuer.class));
+        this.classList.add(new SimpleEntry<>("Developer", Developer.class));
 
         //Fill a map with acceptable input values linked to a certain class.
-        this.optionMap = new HashMap();
+        this.optionMap = new HashMap<>();
         for (int i = 0; i < this.classList.size(); i++) {
             SimpleEntry<String, Class<? extends User>> entry = this.classList.get(i);
             this.optionMap.put(entry.getKey().toLowerCase(), entry.getValue());

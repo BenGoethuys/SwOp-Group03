@@ -1,9 +1,6 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.permission.PermissionException;
-import bugtrap03.bugdomain.permission.RolePerm;
-import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
