@@ -43,20 +43,25 @@ public class CreateBugReportCmd implements Cmd {
      * @param user The {@link User} who wants to executes this command.
      * @return The created bug report.
      * @throws PermissionException When the user does not have sufficient
-     *             permissions.
+     * permissions.
      * @throws CancelException When the users wants to abort the current cmd
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException {
-
+        //1. The issuer indicates he wants to file a bug report.
+        //2. The system shows a list of projects.
+        //3. The issuer selects a project.
         Project proj = new GetProjectCmd().exec(scan, model, user);
 
+        //4. The system shows a list of subsystems of the selected project.
+        //5. The issuer selects a subsystem.
         PList<Subsystem> subsysList = model.getAllSubsystems(proj);
-
         Subsystem subsys = new GetObjectOfListCmd<Subsystem>(subsysList, (u -> u.getName()), ((u, input) -> u.getName().equals(input)))
                 .exec(scan, model, user);
 
+        //6. The system shows the bug report creation form.
+        //7. The issuer enters the bug report details: title and description.
         scan.println("You have chosen:");
         scan.println(subsys.getName());
 
@@ -69,9 +74,9 @@ public class CreateBugReportCmd implements Cmd {
         String bugReportDesc = scan.nextLine();
 
         // BugReport Dependencies
+        //8. The system shows a list of possible dependencies of this bug report 
         scan.println("Choose a dependency.");
         PList<BugReport> possibleDeps = proj.getAllBugReports();
-        
         scan.println("Available bugReports:");
         for (int i = 0; i < possibleDeps.size(); i++) {
             BugReport bugrep = possibleDeps.get(i);
@@ -79,6 +84,7 @@ public class CreateBugReportCmd implements Cmd {
         }
 
         // Retrieve & process user input.
+        //9. The issuer selects the dependencies.
         HashSet<BugReport> depList = new HashSet<>();
         boolean done = false;
         do {
@@ -111,8 +117,9 @@ public class CreateBugReportCmd implements Cmd {
             }
         } while (!done);
 
+        //10. The system creates the bug report.
         BugReport bugreport = model.createBugReport(user, bugreportTitle, bugReportDesc,
-                PList.<BugReport> empty().plusAll(depList), subsys);
+                PList.<BugReport>empty().plusAll(depList), subsys);
         scan.println("Created new bug report.");
         return bugreport;
     }
