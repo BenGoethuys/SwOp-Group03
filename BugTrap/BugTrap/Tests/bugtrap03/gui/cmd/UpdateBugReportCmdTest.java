@@ -276,7 +276,10 @@ public class UpdateBugReportCmdTest {
         question.add("5. RESOLVED");
         question.add("6. DUPLICATE");
         question.add("I choose tag: ");
-        answer.add("6");
+        answer.add("wrongInput");
+        question.add("Invalid input.");
+        question.add("I choose tag: ");
+        answer.add("DUPLICATE");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         //Execute scenario
