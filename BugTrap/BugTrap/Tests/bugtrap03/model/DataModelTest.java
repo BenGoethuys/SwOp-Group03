@@ -257,7 +257,7 @@ public class DataModelTest {
         assertTrue(model.getAllTags().contains(Tag.DUPLICATE));
         assertTrue(model.getAllTags().size() == 7);
     }
-    
+
     @Test
     public void testGetAllRoles() {
         model = new DataModel();
@@ -266,5 +266,5 @@ public class DataModelTest {
         assertTrue(model.getAllRoles().contains(Role.PROGRAMMER));
         assertTrue(model.getAllRoles().size() == 3);
     }
-    
+
 }
