@@ -20,8 +20,7 @@ public class ShowProjectCmd implements Cmd {
      * <br> 1. The user indicates he wants to take a look at some project.
      * <br> 2. The system shows a list of all projects.
      * <br> 3. The user selects a project.
-     * <br> 4. The system shows a detailed overview of the selected project and
-     * all its subsystems.
+     * <br> 4. The system shows a detailed overview of the selected project and all its subsystems.
      *
      * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.

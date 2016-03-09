@@ -19,12 +19,11 @@ public class UpdateBugReportCmd implements Cmd {
 
     /**
      * <p>
-     * <br>
-     * 1. The developer indicates he wants to update a bug report. <br>
-     * 2. Include use case Select Bug Report. <br>
-     * 3. The developer suggests a new tag for the bug report. <br>
-     * 4. The system gives the selected bug report the new tag. <br>
-     * 4a. The developer does not have the permission to assign the tag:
+     * <br> 1. The developer indicates he wants to update a bug report.
+     * <br> 2. Include use case Select Bug Report.
+     * <br> 3. The developer suggests a new tag for the bug report.
+     * <br> 4. The system gives the selected bug report the new tag.
+     * <br> 4a. The developer does not have the permission to assign the tag:
      *
      * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.

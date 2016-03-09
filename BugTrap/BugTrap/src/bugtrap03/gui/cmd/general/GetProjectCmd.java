@@ -53,10 +53,10 @@ public class GetProjectCmd implements Cmd {
      * {@link #GetProjectCmd(purecollections.PList)} or
      * {@link #setOptionsList(purecollections.PList)}. When this list is set to
      * null the list of projects in the passed {@link DataModel} will be used.
+     *
      * <p>
-     * <br>
-     * 1. The system shows a list of existing projects. <br>
-     * 2. The person selects an existing project of the list.
+     * <br> 1. The system shows a list of existing projects.
+     * <br> 2. The person selects an existing project of the list.
      *
      * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.

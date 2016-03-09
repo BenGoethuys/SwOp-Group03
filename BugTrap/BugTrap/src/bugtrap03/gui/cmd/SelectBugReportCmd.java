@@ -63,43 +63,36 @@ public class SelectBugReportCmd implements Cmd {
     /**
      * Execute this command and possibly return a result.
      * <p>
-     * <br>
-     * 1. The system shows a list of possible searching modes:
-     * <UL>
-     * <LI>Search for bug reports with a specific string in the title or
-     * description</LI>
-     * </UL>
-     * <UL>
-     * <LI>Search for bug reports filed by some specific user</LI>
-     * </UL>
-     * <UL>
-     * <LI>Search for bug reports assigned to specific user</LI>
-     * </UL>
-     * <UL>
-     * <LI>. . .</LI>
-     * </UL>
-     * <br>
-     * 2. The issuer selects a searching mode and provides the required search
-     * parameters. <br>
-     * 3. The system shows an ordered list of bug reports that matched the
-     * search query. <br>
-     * 4. The issuer selects a bug report from the ordered list.
+     * <br> 1. The system shows a list of possible searching modes:
+     * <UL><LI>Search for bug reports with a specific string in the title or description</LI></UL>
+     * <UL><LI>Search for bug reports filed by some specific user</LI></UL>
+     * <UL><LI>Search for bug reports assigned to specific user</LI></UL>
+     * <UL><LI>. . .</LI></UL>
+     * <br> 2. The issuer selects a searching mode and provides the required search parameters.
+     * <br> 3. The system shows an ordered list of bug reports that matched the search query.
+     * <br> 4. The issuer selects a bug report from the ordered list.
      *
-     * @param scan The {@link TerminalScanner} used to interact with the person.
+     * @param scan  The {@link TerminalScanner} used to interact with the person.
      * @param model The {@link DataModel} used for model access.
-     * @param user The {@link User} who wants to executes this command.
+     * @param user  The {@link User} who wants to executes this command.
      * @return The {@link BugReport} selected by the person.
-     * @throws PermissionException When the user does not have sufficient
-     * permissions.
-     * @throws CancelException When the users wants to abort the current cmd
+     * @throws PermissionException      When the user does not have sufficient
+     *                                  permissions.
+     * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalArgumentException If scan, model or user is null
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
-        if(scan == null || model == null || user == null) {
+        if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
 
+        // 1. The system shows a list of possible searching modes:
+        //      Search for bug reports with a specific string in the title or description
+        //      Search for bug reports filed by some specific user
+        //      Search for bug reports assigned to specific user
+        //      ...
+        // 2. The issuer selects a searching mode and provides the required search parameters.
         while (true) {
             scan.println("Please select a search mode: ");
             for (int i = 0; i < this.modeList.size(); i++) {
@@ -128,7 +121,6 @@ public class SelectBugReportCmd implements Cmd {
                 }
             } while (mode == null);
 
-            // ask user for search term
             scan.println("Please enter the required search term ...");
             this.o = this.cmdMap.get(modeStr).exec(scan, model, user);
 
@@ -136,13 +128,16 @@ public class SelectBugReportCmd implements Cmd {
             ArrayList<BugReport> selected = model.getAllBugReports().parallelStream().filter(mode)
                     .collect(Collectors.toCollection(ArrayList::new));
             Collections.sort(selected);
+
+            // 3. The system shows an ordered list of bug reports that matched the search query.
+            // 4. The issuer selects a bug report from the ordered list.
             scan.println("Please select a bug report: ");
             BugReport bugrep = new GetObjectOfListCmd<>(PList.<BugReport>empty().plusAll(selected),
                     (u -> u.getTitle() + "\t -UniqueID: " + u.getUniqueID()),
                     ((u, input) -> u.getTitle().equals(input)))
                     .exec(scan, model, user);
 
-            if (bugrep != null){
+            if (bugrep != null) {
                 scan.println("You have selected: " + bugrep.getTitle() + "\t -UniqueID: " + bugrep.getUniqueID());
                 return bugrep;
             } else {
