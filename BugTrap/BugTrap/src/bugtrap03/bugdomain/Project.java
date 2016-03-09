@@ -384,7 +384,8 @@ public class Project extends AbstractSystem {
      */
     @DomainAPI
     public PList<Role> getAllRolesDev(Developer dev) {
-        return this.projectParticipants.get(dev);
+        PList<Role> roles = this.projectParticipants.get(dev);
+        return (roles != null) ? roles : PList.<Role>empty();
     }
 
     /**
