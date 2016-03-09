@@ -51,6 +51,10 @@ public class AssignToBugReportCmd implements Cmd {
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException {
+        if (scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
+
         // 1. The developer indicates he wants to assign a developer to a bug report. 
         boolean hasPerm = false;
         BugReport bugRep;
