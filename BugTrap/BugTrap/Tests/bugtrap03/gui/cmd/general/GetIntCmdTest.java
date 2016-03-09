@@ -32,8 +32,6 @@ public class GetIntCmdTest {
         question.add("Give number: ");
         answer.add("wrongInput");
         question.add("Invalid input, please enter a number");
-        answer.add("152,328");
-        question.add("Invalid input, please enter a number");
         answer.add("-5.2");
         question.add("Invalid input, please enter a number");
         answer.add("-5");

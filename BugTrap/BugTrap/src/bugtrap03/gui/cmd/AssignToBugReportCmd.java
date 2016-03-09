@@ -46,7 +46,7 @@ public class AssignToBugReportCmd implements Cmd {
             throw new PermissionException("You don't have the needed permission");
         }
 
-        PList<Developer> list = model.getDeveloperInproject(bugRep);
+        PList<Developer> list = model.getDeveloperInProject(bugRep);
 
         //Retrieve & process user input.
         HashSet<Developer> devList = new HashSet<>();
