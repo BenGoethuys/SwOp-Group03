@@ -20,7 +20,8 @@ import testCollection.TerminalTestScanner;
 
 /**
  *
- * @author Admin
+ * @author Group 03
+ *
  */
 public class SelectBugReportCmdTest {
 
@@ -29,7 +30,7 @@ public class SelectBugReportCmdTest {
      */
     @Test
     public void testTitleFilterIndex() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("trolbol007", "Luky", "Luke");
         Issuer issuer = model.createIssuer("C0ws007", "Fly", "High");
@@ -39,15 +40,24 @@ public class SelectBugReportCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+                "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+                "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome", "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.", PList.<BugReport>empty(), subsystemA3_1);
+        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport> empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                subsystemA2);
+        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport> empty(), subsystemA3_1);
 
         Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -57,7 +67,7 @@ public class SelectBugReportCmdTest {
         ArrayDeque<String> answer = new ArrayDeque<>();
         SelectBugReportCmd cmd = new SelectBugReportCmd();
 
-        //Setup scenario
+        // Setup scenario
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("-1");
@@ -89,9 +99,9 @@ public class SelectBugReportCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         BugReport chosen = cmd.exec(scan, model, issuer);
-        //Test effects.
+        // Test effects.
         assertEquals(chosen, bugRep1);
     }
 
@@ -100,7 +110,7 @@ public class SelectBugReportCmdTest {
      */
     @Test
     public void testTitleFilterName() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("trolbol00", "Luky", "Luke");
         Issuer issuer = model.createIssuer("C0ws00", "Fly", "High");
@@ -110,15 +120,24 @@ public class SelectBugReportCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+                "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+                "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome", "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.", PList.<BugReport>empty(), subsystemA3_1);
+        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport> empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                subsystemA2);
+        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport> empty(), subsystemA3_1);
 
         Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -128,7 +147,7 @@ public class SelectBugReportCmdTest {
         ArrayDeque<String> answer = new ArrayDeque<>();
         SelectBugReportCmd cmd = new SelectBugReportCmd();
 
-        //Setup scenario
+        // Setup scenario
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("-1");
@@ -170,9 +189,9 @@ public class SelectBugReportCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         BugReport chosen = cmd.exec(scan, model, issuer);
-        //Test effects.
+        // Test effects.
         assertEquals(chosen, bugRep1);
     }
 
@@ -181,7 +200,7 @@ public class SelectBugReportCmdTest {
      */
     @Test
     public void testTitleDescriptionIndex() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("HMXD0", "Luky", "Luke");
         Issuer issuer = model.createIssuer("CFDL0", "Fly", "High");
@@ -191,15 +210,24 @@ public class SelectBugReportCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+                "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+                "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome", "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.", PList.<BugReport>empty(), subsystemA3_1);
+        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport> empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                subsystemA2);
+        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport> empty(), subsystemA3_1);
 
         Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -209,7 +237,7 @@ public class SelectBugReportCmdTest {
         ArrayDeque<String> answer = new ArrayDeque<>();
         SelectBugReportCmd cmd = new SelectBugReportCmd();
 
-        //Setup scenario
+        // Setup scenario
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("-1");
@@ -241,15 +269,15 @@ public class SelectBugReportCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         BugReport chosen = cmd.exec(scan, model, issuer);
-        //Test effects.
+        // Test effects.
         assertEquals(chosen, bugRep1);
     }
 
     @Test
     public void testTitleDescIndex() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("HMXD", "Luky", "Luke");
         Issuer issuer = model.createIssuer("CFDL", "Fly", "High");
@@ -259,15 +287,24 @@ public class SelectBugReportCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+                "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+                "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome", "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.", PList.<BugReport>empty(), subsystemA3_1);
+        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport> empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                subsystemA2);
+        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport> empty(), subsystemA3_1);
 
         Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -277,7 +314,7 @@ public class SelectBugReportCmdTest {
         ArrayDeque<String> answer = new ArrayDeque<>();
         SelectBugReportCmd cmd = new SelectBugReportCmd();
 
-        //Setup scenario
+        // Setup scenario
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("-1");
@@ -309,15 +346,15 @@ public class SelectBugReportCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         BugReport chosen = cmd.exec(scan, model, issuer);
-        //Test effects.
+        // Test effects.
         assertEquals(chosen, bugRep1);
     }
 
     @Test
     public void testTitleCreatorIndex() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("HMXD1", "Luky", "Luke");
         Issuer issuer = model.createIssuer("CFDL1", "Fly", "High");
@@ -328,15 +365,24 @@ public class SelectBugReportCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+                "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+                "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(lead, "bugRep is too awesome", "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.", PList.<BugReport>empty(), subsystemA3_1);
+        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport> empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(lead, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                subsystemA2);
+        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport> empty(), subsystemA3_1);
 
         Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -346,7 +392,7 @@ public class SelectBugReportCmdTest {
         ArrayDeque<String> answer = new ArrayDeque<>();
         SelectBugReportCmd cmd = new SelectBugReportCmd();
 
-        //Setup scenario
+        // Setup scenario
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("-1");
@@ -389,15 +435,15 @@ public class SelectBugReportCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         BugReport chosen = cmd.exec(scan, model, issuer);
-        //Test effects.
+        // Test effects.
         assertEquals(chosen, bugRep3);
     }
 
     @Test
     public void testTitleUniqueIDIndex() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("HMXD6", "Luky", "Luke");
         Issuer issuer = model.createIssuer("CFDL6", "Fly", "High");
@@ -407,15 +453,24 @@ public class SelectBugReportCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+                "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+                "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome", "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.", PList.<BugReport>empty(), subsystemA3_1);
+        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport> empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                subsystemA2);
+        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport> empty(), subsystemA3_1);
 
         Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -425,7 +480,7 @@ public class SelectBugReportCmdTest {
         ArrayDeque<String> answer = new ArrayDeque<>();
         SelectBugReportCmd cmd = new SelectBugReportCmd();
 
-        //Setup scenario
+        // Setup scenario
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("-1");
@@ -458,15 +513,15 @@ public class SelectBugReportCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         BugReport chosen = cmd.exec(scan, model, issuer);
-        //Test effects.
+        // Test effects.
         assertEquals(chosen, bugRep2);
     }
 
     @Test
     public void testTitleIDIndex() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("HMXD7", "Luky", "Luke");
         Issuer issuer = model.createIssuer("CFDL7", "Fly", "High");
@@ -476,15 +531,24 @@ public class SelectBugReportCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+                "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+                "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome", "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.", PList.<BugReport>empty(), subsystemA3_1);
+        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport> empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                subsystemA2);
+        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport> empty(), subsystemA3_1);
 
         Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -494,7 +558,7 @@ public class SelectBugReportCmdTest {
         ArrayDeque<String> answer = new ArrayDeque<>();
         SelectBugReportCmd cmd = new SelectBugReportCmd();
 
-        //Setup scenario
+        // Setup scenario
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("-1");
@@ -527,15 +591,15 @@ public class SelectBugReportCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         BugReport chosen = cmd.exec(scan, model, issuer);
-        //Test effects.
+        // Test effects.
         assertEquals(chosen, bugRep2);
     }
-    
-     @Test
+
+    @Test
     public void testTitleAssignedIndex() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("HMXD8", "Luky", "Luke");
         Issuer issuer = model.createIssuer("CFDL8", "Fly", "High");
@@ -545,17 +609,26 @@ public class SelectBugReportCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+                "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+                "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome", "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.", PList.<BugReport>empty(), subsystemA3_1);
+        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport> empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                subsystemA2);
+        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport> empty(), subsystemA3_1);
 
-        model.addUsersToBugReport(lead, bugRep3, PList.<Developer>empty().plus(lead));
+        model.addUsersToBugReport(lead, bugRep3, PList.<Developer> empty().plus(lead));
         Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
         Comment comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
@@ -564,7 +637,7 @@ public class SelectBugReportCmdTest {
         ArrayDeque<String> answer = new ArrayDeque<>();
         SelectBugReportCmd cmd = new SelectBugReportCmd();
 
-        //Setup scenario
+        // Setup scenario
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("-1");
@@ -593,16 +666,15 @@ public class SelectBugReportCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         BugReport chosen = cmd.exec(scan, model, issuer);
-        //Test effects.
+        // Test effects.
         assertEquals(chosen, bugRep3);
     }
-    
-    
+
     @Test
     public void testTitleUniqueIDName() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("HMXD9", "Luky", "Luke");
         Issuer issuer = model.createIssuer("CFDL9", "Fly", "High");
@@ -612,15 +684,24 @@ public class SelectBugReportCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+                "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+                "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome", "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.", PList.<BugReport>empty(), subsystemA3_1);
+        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport> empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                subsystemA2);
+        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport> empty(), subsystemA3_1);
 
         Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -630,7 +711,7 @@ public class SelectBugReportCmdTest {
         ArrayDeque<String> answer = new ArrayDeque<>();
         SelectBugReportCmd cmd = new SelectBugReportCmd();
 
-        //Setup scenario
+        // Setup scenario
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("-1");
@@ -663,18 +744,15 @@ public class SelectBugReportCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         BugReport chosen = cmd.exec(scan, model, issuer);
-        //Test effects.
+        // Test effects.
         assertEquals(chosen, bugRep2);
     }
-    
+
     /**
      * Add the searchMode options + first line to question. Please select a
-     * search mode..
-     * <b> 0..
-     * <b> 1..
-     * <b> ..
+     * search mode.. <b> 0.. <b> 1.. <b> ..
      *
      * @param question
      */

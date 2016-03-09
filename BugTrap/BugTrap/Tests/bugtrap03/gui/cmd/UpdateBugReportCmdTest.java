@@ -18,7 +18,6 @@ import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
 /**
- * The 4.13 Update Bug Report use case test.
  *
  * @author Group 03
  *

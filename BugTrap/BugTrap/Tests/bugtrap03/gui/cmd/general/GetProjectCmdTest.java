@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bugtrap03.gui.cmd.general;
 
 import bugtrap03.model.DataModel;
@@ -19,7 +14,8 @@ import testCollection.TerminalTestScanner;
 
 /**
  *
- * @author Admin
+ * @author Group 03
+ *
  */
 public class GetProjectCmdTest {
 
@@ -47,8 +43,8 @@ public class GetProjectCmdTest {
 
         // Setup scenario
         question.add("Available projects:");
-        question.add("0. " + proj0.getName() + " version: "+ proj0.getVersionID());
-        question.add("1. " + proj1.getName() + " version: "+ proj1.getVersionID());
+        question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
+        question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());
         question.add("I choose: ");
         answer.add("5");
         question.add("Invalid input.");

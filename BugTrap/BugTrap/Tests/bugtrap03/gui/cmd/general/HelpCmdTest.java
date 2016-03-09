@@ -12,7 +12,8 @@ import testCollection.TerminalTestScanner;
 
 /**
  *
- * @author Admin
+ * @author Group 03
+ *
  */
 public class HelpCmdTest {
 
@@ -48,19 +49,18 @@ public class HelpCmdTest {
         ArrayDeque<String> question = new ArrayDeque();
         ArrayDeque<String> answer = new ArrayDeque();
         ArrayList<SimpleEntry<String, Cmd>> printList = new ArrayList();
-        
+
         printList.add(new SimpleEntry("test", new HelpCmd(null)));
         printList.add(new SimpleEntry("getUserOfExactTypeCmd", new GetUserOfExcactTypeCmd<>(User.class)));
         printList.add(new SimpleEntry("clear", new ClearCmd()));
-        
-        
+
         HelpCmd cmd = new HelpCmd(printList);
 
         question.add("List of possible commands:");
         question.add("test");
         question.add("getUserOfExactTypeCmd");
         question.add("clear");
-        
+
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         Object obj = cmd.exec(scan, null, null);
