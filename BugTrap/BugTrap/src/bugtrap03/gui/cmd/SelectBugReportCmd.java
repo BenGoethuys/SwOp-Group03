@@ -1,16 +1,14 @@
 package bugtrap03.gui.cmd;
 
+import bugtrap03.gui.cmd.general.*;
 import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.gui.cmd.general.CancelException;
-import bugtrap03.gui.cmd.general.GetLongCmd;
-import bugtrap03.gui.cmd.general.GetStringCmd;
-import bugtrap03.gui.cmd.general.GetUserOfTypeCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
+import purecollections.PList;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -134,36 +132,12 @@ public class SelectBugReportCmd implements Cmd {
                     .collect(Collectors.toCollection(ArrayList::new));
             Collections.sort(selected);
 
-            //select bugreport
-            if (selected.size() > 0) {
-                scan.println("Please select a bug report: ");
-                scan.println("Available bugReports:");
-                for (int i = 0; i < selected.size(); i++) {
-                    BugReport bugrep = selected.get(i);
-                    scan.println(i + ". " + bugrep.getTitle() + "\t -UniqueID: " + bugrep.getUniqueID());
-                }
+            BugReport bugrep = new GetObjectOfListCmd<>(PList.<BugReport>empty().plusAll(selected),
+                    (u -> u.getTitle() + "\t -UniqueID: " + u.getUniqueID()),
+                    ((u, input) -> u.getTitle().equals(input)))
+                    .exec(scan, model, user);
 
-                BugReport bugrep = null;
-
-                do {
-                    scan.print("I choose: ");
-                    if (scan.hasNextInt()) { // by index
-                        int index = scan.nextInt();// input
-                        if (index >= 0 && index < selected.size()) {
-                            bugrep = selected.get(index);
-                        } else {
-                            scan.println("Invalid input.");
-                        }
-                    } else { // by name
-                        String input = scan.nextLine(); // input
-                        try {
-                            bugrep = selected.parallelStream().filter(u -> u.getTitle().equals(input)).findFirst().get();
-                        } catch (NoSuchElementException ex) {
-                            scan.println("Invalid input.");
-                        }
-                    }
-                } while (bugrep == null);
-
+            if (bugrep != null){
                 scan.println("You have selected: " + bugrep.getTitle() + "\t -UniqueID: " + bugrep.getUniqueID());
                 return bugrep;
             } else {
