@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="bugtrap03.bugdomain.usersystem.Administrator" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/usersystem/Administrator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="219" x="55" y="8"/>    
+    <position height="-1" width="-1" x="192" y="102"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="bugtrap03.bugdomain.usersystem.Developer" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/usersystem/Developer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="764" y="164"/>    
+    <position height="-1" width="-1" x="779" y="775"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="bugtrap03.bugdomain.usersystem.Issuer" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/usersystem/Issuer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="765" y="393"/>    
+    <position height="-1" width="-1" x="787" y="305"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <enumeration id="4" language="java" name="bugtrap03.bugdomain.usersystem.Role" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/usersystem/Role.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="158" y="340"/>    
+    <position height="-1" width="-1" x="169" y="438"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,25 +39,98 @@
   </enumeration>  
   <class id="5" language="java" name="bugtrap03.bugdomain.usersystem.User" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/usersystem/User.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="460" y="257"/>    
+    <position height="-1" width="-1" x="512" y="499"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="6">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <generalization id="7">    
+  <enumeration id="6" language="java" name="bugtrap03.bugdomain.permission.RolePerm" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/permission/RolePerm.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="184" y="760"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="7" language="java" name="bugtrap03.bugdomain.permission.UserPerm" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/permission/UserPerm.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="516" y="84"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="8" language="java" name="bugtrap03.bugdomain.permission.PermissionException" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/permission/PermissionException.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="161" y="259"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <association id="10">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="11" name="permissions"/>      
+      <multiplicity id="12" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="13">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="14" name="permissions"/>      
+      <multiplicity id="15" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="16">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="5"/>  
   </generalization>  
-  <generalization id="8">    
+  <dependency id="17">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <generalization id="18">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <association id="19">    
+    <bendpoint x="243" y="564"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="20" name="neededPerm"/>      
+      <multiplicity id="21" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="22">    
+    <bendpoint x="104" y="568"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="23" name="permissions"/>      
+      <multiplicity id="24" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="25">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="5"/>  
   </generalization>  
+  <dependency id="26">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
