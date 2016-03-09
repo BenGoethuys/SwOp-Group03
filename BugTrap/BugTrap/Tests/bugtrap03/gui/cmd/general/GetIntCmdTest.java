@@ -32,9 +32,6 @@ public class GetIntCmdTest {
         question.add("Give number: ");
         answer.add("wrongInput");
         question.add("Invalid input, please enter a number");
-        answer.add("152,328");
-        //TODO 152,328 (= 152328) is a valid number !!
-        question.add("Invalid input, please enter a number");
         answer.add("-5.2");
         question.add("Invalid input, please enter a number");
         answer.add("-5");
@@ -45,7 +42,7 @@ public class GetIntCmdTest {
         int chosen = cmd.exec(scan, null, null);
 
         //Test effects.
-        assertEquals(chosen, 152328);
+        assertEquals(chosen, -5);
     }
 
     @Test(expected = CancelException.class)
