@@ -36,6 +36,7 @@ public class InspectBugReportCmdTest {
     Subsystem subsystemA3_1;
     BugReport bugRep1;
     BugReport bugRep2;
+    BugReport inspectBugReport;
 
     /**
      * Test method for
@@ -90,7 +91,7 @@ public class InspectBugReportCmdTest {
         question.add(bugRep2.getDetails());
         
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
-        BugReport inspectBugReport = cmd.exec(scan, model, issuer);
+        inspectBugReport = cmd.exec(scan, model, issuer);
     }
 
 }
