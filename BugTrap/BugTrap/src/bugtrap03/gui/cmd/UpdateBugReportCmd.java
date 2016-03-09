@@ -5,6 +5,7 @@ import bugtrap03.bugdomain.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
@@ -72,29 +73,9 @@ public class UpdateBugReportCmd implements Cmd {
      */
     private Tag selectTag(TerminalScanner scan, DataModel model) throws CancelException {
         PList<Tag> taglist = model.getAllTags();
-        scan.println("Available tags: \n");
-        for (int i = 0; i < taglist.size(); i++) {
-            scan.println(i + ". " + taglist.get(i).name());
-        }
-        Tag tagToSet = null;
-        do {
-            scan.print("I choose tag: ");
-            if (scan.hasNextInt()) { // by index
-                int index = scan.nextInt();// input
-                if (index >= 0 && index < taglist.size()) {
-                    tagToSet = taglist.get(index);
-                } else {
-                    scan.println("Invalid input.");
-                }
-            } else { // by name
-                String input = scan.nextLine(); // input
-                try {
-                    tagToSet = taglist.parallelStream().filter(u -> u.name().equalsIgnoreCase(input)).findFirst().get();
-                } catch (NoSuchElementException ex) {
-                    scan.println("Invalid input.");
-                }
-            }
-        } while (tagToSet == null);
+
+        Tag tagToSet = new GetObjectOfListCmd<>(taglist, (u -> u.name()), ((u, input) -> u.name().equalsIgnoreCase(input)))
+                .exec(scan, model, null);
 
         scan.println("You have selected: \t" + tagToSet.toString());
         return tagToSet;
