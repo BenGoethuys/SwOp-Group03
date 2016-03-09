@@ -24,12 +24,12 @@ public class CreateSubsystemCmdTest {
 
     /**
      * Test method for
-     * {@link bugtrap03.gui.cmd.CreateSubsystemCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}.
-     * Using index to chose which abstractSystem to use as the parent.
+     * {@link bugtrap03.gui.cmd.CreateSubsystemCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
+     * . Using index to chose which abstractSystem to use as the parent.
      */
     @Test
     public void testExecIndex() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead054", "Luky", "Luke");
         Issuer issuer = model.createIssuer("noDev054", "BadLuck", "Luke");
@@ -41,15 +41,17 @@ public class CreateSubsystemCmdTest {
         Subsystem subsystemA1 = model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, "SubsystemA2", "Description of susbsystem A2");
         Subsystem subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         CreateSubsystemCmd cmd = new CreateSubsystemCmd();
 
-        //Setup scenario
-        question.add("Available projects and subsystems:");
+        // Setup scenario
+        question.add("Available options:");
         question.add("0. " + projectA.getName());
         question.add("1. " + subsystemA1.getName());
         question.add("2. " + subsystemA2.getName());
@@ -75,13 +77,13 @@ public class CreateSubsystemCmdTest {
         question.add("Subsystem description:");
         answer.add("ping pong");
         question.add("Created subsystem " + "lol");
-        
+
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Subsystem chosen = cmd.exec(scan, model, admin);
 
-        //Test effects.
+        // Test effects.
         assertEquals(chosen.getName(), "lol");
         assertEquals(chosen.getDescription(), "ping pong");
         assertEquals(model.getAllProjectsAndSubsystems().size(), 8);
@@ -89,15 +91,14 @@ public class CreateSubsystemCmdTest {
         assertTrue(model.getAllSubsystems(projectA).contains(chosen));
     }
 
-    
     /**
      * Test method for
-     * {@link bugtrap03.gui.cmd.CreateSubsystemCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}.
-     * Using names to chose which abstractSystem to use as the parent.
+     * {@link bugtrap03.gui.cmd.CreateSubsystemCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
+     * . Using names to chose which abstractSystem to use as the parent.
      */
     @Test
     public void testExecName() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead055", "Luky", "Luke");
         Issuer issuer = model.createIssuer("noDev055", "BadLuck", "Luke");
@@ -109,15 +110,17 @@ public class CreateSubsystemCmdTest {
         Subsystem subsystemA1 = model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, "SubsystemA2", "Description of susbsystem A2");
         Subsystem subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         CreateSubsystemCmd cmd = new CreateSubsystemCmd();
 
-        //Setup scenario
-        question.add("Available projects and subsystems:");
+        // Setup scenario
+        question.add("Available options:");
         question.add("0. " + projectA.getName());
         question.add("1. " + subsystemA1.getName());
         question.add("2. " + subsystemA2.getName());
@@ -143,13 +146,13 @@ public class CreateSubsystemCmdTest {
         question.add("Subsystem description:");
         answer.add("ping pong");
         question.add("Created subsystem " + "lol");
-        
+
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Subsystem chosen = cmd.exec(scan, model, admin);
 
-        //Test effects.
+        // Test effects.
         assertEquals(chosen.getName(), "lol");
         assertEquals(chosen.getDescription(), "ping pong");
         assertEquals(model.getAllProjectsAndSubsystems().size(), 8);
