@@ -21,14 +21,13 @@ public class UpdateProjectCmd implements Cmd {
     /**
      * Execute the update project scenario.
      * <p>
-     * <br>
-     * 1. The administrator indicates he wants to update a project. <br>
-     * 2. The system shows a list of all projects. <br>
-     * 3. The administrator selects a project. <br>
-     * 4. The system shows a form to update the project details: name,
-     * description, starting date and budget estimate. <br>
-     * 5. The administrator modifies the details as he sees fit. <br>
-     * 6. The system updates the project.
+     * <br> 1. The administrator indicates he wants to update a project.
+     * <br> 2. The system shows a list of all projects.
+     * <br> 3. The administrator selects a project.
+     * <br> 4. The system shows a form to update the project details: name,
+     * description, starting date and budget estimate.
+     * <br> 5. The administrator modifies the details as he sees fit.
+     * <br> 6. The system updates the project.
      *
      * @param scan  The {@link Scanner} trough which to ask the questions.
      * @param model The model to use to access the model.
@@ -36,14 +35,26 @@ public class UpdateProjectCmd implements Cmd {
      * @return The new updated project
      * @throws PermissionException When the user does not have sufficient permissions to update
      *                             a project.
+     * @throws IllegalArgumentException If scan, model or user is null
+     * 
+     * @see DataModel#updateProject(Project, User, String, String, GregorianCalendar, Long)
+     * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user)
-            throws PermissionException, CancelException {
+            throws PermissionException, CancelException, IllegalArgumentException {
+        if(scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
 
-        // Get project
+        // 1. The administrator indicates he wants to update a project.
+        // 2. The system shows a list of all projects.
+        // 3. The administrator selects a project.
         Project proj = new GetProjectCmd().exec(scan, model, user);
 
+        // 4. The system shows a form to update the project details: name,
+        // description, starting date and budget estimate.
+        // 5. The administrator modifies the details as he sees fit.
         // update name:
         String newName = null;
         scan.println("Give new name: (leave blank for old name)");
@@ -101,6 +112,7 @@ public class UpdateProjectCmd implements Cmd {
             }
         } while (projBudgetEstimate == null);
 
+        // 6. The system updates the project.
         scan.println("Project updated.");
         model.updateProject(proj, user, newName, newDesc, projStartDate, projBudgetEstimate);
         return proj;

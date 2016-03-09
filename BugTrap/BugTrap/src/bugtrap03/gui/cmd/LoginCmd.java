@@ -50,9 +50,14 @@ public class LoginCmd implements Cmd {
      * whatever.
      * @return The user chosen by the person to login as.
      * @throws CancelException When the cancel operation was executed.
+     * @throws IllegalArgumentException If the scan or model is null
      */
     @Override
-    public User exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException {
+    public User exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException, IllegalArgumentException {
+        if(scan == null || model == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
+
         //Login
         User user;
         do {
@@ -61,7 +66,7 @@ public class LoginCmd implements Cmd {
             
             //2. Show the person all users of that type
             //3. Ask the person which user to login as.
-            user = (new GetUserOfExcactTypeCmd<>(classType)).exec(scan, model, dummy);
+            user = (new GetUserOfExcactTypeCmd<>(classType)).exec(scan, model, null);
         } while (user == null);
 
         terminal.setUser(user);
@@ -78,13 +83,13 @@ public class LoginCmd implements Cmd {
      */
     private void initLoginInfo() {
         //Create Entries linking what to print with a certain class.
-        this.classList = new ArrayList();
-        this.classList.add(new SimpleEntry("Administrator", Administrator.class));
-        this.classList.add(new SimpleEntry("Issuer", Issuer.class));
-        this.classList.add(new SimpleEntry("Developer", Developer.class));
+        this.classList = new ArrayList<>();
+        this.classList.add(new SimpleEntry<>("Administrator", Administrator.class));
+        this.classList.add(new SimpleEntry<>("Issuer", Issuer.class));
+        this.classList.add(new SimpleEntry<>("Developer", Developer.class));
 
         //Fill a map with acceptable input values linked to a certain class.
-        this.optionMap = new HashMap();
+        this.optionMap = new HashMap<>();
         for (int i = 0; i < this.classList.size(); i++) {
             SimpleEntry<String, Class<? extends User>> entry = this.classList.get(i);
             this.optionMap.put(entry.getKey().toLowerCase(), entry.getValue());

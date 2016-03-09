@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
  * @author Group 03
  */
 public class AssignToProjectCmd implements Cmd {
-    
+
     /**
      * <p>
      * <br> 1. The developer indicates he wants to assign another developer.
@@ -34,27 +34,37 @@ public class AssignToProjectCmd implements Cmd {
      * <br> 7. The lead developer selects a role.
      * <br> 8. The systems assigns the selected role to the selected developer.
      *
-     * @param scan  The {@link TerminalScanner} used to interact with the person.
+     * @param scan The {@link TerminalScanner} used to interact with the person.
      * @param model The {@link DataModel} used for model access.
-     * @param user  The {@link User} who wants to executes this command.
-     * @return The project to which the selected developer is assigned the selected role. Null if the user does not lead any projects.
+     * @param user The {@link User} who wants to executes this command.
+     * @return The project to which the selected developer is assigned the selected role. Null if the user does not lead
+     * any projects.
      * @throws PermissionException When the user does not have sufficient permissions.
      * @throws CancelException When the user has indicated to abort the cmd.
+     * @throws IllegalArgumentException When scan, model,user is null.
+     * @throws IllegalArgumentException When the selected project has no developer to assign.
+     * @throws IllegalArgumentException When there is no role to select.
+     *
+     * @see DataModel#assignToProject(Project, User, Developer, Role)
+     * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
-    public Project exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
-        //1. The developer indicates he wants to assign another developer.
-        
-        //Retrieve projects with user as lead.
+    public Project exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+        if (scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
+        // 1. The developer indicates he wants to assign another developer.
+
+        // Retrieve projects with user as lead.
         PList<Project> projectList = model.getProjectList();
-        for (Project proj : projectList){
-            if (! proj.getLead().equals(user)){
+        for (Project proj : projectList) {
+            if (!proj.getLead().equals(user)) {
                 projectList = projectList.minus(proj);
             }
         }
-        
-        //2.a user is not assigned a lead role in any project: The use case ends here.
-        if (projectList.isEmpty()){
+
+        // 2. user is not assigned a lead role in any project: The use case ends here.
+        if (projectList.isEmpty()) {
             scan.println("You don't lead any projects.");
             return null;
         }

@@ -7,6 +7,8 @@ package bugtrap03.gui.cmd.general;
  */
 public class CancelException extends Exception {
     
+    private static final long serialVersionUID = -2922103305574644937L;
+
     /**
      * This is the constructor for a CancelException
      * @param message   The message that explains why the exception is thrown

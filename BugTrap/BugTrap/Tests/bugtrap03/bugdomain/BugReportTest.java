@@ -5,7 +5,6 @@ import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
-import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 import static org.junit.Assert.*;
 

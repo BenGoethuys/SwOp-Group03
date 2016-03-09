@@ -38,9 +38,9 @@ public class GetUserOfExactTypeCmdTest {
         User issuer = model.createIssuer("noDev16", "BadLuck", "Luke");
         User admin = model.createAdministrator("admin16", "adminT", "bie");
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
-        GetUserOfExcactTypeCmd<Developer> cmd = new GetUserOfExcactTypeCmd(Developer.class);
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        GetUserOfExcactTypeCmd<Developer> cmd = new GetUserOfExcactTypeCmd<>(Developer.class);
 
         // Setup scenario
         question.add("Available options:");
@@ -79,9 +79,9 @@ public class GetUserOfExactTypeCmdTest {
         User issuer = model.createIssuer("noDev20", "BadLuck", "Luke");
         User admin = model.createAdministrator("admin20", "adminT", "bie");
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
-        GetUserOfExcactTypeCmd<Developer> cmd = new GetUserOfExcactTypeCmd(Developer.class);
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        GetUserOfExcactTypeCmd<Developer> cmd = new GetUserOfExcactTypeCmd<>(Developer.class);
 
         // Setup scenario
         question.add("Available options:");

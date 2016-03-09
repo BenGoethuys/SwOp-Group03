@@ -30,7 +30,7 @@ public class HelpCmd implements Cmd {
      */
     public HelpCmd(ArrayList<SimpleEntry<String, Cmd>> cmdList) {
         if (cmdList == null) {
-            this.cmdList = new ArrayList();
+            this.cmdList = new ArrayList<>();
         } else {
             this.cmdList = cmdList;
         }
@@ -46,6 +46,7 @@ public class HelpCmd implements Cmd {
      * @param dummy2 doesn't matter
      * @param dummy3 doesn't matter
      * @return null.
+     * @throws IllegalArgumentException When scan is a null reference.
      */
     @Override
     public Object exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws IllegalArgumentException {
@@ -53,8 +54,8 @@ public class HelpCmd implements Cmd {
             throw new IllegalArgumentException("HelpCmd requires a non null reference as scan");
         }
         scan.println("List of possible commands:");
-        for (SimpleEntry cmdEntry : cmdList) {
-            scan.println(cmdEntry.getKey().toString());
+        for (SimpleEntry<String, Cmd> cmdEntry : cmdList) {
+            scan.println(cmdEntry.getKey());
         }
 
         return null;

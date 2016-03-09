@@ -302,7 +302,7 @@ public class DataModel {
             Long budgetEstimate) throws IllegalArgumentException, PermissionException {
         // check needed permission
         if (!user.hasPermission(UserPerm.UPDATE_PROJ)) {
-            throw new PermissionException("You dont have the needed permission to update a project!");
+            throw new PermissionException("You don't have the needed permission to update a project!");
         }
 
         // Test to prevent inconsistent updating of vars
@@ -526,11 +526,8 @@ public class DataModel {
      * @param budgetEstimate The budgetEstimate for the clone project.
      *
      * @return The resulting clone. Null if the source Clone is null.
-     * //TODO remove @see
-     * //TODO add @throws
-     * @see Project#cloneProject(bugtrap03.bugdomain.VersionID,
-     *      bugtrap03.bugdomain.usersystem.Developer,
-     *      java.util.GregorianCalendar, long)
+     * @throws IllegalArgumentException Check @see.
+     * @see Project#cloneProject(VersionID, Developer, GregorianCalendar, long)
      */
     @DomainAPI
     public Project cloneProject(Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate,

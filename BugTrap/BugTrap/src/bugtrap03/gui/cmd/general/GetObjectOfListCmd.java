@@ -12,7 +12,7 @@ import purecollections.PList;
 
 /**
  *
- * @author Admin
+ * @author Group 03
  */
 public class GetObjectOfListCmd<U extends Object> implements Cmd {
 
@@ -22,8 +22,10 @@ public class GetObjectOfListCmd<U extends Object> implements Cmd {
      *
      * @param listOfObjects The list of users to pick from. When null is passed an
      * empty list will be used.
+     * @param printFunction The function used to print the objects of the list.
+     * @param selectFunction The function used to filter in the list when the user provides a String input.
      *
-     * @throws IllegalArgumentException If the function is null
+     * @throws IllegalArgumentException If at least one of the functions is null
      *
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
@@ -45,17 +47,22 @@ public class GetObjectOfListCmd<U extends Object> implements Cmd {
     private final BiFunction<U, String, Boolean> selectFunction;
 
     /**
-     * Create a scenario where the person will chose a User from the list passed
-     * to the constructor.
+     * Create a scenario where the person will choose an Object from the list passed
+     * to the constructor. Uses both functions passed to the constructor to print the options and filter the answers.
+     * Prints 'No options found.' and returns null when the list is empty.
      *
      * @param scan Used to interact with the person who selects the option.
      * @param dummy2 Dummy
      * @param dummy3 Dummy
      * @return The selected option, can be null if the list of options was empty.
+     * @throws IllegalArgumentException If the given scan is null
      * @throws CancelException When the person has indicated to abort the cmd.
      */
     @Override
-    public U exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws CancelException {
+    public U exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws CancelException, IllegalArgumentException {
+        if(scan == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
         if (listOfObjects.isEmpty()) {
             scan.println("No options found.");
             return null;

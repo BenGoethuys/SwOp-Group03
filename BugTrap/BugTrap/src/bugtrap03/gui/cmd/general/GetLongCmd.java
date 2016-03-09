@@ -21,12 +21,14 @@ public class GetLongCmd implements Cmd {
      * @param dummy2 Doesn't matter
      * @param dummy3 Doesn't matter
      * @return The long given by the user
-     * @throws PermissionException When the user does not have sufficient
-     * permissions.
      * @throws CancelException When the users wants to abort the current cmd
+     * @throws IllegalArgumentException When scan is a null reference.
      */
     @Override
-    public Long exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws PermissionException, CancelException {
+    public Long exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws CancelException, IllegalArgumentException {
+        if(scan == null) {
+            throw new IllegalArgumentException("scan musn't be null.");
+        }
         scan.print("Give number: ");
         Long longNb = null;
         do {

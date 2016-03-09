@@ -37,12 +37,23 @@ public class CreateCommentCmd implements Cmd {
      * @throws PermissionException When the user does not have sufficient
      * permissions.
      * @throws CancelException When the users wants to abort the current cmd
+     * @throws IllegalArgumentException When scan, model or user is a null reference.
+     *
+     * @see DataModel#createComment(User, BugReport, String)
+     * @see DataModel#createComment(User, Comment, String)
      */
     @Override
-    public Comment exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
-
+    public Comment exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+        if(scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
+        
+        // 1. The issuer indicates he wants to create a comment.
+        // 2. Include use case Select Bug Report.
         BugReport bugRep = new SelectBugReportCmd().exec(scan, model, user);
 
+        // 3. The system shows a list of all comments of the selected bugreport.
+        // 4. The issuer indicates if he wants to comment directly on the bug report or on some other comment.
         ArrayList<Comment> list = new ArrayList<>(bugRep.getAllComments());
 
         scan.println("Please select a comment: ");
@@ -74,6 +85,9 @@ public class CreateCommentCmd implements Cmd {
             }
         } while (!done);
 
+        // 5. The system asks for the text of the comment.
+        // 6. The issuer writes his comment.
+        // 7. The system adds the comment to the selected use case.
         Comment newComment;
         if (comment == null) {
             scan.println("You want to create a comment on the selected bug report");
@@ -89,6 +103,5 @@ public class CreateCommentCmd implements Cmd {
         }
         scan.println("Comment created");
         return newComment;
-
     }
 }
