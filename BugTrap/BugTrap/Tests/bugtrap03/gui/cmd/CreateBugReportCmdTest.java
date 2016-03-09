@@ -71,7 +71,7 @@ public class CreateBugReportCmdTest {
         answer.add("0");
         question.add("You have chosen:");
         question.add(projectA.getDetails());
-        question.add("Available subsystems:");
+        question.add("Available options:");
         question.add("0. SubsystemA1");
         question.add("1. SubsystemA2");
         question.add("2. SubsystemA3");
@@ -168,7 +168,7 @@ public class CreateBugReportCmdTest {
         answer.add(projectA.getName() + projectA.getVersionID().toString());
         question.add("You have chosen:");
         question.add(projectA.getDetails());
-        question.add("Available subsystems:");
+        question.add("Available options:");
         question.add("0. SubsystemA1");
         question.add("1. SubsystemA2");
         question.add("2. SubsystemA3");
