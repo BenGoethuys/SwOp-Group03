@@ -1,5 +1,6 @@
 package bugtrap03.gui.cmd;
 
+import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.Subsystem;
@@ -36,34 +37,12 @@ public class CreateSubsystemCmd implements Cmd {
      */
     @Override
     public Subsystem exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
-
         // show all projects
         PList<AbstractSystem> list = model.getAllProjectsAndSubsystems();
-        scan.println("Available projects and subsystems:");
-        for (int i = 0; i < list.size(); i++) {
-            scan.println(i + ". " + list.get(i).getName());
-        }
 
-        // Retrieve & process user input.
-        AbstractSystem system = null;
-        do {
-            scan.print("I choose: ");
-            if (scan.hasNextInt()) { // by index
-                int index = scan.nextInt();// input
-                if (index >= 0 && index < list.size()) {
-                    system = list.get(index);
-                } else {
-                    scan.println("Invalid input.");
-                }
-            } else { // by name
-                String input = scan.nextLine(); // input
-                try {
-                    system = list.parallelStream().filter(u -> u.getName().equals(input)).findFirst().get();
-                } catch (NoSuchElementException ex) {
-                    scan.println("Invalid input.");
-                }
-            }
-        } while (system == null);
+        AbstractSystem system = new GetObjectOfListCmd<>(list, (u -> u.getName()), ((u, input) -> u.getName().equals(input)))
+                .exec(scan, model, user);
+        
         scan.println("You have chosen:");
         scan.println(system.getName());
 
