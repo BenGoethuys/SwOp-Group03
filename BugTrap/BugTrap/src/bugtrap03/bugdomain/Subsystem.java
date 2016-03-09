@@ -10,9 +10,10 @@ import purecollections.PList;
 import java.util.GregorianCalendar;
 
 /**
- * Created by Kwinten on 17/02/2016.
+ * This class is a subclass of abstract system (versionID, name, description and Childs list).
+ * This type also contains a bug report PList, containing the bug reports linked to this subsystem.
  *
- * @author Kwinten Buytaert, Ben Goethuys & Vincent Derkinderen.
+ * @author Group 03
  */
 @DomainAPI
 public class Subsystem extends AbstractSystem {
@@ -188,6 +189,26 @@ public class Subsystem extends AbstractSystem {
      */
     public Subsystem cloneSubsystem(AbstractSystem parent) {
         return new Subsystem(this.getVersionID(), this.getName(), this.getDescription(), parent);
+    }
+
+    /**
+     * this method implements the abstract method from abstract system to return a string of
+     * details belonging to this subsystem.
+     *
+     * @return a string of details
+     */
+    public String getDetails(){
+        String details = "Subsystem name:\t \t";
+        details += this.getName();
+        details += "\nSubsystem version:\t";
+        details += this.getVersionID().toString();
+        details += "\nSubsystem description: \t";
+        details += this.getDescription();
+        details += "\nSubsystem parent: \t";
+        details += this.getParent().getName();
+        details += "\nSubsystem belongs to parent project: \t";
+        details += this.getParentProject().getName();
+        return details;
     }
 
 
