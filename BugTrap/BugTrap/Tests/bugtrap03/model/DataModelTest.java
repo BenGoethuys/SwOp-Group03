@@ -177,7 +177,7 @@ public class DataModelTest {
     }
 
     @Test
-    public void testCreateProjectException3() throws IllegalArgumentException, PermissionException {
+    public void testCreateProject() throws IllegalArgumentException, PermissionException {
         model = new DataModel();
         Developer leadDev = new Developer("Haha5", "Ha", "Ha");
         Administrator creator = new Administrator("Again2", "New", "Admin");
@@ -212,6 +212,36 @@ public class DataModelTest {
         Issuer creator = new Issuer("Again4", "New", "Admin");
         project = model.createProject("Test", "TestProject", leadDev, 1000, creator);
         model.updateProject(project, creator, "NewTest", "NewTestProject", new GregorianCalendar(), (long) 10);
+    }
+
+    @Test(expected = PermissionException.class)
+    public void testDeleteProjectException() throws IllegalArgumentException, PermissionException {
+        model = new DataModel();
+        Developer leadDev = new Developer("Haha9", "Ha", "Ha");
+        Administrator creator = new Administrator("Again9", "New", "Admin");
+        issuer = new Issuer("Issuer9", "New", "Issuer");
+        project2 = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        model.deleteProject(leadDev, project);
+    }
+
+    @Test
+    public void testDeleteProject() throws IllegalArgumentException, PermissionException {
+        model = new DataModel();
+        Developer leadDev = new Developer("Haha10", "Ha", "Ha");
+        Administrator creator = new Administrator("Again10", "New", "Admin");
+        issuer = new Issuer("Issuer10", "New", "Issuer");
+        project2 = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        model.deleteProject(creator, project);
+    }
+
+    @Test(expected = PermissionException.class)
+    public void testDeleteProjectException2() throws IllegalArgumentException, PermissionException {
+        model = new DataModel();
+        Developer leadDev = new Developer("Haha11", "Ha", "Ha");
+        Administrator creator = new Administrator("Again11", "New", "Admin");
+        issuer = new Issuer("Issuer11", "New", "Issuer");
+        project2 = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        model.deleteProject(issuer, project);
     }
 
 }
