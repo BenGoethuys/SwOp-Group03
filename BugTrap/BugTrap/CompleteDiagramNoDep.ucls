@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.9" icons="true" automaticImage="GIF" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="bugtrap03.DataModel" project="BugTrap" 
-    file="/BugTrap/src/bugtrap03/DataModel.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="441" width="386" x="-84" y="-155"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="bugtrap03.gui.terminal.Terminal" project="BugTrap" 
+  <class id="1" language="java" name="bugtrap03.gui.terminal.Terminal" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/terminal/Terminal.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="599" y="428"/>    
+    <position height="-1" width="-1" x="592" y="403"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="bugtrap03.gui.terminal.TerminalScanner" project="BugTrap" 
+  <class id="2" language="java" name="bugtrap03.gui.terminal.TerminalScanner" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/terminal/TerminalScanner.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="585" y="809"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -28,16 +19,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="bugtrap03.gui.terminal.LoginCmd" project="BugTrap" 
-    file="/BugTrap/src/bugtrap03/gui/terminal/LoginCmd.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="983" y="362"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="bugtrap03.bugdomain.Project" project="BugTrap" 
+  <class id="3" language="java" name="bugtrap03.bugdomain.Project" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/Project.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-417" y="-15"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -46,7 +28,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="bugtrap03.bugdomain.BugReport" project="BugTrap" 
+  <class id="4" language="java" name="bugtrap03.bugdomain.BugReport" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/BugReport.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-550" y="926"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -55,7 +37,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="bugtrap03.bugdomain.AbstractSystem" project="BugTrap" 
+  <class id="5" language="java" name="bugtrap03.bugdomain.AbstractSystem" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/AbstractSystem.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-919" y="-60"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -64,7 +46,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="bugtrap03.bugdomain.Comment" project="BugTrap" 
+  <class id="6" language="java" name="bugtrap03.bugdomain.Comment" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/Comment.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-113" y="1076"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -73,16 +55,16 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="bugtrap03.bugdomain.Subsystem" project="BugTrap" 
+  <class id="7" language="java" name="bugtrap03.bugdomain.Subsystem" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/Subsystem.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-1029" y="356"/>    
+    <position height="-1" width="-1" x="-1061" y="537"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="10" language="java" name="bugtrap03.bugdomain.Tag" project="BugTrap" 
+  <enumeration id="8" language="java" name="bugtrap03.bugdomain.Tag" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/Tag.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-71" y="1480"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -91,7 +73,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="11" language="java" name="bugtrap03.bugdomain.VersionID" project="BugTrap" 
+  <class id="9" language="java" name="bugtrap03.bugdomain.VersionID" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/VersionID.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-1227" y="-70"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -100,7 +82,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="bugtrap03.bugdomain.usersystem.Issuer" project="BugTrap" 
+  <class id="10" language="java" name="bugtrap03.bugdomain.usersystem.Issuer" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/usersystem/Issuer.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-109" y="657"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -109,7 +91,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="bugtrap03.bugdomain.usersystem.Developer" project="BugTrap" 
+  <class id="11" language="java" name="bugtrap03.bugdomain.usersystem.Developer" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/usersystem/Developer.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="-118" y="435"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -118,16 +100,16 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="bugtrap03.bugdomain.usersystem.User" project="BugTrap" 
+  <class id="12" language="java" name="bugtrap03.bugdomain.usersystem.User" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/usersystem/User.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="305" y="647"/>    
+    <position height="-1" width="-1" x="292" y="595"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="bugtrap03.bugdomain.usersystem.Administrator" project="BugTrap" 
+  <class id="13" language="java" name="bugtrap03.bugdomain.usersystem.Administrator" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/usersystem/Administrator.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="289" y="1220"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -136,7 +118,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="bugtrap03.bugdomain.permission.PermissionException" project="BugTrap" 
+  <class id="14" language="java" name="bugtrap03.bugdomain.permission.PermissionException" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/permission/PermissionException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="934" y="1409"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -145,7 +127,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="17" language="java" name="bugtrap03.bugdomain.usersystem.Role" project="BugTrap" 
+  <enumeration id="15" language="java" name="bugtrap03.bugdomain.usersystem.Role" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/usersystem/Role.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="577" y="1361"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -154,7 +136,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <enumeration id="18" language="java" name="bugtrap03.bugdomain.permission.RolePerm" project="BugTrap" 
+  <enumeration id="16" language="java" name="bugtrap03.bugdomain.permission.RolePerm" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/permission/RolePerm.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="231" y="1480"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -163,7 +145,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <enumeration id="19" language="java" name="bugtrap03.bugdomain.permission.UserPerm" project="BugTrap" 
+  <enumeration id="17" language="java" name="bugtrap03.bugdomain.permission.UserPerm" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/permission/UserPerm.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="148" y="1006"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -172,7 +154,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="20" language="java" name="bugtrap03.gui.cmd.general.CancelException" project="BugTrap" 
+  <class id="18" language="java" name="bugtrap03.gui.cmd.general.CancelException" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/general/CancelException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1340" y="1399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -181,7 +163,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="21" language="java" name="bugtrap03.gui.cmd.Cmd" project="BugTrap" 
+  <interface id="19" language="java" name="bugtrap03.gui.cmd.Cmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/Cmd.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1411" y="564"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -190,7 +172,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="22" language="java" name="bugtrap03.gui.cmd.CmdParser" project="BugTrap" 
+  <class id="20" language="java" name="bugtrap03.gui.cmd.CmdParser" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/CmdParser.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="888" y="850"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -199,16 +181,16 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="bugtrap03.gui.cmd.CreateBugReportCmd" project="BugTrap" 
+  <class id="21" language="java" name="bugtrap03.gui.cmd.CreateBugReportCmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/CreateBugReportCmd.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1092" y="182"/>    
+    <position height="-1" width="-1" x="1521" y="1142"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="bugtrap03.gui.cmd.CreateProjectCmd" project="BugTrap" 
+  <class id="22" language="java" name="bugtrap03.gui.cmd.CreateProjectCmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/CreateProjectCmd.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1443" y="186"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -217,7 +199,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="bugtrap03.gui.cmd.CreateSubsystemCmd" project="BugTrap" 
+  <class id="23" language="java" name="bugtrap03.gui.cmd.CreateSubsystemCmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/CreateSubsystemCmd.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1630" y="315"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -226,7 +208,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="bugtrap03.gui.cmd.DeleteProjectCmd" project="BugTrap" 
+  <class id="24" language="java" name="bugtrap03.gui.cmd.DeleteProjectCmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/DeleteProjectCmd.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1728" y="443"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -235,8 +217,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="bugtrap03.gui.cmd.SelectBugReportCmd" project="BugTrap"
-    file="/BugTrap/src/bugtrap03/gui/cmd/SelectBugReport.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="25" language="java" name="bugtrap03.gui.cmd.SelectBugReportCmd" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/gui/cmd/SelectBugReportCmd.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="991" y="589"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -244,7 +226,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="bugtrap03.gui.cmd.ShowProjectCmd" project="BugTrap" 
+  <class id="26" language="java" name="bugtrap03.gui.cmd.ShowProjectCmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/ShowProjectCmd.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1823" y="580"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -253,7 +235,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="bugtrap03.gui.cmd.UpdateProjectCmd" project="BugTrap" 
+  <class id="27" language="java" name="bugtrap03.gui.cmd.UpdateProjectCmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/UpdateProjectCmd.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1838" y="728"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -262,34 +244,34 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="30" language="java" name="bugtrap03.gui.cmd.general.AbortCmd" project="BugTrap" 
+  <class id="28" language="java" name="bugtrap03.gui.cmd.general.AbortCmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/general/AbortCmd.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1754" y="865"/>    
+    <position height="-1" width="-1" x="1803" y="865"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="31" language="java" name="bugtrap03.gui.cmd.general.ClearCmd" project="BugTrap" 
+  <class id="29" language="java" name="bugtrap03.gui.cmd.general.ClearCmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/general/ClearCmd.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1639" y="1004"/>    
+    <position height="-1" width="-1" x="1686" y="1004"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="bugtrap03.gui.cmd.general.GetProjectCmd" project="BugTrap" 
+  <class id="30" language="java" name="bugtrap03.gui.cmd.general.GetProjectCmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/general/GetProjectCmd.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1514" y="1135"/>    
+    <position height="-1" width="-1" x="1104" y="187"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="33" language="java" name="bugtrap03.gui.cmd.general.GetUserOfExcactTypeCmd" project="BugTrap" 
+  <class id="31" language="java" name="bugtrap03.gui.cmd.general.GetUserOfExcactTypeCmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/general/GetUserOfExcactTypeCmd.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1363" y="998"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -298,7 +280,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="34" language="java" name="bugtrap03.gui.cmd.general.HelpCmd" project="BugTrap" 
+  <class id="32" language="java" name="bugtrap03.gui.cmd.general.HelpCmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/general/HelpCmd.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1172" y="1130"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -307,9 +289,27 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="35" language="java" name="bugtrap03.gui.cmd.general.InvalidCmd" project="BugTrap" 
+  <class id="33" language="java" name="bugtrap03.gui.cmd.general.InvalidCmd" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/gui/cmd/general/InvalidCmd.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1191" y="862"/>    
+    <position height="-1" width="-1" x="1040" y="994"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="bugtrap03.model.DataModel" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/model/DataModel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="208" y="-78"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="bugtrap03.gui.cmd.LoginCmd" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/gui/cmd/LoginCmd.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="960" y="369"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -317,353 +317,389 @@
     </display>  
   </class>  
   <association id="36">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="37" name="model"/>      
-      <multiplicity id="38" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="39">    
-    <end type="SOURCE" refId="30"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <realization id="40">    
-    <end type="SOURCE" refId="28"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <association id="41">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="42" name="scan">        
-        <position height="0" width="0" x="-7" y="12"/>      
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="37" name="permissions">        
+        <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="43" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-7" y="12"/>      
+      <multiplicity id="38" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="17" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="44">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="45" name="parser"/>      
-      <multiplicity id="46" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="47">    
+  <association id="39">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="48" name="terminal">        
-        <position height="0" width="0" x="6" y="-44"/>      
-      </attribute>      
-      <multiplicity id="49" minimum="0" maximum="1">        
-        <position height="0" width="0" x="6" y="-44"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="50">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="51" name="permissions"/>      
-      <multiplicity id="52" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="53">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <association id="54">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="55" name="neededPerm"/>      
-      <multiplicity id="56" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="57">    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <association id="58">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="59" name="childs">        
+      <attribute id="40" name="userList">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="60" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="61">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="62" name="version">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="63" minimum="0" maximum="1">        
+      <multiplicity id="41" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="64">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="7"/>  
+  <realization id="42">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <association id="43">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="44" name="neededPerm">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="45" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="46">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <generalization id="47">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
   </generalization>  
-  <realization id="65">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <association id="66">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="67" name="userList"/>      
-      <multiplicity id="68" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="69">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="70" name="cmdMap"/>      
-      <multiplicity id="71" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="72">    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <association id="73">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="74" name="model"/>      
-      <multiplicity id="75" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="76">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="77" name="dependencies">        
-        <position height="0" width="0" x="0" y="0"/>      
+  <generalization id="48">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <association id="49">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="50" name="childs">        
+        <position height="0" width="0" x="-32" y="181"/>      
       </attribute>      
-      <multiplicity id="78" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="79">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <realization id="80">    
-    <end type="SOURCE" refId="35"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <association id="81">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="82" name="subsystem">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="83" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="84">    
-    <end type="SOURCE" refId="32"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <association id="85">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="86" name="terminal"/>      
-      <multiplicity id="87" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="88">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <association id="89">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="90" name="userList"/>      
-      <multiplicity id="91" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="92">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <realization id="93">    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <association id="94">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="95" name="user"/>      
-      <multiplicity id="96" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="97">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="98" name="parent">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="99" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="51" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-32" y="181"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="100">    
+  <association id="52">    
     <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="101" name="permissions"/>      
-      <multiplicity id="102" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="103">    
-    <end type="SOURCE" refId="29"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <association id="104">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="105" name="tag">        
+      <attribute id="53" name="permissions">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="106" minimum="0" maximum="1">        
+      <multiplicity id="54" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
+    <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="107">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <association id="108">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="109" name="SubComments">        
+  <association id="55">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="56" name="model"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="58">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="59" name="commentList">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="110" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="111">    
-    <end type="SOURCE" refId="27" navigable="false">      
-      <attribute id="112" name="user"/>      
-      <multiplicity id="113" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="114">    
-    <end type="SOURCE" refId="33"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <association id="115">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="116" name="bugReportList">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="117" minimum="0" maximum="2147483647">        
+      <multiplicity id="60" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="118">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="12"/>  
-  </generalization>  
-  <association id="119">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="120" name="creator"/>      
-      <multiplicity id="121" minimum="0" maximum="1"/>    
+  <association id="61">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="62" name="user">        
+        <position height="0" width="0" x="-13" y="-52"/>      
+      </attribute>      
+      <multiplicity id="63" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-13" y="-52"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
+    <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="122">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="123" name="commentList">        
+  <association id="64">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="65" name="specificList"/>      
+      <multiplicity id="66" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="67">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="68" name="tag">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="124" minimum="0" maximum="2147483647">        
+      <multiplicity id="69" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="125">    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="21"/>  
+  <generalization id="70">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <realization id="71">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="19"/>  
   </realization>  
-  <association id="126">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="127" name="projectList">        
+  <realization id="72">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <realization id="73">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <realization id="74">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <association id="75">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="76" name="dependencies">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="128" minimum="0" maximum="2147483647">        
+      <multiplicity id="77" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="78">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="79" name="permissions">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="80" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="81">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <generalization id="82">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <realization id="83">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <association id="84">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="85" name="terminal">        
+        <position height="0" width="0" x="-7" y="-25"/>      
+      </attribute>      
+      <multiplicity id="86" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-7" y="-25"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="87">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="88" name="scan">        
+        <position height="0" width="0" x="-7" y="12"/>      
+      </attribute>      
+      <multiplicity id="89" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-7" y="12"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="90">    
+    <end type="SOURCE" refId="35" navigable="false">      
+      <attribute id="91" name="terminal"/>      
+      <multiplicity id="92" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="93">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <realization id="94">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <association id="95">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="96" name="bugReportList">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="97" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="98">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="99" name="parent">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="100" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="129">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="130" name="creator"/>      
-      <multiplicity id="131" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="132">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="133" name="permissions"/>      
-      <multiplicity id="134" minimum="0" maximum="2147483647"/>    
+  <association id="101">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="102" name="cmdMap"/>      
+      <multiplicity id="103" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="19" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="135">    
-    <end type="SOURCE" refId="31"/>    
-    <end type="TARGET" refId="21"/>  
+  <realization id="104">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="19"/>  
   </realization>  
-  <association id="136">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="137" name="neededPerm"/>      
-      <multiplicity id="138" minimum="0" maximum="1"/>    
+  <association id="105">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="106" name="subsystem">        
+        <position height="0" width="0" x="-32" y="181"/>      
+      </attribute>      
+      <multiplicity id="107" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-32" y="181"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="108">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="109" name="neededPerm">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="110" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="111">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="112" name="userList"/>      
+      <multiplicity id="113" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="114">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="115" name="creator"/>      
+      <multiplicity id="116" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="117">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="118" name="version">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="119" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="120">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <association id="121">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="122" name="projectList"/>      
+      <multiplicity id="123" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="124">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="125" name="SubComments">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="126" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="127">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <association id="128">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="129" name="creator">        
+        <position height="0" width="0" x="-13" y="-52"/>      
+      </attribute>      
+      <multiplicity id="130" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-13" y="-52"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="131">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <association id="132">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="133" name="parser">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="134" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="135">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="136" name="cmdMap">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="137" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="138">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
