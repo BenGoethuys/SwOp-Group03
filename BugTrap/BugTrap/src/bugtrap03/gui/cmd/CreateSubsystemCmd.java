@@ -10,8 +10,6 @@ import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
 import purecollections.PList;
 
-import java.util.NoSuchElementException;
-
 /**
  * This command represents the use case for creating a subsystem in the system
  *

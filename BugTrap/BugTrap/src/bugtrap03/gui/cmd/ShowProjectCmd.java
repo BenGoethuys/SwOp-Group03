@@ -2,7 +2,6 @@ package bugtrap03.gui.cmd;
 
 import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
-import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetProjectCmd;

@@ -144,8 +144,8 @@ public class CreateCommentCmdTest {
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
         Comment comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         CreateCommentCmd cmd = new CreateCommentCmd();
 
         // Setup scenario

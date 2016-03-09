@@ -1,7 +1,6 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.gui.cmd.general.CancelException;
-import java.io.PrintStream;
 import java.util.ArrayDeque;
 import java.util.InputMismatchException;
 import static org.junit.Assert.assertEquals;
@@ -43,7 +42,7 @@ public class TerminalScannerTest {
     public void testCons_NextLine_Next() throws CancelException {
         String testStr = "test Input S5423";
         String testLine = "32DV Blub";
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         answer.add(testStr);
         answer.add(testLine);
         TerminalScanner scan = new TerminalScanner(new MultiByteArrayInputStream(answer), System.out);
@@ -59,7 +58,7 @@ public class TerminalScannerTest {
     @Test(expected = CancelException.class)
     public void testCancelNextLine() throws CancelException {
         String abortStr = "abort";
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         answer.add(abortStr);
         TerminalScanner scan = new TerminalScanner(new MultiByteArrayInputStream(answer), System.out);
         scan.nextLine();
@@ -73,7 +72,7 @@ public class TerminalScannerTest {
     @Test(expected = CancelException.class)
     public void testCancelNext() throws CancelException {
         String abortStr = "abort";
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         answer.add(abortStr);
         TerminalScanner scan = new TerminalScanner(new MultiByteArrayInputStream(answer), System.out);
         scan.next();
@@ -87,7 +86,7 @@ public class TerminalScannerTest {
     @Test(expected = CancelException.class)
     public void testNextIntException() throws CancelException {
         String abortStr = "abort";
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         answer.add(abortStr);
         TerminalScanner scan = new TerminalScanner(new MultiByteArrayInputStream(answer), System.out);
         scan.nextInt();
@@ -102,7 +101,7 @@ public class TerminalScannerTest {
     @Test(expected = InputMismatchException.class)
     public void testNextIntMisMatch() throws CancelException {
         String abortStr = "hello";
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         answer.add(abortStr);
         TerminalScanner scan = new TerminalScanner(new MultiByteArrayInputStream(answer), System.out);
         int number = scan.nextInt();
@@ -116,7 +115,7 @@ public class TerminalScannerTest {
      */
     @Test
     public void testPrints() {
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         answer.add(" empty");
         TerminalScanner scan = new TerminalScanner(new MultiByteArrayInputStream(answer), System.out);
         scan.print("This tests");

@@ -30,7 +30,7 @@ public class HelpCmd implements Cmd {
      */
     public HelpCmd(ArrayList<SimpleEntry<String, Cmd>> cmdList) {
         if (cmdList == null) {
-            this.cmdList = new ArrayList();
+            this.cmdList = new ArrayList<>();
         } else {
             this.cmdList = cmdList;
         }
@@ -53,7 +53,7 @@ public class HelpCmd implements Cmd {
             throw new IllegalArgumentException("HelpCmd requires a non null reference as scan");
         }
         scan.println("List of possible commands:");
-        for (SimpleEntry cmdEntry : cmdList) {
+        for (SimpleEntry<?, ?> cmdEntry : cmdList) {
             scan.println(cmdEntry.getKey().toString());
         }
 

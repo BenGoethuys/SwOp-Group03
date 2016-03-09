@@ -2,7 +2,6 @@ package bugtrap03.gui.terminal;
 
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.model.DataModel;
-import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import org.junit.Test;

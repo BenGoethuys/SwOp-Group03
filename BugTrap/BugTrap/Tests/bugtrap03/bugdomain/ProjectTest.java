@@ -3,7 +3,6 @@ package bugtrap03.bugdomain;
 import static org.junit.Assert.*;
 
 import java.util.GregorianCalendar;
-import java.util.IllegalFormatCodePointException;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -71,7 +70,7 @@ public class ProjectTest {
     
     @Test (expected = IllegalArgumentException.class)
     public void testNullDevProjectVersionIDStringStringGregorianCalendarDeveloperGregorianCalendarLong() {
-        Project proj2 = new Project(testVersion, testName, testDescription, testCreationDate, null, testStartDate, testBudget);
+        testProject = new Project(testVersion, testName, testDescription, testCreationDate, null, testStartDate, testBudget);
     }
 
     @Test

@@ -10,8 +10,6 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 
-import java.util.NoSuchElementException;
-
 /**
  * This class represents the update bug report scenario
  *
