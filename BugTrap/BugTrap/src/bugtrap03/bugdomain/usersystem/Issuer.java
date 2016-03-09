@@ -22,7 +22,6 @@ public class Issuer extends User {
      * @param middleName     The middle name
      * @param lastName       The last name
      * @throws IllegalArgumentException When the creator of User throws it.
-     * @see User#User(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     public Issuer(String uniqueUsername, String firstName, String middleName, String lastName) throws IllegalArgumentException {
         super(uniqueUsername, firstName, middleName, lastName);

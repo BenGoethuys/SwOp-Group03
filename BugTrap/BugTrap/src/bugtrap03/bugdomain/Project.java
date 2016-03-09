@@ -327,8 +327,13 @@ public class Project extends AbstractSystem {
      *
      * @param dev  The developer to give a role
      * @param role The role the developer has in this project
+     *
+     * @throws IllegalArgumentException if the given role was invalid
      */
     private void setRole(Developer dev, Role role) {
+        if (role == null){
+            throw new IllegalArgumentException("The given role was null");
+        }
         PList<Role> roleList = this.projectParticipants.get(dev);
         if (roleList == null) {
             this.projectParticipants.put(dev, PList.<Role>empty().plus(role));
@@ -346,11 +351,12 @@ public class Project extends AbstractSystem {
      * @param dev   The developer to give the new role to
      * @param role  The role that will be assigned to the given developer
      * @throws PermissionException If the given user doesn't have the needed permission to assign the given role to the given developer
+     * @throws IllegalArgumentException If the given user is null
+     * @throws IllegalArgumentException If the given role was null
      */
     public void setRole(User user, Developer dev, Role role) throws IllegalArgumentException, PermissionException {
         if (user == null) {
-            throw new IllegalArgumentException(
-                    "setRole(User, Developer, Role) does not allow a null-reference for user.");
+            throw new IllegalArgumentException("setRole(User, Developer, Role) does not allow a null-reference for user.");
         }
         if (! user.hasRolePermission(role.getNeededPerm(), this)) {
             throw new PermissionException("The given user doesn't have the needed permission to set the role");
