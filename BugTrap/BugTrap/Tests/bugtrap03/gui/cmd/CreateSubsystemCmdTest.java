@@ -1,11 +1,7 @@
-/**
- *
- */
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -20,7 +16,6 @@ import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
 /**
- * TODO
  *
  * @author Group 03
  *

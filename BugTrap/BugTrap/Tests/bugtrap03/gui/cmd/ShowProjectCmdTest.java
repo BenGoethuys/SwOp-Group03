@@ -11,12 +11,12 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.gui.cmd.general.CancelException;
 import java.util.ArrayDeque;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
 /**
- * TODO
  *
  * @author Group 03
  *
@@ -55,6 +55,7 @@ public class ShowProjectCmdTest {
         Project chosen = cmd.exec(scan, model, admin);
 
         //Test effects.
+        assertEquals(chosen, proj0);
     }
 
 }

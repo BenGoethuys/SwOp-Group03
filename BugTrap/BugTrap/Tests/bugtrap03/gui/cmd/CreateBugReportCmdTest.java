@@ -26,7 +26,6 @@ import testCollection.TerminalTestScanner;
  */
 public class CreateBugReportCmdTest {
 
-    //TODO: Do not make use of direct methodes for subsystems etc.
     @Test
     public void testExecByIndex() throws PermissionException, CancelException {
         //Setup variables.

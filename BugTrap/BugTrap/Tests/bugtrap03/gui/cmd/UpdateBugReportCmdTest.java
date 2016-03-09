@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * TODO
+ * The 4.13 Update Bug Report use case test.
  * 
  * @author Group 03
  *
@@ -36,6 +36,7 @@ public class UpdateBugReportCmdTest {
      */
     @Test
     public void testExec() {
+        //TODO: Implement the UpdateBugReportCmdTest.
         fail("Not yet implemented");
     }
 

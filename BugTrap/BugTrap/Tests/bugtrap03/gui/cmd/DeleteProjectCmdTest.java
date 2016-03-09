@@ -1,6 +1,3 @@
-/**
- *
- */
 package bugtrap03.gui.cmd;
 
 import bugtrap03.model.DataModel;
@@ -18,7 +15,6 @@ import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
 /**
- * TODO
  *
  * @author Group 03
  *

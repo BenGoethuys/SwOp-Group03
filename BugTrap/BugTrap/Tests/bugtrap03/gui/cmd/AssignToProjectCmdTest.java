@@ -10,7 +10,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * TODO
  * 
  * @author Group 03
  *
@@ -36,6 +35,7 @@ public class AssignToProjectCmdTest {
      */
     @Test
     public void testExec() {
+        //TODO: Implement AssignToProjectCmdTest
         fail("Not yet implemented");
     }
 

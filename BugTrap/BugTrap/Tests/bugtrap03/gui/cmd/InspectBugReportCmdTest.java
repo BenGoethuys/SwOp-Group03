@@ -1,10 +1,10 @@
 package bugtrap03.gui.cmd;
 
+import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * TODO
  * 
  * @author Group 03
  *
@@ -21,7 +21,8 @@ public class InspectBugReportCmdTest {
      */
     @Test
     public void testExec() {
-        
+        //TODO: Implement InspectBugReportCmdTest
+        fail("Not implemented yet.");
     }
 
 }

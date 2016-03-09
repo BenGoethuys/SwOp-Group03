@@ -23,19 +23,11 @@ import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
 /**
- * TODO
  *
  * @author Group 03
  *
  */
 public class CreateProjectCmdTest {
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-    }
 
     /**
      * Test method for
