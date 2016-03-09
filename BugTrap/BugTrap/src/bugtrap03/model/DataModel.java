@@ -508,7 +508,7 @@ public class DataModel {
      * @return The list of all devs in the project
      */
     @DomainAPI
-    public PList<Developer> getDeveloperInproject(BugReport bugRep) {
+    public PList<Developer> getDeveloperInProject(BugReport bugRep) {
         return bugRep.getSubsystem().getAllDev();
     }
 
