@@ -13,8 +13,11 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
+import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
+import testCollection.MultiByteArrayInputStream;
+import testCollection.TerminalTestScanner;
 
 /**
  * 
@@ -40,7 +43,7 @@ public class InspectBugReportCmdTest {
      * .
      */
     @Test
-    public void testExec() throws IllegalArgumentException, PermissionException {
+    public void testExec() throws IllegalArgumentException, PermissionException, CancelException {
         // Setup variables.
         model = new DataModel();
         lead = model.createDeveloper("Leader007", "Leader007", "Leader007");
@@ -63,7 +66,31 @@ public class InspectBugReportCmdTest {
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        UpdateBugReportCmd cmd = new UpdateBugReportCmd();
+        InspectBugReportCmd cmd = new InspectBugReportCmd();
+        
+        //Setup scenario
+        question.add("Please select a search mode: ");
+        question.add("0. title");
+        question.add("1. description");
+        question.add("2. creator");
+        question.add("3. assigned");
+        question.add("4. uniqueId");
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("Please enter the required search term ...");
+        question.add("enter text: ");
+        answer.add("");
+        question.add("Please select a bug report: ");
+        question.add("Available bugReports:");
+        question.add("0. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
+        question.add("1. " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
+        question.add(bugRep2.getDetails());
+        
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        BugReport inspectBugReport = cmd.exec(scan, model, issuer);
     }
 
 }
