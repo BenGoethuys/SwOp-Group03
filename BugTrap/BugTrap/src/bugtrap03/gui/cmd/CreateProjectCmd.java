@@ -47,9 +47,15 @@ public class CreateProjectCmd implements Cmd {
      * permissions to create/clone a project.
      * @throws CancelException When the user has indicated that he/she wants to
      * abort the cmd.
+     * @throws IllegalArgumentException When scan, model or user is a null reference.
      */
     @Override
-    public Project exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
+    public Project exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+        if(scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
+        
+        //0. Ask user to create a new or clone a project.
         scan.println("Create or clone a new project?");
         Project result = null;
         do {
@@ -88,14 +94,17 @@ public class CreateProjectCmd implements Cmd {
      */
     private Project createProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException, PermissionException {
         //Project name
+        //a1. Ask user the name of the project
         scan.print("Project name:");
         String projName = scan.nextLine();
 
         //Project description
+        //a2. Ask user the description of the project
         scan.print("Project description:");
         String projDesc = scan.nextLine();
 
         //Project start date
+        //a3. Ask user the starting date of the project
         GregorianCalendar projStartDate = null;
         do {
             scan.print("Project starting date (YYYY-MM-DD):");
@@ -108,6 +117,7 @@ public class CreateProjectCmd implements Cmd {
         } while (projStartDate == null);
 
         //Project budget estimate
+        //a4. Ask user the budget estimate of the project.
         Integer projBudgetEstimate = null;
         do {
             scan.print("Project budget estimate:");
@@ -119,6 +129,7 @@ public class CreateProjectCmd implements Cmd {
         } while (projBudgetEstimate == null);
 
         //Project lead developer
+        //a5. Ask user the lead developer by providing a list of possibilities.
         scan.println("choose a lead developer.");
         Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
 
@@ -126,6 +137,7 @@ public class CreateProjectCmd implements Cmd {
         Project proj = model.createProject(projName, projDesc, projStartDate, lead, projBudgetEstimate, user);
 
         //Print created project details
+        //a6. Show the user the details of the created project.
         scan.println(proj.getDetails());
 
         return proj;
@@ -148,9 +160,11 @@ public class CreateProjectCmd implements Cmd {
      * permissions to create/clone a project.
      */
     private Project cloneProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException {
+        //b1. Ask user which project by providing a list of possibilities.
         Project project = (new GetProjectCmd()).exec(scan, model, user);
 
         //Update versionID
+        //b2. Ask user the version number
         VersionID versionID = null;
         do {
             scan.print("new VersionID (format=a.b.c):");
@@ -170,6 +184,7 @@ public class CreateProjectCmd implements Cmd {
         } while (versionID == null);
 
         //Start Date
+        //b3. Ask user the starting date
         GregorianCalendar startDate = null;
         do {
             scan.print("New starting date (format=YYYY-MM-DD):");
@@ -183,6 +198,7 @@ public class CreateProjectCmd implements Cmd {
         } while (startDate == null);
 
         //Budget estimate
+        //b4. Ask user the budget estimate
         Long budgetEstimate = null;
         do {
             scan.print("New budget Estimate:");
@@ -195,6 +211,7 @@ public class CreateProjectCmd implements Cmd {
         } while (budgetEstimate == null);
 
         //Lead developer
+        //b5. Go to step a5
         scan.println("choose a lead developer.");
         Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
 
