@@ -43,7 +43,7 @@ public class ShowProjectCmdTest {
         ShowProjectCmd cmd = new ShowProjectCmd();
 
         // Setup scenario
-        question.add("Available projects:");
+        question.add("Available options:");
         question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
         question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());
         question.add("I choose: ");

@@ -62,7 +62,7 @@ public class CreateBugReportCmdTest {
         CreateBugReportCmd cmd = new CreateBugReportCmd();
 
         // Setup scenario
-        question.add("Available projects:");
+        question.add("Available options:");
         question.add("0. ProjectA version: " + projectA.getVersionID());
         question.add("I choose: ");
         answer.add("test wrong input");
@@ -159,7 +159,7 @@ public class CreateBugReportCmdTest {
         CreateBugReportCmd cmd = new CreateBugReportCmd();
 
         // Setup scenario
-        question.add("Available projects:");
+        question.add("Available options:");
         question.add("0. ProjectA version: " + projectA.getVersionID());
         question.add("I choose: ");
         answer.add(" test wrong input");
