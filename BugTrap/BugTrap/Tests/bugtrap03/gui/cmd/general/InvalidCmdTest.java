@@ -18,8 +18,8 @@ public class InvalidCmdTest {
      */
     @Test
     public void testExec() throws CancelException {
-        ArrayDeque<String> answer = new ArrayDeque();
-        ArrayDeque<String> question = new ArrayDeque();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        ArrayDeque<String> question = new ArrayDeque<>();
         question.add("Invalid command.");
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);

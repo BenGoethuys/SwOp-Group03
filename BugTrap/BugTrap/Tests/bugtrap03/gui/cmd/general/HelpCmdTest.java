@@ -23,8 +23,8 @@ public class HelpCmdTest {
      */
     @Test
     public void testNullConstructor() {
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         HelpCmd cmd = new HelpCmd(null);
 
         question.add("List of possible commands:");

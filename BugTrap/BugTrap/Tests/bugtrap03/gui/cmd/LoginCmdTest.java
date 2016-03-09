@@ -103,7 +103,7 @@ public class LoginCmdTest {
         question.add("Invalid input.");
         question.add("I choose: ");
         answer.add("2");
-        question.add("No users of this type found.");
+        question.add("No options found.");
         question.add("Please choose your type of login.");
         question.add("0. Administrator");
         question.add("1. Issuer");
