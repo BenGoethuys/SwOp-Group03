@@ -31,9 +31,9 @@ public class SelectBugReportCmdTest {
     public void testTitleFilterIndex() throws PermissionException, CancelException {
         //Setup variables.
         DataModel model = new DataModel();
-        Developer lead = model.createDeveloper("trolbol", "Luky", "Luke");
-        Issuer issuer = model.createIssuer("C0ws", "Fly", "High");
-        Administrator admin = model.createAdministrator("Adm1ral", "Kwinten", "JK");
+        Developer lead = model.createDeveloper("trolbol007", "Luky", "Luke");
+        Issuer issuer = model.createIssuer("C0ws007", "Fly", "High");
+        Administrator admin = model.createAdministrator("Adm1ral007", "Kwinten", "JK");
 
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
