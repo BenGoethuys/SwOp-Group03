@@ -13,7 +13,8 @@ import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
  * This command represents the update bug report use case scenario
- * @author Ben Goethuys
+ *
+ * @author Group 03
  */
 public class UpdateProjectCmd implements Cmd {
 

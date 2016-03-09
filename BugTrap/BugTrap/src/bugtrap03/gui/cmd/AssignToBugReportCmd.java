@@ -15,7 +15,8 @@ import java.util.NoSuchElementException;
 
 /**
  * This class represents the assign to bug report use case
- * Created by Ben Goethuys on 07/03/2016.
+ *
+ * @author Group 03
  */
 public class AssignToBugReportCmd implements Cmd {
     /**

@@ -8,7 +8,8 @@ import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
  * This command asks the user for a string/text
- * Created by Ben Goethuys on 04/03/2016.
+ *
+ * @author Group 03
  */
 public class GetStringCmd implements Cmd {
     /**

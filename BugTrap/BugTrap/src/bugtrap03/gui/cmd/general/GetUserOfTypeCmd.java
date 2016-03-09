@@ -12,7 +12,8 @@ import purecollections.PList;
 
 /**
  * This class represent the sub-scenario where the user selects an user of a given type
- * @author Vincent Derkinderen
+ *
+ * @author Group 03
  */
 public class GetUserOfTypeCmd<U extends User> implements Cmd {
 

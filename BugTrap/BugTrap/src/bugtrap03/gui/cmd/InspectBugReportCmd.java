@@ -9,7 +9,8 @@ import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
  * This command represents the use case of inspecting a bug report in the system
- * Created by Ben Goethuys on 04/03/2016.
+ *
+ * @author Group 03
  */
 public class InspectBugReportCmd implements Cmd {
 
