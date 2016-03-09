@@ -39,7 +39,6 @@ public class InspectBugReportCmd implements Cmd {
         BugReport bugRep = new SelectBugReportCmd().exec(scan, model, user);
         // 3. The system shows a detailed overview of the selected bug report
         // and all its comments
-        // TODO: This method does not print all its comments!!!
         scan.println(model.getDetails(user, bugRep));
 
         return bugRep;
