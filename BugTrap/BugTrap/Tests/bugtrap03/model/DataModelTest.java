@@ -1,6 +1,5 @@
 package bugtrap03.model;
 
-import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
@@ -266,5 +265,4 @@ public class DataModelTest {
         assertTrue(model.getAllRoles().contains(Role.PROGRAMMER));
         assertTrue(model.getAllRoles().size() == 3);
     }
-
 }
