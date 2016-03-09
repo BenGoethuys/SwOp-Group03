@@ -526,11 +526,8 @@ public class DataModel {
      * @param budgetEstimate The budgetEstimate for the clone project.
      *
      * @return The resulting clone. Null if the source Clone is null.
-     * //TODO remove @see
-     * //TODO add @throws
-     * @see Project#cloneProject(bugtrap03.bugdomain.VersionID,
-     *      bugtrap03.bugdomain.usersystem.Developer,
-     *      java.util.GregorianCalendar, long)
+     * @throws IllegalArgumentException Check @see.
+     * @see Project#cloneProject(VersionID, Developer, GregorianCalendar, long)
      */
     @DomainAPI
     public Project cloneProject(Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate,

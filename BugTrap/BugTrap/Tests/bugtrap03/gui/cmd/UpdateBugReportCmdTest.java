@@ -238,6 +238,7 @@ public class UpdateBugReportCmdTest {
 
     // TODO: Test the Cmd to not only assign duplicate but the pointer to the
     // duplicate BR as well.
+    
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
@@ -308,9 +309,7 @@ public class UpdateBugReportCmdTest {
         BugReport updatedBR = cmd.exec(scan, model, lead);
         // Test effects.
     }
-
-    // TODO: Test the Cmd to not only assign duplicate but the pointer to the
-    // duplicate BR as well.
+    
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
