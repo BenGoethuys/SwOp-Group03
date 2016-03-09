@@ -6,6 +6,7 @@
 package bugtrap03.gui.cmd.general;
 
 import bugtrap03.model.DataModel;
+import purecollections.PList;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -115,6 +116,16 @@ public class GetProjectCmdTest {
 
         //Test effects.
         assertEquals(chosenProj, proj1);
+    }
+    
+    @Test
+    public void testGetProjectCmd() throws IllegalArgumentException, PermissionException {
+        DataModel model = new DataModel();
+        Developer lead = model.createDeveloper("meGoodLead2", "Luky", "Luke");
+        User admin = model.createAdministrator("adminB2", "adminT", "bie");
+        Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        PList<Project> projectOptionList = PList.<Project> empty().plus(proj0);
+        GetProjectCmd cmd = new GetProjectCmd(projectOptionList);
     }
 
 }

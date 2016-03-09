@@ -30,10 +30,10 @@ public class GetProjectCmd implements Cmd {
      * Create a GetProjectCmd with a specific list of projects used to provide
      * the user as a list of options during the select process.
      *
-     * @param projectOptionList The new projectOptionList.
+     * @see GetProjectCmd#setOptionsList(PList)
      */
     public GetProjectCmd(PList<Project> projectOptionList) {
-        this.specificList = projectOptionList;
+        setOptionsList(projectOptionList);
     }
 
     /**
