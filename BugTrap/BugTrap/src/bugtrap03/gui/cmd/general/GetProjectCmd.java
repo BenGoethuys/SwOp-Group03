@@ -79,7 +79,7 @@ public class GetProjectCmd implements Cmd {
 
         scan.println("Available projects:");
         for (int i = 0; i < projectList.size(); i++) {
-            scan.println(i + ". " + projectList.get(i).getName());
+            scan.println(i + ". " + projectList.get(i).getName() + " version: " + projectList.get(i).getVersionID().toString());
         }
 
         // Retrieve & process user input.
@@ -96,7 +96,11 @@ public class GetProjectCmd implements Cmd {
             } else { // by name
                 String input = scan.nextLine(); // input
                 try {
-                    proj = projectList.parallelStream().filter(u -> u.getName().equals(input)).findFirst().get();
+                    proj = projectList.parallelStream().filter(u -> (u.getName()+u.getVersionID().toString()).equals(input)).findFirst().get();
+                } catch (NoSuchElementException ex) {
+                }
+                try {
+                    proj = projectList.parallelStream().filter(u -> (u.getName()+" "+u.getVersionID().toString()).equals(input)).findFirst().get();
                 } catch (NoSuchElementException ex) {
                     scan.println("Invalid input.");
                 }
