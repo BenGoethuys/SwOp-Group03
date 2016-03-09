@@ -103,8 +103,8 @@ public class AssignToBugReportCmd implements Cmd {
             }
         } while (!done);
 
-        model.addUsersToBugReport(user, bugRep, PList.<Developer> empty().plusAll(devList));
-
+        model.addUsersToBugReport(user, bugRep, PList.<Developer>empty().plusAll(devList));
+        scan.println("Finished assigning.");
         return bugRep;
     }
 }
