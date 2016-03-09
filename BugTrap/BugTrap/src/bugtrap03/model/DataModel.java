@@ -12,14 +12,16 @@ import java.util.GregorianCalendar;
 import purecollections.PList;
 
 /**
- * @author Vincent Derkinderen & Ben Goethuys
+ * This class is the main controller of the system.
+ *
+ * @author Group 03
  * @version 0.1
  */
 @DomainAPI
 public class DataModel {
 
     /**
-     *
+     * The constructor of a DataModel
      */
     @DomainAPI
     public DataModel() {
@@ -117,7 +119,6 @@ public class DataModel {
      * @param lastName The last name of the issuer.
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * @see Issuer#Issuer(String, String, String, String)
      */
     @DomainAPI
     public Issuer createIssuer(String username, String firstName, String middleName, String lastName)
@@ -135,7 +136,6 @@ public class DataModel {
      * @param lastName The last name of the issuer.
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * @see Issuer#Issuer(String, String, String)
      */
     @DomainAPI
     public Issuer createIssuer(String username, String firstName, String lastName) throws IllegalArgumentException {
@@ -153,7 +153,6 @@ public class DataModel {
      * @param lastName The last name of the issuer.
      * @return The created {@link Developer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * @see Developer#Developer(String, String, String, String)
      */
     @DomainAPI
     public Developer createDeveloper(String username, String firstName, String middleName, String lastName)
@@ -171,7 +170,6 @@ public class DataModel {
      * @param lastName The last name of the issuer.
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * @see Developer#Developer(String, String, String)
      */
     @DomainAPI
     public Developer createDeveloper(String username, String firstName, String lastName)
@@ -190,7 +188,6 @@ public class DataModel {
      * @param lastName The last name of the issuer.
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * @see Administrator#Administrator(String, String, String, String)
      */
     @DomainAPI
     public Administrator createAdministrator(String username, String firstName, String middleName, String lastName)
@@ -208,7 +205,6 @@ public class DataModel {
      * @param lastName The last name of the issuer.
      * @return The created {@link Administrator}
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * @see Administrator#Administrator(String, String, String)
      */
     @DomainAPI
     public Administrator createAdministrator(String username, String firstName, String lastName)
@@ -230,7 +226,6 @@ public class DataModel {
      * @throws IllegalArgumentException if the constructor of project fails
      * @throws PermissionException If the given creator has insufficient
      *             permissions
-     * @see Project#Project(String, String, Developer, GregorianCalendar, long)
      */
     @DomainAPI
     public Project createProject(String name, String description, GregorianCalendar startDate, Developer lead,
@@ -254,7 +249,6 @@ public class DataModel {
      * @throws IllegalArgumentException if the constructor of project fails
      * @throws PermissionException If the given creator has insufficient
      *             permissions
-     * @see Project#Project(String, String, Developer, long)
      */
     @DomainAPI
     public Project createProject(String name, String description, Developer lead, long budget, User creator)
@@ -280,7 +274,7 @@ public class DataModel {
     /**
      * This method gets all bug reports in the system
      *
-     * @return a list of all bugreports in the system
+     * @return a list of all bug reports in the system
      */
     @DomainAPI
     public ArrayList<BugReport> getAllBugReports() {
@@ -382,7 +376,6 @@ public class DataModel {
      * @return The created subsytem
      * @throws PermissionException If the user doesn't have the permission to
      *             create a subsystem
-     * @see AbstractSystem#makeSubsystemChild(String, String)
      */
     @DomainAPI
     public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, String name, String description)
@@ -403,7 +396,6 @@ public class DataModel {
      * @return The created subsytem
      * @throws PermissionException If the user doesn't have the permission to
      *             create a subsystem
-     * @see AbstractSystem#makeSubsystemChild(String, String)
      */
     @DomainAPI
     public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, VersionID versionID, String name,
@@ -414,12 +406,33 @@ public class DataModel {
         return abstractSystem.makeSubsystemChild(versionID, name, description);
     }
 
-    // do we need next 3 methods? -> yes Controller principle! Make new ->
-    // change internal -> via controller
     /**
      * This method creates a bug report in the system
      *
-     * @see BugReport#BugReport(User, String, String, PList, Subsystem)
+     * @param user      The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
+     * @param dependencies The depended bug reports of this bug report
+     * @param subsystem    The subsystem this bug report belongs to
+     *
+     * @throws IllegalArgumentException if isValidCreator(creator) fails
+     * @throws IllegalArgumentException if isValidTitle(title) fails
+     * @throws IllegalArgumentException if isValidDescription(description) fails
+     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
+     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
+     *
+     * @Ensures new.getDate() == current date at the moment of initialisation
+     * @Ensures new.getTag() == Tag.New
+     * @Ensures new.getUniqueID() is initialised with a valid ID
+     *
+     * @see BugReport#isValidCreator(User)
+     * @see BugReport#isValidTitle(String)
+     * @see BugReport#isValidDescription(String)
+     * @see BugReport#isValidDependencies(PList)
+     * @see BugReport#isValidSubsystem(Subsystem)
+     *
+     * @see BugReport#getNewUniqueID()
      */
     @DomainAPI
     public BugReport createBugReport(User user, String title, String description, PList<BugReport> dependencies,
@@ -430,8 +443,35 @@ public class DataModel {
     /**
      * This method creates a bug report in the system
      *
-     * @see BugReport#BugReport(User, String, String, GregorianCalendar, PList,
-     *      Subsystem)
+     * @param user         The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
+     * @param calendar     The creationDate of the bugReport
+     * @param dependencies The depended bug reports of this bug report
+     * @param subsystem    The subsystem this bug report belongs to
+     *
+     * @throws IllegalArgumentException if isValidCreator(creator) fails
+     * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
+     * @throws IllegalArgumentException if isValidTitle(title) fails
+     * @throws IllegalArgumentException if isValidDescription(description) fails
+     * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
+     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
+     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
+     *
+     * @Ensures new.getDate() == current date at the moment of initialisation
+     * @Ensures new.getTag() == Tag.New
+     * @Ensures new.getUniqueID() is initialised with a valid ID
+     *
+     * @see BugReport#isValidCreator(User)
+     * @see BugReport#isValidUniqueID(long)
+     * @see BugReport#isValidTitle(String)
+     * @see BugReport#isValidDescription(String)
+     * @see BugReport#isValidCreationDate(GregorianCalendar)
+     * @see BugReport#isValidDependencies(PList)
+     * @see BugReport#isValidSubsystem(Subsystem)
+     *
+     * @see BugReport#getNewUniqueID()
      */
     @DomainAPI
     public BugReport createBugReport(User user, String title, String description, GregorianCalendar calendar,
@@ -449,10 +489,11 @@ public class DataModel {
      * @throws PermissionException If the given User doesn't have the permission
      *             to create the comment
      *
-     * @see BugReport#addComment(User, String)
+     * @throws IllegalArgumentException if the given comment is not valid for this bug report
+     * @see BugReport#isValidComment(Comment)
      */
     @DomainAPI
-    public Comment createComment(User user, BugReport bugReport, String text) throws PermissionException {
+    public Comment createComment(User user, BugReport bugReport, String text) throws PermissionException, IllegalArgumentException {
         return bugReport.addComment(user, text);
     }
 
@@ -467,10 +508,11 @@ public class DataModel {
      * @throws PermissionException If the given User doesn't have the permission
      *             to create the comment
      *
-     * @see Comment#addSubComment(User, String)
+     * @throws IllegalArgumentException if the given parameters are not valid for this comment
+     * @see Comment#isValidSubComment(Comment)
      */
     @DomainAPI
-    public Comment createComment(User user, Comment comment, String text) throws PermissionException {
+    public Comment createComment(User user, Comment comment, String text) throws PermissionException, IllegalArgumentException {
         return comment.addSubComment(user, text);
     }
 
@@ -484,14 +526,15 @@ public class DataModel {
      * @param budgetEstimate The budgetEstimate for the clone project.
      *
      * @return The resulting clone. Null if the source Clone is null.
-     * 
+     * //TODO remove @see
+     * //TODO add @throws
      * @see Project#cloneProject(bugtrap03.bugdomain.VersionID,
      *      bugtrap03.bugdomain.usersystem.Developer,
      *      java.util.GregorianCalendar, long)
      */
     @DomainAPI
     public Project cloneProject(Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate,
-            long budgetEstimate) {
+            long budgetEstimate) throws IllegalArgumentException {
         Project clone = cloneSource.cloneProject(versionID, lead, startDate, budgetEstimate);
         if (clone != null) {
             addProject(clone);
@@ -506,6 +549,9 @@ public class DataModel {
      * @param bugRep The bug report
      *
      * @return The list of all devs in the project
+     *
+     * @see BugReport#getSubsystem()
+     * @see Subsystem#getAllDev()
      */
     @DomainAPI
     public PList<Developer> getDeveloperInProject(BugReport bugRep) {
@@ -549,9 +595,9 @@ public class DataModel {
      * This method lets the given user set the tag of the given bug report to
      * the given tag
      * 
-     * @param bugrep The bugreport of which the tag gets to be set
-     * @param tag The given tag to set
-     * @param user The user that wishes to set the tag
+     * @param bugrep    The bug report of which the tag gets to be set
+     * @param tag       The given tag to set
+     * @param user      The user that wishes to set the tag
      * @throws PermissionException If the user doesn't have the needed
      *             permission to set the given tag to the bug report
      * @throws IllegalArgumentException If the given tag isn't a valid tag to
@@ -596,15 +642,22 @@ public class DataModel {
      * This method let's a user assign a role to a developer in a given project
      * .
      * 
-     * @param project The project in which the user will be assigned.
-     * @param user The user that assigns the role to the dev
+     * @param project   The project in which the user will be assigned.
+     * @param user      The user that assigns the role to the dev
      * @param developer The developer that gets a role assigned
-     * @param role The role that will be assigned
+     * @param role      The role that will be assigned
      * @throws PermissionException if the user doesn't have the needed
      *             permission.
+     *
+     * @throws IllegalArgumentException If the given role was null
+     * @throws IllegalArgumentException If the given user is null
+     * @throws IllegalArgumentException If the given project was null
      */
     @DomainAPI
-    public void assignToProject(Project project, User user, Developer developer, Role role) throws PermissionException {
+    public void assignToProject(Project project, User user, Developer developer, Role role) throws PermissionException, IllegalArgumentException {
+        if (project == null){
+            throw new IllegalArgumentException("The given project was null");
+        }
         project.setRole(user, developer, role);
     }
 }
