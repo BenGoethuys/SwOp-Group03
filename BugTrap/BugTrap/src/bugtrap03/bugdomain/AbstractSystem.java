@@ -7,7 +7,8 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import purecollections.PList;
 
 /**
- * This class represents an abstract system with a versionID, name, description and list of subsystem childs.
+ * This class represents an abstract system with a versionID, name, description and list of subsystem associated with this AbstractSystem.
+ *
  * @author Group 03.
  */
 @DomainAPI
@@ -76,7 +77,8 @@ public abstract class AbstractSystem {
     }
 
     /**
-     * This method check if the given VersionId is a valid verionId for an AbstractSystem
+     * This method check if the given VersionId is a valid versionId for an AbstractSystem
+     *
      * @param versionID the versionId to check
      * @return true if the given versionId is a valid i for an AbstractSystem
      */
@@ -245,6 +247,7 @@ public abstract class AbstractSystem {
 
     /**
      * This functions returns all the developers associated with this project
+     *
      * @return The list of all developers associated with this project
      */
     @DomainAPI
@@ -269,9 +272,9 @@ public abstract class AbstractSystem {
     
 
     /**
-     * This recursive method returns all the subsystems that are a child of this AbstracSystem
+     * This recursive method returns all the subsystems that are a child of this AbstractSystem
      *
-     * @return the list of all Subsystem childs.
+     * @return the list of all Subsystems associated with this AbstractSystem.
      */
     @DomainAPI
     public PList<Subsystem> getAllSubsystems() {
@@ -298,6 +301,7 @@ public abstract class AbstractSystem {
 
     /**
      * This method stub represents the different getDetails of the subclasses.
+     *
      * @return the details as String
      */
     @DomainAPI

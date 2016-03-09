@@ -6,7 +6,8 @@ import bugtrap03.bugdomain.permission.RolePerm;
 
 /**
  * This class represents a developer in th system
- * @author Vincent Derkinderen
+ *
+ * @author Group 03
  * @version 0.1
  */
 @DomainAPI
@@ -46,7 +47,7 @@ public class Developer extends Issuer {
      *
      * @param perm      The permission to check
      * @param project   The project he needs a permission for
-     * @return
+     * @return true if this developer has the given role permission in the given project
      */
     @Override
     @DomainAPI
