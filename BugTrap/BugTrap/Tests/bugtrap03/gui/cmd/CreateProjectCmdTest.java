@@ -17,7 +17,6 @@ import static java.util.GregorianCalendar.YEAR;
 import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
@@ -31,29 +30,31 @@ public class CreateProjectCmdTest {
 
     /**
      * Test method for
-     * {@link bugtrap03.gui.cmd.CreateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}.
+     * {@link bugtrap03.gui.cmd.CreateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
+     * .
      */
     @Test
     public void testCreateExec() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         User lead = model.createDeveloper("meGoodLead14", "Luky", "Luke");
         User issuer = model.createIssuer("noDev14", "BadLuck", "Luke");
         User admin = model.createAdministrator("admIn14", "adminT", "bie");
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         CreateProjectCmd cmd = new CreateProjectCmd();
 
         String projName = "test projectName";
         String projDesc = " ";
         GregorianCalendar date = new GregorianCalendar();
         date.add(GregorianCalendar.MONTH, 1);
-        String projDate = date.get(GregorianCalendar.YEAR) + "-" + (date.get(GregorianCalendar.MONTH) + 1) + "-" + date.get(GregorianCalendar.DATE);
+        String projDate = date.get(GregorianCalendar.YEAR) + "-" + (date.get(GregorianCalendar.MONTH) + 1) + "-"
+                + date.get(GregorianCalendar.DATE);
         String projBudget = "50";
         String leadName = lead.getUsername();
 
-        //Setup scenario
+        // Setup scenario
         question.add("Create or clone a new project?");
         question.add("Create or clone: ");
         answer.add("expect wrong input");
@@ -91,10 +92,10 @@ public class CreateProjectCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Project project = cmd.exec(scan, model, admin);
 
-        //Test effects.
+        // Test effects.
         assertEquals(model.getProjectList().size(), 1);
         assertTrue(model.getProjectList().contains(project));
         assertEquals(leadName, project.getLead().getUsername());
@@ -108,15 +109,15 @@ public class CreateProjectCmdTest {
 
     @Test
     public void testCloneExec() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
-        Developer lead = model.createDeveloper("meGoodLead2", "Luky", "Luke");
+        Developer lead = model.createDeveloper("meGoodLead2223", "Luky", "Luke");
         User issuer = model.createIssuer("noDev2", "BadLuck", "Luke");
         User admin = model.createAdministrator("admin2", "adminT", "bie");
         Project proj = model.createProject("ProjectFT2", "desc here about test default.", lead, 1000, admin);
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         CreateProjectCmd cmd = new CreateProjectCmd();
 
         GregorianCalendar date = new GregorianCalendar();
@@ -125,7 +126,7 @@ public class CreateProjectCmdTest {
         VersionID newVersionID = new VersionID(1, 2, 3);
         long budget = 50;
 
-        //Setup scenario
+        // Setup scenario
         question.add("Create or clone a new project?");
         question.add("Create or clone: ");
         answer.add("expect wrong input");
@@ -133,7 +134,7 @@ public class CreateProjectCmdTest {
         question.add("Create or clone: ");
         answer.add("clOne");
         question.add("Available projects:");
-        question.add("0. " + proj.getName());
+        question.add("0. " + proj.getName() + " version: " + proj.getVersionID());
         question.add("I choose: ");
         answer.add("lol");
         question.add("Invalid input.");
@@ -163,10 +164,10 @@ public class CreateProjectCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Project project = cmd.exec(scan, model, admin);
 
-        //Test effects.
+        // Test effects.
         assertEquals(model.getProjectList().size(), 2);
         assertTrue(model.getProjectList().contains(project));
         assertEquals(lead.getUsername(), project.getLead().getUsername());

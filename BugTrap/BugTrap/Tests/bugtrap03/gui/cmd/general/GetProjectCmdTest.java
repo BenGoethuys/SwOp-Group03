@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bugtrap03.gui.cmd.general;
 
 import bugtrap03.model.DataModel;
@@ -19,7 +14,8 @@ import testCollection.TerminalTestScanner;
 
 /**
  *
- * @author Admin
+ * @author Group 03
+ *
  */
 public class GetProjectCmdTest {
 
@@ -30,25 +26,25 @@ public class GetProjectCmdTest {
      * @throws PermissionException Never
      * @throws CancelException Never
      * @see GetProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner,
-     * DataModel, bugtrap03.bugdomain.usersystem.User)
+     *      DataModel, bugtrap03.bugdomain.usersystem.User)
      */
     @Test
     public void testExecByIndex() throws IllegalArgumentException, PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead15", "Luky", "Luke");
         User admin = model.createAdministrator("admin15", "adminT", "bie");
         Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         GetProjectCmd cmd = new GetProjectCmd();
 
-        //Setup scenario
+        // Setup scenario
         question.add("Available projects:");
-        question.add("0. " + proj0.getName());
-        question.add("1. " + proj1.getName());
+        question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
+        question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());
         question.add("I choose: ");
         answer.add("5");
         question.add("Invalid input.");
@@ -65,10 +61,10 @@ public class GetProjectCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Project chosenProj = cmd.exec(scan, model, admin);
 
-        //Test effects.
+        // Test effects.
         assertEquals(chosenProj, proj1);
     }
 
@@ -79,25 +75,25 @@ public class GetProjectCmdTest {
      * @throws PermissionException Never
      * @throws CancelException Never
      * @see GetProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner,
-     * DataModel, bugtrap03.bugdomain.usersystem.User)
+     *      DataModel, bugtrap03.bugdomain.usersystem.User)
      */
     @Test
     public void testExecName() throws IllegalArgumentException, PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead", "Luky", "Luke");
         User admin = model.createAdministrator("adminB", "adminT", "bie");
         Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         GetProjectCmd cmd = new GetProjectCmd();
 
-        //Setup scenario
+        // Setup scenario
         question.add("Available projects:");
-        question.add("0. " + proj0.getName());
-        question.add("1. " + proj1.getName());
+        question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
+        question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());
         question.add("I choose: ");
         answer.add("5");
         question.add("Invalid input.");
@@ -105,19 +101,19 @@ public class GetProjectCmdTest {
         answer.add("wrongInput");
         question.add("Invalid input.");
         question.add("I choose: ");
-        answer.add(proj1.getName());
+        answer.add(proj1.getName() + proj1.getVersionID().toString());
         question.add("You have chosen:");
         question.add(proj1.getDetails());
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Project chosenProj = cmd.exec(scan, model, admin);
 
-        //Test effects.
+        // Test effects.
         assertEquals(chosenProj, proj1);
     }
-    
+
     @Test
     public void testGetProjectCmd() throws IllegalArgumentException, PermissionException {
         DataModel model = new DataModel();

@@ -56,8 +56,9 @@ public class GetProjectCmd implements Cmd {
      * {@link #setOptionsList(purecollections.PList)}. When this list is set to
      * null the list of projects in the passed {@link DataModel} will be used.
      * <p>
-     * <br> 1. The system shows a list of existing projects.
-     * <br> 2. The person selects an existing project of the list.
+     * <br>
+     * 1. The system shows a list of existing projects. <br>
+     * 2. The person selects an existing project of the list.
      *
      * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.
@@ -79,7 +80,8 @@ public class GetProjectCmd implements Cmd {
 
         scan.println("Available projects:");
         for (int i = 0; i < projectList.size(); i++) {
-            scan.println(i + ". " + projectList.get(i).getName() + " version: " + projectList.get(i).getVersionID().toString());
+            scan.println(i + ". " + projectList.get(i).getName() + " version: "
+                    + projectList.get(i).getVersionID().toString());
         }
 
         // Retrieve & process user input.
@@ -96,14 +98,18 @@ public class GetProjectCmd implements Cmd {
             } else { // by name
                 String input = scan.nextLine(); // input
                 try {
-                    proj = projectList.parallelStream().filter(u -> (u.getName()+u.getVersionID().toString()).equals(input)).findFirst().get();
+                    proj = projectList.parallelStream()
+                            .filter(u -> (u.getName() + u.getVersionID().toString()).equals(input)).findFirst().get();
                 } catch (NoSuchElementException ex) {
+                    try {
+                        proj = projectList.parallelStream()
+                                .filter(u -> (u.getName() + " " + u.getVersionID().toString()).equals(input))
+                                .findFirst().get();
+                    } catch (NoSuchElementException ex2) {
+                        scan.println("Invalid input.");
+                    }
                 }
-                try {
-                    proj = projectList.parallelStream().filter(u -> (u.getName()+" "+u.getVersionID().toString()).equals(input)).findFirst().get();
-                } catch (NoSuchElementException ex) {
-                    scan.println("Invalid input.");
-                }
+
             }
         } while (proj == null);
         scan.println("You have chosen:");

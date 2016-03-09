@@ -412,18 +412,8 @@ public class ProjectTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testSetInvalidSubsDescription() {
-        subSysTest.setDescription("");
-    }
-
-    @Test (expected = IllegalArgumentException.class)
     public void testSetNullProjDescription() {
         testProject.setDescription(null);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetNullSubsDescription() {
-        subSysTest.setDescription(null);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -431,9 +421,6 @@ public class ProjectTest {
         testProject.setVersionID(null);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testSetNullSubsVersionID() {
-        subSysTest.setVersionID(null);
-    }
+
 
 }

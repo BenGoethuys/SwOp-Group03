@@ -1,22 +1,16 @@
 package bugtrap03.gui.cmd.general;
 
-import bugtrap03.bugdomain.Project;
-import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.usersystem.Administrator;
-import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.Issuer;
-import bugtrap03.gui.cmd.CreateSubsystemCmd;
 import bugtrap03.model.DataModel;
 import java.util.ArrayDeque;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
 /**
  *
- * @author Admin
+ * @author Group 03
+ *
  */
 public class GetIntCmdTest {
 
@@ -24,11 +18,11 @@ public class GetIntCmdTest {
     public void testExec() throws CancelException {
         DataModel model = new DataModel();
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         GetIntCmd cmd = new GetIntCmd();
 
-        //Setup scenario
+        // Setup scenario
         question.add("Give number: ");
         answer.add("wrongInput");
         question.add("Invalid input, please enter a number");
@@ -38,10 +32,10 @@ public class GetIntCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         int chosen = cmd.exec(scan, null, null);
 
-        //Test effects.
+        // Test effects.
         assertEquals(chosen, -5);
     }
 
@@ -49,11 +43,11 @@ public class GetIntCmdTest {
     public void testAbortExec() throws CancelException {
         DataModel model = new DataModel();
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         GetIntCmd cmd = new GetIntCmd();
 
-        //Setup scenario
+        // Setup scenario
         question.add("Give number: ");
         answer.add("wrongInput");
         question.add("Invalid input, please enter a number");
@@ -61,7 +55,7 @@ public class GetIntCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         int chosen = cmd.exec(scan, null, null);
     }
 

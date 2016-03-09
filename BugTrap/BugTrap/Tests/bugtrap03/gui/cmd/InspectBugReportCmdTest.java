@@ -1,6 +1,5 @@
 package bugtrap03.gui.cmd;
 
-
 import java.util.ArrayDeque;
 
 import org.junit.Test;
@@ -68,8 +67,8 @@ public class InspectBugReportCmdTest {
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         InspectBugReportCmd cmd = new InspectBugReportCmd();
-        
-        //Setup scenario
+
+        // Setup scenario
         question.add("Please select a search mode: ");
         question.add("0. title");
         question.add("1. description");
@@ -89,7 +88,7 @@ public class InspectBugReportCmdTest {
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
         question.add(bugRep2.getDetails());
-        
+
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         inspectBugReport = cmd.exec(scan, model, issuer);
     }

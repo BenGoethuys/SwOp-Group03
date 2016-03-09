@@ -13,7 +13,8 @@ import testCollection.TerminalTestScanner;
 
 /**
  *
- * @author Admin
+ * @author Group 03
+ *
  */
 public class LoginCmdTest {
 
@@ -39,22 +40,21 @@ public class LoginCmdTest {
 
     /**
      *
-     * Test a login scenario with 2 administrators, 1 Issuer.
-     * <br> Person uses index 0 to select Administrator
-     * <br> Person uses index 0 to select a certain Administrator on index 0 -
-     * admin.
+     * Test a login scenario with 2 administrators, 1 Issuer. <br>
+     * Person uses index 0 to select Administrator <br>
+     * Person uses index 0 to select a certain Administrator on index 0 - admin.
      *
      * @throws CancelException
      */
     @Test
     public void testSuccesAdmin1UserIndex() throws CancelException {
-        //Setup variables.
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        // Setup variables.
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         Terminal dummyTerminal = new Terminal(model);
         LoginCmd cmd = new LoginCmd(dummyTerminal);
 
-        //Setup scenario
+        // Setup scenario
         question.add("Please choose your type of login.");
         question.add("0. Administrator");
         question.add("1. Issuer");
@@ -70,31 +70,30 @@ public class LoginCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         User user = cmd.exec(scan, model, null);
 
-        //Test effects.
+        // Test effects.
         assertEquals(user, dummyTerminal.getUser());
     }
 
     /**
      *
-     * Test a login scenario with 2 administrators, 1 Issuer.
-     * <br> Person uses index 0 to select Administrator
-     * <br> Person uses index 0 to select a certain Administrator on index 0 -
-     * admin.
+     * Test a login scenario with 2 administrators, 1 Issuer. <br>
+     * Person uses index 0 to select Administrator <br>
+     * Person uses index 0 to select a certain Administrator on index 0 - admin.
      *
      * @throws CancelException
      */
     @Test
     public void testSuccesIssuer1UserName() throws CancelException {
-        //Setup variables.
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        // Setup variables.
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         Terminal dummyTerminal = new Terminal(model);
         LoginCmd cmd = new LoginCmd(dummyTerminal);
 
-        //Setup scenario
+        // Setup scenario
         question.add("Please choose your type of login.");
         question.add("0. Administrator");
         question.add("1. Issuer");
@@ -122,10 +121,10 @@ public class LoginCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         User user = cmd.exec(scan, model, null);
 
-        //Test effects.
+        // Test effects.
         assertEquals(user, dummyTerminal.getUser());
     }
 
