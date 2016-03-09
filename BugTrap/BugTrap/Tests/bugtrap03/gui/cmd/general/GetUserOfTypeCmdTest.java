@@ -41,7 +41,7 @@ public class GetUserOfTypeCmdTest {
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd(Issuer.class);
+        GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd<>(Issuer.class);
 
         // Setup scenario
         question.add("Available options:");
@@ -81,9 +81,9 @@ public class GetUserOfTypeCmdTest {
         Issuer issuer = model.createIssuer("noDev50", "BadLuck", "Luke");
         User admin = model.createAdministrator("admin50", "adminT", "bie");
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
-        GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd(Issuer.class);
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd<>(Issuer.class);
 
         // Setup scenario
         question.add("Available options:");
@@ -121,9 +121,9 @@ public class GetUserOfTypeCmdTest {
         DataModel model = new DataModel();
         User admin = model.createAdministrator("admin00", "adminT", "bie");
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
-        GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd(Issuer.class);
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd<>(Issuer.class);
 
         //Setup scenario
         question.add("No options found.");

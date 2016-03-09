@@ -46,13 +46,13 @@ public class HelpCmdTest {
 
     @Test
     public void testCommonSuccesScenario() {
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
-        ArrayList<SimpleEntry<String, Cmd>> printList = new ArrayList();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        ArrayList<SimpleEntry<String, Cmd>> printList = new ArrayList<>();
 
-        printList.add(new SimpleEntry("test", new HelpCmd(null)));
-        printList.add(new SimpleEntry("getUserOfExactTypeCmd", new GetUserOfExcactTypeCmd<>(User.class)));
-        printList.add(new SimpleEntry("clear", new ClearCmd()));
+        printList.add(new SimpleEntry<>("test", new HelpCmd(null)));
+        printList.add(new SimpleEntry<>("getUserOfExactTypeCmd", new GetUserOfExcactTypeCmd<>(User.class)));
+        printList.add(new SimpleEntry<>("clear", new ClearCmd()));
 
         HelpCmd cmd = new HelpCmd(printList);
 

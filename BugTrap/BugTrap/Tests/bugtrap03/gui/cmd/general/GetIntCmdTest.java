@@ -14,9 +14,11 @@ import testCollection.TerminalTestScanner;
  */
 public class GetIntCmdTest {
 
+    DataModel model;
+
     @Test
     public void testExec() throws CancelException {
-        DataModel model = new DataModel();
+        model = new DataModel();
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -41,7 +43,7 @@ public class GetIntCmdTest {
 
     @Test(expected = CancelException.class)
     public void testAbortExec() throws CancelException {
-        DataModel model = new DataModel();
+        model = new DataModel();
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
