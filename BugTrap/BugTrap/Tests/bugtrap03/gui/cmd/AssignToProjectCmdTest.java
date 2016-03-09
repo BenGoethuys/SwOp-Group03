@@ -56,7 +56,7 @@ public class AssignToProjectCmdTest {
         dev1 = model.createDeveloper("BlackPowerRanger","Black","Power Ranger");
         dev2 = model.createDeveloper("PinkPowerRanger","Pink","Power Ranger");
         dev3 = model.createDeveloper("YellowPowerRanger","Yellow","Power Ranger");
-        Administrator admin = model.createAdministrator("Adm1ral00-6", "Kwinten", "JK");
+        Administrator admin = model.createAdministrator("Adm1ral00-12", "Kwinten", "JK");
 
         projectA = model.createProject("PowerRangerProject", "Project for testing with power rangers", dev1, 999, admin);
         model.assignToProject(projectA, dev1, dev3, Role.PROGRAMMER);
