@@ -28,9 +28,14 @@ public class ShowProjectCmd implements Cmd {
      * @param user The {@link User} who wants to executes this command.
      * @return The project chosen.
      * @throws CancelException When the users wants to abort the current cmd
+     * @throws IllegalArgumentException If scan, model or user is null
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user) throws CancelException {
+        if(scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
+
         //1. The user indicates he wants to take a look at some project.
         //2. Shows a list of all projects.
         //3. The user selects a project.

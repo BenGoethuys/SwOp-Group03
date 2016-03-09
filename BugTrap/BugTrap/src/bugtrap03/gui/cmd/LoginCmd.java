@@ -50,9 +50,14 @@ public class LoginCmd implements Cmd {
      * whatever.
      * @return The user chosen by the person to login as.
      * @throws CancelException When the cancel operation was executed.
+     * @throws IllegalArgumentException If the scan or model is null
      */
     @Override
     public User exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException {
+        if(scan == null || model == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
+
         //Login
         User user;
         do {
@@ -61,7 +66,7 @@ public class LoginCmd implements Cmd {
             
             //2. Show the person all users of that type
             //3. Ask the person which user to login as.
-            user = (new GetUserOfExcactTypeCmd<>(classType)).exec(scan, model, dummy);
+            user = (new GetUserOfExcactTypeCmd<>(classType)).exec(scan, model, null);
         } while (user == null);
 
         terminal.setUser(user);

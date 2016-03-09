@@ -30,10 +30,15 @@ public class InspectBugReportCmd implements Cmd {
      * @throws PermissionException When the user does not have sufficient
      *             permissions.
      * @throws CancelException When the users wants to abort the current cmd
+     * @throws IllegalArgumentException If the given scan, model or user is null
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException {
+        if(scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
+
         // 1. The issuer indicates he wants to inspect some bug report.
         // 2. Include use case Select Bug Report.
         BugReport bugRep = new SelectBugReportCmd().exec(scan, model, user);

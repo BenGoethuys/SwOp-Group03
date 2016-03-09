@@ -45,9 +45,13 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
      * @param dummy Doesn't matter
      * @return The chosen user. Null if there was no option of that type.
      * @throws CancelException When the cancel operation was executed.
+     * @throws IllegalArgumentException If the given scan or model is null
      */
     @Override
     public U exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException {
+        if(scan == null || model == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
         //Print available user options of given type
         PList<U> usersOfType = model.getUserListOfExactType(classType);
 

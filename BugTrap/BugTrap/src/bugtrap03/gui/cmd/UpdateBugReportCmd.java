@@ -33,10 +33,14 @@ public class UpdateBugReportCmd implements Cmd {
      * @throws PermissionException When the user doesn't have the needed
      *             permission to set the tag.
      * @throws CancelException When the user wants to abort the process
+     * @throws IllegalArgumentException If scan, model or user is null
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException {
+        if(scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
         // 1. The developer indicates he wants to update a bug report.
         // 2. Include use case Select Bug Report.
         BugReport bugrep = new SelectBugReportCmd().exec(scan, model, user);

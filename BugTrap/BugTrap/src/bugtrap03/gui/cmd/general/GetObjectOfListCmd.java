@@ -52,10 +52,14 @@ public class GetObjectOfListCmd<U extends Object> implements Cmd {
      * @param dummy2 Dummy
      * @param dummy3 Dummy
      * @return The selected option, can be null if the list of options was empty.
+     * @throws IllegalArgumentException If the given scan is null
      * @throws CancelException When the person has indicated to abort the cmd.
      */
     @Override
     public U exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws CancelException {
+        if(scan == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
         if (listOfObjects.isEmpty()) {
             scan.println("No options found.");
             return null;

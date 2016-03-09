@@ -92,9 +92,14 @@ public class SelectBugReportCmd implements Cmd {
      * @throws PermissionException When the user does not have sufficient
      * permissions.
      * @throws CancelException When the users wants to abort the current cmd
+     * @throws IllegalArgumentException If scan, model or user is null
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
+        if(scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
+
         while (true) {
             scan.println("Please select a search mode: ");
             for (int i = 0; i < this.modeList.size(); i++) {
