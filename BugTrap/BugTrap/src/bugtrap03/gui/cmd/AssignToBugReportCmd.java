@@ -62,6 +62,7 @@ public class AssignToBugReportCmd implements Cmd {
             // 1. The use case returns to step 2.
             if (!user.hasRolePermission(RolePerm.ASSIGN_DEV_BUGREPORT, bugRep.getSubsystem().getParentProject())) {
                 scan.println("You don't have the required permission.");
+            } else {
                 hasPerm = true;
             }
         } while (!hasPerm);

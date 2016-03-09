@@ -115,7 +115,7 @@ public class AssignToBugReportCmdTest {
      * {@link bugtrap03.gui.cmd.AssignToBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
      */
-    @Test(expected = PermissionException.class)
+    @Test(expected = CancelException.class)
     public void testExecNoPermission() throws PermissionException, CancelException {
         // Setup variables.
         DataModel model = new DataModel();
@@ -156,27 +156,15 @@ public class AssignToBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
-        question.add("Available options: ");
-        question.add("0. " + dev2.getUsername());
-        question.add("1. " + lead.getUsername());
-        question.add("I choose: (leave blank when done)");
-        answer.add("-1");
-        question.add("Invalid input.");
-        question.add("I choose: (leave blank when done)");
-        answer.add("20");
-        question.add("Invalid input.");
-        question.add("I choose: (leave blank when done)");
-        answer.add("0");
-        question.add("Added " + dev2.getUsername());
-        question.add("I choose: (leave blank when done)");
-        answer.add("1");
-        question.add("Added " + lead.getUsername());
-        question.add("I choose: (leave blank when done)");
-        answer.add("0");
-        question.add("Added " + dev2.getUsername());
-        question.add("I choose: (leave blank when done)");
-        answer.add("");
-        question.add("Finished assigning.");
+        question.add("You don't have the required permission.");
+        question.add("Please select a search mode: ");
+        question.add("0. title");
+        question.add("1. description");
+        question.add("2. creator");
+        question.add("3. assigned");
+        question.add("4. uniqueId");
+        question.add("I choose: ");
+        answer.add("abort");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
@@ -184,7 +172,7 @@ public class AssignToBugReportCmdTest {
 
         //Test effects.
     }
-    
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.AssignToBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
@@ -206,7 +194,7 @@ public class AssignToBugReportCmdTest {
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
         BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
                 subsystemA2);
 
         ArrayDeque<String> question = new ArrayDeque<>();
@@ -259,7 +247,7 @@ public class AssignToBugReportCmdTest {
 
         // Execute scenario
         BugReport chosen = cmd.exec(scan, model, lead);
-        
+
         //Test effects.
         assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(dev2));
         assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(lead));
