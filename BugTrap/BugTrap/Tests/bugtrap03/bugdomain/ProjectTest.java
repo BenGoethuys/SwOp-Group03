@@ -3,6 +3,7 @@ package bugtrap03.bugdomain;
 import static org.junit.Assert.*;
 
 import java.util.GregorianCalendar;
+import java.util.IllegalFormatCodePointException;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -238,6 +239,12 @@ public class ProjectTest {
     public void testSetNullRole() throws IllegalArgumentException, PermissionException {
         testProject.setRole(null, testDev, Role.TESTER); 
     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetNullUserRole() throws IllegalArgumentException, PermissionException {
+        testProject.setRole(testDev, null, Role.TESTER);
+    }
+
     
     @Test (expected = PermissionException.class)
     public void testSetInvalidRole() throws IllegalArgumentException, PermissionException {
@@ -263,7 +270,6 @@ public class ProjectTest {
         //System.out.println(details);
     }
 
-    //TODO add subsystem and check childs
     @Test
     public void testCloneProject() {
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
@@ -398,6 +404,36 @@ public class ProjectTest {
         Subsystem ss2 = testProject.makeSubsystemChild("uhu", "aha");
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest).plus(ss2);
         assertEquals(childList, testProject.getAllSubsystems());
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetInvalidProjDescription() {
+        testProject.setDescription("");
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetInvalidSubsDescription() {
+        subSysTest.setDescription("");
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetNullProjDescription() {
+        testProject.setDescription(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetNullSubsDescription() {
+        subSysTest.setDescription(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetNullProjVersionID() {
+        testProject.setVersionID(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetNullSubsVersionID() {
+        subSysTest.setVersionID(null);
     }
 
 }
