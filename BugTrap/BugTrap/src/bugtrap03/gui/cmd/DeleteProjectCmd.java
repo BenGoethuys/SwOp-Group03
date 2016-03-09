@@ -35,6 +35,7 @@ public class DeleteProjectCmd implements Cmd {
      * permissions to update a project.
      * @throws CancelException When the user wants to abort the cmd.
      * @throws IllegalArgumentException When scan, model,user is null
+     * //TODO: @see deleteProj, GetProject
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user)

@@ -36,10 +36,12 @@ public class UpdateProjectCmd implements Cmd {
      * @throws PermissionException When the user does not have sufficient permissions to update
      *                             a project.
      * @throws IllegalArgumentException If scan, model or user is null
+     * 
+     * //TODO: @see GetProjectCmd, model#updateProject..
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user)
-            throws PermissionException, CancelException {
+            throws PermissionException, CancelException, IllegalArgumentException {
         if(scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }

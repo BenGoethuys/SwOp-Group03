@@ -53,7 +53,7 @@ public class LoginCmd implements Cmd {
      * @throws IllegalArgumentException If the scan or model is null
      */
     @Override
-    public User exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException {
+    public User exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException, IllegalArgumentException {
         if(scan == null || model == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }

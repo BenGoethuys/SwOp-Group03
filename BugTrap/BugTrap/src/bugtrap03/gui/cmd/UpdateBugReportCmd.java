@@ -23,7 +23,7 @@ public class UpdateBugReportCmd implements Cmd {
      * <br> 2. Include use case Select Bug Report.
      * <br> 3. The developer suggests a new tag for the bug report.
      * <br> 4. The system gives the selected bug report the new tag.
-     * <br> 4a. The developer does not have the permission to assign the tag:
+     * <br> 4a. The developer does not have the permission to assign the tag: the use case ends.
      *
      * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.
@@ -33,10 +33,12 @@ public class UpdateBugReportCmd implements Cmd {
      *             permission to set the tag.
      * @throws CancelException When the user wants to abort the process
      * @throws IllegalArgumentException If scan, model or user is null
+     * 
+     * //TODO: @see SelectBugReport
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)
-            throws PermissionException, CancelException {
+            throws PermissionException, CancelException, IllegalArgumentException {
         if(scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
@@ -52,7 +54,7 @@ public class UpdateBugReportCmd implements Cmd {
             try {
                 // 4. The system gives the selected bug report the new tag.
                 // 4a.The developer does not have the permission to assign the
-                // tag:
+                // tag: the use case ends.
                 model.setTag(bugrep, tagToSet, user);
             } catch (IllegalArgumentException iae) {
                 scan.println("Invalid tag, select other tag");

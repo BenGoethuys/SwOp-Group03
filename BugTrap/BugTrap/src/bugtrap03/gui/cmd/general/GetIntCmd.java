@@ -21,7 +21,6 @@ public class GetIntCmd implements Cmd {
      * @param dummy2 Doesn't matter
      * @param dummy3 Doesn't matter
      * @return The given integer
-     * @throws PermissionException Never
      * @throws CancelException When the users wants to abort the current cmd
      * @throws IllegalArgumentException When scan is a null reference.
      */

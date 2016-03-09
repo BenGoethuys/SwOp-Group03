@@ -28,7 +28,7 @@ public class ClearCmd implements Cmd {
         if(scan == null) {
             throw new IllegalArgumentException("scan musn't be null.");
         }
-        //TODO: What about if scan == null??
+        
         this.clearConsole(scan);
         return null;
     }

@@ -100,6 +100,5 @@ public class CreateCommentCmd implements Cmd {
         }
         scan.println("Comment created");
         return newComment;
-
     }
 }

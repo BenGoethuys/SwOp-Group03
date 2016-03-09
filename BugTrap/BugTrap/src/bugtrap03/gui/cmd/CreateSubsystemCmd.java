@@ -37,12 +37,15 @@ public class CreateSubsystemCmd implements Cmd {
      * permissions.
      * @throws CancelException When the users wants to abort the current cmd
      * @throws IllegalArgumentException When scan, model,user is null
+     * @throws IllegalArgumentException When there are no projects and subsystems.
+     *  //TODO @see createSub...
      */
     @Override
     public Subsystem exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
         if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
+        
         // 1. The administrator indicates he wants to create a new subsystem.
         // 2. Show a list of projects and subsystems.
         // 3. The administrator selects the project or subsystem that the new subsystem will be part of.
@@ -50,6 +53,10 @@ public class CreateSubsystemCmd implements Cmd {
         AbstractSystem system = new GetObjectOfListCmd<>(list, (u -> u.getName()), ((u, input) -> u.getName().equals(input)))
                 .exec(scan, model, user);
 
+        if(system == null) {
+            throw new IllegalArgumentException("Cancelled command.");
+        }
+        
         // 4. The system shows the subsystem creation form.
         // 5. The administrator enters the subsystem details: name and description
         scan.println("You have chosen:");

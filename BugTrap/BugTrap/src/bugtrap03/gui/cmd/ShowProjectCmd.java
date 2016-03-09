@@ -28,9 +28,11 @@ public class ShowProjectCmd implements Cmd {
      * @return The project chosen.
      * @throws CancelException When the users wants to abort the current cmd
      * @throws IllegalArgumentException If scan, model or user is null
+     * 
+     * //TODO: @see GetProjectCmd
      */
     @Override
-    public Project exec(TerminalScanner scan, DataModel model, User user) throws CancelException {
+    public Project exec(TerminalScanner scan, DataModel model, User user) throws CancelException, IllegalArgumentException {
         if(scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }

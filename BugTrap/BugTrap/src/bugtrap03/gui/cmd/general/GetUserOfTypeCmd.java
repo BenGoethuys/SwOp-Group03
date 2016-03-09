@@ -18,7 +18,7 @@ import purecollections.PList;
 public class GetUserOfTypeCmd<U extends User> implements Cmd {
 
     /**
-     * Create a 'choice user' scenario wherein the person can choose a certain
+     * Create a 'choose user' scenario wherein the person can choose a certain
      * user from a list of users from a specific class.
      *
      * @param classType The type of the users to choose from. (including
@@ -48,7 +48,7 @@ public class GetUserOfTypeCmd<U extends User> implements Cmd {
      * @throws IllegalArgumentException If the given scan or model is null
      */
     @Override
-    public U exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException {
+    public U exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException, IllegalArgumentException {
         if(scan == null || model == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }

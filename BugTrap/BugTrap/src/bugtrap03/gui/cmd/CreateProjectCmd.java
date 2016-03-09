@@ -83,18 +83,20 @@ public class CreateProjectCmd implements Cmd {
      * <br> a2. Ask user the description of the project
      * <br> a3. Ask user the starting date of the project
      * <br> a4. Ask user the budget estimate of the project.
-     * <br> a5. Ask user the lead developer by providing a list of
-     * possibilities.
+     * <br> a5. Ask user the lead developer by providing a list of possibilities.
      * <br> a6. Show the user the details of the created project.
      *
      * @param scan The {@link Scanner} trough which to ask the questions.
      * @param model The model to use to access the model.
      * @param user The user who wants to execute this {@link Cmd}.
      * @return The user chosen by the person to login as.
-     * @throws PermissionException When the user does not have sufficient
-     * permissions to create/clone a project.
+     * @throws CancelException When the user has indicated to abort the cmd.
+     * @throws PermissionException When the user does not have sufficient permissions to create/clone a project.
+     * @throws IllegalArgumentException When there is no option for a lead developer.
+     * 
+     * @see DataModel#createProject(String, String, GregorianCalendar, Developer, long, User) 
      */
-    private Project createProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException, PermissionException {
+    private Project createProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException, PermissionException, IllegalArgumentException {
         // Project name
         // a1. Ask user the name of the project
         scan.print("Project name:");
@@ -136,7 +138,7 @@ public class CreateProjectCmd implements Cmd {
         Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
 
         if (lead == null) {
-            throw new IllegalArgumentException("Get a lead developer option before creating a project.");
+            throw new IllegalArgumentException("Cancelled cmd.");
         }
 
         // Create Project
@@ -150,7 +152,7 @@ public class CreateProjectCmd implements Cmd {
     }
 
     /**
-     * Execute the create project scenario.
+     * Execute the clone project scenario.
      * <br> b) Clone project (without BugReports)
      * <br> b1. Ask user which project by providing a list of possibilities.
      * <br> b2. Ask user the version number
@@ -158,14 +160,17 @@ public class CreateProjectCmd implements Cmd {
      * <br> b4. Ask user the budget estimate
      * <br> b5. Go to step a5
      *
-     * @param scan The {@link Scanner} trough which to ask the questions.
-     * @param model The model to use to access the model.
-     * @param user The user who wants to execute this {@link Cmd}.
+     * @param scan The {@link TerminalScanner} trough which to ask the questions.
+     * @param model The {@link DataModel} to use to access the model.
+     * @param user The {@link User} who wants to execute this {@link Cmd}.
      * @return The user chosen by the person to login as.
-     * @throws PermissionException When the user does not have sufficient
-     * permissions to create/clone a project.
+     * @throws CancelException When the user has indicated to abort the cmd.
+     * @throws PermissionException When the user does not have sufficient permissions to create/clone a project.
+     * @throws IllegalArgumentException Check @see.
+     * 
+     * //TODO @see getProjectCmd, model#clone.
      */
-    private Project cloneProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException {
+    private Project cloneProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException, PermissionException, IllegalArgumentException {
         // b1. Ask user which project by providing a list of possibilities.
         Project project = (new GetProjectCmd()).exec(scan, model, user);
 
