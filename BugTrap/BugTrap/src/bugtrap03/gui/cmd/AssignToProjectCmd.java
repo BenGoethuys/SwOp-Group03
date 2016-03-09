@@ -74,7 +74,7 @@ public class AssignToProjectCmd implements Cmd {
         PList<Role> currentRolesList = selectedProj.getAllRolesDev(devToSet);
         PList<Role> roleList = model.getAllRoles();
         for (Role role : currentRolesList){
-            roleList.minus(role);
+            roleList = roleList.minus(role);
         }
         if (roleList.isEmpty()){
             scan.println("There are no more roles to assign to the selected developer in the selected project.");
@@ -91,7 +91,7 @@ public class AssignToProjectCmd implements Cmd {
             scan.println("There are no more roles to assign to the selected developer in the selected project.");
             return null;
         }
-        scan.println("You have chosen:" + selectedRole.name());
+        scan.println("You have chosen: " + selectedRole.name());
         //8. The systems assigns the selected role to the selected developer.
         model.assignToProject(selectedProj, user, devToSet, selectedRole);
         scan.println(devToSet.getUsername() + " assigned to project: " + selectedProj.getName() + " version: " + selectedProj.getVersionID().toString() + ", with role: " + selectedRole.name());

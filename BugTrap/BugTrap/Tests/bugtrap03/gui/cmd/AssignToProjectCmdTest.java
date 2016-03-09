@@ -107,14 +107,15 @@ public class AssignToProjectCmdTest {
         answer.add("1");
         question.add("You have chosen: PinkPowerRanger");
         question.add("Please select a role to assign.");
-        question.add( "Available options:");
+        question.add("Available options:");
         question.add("0. " + Role.LEAD.name());
         question.add("1. " + Role.TESTER.name());
+        question.add("I choose: ");
         answer.add("11");
         question.add("Invalid input.");
         question.add("I choose: ");
         answer.add("1");
-        question.add("You have chosen:" + Role.TESTER.name());
+        question.add("You have chosen: " + Role.TESTER.name());
         question.add("PinkPowerRanger assigned to project: PowerRangerProject2 version: " + new VersionID().toString() + ", with role: " + Role.TESTER.name());
 
         // init scanner
@@ -127,51 +128,6 @@ public class AssignToProjectCmdTest {
     }
 
     @Test
-    public void testNormalStringNoSpaceExec() throws PermissionException, CancelException {
-        // Setup scenario
-        question.add("Please select a project you lead.");
-        question.add( "Available options:");
-        question.add("0. PowerRangerProject version: " + new VersionID().toString());
-        question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
-        question.add("I choose: ");
-        answer.add("lala");
-        question.add("Invalid input.");
-        question.add("I choose: ");
-        answer.add("PowerRangerProject20.0.1");
-        question.add("You have chosen:");
-        question.add(projectB.getDetails());
-        question.add("Please select a developer to assign.");
-        question.add( "Available options:");
-        question.add("0. BlackPowerRanger");
-        question.add("1. PinkPowerRanger");
-        question.add("2. YellowPowerRanger");
-        question.add("I choose: ");
-        answer.add("Blackkie");
-        question.add("Invalid input.");
-        question.add("I choose: ");
-        answer.add("BlackPowerRanger");
-        question.add("You have chosen: BlackPowerRanger");
-        question.add("Please select a role to assign.");
-        question.add( "Available options:");
-        question.add("0. " + Role.LEAD.name());
-        question.add("1. " + Role.PROGRAMMER.name());
-        answer.add("Testiebestie");
-        question.add("Invalid input.");
-        question.add("I choose: ");
-        answer.add("TESTER");
-        question.add("You have chosen:" + Role.TESTER.name());
-        question.add("PinkPowerRanger assigned to project: PowerRangerProject2 version: " + new VersionID().toString() + ", with role: " + Role.TESTER.name());
-
-        // init scanner
-        scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
-
-        // Execute scenario
-        Project chosen = cmd.exec(scan, model, dev1);
-        // Test effects
-        assertTrue(chosen.getAllRolesDev(dev1).contains(Role.TESTER));
-    }
-
-    @Test
     public void testNormalStringWithSpaceExec() throws PermissionException, CancelException {
         // Setup scenario
         question.add("Please select a project you lead.");
@@ -179,7 +135,7 @@ public class AssignToProjectCmdTest {
         question.add("0. PowerRangerProject version: " + new VersionID().toString());
         question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
         question.add("I choose: ");
-        answer.add("lala");
+        answer.add("powpow 0.0.1");
         question.add("Invalid input.");
         question.add("I choose: ");
         answer.add("PowerRangerProject2 0.0.1");
@@ -191,21 +147,22 @@ public class AssignToProjectCmdTest {
         question.add("1. PinkPowerRanger");
         question.add("2. YellowPowerRanger");
         question.add("I choose: ");
-        answer.add("Blackkie");
+        answer.add("Blackie");
         question.add("Invalid input.");
         question.add("I choose: ");
-        answer.add("YellowPowerRanger");
-        question.add("You have chosen: YellowPowerRanger");
+        answer.add("BlackPowerRanger");
+        question.add("You have chosen: BlackPowerRanger");
         question.add("Please select a role to assign.");
-        question.add( "Available options:");
-        question.add("0. " + Role.LEAD.name());
+        question.add("Available options:");
+        question.add("0. " + Role.TESTER.name());
         question.add("1. " + Role.PROGRAMMER.name());
-        answer.add("Testiebestie");
+        question.add("I choose: ");
+        answer.add("TESTIE");
         question.add("Invalid input.");
         question.add("I choose: ");
-        answer.add("PROGRAMMER");
-        question.add("You have chosen:" + Role.PROGRAMMER.name());
-        question.add("PinkPowerRanger assigned to project: PowerRangerProject2 version: " + new VersionID().toString() + ", with role: " + Role.PROGRAMMER.name());
+        answer.add("TESTER");
+        question.add("You have chosen: " + Role.TESTER.name());
+        question.add("BlackPowerRanger assigned to project: PowerRangerProject2 version: " + new VersionID().toString() + ", with role: " + Role.TESTER.name());
 
         // init scanner
         scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
@@ -213,7 +170,53 @@ public class AssignToProjectCmdTest {
         // Execute scenario
         Project chosen = cmd.exec(scan, model, dev1);
         // Test effects
-        assertTrue(chosen.getAllRolesDev(dev3).contains(Role.PROGRAMMER));
+        assertTrue(chosen.getAllRolesDev(dev1).contains(Role.TESTER));
+    }
+
+    @Test
+    public void testNormalStringWithNoSpaceExec() throws PermissionException, CancelException {
+        // Setup scenario
+        question.add("Please select a project you lead.");
+        question.add( "Available options:");
+        question.add("0. PowerRangerProject version: " + new VersionID().toString());
+        question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
+        question.add("I choose: ");
+        answer.add("powpow0.0.1");
+        question.add("Invalid input.");
+        question.add("I choose: ");
+        answer.add("PowerRangerProject20.0.1");
+        question.add("You have chosen:");
+        question.add(projectB.getDetails());
+        question.add("Please select a developer to assign.");
+        question.add( "Available options:");
+        question.add("0. BlackPowerRanger");
+        question.add("1. PinkPowerRanger");
+        question.add("2. YellowPowerRanger");
+        question.add("I choose: ");
+        answer.add("yellie");
+        question.add("Invalid input.");
+        question.add("I choose: ");
+        answer.add("YellowPowerRanger");
+        question.add("You have chosen: YellowPowerRanger");
+        question.add("Please select a role to assign.");
+        question.add("Available options:");
+        question.add("0. " + Role.LEAD.name());
+        question.add("1. " + Role.PROGRAMMER.name());
+        question.add("I choose: ");
+        answer.add("PROGGIE");
+        question.add("Invalid input.");
+        question.add("I choose: ");
+        answer.add("PROGRAMMER");
+        question.add("You have chosen: " + Role.PROGRAMMER.name());
+        question.add("YellowPowerRanger assigned to project: PowerRangerProject2 version: " + new VersionID().toString() + ", with role: " + Role.PROGRAMMER.name());
+
+        // init scanner
+        scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+
+        // Execute scenario
+        Project chosen = cmd.exec(scan, model, dev1);
+        // Test effects
+        assertTrue(chosen.getAllRolesDev(dev1).contains(Role.TESTER));
     }
 
     @Test
@@ -225,6 +228,50 @@ public class AssignToProjectCmdTest {
         Project chosen = cmd.exec(scan, model, dev3);
         // Test effects
         assertEquals(null, chosen);
+    }
+
+    @Test (expected = PermissionException.class)
+    public void testPermissionExcExec() throws PermissionException, CancelException {
+        // Setup scenario
+        question.add("Please select a project you lead.");
+        question.add( "Available options:");
+        question.add("0. PowerRangerProject version: " + new VersionID().toString());
+        question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
+        question.add("I choose: ");
+        answer.add("powpow0.0.1");
+        question.add("Invalid input.");
+        question.add("I choose: ");
+        answer.add("PowerRangerProject0.0.1");
+        question.add("You have chosen:");
+        question.add(projectA.getDetails());
+        question.add("Please select a developer to assign.");
+        question.add( "Available options:");
+        question.add("0. BlackPowerRanger");
+        question.add("1. PinkPowerRanger");
+        question.add("2. YellowPowerRanger");
+        question.add("I choose: ");
+        answer.add("yellie");
+        question.add("Invalid input.");
+        question.add("I choose: ");
+        answer.add("YellowPowerRanger");
+        question.add("You have chosen: YellowPowerRanger");
+        question.add("Please select a role to assign.");
+        question.add("Available options:");
+        question.add("0. " + Role.LEAD.name());
+        question.add("I choose: ");
+        answer.add("PROGGIE");
+        question.add("Invalid input.");
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have chosen: " + Role.LEAD.name());
+
+        // init scanner
+        scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+
+        // Execute scenario
+        Project chosen = cmd.exec(scan, model, dev1);
+        // Test effects
+        assertTrue(chosen.getAllRolesDev(dev1).contains(Role.TESTER));
     }
 
 
