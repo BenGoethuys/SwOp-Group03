@@ -81,7 +81,7 @@ public class InspectBugReportCmdTest {
         question.add("enter text: ");
         answer.add("");
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
         question.add("1. " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
         question.add("I choose: ");

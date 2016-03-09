@@ -71,7 +71,7 @@ public class AssignToBugReportCmdTest {
         question.add("enter text: ");
         answer.add("bugRep");
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
         question.add("I choose: ");
         answer.add("0");
@@ -151,12 +151,12 @@ public class AssignToBugReportCmdTest {
         question.add("enter text: ");
         answer.add("bugRep");
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
-        question.add("Available developers: ");
+        question.add("Available options: ");
         question.add("0. " + dev2.getUsername());
         question.add("1. " + lead.getUsername());
         question.add("I choose: (leave blank when done)");
@@ -226,7 +226,7 @@ public class AssignToBugReportCmdTest {
         question.add("enter text: ");
         answer.add("bugRep");
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
         question.add("I choose: ");
         answer.add("0");
