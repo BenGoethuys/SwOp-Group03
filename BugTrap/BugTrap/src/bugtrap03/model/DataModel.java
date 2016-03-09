@@ -302,7 +302,7 @@ public class DataModel {
             Long budgetEstimate) throws IllegalArgumentException, PermissionException {
         // check needed permission
         if (!user.hasPermission(UserPerm.UPDATE_PROJ)) {
-            throw new PermissionException("You dont have the needed permission to update a project!");
+            throw new PermissionException("You don't have the needed permission to update a project!");
         }
 
         // Test to prevent inconsistent updating of vars

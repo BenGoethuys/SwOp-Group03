@@ -240,7 +240,7 @@ public class UpdateBugReportCmdTest {
     // duplicate BR as well.
     /**
      * Test method for
-     * {@link bugtrap03.gui.cmd.UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
+     * {@link UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
      * . Set a tag from NEW to Duplicate as the lead.
      */
     @Test
