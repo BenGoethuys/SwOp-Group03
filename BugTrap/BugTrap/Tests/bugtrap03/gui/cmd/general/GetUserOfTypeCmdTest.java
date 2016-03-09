@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bugtrap03.gui.cmd.general;
 
 import bugtrap03.model.DataModel;
@@ -18,7 +13,8 @@ import testCollection.TerminalTestScanner;
 
 /**
  *
- * @author Admin
+ * @author Group 03
+ *
  */
 public class GetUserOfTypeCmdTest {
 
@@ -37,17 +33,17 @@ public class GetUserOfTypeCmdTest {
      */
     @Test
     public void testExecName() throws CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLeadAX", "Luky", "Luke");
         Issuer issuer = model.createIssuer("noDevAX", "BadLuck", "Luke");
         User admin = model.createAdministrator("adminAX", "adminT", "bie");
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd(Issuer.class);
 
-        //Setup scenario
+        // Setup scenario
         question.add("Available options:");
         question.add("0. " + lead.getUsername());
         question.add("1. " + issuer.getUsername());
@@ -65,10 +61,10 @@ public class GetUserOfTypeCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Issuer chosen = cmd.exec(scan, model, admin);
 
-        //Test effects.
+        // Test effects.
         assertEquals(chosen, lead);
     }
 
@@ -79,7 +75,7 @@ public class GetUserOfTypeCmdTest {
      */
     @Test
     public void testExecIndex() throws CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead50", "Luky", "Luke");
         Issuer issuer = model.createIssuer("noDev50", "BadLuck", "Luke");
@@ -89,7 +85,7 @@ public class GetUserOfTypeCmdTest {
         ArrayDeque<String> answer = new ArrayDeque();
         GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd(Issuer.class);
 
-        //Setup scenario
+        // Setup scenario
         question.add("Available options:");
         question.add("0. " + lead.getUsername());
         question.add("1. " + issuer.getUsername());
@@ -107,10 +103,10 @@ public class GetUserOfTypeCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Issuer chosen = cmd.exec(scan, model, admin);
 
-        //Test effects.
+        // Test effects.
         assertEquals(lead, chosen);
     }
 
@@ -121,7 +117,7 @@ public class GetUserOfTypeCmdTest {
      */
     @Test
     public void testExecEmpty() throws CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         User admin = model.createAdministrator("admin00", "adminT", "bie");
 
@@ -130,14 +126,14 @@ public class GetUserOfTypeCmdTest {
         GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd(Issuer.class);
 
         //Setup scenario
-        question.add("No users of this type found.");
+        question.add("No options found.");
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Issuer chosen = cmd.exec(scan, model, admin);
 
-        //Test effects.
+        // Test effects.
         assertEquals(null, chosen);
     }
 

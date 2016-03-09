@@ -44,8 +44,8 @@ public class CreateSubsystemCmdTest {
         Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
         Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         CreateSubsystemCmd cmd = new CreateSubsystemCmd();
 
         //Setup scenario
@@ -112,8 +112,8 @@ public class CreateSubsystemCmdTest {
         Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
         Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         CreateSubsystemCmd cmd = new CreateSubsystemCmd();
 
         //Setup scenario

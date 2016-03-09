@@ -20,34 +20,37 @@ public class UpdateBugReportCmd implements Cmd {
 
     /**
      * <p>
-     * <br> 1. The developer indicates he wants to update a bug report.
-     * <br> 2. Include use case Select Bug Report.
-     * <br> 3. The developer suggests a new tag for the bug report.
-     * <br> 4. The system gives the selected bug report the new tag.
-     * <br> 4a. The developer does not have the permission to assign the tag:
+     * <br>
+     * 1. The developer indicates he wants to update a bug report. <br>
+     * 2. Include use case Select Bug Report. <br>
+     * 3. The developer suggests a new tag for the bug report. <br>
+     * 4. The system gives the selected bug report the new tag. <br>
+     * 4a. The developer does not have the permission to assign the tag:
      *
      * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user The {@link User} who wants to executes this command.
      * @return The BugReport of which the tag has been updated.
      * @throws PermissionException When the user doesn't have the needed
-     * permission to set the tag.
+     *             permission to set the tag.
      * @throws CancelException When the user wants to abort the process
      */
     @Override
-    public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
-        //1. The developer indicates he wants to update a bug report.
-        //2. Include use case Select Bug Report.
+    public BugReport exec(TerminalScanner scan, DataModel model, User user)
+            throws PermissionException, CancelException {
+        // 1. The developer indicates he wants to update a bug report.
+        // 2. Include use case Select Bug Report.
         BugReport bugrep = new SelectBugReportCmd().exec(scan, model, user);
 
-        //Ask Tag
+        // Ask Tag
         Tag tagToSet;
         do {
-            //3. The developer suggests a new tag for the bug report.
+            // 3. The developer suggests a new tag for the bug report.
             tagToSet = this.selectTag(scan, model);
             try {
-                //4. The system gives the selected bug report the new tag.
-                //4a.The developer does not have the permission to assign the tag:
+                // 4. The system gives the selected bug report the new tag.
+                // 4a.The developer does not have the permission to assign the
+                // tag:
                 model.setTag(bugrep, tagToSet, user);
             } catch (IllegalArgumentException iae) {
                 scan.println("Invalid tag, select other tag");
@@ -92,7 +95,7 @@ public class UpdateBugReportCmd implements Cmd {
                 }
             }
         } while (tagToSet == null);
-        
+
         scan.println("You have selected: \t" + tagToSet.toString());
         return tagToSet;
     }

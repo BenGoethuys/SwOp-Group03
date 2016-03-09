@@ -12,7 +12,8 @@ import testCollection.TerminalTestScanner;
 
 /**
  *
- * @author Admin
+ * @author Group 03
+ *
  */
 public class GetUserOfExactTypeCmdTest {
 
@@ -31,7 +32,7 @@ public class GetUserOfExactTypeCmdTest {
      */
     @Test
     public void testExecName() throws CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead16", "Luky", "Luke");
         User issuer = model.createIssuer("noDev16", "BadLuck", "Luke");
@@ -41,7 +42,7 @@ public class GetUserOfExactTypeCmdTest {
         ArrayDeque<String> answer = new ArrayDeque();
         GetUserOfExcactTypeCmd<Developer> cmd = new GetUserOfExcactTypeCmd(Developer.class);
 
-        //Setup scenario
+        // Setup scenario
         question.add("Available options:");
         question.add("0. " + lead.getUsername());
         question.add("I choose: ");
@@ -58,10 +59,10 @@ public class GetUserOfExactTypeCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Developer dev = cmd.exec(scan, model, admin);
 
-        //Test effects.
+        // Test effects.
         assertEquals(dev, lead);
     }
 
@@ -72,7 +73,7 @@ public class GetUserOfExactTypeCmdTest {
      */
     @Test
     public void testExecIndex() throws CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead20", "Luky", "Luke");
         User issuer = model.createIssuer("noDev20", "BadLuck", "Luke");
@@ -82,7 +83,7 @@ public class GetUserOfExactTypeCmdTest {
         ArrayDeque<String> answer = new ArrayDeque();
         GetUserOfExcactTypeCmd<Developer> cmd = new GetUserOfExcactTypeCmd(Developer.class);
 
-        //Setup scenario
+        // Setup scenario
         question.add("Available options:");
         question.add("0. " + lead.getUsername());
         question.add("I choose: ");
@@ -99,10 +100,10 @@ public class GetUserOfExactTypeCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Developer dev = cmd.exec(scan, model, admin);
 
-        //Test effects.
+        // Test effects.
         assertEquals(dev, lead);
     }
 

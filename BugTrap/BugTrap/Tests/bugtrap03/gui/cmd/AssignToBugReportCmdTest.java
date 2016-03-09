@@ -1,10 +1,6 @@
-/**
- *
- */
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.BugReport;
-import bugtrap03.bugdomain.Comment;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.VersionID;
@@ -16,10 +12,8 @@ import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
 import java.util.ArrayDeque;
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
@@ -33,26 +27,13 @@ import testCollection.TerminalTestScanner;
 public class AssignToBugReportCmdTest {
 
     /**
-     * @throws java.lang.Exception
-     */
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-    }
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    /**
      * Test method for
-     * {@link bugtrap03.gui.cmd.AssignToBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}.
+     * {@link bugtrap03.gui.cmd.AssignToBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
+     * .
      */
     @Test
     public void testExec() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("trolbol00-6", "Luky", "Luke");
         Developer dev2 = model.createDeveloper("Duck", "Truck", "Luck");
@@ -67,14 +48,17 @@ public class AssignToBugReportCmdTest {
         model.assignToProject(projectA, lead, dev4, Role.PROGRAMMER);
 
         // make subsystems
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome", "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), subsystemA2);
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                subsystemA2);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         AssignToBugReportCmd cmd = new AssignToBugReportCmd();
 
-        //Setup scenario
+        // Setup scenario
         question.add("Please select a search mode: ");
         question.add("0. title");
         question.add("1. description");
@@ -117,16 +101,13 @@ public class AssignToBugReportCmdTest {
         question.add("Finished assigning.");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         BugReport chosen = cmd.exec(scan, model, lead);
-        //Test effects.
         
+        //Test effects.
         assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(dev2));
         assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(lead));
         assertEquals(model.getDevelopersOfBugReport(bugRep1).size(), 2);
-        
-        
-
     }
 
 }
