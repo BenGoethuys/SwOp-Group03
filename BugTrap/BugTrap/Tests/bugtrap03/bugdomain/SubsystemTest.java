@@ -27,6 +27,8 @@ public class SubsystemTest {
     static VersionID subVersion;
     static String subName;
     static String subDescription;
+    static String subName2;
+    static String subDescription2;
     static Subsystem subSysTest;
     static Subsystem subSysTest2;
 
@@ -50,16 +52,16 @@ public class SubsystemTest {
         subVersion = new VersionID(9, 8, 7);
         subName = "testSub";
         subDescription = "This is a test description of a subsystem";
-        subSysTest = testProject.makeSubsystemChild(subVersion, subName, subDescription);
-        subSysTest2 = subSysTest.makeSubsystemChild("meh", "moeh");
+        subName2 = "meh";
+        subDescription2 = "moeh";
 
+        subSysTest = testProject.makeSubsystemChild(subVersion, subName, subDescription);
+        subSysTest2 = subSysTest.makeSubsystemChild(subName2,subDescription2);
         emptyDep = PList.<BugReport>empty();
         bugreport1 = subSysTest.addBugReport(testDev, "testBug3", "this is description of testbug 3", emptyDep);
-
         depToRep1 = PList.<BugReport>empty().plus(bugreport1);
         bugreport2 = subSysTest.addBugReport(testDev, "otherBug4", "i like bananas", depToRep1);
     }
-
 
     @Before
     public void setUp() throws Exception {
@@ -179,9 +181,9 @@ public class SubsystemTest {
     @Test
     public void testSetVersionID() throws Exception {
         VersionID vid = new VersionID(12,11,10);
-        subSysTest.setVersionID(vid);
-        assertNotEquals(subVersion, subSysTest.getVersionID());
-        assertEquals(vid, subSysTest.getVersionID());
+        subSysTest2.setVersionID(vid);
+        assertNotEquals(new VersionID(), subSysTest2.getVersionID());
+        assertEquals(vid, subSysTest2.getVersionID());
     }
 
     @Test
@@ -198,9 +200,9 @@ public class SubsystemTest {
     @Test
     public void testSetName() throws Exception {
         String ena = "Extra test name woehoew";
-        subSysTest.setName(ena);
-        assertNotEquals(subName, subSysTest.getName());
-        assertEquals(ena, subSysTest.getName());
+        subSysTest2.setName(ena);
+        assertNotEquals(subName2, subSysTest2.getName());
+        assertEquals(ena, subSysTest2.getName());
     }
 
     @Test
@@ -218,9 +220,9 @@ public class SubsystemTest {
     @Test
     public void testSetDescription() throws Exception {
         String ede = "Extra test description woehoew";
-        subSysTest.setDescription(ede);
-        assertNotEquals(subDescription, subSysTest.getDescription());
-        assertEquals(ede, subSysTest.getDescription());
+        subSysTest2.setDescription(ede);
+        assertNotEquals(subDescription2, subSysTest2.getDescription());
+        assertEquals(ede, subSysTest2.getDescription());
     }
 
     @Test
@@ -230,19 +232,18 @@ public class SubsystemTest {
 
     @Test
     public void testGetChilds() throws Exception {
-        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest).plus(subSysTest2);
-        assertEquals(childList, testProject.getChilds());
+        assertTrue(testProject.getChilds().contains(subSysTest));
+        assertFalse(testProject.getChilds().contains(subSysTest2));
+        assertTrue(subSysTest.getChilds().contains(subSysTest2));
+        assertFalse(subSysTest.getChilds().contains(subSysTest));
     }
 
     @Test
     public void testMakeSubsystemChild() throws Exception {
         String ede = "Extra test description woehoew 2";
         String ena = "Extra test name woehoew 2";
-        Subsystem esu = subSysTest2.makeSubsystemChild(ena, ede);
-        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
-        assertNotEquals(childList, subSysTest2.getChilds());
-        childList = childList.plus(esu);
-        assertEquals(childList,subSysTest2.getChilds());
+        Subsystem esu = subSysTest.makeSubsystemChild(ena, ede);
+        assertTrue(subSysTest.getChilds().contains(esu));
     }
 
     @Test
@@ -250,11 +251,8 @@ public class SubsystemTest {
         VersionID vid = new VersionID(56,21,20);
         String ede = "Extra test description woehoew 2";
         String ena = "Extra test name woehoew 2";
-        Subsystem esu = subSysTest2.makeSubsystemChild(vid, ena, ede);
-        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
-        assertNotEquals(childList, subSysTest2.getChilds());
-        childList = childList.plus(esu);
-        assertEquals(childList,subSysTest2.getChilds());
+        Subsystem esu = subSysTest.makeSubsystemChild(vid, ena, ede);
+        assertTrue(subSysTest.getChilds().contains(esu));
     }
 
     @Test
@@ -271,11 +269,11 @@ public class SubsystemTest {
 
     @Test
     public void testGetAllSubsystems() throws Exception {
+        assertTrue(subSysTest.getAllSubsystems().contains(subSysTest2));
         Subsystem ss3 = subSysTest2.makeSubsystemChild("uhu", "aha");
-        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest).plus(ss3);
-        assertEquals(childList, subSysTest2.getAllSubsystems());
-        PList<Subsystem> childList2 = PList.<Subsystem>empty().plus(subSysTest2).plus(subSysTest).plus(ss3);
-        assertEquals(childList2, subSysTest.getAllSubsystems());
+        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest2).plus(ss3);
+        assertTrue(subSysTest.getAllSubsystems().containsAll(childList));
+        assertTrue(subSysTest2.getAllSubsystems().contains(ss3));
     }
 
 
