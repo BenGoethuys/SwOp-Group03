@@ -284,6 +284,16 @@ public class DataModel {
         }
         return list;
     }
+    
+    /**
+     * Get all {@link BugReports} of a certain {@link AbstractSystem}.
+     * This includes reports from childs of the system.
+     * @param system The system to retrieve bug reports of.
+     * @return The list of bug reports of the given system.
+     */
+    public PList<BugReport> getAllBugReportsOfSystem(AbstractSystem system) {
+        return system.getAllBugReports();
+    }
 
     /**
      * This method updates the given project with the new given attributes
