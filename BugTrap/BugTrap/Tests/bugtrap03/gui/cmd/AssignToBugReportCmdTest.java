@@ -1,6 +1,3 @@
-/**
- *
- */
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.BugReport;
@@ -15,6 +12,8 @@ import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
 import java.util.ArrayDeque;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
@@ -99,12 +98,16 @@ public class AssignToBugReportCmdTest {
         question.add("Added " + dev2.getUsername());
         question.add("I choose: (leave blank when done)");
         answer.add("");
-        question.add(" ");
+        question.add("Finished assigning.");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
         BugReport chosen = cmd.exec(scan, model, lead);
-        // Test effects
+        
+        //Test effects.
+        assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(dev2));
+        assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(lead));
+        assertEquals(model.getDevelopersOfBugReport(bugRep1).size(), 2);
     }
 
 }

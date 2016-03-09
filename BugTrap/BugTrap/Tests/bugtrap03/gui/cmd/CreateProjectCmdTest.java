@@ -133,7 +133,7 @@ public class CreateProjectCmdTest {
         question.add("Invalid input. Use create or clone.");
         question.add("Create or clone: ");
         answer.add("clOne");
-        question.add("Available projects:");
+        question.add("Available options:");
         question.add("0. " + proj.getName() + " version: " + proj.getVersionID());
         question.add("I choose: ");
         answer.add("lol");

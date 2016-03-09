@@ -78,40 +78,13 @@ public class GetProjectCmd implements Cmd {
             projectList = specificList;
         }
 
-        scan.println("Available projects:");
-        for (int i = 0; i < projectList.size(); i++) {
-            scan.println(i + ". " + projectList.get(i).getName() + " version: "
-                    + projectList.get(i).getVersionID().toString());
-        }
+        // Select project of list
+        Project proj = new GetObjectOfListCmd<>(projectList,
+                (u -> (u.getName() + " version: " + u.getVersionID().toString())),
+                ((u, input) -> ((u.getName() + u.getVersionID()).toString().equals(input) ||
+                        (u.getName() + " " + u.getVersionID()).toString().equals(input))))
+                .exec(scan, model, null);
 
-        // Retrieve & process user input.
-        Project proj = null;
-        do {
-            scan.print("I choose: ");
-            if (scan.hasNextInt()) { // by index
-                int index = scan.nextInt();// input
-                if (index >= 0 && index < projectList.size()) {
-                    proj = projectList.get(index);
-                } else {
-                    scan.println("Invalid input.");
-                }
-            } else { // by name
-                String input = scan.nextLine(); // input
-                try {
-                    proj = projectList.parallelStream()
-                            .filter(u -> (u.getName() + u.getVersionID().toString()).equals(input)).findFirst().get();
-                } catch (NoSuchElementException ex) {
-                    try {
-                        proj = projectList.parallelStream()
-                                .filter(u -> (u.getName() + " " + u.getVersionID().toString()).equals(input))
-                                .findFirst().get();
-                    } catch (NoSuchElementException ex2) {
-                        scan.println("Invalid input.");
-                    }
-                }
-
-            }
-        } while (proj == null);
         scan.println("You have chosen:");
         scan.println(proj.getDetails());
 

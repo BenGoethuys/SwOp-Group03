@@ -1,5 +1,6 @@
 package bugtrap03.gui.cmd;
 
+import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.Project;
@@ -52,31 +53,10 @@ public class CreateBugReportCmd implements Cmd {
         Project proj = new GetProjectCmd().exec(scan, model, user);
 
         PList<Subsystem> subsysList = model.getAllSubsystems(proj);
-        scan.println("Available subsystems:");
-        for (int i = 0; i < subsysList.size(); i++) {
-            scan.println(i + ". " + subsysList.get(i).getName());
-        }
 
-        // Retrieve & process user input.
-        Subsystem subsys = null;
-        do {
-            scan.print("I choose: ");
-            if (scan.hasNextInt()) { // by index
-                int index = scan.nextInt();// input
-                if (index >= 0 && index < subsysList.size()) {
-                    subsys = subsysList.get(index);
-                } else {
-                    scan.println("Invalid input.");
-                }
-            } else { // by name
-                String input = scan.nextLine(); // input
-                try {
-                    subsys = subsysList.parallelStream().filter(u -> u.getName().equals(input)).findFirst().get();
-                } catch (NoSuchElementException ex) {
-                    scan.println("Invalid input.");
-                }
-            }
-        } while (subsys == null);
+        Subsystem subsys = new GetObjectOfListCmd<Subsystem>(subsysList, (u -> u.getName()), ((u, input) -> u.getName().equals(input)))
+                .exec(scan, model, user);
+
         scan.println("You have chosen:");
         scan.println(subsys.getName());
 
@@ -91,6 +71,7 @@ public class CreateBugReportCmd implements Cmd {
         // BugReport Dependencies
         scan.println("Choose a dependency.");
         PList<BugReport> possibleDeps = proj.getAllBugReports();
+        
         scan.println("Available bugReports:");
         for (int i = 0; i < possibleDeps.size(); i++) {
             BugReport bugrep = possibleDeps.get(i);

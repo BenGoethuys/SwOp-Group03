@@ -484,7 +484,6 @@ public class BugReportTest {
 		assertTrue(tempBugReport.isValidUser(dev));
 		assertFalse(tempBugReport.isValidUser(null));
 		tempBugReport.addUser(dev);
-		assertFalse(tempBugReport.isValidUser(dev));
 	}
 	
 	@Test

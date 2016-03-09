@@ -125,8 +125,8 @@ public class GetUserOfTypeCmdTest {
         ArrayDeque<String> answer = new ArrayDeque();
         GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd(Issuer.class);
 
-        // Setup scenario
-        question.add("No users of this type found.");
+        //Setup scenario
+        question.add("No options found.");
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 

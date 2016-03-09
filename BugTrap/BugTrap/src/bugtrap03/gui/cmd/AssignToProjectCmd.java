@@ -6,6 +6,7 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.gui.cmd.general.GetProjectCmd;
 import bugtrap03.gui.cmd.general.GetUserOfTypeCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
@@ -73,31 +74,10 @@ public class AssignToProjectCmd implements Cmd {
         }
         
         //6. Shows a list of possible (not yet assigned) roles for the selected dev.
-        scan.println("Possible roles to assign: ");
-        for (int i=0; i<roleList.size();i++){
-            scan.println(i + ". " + roleList.get(i).name());
-        }
-        
         //7. The lead developer selects a role.
-        Role selectedRole =  null;
-        do{
-            scan.print("I choose role: ");
-            if (scan.hasNextInt()) { // by index
-                int index = scan.nextInt();// input
-                if (index >= 0 && index < roleList.size()) {
-                    selectedRole = roleList.get(index);
-                } else {
-                    scan.println("Invalid input.");
-                }
-            } else { // by name
-                String input = scan.nextLine(); // input
-                try {
-                    selectedRole = roleList.parallelStream().filter(u -> u.name().equals(input)).findFirst().get();
-                } catch (NoSuchElementException ex) {
-                    scan.println("Invalid input.");
-                }
-            }
-        } while(selectedRole == null);
+        Role selectedRole = new GetObjectOfListCmd<Role>(roleList, (u -> u.name()), ((u, input) -> u.name().equals(input)))
+                .exec(scan, model, user);
+
         scan.println("Selected role: " + selectedRole.name());
         
         //8. The systems assigns the selected role to the selected developer.
