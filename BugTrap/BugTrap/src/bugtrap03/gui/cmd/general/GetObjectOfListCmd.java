@@ -12,7 +12,7 @@ import purecollections.PList;
 
 /**
  *
- * @author Admin
+ * @author Group 03
  */
 public class GetObjectOfListCmd<U extends Object> implements Cmd {
 

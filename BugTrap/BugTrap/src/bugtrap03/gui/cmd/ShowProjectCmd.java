@@ -38,7 +38,6 @@ public class ShowProjectCmd implements Cmd {
         Project proj = new GetProjectCmd().exec(scan, model, user);
 
         //4. Sshow a detailed overview of the selected project and all its subsystems.
-        //TODO: getDetails() does not provide any information over subsystems!!!
         scan.println(proj.getDetails());
         return proj;
     }
