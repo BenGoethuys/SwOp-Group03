@@ -85,8 +85,7 @@ public class AssignToBugReportCmd implements Cmd {
                         } else {
                             scan.println("Invalid input.");
                         }
-                    } catch (InputMismatchException e) { // by username
-
+                    } catch (NumberFormatException | InputMismatchException e) { // by username
                         try {
                             dev = list.parallelStream().filter(u -> u.getUsername().equals(input)).findFirst().get();
                         } catch (NoSuchElementException ex) {
