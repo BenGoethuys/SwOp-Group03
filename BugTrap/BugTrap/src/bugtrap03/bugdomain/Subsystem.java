@@ -26,12 +26,14 @@ public class Subsystem extends AbstractSystem {
      * @param name The string name for this element.
      * @param description The string description of this element.
      * @param parent The parent (a Project or Subsystem) of this element.
-     * @throws NullPointerException if the versionID is null.
-     * @throws IllegalArgumentException if one of the String arguments is
-     *             invalid.
+     * @throws IllegalArgumentException if one of the String arguments is invalid.
+     * @throws IllegalArgumentException if the version id is invalid.
+     * @throws IllegalArgumentException if the parent is invalid for this subsystem
+     * @see AbstractSystem#AbstractSystem(VersionID, String, String)
+     * @see Subsystem#isValidParent(AbstractSystem)
      **/
     public Subsystem(VersionID version, String name, String description, AbstractSystem parent)
-            throws NullPointerException, IllegalArgumentException {
+            throws IllegalArgumentException {
         super(version, name, description);
         // if (!this.isValidName(name, parent)) {
         // throw new IllegalArgumentException("The name is invalid with the
@@ -48,8 +50,8 @@ public class Subsystem extends AbstractSystem {
      * @param name The string name for this element.
      * @param description The string description of this element.
      * @param parent The parent (a Project or Subsystem) of this element.
-     * @throws IllegalArgumentException if one of the String arguments is
-     *             invalid.
+     * @throws IllegalArgumentException if one of the String arguments is invalid.
+     * @see Subsystem#Subsystem(VersionID, String, String, AbstractSystem)
      **/
     public Subsystem(String name, String description, AbstractSystem parent)
             throws IllegalArgumentException {
@@ -70,8 +72,8 @@ public class Subsystem extends AbstractSystem {
      * elements of subclass subsystems have a parent different from null.
      *
      * @param parent The given parent of the AbstractSystem
-     * @throws IllegalArgumentException if the given parent isn't valid for this
-     *             subsystem
+     * @throws IllegalArgumentException if the given parent isn't valid for this subsystem
+     * @see Subsystem#isValidParent(AbstractSystem)
      */
     private void setParent(AbstractSystem parent) throws IllegalArgumentException {
         if (!isValidParent(parent)) {
@@ -145,8 +147,7 @@ public class Subsystem extends AbstractSystem {
      * @param description The description of this bug report
      * @param dependencies The dependencies of the bug report
      * @return the created bug report
-     * @throws IllegalArgumentException If BugReport(creator, title,
-     *             description, dependencies, this) fails
+     * @throws IllegalArgumentException If BugReport(creator, title, description, dependencies, this) fails
      * @throws PermissionException If the creation of a BugReport fails.
      * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
      *      String, PList, Subsystem)
@@ -167,8 +168,7 @@ public class Subsystem extends AbstractSystem {
      * @param description The description of this bug report
      * @param dependencies The dependencies of the bug report
      * @return the created bug report
-     * @throws IllegalArgumentException If BugReport(creator, title,
-     *             description, dependencies, this) fails
+     * @throws IllegalArgumentException If BugReport(creator, title, description, dependencies, this) fails
      * @throws PermissionException If the creation of a BugReport fails.
      * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
      *      String, PList, Subsystem)
@@ -186,8 +186,12 @@ public class Subsystem extends AbstractSystem {
      * to this subsystem.
      *
      * @return the clone of the subsystem
+     * @throws IllegalArgumentException if the VersionID is invalid
+     * @throws IllegalArgumentException if one of the string arguments is invalid
+     * @throws IllegalArgumentException if the parent is invalid
+     * @see Subsystem#Subsystem(VersionID, String, String, AbstractSystem)
      */
-    public Subsystem cloneSubsystem(AbstractSystem parent) {
+    public Subsystem cloneSubsystem(AbstractSystem parent) throws IllegalArgumentException{
         return new Subsystem(this.getVersionID(), this.getName(), this.getDescription(), parent);
     }
 

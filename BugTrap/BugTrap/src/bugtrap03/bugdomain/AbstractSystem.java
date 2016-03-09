@@ -46,8 +46,8 @@ public abstract class AbstractSystem {
      *
      * @param name        The string name for this element.
      * @param description The string description of this element.
-     * @throws IllegalArgumentException if one of the String arguments is
-     *                                  invalid.
+     * @throws IllegalArgumentException if one of the String arguments is invalid.
+     * @see AbstractSystem#AbstractSystem(VersionID, String, String)
      */
     public AbstractSystem(String name, String description) throws IllegalArgumentException {
         this(new VersionID(), name, description);
@@ -67,7 +67,8 @@ public abstract class AbstractSystem {
      * Sets the versionID of the project to the given versionID.
      *
      * @param version The versionID of the project.
-     * @throws NullPointerException When version is a null-reference.
+     * @throws IllegalArgumentException When version is a invalid.
+     * @see #isValidVersionId(VersionID)
      */
     public void setVersionID(VersionID version) throws NullPointerException {
         if (! isValidVersionId(version)) {
