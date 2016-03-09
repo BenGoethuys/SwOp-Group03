@@ -25,18 +25,17 @@ public class CreateBugReportCmd implements Cmd {
     /**
      * Execute this command and possibly return a result.
      * <p>
-     * <br>
-     * 1. The issuer indicates he wants to file a bug report. <br>
-     * 2. The system shows a list of projects. <br>
-     * 3. The issuer selects a project. <br>
-     * 4. The system shows a list of subsystems of the selected project. <br>
-     * 5. The issuer selects a subsystem. <br>
-     * 6. The system shows the bug report creation form. <br>
-     * 7. The issuer enters the bug report details: title and description. <br>
-     * 8. The system shows a list of possible dependencies of this bug report.
-     * These are the bug reports of the same project. <br>
-     * 9. The issuer selects the dependencies. <br>
-     * 10. The system creates the bug report.
+     * <br> 1. The issuer indicates he wants to file a bug report. 
+     * <br> 2. The system shows a list of projects.
+     * <br> 3. The issuer selects a project. 
+     * <br> 4. The system shows a list of subsystems of the selected project. 
+     * <br> 5. The issuer selects a subsystem. 
+     * <br> 6. The system shows the bug report creation form. 
+     * <br> 7. The issuer enters the bug report details: title and description. 
+     * <br> 8. The system shows a list of possible dependencies of this bug report.
+     * These are the bug reports of the same project. 
+     * <br> 9. The issuer selects the dependencies. 
+     * <br> 10. The system creates the bug report.
      *
      * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.
@@ -55,13 +54,13 @@ public class CreateBugReportCmd implements Cmd {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
         
-        //1. The issuer indicates he wants to file a bug report.
-        //2. The system shows a list of projects.
-        //3. The issuer selects a project.
+        // 1. The issuer indicates he wants to file a bug report.
+        // 2. The system shows a list of projects.
+        // 3. The issuer selects a project.
         Project proj = new GetProjectCmd().exec(scan, model, user);
 
-        //4. The system shows a list of subsystems of the selected project.
-        //5. The issuer selects a subsystem.
+        // 4. The system shows a list of subsystems of the selected project.
+        // 5. The issuer selects a subsystem.
         PList<Subsystem> subsysList = model.getAllSubsystems(proj);
         Subsystem subsys = new GetObjectOfListCmd<>(subsysList, (u -> u.getName()), ((u, input) -> u.getName().equals(input)))
                 .exec(scan, model, user);
@@ -70,8 +69,8 @@ public class CreateBugReportCmd implements Cmd {
             throw new IllegalArgumentException("Please add a subsystem to the project before creating the bug report.");
         }
 
-        //6. The system shows the bug report creation form.
-        //7. The issuer enters the bug report details: title and description.
+        // 6. The system shows the bug report creation form.
+        // 7. The issuer enters the bug report details: title and description.
         scan.println("You have chosen:");
         scan.println(subsys.getName());
 
@@ -84,7 +83,7 @@ public class CreateBugReportCmd implements Cmd {
         String bugReportDesc = scan.nextLine();
 
         // BugReport Dependencies
-        //8. The system shows a list of possible dependencies of this bug report 
+        // 8. The system shows a list of possible dependencies of this bug report 
         scan.println("Choose a dependency.");
         PList<BugReport> possibleDeps = proj.getAllBugReports();
         scan.println("Available bugReports:");
@@ -94,7 +93,7 @@ public class CreateBugReportCmd implements Cmd {
         }
 
         // Retrieve & process user input.
-        //9. The issuer selects the dependencies.
+        // 9. The issuer selects the dependencies.
         HashSet<BugReport> depList = new HashSet<>();
         boolean done = false;
         do {
@@ -127,7 +126,7 @@ public class CreateBugReportCmd implements Cmd {
             }
         } while (!done);
 
-        //10. The system creates the bug report.
+        // 10. The system creates the bug report.
         BugReport bugreport = model.createBugReport(user, bugreportTitle, bugReportDesc,
                 PList.<BugReport>empty().plusAll(depList), subsys);
         scan.println("Created new bug report.");

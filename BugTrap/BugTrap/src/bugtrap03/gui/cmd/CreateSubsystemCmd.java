@@ -43,24 +43,28 @@ public class CreateSubsystemCmd implements Cmd {
         if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
-        // show all projects
+        // 1. The administrator indicates he wants to create a new subsystem.
+        // 2. Show a list of projects and subsystems.
+        // 3. The administrator selects the project or subsystem that the new subsystem will be part of.
         PList<AbstractSystem> list = model.getAllProjectsAndSubsystems();
-
         AbstractSystem system = new GetObjectOfListCmd<>(list, (u -> u.getName()), ((u, input) -> u.getName().equals(input)))
                 .exec(scan, model, user);
 
+        // 4. The system shows the subsystem creation form.
+        // 5. The administrator enters the subsystem details: name and description
         scan.println("You have chosen:");
         scan.println(system.getName());
 
-        //Project name
+        // Project name
         scan.print("Subsystem name:");
         String sysName = scan.nextLine();
 
-        //Project description
+        // Project description
         scan.print("Subsystem description:");
         String sysDesc = scan.nextLine();
 
-        //Create subsystem
+        // Create subsystem
+        // 6. The system creates the subsystem.
         Subsystem subsystem = model.createSubsystem(user, system, sysName, sysDesc);
         scan.println("Created subsystem " + subsystem.getName());
         return subsystem;

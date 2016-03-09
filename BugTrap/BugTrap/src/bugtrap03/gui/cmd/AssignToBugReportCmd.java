@@ -116,7 +116,7 @@ public class AssignToBugReportCmd implements Cmd {
             }
         } while (!done);
 
-        //5. The systems assigns the selected developers to the selected bug report.
+        // 5. The systems assigns the selected developers to the selected bug report.
         model.addUsersToBugReport(user, bugRep, PList.<Developer>empty().plusAll(devList));
         scan.println("Finished assigning.");
         return bugRep;
