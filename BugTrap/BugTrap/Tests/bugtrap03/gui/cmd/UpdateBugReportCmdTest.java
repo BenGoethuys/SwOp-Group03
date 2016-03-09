@@ -74,7 +74,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
-        question.add("Available tags: \n");
+        question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
         question.add("2. NOT_A_BUG");
@@ -82,7 +82,7 @@ public class UpdateBugReportCmdTest {
         question.add("4. CLOSED");
         question.add("5. RESOLVED");
         question.add("6. DUPLICATE");
-        question.add("I choose tag: ");
+        question.add("I choose: ");
         answer.add("5");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
@@ -143,7 +143,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
-        question.add("Available tags: \n");
+        question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
         question.add("2. NOT_A_BUG");
@@ -151,7 +151,7 @@ public class UpdateBugReportCmdTest {
         question.add("4. CLOSED");
         question.add("5. RESOLVED");
         question.add("6. DUPLICATE");
-        question.add("I choose tag: ");
+        question.add("I choose: ");
         answer.add("3");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
@@ -212,7 +212,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
-        question.add("Available tags: \n");
+        question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
         question.add("2. NOT_A_BUG");
@@ -220,13 +220,13 @@ public class UpdateBugReportCmdTest {
         question.add("4. CLOSED");
         question.add("5. RESOLVED");
         question.add("6. DUPLICATE");
-        question.add("I choose tag: ");
+        question.add("I choose: ");
         answer.add("-1");
         question.add("Invalid input.");
-        question.add("I choose tag: ");
+        question.add("I choose: ");
         answer.add("20");
         question.add("Invalid input.");
-        question.add("I choose tag: ");
+        question.add("I choose: ");
         answer.add("3");
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
@@ -288,7 +288,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
-        question.add("Available tags: \n");
+        question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
         question.add("2. NOT_A_BUG");
@@ -296,10 +296,10 @@ public class UpdateBugReportCmdTest {
         question.add("4. CLOSED");
         question.add("5. RESOLVED");
         question.add("6. DUPLICATE");
-        question.add("I choose tag: ");
+        question.add("I choose: ");
         answer.add("wrongInput");
         question.add("Invalid input.");
-        question.add("I choose tag: ");
+        question.add("I choose: ");
         answer.add("DUPLICATE");
         question.add("You have selected: \t" + "DUPLICATE");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
@@ -361,7 +361,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
-        question.add("Available tags: \n");
+        question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
         question.add("2. NOT_A_BUG");
@@ -369,14 +369,14 @@ public class UpdateBugReportCmdTest {
         question.add("4. CLOSED");
         question.add("5. RESOLVED");
         question.add("6. DUPLICATE");
-        question.add("I choose tag: ");
+        question.add("I choose: ");
         answer.add("wrongInput");
         question.add("Invalid input.");
-        question.add("I choose tag: ");
+        question.add("I choose: ");
         answer.add("5");
         question.add("You have selected: \t" + "RESOLVED");
         question.add("Invalid tag, select other tag");
-        question.add("Available tags: \n");
+        question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
         question.add("2. NOT_A_BUG");
@@ -384,7 +384,7 @@ public class UpdateBugReportCmdTest {
         question.add("4. CLOSED");
         question.add("5. RESOLVED");
         question.add("6. DUPLICATE");
-        question.add("I choose tag: ");
+        question.add("I choose: ");
         answer.add("abort");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
