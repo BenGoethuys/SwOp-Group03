@@ -409,23 +409,28 @@ public class Project extends AbstractSystem {
      */
     @DomainAPI
     public String getDetails() {
-        String details = "Project name:\t \t";
+        String details = "Project name:\t\t\t";
         details += this.getName();
-        details += "\nProject version:\t";
+        details += "\nProject version:\t\t";
         details += this.getVersionID().toString();
         details += "\nProject description: \t";
         details += this.getDescription();
-        details += "\nBudget estimate:\t" + this.getBudgetEstimate() + "\nStart date: \t \t";
+        details += "\nBudget estimate:\t\t" + this.getBudgetEstimate() + "\nStart date: \t\t\t";
         details += this.getStartDate().getTime();
         details += "\nLead dev. full name:\t";
         details += this.getLead().getFullName();
         details += "\nLead dev. user name:\t";
         details += this.getLead().getUsername();
-        details += "\nCreation date:\t \t";
+        details += "\nCreation date:\t\t\t";
         details += this.getCreationDate().getTime();
-        details += "\n";
+        details += "\nSubsystems of this project: ";
+        for (Subsystem subsys: this.getAllSubsystems()){
+            details += "\n\t" + subsys.getDetails();
+        }
         return details;
     }
+
+
 
     /**
      * Performs a deep clone on this Project. excluding all bugReports.

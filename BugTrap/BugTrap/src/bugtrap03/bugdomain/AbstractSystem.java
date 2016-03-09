@@ -7,7 +7,7 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import purecollections.PList;
 
 /**
- * This class represents a system
+ * This class represents an abstract system with a versionID, name, description and list of subsystem childs.
  * @author Group 03.
  */
 @DomainAPI
@@ -295,6 +295,13 @@ public abstract class AbstractSystem {
     public boolean hasPermission(Developer dev, RolePerm perm) {
         return this.getParentProject().hasPermission(dev, perm);
     }
+
+    /**
+     * This method stub represents the different getDetails of the subclasses.
+     * @return the details as String
+     */
+    @DomainAPI
+    public abstract String getDetails();
     
 
 }

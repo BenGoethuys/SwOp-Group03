@@ -270,8 +270,7 @@ public class ProjectTest {
         assertNotEquals(testStartDate, cloneProject.getStartDate());
         assertNotEquals(testDev, cloneProject.getLead());
         assertNotEquals(testVersion, cloneProject.getVersionID());
-        
-        //TODO Compare Dates??
+
         assertNotEquals(null, cloneProject.getCreationDate());
         assertEquals(testName, cloneProject.getName());
         assertEquals(testDescription, cloneProject.getDescription());

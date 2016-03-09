@@ -45,6 +45,7 @@ public enum Tag {
      * @param tag the tag to check
      * @return true if the tag is a valid tag
      */
+    //TODO: We could move this logic into a variable of each enum, like with the roles/perms?
     @DomainAPI
     public boolean isValidTag(Tag tag) {
         if (tag == null) {
