@@ -7,7 +7,8 @@ import java.util.Arrays;
 
 /**
  * This class represents a User in the system
- * @author Vincent Derkinderen
+ *
+ * @author Group 03
  * @version 0.1
  */
 @DomainAPI
