@@ -13,7 +13,8 @@ import java.util.NoSuchElementException;
 
 /**
  * This command represents the use case for creating a subsystem in the system
- * Created by Ben Goethuys on 29/02/2016.
+ *
+ * @author Group 03
  */
 public class CreateSubsystemCmd implements Cmd {
     /**

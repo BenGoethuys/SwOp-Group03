@@ -13,7 +13,7 @@ import purecollections.PList;
  * This command represents a sub use case where the user wants to select a
  * project
  *
- * @author Ben Goethuys
+ * @author Group 03
  */
 public class GetProjectCmd implements Cmd {
 
@@ -30,7 +30,7 @@ public class GetProjectCmd implements Cmd {
      * Create a GetProjectCmd with a specific list of projects used to provide
      * the user as a list of options during the select process.
      *
-     * @param specificList
+     * @param projectOptionList The new projectOptionList.
      */
     public GetProjectCmd(PList<Project> projectOptionList) {
         this.specificList = projectOptionList;

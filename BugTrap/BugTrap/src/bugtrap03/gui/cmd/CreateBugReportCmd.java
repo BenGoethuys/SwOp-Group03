@@ -16,7 +16,8 @@ import java.util.NoSuchElementException;
 
 /**
  * This commands represents the use case for creating a bug report in the system
- * Created by Ben Goethuys on 02/03/2016.
+ *
+ * @author Group 03
  */
 public class CreateBugReportCmd implements Cmd {
 

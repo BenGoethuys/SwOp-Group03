@@ -7,7 +7,8 @@ import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
  * This command represents a fail command that is executed when something went wrong
- * @author Vincent Derkinderen
+ *
+ * @author Group 03
  */
 public class InvalidCmd implements Cmd {
 

@@ -7,7 +7,9 @@ import bugtrap03.gui.cmd.CmdParser;
 import bugtrap03.gui.cmd.general.CancelException;
 
 /**
- * @author Admin
+ * This class represents the terminal of the system
+ *
+ * @author Group 03
  */
 public class Terminal {
 

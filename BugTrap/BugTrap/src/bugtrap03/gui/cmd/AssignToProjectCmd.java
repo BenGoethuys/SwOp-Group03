@@ -15,7 +15,9 @@ import purecollections.PList;
 import java.util.NoSuchElementException;
 
 /**
- * Created by Kwinten on 07/03/2016.
+ * This class represents the assign to project scenario
+ *
+ * @author Group 03
  */
 public class AssignToProjectCmd implements Cmd {
     
