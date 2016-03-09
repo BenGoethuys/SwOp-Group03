@@ -1,37 +1,48 @@
 package bugtrap03.gui.cmd.general;
 
-import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import java.util.NoSuchElementException;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
 import purecollections.PList;
 
 /**
  *
  * @author Admin
  */
-public class GetUserOfListCmd<U extends User> implements Cmd {
+public class GetObjectOfListCmd<U extends Object> implements Cmd {
 
     /**
-     * Create a GetUserOfListCmd that will use the given list of users as the
+     * Create a GetObjectOfListCmd that will use the given list of users as the
      * options in the select process.
      *
      * @param listOfUsers The list of users to pick from. When null is passed an
      * empty list will be used.
      *
-     * @see GetUserOfListCmd#exec(TerminalScanner, DataModel, User)
+     * @throws IllegalArgumentException If the function is null
+     *
+     * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
-    public GetUserOfListCmd(PList<U> listOfUsers) {
+    public GetObjectOfListCmd(PList<U> listOfUsers, Function<U, String> printFunction, BiFunction<U, String, Boolean> selectFunction) {
         if (listOfUsers == null) {
             this.listOfUsers = PList.<U>empty();
         } else {
             this.listOfUsers = listOfUsers;
         }
+        if (printFunction == null || selectFunction == null){
+            throw new IllegalArgumentException("The given function was null");
+        }
+        this.printFunction = printFunction;
+        this.selectFunction = selectFunction;
     }
 
     private final PList<U> listOfUsers;
+    private final Function<U, String> printFunction;
+    private final BiFunction<U, String, Boolean> selectFunction;
 
     /**
      * Create a scenario where the person will chose a User from the list passed
@@ -46,13 +57,13 @@ public class GetUserOfListCmd<U extends User> implements Cmd {
     @Override
     public U exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws CancelException {
         if (listOfUsers.isEmpty()) {
-            scan.println("No users of this type found.");
+            scan.println("No options found.");
             return null;
         }
 
         scan.println("Available options:");
         for (int i = 0; i < listOfUsers.size(); i++) {
-            scan.println(i + ". " + listOfUsers.get(i).getUsername());
+            scan.println(i + ". " + printFunction.apply(listOfUsers.get(i)));
         }
 
         //Retrieve & process user input.
@@ -69,7 +80,7 @@ public class GetUserOfListCmd<U extends User> implements Cmd {
             } else { //by username
                 String input = scan.nextLine(); //input
                 try {
-                    user = listOfUsers.parallelStream().filter(u -> u.getUsername().equals(input)).findFirst().get();
+                    user = listOfUsers.parallelStream().filter(u -> selectFunction.apply(u, input)).findFirst().get();
                 } catch (NoSuchElementException ex) {
                     scan.println("Invalid input.");
                 }

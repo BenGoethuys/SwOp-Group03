@@ -3,7 +3,6 @@ package bugtrap03.gui.cmd.general;
 import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.usersystem.User;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import bugtrap03.gui.cmd.Cmd;
@@ -53,7 +52,7 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
         PList<U> usersOfType = model.getUserListOfExactType(classType);
 
         //Let the person select one of the options.
-        return (new GetUserOfListCmd<>(usersOfType)).exec(scan, null, null);
+        return (new GetObjectOfListCmd<>(usersOfType, (u -> u.getUsername()), ((u, input) -> u.getUsername().equals(input)))).exec(scan, null, null);
     }
 
 }

@@ -130,7 +130,7 @@ public class GetUserOfTypeCmdTest {
         GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd(Issuer.class);
 
         //Setup scenario
-        question.add("No users of this type found.");
+        question.add("No options found.");
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
