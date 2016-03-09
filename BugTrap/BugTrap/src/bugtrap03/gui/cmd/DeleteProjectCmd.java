@@ -12,6 +12,7 @@ import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
  * This command represents the use case of deleting a project in the system
+ *
  * @author group 03
  */
 public class DeleteProjectCmd implements Cmd {
@@ -32,12 +33,16 @@ public class DeleteProjectCmd implements Cmd {
      * @param user The user who wants to execute this {@link Cmd}.
      * @return The deleted project
      * @throws PermissionException When the user does not have sufficient
-     *             permissions to update a project.
+     * permissions to update a project.
      * @throws CancelException When the user wants to abort the cmd.
+     * @throws IllegalArgumentException When scan, model,user is null
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user)
-            throws PermissionException, CancelException {
+            throws PermissionException, CancelException, IllegalArgumentException {
+        if (scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
 
         // Get project
         Project proj = new GetProjectCmd().exec(scan, model, user);

@@ -47,10 +47,11 @@ public class AssignToBugReportCmd implements Cmd {
      * permissions.
      *
      * @throws CancelException When the users wants to abort the current cmd
+     * @throws IllegalArgumentException When scan, model,user is null
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)
-            throws PermissionException, CancelException {
+            throws PermissionException, CancelException, IllegalArgumentException {
         if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }

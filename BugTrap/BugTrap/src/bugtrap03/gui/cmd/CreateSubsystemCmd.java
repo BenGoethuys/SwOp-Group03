@@ -16,25 +16,33 @@ import purecollections.PList;
  * @author Group 03
  */
 public class CreateSubsystemCmd implements Cmd {
+
     /**
      * Execute this command and possibly return a result.
      * <p>
      * <br> 1. The administrator indicates he wants to create a new subsystem.
      * <br> 2. The system shows a list of projects and subsystems.
-     * <br> 3. The administrator selects the project or subsystem that the new subsystem will be part of.
+     * <br> 3. The administrator selects the project or subsystem that the new
+     * subsystem will be part of.
      * <br> 4. The system shows the subsystem creation form.
-     * <br> 5. The administrator enters the subsystem details: name and description
+     * <br> 5. The administrator enters the subsystem details: name and
+     * description
      * <br> 6. The system creates the subsystem.
      *
-     * @param scan  The scanner used to interact with the person.
+     * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user  The {@link User} who wants to executes this command.
+     * @param user The {@link User} who wants to executes this command.
      * @return The newly created subsystem.
-     * @throws PermissionException When the user does not have sufficient permissions.
-     * @throws CancelException     When the users wants to abort the current cmd
+     * @throws PermissionException When the user does not have sufficient
+     * permissions.
+     * @throws CancelException When the users wants to abort the current cmd
+     * @throws IllegalArgumentException When scan, model,user is null
      */
     @Override
     public Subsystem exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+        if (scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
         // show all projects
         PList<AbstractSystem> list = model.getAllProjectsAndSubsystems();
 
