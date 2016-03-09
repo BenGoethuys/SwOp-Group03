@@ -500,7 +500,7 @@ public class DataModel {
     }
 
     /**
-     * This method returns all the developers assiciated with the project the
+     * This method returns all the developers associated with the project the
      * bug report belongs to
      *
      * @param bugRep The bug report

@@ -1,10 +1,8 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.BugReport;
-import bugtrap03.bugdomain.Comment;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.Tag;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
@@ -14,10 +12,6 @@ import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
 import java.util.ArrayDeque;
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
@@ -30,7 +24,7 @@ import testCollection.TerminalTestScanner;
  *
  */
 public class UpdateBugReportCmdTest {
-    
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}.
@@ -213,7 +207,14 @@ public class UpdateBugReportCmdTest {
         question.add("5. RESOLVED");
         question.add("6. DUPLICATE");
         question.add("I choose tag: ");
+        answer.add("-1");
+        question.add("Invalid input.");
+        question.add("I choose tag: ");
+        answer.add("20");
+        question.add("Invalid input.");
+        question.add("I choose tag: ");
         answer.add("3");
+
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         //Execute scenario
@@ -286,5 +287,4 @@ public class UpdateBugReportCmdTest {
         BugReport updatedBR = cmd.exec(scan, model, lead);
         //Test effects.
     }
-
 }
