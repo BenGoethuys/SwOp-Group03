@@ -4,7 +4,6 @@ import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -171,7 +170,7 @@ public class CreateBugReportCmdTest {
         answer.add("20");
         question.add("Invalid input.");
         question.add("I choose: ");
-        answer.add("3");
+        answer.add(subsystemA3_1.getName());
         question.add("You have chosen:");
         question.add(subsystemA3_1.getName());
         question.add("BugReport title:");

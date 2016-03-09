@@ -8,7 +8,8 @@ import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
  * This class represents and abort cmd from the user
- * Created by Ben Goethuys on 28/02/2016.
+ *
+ * @author Group 03
  */
 public class AbortCmd implements Cmd {
 

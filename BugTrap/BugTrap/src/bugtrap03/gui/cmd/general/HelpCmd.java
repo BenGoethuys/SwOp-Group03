@@ -15,7 +15,8 @@ import java.util.ArrayList;
 
 /**
  * This command prints all the commandos supplied when executed
- * @author Vincent Derkinderen
+ *
+ * @author Group 03
  */
 public class HelpCmd implements Cmd {
 

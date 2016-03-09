@@ -554,6 +554,7 @@ public class BugReportTest {
 		response += "\n description: " + "This is a good description";
 		response += "\n creation date: " + cal.getTime();
 		response += "\n tag: " + bugRep.getTag().name();
+		response += "\n comments: ";
 		response += "\n dependencies: ";
 		response += "\n subsystem: " + subsystem.getName();
 
@@ -571,6 +572,7 @@ public class BugReportTest {
         response += "\n description: " + "This is a better description";
         response += "\n creation date: " + cal.getTime();
         response += "\n tag: " + bugRep.getTag().name();
+        response += "\n comments: ";
         response += "\n dependencies: ";
         response += "\n \t id: " + id + ", title: " + "This is a good title";
         response += "\n subsystem: " + subsystem.getName();

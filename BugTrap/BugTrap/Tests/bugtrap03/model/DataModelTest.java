@@ -1,16 +1,16 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
+import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.model.DataModel;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.GregorianCalendar;
 
@@ -220,7 +220,7 @@ public class DataModelTest {
         Developer leadDev = new Developer("Haha9", "Ha", "Ha");
         Administrator creator = new Administrator("Again9", "New", "Admin");
         issuer = new Issuer("Issuer9", "New", "Issuer");
-        project2 = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        project = model.createProject("Test", "TestProject", leadDev, 1000, creator);
         model.deleteProject(leadDev, project);
     }
 
@@ -230,7 +230,7 @@ public class DataModelTest {
         Developer leadDev = new Developer("Haha10", "Ha", "Ha");
         Administrator creator = new Administrator("Again10", "New", "Admin");
         issuer = new Issuer("Issuer10", "New", "Issuer");
-        project2 = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        project = model.createProject("Test", "TestProject", leadDev, 1000, creator);
         model.deleteProject(creator, project);
     }
 
@@ -240,8 +240,29 @@ public class DataModelTest {
         Developer leadDev = new Developer("Haha11", "Ha", "Ha");
         Administrator creator = new Administrator("Again11", "New", "Admin");
         issuer = new Issuer("Issuer11", "New", "Issuer");
-        project2 = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        project = model.createProject("Test", "TestProject", leadDev, 1000, creator);
         model.deleteProject(issuer, project);
     }
 
+    @Test
+    public void testGetAllTags() {
+        model = new DataModel();
+        assertTrue(model.getAllTags().contains(Tag.NEW));
+        assertTrue(model.getAllTags().contains(Tag.ASSIGNED));
+        assertTrue(model.getAllTags().contains(Tag.NOT_A_BUG));
+        assertTrue(model.getAllTags().contains(Tag.UNDER_REVIEW));
+        assertTrue(model.getAllTags().contains(Tag.CLOSED));
+        assertTrue(model.getAllTags().contains(Tag.RESOLVED));
+        assertTrue(model.getAllTags().contains(Tag.DUPLICATE));
+        assertTrue(model.getAllTags().size() == 7);
+    }
+
+    @Test
+    public void testGetAllRoles() {
+        model = new DataModel();
+        assertTrue(model.getAllRoles().contains(Role.LEAD));
+        assertTrue(model.getAllRoles().contains(Role.TESTER));
+        assertTrue(model.getAllRoles().contains(Role.PROGRAMMER));
+        assertTrue(model.getAllRoles().size() == 3);
+    }
 }

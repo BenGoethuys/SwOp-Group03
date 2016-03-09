@@ -14,7 +14,7 @@ import java.util.Objects;
  * A User can be identified by his/her username. The uniqueness of this username
  * is guaranteed by checking with all other ever created Users.
  *
- * @author Vincent Derkinderen
+ * @author Group 03
  * @version 1.1
  */
 @DomainAPI

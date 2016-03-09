@@ -9,7 +9,8 @@ import java.io.IOException;
 
 /**
  * This command clears the screen of the windows cmd and the linux/mac terminal
- * Created by Ben Goethuys en Vincent Derkinderen on 29/02/2016.
+ *
+ * @author Group 03
  */
 public class ClearCmd implements Cmd {
 
@@ -19,7 +20,7 @@ public class ClearCmd implements Cmd {
      * @param scan The scanner to clear.
      * @param dummy2 Doesn't matter
      * @param dummy3 Doesn't matter
-     * @return null
+     * @return null always
      */
     @Override
     public Object exec(TerminalScanner scan, DataModel dummy2, User dummy3) {
@@ -30,7 +31,8 @@ public class ClearCmd implements Cmd {
 
     /**
      * Attempt to clear the console screen.
-     * @scan The scanner used to print.
+     *
+     * @param scan  The scanner used to print.
      */
     private void clearConsole(TerminalScanner scan) {
         try {
