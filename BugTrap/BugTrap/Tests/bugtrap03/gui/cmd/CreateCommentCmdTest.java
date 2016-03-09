@@ -78,6 +78,7 @@ public class CreateCommentCmdTest {
         answer.add("tester");
         question.add("Please select a bug report: ");
         question.add("No options found.");
+        question.add("No bugreports in the system match the search term");
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("title");
@@ -85,7 +86,7 @@ public class CreateCommentCmdTest {
         question.add("enter text: ");
         answer.add("bugRep");
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
         question.add("1. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
         question.add("I choose: ");
@@ -163,6 +164,8 @@ public class CreateCommentCmdTest {
         question.add("Please enter the required search term ...");
         question.add("enter text: ");
         answer.add("tester");
+        question.add("Please select a bug report: ");
+        question.add("No options found.");
         question.add("No bugreports in the system match the search term");
         addSearchModeOptions(question);
         question.add("I choose: ");
@@ -171,7 +174,7 @@ public class CreateCommentCmdTest {
         question.add("enter text: ");
         answer.add("bugRep");
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
         question.add("1. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
         question.add("I choose: ");
