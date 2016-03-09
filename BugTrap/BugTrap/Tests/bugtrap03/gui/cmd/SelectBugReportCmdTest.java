@@ -165,6 +165,7 @@ public class SelectBugReportCmdTest {
         question.add("Please enter the required search term ...");
         question.add("enter text: ");
         answer.add("tester");
+        question.add("Please select a bug report: ");
         question.add("No options found.");
         question.add("No bugreports in the system match the search term");
         addSearchModeOptions(question);
@@ -174,7 +175,7 @@ public class SelectBugReportCmdTest {
         question.add("enter text: ");
         answer.add("bugRep");
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
         question.add("1. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
         question.add("I choose: ");
@@ -256,6 +257,7 @@ public class SelectBugReportCmdTest {
         question.add("Please enter the required search term ...");
         question.add("enter text: ");
         answer.add("tester");
+        question.add("Please select a bug report: ");
         question.add("No options found.");
         question.add("No bugreports in the system match the search term");
         addSearchModeOptions(question);
@@ -265,7 +267,7 @@ public class SelectBugReportCmdTest {
         question.add("enter text: ");
         answer.add("createcomment");
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
         question.add("1. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
         question.add("I choose: ");
@@ -334,6 +336,7 @@ public class SelectBugReportCmdTest {
         question.add("Please enter the required search term ...");
         question.add("enter text: ");
         answer.add("tesTer");
+        question.add("Please select a bug report: ");
         question.add("No options found.");
         question.add("No bugreports in the system match the search term");
         addSearchModeOptions(question);
@@ -343,7 +346,7 @@ public class SelectBugReportCmdTest {
         question.add("enter text: ");
         answer.add("createCOmment");
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
         question.add("1. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
         question.add("I choose: ");
@@ -420,6 +423,7 @@ public class SelectBugReportCmdTest {
         question.add("Invalid input.");
         question.add("I choose: ");
         answer.add("2");
+        question.add("Please select a bug report: ");
         question.add("No options found.");
         question.add("No bugreports in the system match the search term");
         addSearchModeOptions(question);
@@ -433,7 +437,7 @@ public class SelectBugReportCmdTest {
         question.add("I choose: ");
         answer.add("1");
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep3.getTitle() + "\t -UniqueID: " + bugRep3.getUniqueID());
         question.add("1. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
         question.add("I choose: ");
@@ -504,6 +508,7 @@ public class SelectBugReportCmdTest {
         answer.add("tester");
         question.add("Invalid input, please enter a number");
         answer.add("128700549");
+        question.add("Please select a bug report: ");
         question.add("No options found.");
         question.add("No bugreports in the system match the search term");
         addSearchModeOptions(question);
@@ -513,7 +518,7 @@ public class SelectBugReportCmdTest {
         question.add("Give number: ");
         answer.add(Long.toString(bugRep2.getUniqueID()));
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
         question.add("I choose: ");
         answer.add("0");
@@ -583,6 +588,7 @@ public class SelectBugReportCmdTest {
         answer.add("tester");
         question.add("Invalid input, please enter a number");
         answer.add("128700549");
+        question.add("Please select a bug report: ");
         question.add("No options found.");
         question.add("No bugreports in the system match the search term");
         addSearchModeOptions(question);
@@ -591,8 +597,9 @@ public class SelectBugReportCmdTest {
         question.add("Please enter the required search term ...");
         question.add("Give number: ");
         answer.add(Long.toString(bugRep2.getUniqueID()));
+        
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
         question.add("I choose: ");
         answer.add("0");
@@ -737,6 +744,7 @@ public class SelectBugReportCmdTest {
         answer.add("tester");
         question.add("Invalid input, please enter a number");
         answer.add("128700549");
+        question.add("Please select a bug report: ");
         question.add("No options found.");
         question.add("No bugreports in the system match the search term");
         addSearchModeOptions(question);
@@ -746,7 +754,7 @@ public class SelectBugReportCmdTest {
         question.add("Give number: ");
         answer.add(Long.toString(bugRep2.getUniqueID()));
         question.add("Please select a bug report: ");
-        question.add("Available bugReports:");
+        question.add("Available options:");
         question.add("0. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
         question.add("I choose: ");
         answer.add(bugRep2.getTitle());

@@ -76,7 +76,8 @@ public class CreateCommentCmdTest {
         question.add("Please enter the required search term ...");
         question.add("enter text: ");
         answer.add("tester");
-        question.add("No bugreports in the system match the search term");
+        question.add("Please select a bug report: ");
+        question.add("No options found.");
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("title");
