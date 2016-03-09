@@ -20,18 +20,18 @@ public class GetObjectOfListCmd<U extends Object> implements Cmd {
      * Create a GetObjectOfListCmd that will use the given list of users as the
      * options in the select process.
      *
-     * @param listOfUsers The list of users to pick from. When null is passed an
+     * @param listOfObjects The list of users to pick from. When null is passed an
      * empty list will be used.
      *
      * @throws IllegalArgumentException If the function is null
      *
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
-    public GetObjectOfListCmd(PList<U> listOfUsers, Function<U, String> printFunction, BiFunction<U, String, Boolean> selectFunction) {
-        if (listOfUsers == null) {
-            this.listOfUsers = PList.<U>empty();
+    public GetObjectOfListCmd(PList<U> listOfObjects, Function<U, String> printFunction, BiFunction<U, String, Boolean> selectFunction) {
+        if (listOfObjects == null) {
+            this.listOfObjects = PList.<U>empty();
         } else {
-            this.listOfUsers = listOfUsers;
+            this.listOfObjects = listOfObjects;
         }
         if (printFunction == null || selectFunction == null){
             throw new IllegalArgumentException("The given function was null");
@@ -40,7 +40,7 @@ public class GetObjectOfListCmd<U extends Object> implements Cmd {
         this.selectFunction = selectFunction;
     }
 
-    private final PList<U> listOfUsers;
+    private final PList<U> listOfObjects;
     private final Function<U, String> printFunction;
     private final BiFunction<U, String, Boolean> selectFunction;
 
@@ -56,38 +56,38 @@ public class GetObjectOfListCmd<U extends Object> implements Cmd {
      */
     @Override
     public U exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws CancelException {
-        if (listOfUsers.isEmpty()) {
+        if (listOfObjects.isEmpty()) {
             scan.println("No options found.");
             return null;
         }
 
         scan.println("Available options:");
-        for (int i = 0; i < listOfUsers.size(); i++) {
-            scan.println(i + ". " + printFunction.apply(listOfUsers.get(i)));
+        for (int i = 0; i < listOfObjects.size(); i++) {
+            scan.println(i + ". " + printFunction.apply(listOfObjects.get(i)));
         }
 
-        //Retrieve & process user input.
-        U user = null;
+        //Retrieve & process object input.
+        U object = null;
         do {
             scan.println("I choose: ");
             if (scan.hasNextInt()) { //by index
                 int index = scan.nextInt();//input
-                if (index >= 0 && index < listOfUsers.size()) {
-                    user = listOfUsers.get(index);
+                if (index >= 0 && index < listOfObjects.size()) {
+                    object = listOfObjects.get(index);
                 } else {
                     scan.println("Invalid input.");
                 }
             } else { //by username
                 String input = scan.nextLine(); //input
                 try {
-                    user = listOfUsers.parallelStream().filter(u -> selectFunction.apply(u, input)).findFirst().get();
+                    object = listOfObjects.parallelStream().filter(u -> selectFunction.apply(u, input)).findFirst().get();
                 } catch (NoSuchElementException ex) {
                     scan.println("Invalid input.");
                 }
             }
-        } while (user == null);
+        } while (object == null);
 
-        return user;
+        return object;
     }
 
 }
