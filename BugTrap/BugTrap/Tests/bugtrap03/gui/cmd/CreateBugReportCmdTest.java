@@ -27,7 +27,7 @@ public class CreateBugReportCmdTest {
 
     @Test
     public void testExecByIndex() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
 
         Developer lead = model.createDeveloper("meGoodLead125", "Luky", "Luke");
@@ -43,21 +43,26 @@ public class CreateBugReportCmdTest {
         model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, "SubsystemA2", "Description of susbsystem A2");
         Subsystem subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1",
+                "Description of susbsystem A3.1");
         model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
         // make bug report 2
-        BugReport bugRep2 = model.createBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty(), subsystemA3_1);
-        model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(lead, maria)));
+        BugReport bugRep2 = model.createBugReport(charlie, "Crash while processing user input",
+                "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15),
+                PList.<BugReport> empty(), subsystemA3_1);
+        model.addUsersToBugReport(lead, bugRep2, PList.<Developer> empty().plusAll(Arrays.asList(lead, maria)));
         // mak bug report 3
-        BugReport bugRep1 = model.createBugReport(lead, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(lead, "SubsystemA2 feezes",
+                "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4),
+                PList.<BugReport> empty(), subsystemA2);
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         CreateBugReportCmd cmd = new CreateBugReportCmd();
 
-        //Setup scenario
+        // Setup scenario
         question.add("Available projects:");
-        question.add("0. ProjectA");
+        question.add("0. ProjectA version: " + projectA.getVersionID());
         question.add("I choose: ");
         answer.add("test wrong input");
         question.add("Invalid input.");
@@ -107,19 +112,19 @@ public class CreateBugReportCmdTest {
         question.add("I choose: (leave blank if done)");
         answer.add("");
         question.add("Ended selection.");
-        
-        //answer.add(leadName);
+
+        // answer.add(leadName);
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         BugReport bugReport = cmd.exec(scan, model, maria);
 
-        //Test effects.
+        // Test effects.
     }
-    
+
     @Test
     public void testExecByName() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
 
         Developer lead = model.createDeveloper("meGoodLead146", "Luky", "Luke");
@@ -135,26 +140,31 @@ public class CreateBugReportCmdTest {
         model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, "SubsystemA2", "Description of susbsystem A2");
         Subsystem subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1",
+                "Description of susbsystem A3.1");
         model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
         // make bug report 2
-        BugReport bugRep2 = model.createBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty(), subsystemA3_1);
-        model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(lead, maria)));
+        BugReport bugRep2 = model.createBugReport(charlie, "Crash while processing user input",
+                "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15),
+                PList.<BugReport> empty(), subsystemA3_1);
+        model.addUsersToBugReport(lead, bugRep2, PList.<Developer> empty().plusAll(Arrays.asList(lead, maria)));
         // mak bug report 3
-        BugReport bugRep1 = model.createBugReport(lead, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(lead, "SubsystemA2 feezes",
+                "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4),
+                PList.<BugReport> empty(), subsystemA2);
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         CreateBugReportCmd cmd = new CreateBugReportCmd();
 
-        //Setup scenario
+        // Setup scenario
         question.add("Available projects:");
-        question.add("0. ProjectA");
+        question.add("0. ProjectA version: " + projectA.getVersionID());
         question.add("I choose: ");
         answer.add(" test wrong input");
         question.add("Invalid input.");
         question.add("I choose: ");
-        answer.add(projectA.getName());
+        answer.add(projectA.getName() + projectA.getVersionID().toString());
         question.add("You have chosen:");
         question.add(projectA.getDetails());
         question.add("Available subsystems:");
@@ -199,14 +209,14 @@ public class CreateBugReportCmdTest {
         question.add("I choose: (leave blank if done)");
         answer.add("");
         question.add("Ended selection.");
-        
-        //answer.add(leadName);
+
+        // answer.add(leadName);
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         BugReport bugReport = cmd.exec(scan, model, maria);
 
-        //Test effects.
+        // Test effects.
         assertEquals(bugReport.getTitle(), "BR Title");
         assertEquals(bugReport.getDescription(), "tester description");
     }
