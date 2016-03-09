@@ -51,7 +51,7 @@ public class CmdParser {
         cmdList.add(new SimpleEntry("selectbugreport", new SelectBugReportCmd()));
         cmdList.add(new SimpleEntry("inspectbugreport", new InspectBugReportCmd()));
         cmdList.add(new SimpleEntry("createcomment", new CreateCommentCmd()));
-        cmdList.add(new SimpleEntry("assigntobugreport", new CreateCommentCmd()));
+        cmdList.add(new SimpleEntry("assigntobugreport", new AssignToBugReportCmd()));
         cmdList.add(new SimpleEntry("assigntoproject", new AssignToProjectCmd()));
         cmdList.add(new SimpleEntry("updatebugreport", new UpdateBugReportCmd()));
 
