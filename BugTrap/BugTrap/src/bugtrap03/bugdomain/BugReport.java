@@ -795,6 +795,10 @@ public class BugReport implements Comparable<BugReport> {
         str += "\n description: " + this.getDescription();
         str += "\n creation date: " + this.getCreationDate().getTime();
         str += "\n tag: " + this.getTag().name();
+        str += "\n comments: ";
+        for (Comment comment : this.getAllComments()){
+            str += "\n \t " + comment.getText();
+        }
         str += "\n dependencies: ";
         for (BugReport bugrep : this.getDependencies()){
             str += "\n \t id: " + bugrep.getUniqueID() + ", title: " + bugrep.getTitle();
