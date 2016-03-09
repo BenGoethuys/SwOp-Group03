@@ -58,31 +58,43 @@ public class AssignToProjectCmd implements Cmd {
             scan.println("You don't lead any projects.");
             return null;
         }
-        
+
+        scan.println("Please select a project you lead.");
         //2. The system shows a list of the projects in which the logged in user is assigned as lead developer.
         //3. The lead developer selects one of his projects.
         Project selectedProj = (new GetProjectCmd(projectList)).exec(scan, model, user);
 
+        scan.println("Please select a developer to assign.");
         //4. The system shows a list of other developers to assign.
         //5. The lead developer selects one of these other developers.
         Developer devToSet = new GetUserOfTypeCmd<>(Developer.class).exec(scan,  model, user);
-        
+
+        scan.println("You have chosen: " + devToSet.getUsername());
+
         PList<Role> currentRolesList = selectedProj.getAllRolesDev(devToSet);
         PList<Role> roleList = model.getAllRoles();
         for (Role role : currentRolesList){
             roleList.minus(role);
         }
-        
+        if (roleList.isEmpty()){
+            scan.println("There are no more roles to assign to the selected developer in the selected project.");
+            return null;
+        }
+
+        scan.println("Please select a role to assign.");
         //6. Shows a list of possible (not yet assigned) roles for the selected dev.
         //7. The lead developer selects a role.
         Role selectedRole = new GetObjectOfListCmd<Role>(roleList, (u -> u.name()), ((u, input) -> u.name().equals(input)))
                 .exec(scan, model, user);
 
-        scan.println("Selected role: " + selectedRole.name());
-        
+        if (selectedRole == null){
+            scan.println("There are no more roles to assign to the selected developer in the selected project.");
+            return null;
+        }
+        scan.println("You have chosen:" + selectedRole.name());
         //8. The systems assigns the selected role to the selected developer.
         model.assignToProject(selectedProj, user, devToSet, selectedRole);
-        scan.println(devToSet.getFullName() + " assigned to project: " + selectedProj.getName() + ", with role: " + selectedRole.name());
+        scan.println(devToSet.getUsername() + " assigned to project: " + selectedProj.getName() + " version: " + selectedProj.getVersionID().toString() + ", with role: " + selectedRole.name());
     
         return selectedProj;
     }
