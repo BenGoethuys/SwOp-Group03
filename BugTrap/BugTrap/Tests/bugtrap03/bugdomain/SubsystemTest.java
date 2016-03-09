@@ -170,94 +170,128 @@ public class SubsystemTest {
         assertEquals(cloneProj, cloneSub.getParent());
     }
 
-//    @Test
-//    public void testGetVersionID() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testSetVersionID() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testIsValidVersionId() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetName() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testSetName() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testIsValidName() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetDescription() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testSetDescription() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testIsValidDescription() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetChilds() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testMakeSubsystemChild() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testMakeSubsystemChild1() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetParent() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetParentProject() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetAllDev() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetAllBugReports() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetAllSubsystems() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testHasPermission() throws Exception {
-//
-//    }
+    @Test
+    public void testGetVersionID() throws Exception {
+        assertEquals(subVersion, subSysTest.getVersionID());
 
+    }
+
+    @Test
+    public void testSetVersionID() throws Exception {
+        VersionID vid = new VersionID(12,11,10);
+        subSysTest.setVersionID(vid);
+        assertNotEquals(subVersion, subSysTest.getVersionID());
+        assertEquals(vid, subSysTest.getVersionID());
+    }
+
+    @Test
+    public void testIsValidVersionId() throws Exception {
+        assertTrue(Project.isValidVersionId(subVersion));
+        assertFalse(Project.isValidVersionId(null));
+    }
+
+    @Test
+    public void testGetName() throws Exception {
+        assertEquals(subName, subSysTest.getName());
+    }
+
+    @Test
+    public void testSetName() throws Exception {
+        String ena = "Extra test name woehoew";
+        subSysTest.setName(ena);
+        assertNotEquals(subName, subSysTest.getName());
+        assertEquals(ena, subSysTest.getName());
+    }
+
+    @Test
+    public void testIsValidName() throws Exception {
+        assertFalse(Project.isValidName(""));
+        assertFalse(Project.isValidName(null));
+        assertTrue(Project.isValidName(subName));
+    }
+
+    @Test
+    public void testGetDescription() throws Exception {
+        assertEquals(subDescription, subSysTest.getDescription());
+    }
+
+    @Test
+    public void testSetDescription() throws Exception {
+        String ede = "Extra test description woehoew";
+        subSysTest.setDescription(ede);
+        assertNotEquals(subDescription, subSysTest.getDescription());
+        assertEquals(ede, subSysTest.getDescription());
+    }
+
+    @Test
+    public void testIsValidDescription() throws Exception {
+        assertTrue(Project.isValidDescription(subDescription));
+    }
+
+    @Test
+    public void testGetChilds() throws Exception {
+        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest).plus(subSysTest2);
+        assertEquals(childList, testProject.getChilds());
+    }
+
+    @Test
+    public void testMakeSubsystemChild() throws Exception {
+        String ede = "Extra test description woehoew 2";
+        String ena = "Extra test name woehoew 2";
+        Subsystem esu = subSysTest2.makeSubsystemChild(ena, ede);
+        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
+        assertNotEquals(childList, subSysTest2.getChilds());
+        childList = childList.plus(esu);
+        assertEquals(childList,subSysTest2.getChilds());
+    }
+
+    @Test
+    public void testMakeSubsystemChild1() throws Exception {
+        VersionID vid = new VersionID(56,21,20);
+        String ede = "Extra test description woehoew 2";
+        String ena = "Extra test name woehoew 2";
+        Subsystem esu = subSysTest2.makeSubsystemChild(vid, ena, ede);
+        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
+        assertNotEquals(childList, subSysTest2.getChilds());
+        childList = childList.plus(esu);
+        assertEquals(childList,subSysTest2.getChilds());
+    }
+
+    @Test
+    public void testGetParentProject() throws Exception {
+        assertEquals(testProject, subSysTest.getParentProject());
+        assertEquals(testProject, subSysTest2.getParentProject());
+    }
+
+    @Test
+    public void testGetAllDev() throws Exception {
+        assertEquals(PList.<Developer>empty().plus(testDev), subSysTest2.getAllDev());
+        assertEquals(PList.<Developer>empty().plus(testDev), subSysTest.getAllDev());
+    }
+
+    @Test
+    public void testGetAllSubsystems() throws Exception {
+        Subsystem ss3 = subSysTest2.makeSubsystemChild("uhu", "aha");
+        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest).plus(ss3);
+        assertEquals(childList, subSysTest2.getAllSubsystems());
+        PList<Subsystem> childList2 = PList.<Subsystem>empty().plus(subSysTest2).plus(subSysTest).plus(ss3);
+        assertEquals(childList2, subSysTest.getAllSubsystems());
+    }
+
+
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetInvalidSubsDescription() {
+        subSysTest.setDescription("");
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetNullSubsDescription() {
+        subSysTest.setDescription(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetNullSubsVersionID() {
+        subSysTest.setVersionID(null);
+    }
 }
