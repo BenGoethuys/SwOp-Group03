@@ -23,11 +23,12 @@ public class DeleteProjectCmdTest {
 
     /**
      * Test method for
-     * {@link bugtrap03.gui.cmd.CreateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}.
+     * {@link bugtrap03.gui.cmd.CreateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
+     * .
      */
     @Test
     public void testExec() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead08", "Luky", "Luke");
         Issuer issuer = model.createIssuer("noDev08", "BadLuck", "Luke");
@@ -35,21 +36,21 @@ public class DeleteProjectCmdTest {
         Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         DeleteProjectCmd cmd = new DeleteProjectCmd();
 
-        //Setup scenario
+        // Setup scenario
         question.add("Available projects:");
-        question.add("0. " + proj0.getName());
-        question.add("1. " + proj1.getName());
+        question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
+        question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());
         answer.add("0");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Project chosen = cmd.exec(scan, model, admin);
 
-        //Test effects.
+        // Test effects.
         assertEquals(chosen, proj0);
         assertEquals(model.getProjectList().size(), 1);
         assertTrue(model.getProjectList().contains(proj1));

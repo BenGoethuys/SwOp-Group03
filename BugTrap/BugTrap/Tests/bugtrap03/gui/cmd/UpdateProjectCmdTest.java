@@ -52,10 +52,10 @@ public class UpdateProjectCmdTest {
         UpdateProjectCmd cmd = new UpdateProjectCmd();
 
         question.add("Available projects:");
-        question.add("0. " + proj0.getName());
-        question.add("1. " + proj1.getName());
+        question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
+        question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());
         question.add("I choose: ");
-        answer.add(proj0.getName());
+        answer.add(proj0.getName() + proj0.getVersionID().toString());
         question.add("You have chosen:");
         question.add(proj0.getDetails());
         question.add("Give new name: (leave blank for old name)");
@@ -91,10 +91,10 @@ public class UpdateProjectCmdTest {
         UpdateProjectCmd cmd = new UpdateProjectCmd();
 
         question.add("Available projects:");
-        question.add("0. " + proj0.getName());
-        question.add("1. " + proj1.getName());
+        question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
+        question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());
         question.add("I choose: ");
-        answer.add(proj0.getName());
+        answer.add(proj0.getName() + proj0.getVersionID().toString());
         question.add("You have chosen:");
         question.add(proj0.getDetails());
         question.add("Give new name: (leave blank for old name)");
@@ -130,10 +130,10 @@ public class UpdateProjectCmdTest {
         UpdateProjectCmd cmd = new UpdateProjectCmd();
 
         question.add("Available projects:");
-        question.add("0. " + proj0.getName());
-        question.add("1. " + proj1.getName());
+        question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
+        question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());
         question.add("I choose: ");
-        answer.add(proj0.getName());
+        answer.add(proj0.getName() + proj0.getVersionID().toString());
         question.add("You have chosen:");
         question.add(proj0.getDetails());
         question.add("Give new name: (leave blank for old name)");
@@ -161,7 +161,7 @@ public class UpdateProjectCmdTest {
      * {@link bugtrap03.gui.cmd.UpdateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
      */
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testExecUpdateProjectUpdateDateFalse()
             throws IllegalArgumentException, PermissionException, CancelException {
         ArrayDeque<String> question = new ArrayDeque<>();
@@ -169,10 +169,10 @@ public class UpdateProjectCmdTest {
         UpdateProjectCmd cmd = new UpdateProjectCmd();
 
         question.add("Available projects:");
-        question.add("0. " + proj0.getName());
-        question.add("1. " + proj1.getName());
+        question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
+        question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());
         question.add("I choose: ");
-        answer.add(proj0.getName());
+        answer.add(proj0.getName() + proj0.getVersionID().toString());
         question.add("You have chosen:");
         question.add(proj0.getDetails());
         question.add("Give new name: (leave blank for old name)");
@@ -209,10 +209,10 @@ public class UpdateProjectCmdTest {
         UpdateProjectCmd cmd = new UpdateProjectCmd();
 
         question.add("Available projects:");
-        question.add("0. " + proj0.getName());
-        question.add("1. " + proj1.getName());
+        question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
+        question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());
         question.add("I choose: ");
-        answer.add(proj0.getName());
+        answer.add(proj0.getName() + proj0.getVersionID().toString());
         question.add("You have chosen:");
         question.add(proj0.getDetails());
         question.add("Give new name: (leave blank for old name)");
@@ -247,10 +247,10 @@ public class UpdateProjectCmdTest {
         UpdateProjectCmd cmd = new UpdateProjectCmd();
 
         question.add("Available projects:");
-        question.add("0. " + proj0.getName());
-        question.add("1. " + proj1.getName());
+        question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
+        question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());
         question.add("I choose: ");
-        answer.add(proj0.getName());
+        answer.add(proj0.getName() + proj0.getVersionID().toString());
         question.add("You have chosen:");
         question.add(proj0.getDetails());
         question.add("Give new name: (leave blank for old name)");

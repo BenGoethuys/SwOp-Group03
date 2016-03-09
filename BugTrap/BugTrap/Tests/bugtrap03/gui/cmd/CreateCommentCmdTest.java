@@ -20,13 +20,14 @@ import testCollection.TerminalTestScanner;
 
 /**
  *
- * @author Admin
+ * @author Group 03
+ *
  */
 public class CreateCommentCmdTest {
 
     @Test
     public void testExecIndexTitleOnBugReport() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("trollol", "Luky", "Luke");
         Issuer issuer = model.createIssuer("Cows", "Fly", "High");
@@ -36,21 +37,30 @@ public class CreateCommentCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+                "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+                "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome", "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.", PList.<BugReport>empty(), subsystemA3_1);
+        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport> empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                subsystemA2);
+        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport> empty(), subsystemA3_1);
 
-        ArrayDeque<String> question = new ArrayDeque();
-        ArrayDeque<String> answer = new ArrayDeque();
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
         CreateCommentCmd cmd = new CreateCommentCmd();
 
-        //Setup scenario
+        // Setup scenario
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("-1");
@@ -88,18 +98,18 @@ public class CreateCommentCmdTest {
         question.add("Please enter the text of the comment: ");
         answer.add("Holy Cows = Holy beef?");
         question.add("Comment created");
-        //answer.add(leadName);
+        // answer.add(leadName);
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Comment createdComment = cmd.exec(scan, model, issuer);
-        //Test effects.
+        // Test effects.
         assertTrue(bugRep1.getAllComments().contains(createdComment));
     }
 
     @Test
     public void testExecIndexTitleOnComment() throws PermissionException, CancelException {
-        //Setup variables.
+        // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("trolbol", "Luky", "Luke");
         Issuer issuer = model.createIssuer("C0ws", "Fly", "High");
@@ -109,15 +119,24 @@ public class CreateCommentCmdTest {
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1", "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2", "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3", "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1", "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2", "Description of susbsystem A3.2");
+        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+                "Description of susbsystem A1");
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+                "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+                "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome", "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.", PList.<BugReport>empty(), subsystemA3_1);
+        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport> empty(), subsystemA2);
+        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                subsystemA2);
+        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport> empty(), subsystemA3_1);
 
         Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -127,7 +146,7 @@ public class CreateCommentCmdTest {
         ArrayDeque<String> answer = new ArrayDeque();
         CreateCommentCmd cmd = new CreateCommentCmd();
 
-        //Setup scenario
+        // Setup scenario
         addSearchModeOptions(question);
         question.add("I choose: ");
         answer.add("-1");
@@ -178,21 +197,18 @@ public class CreateCommentCmdTest {
         question.add("Please enter the text of the comment: ");
         answer.add("Holy Cows = Holy beef?");
         question.add("Comment created");
-        //answer.add(leadName);
+        // answer.add(leadName);
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        //Execute scenario
+        // Execute scenario
         Comment createdComment = cmd.exec(scan, model, issuer);
-        //Test effects.
+        // Test effects.
         assertTrue(bugRep1.getAllComments().contains(createdComment));
     }
 
     /**
      * Add the searchMode options + first line to question. Please select a
-     * search mode..
-     * <b> 0..
-     * <b> 1..
-     * <b> ..
+     * search mode.. <b> 0.. <b> 1.. <b> ..
      *
      * @param question
      */

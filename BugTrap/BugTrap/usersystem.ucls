@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.9" icons="true" automaticImage="GIF" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="bugtrap03.bugdomain.usersystem.Administrator" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/usersystem/Administrator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="219" x="55" y="8"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="bugtrap03.bugdomain.usersystem.Developer" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/usersystem/Developer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="764" y="164"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="bugtrap03.bugdomain.usersystem.Issuer" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/usersystem/Issuer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="765" y="393"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="4" language="java" name="bugtrap03.bugdomain.usersystem.Role" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/usersystem/Role.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="158" y="340"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="5" language="java" name="bugtrap03.bugdomain.usersystem.User" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/usersystem/User.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="460" y="257"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="6">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <generalization id="7">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="8">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

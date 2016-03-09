@@ -8,7 +8,8 @@ import testCollection.TerminalTestScanner;
 
 /**
  *
- * @author Admin
+ * @author Group 03
+ *
  */
 public class InvalidCmdTest {
 
