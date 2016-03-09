@@ -37,9 +37,14 @@ public class CreateCommentCmd implements Cmd {
      * @throws PermissionException When the user does not have sufficient
      * permissions.
      * @throws CancelException When the users wants to abort the current cmd
+     * @throws IllegalArgumentException When scan, model or user is a null reference.
      */
     @Override
-    public Comment exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {
+    public Comment exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+        if(scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
+        
         // 1. The issuer indicates he wants to create a comment.
         // 2. Include use case Select Bug Report.
         BugReport bugRep = new SelectBugReportCmd().exec(scan, model, user);
