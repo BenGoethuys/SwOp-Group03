@@ -10,7 +10,6 @@ import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 
@@ -69,7 +68,7 @@ public class Main {
             // make bug report 2
             BugReport bugRep2 = model.createBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty(), subsystemA3_1);
             model.addUsersToBugReport(major, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(major, maria)));
-            // mak bug report 3
+            // make bug report 3
             model.createBugReport(major, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), subsystemA2);
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");

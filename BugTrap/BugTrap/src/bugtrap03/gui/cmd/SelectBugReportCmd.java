@@ -131,7 +131,7 @@ public class SelectBugReportCmd implements Cmd {
             ArrayList<BugReport> selected = model.getAllBugReports().parallelStream().filter(mode)
                     .collect(Collectors.toCollection(ArrayList::new));
             Collections.sort(selected);
-
+            scan.println("Please select a bug report: ");
             BugReport bugrep = new GetObjectOfListCmd<>(PList.<BugReport>empty().plusAll(selected),
                     (u -> u.getTitle() + "\t -UniqueID: " + u.getUniqueID()),
                     ((u, input) -> u.getTitle().equals(input)))
