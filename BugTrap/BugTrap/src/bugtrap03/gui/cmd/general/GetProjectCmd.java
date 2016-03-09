@@ -61,7 +61,7 @@ public class GetProjectCmd implements Cmd {
      * @throws CancelException When the users wants to abort the current cmd
      * @throws IllegalArgumentException If the given scan, model is null.
      * @throws IllegalArgumentException When the list of options is empty.
-     * @see Cmd#exec(TerminalScanner, DataModel, User)
+     * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User dummy3) throws CancelException, IllegalArgumentException {

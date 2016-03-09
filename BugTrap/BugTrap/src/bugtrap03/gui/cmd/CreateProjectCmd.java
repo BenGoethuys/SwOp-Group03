@@ -49,6 +49,10 @@ public class CreateProjectCmd implements Cmd {
      * abort the cmd.
      * @throws IllegalArgumentException When scan, model or user is a null
      * reference.
+     *
+     * @see DataModel#createProject(String, String, GregorianCalendar, Developer, long, User)
+     * @see DataModel#cloneProject(Project, VersionID, Developer, GregorianCalendar, long)
+     * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
@@ -168,7 +172,8 @@ public class CreateProjectCmd implements Cmd {
      * @throws PermissionException When the user does not have sufficient permissions to create/clone a project.
      * @throws IllegalArgumentException Check @see.
      * 
-     * //TODO @see getProjectCmd, model#clone.
+     * @see DataModel#cloneProject(Project, VersionID, Developer, GregorianCalendar, long)
+     * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
      */
     private Project cloneProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException, PermissionException, IllegalArgumentException {
         // b1. Ask user which project by providing a list of possibilities.

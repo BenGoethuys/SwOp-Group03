@@ -38,6 +38,9 @@ public class CreateCommentCmd implements Cmd {
      * permissions.
      * @throws CancelException When the users wants to abort the current cmd
      * @throws IllegalArgumentException When scan, model or user is a null reference.
+     *
+     * @see DataModel#createComment(User, BugReport, String)
+     * @see DataModel#createComment(User, Comment, String)
      */
     @Override
     public Comment exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {

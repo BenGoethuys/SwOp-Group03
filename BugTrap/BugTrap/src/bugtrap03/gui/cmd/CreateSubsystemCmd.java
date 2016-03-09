@@ -38,7 +38,9 @@ public class CreateSubsystemCmd implements Cmd {
      * @throws CancelException When the users wants to abort the current cmd
      * @throws IllegalArgumentException When scan, model,user is null
      * @throws IllegalArgumentException When there are no projects and subsystems.
-     *  //TODO @see createSub...
+     *
+     * @see DataModel#createSubsystem(User, AbstractSystem, String, String)
+     * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
     public Subsystem exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {

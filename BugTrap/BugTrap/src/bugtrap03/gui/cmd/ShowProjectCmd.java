@@ -29,7 +29,7 @@ public class ShowProjectCmd implements Cmd {
      * @throws CancelException When the users wants to abort the current cmd
      * @throws IllegalArgumentException If scan, model or user is null
      * 
-     * //TODO: @see GetProjectCmd
+     * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user) throws CancelException, IllegalArgumentException {

@@ -46,6 +46,10 @@ public class CreateBugReportCmd implements Cmd {
      * @throws IllegalArgumentException When scan, model,user is null
      * @throws IllegalArgumentException When there are no projects.
      * @throws IllegalArgumentException When the user has selected a project where for there are no subsystems.
+     *
+     * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
+     * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
+     * @see DataModel#createBugReport(User, String, String, PList, Subsystem)
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)

@@ -48,6 +48,8 @@ public class AssignToBugReportCmd implements Cmd {
      *
      * @throws CancelException When the users wants to abort the current cmd
      * @throws IllegalArgumentException When scan, model,user is null
+     *
+     * @see DataModel#addUsersToBugReport(User, BugReport, PList)
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)

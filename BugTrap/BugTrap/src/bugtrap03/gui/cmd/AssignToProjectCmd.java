@@ -43,6 +43,8 @@ public class AssignToProjectCmd implements Cmd {
      * @throws IllegalArgumentException When the selected project has no developer to assign.
      * @throws IllegalArgumentException When there is no role to select.
      *
+     * @see DataModel#assignToProject(Project, User, Developer, Role)
+     * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {

@@ -80,6 +80,8 @@ public class SelectBugReportCmd implements Cmd {
      *                                  permissions.
      * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalArgumentException If scan, model or user is null
+     *
+     * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException {

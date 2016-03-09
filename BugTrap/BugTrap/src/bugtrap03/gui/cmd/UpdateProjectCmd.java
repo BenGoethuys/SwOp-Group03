@@ -37,7 +37,8 @@ public class UpdateProjectCmd implements Cmd {
      *                             a project.
      * @throws IllegalArgumentException If scan, model or user is null
      * 
-     * //TODO: @see GetProjectCmd, model#updateProject..
+     * @see DataModel#updateProject(Project, User, String, String, GregorianCalendar, Long)
+     * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user)
