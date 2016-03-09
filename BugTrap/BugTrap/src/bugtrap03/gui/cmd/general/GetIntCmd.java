@@ -23,9 +23,14 @@ public class GetIntCmd implements Cmd {
      * @return The given integer
      * @throws PermissionException Never
      * @throws CancelException When the users wants to abort the current cmd
+     * @throws IllegalArgumentException When scan is a null reference.
      */
     @Override
-    public Integer exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws CancelException {
+    public Integer exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws CancelException, IllegalArgumentException {
+        if(scan == null) {
+            throw new IllegalArgumentException("scan musn't be null.");
+        }
+        
         scan.print("Give number: ");
         Integer integer = null;
         do {

@@ -21,9 +21,13 @@ public class ClearCmd implements Cmd {
      * @param dummy2 Doesn't matter
      * @param dummy3 Doesn't matter
      * @return null always
+     * @throws IllegalArgumentException When scan is a null reference.
      */
     @Override
-    public Object exec(TerminalScanner scan, DataModel dummy2, User dummy3) {
+    public Object exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws IllegalArgumentException {
+        if(scan == null) {
+            throw new IllegalArgumentException("scan musn't be null.");
+        }
         //TODO: What about if scan == null??
         this.clearConsole(scan);
         return null;
