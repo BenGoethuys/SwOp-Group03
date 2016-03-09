@@ -42,7 +42,7 @@ public class CreateSubsystemCmd implements Cmd {
 
         AbstractSystem system = new GetObjectOfListCmd<>(list, (u -> u.getName()), ((u, input) -> u.getName().equals(input)))
                 .exec(scan, model, user);
-        
+
         scan.println("You have chosen:");
         scan.println(system.getName());
 
