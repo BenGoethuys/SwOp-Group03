@@ -23,6 +23,11 @@ public class ProjectTest {
     static GregorianCalendar testCreationDate;
     static long testBudget;
     static Project testProject;
+
+    static VersionID subVersion;
+    static String subName;
+    static String subDescription;
+    static Subsystem subSysTest;
     
 
     @BeforeClass
@@ -34,11 +39,16 @@ public class ProjectTest {
         testStartDate = new GregorianCalendar(3016, 1, 1);
         testCreationDate = new GregorianCalendar(2000,12,25);   
         testBudget = 1000;
+
+        subVersion = new VersionID(9,8,5);
+        subName = "testSubAS";
+        subDescription = "This is a test description of a as subsystem";
     }
 
     @Before
     public void setUp() throws Exception {
         testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate, testBudget);
+        subSysTest = testProject.makeSubsystemChild(subVersion, subName, subDescription);
     }
     
     @Test
@@ -256,6 +266,7 @@ public class ProjectTest {
     //TODO add subsystem and check childs
     @Test
     public void testCloneProject() {
+        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
         VersionID cversion =  new VersionID(6,6,6);
         Developer clead = new Developer("cloneClown","cclone","cclown");
         GregorianCalendar cstart = new GregorianCalendar(3000, 1, 1);
@@ -274,96 +285,119 @@ public class ProjectTest {
         assertNotEquals(null, cloneProject.getCreationDate());
         assertEquals(testName, cloneProject.getName());
         assertEquals(testDescription, cloneProject.getDescription());
+
+        assertNotEquals(null, cloneProject.getChilds());
+        assertNotEquals();
     }
-//
-//    @Test
-//    public void testGetVersionID() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testSetVersionID() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testIsValidVersionId() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetName() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testSetName() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testIsValidName() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetDescription() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testSetDescription() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testIsValidDescription() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetChilds() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testMakeSubsystemChild() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testMakeSubsystemChild1() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetParent() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetParentProject() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetAllDev() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetAllBugReports() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testGetAllSubsystems() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void testHasPermission() throws Exception {
-//
-//    }
+
+    @Test
+    public void testGetVersionID() throws Exception {
+        assertEquals(testVersion, testProject.getVersionID());
+
+    }
+
+    @Test
+    public void testSetVersionID() throws Exception {
+        VersionID vid = new VersionID(12,11,10);
+        testProject.setVersionID(vid);
+        assertNotEquals(testVersion, testProject.getVersionID());
+        assertEquals(vid, testProject.getVersionID());
+    }
+
+    @Test
+    public void testIsValidVersionId() throws Exception {
+        assertTrue(Project.isValidVersionId(testVersion));
+        assertFalse(Project.isValidVersionId(null));
+    }
+
+    @Test
+    public void testGetName() throws Exception {
+        assertEquals(testName, testProject.getName());
+    }
+
+    @Test
+    public void testSetName() throws Exception {
+        String ena = "Extra test name woehoew";
+        testProject.setName(ena);
+        assertNotEquals(testName, testProject.getName());
+        assertEquals(ena, testProject.getName());
+    }
+
+    @Test
+    public void testIsValidName() throws Exception {
+        assertFalse(Project.isValidName(""));
+        assertFalse(Project.isValidName(null));
+        assertTrue(Project.isValidName(testName));
+    }
+
+    @Test
+    public void testGetDescription() throws Exception {
+        assertEquals(testDescription, testProject.getDescription());
+    }
+
+    @Test
+    public void testSetDescription() throws Exception {
+        String ede = "Extra test description woehoew";
+        testProject.setDescription(ede);
+        assertNotEquals(testDescription, testProject.getDescription());
+        assertEquals(ede, testProject.getDescription());
+    }
+
+    @Test
+    public void testIsValidDescription() throws Exception {
+        assertTrue(Project.isValidDescription(testDescription));
+    }
+
+    @Test
+    public void testGetChilds() throws Exception {
+        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
+        assertEquals(childList, testProject.getChilds());
+    }
+
+    @Test
+    public void testMakeSubsystemChild() throws Exception {
+        String ede = "Extra test description woehoew";
+        String ena = "Extra test name woehoew";
+        Subsystem esu = testProject.makeSubsystemChild(ena, ede);
+        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
+        assertNotEquals(childList, testProject.getChilds());
+        childList = childList.plus(esu);
+        assertEquals(childList,testProject.getChilds());
+    }
+
+    @Test
+    public void testMakeSubsystemChild1() throws Exception {
+        VersionID vid = new VersionID(56,21,22);
+        String ede = "Extra test description woehoew";
+        String ena = "Extra test name woehoew";
+        Subsystem esu = testProject.makeSubsystemChild(vid, ena, ede);
+        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
+        assertNotEquals(childList, testProject.getChilds());
+        childList = childList.plus(esu);
+        assertEquals(childList,testProject.getChilds());
+    }
+
+    @Test
+    public void testGetParentProject() throws Exception {
+        assertEquals(testProject, testProject.getParentProject());
+    }
+
+    @Test
+    public void testGetAllDev() throws Exception {
+        assertEquals(PList.<Developer>empty().plus(testDev), testProject.getAllDev());
+    }
+
+    @Test
+    public void testGetAllBugReports() throws Exception {
+        BugReport bugrep = subSysTest.addBugReport(testDev, "something", "something else", PList.<BugReport>empty());
+        assertEquals(PList.<BugReport>empty().plus(bugrep), testProject.getAllBugReports());
+    }
+
+    @Test
+    public void testGetAllSubsystems() throws Exception {
+        Subsystem ss2 = testProject.makeSubsystemChild("uhu", "aha");
+        PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest).plus(ss2);
+        assertEquals(childList, testProject.getAllSubsystems());
+    }
 
 }
