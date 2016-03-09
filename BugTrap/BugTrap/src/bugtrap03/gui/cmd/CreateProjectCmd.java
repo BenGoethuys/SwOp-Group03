@@ -133,6 +133,10 @@ public class CreateProjectCmd implements Cmd {
         scan.println("choose a lead developer.");
         Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
 
+        if(lead == null) {
+            throw new IllegalArgumentException("Get a lead developer option before creating a project.");
+        }
+        
         //Create Project
         Project proj = model.createProject(projName, projDesc, projStartDate, lead, projBudgetEstimate, user);
 
