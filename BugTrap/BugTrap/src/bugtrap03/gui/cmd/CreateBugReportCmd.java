@@ -45,10 +45,16 @@ public class CreateBugReportCmd implements Cmd {
      * @throws PermissionException When the user does not have sufficient
      * permissions.
      * @throws CancelException When the users wants to abort the current cmd
+     * @throws IllegalArgumentException When scan, model,user is null OR when the user
+     * has selected a project where for there are no subsystems.
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)
-            throws PermissionException, CancelException {
+            throws IllegalArgumentException, PermissionException, CancelException {
+        if(scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
+        
         //1. The issuer indicates he wants to file a bug report.
         //2. The system shows a list of projects.
         //3. The issuer selects a project.
@@ -57,8 +63,12 @@ public class CreateBugReportCmd implements Cmd {
         //4. The system shows a list of subsystems of the selected project.
         //5. The issuer selects a subsystem.
         PList<Subsystem> subsysList = model.getAllSubsystems(proj);
-        Subsystem subsys = new GetObjectOfListCmd<Subsystem>(subsysList, (u -> u.getName()), ((u, input) -> u.getName().equals(input)))
+        Subsystem subsys = new GetObjectOfListCmd<>(subsysList, (u -> u.getName()), ((u, input) -> u.getName().equals(input)))
                 .exec(scan, model, user);
+        
+        if(subsys == null) {
+            throw new IllegalArgumentException("Please add a subsystem to the project before creating the bug report.");
+        }
 
         //6. The system shows the bug report creation form.
         //7. The issuer enters the bug report details: title and description.
