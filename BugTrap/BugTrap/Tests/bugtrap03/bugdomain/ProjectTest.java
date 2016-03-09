@@ -287,7 +287,7 @@ public class ProjectTest {
         assertEquals(testDescription, cloneProject.getDescription());
 
         assertNotEquals(null, cloneProject.getChilds());
-        assertNotEquals();
+        assertNotEquals(childList, cloneProject.getChilds());
     }
 
     @Test
