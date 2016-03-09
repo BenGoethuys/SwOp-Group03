@@ -114,12 +114,18 @@ public class AssignToBugReportCmdTest {
         question.add("Added " + dev2.getUsername());
         question.add("I choose: (leave blank when done)");
         answer.add("");
-        question.add(" ");
+        question.add("Finished assigning.");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         //Execute scenario
         BugReport chosen = cmd.exec(scan, model, lead);
         //Test effects.
+        
+        assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(dev2));
+        assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(lead));
+        assertEquals(model.getDevelopersOfBugReport(bugRep1).size(), 2);
+        
+        
 
     }
 
