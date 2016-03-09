@@ -241,7 +241,7 @@ public class ProjectTest {
     @Test
     public void testGetDetails() {
         String details = testProject.getDetails();
-        //System.out.println(details);
+        System.out.println(details);
         assertTrue(details.contains(testName));
         assertTrue(details.contains(testDescription));
         assertTrue(details.contains(testVersion.toString()));
@@ -270,8 +270,7 @@ public class ProjectTest {
         assertNotEquals(testStartDate, cloneProject.getStartDate());
         assertNotEquals(testDev, cloneProject.getLead());
         assertNotEquals(testVersion, cloneProject.getVersionID());
-        
-        //TODO Compare Dates??
+
         assertNotEquals(null, cloneProject.getCreationDate());
         assertEquals(testName, cloneProject.getName());
         assertEquals(testDescription, cloneProject.getDescription());
