@@ -342,7 +342,7 @@ public class BugReport implements Comparable<BugReport> {
      */
     private void setCreationDate(GregorianCalendar creationDate) throws IllegalArgumentException {
         if (!BugReport.isValidCreationDate(creationDate)) {
-            throw new IllegalArgumentException("The givien creation date in bug report is a nullpointer");
+            throw new IllegalArgumentException("The given creation date in bug report is a nullPointer");
         }
         this.creationDate = creationDate;
     }
@@ -431,7 +431,7 @@ public class BugReport implements Comparable<BugReport> {
     }
 
     /**
-     * This method returns all comments in this bugreport (deep search)
+     * This method returns all comments in this bug report (deep search)
      *
      * @return all the comments in this bug report
      */
@@ -629,8 +629,9 @@ public class BugReport implements Comparable<BugReport> {
 
     /**
      * This method adds a developer to this bug report issued by the given user
-     * @param user  The user that wants to add a developer to this bugreport
-     * @param dev   The developper to assign to this bug report
+     *
+     * @param user  The user that wants to add a developer to this bug report
+     * @param dev   The developer to assign to this bug report
      * @throws IllegalArgumentException If the given user was null
      * @throws PermissionException  If the given users doesn't have the needed permissions
      * @see BugReport#addUser(Developer)
@@ -785,7 +786,8 @@ public class BugReport implements Comparable<BugReport> {
     }
 
     /**
-     * This method returns all important details of this bug report:
+     * This method returns all important details of this bug report
+     *
      * @return the most important details of this bug report
      */
     public String getDetails(){
@@ -795,6 +797,10 @@ public class BugReport implements Comparable<BugReport> {
         str += "\n description: " + this.getDescription();
         str += "\n creation date: " + this.getCreationDate().getTime();
         str += "\n tag: " + this.getTag().name();
+        str += "\n comments: ";
+        for (Comment comment : this.getAllComments()){
+            str += "\n \t " + comment.getText();
+        }
         str += "\n dependencies: ";
         for (BugReport bugrep : this.getDependencies()){
             str += "\n \t id: " + bugrep.getUniqueID() + ", title: " + bugrep.getTitle();

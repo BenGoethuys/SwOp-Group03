@@ -4,7 +4,7 @@ import bugtrap03.bugdomain.DomainAPI;
 
 /**
  * This class represents an exception thrown when someone/something has insufficient permission to do something
- * @author Ben Goethuys & Vincent Derkinderen
+ * @author Group 03
  */
 @DomainAPI
 public class PermissionException extends Exception {

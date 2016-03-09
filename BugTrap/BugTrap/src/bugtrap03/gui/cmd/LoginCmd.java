@@ -19,7 +19,7 @@ import java.util.Scanner;
  * This command represents the use case login, where a user logs in into the
  * system
  *
- * @author Vincent Derkinderen
+ * @author Group 03
  */
 public class LoginCmd implements Cmd {
 

@@ -8,7 +8,9 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import java.util.InputMismatchException;
 
 /**
- * This command asks an int from the user Created by Ben Goethuys on 04/03/2016.
+ * This command asks an int from the user.
+ *
+ * @author Group 03
  */
 public class GetIntCmd implements Cmd {
 

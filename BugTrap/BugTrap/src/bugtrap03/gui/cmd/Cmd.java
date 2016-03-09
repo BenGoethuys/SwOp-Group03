@@ -8,7 +8,8 @@ import bugtrap03.gui.terminal.TerminalScanner;
 
 /**
  * This interface should be implemented by all executable commands in the system
- * @author Vincent Derkinderen
+ *
+ * @author Group 03
  */
 public interface Cmd {
 

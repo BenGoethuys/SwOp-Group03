@@ -17,8 +17,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * This class handles the SelectBugReport scenario Created by Ben Goethuys on
- * 02/03/2016.
+ * This class handles the SelectBugReport scenario.
+ *
+ * @author Group 03
  */
 public class SelectBugReportCmd implements Cmd {
 

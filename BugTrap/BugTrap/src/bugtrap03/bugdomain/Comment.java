@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * This is a class representing a comment.
  *
- * @author Ben Goethuys
+ * @author Group 03
  */
 @DomainAPI
 public class Comment {

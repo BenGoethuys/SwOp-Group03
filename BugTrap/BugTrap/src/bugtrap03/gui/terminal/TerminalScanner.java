@@ -6,6 +6,7 @@ import bugtrap03.gui.cmd.general.CancelException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -13,9 +14,8 @@ import java.util.Scanner;
  * This can be used to provide custom out & input streams as well as
  * provides a way to override certain methods for testing purposes.
  * 
- * @author Admin
+ * @author Group 03
  * @see Scanner
- * @see testCollection#TerminalTestScanner
  */
 public class TerminalScanner {
 
@@ -58,7 +58,7 @@ public class TerminalScanner {
      * to abort.
      * @see Scanner#nextLine()
      */
-    public String nextLine() throws CancelException {
+    public String nextLine() throws CancelException, NoSuchElementException {
         String result = scan.nextLine();
 
         if (AbortCmd.ABORT_CMD.equalsIgnoreCase(result)) {

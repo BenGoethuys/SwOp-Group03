@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 /**
  * This command represents the use case for creating a comment in the system
- * Created by Ben Goethuys on 04/03/2016.
+ *
+ * @author Group 03
  */
 public class CreateCommentCmd implements Cmd {
 
