@@ -77,7 +77,7 @@ public class AssignToProjectCmd implements Cmd {
         //7. The lead developer selects a role.
         Role selectedRole = new GetObjectOfListCmd<Role>(roleList, (u -> u.name()), ((u, input) -> u.name().equals(input)))
                 .exec(scan, model, user);
-        
+
         scan.println("Selected role: " + selectedRole.name());
         
         //8. The systems assigns the selected role to the selected developer.
