@@ -199,16 +199,16 @@ public class Subsystem extends AbstractSystem {
      * @return a string of details
      */
     public String getDetails(){
-        String details = "\tSubsystem name:\t \t";
+        String details = "\n\n\tSubsystem name:\t\t \t";
         details += this.getName();
-        details += "\n\tSubsystem version:\t";
+        details += "\n\tSubsystem version:\t\t";
         details += this.getVersionID().toString();
         details += "\n\tSubsystem description: \t";
         details += this.getDescription();
-        details += "\n\tSubsystem parent: \t";
+        details += "\n\tSubsystem parent: \t\t";
         details += this.getParent().getName();
-        details += "\n\tSubsystem belongs to parent project: \t";
-        details += this.getParentProject().getName();
+        details += "\n\tSubsystem from project: ";
+        details += this.getParentProject().getName() ;
         return details;
     }
 
