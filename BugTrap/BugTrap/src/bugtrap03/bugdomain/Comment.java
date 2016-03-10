@@ -169,7 +169,6 @@ public class Comment {
         }
 
         // cannot add null to PList -> no check needed
-
         for (Comment comment : subComments) {
             if (comment == this) {
                 return false;
