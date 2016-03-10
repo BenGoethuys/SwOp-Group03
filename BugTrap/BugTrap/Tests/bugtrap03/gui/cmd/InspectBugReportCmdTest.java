@@ -36,6 +36,7 @@ public class InspectBugReportCmdTest {
     BugReport bugRep1;
     BugReport bugRep2;
     BugReport inspectBugReport;
+    BugReport chosen;
 
     /**
      * Test method for
@@ -93,4 +94,37 @@ public class InspectBugReportCmdTest {
         inspectBugReport = cmd.exec(scan, model, issuer);
     }
 
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testException() throws IllegalArgumentException, CancelException, PermissionException {
+        InspectBugReportCmd cmd = new InspectBugReportCmd();
+        chosen = cmd.exec(null, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
+        InspectBugReportCmd cmd = new InspectBugReportCmd();
+        DataModel model = new DataModel();
+        Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
+        chosen = cmd.exec(null, model, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
+        InspectBugReportCmd cmd = new InspectBugReportCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
+        chosen = cmd.exec(scan, null, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
+        InspectBugReportCmd cmd = new InspectBugReportCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        chosen = cmd.exec(scan, model, null);
+    }
 }
