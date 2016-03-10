@@ -5,7 +5,6 @@ import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.gui.cmd.general.CancelException;
 import static org.junit.Assert.*;
 
@@ -22,6 +21,8 @@ import testCollection.TerminalTestScanner;
  */
 public class CreateSubsystemCmdTest {
 
+    Subsystem chosen;
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.CreateSubsystemCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
@@ -32,7 +33,6 @@ public class CreateSubsystemCmdTest {
         // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead054", "Luky", "Luke");
-        Issuer issuer = model.createIssuer("noDev054", "BadLuck", "Luke");
         Administrator admin = model.createAdministrator("admin054", "adminT", "bie");
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
@@ -101,7 +101,6 @@ public class CreateSubsystemCmdTest {
         // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead055", "Luky", "Luke");
-        Issuer issuer = model.createIssuer("noDev055", "BadLuck", "Luke");
         Administrator admin = model.createAdministrator("admin055", "adminT", "bie");
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
         Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
@@ -158,6 +157,39 @@ public class CreateSubsystemCmdTest {
         assertEquals(model.getAllProjectsAndSubsystems().size(), 8);
         assertTrue(model.getAllProjectsAndSubsystems().contains(chosen));
         assertTrue(model.getAllSubsystems(projectA).contains(chosen));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException() throws IllegalArgumentException, CancelException, PermissionException {
+        CreateSubsystemCmd cmd = new CreateSubsystemCmd();
+        chosen = cmd.exec(null, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
+        CreateSubsystemCmd cmd = new CreateSubsystemCmd();
+        DataModel model = new DataModel();
+        Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
+        chosen = cmd.exec(null, model, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
+        CreateSubsystemCmd cmd = new CreateSubsystemCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
+        chosen = cmd.exec(scan, null, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
+        CreateSubsystemCmd cmd = new CreateSubsystemCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        chosen = cmd.exec(scan, model, null);
     }
 
 }
