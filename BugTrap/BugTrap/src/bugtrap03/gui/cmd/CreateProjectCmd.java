@@ -204,7 +204,7 @@ public class CreateProjectCmd implements Cmd {
             String[] startDateStr = scan.nextLine().split("-");
             try {
                 startDate = new GregorianCalendar(Integer.parseInt(startDateStr[0]),
-                        Integer.parseInt(startDateStr[1]), Integer.parseInt(startDateStr[2]));
+                        Integer.parseInt(startDateStr[1])-1, Integer.parseInt(startDateStr[2]));
             } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
                 scan.println("Invalid input. Please try again using format YYYY-MM-DD");
             }
