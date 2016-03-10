@@ -25,6 +25,8 @@ import testCollection.TerminalTestScanner;
  */
 public class CreateCommentCmdTest {
 
+    Comment chosen;
+
     @Test
     public void testExecIndexTitleOnBugReport() throws PermissionException, CancelException {
         // Setup variables.
@@ -223,6 +225,39 @@ public class CreateCommentCmdTest {
         question.add("2. creator");
         question.add("3. assigned");
         question.add("4. uniqueId");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException() throws IllegalArgumentException, CancelException, PermissionException {
+        CreateCommentCmd cmd = new CreateCommentCmd();
+        chosen = cmd.exec(null, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
+        CreateCommentCmd cmd = new CreateCommentCmd();
+        DataModel model = new DataModel();
+        Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
+        chosen = cmd.exec(null, model, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
+        CreateCommentCmd cmd = new CreateCommentCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
+        chosen = cmd.exec(scan, null, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
+        CreateCommentCmd cmd = new CreateCommentCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        chosen = cmd.exec(scan, model, null);
     }
 
 }
