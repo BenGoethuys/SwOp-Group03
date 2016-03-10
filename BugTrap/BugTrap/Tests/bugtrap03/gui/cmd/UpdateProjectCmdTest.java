@@ -27,6 +27,7 @@ public class UpdateProjectCmdTest {
     private static Developer lead;
     private static Project proj0;
     private static Project proj1;
+    private Project chosen;
 
     /**
      * @throws java.lang.Exception
@@ -275,5 +276,38 @@ public class UpdateProjectCmdTest {
         assertEquals(proj0.getBudgetEstimate(), 123);
         assertNotEquals(proj0.getBudgetEstimate(), 500);
 
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException() throws IllegalArgumentException, PermissionException, CancelException {
+        UpdateProjectCmd cmd = new UpdateProjectCmd();
+        chosen = cmd.exec(null, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
+        UpdateProjectCmd cmd = new UpdateProjectCmd();
+        DataModel model = new DataModel();
+        Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
+        chosen = cmd.exec(null, model, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
+        UpdateProjectCmd cmd = new UpdateProjectCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
+        chosen = cmd.exec(scan, null, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
+        UpdateProjectCmd cmd = new UpdateProjectCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        chosen = cmd.exec(scan, model, null);
     }
 }
