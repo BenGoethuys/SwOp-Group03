@@ -1,14 +1,14 @@
 package bugtrap03.gui.cmd;
 
-import java.util.Scanner;
-
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetProjectCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.model.DataModel;
+
+import java.util.Scanner;
 
 /**
  * This command represents the use case of deleting a project in the system
@@ -27,15 +27,14 @@ public class DeleteProjectCmd implements Cmd {
      * are part of the project. All bug reports fore those subsystem are also
      * removed from BugTrap.
      *
-     * @param scan The {@link Scanner} trough which to ask the questions.
+     * @param scan  The {@link Scanner} trough which to ask the questions.
      * @param model The model to use to access the model.
-     * @param user The user who wants to execute this {@link Cmd}.
+     * @param user  The user who wants to execute this {@link Cmd}.
      * @return The deleted project
-     * @throws PermissionException When the user does not have sufficient
-     * permissions to update a project.
-     * @throws CancelException When the user wants to abort the cmd.
+     * @throws PermissionException      When the user does not have sufficient
+     *                                  permissions to update a project.
+     * @throws CancelException          When the user wants to abort the cmd.
      * @throws IllegalArgumentException When scan, model,user is null
-     *
      * @see DataModel#deleteProject(User, Project)
      * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
      */

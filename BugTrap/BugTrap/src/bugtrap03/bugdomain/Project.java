@@ -1,18 +1,16 @@
 package bugtrap03.bugdomain;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.bugdomain.usersystem.User;
-
-import java.util.GregorianCalendar;
-import java.util.NoSuchElementException;
-
 import purecollections.PList;
+
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 /**
  * This class extends AbstractSystem (versionID, name and description) and
@@ -327,11 +325,10 @@ public class Project extends AbstractSystem {
      *
      * @param dev  The developer to give a role
      * @param role The role the developer has in this project
-     *
      * @throws IllegalArgumentException if the given role was invalid
      */
     private void setRole(Developer dev, Role role) {
-        if (role == null){
+        if (role == null) {
             throw new IllegalArgumentException("The given role was null");
         }
         PList<Role> roleList = this.projectParticipants.get(dev);
@@ -347,10 +344,10 @@ public class Project extends AbstractSystem {
     /**
      * The given user uses this method to set the role of a given developer to the given role
      *
-     * @param user  The user that wants to set the given role to the given developer
-     * @param dev   The developer to give the new role to
-     * @param role  The role that will be assigned to the given developer
-     * @throws PermissionException If the given user doesn't have the needed permission to assign the given role to the given developer
+     * @param user The user that wants to set the given role to the given developer
+     * @param dev  The developer to give the new role to
+     * @param role The role that will be assigned to the given developer
+     * @throws PermissionException      If the given user doesn't have the needed permission to assign the given role to the given developer
      * @throws IllegalArgumentException If the given user is null
      * @throws IllegalArgumentException If the given developper is null
      * @throws IllegalArgumentException If the given role was null
@@ -359,7 +356,7 @@ public class Project extends AbstractSystem {
         if (user == null || dev == null) {
             throw new IllegalArgumentException("setRole(User, Developer, Role) does not allow a null-reference for user.");
         }
-        if (! user.hasRolePermission(role.getNeededPerm(), this)) {
+        if (!user.hasRolePermission(role.getNeededPerm(), this)) {
             throw new PermissionException("The given user doesn't have the needed permission to set the role");
         }
         this.setRole(dev, role);
@@ -367,11 +364,12 @@ public class Project extends AbstractSystem {
 
     /**
      * This functions returns all the developers associated with this project
+     *
      * @return The list of all developers associated with this project
      */
     @DomainAPI
     @Override
-    public PList<Developer> getAllDev(){
+    public PList<Developer> getAllDev() {
         return PList.<Developer>empty().plusAll(this.projectParticipants.keySet());
     }
 
@@ -432,12 +430,11 @@ public class Project extends AbstractSystem {
         details += "\nCreation date:\t\t\t";
         details += this.getCreationDate().getTime();
         details += "\nSubsystems of this project: ";
-        for (Subsystem subsys: this.getAllSubsystems()){
+        for (Subsystem subsys : this.getAllSubsystems()) {
             details += subsys.getDetails();
         }
         return details;
     }
-
 
 
     /**
@@ -451,7 +448,7 @@ public class Project extends AbstractSystem {
      * @see Subsystem#cloneSubsystem(AbstractSystem)
      */
     public Project cloneProject(VersionID version, Developer lead, GregorianCalendar startDate, long budgetEstimate) {
- 
+
         Project cloneProject = new Project(version, this.getName(), this.getDescription(), lead, startDate,
                 budgetEstimate);
         ArrayList<Subsystem> cloneChilds = new ArrayList<>();

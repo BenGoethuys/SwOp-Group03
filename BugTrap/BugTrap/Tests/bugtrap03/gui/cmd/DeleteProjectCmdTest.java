@@ -1,22 +1,22 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.gui.cmd.general.CancelException;
-import java.util.ArrayDeque;
-import static org.junit.Assert.*;
-
+import bugtrap03.model.DataModel;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
- *
  * @author Group 03
- *
  */
 public class DeleteProjectCmdTest {
 

@@ -1,6 +1,5 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
@@ -10,6 +9,7 @@ import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetProjectCmd;
 import bugtrap03.gui.cmd.general.GetUserOfExcactTypeCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.model.DataModel;
 
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -39,17 +39,16 @@ public class CreateProjectCmd implements Cmd {
      * <br> b4. Ask user the budget estimate
      * <br> b5. Go to step a5
      *
-     * @param scan The {@link Scanner} trough which to ask the questions.
+     * @param scan  The {@link Scanner} trough which to ask the questions.
      * @param model The model to use to access the model.
-     * @param user The user who wants to execute this {@link Cmd}.
+     * @param user  The user who wants to execute this {@link Cmd}.
      * @return The user chosen by the person to login as.
-     * @throws PermissionException When the user does not have sufficient
-     * permissions to create/clone a project.
-     * @throws CancelException When the user has indicated that he/she wants to
-     * abort the cmd.
+     * @throws PermissionException      When the user does not have sufficient
+     *                                  permissions to create/clone a project.
+     * @throws CancelException          When the user has indicated that he/she wants to
+     *                                  abort the cmd.
      * @throws IllegalArgumentException When scan, model or user is a null
-     * reference.
-     *
+     *                                  reference.
      * @see DataModel#createProject(String, String, GregorianCalendar, Developer, long, User)
      * @see DataModel#cloneProject(Project, VersionID, Developer, GregorianCalendar, long)
      * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
@@ -90,15 +89,14 @@ public class CreateProjectCmd implements Cmd {
      * <br> a5. Ask user the lead developer by providing a list of possibilities.
      * <br> a6. Show the user the details of the created project.
      *
-     * @param scan The {@link Scanner} trough which to ask the questions.
+     * @param scan  The {@link Scanner} trough which to ask the questions.
      * @param model The model to use to access the model.
-     * @param user The user who wants to execute this {@link Cmd}.
+     * @param user  The user who wants to execute this {@link Cmd}.
      * @return The user chosen by the person to login as.
-     * @throws CancelException When the user has indicated to abort the cmd.
-     * @throws PermissionException When the user does not have sufficient permissions to create/clone a project.
+     * @throws CancelException          When the user has indicated to abort the cmd.
+     * @throws PermissionException      When the user does not have sufficient permissions to create/clone a project.
      * @throws IllegalArgumentException When there is no option for a lead developer.
-     * 
-     * @see DataModel#createProject(String, String, GregorianCalendar, Developer, long, User) 
+     * @see DataModel#createProject(String, String, GregorianCalendar, Developer, long, User)
      */
     private Project createProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException, PermissionException, IllegalArgumentException {
         // Project name
@@ -164,14 +162,13 @@ public class CreateProjectCmd implements Cmd {
      * <br> b4. Ask user the budget estimate
      * <br> b5. Go to step a5
      *
-     * @param scan The {@link TerminalScanner} trough which to ask the questions.
+     * @param scan  The {@link TerminalScanner} trough which to ask the questions.
      * @param model The {@link DataModel} to use to access the model.
-     * @param user The {@link User} who wants to execute this {@link Cmd}.
+     * @param user  The {@link User} who wants to execute this {@link Cmd}.
      * @return The user chosen by the person to login as.
-     * @throws CancelException When the user has indicated to abort the cmd.
-     * @throws PermissionException When the user does not have sufficient permissions to create/clone a project.
+     * @throws CancelException          When the user has indicated to abort the cmd.
+     * @throws PermissionException      When the user does not have sufficient permissions to create/clone a project.
      * @throws IllegalArgumentException Check @see.
-     * 
      * @see DataModel#cloneProject(Project, VersionID, Developer, GregorianCalendar, long)
      * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
      */

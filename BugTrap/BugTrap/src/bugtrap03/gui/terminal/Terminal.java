@@ -1,10 +1,10 @@
 package bugtrap03.gui.terminal;
 
-import bugtrap03.gui.cmd.LoginCmd;
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.CmdParser;
+import bugtrap03.gui.cmd.LoginCmd;
 import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.model.DataModel;
 
 /**
  * This class represents the terminal of the system

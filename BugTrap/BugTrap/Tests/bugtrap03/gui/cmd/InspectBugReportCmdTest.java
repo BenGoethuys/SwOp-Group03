@@ -1,9 +1,5 @@
 package bugtrap03.gui.cmd;
 
-import java.util.ArrayDeque;
-
-import org.junit.Test;
-
 import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
@@ -14,14 +10,15 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
+import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
 /**
- * 
  * @author Group 03
- *
  */
 public class InspectBugReportCmdTest {
 
@@ -61,9 +58,9 @@ public class InspectBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         bugRep1 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport> empty(), subsystemA2);
+                PList.<BugReport>empty(), subsystemA2);
         bugRep2 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport> empty(), subsystemA3_1);
+                PList.<BugReport>empty(), subsystemA3_1);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -94,7 +91,7 @@ public class InspectBugReportCmdTest {
         inspectBugReport = cmd.exec(scan, model, issuer);
     }
 
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testException() throws IllegalArgumentException, CancelException, PermissionException {
         InspectBugReportCmd cmd = new InspectBugReportCmd();

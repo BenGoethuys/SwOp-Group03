@@ -1,25 +1,23 @@
 package bugtrap03.gui.cmd;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayDeque;
-
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
- * 
  * @author Group 03
- *
  */
 public class UpdateProjectCmdTest {
     private static DataModel model;

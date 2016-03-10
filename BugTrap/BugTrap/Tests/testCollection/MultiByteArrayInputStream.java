@@ -23,7 +23,7 @@ public class MultiByteArrayInputStream extends InputStream {
      * of Strings holding what to provide as input.
      *
      * @param queue The queue used to retrieve what to use as input. No copy
-     * will be taken, modifying this list will effect this behavior.
+     *              will be taken, modifying this list will effect this behavior.
      * @throws IllegalArgumentException When the provided queue is null.
      */
     public MultiByteArrayInputStream(Queue<String> queue) throws IllegalArgumentException {

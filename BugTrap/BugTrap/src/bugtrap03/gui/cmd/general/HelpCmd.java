@@ -5,10 +5,10 @@
  */
 package bugtrap03.gui.cmd.general;
 
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.model.DataModel;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class HelpCmd implements Cmd {
      * Print a 'list' of all possible commands currently in the map passed to
      * the constructor.
      *
-     * @param scan The scanner used to print to.
+     * @param scan   The scanner used to print to.
      * @param dummy2 doesn't matter
      * @param dummy3 doesn't matter
      * @return null.
@@ -50,7 +50,7 @@ public class HelpCmd implements Cmd {
      */
     @Override
     public Object exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws IllegalArgumentException {
-        if(scan == null) {
+        if (scan == null) {
             throw new IllegalArgumentException("HelpCmd requires a non null reference as scan");
         }
         scan.println("List of possible commands:");

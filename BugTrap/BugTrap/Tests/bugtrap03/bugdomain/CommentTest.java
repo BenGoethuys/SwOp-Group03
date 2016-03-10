@@ -1,22 +1,20 @@
 /**
- * 
+ *
  */
 package bugtrap03.bugdomain;
 
-import static org.junit.Assert.*;
-
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
+import bugtrap03.bugdomain.usersystem.Issuer;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import bugtrap03.bugdomain.usersystem.Issuer;
 import purecollections.PList;
+
+import static org.junit.Assert.*;
 
 /**
  * @author Ben
- *
  */
 public class CommentTest {
 
@@ -59,7 +57,7 @@ public class CommentTest {
         new Comment(null, text);
     }
 
-    @Test (expected = PermissionException.class)
+    @Test(expected = PermissionException.class)
     public void testCommentNoPermission() throws PermissionException {
         new Comment(admin, "Valid text");
     }
@@ -146,7 +144,7 @@ public class CommentTest {
     @Test
     public void testIsValidSubComments() throws PermissionException {
         Comment comment = new Comment(issuer, text);
-        PList<Comment> validListEmpty = PList.<Comment> empty();
+        PList<Comment> validListEmpty = PList.<Comment>empty();
         PList<Comment> validList = validListEmpty.plus(comment1);
         PList<Comment> nullPointer = null;
         PList<Comment> invalidListContSelf = validListEmpty.plus(comment);
@@ -196,7 +194,7 @@ public class CommentTest {
         comment1.addSubComment(issuer, null);
     }
 
-    @Test (expected = PermissionException.class)
+    @Test(expected = PermissionException.class)
     public void testAddSubCommentNoPermission() throws PermissionException {
         comment1.addSubComment(admin, "Valid text");
     }

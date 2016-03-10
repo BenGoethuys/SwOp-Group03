@@ -1,6 +1,5 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
@@ -8,21 +7,20 @@ import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
-import java.util.ArrayDeque;
-import static java.util.GregorianCalendar.DATE;
-import static java.util.GregorianCalendar.MONTH;
-import static java.util.GregorianCalendar.YEAR;
-import java.util.GregorianCalendar;
-import static org.junit.Assert.*;
-
+import bugtrap03.model.DataModel;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+import java.util.GregorianCalendar;
+
+import static java.util.GregorianCalendar.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
- *
  * @author Group 03
- *
  */
 public class CreateProjectCmdTest {
 

@@ -19,10 +19,10 @@ public class Subsystem extends AbstractSystem {
      * This constructor makes an element of the class subsystem, using it's
      * superclass, AbstractSystem, constructor.
      *
-     * @param version The versionID (of that type) of this element.
-     * @param name The string name for this element.
+     * @param version     The versionID (of that type) of this element.
+     * @param name        The string name for this element.
      * @param description The string description of this element.
-     * @param parent The parent (a Project or Subsystem) of this element.
+     * @param parent      The parent (a Project or Subsystem) of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if the version id is invalid.
      * @throws IllegalArgumentException if the parent is invalid for this subsystem
@@ -37,16 +37,16 @@ public class Subsystem extends AbstractSystem {
         // given parent");
         // }
         this.setParent(parent);
-        this.bugReportList = PList.<BugReport> empty();
+        this.bugReportList = PList.<BugReport>empty();
     }
 
     /**
      * This constructor makes an element of the class subsystem, using it's
      * superclass, AbstractSystem, constructor.
      *
-     * @param name The string name for this element.
+     * @param name        The string name for this element.
      * @param description The string description of this element.
-     * @param parent The parent (a Project or Subsystem) of this element.
+     * @param parent      The parent (a Project or Subsystem) of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @see Subsystem#Subsystem(VersionID, String, String, AbstractSystem)
      **/
@@ -58,7 +58,7 @@ public class Subsystem extends AbstractSystem {
         // given parent");
         // }
         this.setParent(parent);
-        this.bugReportList = PList.<BugReport> empty();
+        this.bugReportList = PList.<BugReport>empty();
     }
 
     private AbstractSystem parent;
@@ -88,7 +88,7 @@ public class Subsystem extends AbstractSystem {
      */
     @DomainAPI
     protected boolean isValidParent(AbstractSystem parent) {
-        if (parent == null){
+        if (parent == null) {
             return false;
         }
         Project parentProject = parent.getParentProject();
@@ -139,15 +139,15 @@ public class Subsystem extends AbstractSystem {
      * This method creates and adds a bug report to the list of associated
      * bugReports of this subsystem
      *
-     * @param creator The issuer that wants to create the bug report
-     * @param title The title of this bugReport
-     * @param description The description of this bug report
+     * @param creator      The issuer that wants to create the bug report
+     * @param title        The title of this bugReport
+     * @param description  The description of this bug report
      * @param dependencies The dependencies of the bug report
      * @return the created bug report
      * @throws IllegalArgumentException If BugReport(creator, title, description, dependencies, this) fails
-     * @throws PermissionException If the creation of a BugReport fails.
+     * @throws PermissionException      If the creation of a BugReport fails.
      * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
-     *      String, PList, Subsystem)
+     * String, PList, Subsystem)
      */
     public BugReport addBugReport(User creator, String title, String description, PList<BugReport> dependencies)
             throws IllegalArgumentException, PermissionException {
@@ -160,15 +160,15 @@ public class Subsystem extends AbstractSystem {
      * This method creates and adds a bug report to the list of associated
      * bugReports of this subsystem
      *
-     * @param creator The issuer that wants to create the bug report
-     * @param title The title of this bugReport
-     * @param description The description of this bug report
+     * @param creator      The issuer that wants to create the bug report
+     * @param title        The title of this bugReport
+     * @param description  The description of this bug report
      * @param dependencies The dependencies of the bug report
      * @return the created bug report
      * @throws IllegalArgumentException If BugReport(creator, title, description, dependencies, this) fails
-     * @throws PermissionException If the creation of a BugReport fails.
+     * @throws PermissionException      If the creation of a BugReport fails.
      * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
-     *      String, PList, Subsystem)
+     * String, PList, Subsystem)
      */
     public BugReport addBugReport(User creator, String title, String description, GregorianCalendar creationDate, PList<BugReport> dependencies)
             throws IllegalArgumentException, PermissionException {
@@ -188,7 +188,7 @@ public class Subsystem extends AbstractSystem {
      * @throws IllegalArgumentException if the parent is invalid
      * @see Subsystem#Subsystem(VersionID, String, String, AbstractSystem)
      */
-    public Subsystem cloneSubsystem(AbstractSystem parent) throws IllegalArgumentException{
+    public Subsystem cloneSubsystem(AbstractSystem parent) throws IllegalArgumentException {
         return new Subsystem(this.getVersionID(), this.getName(), this.getDescription(), parent);
     }
 
@@ -198,7 +198,7 @@ public class Subsystem extends AbstractSystem {
      *
      * @return a string of details
      */
-    public String getDetails(){
+    public String getDetails() {
         String details = "\n\n\tSubsystem name:\t\t \t";
         details += this.getName();
         details += "\n\tSubsystem version:\t\t";
@@ -208,7 +208,7 @@ public class Subsystem extends AbstractSystem {
         details += "\n\tSubsystem parent: \t\t";
         details += this.getParent().getName();
         details += "\n\tSubsystem from project: ";
-        details += this.getParentProject().getName() ;
+        details += this.getParentProject().getName();
         return details;
     }
 

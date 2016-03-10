@@ -2,18 +2,18 @@ package bugtrap03.gui.cmd.general;
 
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.Cmd;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Group 03
- *
  */
 public class HelpCmdTest {
 

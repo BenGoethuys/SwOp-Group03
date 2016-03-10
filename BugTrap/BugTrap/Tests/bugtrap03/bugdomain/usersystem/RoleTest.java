@@ -1,18 +1,14 @@
 package bugtrap03.bugdomain.usersystem;
 
-import bugtrap03.bugdomain.usersystem.Role;
+import bugtrap03.bugdomain.permission.RolePerm;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import bugtrap03.bugdomain.permission.RolePerm;
-
 import static org.junit.Assert.*;
 
 /**
- * 
  * @author Mathias
- *
  */
 public class RoleTest {
 
@@ -49,21 +45,21 @@ public class RoleTest {
         assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_DEV_BUGREPORT));
         assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_PROG_ROLE));
         assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_TEST_ROLE));
-        
+
         assertFalse(roleLead.hasPermission(null));
     }
 
     @Test
     public void testTesterTag() {
         assertTrue(roleTester.hasPermission(RolePerm.SET_TAG_UNDER_REVIEW));
-        
+
         assertFalse(roleTester.hasPermission(null));
     }
 
     @Test
     public void testProgrammer() {
         assertTrue(roleProgrammer.hasPermission(RolePerm.SET_TAG_UNDER_REVIEW));
-        
+
         assertFalse(roleProgrammer.hasPermission(null));
     }
 

@@ -1,20 +1,20 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.Terminal;
-import java.util.ArrayDeque;
-import static org.junit.Assert.assertEquals;
+import bugtrap03.model.DataModel;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Group 03
- *
  */
 public class LoginCmdTest {
 
@@ -39,7 +39,6 @@ public class LoginCmdTest {
     private static User issuer;
 
     /**
-     *
      * Test a login scenario with 2 administrators, 1 Issuer. <br>
      * Person uses index 0 to select Administrator <br>
      * Person uses index 0 to select a certain Administrator on index 0 - admin.
@@ -78,7 +77,6 @@ public class LoginCmdTest {
     }
 
     /**
-     *
      * Test a login scenario with 2 administrators, 1 Issuer. <br>
      * Person uses index 0 to select Administrator <br>
      * Person uses index 0 to select a certain Administrator on index 0 - admin.

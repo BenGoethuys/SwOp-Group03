@@ -1,10 +1,10 @@
 package bugtrap03.gui.cmd.general;
 
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
@@ -22,7 +22,6 @@ public class GetProjectCmd implements Cmd {
     }
 
     /**
-     *
      * Create a GetProjectCmd with a specific list of projects used to provide the user as a list of options during the
      * select process.
      *
@@ -49,16 +48,16 @@ public class GetProjectCmd implements Cmd {
      * by the list passed to {@link #GetProjectCmd(purecollections.PList)} or
      * {@link #setOptionsList(purecollections.PList)}. When this list is set to null the list of projects in the passed
      * {@link DataModel} will be used.
-     *
+     * <p>
      * <p>
      * <br> 1. The system shows a list of existing projects.
      * <br> 2. The person selects an existing project of the list.
      *
-     * @param scan The scanner used to interact with the person.
-     * @param model The model used for model access.
+     * @param scan   The scanner used to interact with the person.
+     * @param model  The model used for model access.
      * @param dummy3 Doesn't matter
      * @return The chosen project.
-     * @throws CancelException When the users wants to abort the current cmd
+     * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalArgumentException If the given scan, model is null.
      * @throws IllegalArgumentException When the list of options is empty.
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
@@ -81,7 +80,7 @@ public class GetProjectCmd implements Cmd {
         Project proj = new GetObjectOfListCmd<>(projectList,
                 (u -> (u.getName() + " version: " + u.getVersionID().toString())),
                 ((u, input) -> ((u.getName() + u.getVersionID()).toString().equals(input)
-                || (u.getName() + " " + u.getVersionID()).toString().equals(input))))
+                        || (u.getName() + " " + u.getVersionID()).toString().equals(input))))
                 .exec(scan, model, null);
 
         if (proj == null) {

@@ -1,15 +1,15 @@
 package bugtrap03.bugdomain;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
+
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
 
 /**
  * This class represents a bug report
@@ -22,28 +22,26 @@ public class BugReport implements Comparable<BugReport> {
     /**
      * General constructor for initialising a bug report
      *
-     * @param creator The User that wants to create this bug report
-     * @param uniqueID The unique ID for the bugReport
-     * @param title The title of the bugReport
-     * @param description The description of the bugReport
+     * @param creator      The User that wants to create this bug report
+     * @param uniqueID     The unique ID for the bugReport
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
      * @param creationDate The creationDate of the bugReport
-     * @param tag The tag of the bugReport
+     * @param tag          The tag of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param subsystem The subsystem this bug report belongs to
-     *
+     * @param subsystem    The subsystem this bug report belongs to
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidCreationDate(creationDate)
-     * fails
+     *                                  fails
      * @throws IllegalArgumentException if isValidTag(tag) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies)
-     * fails
+     *                                  fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @throws PermissionException if the given creator doesn't have the needed
-     * permission to create a bug report
-     *
+     * @throws PermissionException      if the given creator doesn't have the needed
+     *                                  permission to create a bug report
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -54,7 +52,7 @@ public class BugReport implements Comparable<BugReport> {
      * @see BugReport#isValidSubsystem(Subsystem)
      */
     protected BugReport(User creator, long uniqueID, String title, String description,
-            GregorianCalendar creationDate, Tag tag, PList<BugReport> dependencies, Subsystem subsystem)
+                        GregorianCalendar creationDate, Tag tag, PList<BugReport> dependencies, Subsystem subsystem)
             throws IllegalArgumentException, PermissionException {
         this.setCreator(creator);
         this.setUniqueID(uniqueID);
@@ -72,28 +70,25 @@ public class BugReport implements Comparable<BugReport> {
     /**
      * Constructor for creating a bug report with default tag "New"
      *
-     * @param creator The User that wants to create this bug report
-     * @param uniqueID The unique ID for the bugReport
-     * @param title The title of the bugReport
-     * @param description The description of the bugReport
+     * @param creator      The User that wants to create this bug report
+     * @param uniqueID     The unique ID for the bugReport
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param subsystem The subsystem this bug report belongs to
-     *
+     * @param subsystem    The subsystem this bug report belongs to
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidCreationDate(creationDate)
-     * fails
+     *                                  fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies)
-     * fails
+     *                                  fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @throws PermissionException if the given creator doesn't have the needed
-     * permission to create a bug report
-     *
+     * @throws PermissionException      if the given creator doesn't have the needed
+     *                                  permission to create a bug report
      * @Ensures new.getTag() == Tag.New
-     *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -103,7 +98,7 @@ public class BugReport implements Comparable<BugReport> {
      * @see BugReport#isValidSubsystem(Subsystem)
      */
     protected BugReport(User creator, long uniqueID, String title, String description, GregorianCalendar creationDate,
-            PList<BugReport> dependencies, Subsystem subsystem)
+                        PList<BugReport> dependencies, Subsystem subsystem)
             throws IllegalArgumentException, PermissionException {
         this(creator, uniqueID, title, description, creationDate, Tag.NEW, dependencies, subsystem);
     }
@@ -112,29 +107,26 @@ public class BugReport implements Comparable<BugReport> {
      * Constructor for creating a bug report with default tag "New" and the
      * current time as creationDate
      *
-     * @param creator The User that wants to create this bug report
-     * @param title The title of the bugReport
-     * @param description The description of the bugReport
+     * @param creator      The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param subsystem The subsystem this bug report belongs to
-     *
+     * @param subsystem    The subsystem this bug report belongs to
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidCreationDate(creationDate)
-     * fails
+     *                                  fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies)
-     * fails
+     *                                  fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @throws PermissionException if the given creator doesn't have the needed
-     * permission to create a bug report
-     *
+     * @throws PermissionException      if the given creator doesn't have the needed
+     *                                  permission to create a bug report
      * @Ensures new.getDate() == current date at the moment of initialisation
      * @Ensures new.getTag() == Tag.New
      * @Ensures new.getUniqueID() is initialised with a valid ID
-     *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -142,11 +134,10 @@ public class BugReport implements Comparable<BugReport> {
      * @see BugReport#isValidCreationDate(GregorianCalendar)
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
-     *
      * @see BugReport#getNewUniqueID()
      */
     public BugReport(User creator, String title, String description, GregorianCalendar creationDate,
-            PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException, PermissionException {
+                     PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException, PermissionException {
         this(creator, BugReport.getNewUniqueID(), title, description, creationDate, dependencies, subsystem);
     }
 
@@ -154,35 +145,31 @@ public class BugReport implements Comparable<BugReport> {
      * Constructor for creating a bug report with default tag "New" and the
      * current time as creationDate
      *
-     * @param creator The User that wants to create this bug report
-     * @param title The title of the bugReport
-     * @param description The description of the bugReport
+     * @param creator      The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param subsystem The subsystem this bug report belongs to
-     *
+     * @param subsystem    The subsystem this bug report belongs to
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies)
-     * fails
+     *                                  fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @throws PermissionException if the given creator doesn't have the needed
-     * permission to create a bug report
-     *
+     * @throws PermissionException      if the given creator doesn't have the needed
+     *                                  permission to create a bug report
      * @Ensures new.getDate() == current date at the moment of initialisation
      * @Ensures new.getTag() == Tag.New
      * @Ensures new.getUniqueID() is initialised with a valid ID
-     *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidTitle(String)
      * @see BugReport#isValidDescription(String)
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
-     *
      * @see BugReport#getNewUniqueID()
      */
     public BugReport(User creator, String title, String description,
-            PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException, PermissionException {
+                     PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException, PermissionException {
         this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(), dependencies, subsystem);
     }
 
@@ -385,11 +372,11 @@ public class BugReport implements Comparable<BugReport> {
     /**
      * This method sets the current tag for this bug report
      *
-     * @param tag The new tag of this bug report
+     * @param tag    The new tag of this bug report
      * @param issuer The issuer that wants to change the tag of this bug report
      * @throws IllegalArgumentException if isValidTag(tag) throws this exception
-     * @throws PermissionException if the given user doesn't have the needed
-     * permission to change the tag of this bug report
+     * @throws PermissionException      if the given user doesn't have the needed
+     *                                  permission to change the tag of this bug report
      * @see BugReport#isValidTag(Tag)
      */
     public void setTag(Tag tag, User issuer) throws IllegalArgumentException, PermissionException {
@@ -461,7 +448,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @param commentList the comment list for this bug report
      * @throws IllegalArgumentException if the given PList is not valid for this
-     * bug report
+     *                                  bug report
      * @see BugReport#isValidCommentList(PList<Comment>)
      */
     private void setCommentList(PList<Comment> commentList) throws IllegalArgumentException {
@@ -497,7 +484,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @param comment to add to this bug report
      * @throws IllegalArgumentException if the given comment is not valid for
-     * this bug report
+     *                                  this bug report
      * @see BugReport#isValidComment(Comment)
      */
     protected Comment addComment(Comment comment) throws IllegalArgumentException {
@@ -512,11 +499,11 @@ public class BugReport implements Comparable<BugReport> {
      * This method makes a Comment object and adds it to the sub-comment list
      *
      * @param creator the creator of the comment
-     * @param text the text of the comment
+     * @param text    the text of the comment
      * @throws IllegalArgumentException if the given parameters are not valid
-     * for a comment
-     * @throws PermissionException if the given creator doesn't have the needed
-     * permissions
+     *                                  for a comment
+     * @throws PermissionException      if the given creator doesn't have the needed
+     *                                  permissions
      * @see Comment#Comment(User, String)
      */
     public Comment addComment(User creator, String text) throws IllegalArgumentException, PermissionException {
@@ -617,14 +604,14 @@ public class BugReport implements Comparable<BugReport> {
         if (userList == null) {
             return false;
         }
-        
-        for(Developer dev : userList) {
+
+        for (Developer dev : userList) {
             PList<Developer> list = userList.minus(dev);
-            if(list.contains(dev)) {
+            if (list.contains(dev)) {
                 return false;
             }
         }
-        
+
 
         // cannot add null object to purecollections list! -> redundant to check
 //		for (Developer user : userList){
@@ -640,9 +627,8 @@ public class BugReport implements Comparable<BugReport> {
      * bug report
      *
      * @param dev he developer to check
-     *
      * @throws IllegalArgumentException If the given developer was not valid for
-     * this bug report
+     *                                  this bug report
      */
     protected void addUser(Developer dev) throws IllegalArgumentException {
         if (!this.userList.contains(dev)) {
@@ -664,10 +650,10 @@ public class BugReport implements Comparable<BugReport> {
      * This method adds a developer to this bug report issued by the given user
      *
      * @param user The user that wants to add a developer to this bug report
-     * @param dev The developer to assign to this bug report
+     * @param dev  The developer to assign to this bug report
      * @throws IllegalArgumentException If the given user was null
-     * @throws PermissionException If the given users doesn't have the needed
-     * permissions
+     * @throws PermissionException      If the given users doesn't have the needed
+     *                                  permissions
      * @see BugReport#addUser(Developer)
      */
     public void addUser(User user, Developer dev) throws IllegalArgumentException, PermissionException {
@@ -811,8 +797,8 @@ public class BugReport implements Comparable<BugReport> {
      * @return a negative integer, zero, or a positive integer as this object is
      * less than, equal to, or greater than the specified object.
      * @throws NullPointerException if the specified object is null
-     * @throws ClassCastException if the specified object's type prevents it
-     * from being compared to this object.
+     * @throws ClassCastException   if the specified object's type prevents it
+     *                              from being compared to this object.
      */
     @Override
     @DomainAPI

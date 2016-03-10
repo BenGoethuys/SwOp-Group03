@@ -32,17 +32,16 @@ public class AssignToProjectCmd implements Cmd {
      * <br> 7. The lead developer selects a role.
      * <br> 8. The systems assigns the selected role to the selected developer.
      *
-     * @param scan The {@link TerminalScanner} used to interact with the person.
+     * @param scan  The {@link TerminalScanner} used to interact with the person.
      * @param model The {@link DataModel} used for model access.
-     * @param user The {@link User} who wants to executes this command.
+     * @param user  The {@link User} who wants to executes this command.
      * @return The project to which the selected developer is assigned the selected role. Null if the user does not lead
      * any projects.
-     * @throws PermissionException When the user does not have sufficient permissions.
-     * @throws CancelException When the user has indicated to abort the cmd.
+     * @throws PermissionException      When the user does not have sufficient permissions.
+     * @throws CancelException          When the user has indicated to abort the cmd.
      * @throws IllegalArgumentException When scan, model,user is null.
      * @throws IllegalArgumentException When the selected project has no developer to assign.
      * @throws IllegalArgumentException When there is no role to select.
-     *
      * @see DataModel#assignToProject(Project, User, Developer, Role)
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
@@ -75,16 +74,16 @@ public class AssignToProjectCmd implements Cmd {
         scan.println("Please select a developer to assign.");
         //4. The system shows a list of other developers to assign.
         //5. The lead developer selects one of these other developers.
-        Developer devToSet = new GetUserOfTypeCmd<>(Developer.class).exec(scan,  model, user);
+        Developer devToSet = new GetUserOfTypeCmd<>(Developer.class).exec(scan, model, user);
 
         scan.println("You have chosen: " + devToSet.getUsername());
 
         PList<Role> currentRolesList = selectedProj.getAllRolesDev(devToSet);
         PList<Role> roleList = model.getAllRoles();
-        for (Role role : currentRolesList){
+        for (Role role : currentRolesList) {
             roleList = roleList.minus(role);
         }
-        if (roleList.isEmpty()){
+        if (roleList.isEmpty()) {
             scan.println("There are no more roles to assign to the selected developer in the selected project.");
             return null;
         }
@@ -95,7 +94,7 @@ public class AssignToProjectCmd implements Cmd {
         Role selectedRole = new GetObjectOfListCmd<Role>(roleList, (u -> u.name()), ((u, input) -> u.name().equals(input)))
                 .exec(scan, model, user);
 
-        if (selectedRole == null){
+        if (selectedRole == null) {
             scan.println("There are no more roles to assign to the selected developer in the selected project.");
             return null;
         }
@@ -103,7 +102,7 @@ public class AssignToProjectCmd implements Cmd {
         //8. The systems assigns the selected role to the selected developer.
         model.assignToProject(selectedProj, user, devToSet, selectedRole);
         scan.println(devToSet.getUsername() + " assigned to project: " + selectedProj.getName() + " version: " + selectedProj.getVersionID().toString() + ", with role: " + selectedRole.name());
-    
+
         return selectedProj;
     }
 }

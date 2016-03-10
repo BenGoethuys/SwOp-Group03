@@ -4,14 +4,13 @@ import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
+import purecollections.PList;
+
 import java.util.NoSuchElementException;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import purecollections.PList;
-
 /**
- *
  * @author Group 03
  */
 public class GetObjectOfListCmd<U extends Object> implements Cmd {
@@ -20,13 +19,11 @@ public class GetObjectOfListCmd<U extends Object> implements Cmd {
      * Create a GetObjectOfListCmd that will use the given list of users as the
      * options in the select process.
      *
-     * @param listOfObjects The list of users to pick from. When null is passed an
-     * empty list will be used.
-     * @param printFunction The function used to print the objects of the list.
+     * @param listOfObjects  The list of users to pick from. When null is passed an
+     *                       empty list will be used.
+     * @param printFunction  The function used to print the objects of the list.
      * @param selectFunction The function used to filter in the list when the user provides a String input.
-     *
      * @throws IllegalArgumentException If at least one of the functions is null
-     *
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
     public GetObjectOfListCmd(PList<U> listOfObjects, Function<U, String> printFunction, BiFunction<U, String, Boolean> selectFunction) {
@@ -35,7 +32,7 @@ public class GetObjectOfListCmd<U extends Object> implements Cmd {
         } else {
             this.listOfObjects = listOfObjects;
         }
-        if (printFunction == null || selectFunction == null){
+        if (printFunction == null || selectFunction == null) {
             throw new IllegalArgumentException("The given function was null");
         }
         this.printFunction = printFunction;
@@ -51,16 +48,16 @@ public class GetObjectOfListCmd<U extends Object> implements Cmd {
      * to the constructor. Uses both functions passed to the constructor to print the options and filter the answers.
      * Prints 'No options found.' and returns null when the list is empty.
      *
-     * @param scan Used to interact with the person who selects the option.
+     * @param scan   Used to interact with the person who selects the option.
      * @param dummy2 Dummy
      * @param dummy3 Dummy
      * @return The selected option, can be null if the list of options was empty.
      * @throws IllegalArgumentException If the given scan is null
-     * @throws CancelException When the person has indicated to abort the cmd.
+     * @throws CancelException          When the person has indicated to abort the cmd.
      */
     @Override
     public U exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws CancelException, IllegalArgumentException {
-        if(scan == null) {
+        if (scan == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
         if (listOfObjects.isEmpty()) {

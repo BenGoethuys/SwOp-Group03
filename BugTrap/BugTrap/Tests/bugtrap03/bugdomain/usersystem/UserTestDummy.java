@@ -1,10 +1,8 @@
 package bugtrap03.bugdomain.usersystem;
 
-import bugtrap03.bugdomain.usersystem.User;
-
 /**
  * {@link User} test class.
- * 
+ *
  * @author Admin
  */
 public class UserTestDummy extends User {

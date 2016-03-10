@@ -3,5 +3,5 @@
  *
  * @author Group 03
  */
-@capsules.Capsule(exportKeyword=bugtrap03.bugdomain.DomainAPI.class, friends={"bugtrap03.model"})
+@capsules.Capsule(exportKeyword = bugtrap03.bugdomain.DomainAPI.class, friends = {"bugtrap03.model"})
 package bugtrap03.bugdomain;

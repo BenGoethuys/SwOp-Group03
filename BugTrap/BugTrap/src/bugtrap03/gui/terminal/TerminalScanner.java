@@ -13,7 +13,7 @@ import java.util.Scanner;
  * Class encapsulating our scanner (input methods) and print/println.. (output methpds).
  * This can be used to provide custom out & input streams as well as
  * provides a way to override certain methods for testing purposes.
- * 
+ *
  * @author Group 03
  * @see Scanner
  */
@@ -26,7 +26,7 @@ public class TerminalScanner {
      * {@linkplain java.nio.charset.Charset#defaultCharset() default charset}.
      * It can also print to a given output stream.
      *
-     * @param input An input stream to be scanned
+     * @param input  An input stream to be scanned
      * @param output An output stream to print to.
      * @throws IllegalArgumentException When a null reference is passed.
      */
@@ -53,9 +53,9 @@ public class TerminalScanner {
      *
      * @return the line that was skipped
      * @throws NoSuchElementException if no line was found
-     * @throws IllegalStateException if this scanner is closed
-     * @throws CancelException If the scanner found an indication of willingness
-     * to abort.
+     * @throws IllegalStateException  if this scanner is closed
+     * @throws CancelException        If the scanner found an indication of willingness
+     *                                to abort.
      * @see Scanner#nextLine()
      */
     public String nextLine() throws CancelException, NoSuchElementException {
@@ -96,7 +96,7 @@ public class TerminalScanner {
      * Execute as a {@link Scanner} except if the abort indication was given.
      *
      * @return
-     * @throws CancelException When nextLine() would throw this.
+     * @throws CancelException        When nextLine() would throw this.
      * @throws InputMismatchException When no Integer was found.
      * @see Scanner#nextInt()
      * @see #nextLine()
@@ -115,7 +115,7 @@ public class TerminalScanner {
     /**
      * @see Scanner#hasNextLong()
      */
-    public boolean hasNextLong(){
+    public boolean hasNextLong() {
         return scan.hasNextLong();
     }
 
@@ -123,7 +123,7 @@ public class TerminalScanner {
      * Execute as a {@link Scanner} except if the abort indication was given.
      *
      * @return
-     * @throws CancelException When nextLong() would throw this.
+     * @throws CancelException        When nextLong() would throw this.
      * @throws InputMismatchException When no Integer was found.
      * @see Scanner#nextLong()
      * @see #nextLine()
@@ -146,9 +146,9 @@ public class TerminalScanner {
         this.output.println(message);
         return true;
     }
-    
+
     /**
-     * @see PrintStream#print(java.lang.String) 
+     * @see PrintStream#print(java.lang.String)
      */
     public boolean print(String message) {
         this.output.print(message);

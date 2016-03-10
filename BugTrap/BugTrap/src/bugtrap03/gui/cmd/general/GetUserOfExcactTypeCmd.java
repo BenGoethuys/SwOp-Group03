@@ -1,13 +1,12 @@
 package bugtrap03.gui.cmd.general;
 
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.usersystem.User;
-
-import java.util.Scanner;
-
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.model.DataModel;
 import purecollections.PList;
+
+import java.util.Scanner;
 
 /**
  * This class represent the sub-scenario where the user selects an user of a given type
@@ -37,11 +36,11 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
      * Execute the scenario wherein a person selects a user of a specified type. This asks the person which user to
      * choose as by presenting him a list of users of the class, classType (classType, subclasses excluded).
      *
-     * @param scan The {@link Scanner} used to interact with the person.
+     * @param scan  The {@link Scanner} used to interact with the person.
      * @param model The model used to get access to the model.
      * @param dummy Doesn't matter
      * @return The chosen user. Null if there was no option of that type.
-     * @throws CancelException When the cancel operation was executed.
+     * @throws CancelException          When the cancel operation was executed.
      * @throws IllegalArgumentException If the given scan or model is null
      */
     @Override

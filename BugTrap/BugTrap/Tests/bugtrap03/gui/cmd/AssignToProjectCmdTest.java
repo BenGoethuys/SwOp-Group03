@@ -1,9 +1,7 @@
 /**
- * 
+ *
  */
 package bugtrap03.gui.cmd;
-
-import static org.junit.Assert.*;
 
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.VersionID;
@@ -21,10 +19,11 @@ import testCollection.TerminalTestScanner;
 
 import java.util.ArrayDeque;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
- * 
  * @author Group 03
- *
  */
 public class AssignToProjectCmdTest {
 

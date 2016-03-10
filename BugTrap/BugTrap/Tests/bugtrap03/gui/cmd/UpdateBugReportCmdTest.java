@@ -11,21 +11,20 @@ import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
-import java.util.ArrayDeque;
 import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
 /**
- *
  * @author Group 03
- *
  */
 public class UpdateBugReportCmdTest {
 
     BugReport chosen;
-    
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
@@ -49,9 +48,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport> empty(), subsystemA2);
+                PList.<BugReport>empty(), subsystemA2);
         BugReport bugRep2 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport> empty(), subsystemA3_1);
+                PList.<BugReport>empty(), subsystemA3_1);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -118,9 +117,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport> empty(), subsystemA2);
+                PList.<BugReport>empty(), subsystemA2);
         BugReport bugRep2 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport> empty(), subsystemA3_1);
+                PList.<BugReport>empty(), subsystemA3_1);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -185,10 +184,10 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(lead, "bugRep over here", "createComment has an output error",
-                PList.<BugReport> empty(), subsystemA2);
+                PList.<BugReport>empty(), subsystemA2);
         BugReport bugRep2 = model.createBugReport(lead, "Used library not in repository", "title says it all.",
-                PList.<BugReport> empty(), subsystemA3_1);
-        model.addUsersToBugReport(lead, bugRep2, PList.<Developer> empty().plus(lead));
+                PList.<BugReport>empty(), subsystemA3_1);
+        model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plus(lead));
         model.assignToProject(projectA, lead, lead, Role.TESTER);
 
         ArrayDeque<String> question = new ArrayDeque<>();
@@ -264,9 +263,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport> empty(), subsystemA2);
+                PList.<BugReport>empty(), subsystemA2);
         BugReport bugRep2 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport> empty(), subsystemA3_1);
+                PList.<BugReport>empty(), subsystemA3_1);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -335,9 +334,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(lead, "bugRep over here", "createComment has an output error",
-                PList.<BugReport> empty(), subsystemA2);
+                PList.<BugReport>empty(), subsystemA2);
         BugReport bugRep2 = model.createBugReport(lead, "Used library not in repository", "title says it all.",
-                PList.<BugReport> empty(), subsystemA3_1);
+                PList.<BugReport>empty(), subsystemA3_1);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
