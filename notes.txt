@@ -1,1 +1,0 @@
-* Iterator maken voor het gemakkelijk traversen van Comments (CommentIterator) en Subsystems (SubsystemIterator).
