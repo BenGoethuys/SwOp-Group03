@@ -27,7 +27,7 @@ public class UpdateProjectCmdTest {
     private static Developer lead;
     private static Project proj0;
     private static Project proj1;
-    private Project chosen;
+    Project chosen;
 
     /**
      * @throws java.lang.Exception
