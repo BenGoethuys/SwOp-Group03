@@ -1,6 +1,5 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
@@ -10,19 +9,20 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import static org.junit.Assert.assertEquals;
+import bugtrap03.model.DataModel;
 import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.GregorianCalendar;
+
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Group 03
- *
  */
 public class CreateBugReportCmdTest {
 
@@ -52,12 +52,12 @@ public class CreateBugReportCmdTest {
         // make bug report 2
         BugReport bugRep2 = model.createBugReport(charlie, "Crash while processing user input",
                 "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15),
-                PList.<BugReport> empty(), subsystemA3_1);
-        model.addUsersToBugReport(lead, bugRep2, PList.<Developer> empty().plusAll(Arrays.asList(lead, maria)));
+                PList.<BugReport>empty(), subsystemA3_1);
+        model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(lead, maria)));
         // mak bug report 3
         BugReport bugRep1 = model.createBugReport(lead, "SubsystemA2 feezes",
                 "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4),
-                PList.<BugReport> empty(), subsystemA2);
+                PList.<BugReport>empty(), subsystemA2);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -149,12 +149,12 @@ public class CreateBugReportCmdTest {
         // make bug report 2
         BugReport bugRep2 = model.createBugReport(charlie, "Crash while processing user input",
                 "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15),
-                PList.<BugReport> empty(), subsystemA3_1);
-        model.addUsersToBugReport(lead, bugRep2, PList.<Developer> empty().plusAll(Arrays.asList(lead, maria)));
+                PList.<BugReport>empty(), subsystemA3_1);
+        model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(lead, maria)));
         // mak bug report 3
         BugReport bugRep1 = model.createBugReport(lead, "SubsystemA2 feezes",
                 "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4),
-                PList.<BugReport> empty(), subsystemA2);
+                PList.<BugReport>empty(), subsystemA2);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();

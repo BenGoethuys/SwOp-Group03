@@ -1,15 +1,15 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.gui.cmd.general.GetProjectCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 import java.util.HashSet;
@@ -37,16 +37,15 @@ public class CreateBugReportCmd implements Cmd {
      * <br> 9. The issuer selects the dependencies.
      * <br> 10. The system creates the bug report.
      *
-     * @param scan The scanner used to interact with the person.
+     * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user The {@link User} who wants to executes this command.
+     * @param user  The {@link User} who wants to executes this command.
      * @return The created bug report.
-     * @throws PermissionException When the user does not have sufficient permissions.
-     * @throws CancelException When the users wants to abort the current cmd
+     * @throws PermissionException      When the user does not have sufficient permissions.
+     * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalArgumentException When scan, model,user is null
      * @throws IllegalArgumentException When there are no projects.
      * @throws IllegalArgumentException When the user has selected a project where for there are no subsystems.
-     *
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
      * @see DataModel#createBugReport(User, String, String, PList, Subsystem)
@@ -132,7 +131,7 @@ public class CreateBugReportCmd implements Cmd {
         } while (!done);
 
         // 10. The system creates the bug report.
-        BugReport bugreport = model.createBugReport(user, bugreportTitle, bugReportDesc, 
+        BugReport bugreport = model.createBugReport(user, bugreportTitle, bugReportDesc,
                 PList.<BugReport>empty().plusAll(depList), subsys);
         scan.println("Created new bug report.");
         return bugreport;

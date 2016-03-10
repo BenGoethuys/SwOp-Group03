@@ -25,22 +25,20 @@ public class UpdateBugReportCmd implements Cmd {
      * <br> 4. The system gives the selected bug report the new tag.
      * <br> 4a. The developer does not have the permission to assign the tag: the use case ends.
      *
-     * @param scan The scanner used to interact with the person.
+     * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user The {@link User} who wants to executes this command.
+     * @param user  The {@link User} who wants to executes this command.
      * @return The BugReport of which the tag has been updated.
-     * @throws PermissionException When the user doesn't have the needed
-     *             permission to set the tag.
-     * @throws CancelException When the user wants to abort the process
+     * @throws PermissionException      When the user doesn't have the needed
+     *                                  permission to set the tag.
+     * @throws CancelException          When the user wants to abort the process
      * @throws IllegalArgumentException If scan, model or user is null
-     * 
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
-     *
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException, IllegalArgumentException {
-        if(scan == null || model == null || user == null) {
+        if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
         // 1. The developer indicates he wants to update a bug report.
@@ -70,7 +68,7 @@ public class UpdateBugReportCmd implements Cmd {
     /**
      * This methods lets the user select a tag.
      *
-     * @param scan The scanner used to interact with the person.
+     * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
      * @return The selected tag
      * @throws CancelException When the users wants to abort the process

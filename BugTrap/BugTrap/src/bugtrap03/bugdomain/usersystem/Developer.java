@@ -45,8 +45,8 @@ public class Developer extends Issuer {
     /**
      * This method checks if this developer has a specific RolePermission for a given project
      *
-     * @param perm      The permission to check
-     * @param project   The project he needs a permission for
+     * @param perm    The permission to check
+     * @param project The project he needs a permission for
      * @return true if this developer has the given role permission in the given project
      */
     @Override

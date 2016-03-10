@@ -1,10 +1,10 @@
 package bugtrap03.bugdomain;
 
-import java.util.ArrayList;
-
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import purecollections.PList;
+
+import java.util.ArrayList;
 
 /**
  * This class represents an abstract system with a versionID, name, description and list of subsystem associated with this AbstractSystem.
@@ -71,7 +71,7 @@ public abstract class AbstractSystem {
      * @see #isValidVersionId(VersionID)
      */
     public void setVersionID(VersionID version) throws NullPointerException {
-        if (! isValidVersionId(version)) {
+        if (!isValidVersionId(version)) {
             throw new IllegalArgumentException("The given versionId is not valid for this abstractSystem");
         }
         this.version = version;
@@ -84,8 +84,8 @@ public abstract class AbstractSystem {
      * @return true if the given versionId is a valid i for an AbstractSystem
      */
     @DomainAPI
-    public static boolean isValidVersionId(VersionID versionID){
-        if (versionID == null){
+    public static boolean isValidVersionId(VersionID versionID) {
+        if (versionID == null) {
             return false;
         }
         return true;
@@ -185,10 +185,10 @@ public abstract class AbstractSystem {
     /**
      * This method adds a subsystem to this AbstractSystem
      *
-     * @param version       The versionID of the new subsystem
-     * @param name          The name of te new subsystem
-     * @param description   The description of the new subsystem
-     * @return  The new subsytems that was added to this AbstractSystem
+     * @param version     The versionID of the new subsystem
+     * @param name        The name of te new subsystem
+     * @param description The description of the new subsystem
+     * @return The new subsytems that was added to this AbstractSystem
      */
     public Subsystem makeSubsystemChild(VersionID version, String name, String description) {
         Subsystem newChild = new Subsystem(version, name, description, this);
@@ -199,9 +199,9 @@ public abstract class AbstractSystem {
     /**
      * This method adds a subsystem to this AbstractSystem
      *
-     * @param name          The name of te new subsystem
-     * @param description   The description of the new subsystem
-     * @return  The new subsytems that was added to this AbstractSystem
+     * @param name        The name of te new subsystem
+     * @param description The description of the new subsystem
+     * @return The new subsytems that was added to this AbstractSystem
      * @Ensures The new versionID will be equal to "new VersionID()"
      */
     public Subsystem makeSubsystemChild(String name, String description) {
@@ -252,7 +252,7 @@ public abstract class AbstractSystem {
      * @return The list of all developers associated with this project
      */
     @DomainAPI
-    public PList<Developer> getAllDev(){
+    public PList<Developer> getAllDev() {
         return this.getParentProject().getAllDev();
     }
 
@@ -269,8 +269,7 @@ public abstract class AbstractSystem {
         }
         return PList.<BugReport>empty().plusAll(list);
     }
-    
-    
+
 
     /**
      * This recursive method returns all the subsystems that are a child of this AbstractSystem
@@ -291,7 +290,7 @@ public abstract class AbstractSystem {
      * This method checks if the given developer has the requested permission
      * for this AbstractSystem
      *
-     * @param dev the developer to check
+     * @param dev  the developer to check
      * @param perm the requested permission
      * @return true if the developer has the requested permission
      */
@@ -307,6 +306,6 @@ public abstract class AbstractSystem {
      */
     @DomainAPI
     public abstract String getDetails();
-    
+
 
 }

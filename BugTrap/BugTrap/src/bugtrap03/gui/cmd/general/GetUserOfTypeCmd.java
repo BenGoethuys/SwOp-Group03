@@ -1,13 +1,12 @@
 package bugtrap03.gui.cmd.general;
 
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.usersystem.User;
-
-import java.util.Scanner;
-
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.model.DataModel;
 import purecollections.PList;
+
+import java.util.Scanner;
 
 /**
  * This class represent the sub-scenario where the user selects an user of a
@@ -22,7 +21,7 @@ public class GetUserOfTypeCmd<U extends User> implements Cmd {
      * user from a list of users from a specific class.
      *
      * @param classType The type of the users to choose from. (including
-     * subclasses)
+     *                  subclasses)
      * @throws IllegalArgumentException When a non-null reference was given.
      */
     public GetUserOfTypeCmd(Class<U> classType) throws IllegalArgumentException {
@@ -40,16 +39,15 @@ public class GetUserOfTypeCmd<U extends User> implements Cmd {
      * presenting him a list of users of the class, classType (subclasses
      * included).
      *
-     * @param scan The {@link Scanner} used to interact with the person.
+     * @param scan  The {@link Scanner} used to interact with the person.
      * @param model The model used to get access to the model.
-     *
      * @return The chosen user. Null if there was no option of that type.
-     * @throws CancelException When the cancel operation was executed.
+     * @throws CancelException          When the cancel operation was executed.
      * @throws IllegalArgumentException If the given scan or model is null
      */
     @Override
     public U exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException, IllegalArgumentException {
-        if(scan == null || model == null) {
+        if (scan == null || model == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
         //Print available user options of given type

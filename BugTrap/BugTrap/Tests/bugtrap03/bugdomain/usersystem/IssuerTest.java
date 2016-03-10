@@ -1,19 +1,17 @@
 /**
- * 
+ *
  */
 package bugtrap03.bugdomain.usersystem;
 
-import static org.junit.Assert.*;
-
 import bugtrap03.bugdomain.permission.UserPerm;
-import bugtrap03.bugdomain.usersystem.Issuer;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
  * @author Mathias
- *
  */
 public class IssuerTest {
 

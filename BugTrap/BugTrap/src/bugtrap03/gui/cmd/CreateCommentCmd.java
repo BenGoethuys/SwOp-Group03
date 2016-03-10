@@ -1,12 +1,12 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.Comment;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.model.DataModel;
 
 import java.util.ArrayList;
 
@@ -30,24 +30,23 @@ public class CreateCommentCmd implements Cmd {
      * <br> 6. The issuer writes his comment.
      * <br> 7. The system adds the comment to the selected use case.
      *
-     * @param scan The scanner used to interact with the person.
+     * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user The {@link User} who wants to executes this command.
+     * @param user  The {@link User} who wants to executes this command.
      * @return The newly created comment.
-     * @throws PermissionException When the user does not have sufficient
-     * permissions.
-     * @throws CancelException When the users wants to abort the current cmd
+     * @throws PermissionException      When the user does not have sufficient
+     *                                  permissions.
+     * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalArgumentException When scan, model or user is a null reference.
-     *
      * @see DataModel#createComment(User, BugReport, String)
      * @see DataModel#createComment(User, Comment, String)
      */
     @Override
     public Comment exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
-        if(scan == null || model == null || user == null) {
+        if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
-        
+
         // 1. The issuer indicates he wants to create a comment.
         // 2. Include use case Select Bug Report.
         BugReport bugRep = new SelectBugReportCmd().exec(scan, model, user);

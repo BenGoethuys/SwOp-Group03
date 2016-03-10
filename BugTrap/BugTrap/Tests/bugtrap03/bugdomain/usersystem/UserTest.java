@@ -1,13 +1,11 @@
 package bugtrap03.bugdomain.usersystem;
 
-import org.junit.Test;
-
 import bugtrap03.bugdomain.permission.UserPerm;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 /**
- *
  * @author Mathias
  */
 public class UserTest {
@@ -226,7 +224,7 @@ public class UserTest {
         String str2 = "First Middle Last";
         assertEquals(user2.getFullName(), str2);
     }
-    
+
     @Test
     public void testHasPermission() {
         user = new UserTestDummy("AlwaysFalse", "First", "Last");
@@ -235,7 +233,7 @@ public class UserTest {
         assertFalse(user.hasPermission(UserPerm.DELETE_PROJ));
         assertFalse(user.hasPermission(UserPerm.UPDATE_PROJ));
     }
-    
+
     @Test
     public void testEquals() {
         user = new UserTestDummy("D", "um", "my");

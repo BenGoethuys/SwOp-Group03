@@ -1,14 +1,15 @@
 package bugtrap03.gui.terminal;
 
 import bugtrap03.gui.cmd.general.CancelException;
-import java.util.ArrayDeque;
-import java.util.InputMismatchException;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 
+import java.util.ArrayDeque;
+import java.util.InputMismatchException;
+
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Admin
  */
 public class TerminalScannerTest {

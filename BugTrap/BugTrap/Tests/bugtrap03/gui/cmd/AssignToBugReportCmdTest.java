@@ -11,18 +11,18 @@ import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
-import java.util.ArrayDeque;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
- *
  * @author Group 03
- *
  */
 public class AssignToBugReportCmdTest {
 
@@ -53,7 +53,7 @@ public class AssignToBugReportCmdTest {
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
         BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
                 subsystemA2);
 
         ArrayDeque<String> question = new ArrayDeque<>();
@@ -133,7 +133,7 @@ public class AssignToBugReportCmdTest {
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
         BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
                 subsystemA2);
 
         ArrayDeque<String> question = new ArrayDeque<>();
@@ -196,7 +196,7 @@ public class AssignToBugReportCmdTest {
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
         BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
                 subsystemA2);
 
         ArrayDeque<String> question = new ArrayDeque<>();

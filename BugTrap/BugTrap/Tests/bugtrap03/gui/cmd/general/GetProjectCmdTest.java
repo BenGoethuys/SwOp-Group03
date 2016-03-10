@@ -1,21 +1,21 @@
 package bugtrap03.gui.cmd.general;
 
-import bugtrap03.model.DataModel;
-import purecollections.PList;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
-import java.util.ArrayDeque;
-import static org.junit.Assert.assertEquals;
+import bugtrap03.model.DataModel;
 import org.junit.Test;
+import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Group 03
- *
  */
 public class GetProjectCmdTest {
 
@@ -23,10 +23,10 @@ public class GetProjectCmdTest {
      * Test execution of getProjectCmd exec using the index.
      *
      * @throws IllegalArgumentException Never
-     * @throws PermissionException Never
-     * @throws CancelException Never
+     * @throws PermissionException      Never
+     * @throws CancelException          Never
      * @see GetProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner,
-     *      DataModel, bugtrap03.bugdomain.usersystem.User)
+     * DataModel, bugtrap03.bugdomain.usersystem.User)
      */
     @Test
     public void testExecByIndex() throws IllegalArgumentException, PermissionException, CancelException {
@@ -72,10 +72,10 @@ public class GetProjectCmdTest {
      * Test execution of getProjectCmd exec using the project name.
      *
      * @throws IllegalArgumentException Never
-     * @throws PermissionException Never
-     * @throws CancelException Never
+     * @throws PermissionException      Never
+     * @throws CancelException          Never
      * @see GetProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner,
-     *      DataModel, bugtrap03.bugdomain.usersystem.User)
+     * DataModel, bugtrap03.bugdomain.usersystem.User)
      */
     @Test
     public void testExecName() throws IllegalArgumentException, PermissionException, CancelException {
@@ -120,7 +120,7 @@ public class GetProjectCmdTest {
         Developer lead = model.createDeveloper("meGoodLead2", "Luky", "Luke");
         User admin = model.createAdministrator("adminB2", "adminT", "bie");
         Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        PList<Project> projectOptionList = PList.<Project> empty().plus(proj0);
+        PList<Project> projectOptionList = PList.<Project>empty().plus(proj0);
         GetProjectCmd cmd = new GetProjectCmd(projectOptionList);
     }
 

@@ -1,15 +1,15 @@
 package bugtrap03.gui.cmd;
 
-import java.util.GregorianCalendar;
-import java.util.Scanner;
-
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetProjectCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.model.DataModel;
+
+import java.util.GregorianCalendar;
+import java.util.Scanner;
 
 /**
  * This command represents the update bug report use case scenario
@@ -33,17 +33,16 @@ public class UpdateProjectCmd implements Cmd {
      * @param model The model to use to access the model.
      * @param user  The user who wants to execute this {@link Cmd}.
      * @return The new updated project
-     * @throws PermissionException When the user does not have sufficient permissions to update
-     *                             a project.
+     * @throws PermissionException      When the user does not have sufficient permissions to update
+     *                                  a project.
      * @throws IllegalArgumentException If scan, model or user is null
-     * 
      * @see DataModel#updateProject(Project, User, String, String, GregorianCalendar, Long)
      * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException, IllegalArgumentException {
-        if(scan == null || model == null || user == null) {
+        if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
 

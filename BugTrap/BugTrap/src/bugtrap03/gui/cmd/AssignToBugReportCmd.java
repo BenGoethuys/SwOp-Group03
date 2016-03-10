@@ -24,7 +24,7 @@ public class AssignToBugReportCmd implements Cmd {
     /**
      * Execute this command and possibly return a result.
      * <p>
-     *
+     * <p>
      * <br> 1. The developer indicates he wants to assign a developer to a bug
      * report.
      * <br> 2. Include use case Select Bug Report.
@@ -39,16 +39,14 @@ public class AssignToBugReportCmd implements Cmd {
      * developer is not involved in as lead or tester.
      * <br> 1. The use case returns to step 2.
      *
-     * @param scan The {@link TerminalScanner} used to interact with the person.
+     * @param scan  The {@link TerminalScanner} used to interact with the person.
      * @param model The {@link DataModel} used for model access.
-     * @param user The {@link User} who wants to executes this command.
+     * @param user  The {@link User} who wants to executes this command.
      * @return The {@link BugReport} selected to assign users to.
-     * @throws PermissionException When the user does not have sufficient
-     * permissions.
-     *
-     * @throws CancelException When the users wants to abort the current cmd
+     * @throws PermissionException      When the user does not have sufficient
+     *                                  permissions.
+     * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalArgumentException When scan, model,user is null
-     *
      * @see DataModel#addUsersToBugReport(User, BugReport, PList)
      */
     @Override

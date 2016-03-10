@@ -1,9 +1,9 @@
 package bugtrap03.gui.cmd.general;
 
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.model.DataModel;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ public class ClearCmd implements Cmd {
     /**
      * Attempt to clear the console screen.
      *
-     * @param scan The scanner to clear.
+     * @param scan   The scanner to clear.
      * @param dummy2 Doesn't matter
      * @param dummy3 Doesn't matter
      * @return null always
@@ -25,10 +25,10 @@ public class ClearCmd implements Cmd {
      */
     @Override
     public Object exec(TerminalScanner scan, DataModel dummy2, User dummy3) throws IllegalArgumentException {
-        if(scan == null) {
+        if (scan == null) {
             throw new IllegalArgumentException("scan musn't be null.");
         }
-        
+
         this.clearConsole(scan);
         return null;
     }
@@ -36,7 +36,7 @@ public class ClearCmd implements Cmd {
     /**
      * Attempt to clear the console screen.
      *
-     * @param scan  The scanner used to print.
+     * @param scan The scanner used to print.
      */
     private void clearConsole(TerminalScanner scan) {
         try {

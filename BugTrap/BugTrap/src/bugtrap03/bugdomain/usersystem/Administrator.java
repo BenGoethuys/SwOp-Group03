@@ -1,9 +1,9 @@
 package bugtrap03.bugdomain.usersystem;
 
-import java.util.Arrays;
-
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.permission.UserPerm;
+
+import java.util.Arrays;
 
 /**
  * This class represents an administrator in the system

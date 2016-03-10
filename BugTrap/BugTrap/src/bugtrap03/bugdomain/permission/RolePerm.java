@@ -6,7 +6,7 @@ import bugtrap03.bugdomain.DomainAPI;
  * This enum contains objects of Type RolePerm, representing permissions that a role can have
  *
  * @author Group 03
-*/
+ */
 @DomainAPI
 public enum RolePerm {
     ASSIGN_DEV_PROJECT,

@@ -1,12 +1,12 @@
 package testCollection;
 
 import bugtrap03.gui.terminal.TerminalScanner;
+
 import java.io.InputStream;
 import java.util.Queue;
 import java.util.regex.Pattern;
 
 /**
- *
  * Pattern info:
  * https://docs.oracle.com/javase/tutorial/essential/regex/pre_char_classes.html
  *
@@ -21,9 +21,9 @@ public class TerminalTestScanner extends TerminalScanner {
      * the expected queue is processed as the string given and not converted to
      * a pattern.
      *
-     * @param source The InputStream used to input messages
+     * @param source   The InputStream used to input messages
      * @param expected The Queue consisting of the output messages to expect in
-     * the order of the queue.
+     *                 the order of the queue.
      * @throws IllegalArgumentException See the TerminalScanner constructor
      * @see TerminalScanner
      */
@@ -37,11 +37,11 @@ public class TerminalTestScanner extends TerminalScanner {
      * When patterns is true each expected string will function as a pattern to
      * which the received string (println(received),..) is matched.
      *
-     * @param source The source to use input from.
+     * @param source   The source to use input from.
      * @param expected The queue of Strings that will be used as expected
-     * output.
+     *                 output.
      * @param patterns Whether the strings in the expected queue should be
-     * treated as patterns.
+     *                 treated as patterns.
      */
     public TerminalTestScanner(InputStream source, Queue<String> expected, boolean patterns) {
         super(source, System.out);
@@ -62,7 +62,7 @@ public class TerminalTestScanner extends TerminalScanner {
      * @param message The message to expect as output.
      * @return True if the message matches.
      * @throws TestException When the message given does not equal the String at
-     * the head of the queue of this class.
+     *                       the head of the queue of this class.
      */
     @Override
     public boolean println(String message) throws TestException {
@@ -89,7 +89,7 @@ public class TerminalTestScanner extends TerminalScanner {
      * @param message The message to expect as output.
      * @return True if the message matches.s
      * @throws TestException When the message given does not equal the String at
-     * the head of the queue of this class.
+     *                       the head of the queue of this class.
      * @see #println(String)
      */
     @Override

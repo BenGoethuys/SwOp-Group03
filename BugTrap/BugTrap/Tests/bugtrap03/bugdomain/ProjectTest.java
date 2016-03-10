@@ -1,18 +1,17 @@
 package bugtrap03.bugdomain;
 
-import static org.junit.Assert.*;
-
-import java.util.GregorianCalendar;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import purecollections.PList;
+
+import java.util.GregorianCalendar;
+
+import static org.junit.Assert.*;
 
 public class ProjectTest {
     static Developer testDev;
@@ -28,19 +27,19 @@ public class ProjectTest {
     static String subName;
     static String subDescription;
     static Subsystem subSysTest;
-    
+
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         testDev = new Developer("subsysTester123", "Kwinten", "Buytaert");
-        testVersion = new VersionID(1,2,3);
+        testVersion = new VersionID(1, 2, 3);
         testName = "testProj";
         testDescription = "This is an description";
         testStartDate = new GregorianCalendar(3016, 1, 1);
-        testCreationDate = new GregorianCalendar(2000,12,25);   
+        testCreationDate = new GregorianCalendar(2000, 12, 25);
         testBudget = 1000;
 
-        subVersion = new VersionID(9,8,5);
+        subVersion = new VersionID(9, 8, 5);
         subName = "testSubAS";
         subDescription = "This is a test description of a as subsystem";
     }
@@ -50,7 +49,7 @@ public class ProjectTest {
         testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate, testBudget);
         subSysTest = testProject.makeSubsystemChild(subVersion, subName, subDescription);
     }
-    
+
     @Test
     public void testHasPermission() {
         Developer programmer = new Developer("ladiedadieda", "ladie", "da");
@@ -67,15 +66,15 @@ public class ProjectTest {
         assertEquals(testDev, testProject.getLead());
         assertEquals(testStartDate, testProject.getStartDate());
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testNullDevProjectVersionIDStringStringGregorianCalendarDeveloperGregorianCalendarLong() {
         testProject = new Project(testVersion, testName, testDescription, testCreationDate, null, testStartDate, testBudget);
     }
 
     @Test
     public void testProjectVersionIDStringStringDeveloperGregorianCalendarLong() {
-        Project testProject2 =  new Project(testVersion, testName, testDescription, testDev, testStartDate, testBudget);
+        Project testProject2 = new Project(testVersion, testName, testDescription, testDev, testStartDate, testBudget);
         assertEquals(testVersion, testProject2.getVersionID());
         assertEquals(testName, testProject2.getName());
         assertEquals(testDescription, testProject2.getDescription());
@@ -86,8 +85,8 @@ public class ProjectTest {
 
     @Test
     public void testProjectStringStringDeveloperGregorianCalendarLong() {
-        Project testProject2 =  new Project(testName, testDescription, testDev, testStartDate, testBudget);
-        VersionID vglVersion =  new VersionID();
+        Project testProject2 = new Project(testName, testDescription, testDev, testStartDate, testBudget);
+        VersionID vglVersion = new VersionID();
         assertEquals(vglVersion, testProject2.getVersionID());
         assertEquals(testName, testProject2.getName());
         assertEquals(testDescription, testProject2.getDescription());
@@ -98,8 +97,8 @@ public class ProjectTest {
 
     @Test
     public void testProjectStringStringDeveloperLong() {
-        Project testProject2 =  new Project(testName, testDescription, testDev, testBudget);
-        VersionID vglVersion =  new VersionID();
+        Project testProject2 = new Project(testName, testDescription, testDev, testBudget);
+        VersionID vglVersion = new VersionID();
         assertEquals(vglVersion, testProject2.getVersionID());
         assertEquals(testName, testProject2.getName());
         assertEquals(testDescription, testProject2.getDescription());
@@ -131,11 +130,11 @@ public class ProjectTest {
         assertNotEquals(testStartDate, testProject.getStartDate());
         assertEquals(testStartDate2, testProject.getStartDate());
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testSetInvalidStartDate() {
-        testProject.setStartDate(new GregorianCalendar(1999,1,1));
-        
+        testProject.setStartDate(new GregorianCalendar(1999, 1, 1));
+
     }
 
     @Test
@@ -145,7 +144,7 @@ public class ProjectTest {
         assertFalse(Project.isValidStartDate(testStartDate, testCreationDate));
         assertTrue(Project.isValidStartDate(testCreationDate, testStartDate));
         assertTrue(Project.isValidStartDate(testStartDate, testStartDate));
-        
+
     }
 
     @Test
@@ -170,10 +169,10 @@ public class ProjectTest {
         assertNotEquals(testCreationDate, testProject.getCreationDate());
         assertEquals(testCreationDate2, testProject.getCreationDate());
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testSetInvalidCreationDate() {
-        testProject.setCreationDate(null);        
+        testProject.setCreationDate(null);
     }
 
     @Test
@@ -194,8 +193,8 @@ public class ProjectTest {
         assertNotEquals(testBudget, testProject.getBudgetEstimate());
         assertEquals(10, testProject.getBudgetEstimate());
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testSetInvalidBudgetEstimate() {
         testProject.setBudgetEstimate(-10);
     }
@@ -219,12 +218,12 @@ public class ProjectTest {
         assertNotEquals(null, testProject.getAllRolesDev(testDev));
         assertEquals(rolesList, testProject.getAllRolesDev(testDev));
     }
-    
+
     @Test
     public void testSetRole() throws IllegalArgumentException, PermissionException {
         Developer programmer = new Developer("ikGebruikDit", "Joshua", "de Smidt");
         testProject.setRole(testDev, programmer, Role.PROGRAMMER);
-        testProject.setRole(testDev, testDev, Role.TESTER); 
+        testProject.setRole(testDev, testDev, Role.TESTER);
         PList<Role> programmerRoleList = PList.<Role>empty().plus(Role.PROGRAMMER);
         PList<Role> notProgrammerRoles = PList.<Role>empty().plus(Role.LEAD);
         assertNotEquals(notProgrammerRoles, testProject.getAllRolesDev(programmer));
@@ -233,26 +232,25 @@ public class ProjectTest {
         assertEquals(notProgrammerRoles, testProject.getAllRolesDev(testDev));
         assertEquals(programmerRoleList, testProject.getAllRolesDev(programmer));
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testSetNullRole() throws IllegalArgumentException, PermissionException {
-        testProject.setRole(null, testDev, Role.TESTER); 
+        testProject.setRole(null, testDev, Role.TESTER);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testSetNullUserRole() throws IllegalArgumentException, PermissionException {
         testProject.setRole(testDev, null, Role.TESTER);
     }
 
-    
-    @Test (expected = PermissionException.class)
+
+    @Test(expected = PermissionException.class)
     public void testSetInvalidRole() throws IllegalArgumentException, PermissionException {
         Developer programmer = new Developer("ikGebruikDitOok", "Joshua2", "de Smedt");
         testProject.setRole(testDev, programmer, Role.PROGRAMMER);
         testProject.setRole(programmer, testDev, Role.TESTER);
-    } 
+    }
 
-    
 
     @Test
     public void testGetDetails() {
@@ -272,8 +270,8 @@ public class ProjectTest {
     @Test
     public void testCloneProject() {
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
-        VersionID cversion =  new VersionID(6,6,6);
-        Developer clead = new Developer("cloneClown","cclone","cclown");
+        VersionID cversion = new VersionID(6, 6, 6);
+        Developer clead = new Developer("cloneClown", "cclone", "cclown");
         GregorianCalendar cstart = new GregorianCalendar(3000, 1, 1);
         long cestimate = 4567;
         Project cloneProject = testProject.cloneProject(cversion, clead, cstart, cestimate);
@@ -281,7 +279,7 @@ public class ProjectTest {
         assertEquals(cstart, cloneProject.getStartDate());
         assertEquals(clead, cloneProject.getLead());
         assertEquals(cversion, cloneProject.getVersionID());
-        
+
         assertNotEquals(testBudget, cloneProject.getBudgetEstimate());
         assertNotEquals(testStartDate, cloneProject.getStartDate());
         assertNotEquals(testDev, cloneProject.getLead());
@@ -303,7 +301,7 @@ public class ProjectTest {
 
     @Test
     public void testSetVersionID() throws Exception {
-        VersionID vid = new VersionID(12,11,10);
+        VersionID vid = new VersionID(12, 11, 10);
         testProject.setVersionID(vid);
         assertNotEquals(testVersion, testProject.getVersionID());
         assertEquals(vid, testProject.getVersionID());
@@ -367,19 +365,19 @@ public class ProjectTest {
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
         assertNotEquals(childList, testProject.getChilds());
         childList = childList.plus(esu);
-        assertEquals(childList,testProject.getChilds());
+        assertEquals(childList, testProject.getChilds());
     }
 
     @Test
     public void testMakeSubsystemChild1() throws Exception {
-        VersionID vid = new VersionID(56,21,22);
+        VersionID vid = new VersionID(56, 21, 22);
         String ede = "Extra test description woehoew";
         String ena = "Extra test name woehoew";
         Subsystem esu = testProject.makeSubsystemChild(vid, ena, ede);
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
         assertNotEquals(childList, testProject.getChilds());
         childList = childList.plus(esu);
-        assertEquals(childList,testProject.getChilds());
+        assertEquals(childList, testProject.getChilds());
     }
 
     @Test
@@ -405,21 +403,20 @@ public class ProjectTest {
         assertEquals(childList, testProject.getAllSubsystems());
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testSetInvalidProjDescription() {
         testProject.setDescription("");
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testSetNullProjDescription() {
         testProject.setDescription(null);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testSetNullProjVersionID() {
         testProject.setVersionID(null);
     }
-
 
 
 }

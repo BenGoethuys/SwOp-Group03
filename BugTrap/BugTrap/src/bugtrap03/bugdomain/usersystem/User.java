@@ -3,11 +3,9 @@ package bugtrap03.bugdomain.usersystem;
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.RolePerm;
-
-import java.util.HashSet;
-
 import bugtrap03.bugdomain.permission.UserPerm;
 
+import java.util.HashSet;
 import java.util.Objects;
 
 /**

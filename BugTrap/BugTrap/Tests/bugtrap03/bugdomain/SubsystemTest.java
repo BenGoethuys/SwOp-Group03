@@ -1,18 +1,17 @@
 package bugtrap03.bugdomain;
 
-import static org.junit.Assert.*;
-
-import java.util.GregorianCalendar;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import purecollections.PList;
+
+import java.util.GregorianCalendar;
+
+import static org.junit.Assert.*;
 
 public class SubsystemTest {
     static Developer testDev;
@@ -56,7 +55,7 @@ public class SubsystemTest {
         subDescription2 = "moeh";
 
         subSysTest = testProject.makeSubsystemChild(subVersion, subName, subDescription);
-        subSysTest2 = subSysTest.makeSubsystemChild(subName2,subDescription2);
+        subSysTest2 = subSysTest.makeSubsystemChild(subName2, subDescription2);
         emptyDep = PList.<BugReport>empty();
         bugreport1 = subSysTest.addBugReport(testDev, "testBug3", "this is description of testbug 3", emptyDep);
         depToRep1 = PList.<BugReport>empty().plus(bugreport1);
@@ -180,7 +179,7 @@ public class SubsystemTest {
 
     @Test
     public void testSetVersionID() throws Exception {
-        VersionID vid = new VersionID(12,11,10);
+        VersionID vid = new VersionID(12, 11, 10);
         subSysTest2.setVersionID(vid);
         assertNotEquals(new VersionID(), subSysTest2.getVersionID());
         assertEquals(vid, subSysTest2.getVersionID());
@@ -248,7 +247,7 @@ public class SubsystemTest {
 
     @Test
     public void testMakeSubsystemChild1() throws Exception {
-        VersionID vid = new VersionID(56,21,20);
+        VersionID vid = new VersionID(56, 21, 20);
         String ede = "Extra test description woehoew 2";
         String ena = "Extra test name woehoew 2";
         Subsystem esu = subSysTest.makeSubsystemChild(vid, ena, ede);
@@ -277,18 +276,17 @@ public class SubsystemTest {
     }
 
 
-
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testSetInvalidSubsDescription() {
         subSysTest.setDescription("");
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testSetNullSubsDescription() {
         subSysTest.setDescription(null);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testSetNullSubsVersionID() {
         subSysTest.setVersionID(null);
     }

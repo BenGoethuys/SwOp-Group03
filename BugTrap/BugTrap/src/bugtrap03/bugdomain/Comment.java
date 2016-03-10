@@ -21,7 +21,7 @@ public class Comment {
      * @param issuer the issuer that creates this comment
      * @param text   the comment text for this comment
      * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
-     * @throws PermissionException if the given creator doesn't have the needed permissions
+     * @throws PermissionException      if the given creator doesn't have the needed permissions
      * @see Comment#isValidCreator(User)
      */
     public Comment(User issuer, String text) throws IllegalArgumentException, PermissionException {
@@ -49,15 +49,15 @@ public class Comment {
      *
      * @param creator the creator to set
      * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
-     * @throws PermissionException if the given creator doesn't have the needed permissions
+     * @throws PermissionException      if the given creator doesn't have the needed permissions
      * @see Comment#isValidCreator(User)
      * @see Comment#isValidText(String)
      */
     private void setCreator(User creator) throws IllegalArgumentException, PermissionException {
-        if (creator != null && ! creator.hasPermission(UserPerm.CREATE_COMMENT)){
+        if (creator != null && !creator.hasPermission(UserPerm.CREATE_COMMENT)) {
             throw new PermissionException("The given creator for this comment doesn't have the needed permission");
         }
-        if (! Comment.isValidCreator(creator)) {
+        if (!Comment.isValidCreator(creator)) {
             throw new IllegalArgumentException("The given Issuer is not a valid creator for this comment");
         }
         this.creator = creator;
@@ -74,7 +74,7 @@ public class Comment {
         if (creator == null) {
             return false;
         }
-        if (! creator.hasPermission(UserPerm.CREATE_COMMENT)){
+        if (!creator.hasPermission(UserPerm.CREATE_COMMENT)) {
             return false;
         }
         return true;
@@ -198,7 +198,7 @@ public class Comment {
      * @param creator the creator of the comment
      * @param text    the text of the comment
      * @throws IllegalArgumentException if the given parameters are not valid for this comment
-     * @throws PermissionException if the given creator doesn't have the needed permissions
+     * @throws PermissionException      if the given creator doesn't have the needed permissions
      * @see Comment(Issuer, String)
      */
     public Comment addSubComment(User creator, String text) throws IllegalArgumentException, PermissionException {

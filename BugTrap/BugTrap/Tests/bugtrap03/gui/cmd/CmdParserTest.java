@@ -3,9 +3,7 @@ package bugtrap03.gui.cmd;
 import org.junit.Test;
 
 /**
- * 
  * @author Group 03
- *
  */
 public class CmdParserTest {
 

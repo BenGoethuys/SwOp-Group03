@@ -1,15 +1,14 @@
 package bugtrap03.bugdomain;
 
-import static org.junit.Assert.*;
-
-import java.util.GregorianCalendar;
-
+import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import bugtrap03.bugdomain.usersystem.Developer;
 import purecollections.PList;
+
+import java.util.GregorianCalendar;
+
+import static org.junit.Assert.*;
 
 public class AbstractSystemTest {
     static Developer testDev;
@@ -20,39 +19,39 @@ public class AbstractSystemTest {
     static GregorianCalendar testCreationDate;
     static long testBudget;
     static Project testProject;
-    
+
     static VersionID subVersion;
     static String subName;
     static String subDescription;
     static Subsystem subSysTest;
     static Subsystem subSysTest2;
-    
+
     static PList<BugReport> emptyDep;
     static PList<BugReport> depToRep1;
     static BugReport bugreport1;
     static BugReport bugreport2;
-    
+
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         testDev = new Developer("subsysTester3210", "KwintenAS", "BuytaertAS");
-        testVersion = new VersionID(1,2,4);
+        testVersion = new VersionID(1, 2, 4);
         testName = "testProjAS";
         testDescription = "This is an description of an AS project";
         testStartDate = new GregorianCalendar(3016, 1, 1);
-        testCreationDate = new GregorianCalendar(2000,12,25);   
+        testCreationDate = new GregorianCalendar(2000, 12, 25);
         testBudget = 1000;
-        
-        
-        subVersion = new VersionID(9,8,5);
+
+
+        subVersion = new VersionID(9, 8, 5);
         subName = "testSubAS";
         subDescription = "This is a test description of a as subsystem";
-        
-        
+
+
         emptyDep = PList.<BugReport>empty();
-        
+
     }
-    
+
     @Before
     public void setUp() throws Exception {
         testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate, testBudget);
@@ -79,8 +78,8 @@ public class AbstractSystemTest {
     }
 
     @Test
-    public void isValidVersionID(){
-        assertTrue(AbstractSystem.isValidVersionId(new VersionID(0,0,2)));
+    public void isValidVersionID() {
+        assertTrue(AbstractSystem.isValidVersionId(new VersionID(0, 0, 2)));
         assertTrue(AbstractSystem.isValidVersionId(new VersionID()));
         assertFalse(AbstractSystem.isValidVersionId(null));
     }
@@ -120,33 +119,33 @@ public class AbstractSystemTest {
         assertEquals(subDescription, testProject.getDescription());
         assertEquals(testDescription, subSysTest.getDescription());
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testSetInvalidProjDescription() {
         testProject.setDescription("");
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testSetInvalidSubsDescription() {
         subSysTest.setDescription("");
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testSetNullProjDescription() {
         testProject.setDescription(null);
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testSetNullSubsDescription() {
         subSysTest.setDescription(null);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testSetNullProjVersionID() {
         testProject.setVersionID(null);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testSetNullSubsVersionID() {
         subSysTest.setVersionID(null);
     }
@@ -167,7 +166,7 @@ public class AbstractSystemTest {
 
     @Test
     public void testMakeSubsystemChildVersionIDStringString() {
-        VersionID extraVersion = new VersionID(5,3,7);
+        VersionID extraVersion = new VersionID(5, 3, 7);
         String extraName = "extra naam";
         String extraDes = "extra des";
         Subsystem extraSubsys = testProject.makeSubsystemChild(extraVersion, extraName, extraDes);

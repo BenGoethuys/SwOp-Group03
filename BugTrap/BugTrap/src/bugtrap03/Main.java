@@ -1,12 +1,15 @@
 package bugtrap03;
 
-import bugtrap03.bugdomain.*;
-import bugtrap03.bugdomain.usersystem.Issuer;
-import bugtrap03.gui.terminal.Terminal;
+import bugtrap03.bugdomain.BugReport;
+import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
+import bugtrap03.gui.terminal.Terminal;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 

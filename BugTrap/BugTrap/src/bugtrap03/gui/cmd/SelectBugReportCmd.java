@@ -1,16 +1,19 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.gui.cmd.general.*;
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.User;
+import bugtrap03.gui.cmd.general.*;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.model.DataModel;
 import purecollections.PList;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -80,7 +83,6 @@ public class SelectBugReportCmd implements Cmd {
      *                                  permissions.
      * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalArgumentException If scan, model or user is null
-     *
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override

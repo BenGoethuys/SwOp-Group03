@@ -1,13 +1,12 @@
 package bugtrap03.gui.cmd.general;
 
 import bugtrap03.gui.terminal.TerminalScanner;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Group 03
- *
  */
 public class ClearCmdTest {
 

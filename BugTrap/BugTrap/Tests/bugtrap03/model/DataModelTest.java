@@ -3,22 +3,15 @@ package bugtrap03.model;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
-import bugtrap03.bugdomain.usersystem.Administrator;
-import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.Issuer;
-import bugtrap03.bugdomain.usersystem.Role;
-import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.model.DataModel;
-
-import static org.junit.Assert.*;
-
-import java.util.GregorianCalendar;
-
+import bugtrap03.bugdomain.usersystem.*;
 import org.junit.Test;
 import purecollections.PList;
 
+import java.util.GregorianCalendar;
+
+import static org.junit.Assert.*;
+
 /**
- *
  * @author Group 03
  */
 public class DataModelTest {

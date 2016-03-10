@@ -1,6 +1,5 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
@@ -9,6 +8,7 @@ import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetUserOfExcactTypeCmd;
 import bugtrap03.gui.terminal.Terminal;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.model.DataModel;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -44,17 +44,17 @@ public class LoginCmd implements Cmd {
      * <br> 3. Ask the person which user to login as.
      * <br> 4. Welcome the user.
      *
-     * @param scan The {@link Scanner} trough which to ask the questions.
+     * @param scan  The {@link Scanner} trough which to ask the questions.
      * @param model The model to use to access the model.
      * @param dummy Dummy, as the person isn't a specific user yet. Use
-     * whatever.
+     *              whatever.
      * @return The user chosen by the person to login as.
-     * @throws CancelException When the cancel operation was executed.
+     * @throws CancelException          When the cancel operation was executed.
      * @throws IllegalArgumentException If the scan or model is null
      */
     @Override
     public User exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException, IllegalArgumentException {
-        if(scan == null || model == null) {
+        if (scan == null || model == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
 
@@ -63,7 +63,7 @@ public class LoginCmd implements Cmd {
         do {
             //1. Ask which type to login as.
             Class<? extends User> classType = getWantedUserType(scan);
-            
+
             //2. Show the person all users of that type
             //3. Ask the person which user to login as.
             user = (new GetUserOfExcactTypeCmd<>(classType)).exec(scan, model, null);
@@ -103,7 +103,7 @@ public class LoginCmd implements Cmd {
      * Get the Class type the person wants to login as. This asks the person
      * which class type he wants by presenting a list of options to choose from.
      *
-     * @param <U> extends User.
+     * @param <U>  extends User.
      * @param scan The {@link Scanner} used to interact with the person.
      * @return The Class of the type the person wants to login as. (e.g
      * Administrator).
