@@ -190,7 +190,6 @@ public class Subsystem extends AbstractSystem {
      */
     public Subsystem cloneSubsystem(AbstractSystem parent) throws IllegalArgumentException {
         Subsystem clone = parent.makeSubsystemChild(this.getVersionID(), this.getName(), this.getDescription());
-        Subsystem catchChild;
         for (Subsystem child: this.getChilds()){
             child.cloneSubsystem(clone);
         }
@@ -203,6 +202,8 @@ public class Subsystem extends AbstractSystem {
      *
      * @return a string of details
      */
+    @DomainAPI
+    @Override
     public String getDetails() {
         String details = "\n\n\tSubsystem name:\t\t \t";
         details += this.getName();
