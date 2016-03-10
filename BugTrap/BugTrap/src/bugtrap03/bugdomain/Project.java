@@ -451,9 +451,8 @@ public class Project extends AbstractSystem {
 
         Project cloneProject = new Project(version, this.getName(), this.getDescription(), lead, startDate,
                 budgetEstimate);
-        ArrayList<Subsystem> cloneChilds = new ArrayList<>();
         for (Subsystem subsystemChild : this.getChilds()) {
-            cloneChilds.add(subsystemChild.cloneSubsystem(cloneProject));
+            subsystemChild.cloneSubsystem(cloneProject);
         }
         return cloneProject;
 
