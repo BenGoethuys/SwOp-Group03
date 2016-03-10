@@ -186,9 +186,9 @@ public abstract class AbstractSystem {
      * This method adds a subsystem to this AbstractSystem
      *
      * @param version     The versionID of the new subsystem
-     * @param name        The name of te new subsystem
+     * @param name        The name of the new subsystem
      * @param description The description of the new subsystem
-     * @return The new subsytems that was added to this AbstractSystem
+     * @return The new subsystems that was added to this AbstractSystem
      */
     public Subsystem makeSubsystemChild(VersionID version, String name, String description) {
         Subsystem newChild = new Subsystem(version, name, description, this);
@@ -199,9 +199,9 @@ public abstract class AbstractSystem {
     /**
      * This method adds a subsystem to this AbstractSystem
      *
-     * @param name        The name of te new subsystem
+     * @param name        The name of the new subsystem
      * @param description The description of the new subsystem
-     * @return The new subsytems that was added to this AbstractSystem
+     * @return The new subsystems that was added to this AbstractSystem
      * @Ensures The new versionID will be equal to "new VersionID()"
      */
     public Subsystem makeSubsystemChild(String name, String description) {
@@ -229,10 +229,10 @@ public abstract class AbstractSystem {
 
     /**
      * This method returns the head of the subsystem tree structure. This is an
-     * element from the type Project and can be recognised by his self reference
+     * element from the type Project and can be recognized by his self reference
      * in getParent().
      *
-     * @return the Project to which al the subsystems are linked.
+     * @return the Project to which all the subsystems are linked.
      */
     @DomainAPI
     public Project getParentProject() {
