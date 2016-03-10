@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  * Class encapsulating our scanner (input methods) and print/println.. (output methpds).
- * This can be used to provide custom out & input streams as well as
+ * This can be used to provide custom out and input streams as well as
  * provides a way to override certain methods for testing purposes.
  *
  * @author Group 03
@@ -86,7 +86,8 @@ public class TerminalScanner {
     }
 
     /**
-     * @return @see Scanner#hasNextInt()
+     * @return See hasNextInt() in {@link Scanner}.
+     * @see Scanner#hasNextInt()
      */
     public boolean hasNextInt() {
         return scan.hasNextInt();
@@ -94,8 +95,9 @@ public class TerminalScanner {
 
     /**
      * Execute as a {@link Scanner} except if the abort indication was given.
+     * If there is no next int, {@link #hasNextInt()} then nextLine() will be executed.
      *
-     * @return
+     * @return The next int as described by nextInt() in {@link Scanner}.
      * @throws CancelException        When nextLine() would throw this.
      * @throws InputMismatchException When no Integer was found.
      * @see Scanner#nextInt()
@@ -113,6 +115,7 @@ public class TerminalScanner {
     }
 
     /**
+     * @return hasNextLong() as described in {@link Scanner}.
      * @see Scanner#hasNextLong()
      */
     public boolean hasNextLong() {
@@ -121,8 +124,9 @@ public class TerminalScanner {
 
     /**
      * Execute as a {@link Scanner} except if the abort indication was given.
+     * If there is no next Long, {@link #hasNextLong()} then nextLine() will be executed.
      *
-     * @return
+     * @return The next long as described in {@link Scanner}.
      * @throws CancelException        When nextLong() would throw this.
      * @throws InputMismatchException When no Integer was found.
      * @see Scanner#nextLong()
@@ -140,6 +144,7 @@ public class TerminalScanner {
     }
 
     /**
+     * @return See println(String) as described in {@link PrintStream}.
      * @see PrintStream#println(java.lang.String)
      */
     public boolean println(String message) {
@@ -148,6 +153,7 @@ public class TerminalScanner {
     }
 
     /**
+     * @return See print(String) as described in {@link PrintStream}.
      * @see PrintStream#print(java.lang.String)
      */
     public boolean print(String message) {

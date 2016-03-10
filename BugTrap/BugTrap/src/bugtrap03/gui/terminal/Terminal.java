@@ -13,6 +13,12 @@ import bugtrap03.model.DataModel;
  */
 public class Terminal {
 
+    /**
+     * Create a new {@link Terminal} which can be used to start the terminal interaction.
+     * @param model The data model used to access the data. Changes will be reflected.
+     * @throws IllegalArgumentException When model is a null reference.
+     * @see Terminal#openView()
+     */
     public Terminal(DataModel model) throws IllegalArgumentException {
         if (model == null) {
             throw new IllegalArgumentException("Terminal does not allow a null-reference for DataController.");
@@ -37,7 +43,11 @@ public class Terminal {
     }
 
     /**
-     * @param user
+     * 
+     * Set the {@link User} currently logged in.
+     * 
+     * @param user The new logged in user.
+     * @throws IllegalArgumentException When the user given was a null reference.
      */
     public void setUser(User user) throws IllegalArgumentException {
         if (user == null) {
@@ -64,6 +74,10 @@ public class Terminal {
         return this.scan;
     }
 
+    /**
+     * Start the interaction with this {@link Terminal}.
+     * This function does not end.
+     */
     public void openView() {
         do {
             try {
