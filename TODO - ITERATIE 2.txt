@@ -1,0 +1,1 @@
+- updateBugreport -> print details of selected bug report
