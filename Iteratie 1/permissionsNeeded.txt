@@ -1,0 +1,34 @@
+Assosiations:
+--------------
+dev -> * Role For Project
+
+Project -> 1 Lead
+	-> * Programmer
+	-> * Tester
+
+Permissions:
+------------
+Bug Report Tags -> init -> Tag New
+	   	-> Assign User -> Tag assigned
+			(possible multiple users assigned)
+		-> tester/programmer -> UnderReview
+		-> Creator reviews -> Resolved OR Assigned
+		(Who is creator? BugReport is not init with user! -> question for monday!!)
+		
+		-> Lead -> Resolved
+		
+		-> Lead -> Closed (if Resolved OR UnderReview)
+
+		-> Lead -> NotABug (at any time)
+		-> Lead -> Duplicate (at any time)
+
+		-> NotABug, Duplicate, Closed -> connot change anymore => STATIC
+
+Project created by Admin
+	-> Admin -> assign Lead
+	-> Lead -> assign dev with roles for project (ONLY BY LEAD!)
+
+BugReport
+	-> Lead -> assign programmer/devs
+	-> Tester -> assign devs for bugReport
+	
