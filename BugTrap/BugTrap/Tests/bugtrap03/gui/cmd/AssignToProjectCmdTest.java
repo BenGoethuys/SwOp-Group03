@@ -5,21 +5,17 @@ package bugtrap03.gui.cmd;
 
 import static org.junit.Assert.*;
 
-import bugtrap03.bugdomain.BugReport;
 import bugtrap03.bugdomain.Project;
-import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
@@ -44,7 +40,6 @@ public class AssignToProjectCmdTest {
     private static ArrayDeque<String> question;
     private static ArrayDeque<String> answer;
     private static AssignToProjectCmd cmd;
-    private static Administrator admin;
 
     Project chosen;
 

@@ -3,7 +3,6 @@ package bugtrap03.gui.cmd.general;
 import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.gui.cmd.Cmd;
 import java.util.ArrayDeque;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -22,7 +21,7 @@ public class GetUserOfExactTypeCmdTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testNullCons() {
-        Cmd cmd = new GetUserOfExcactTypeCmd(null);
+        new GetUserOfExcactTypeCmd<>(null);
     }
 
     /**
@@ -35,7 +34,6 @@ public class GetUserOfExactTypeCmdTest {
         // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead16", "Luky", "Luke");
-        User issuer = model.createIssuer("noDev16", "BadLuck", "Luke");
         User admin = model.createAdministrator("admin16", "adminT", "bie");
 
         ArrayDeque<String> question = new ArrayDeque<>();
@@ -76,7 +74,6 @@ public class GetUserOfExactTypeCmdTest {
         // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead20", "Luky", "Luke");
-        User issuer = model.createIssuer("noDev20", "BadLuck", "Luke");
         User admin = model.createAdministrator("admin20", "adminT", "bie");
 
         ArrayDeque<String> question = new ArrayDeque<>();

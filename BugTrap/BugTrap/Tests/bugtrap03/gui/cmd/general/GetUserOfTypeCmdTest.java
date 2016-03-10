@@ -4,7 +4,6 @@ import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.gui.cmd.Cmd;
 import java.util.ArrayDeque;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -23,7 +22,7 @@ public class GetUserOfTypeCmdTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testNullCons() {
-        Cmd cmd = new GetUserOfTypeCmd(null);
+        new GetUserOfTypeCmd<>(null);
     }
 
     /**
@@ -125,7 +124,7 @@ public class GetUserOfTypeCmdTest {
         ArrayDeque<String> answer = new ArrayDeque<>();
         GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd<>(Issuer.class);
 
-        //Setup scenario
+        // Setup scenario
         question.add("No options found.");
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
