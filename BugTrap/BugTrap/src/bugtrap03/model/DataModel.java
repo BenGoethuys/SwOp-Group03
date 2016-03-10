@@ -663,6 +663,7 @@ public class DataModel {
      * @param bugReport The {@link BugReport} to check for.
      * @return The list of developers assigned to the bugreport.
      */
+    @DomainAPI
     public PList<Developer> getDevelopersOfBugReport(BugReport bugReport) {
         if(bugReport == null) {
             throw new IllegalArgumentException("The given bugreport was null.");
