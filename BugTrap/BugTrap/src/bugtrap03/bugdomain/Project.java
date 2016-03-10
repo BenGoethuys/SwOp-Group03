@@ -433,7 +433,7 @@ public class Project extends AbstractSystem {
         details += this.getCreationDate().getTime();
         details += "\nSubsystems of this project: ";
         for (Subsystem subsys: this.getAllSubsystems()){
-            details += "\n" + subsys.getDetails();
+            details += subsys.getDetails();
         }
         return details;
     }
