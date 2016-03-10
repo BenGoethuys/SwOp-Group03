@@ -43,7 +43,7 @@ public class ShowProjectCmd implements Cmd {
         Project proj = new GetProjectCmd().exec(scan, model, user);
 
         //4. Show a detailed overview of the selected project and all its subsystems.
-        scan.println(proj.getDetails());
+        //scan.println(proj.getDetails());
         return proj;
     }
 
