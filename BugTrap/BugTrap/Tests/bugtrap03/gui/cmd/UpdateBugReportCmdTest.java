@@ -24,6 +24,8 @@ import testCollection.TerminalTestScanner;
  */
 public class UpdateBugReportCmdTest {
 
+    BugReport chosen;
+    
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
@@ -238,7 +240,7 @@ public class UpdateBugReportCmdTest {
 
     // TODO: Test the Cmd to not only assign duplicate but the pointer to the
     // duplicate BR as well.
-    
+
     /**
      * Test method for
      * {@link UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
@@ -309,7 +311,7 @@ public class UpdateBugReportCmdTest {
         BugReport updatedBR = cmd.exec(scan, model, lead);
         // Test effects.
     }
-    
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
@@ -392,4 +394,36 @@ public class UpdateBugReportCmdTest {
         // Test effects.
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testException() throws IllegalArgumentException, CancelException, PermissionException {
+        UpdateBugReportCmd cmd = new UpdateBugReportCmd();
+        chosen = cmd.exec(null, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
+        UpdateBugReportCmd cmd = new UpdateBugReportCmd();
+        DataModel model = new DataModel();
+        Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
+        chosen = cmd.exec(null, model, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
+        UpdateBugReportCmd cmd = new UpdateBugReportCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
+        chosen = cmd.exec(scan, null, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
+        UpdateBugReportCmd cmd = new UpdateBugReportCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        chosen = cmd.exec(scan, model, null);
+    }
 }

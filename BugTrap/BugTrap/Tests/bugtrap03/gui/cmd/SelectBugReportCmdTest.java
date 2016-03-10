@@ -25,6 +25,20 @@ import testCollection.TerminalTestScanner;
  */
 public class SelectBugReportCmdTest {
 
+    Subsystem subsystemA1;
+    Subsystem subsystemA2;
+    Subsystem subsystemA3;
+    Subsystem subsystemA3_1;
+    Subsystem subsystemA3_2;
+    BugReport bugRep1;
+    BugReport bugRep2;
+    BugReport bugRep3;
+    BugReport chosen;
+    Comment comment1;
+    Comment comment2;
+    Comment comment3;
+    Project proj1;
+
     /**
      *
      */
@@ -37,31 +51,31 @@ public class SelectBugReportCmdTest {
         Administrator admin = model.createAdministrator("Adm1ral007", "Kwinten", "JK");
 
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+        subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
                 "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+        subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+        subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
                 "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+        subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+        subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+        bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
                 PList.<BugReport> empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+        bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
                 subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+        bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
                 PList.<BugReport> empty(), subsystemA3_1);
 
-        Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
-        Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
-        Comment comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
+        comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
+        comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
+        comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -119,31 +133,31 @@ public class SelectBugReportCmdTest {
         Administrator admin = model.createAdministrator("Adm1ral00", "Kwinten", "JK");
 
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+        subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
                 "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+        subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+        subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
                 "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+        subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+        subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+        bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
                 PList.<BugReport> empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+        bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
                 subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+        bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
                 PList.<BugReport> empty(), subsystemA3_1);
 
-        Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
-        Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
-        Comment comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
+        comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
+        comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
+        comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -211,31 +225,31 @@ public class SelectBugReportCmdTest {
         Administrator admin = model.createAdministrator("ABCED0", "Kwinten", "JK");
 
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+        subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
                 "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+        subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+        subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
                 "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+        subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+        subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+        bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
                 PList.<BugReport> empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+        bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
                 subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+        bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
                 PList.<BugReport> empty(), subsystemA3_1);
 
-        Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
-        Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
-        Comment comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
+        comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
+        comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
+        comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -290,31 +304,31 @@ public class SelectBugReportCmdTest {
         Administrator admin = model.createAdministrator("ABCED", "Kwinten", "JK");
 
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+        subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
                 "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+        subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+        subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
                 "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+        subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+        subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+        bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
                 PList.<BugReport> empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+        bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
                 subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+        bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
                 PList.<BugReport> empty(), subsystemA3_1);
 
-        Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
-        Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
-        Comment comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
+        comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
+        comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
+        comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -370,31 +384,31 @@ public class SelectBugReportCmdTest {
         Administrator admin = model.createAdministrator("ABCED1", "Kwinten", "JK");
 
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+        subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
                 "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+        subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+        subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
                 "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+        subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+        subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+        bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
                 PList.<BugReport> empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(lead, "bugRep is too awesome",
+        bugRep1 = model.createBugReport(lead, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
                 subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+        bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
                 PList.<BugReport> empty(), subsystemA3_1);
 
-        Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
-        Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
-        Comment comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
+        comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
+        comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
+        comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -460,31 +474,31 @@ public class SelectBugReportCmdTest {
         Administrator admin = model.createAdministrator("ABCED6", "Kwinten", "JK");
 
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+        subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
                 "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+        subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+        subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
                 "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+        subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+        subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+        bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
                 PList.<BugReport> empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+        bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
                 subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+        bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
                 PList.<BugReport> empty(), subsystemA3_1);
 
-        Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
-        Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
-        Comment comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
+        comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
+        comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
+        comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -540,31 +554,31 @@ public class SelectBugReportCmdTest {
         Administrator admin = model.createAdministrator("ABCED7", "Kwinten", "JK");
 
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+        subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
                 "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+        subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+        subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
                 "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+        subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+        subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+        bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
                 PList.<BugReport> empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+        bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
                 subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+        bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
                 PList.<BugReport> empty(), subsystemA3_1);
 
-        Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
-        Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
-        Comment comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
+        comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
+        comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
+        comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -597,7 +611,7 @@ public class SelectBugReportCmdTest {
         question.add("Please enter the required search term ...");
         question.add("Give number: ");
         answer.add(Long.toString(bugRep2.getUniqueID()));
-        
+
         question.add("Please select a bug report: ");
         question.add("Available options:");
         question.add("0. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
@@ -621,32 +635,32 @@ public class SelectBugReportCmdTest {
         Administrator admin = model.createAdministrator("ABCED8", "Kwinten", "JK");
 
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+        subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
                 "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+        subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+        subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
                 "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+        subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+        subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+        bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
                 PList.<BugReport> empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+        bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
                 subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+        bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
                 PList.<BugReport> empty(), subsystemA3_1);
 
         model.addUsersToBugReport(lead, bugRep3, PList.<Developer> empty().plus(lead));
-        Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
-        Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
-        Comment comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
+        comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
+        comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
+        comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -696,31 +710,31 @@ public class SelectBugReportCmdTest {
         Administrator admin = model.createAdministrator("ABCED9", "Kwinten", "JK");
 
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
-        Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+        subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
                 "Description of susbsystem A1");
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+        subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
-        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+        subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
                 "Description of susbsystem A3");
-        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+        subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
-        Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+        subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
+        bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
                 PList.<BugReport> empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+        bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
                 subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
+        bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
                 PList.<BugReport> empty(), subsystemA3_1);
 
-        Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
-        Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
-        Comment comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
+        comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
+        comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
+        comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -782,4 +796,37 @@ public class SelectBugReportCmdTest {
         question.add("4. uniqueId");
     }
 
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testException() throws IllegalArgumentException, CancelException, PermissionException {
+        SelectBugReportCmd cmd = new SelectBugReportCmd();
+        chosen = cmd.exec(null, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
+        SelectBugReportCmd cmd = new SelectBugReportCmd();
+        DataModel model = new DataModel();
+        Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
+        chosen = cmd.exec(null, model, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
+        SelectBugReportCmd cmd = new SelectBugReportCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
+        chosen = cmd.exec(scan, null, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
+        SelectBugReportCmd cmd = new SelectBugReportCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        chosen = cmd.exec(scan, model, null);
+    }
 }

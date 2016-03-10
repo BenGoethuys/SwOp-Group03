@@ -127,5 +127,4 @@ public class LoginCmdTest {
         // Test effects.
         assertEquals(user, dummyTerminal.getUser());
     }
-
 }

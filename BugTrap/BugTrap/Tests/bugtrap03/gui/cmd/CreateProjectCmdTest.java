@@ -1,12 +1,10 @@
-/**
- *
- */
 package bugtrap03.gui.cmd;
 
 import bugtrap03.model.DataModel;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
@@ -28,6 +26,8 @@ import testCollection.TerminalTestScanner;
  */
 public class CreateProjectCmdTest {
 
+    Project chosen;
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.CreateProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
@@ -38,7 +38,6 @@ public class CreateProjectCmdTest {
         // Setup variables.
         DataModel model = new DataModel();
         User lead = model.createDeveloper("meGoodLead14", "Luky", "Luke");
-        User issuer = model.createIssuer("noDev14", "BadLuck", "Luke");
         User admin = model.createAdministrator("admIn14", "adminT", "bie");
 
         ArrayDeque<String> question = new ArrayDeque<>();
@@ -112,7 +111,6 @@ public class CreateProjectCmdTest {
         // Setup variables.
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead2223", "Luky", "Luke");
-        User issuer = model.createIssuer("noDev2", "BadLuck", "Luke");
         User admin = model.createAdministrator("admin2", "adminT", "bie");
         Project proj = model.createProject("ProjectFT2", "desc here about test default.", lead, 1000, admin);
 
@@ -179,4 +177,36 @@ public class CreateProjectCmdTest {
 
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testException() throws IllegalArgumentException, CancelException, PermissionException {
+        CreateProjectCmd cmd = new CreateProjectCmd();
+        chosen = cmd.exec(null, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
+        CreateProjectCmd cmd = new CreateProjectCmd();
+        DataModel model = new DataModel();
+        Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
+        chosen = cmd.exec(null, model, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
+        CreateProjectCmd cmd = new CreateProjectCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
+        chosen = cmd.exec(scan, null, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
+        CreateProjectCmd cmd = new CreateProjectCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        chosen = cmd.exec(scan, model, null);
+    }
 }

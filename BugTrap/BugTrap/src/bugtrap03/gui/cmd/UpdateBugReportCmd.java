@@ -1,7 +1,6 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.BugReport;
-import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
@@ -10,8 +9,6 @@ import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
-
-import java.util.GregorianCalendar;
 
 /**
  * This class represents the update bug report scenario
