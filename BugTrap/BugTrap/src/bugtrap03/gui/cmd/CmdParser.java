@@ -76,7 +76,7 @@ public class CmdParser {
         cmdListExtra.add(new SimpleEntry<>("createcom", new CreateCommentCmd()));
         cmdListExtra.add(new SimpleEntry<>("showbugreport", new InspectBugReportCmd()));
         cmdListExtra.add(new SimpleEntry<>("showbugrep", new InspectBugReportCmd()));
-        cmdListExtra.add(new SimpleEntry<>("assigntobugrep", new CreateCommentCmd()));
+        cmdListExtra.add(new SimpleEntry<>("assigntobugrep", new AssignToBugReportCmd()));
         cmdListExtra.add(new SimpleEntry<>("assigntoproj", new AssignToProjectCmd()));
         cmdListExtra.add(new SimpleEntry<>("updatebugrep", new UpdateBugReportCmd()));
 
