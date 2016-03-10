@@ -37,15 +37,16 @@ public class AssignToProjectCmdTest {
     private static Developer dev2;
     private static Developer dev3;
 
-
     private static Project projectA;
     private static Project projectB;
     private static TerminalTestScanner scan;
 
-    private static  ArrayDeque<String> question;
-    private static  ArrayDeque<String> answer;
-    private static  AssignToProjectCmd cmd;
+    private static ArrayDeque<String> question;
+    private static ArrayDeque<String> answer;
+    private static AssignToProjectCmd cmd;
     private static Administrator admin;
+
+    Project chosen;
 
     /**
      * @throws java.lang.Exception
@@ -53,16 +54,18 @@ public class AssignToProjectCmdTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         model = new DataModel();
-        dev1 = model.createDeveloper("BlackPowerRanger","Black","Power Ranger");
-        dev2 = model.createDeveloper("PinkPowerRanger","Pink","Power Ranger");
-        dev3 = model.createDeveloper("YellowPowerRanger","Yellow","Power Ranger");
+        dev1 = model.createDeveloper("BlackPowerRanger", "Black", "Power Ranger");
+        dev2 = model.createDeveloper("PinkPowerRanger", "Pink", "Power Ranger");
+        dev3 = model.createDeveloper("YellowPowerRanger", "Yellow", "Power Ranger");
         Administrator admin = model.createAdministrator("Adm1ral00-12", "Kwinten", "JK");
 
-        projectA = model.createProject("PowerRangerProject", "Project for testing with power rangers", dev1, 999, admin);
+        projectA = model.createProject("PowerRangerProject", "Project for testing with power rangers", dev1, 999,
+                admin);
         model.assignToProject(projectA, dev1, dev3, Role.PROGRAMMER);
         model.assignToProject(projectA, dev1, dev3, Role.TESTER);
 
-        projectB = model.createProject("PowerRangerProject2", "Project for testing with power rangers2", dev1, 999, admin);
+        projectB = model.createProject("PowerRangerProject2", "Project for testing with power rangers2", dev1, 999,
+                admin);
         model.assignToProject(projectB, dev1, dev2, Role.PROGRAMMER);
         model.assignToProject(projectB, dev1, dev3, Role.TESTER);
 
@@ -79,13 +82,15 @@ public class AssignToProjectCmdTest {
     }
 
     /**
-     * Test method for {@link bugtrap03.gui.cmd.AssignToProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}.
+     * Test method for
+     * {@link bugtrap03.gui.cmd.AssignToProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
+     * .
      */
     @Test
     public void testNormalIntExec() throws PermissionException, CancelException {
         // Setup scenario
         question.add("Please select a project you lead.");
-        question.add( "Available options:");
+        question.add("Available options:");
         question.add("0. PowerRangerProject version: " + new VersionID().toString());
         question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
         question.add("I choose: ");
@@ -96,7 +101,7 @@ public class AssignToProjectCmdTest {
         question.add("You have chosen:");
         question.add(projectB.getDetails());
         question.add("Please select a developer to assign.");
-        question.add( "Available options:");
+        question.add("Available options:");
         question.add("0. BlackPowerRanger");
         question.add("1. PinkPowerRanger");
         question.add("2. YellowPowerRanger");
@@ -116,7 +121,8 @@ public class AssignToProjectCmdTest {
         question.add("I choose: ");
         answer.add("1");
         question.add("You have chosen: " + Role.TESTER.name());
-        question.add("PinkPowerRanger assigned to project: PowerRangerProject2 version: " + new VersionID().toString() + ", with role: " + Role.TESTER.name());
+        question.add("PinkPowerRanger assigned to project: PowerRangerProject2 version: " + new VersionID().toString()
+                + ", with role: " + Role.TESTER.name());
 
         // init scanner
         scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
@@ -131,7 +137,7 @@ public class AssignToProjectCmdTest {
     public void testNormalStringWithSpaceExec() throws PermissionException, CancelException {
         // Setup scenario
         question.add("Please select a project you lead.");
-        question.add( "Available options:");
+        question.add("Available options:");
         question.add("0. PowerRangerProject version: " + new VersionID().toString());
         question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
         question.add("I choose: ");
@@ -142,7 +148,7 @@ public class AssignToProjectCmdTest {
         question.add("You have chosen:");
         question.add(projectB.getDetails());
         question.add("Please select a developer to assign.");
-        question.add( "Available options:");
+        question.add("Available options:");
         question.add("0. BlackPowerRanger");
         question.add("1. PinkPowerRanger");
         question.add("2. YellowPowerRanger");
@@ -162,7 +168,8 @@ public class AssignToProjectCmdTest {
         question.add("I choose: ");
         answer.add("TESTER");
         question.add("You have chosen: " + Role.TESTER.name());
-        question.add("BlackPowerRanger assigned to project: PowerRangerProject2 version: " + new VersionID().toString() + ", with role: " + Role.TESTER.name());
+        question.add("BlackPowerRanger assigned to project: PowerRangerProject2 version: " + new VersionID().toString()
+                + ", with role: " + Role.TESTER.name());
 
         // init scanner
         scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
@@ -177,7 +184,7 @@ public class AssignToProjectCmdTest {
     public void testNormalStringWithNoSpaceExec() throws PermissionException, CancelException {
         // Setup scenario
         question.add("Please select a project you lead.");
-        question.add( "Available options:");
+        question.add("Available options:");
         question.add("0. PowerRangerProject version: " + new VersionID().toString());
         question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
         question.add("I choose: ");
@@ -188,7 +195,7 @@ public class AssignToProjectCmdTest {
         question.add("You have chosen:");
         question.add(projectB.getDetails());
         question.add("Please select a developer to assign.");
-        question.add( "Available options:");
+        question.add("Available options:");
         question.add("0. BlackPowerRanger");
         question.add("1. PinkPowerRanger");
         question.add("2. YellowPowerRanger");
@@ -208,7 +215,8 @@ public class AssignToProjectCmdTest {
         question.add("I choose: ");
         answer.add("PROGRAMMER");
         question.add("You have chosen: " + Role.PROGRAMMER.name());
-        question.add("YellowPowerRanger assigned to project: PowerRangerProject2 version: " + new VersionID().toString() + ", with role: " + Role.PROGRAMMER.name());
+        question.add("YellowPowerRanger assigned to project: PowerRangerProject2 version: " + new VersionID().toString()
+                + ", with role: " + Role.PROGRAMMER.name());
 
         // init scanner
         scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
@@ -230,11 +238,11 @@ public class AssignToProjectCmdTest {
         assertEquals(null, chosen);
     }
 
-    @Test (expected = PermissionException.class)
+    @Test(expected = PermissionException.class)
     public void testPermissionExcExec() throws PermissionException, CancelException {
         // Setup scenario
         question.add("Please select a project you lead.");
-        question.add( "Available options:");
+        question.add("Available options:");
         question.add("0. PowerRangerProject version: " + new VersionID().toString());
         question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
         question.add("I choose: ");
@@ -245,7 +253,7 @@ public class AssignToProjectCmdTest {
         question.add("You have chosen:");
         question.add(projectA.getDetails());
         question.add("Please select a developer to assign.");
-        question.add( "Available options:");
+        question.add("Available options:");
         question.add("0. BlackPowerRanger");
         question.add("1. PinkPowerRanger");
         question.add("2. YellowPowerRanger");
@@ -274,6 +282,37 @@ public class AssignToProjectCmdTest {
         assertTrue(chosen.getAllRolesDev(dev1).contains(Role.TESTER));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testException() throws IllegalArgumentException, CancelException, PermissionException {
+        AssignToProjectCmd cmd = new AssignToProjectCmd();
+        chosen = cmd.exec(null, null, null);
+    }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
+        AssignToProjectCmd cmd = new AssignToProjectCmd();
+        DataModel model = new DataModel();
+        Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
+        chosen = cmd.exec(null, model, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
+        AssignToProjectCmd cmd = new AssignToProjectCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
+        chosen = cmd.exec(scan, null, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
+        AssignToProjectCmd cmd = new AssignToProjectCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        chosen = cmd.exec(scan, model, null);
+    }
 
 }

@@ -26,6 +26,8 @@ import testCollection.TerminalTestScanner;
  */
 public class AssignToBugReportCmdTest {
 
+    BugReport chosen;
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.AssignToBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
@@ -51,7 +53,7 @@ public class AssignToBugReportCmdTest {
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
         BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
                 subsystemA2);
 
         ArrayDeque<String> question = new ArrayDeque<>();
@@ -104,7 +106,7 @@ public class AssignToBugReportCmdTest {
         // Execute scenario
         BugReport chosen = cmd.exec(scan, model, lead);
 
-        //Test effects.
+        // Test effects.
         assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(dev2));
         assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(lead));
         assertEquals(model.getDevelopersOfBugReport(bugRep1).size(), 2);
@@ -131,7 +133,7 @@ public class AssignToBugReportCmdTest {
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
         BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
                 subsystemA2);
 
         ArrayDeque<String> question = new ArrayDeque<>();
@@ -170,7 +172,7 @@ public class AssignToBugReportCmdTest {
         // Execute scenario
         BugReport chosen = cmd.exec(scan, model, issuer);
 
-        //Test effects.
+        // Test effects.
     }
 
     /**
@@ -194,7 +196,7 @@ public class AssignToBugReportCmdTest {
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
         BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
                 subsystemA2);
 
         ArrayDeque<String> question = new ArrayDeque<>();
@@ -248,10 +250,42 @@ public class AssignToBugReportCmdTest {
         // Execute scenario
         BugReport chosen = cmd.exec(scan, model, lead);
 
-        //Test effects.
+        // Test effects.
         assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(dev2));
         assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(lead));
         assertEquals(model.getDevelopersOfBugReport(bugRep1).size(), 2);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testException() throws IllegalArgumentException, CancelException, PermissionException {
+        AssignToBugReportCmd cmd = new AssignToBugReportCmd();
+        chosen = cmd.exec(null, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
+        AssignToBugReportCmd cmd = new AssignToBugReportCmd();
+        DataModel model = new DataModel();
+        Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
+        chosen = cmd.exec(null, model, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
+        AssignToBugReportCmd cmd = new AssignToBugReportCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
+        chosen = cmd.exec(scan, null, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
+        AssignToBugReportCmd cmd = new AssignToBugReportCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        chosen = cmd.exec(scan, model, null);
+    }
 }
