@@ -118,7 +118,7 @@ public class CreateProjectCmdTest {
 
         GregorianCalendar date = new GregorianCalendar();
         date.add(GregorianCalendar.MONTH, 1);
-        String dateStr = date.get(YEAR) + "-" + date.get(MONTH) + "-" + date.get(DATE);
+        String dateStr = date.get(YEAR) + "-" + (date.get(MONTH) +1) + "-" + date.get(DATE);
         VersionID newVersionID = new VersionID(1, 2, 3);
         long budget = 50;
 
