@@ -92,7 +92,7 @@ public class Terminal {
         //Query
         String input;
         while (true) {
-            scan.println("Give new command");
+            scan.println("Give new command: (type help for a list.)");
             try {
                 input = scan.nextLine().toLowerCase();
                 parser.performCmd(scan, model, user, input);
