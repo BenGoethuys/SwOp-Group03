@@ -16,6 +16,23 @@ public class Milestone extends VersionID {
         super(first, second, third);
     }
 
+    /**
+     * 
+     * @param first
+     * @param second
+     */
+    public Milestone(int first, int second) {
+        super(first, second);
+    }
+
+    /**
+     * 
+     * @param first
+     */
+    public Milestone(int first) {
+        super(first);
+    }
+
     @Override
     public String toString() {
         if (this.getThirdNb() != 0) {
