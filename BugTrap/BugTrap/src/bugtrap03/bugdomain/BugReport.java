@@ -20,28 +20,31 @@ import java.util.HashSet;
 public class BugReport implements Comparable<BugReport> {
 
     /**
-     * General constructor for initialising a bug report
+     * General constructor for initializing a bug report
      *
-     * @param creator      The User that wants to create this bug report
-     * @param uniqueID     The unique ID for the bugReport
-     * @param title        The title of the bugReport
-     * @param description  The description of the bugReport
+     * @param creator The User that wants to create this bug report
+     * @param uniqueID The unique ID for the bugReport
+     * @param title The title of the bugReport
+     * @param description The description of the bugReport
      * @param creationDate The creationDate of the bugReport
-     * @param tag          The tag of the bugReport
+     * @param tag The tag of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param subsystem    The subsystem this bug report belongs to
+     * @param subsystem The subsystem this bug report belongs to
+     * @param milestone The milestone of the bug report
+     * 
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidCreationDate(creationDate)
-     *                                  fails
+     *             fails
      * @throws IllegalArgumentException if isValidTag(tag) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies)
-     *                                  fails
+     *             fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @throws PermissionException      if the given creator doesn't have the needed
-     *                                  permission to create a bug report
+     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws PermissionException if the given creator doesn't have the needed
+     *             permission to create a bug report
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -50,9 +53,10 @@ public class BugReport implements Comparable<BugReport> {
      * @see BugReport#isValidTag(Tag)
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
+     * @see BugReport#isValidMilestone(Milestone)
      */
-    protected BugReport(User creator, long uniqueID, String title, String description,
-                        GregorianCalendar creationDate, Tag tag, PList<BugReport> dependencies, Subsystem subsystem)
+    protected BugReport(User creator, long uniqueID, String title, String description, GregorianCalendar creationDate,
+            Tag tag, PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone)
             throws IllegalArgumentException, PermissionException {
         this.setCreator(creator);
         this.setUniqueID(uniqueID);
@@ -61,33 +65,37 @@ public class BugReport implements Comparable<BugReport> {
         this.setCreationDate(creationDate);
         this.setTag(tag);
 
-        this.setCommentList(PList.<Comment>empty());
-        this.setUserList(PList.<Developer>empty());
+        this.setCommentList(PList.<Comment> empty());
+        this.setUserList(PList.<Developer> empty());
         this.setDependencies(dependencies);
         this.setSubsystem(subsystem);
+        this.setMilestone(milestone);
     }
 
     /**
      * Constructor for creating a bug report with default tag "New"
      *
-     * @param creator      The User that wants to create this bug report
-     * @param uniqueID     The unique ID for the bugReport
-     * @param title        The title of the bugReport
-     * @param description  The description of the bugReport
+     * @param creator The User that wants to create this bug report
+     * @param uniqueID The unique ID for the bugReport
+     * @param title The title of the bugReport
+     * @param description The description of the bugReport
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param subsystem    The subsystem this bug report belongs to
+     * @param subsystem The subsystem this bug report belongs to
+     * @param milestone The milestone of the bug report
+     * 
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidCreationDate(creationDate)
-     *                                  fails
+     *             fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies)
-     *                                  fails
+     *             fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @throws PermissionException      if the given creator doesn't have the needed
-     *                                  permission to create a bug report
+     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws PermissionException if the given creator doesn't have the needed
+     *             permission to create a bug report
      * @Ensures new.getTag() == Tag.New
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
@@ -96,37 +104,41 @@ public class BugReport implements Comparable<BugReport> {
      * @see BugReport#isValidCreationDate(GregorianCalendar)
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
+     * @see BugReport#isValidMilestone(Milestone)
      */
     protected BugReport(User creator, long uniqueID, String title, String description, GregorianCalendar creationDate,
-                        PList<BugReport> dependencies, Subsystem subsystem)
+            PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone)
             throws IllegalArgumentException, PermissionException {
-        this(creator, uniqueID, title, description, creationDate, Tag.NEW, dependencies, subsystem);
+        this(creator, uniqueID, title, description, creationDate, Tag.NEW, dependencies, subsystem, milestone);
     }
 
     /**
      * Constructor for creating a bug report with default tag "New" and the
      * current time as creationDate
      *
-     * @param creator      The User that wants to create this bug report
-     * @param title        The title of the bugReport
-     * @param description  The description of the bugReport
+     * @param creator The User that wants to create this bug report
+     * @param title The title of the bugReport
+     * @param description The description of the bugReport
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param subsystem    The subsystem this bug report belongs to
+     * @param subsystem The subsystem this bug report belongs to
+     * @param milestone The milestone of the bug report
+     * 
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidCreationDate(creationDate)
-     *                                  fails
+     *             fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies)
-     *                                  fails
+     *             fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @throws PermissionException      if the given creator doesn't have the needed
-     *                                  permission to create a bug report
-     * @Ensures new.getDate() == current date at the moment of initialisation
+     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws PermissionException if the given creator doesn't have the needed
+     *             permission to create a bug report
+     * @Ensures new.getDate() == current date at the moment of initialization
      * @Ensures new.getTag() == Tag.New
-     * @Ensures new.getUniqueID() is initialised with a valid ID
+     * @Ensures new.getUniqueID() is initialized with a valid ID
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -134,43 +146,50 @@ public class BugReport implements Comparable<BugReport> {
      * @see BugReport#isValidCreationDate(GregorianCalendar)
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
+     * @see BugReport#isValidMilestone(Milestone)
      * @see BugReport#getNewUniqueID()
      */
     public BugReport(User creator, String title, String description, GregorianCalendar creationDate,
-                     PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException, PermissionException {
-        this(creator, BugReport.getNewUniqueID(), title, description, creationDate, dependencies, subsystem);
+            PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone)
+            throws IllegalArgumentException, PermissionException {
+        this(creator, BugReport.getNewUniqueID(), title, description, creationDate, dependencies, subsystem, milestone);
     }
 
     /**
      * Constructor for creating a bug report with default tag "New" and the
      * current time as creationDate
      *
-     * @param creator      The User that wants to create this bug report
-     * @param title        The title of the bugReport
-     * @param description  The description of the bugReport
+     * @param creator The User that wants to create this bug report
+     * @param title The title of the bugReport
+     * @param description The description of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param subsystem    The subsystem this bug report belongs to
+     * @param subsystem The subsystem this bug report belongs to
+     * @param milestone The milestone of the bug report
+     * 
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies)
-     *                                  fails
+     *             fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @throws PermissionException      if the given creator doesn't have the needed
-     *                                  permission to create a bug report
-     * @Ensures new.getDate() == current date at the moment of initialisation
+     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws PermissionException if the given creator doesn't have the needed
+     *             permission to create a bug report
+     * @Ensures new.getDate() == current date at the moment of initialization
      * @Ensures new.getTag() == Tag.New
-     * @Ensures new.getUniqueID() is initialised with a valid ID
+     * @Ensures new.getUniqueID() is initialized with a valid ID
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidTitle(String)
      * @see BugReport#isValidDescription(String)
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
+     * @see BugReport#isValidMilestone(Milestone)
      * @see BugReport#getNewUniqueID()
      */
-    public BugReport(User creator, String title, String description,
-                     PList<BugReport> dependencies, Subsystem subsystem) throws IllegalArgumentException, PermissionException {
-        this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(), dependencies, subsystem);
+    public BugReport(User creator, String title, String description, PList<BugReport> dependencies, Subsystem subsystem,
+            Milestone milestone) throws IllegalArgumentException, PermissionException {
+        this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(), dependencies, subsystem,
+                milestone);
     }
 
     private long uniqueID;
@@ -179,6 +198,7 @@ public class BugReport implements Comparable<BugReport> {
     private GregorianCalendar creationDate;
     private Tag tag;
     private PList<Comment> commentList;
+    private Milestone milestone;
 
     private User creator;
     private PList<Developer> userList;
@@ -186,7 +206,7 @@ public class BugReport implements Comparable<BugReport> {
 
     private Subsystem subsystem;
 
-    //HashMap to guarantee uniqueness of IDs
+    // HashMap to guarantee uniqueness of IDs
     private static final HashSet<Long> allTakenIDs = new HashSet<Long>();
     private static long uniqueIDCounter = 0;
 
@@ -233,7 +253,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @param uniqueID the ID to check
      * @return true if the key is not taken at this point and is a valid ID for
-     * a bug report
+     *         a bug report
      */
     @DomainAPI
     public static boolean isValidUniqueID(long uniqueID) {
@@ -372,20 +392,23 @@ public class BugReport implements Comparable<BugReport> {
     /**
      * This method sets the current tag for this bug report
      *
-     * @param tag    The new tag of this bug report
+     * @param tag The new tag of this bug report
      * @param issuer The issuer that wants to change the tag of this bug report
      * @throws IllegalArgumentException if isValidTag(tag) throws this exception
-     * @throws PermissionException      if the given user doesn't have the needed
-     *                                  permission to change the tag of this bug report
+     * @throws PermissionException if the given user doesn't have the needed
+     *             permission to change the tag of this bug report
      * @see BugReport#isValidTag(Tag)
      */
     public void setTag(Tag tag, User issuer) throws IllegalArgumentException, PermissionException {
-        if (this.getCreator().equals(issuer) && this.getTag() == Tag.UNDER_REVIEW && (tag == Tag.ASSIGNED || tag == Tag.RESOLVED)) {
+        if (this.getCreator().equals(issuer) && this.getTag() == Tag.UNDER_REVIEW
+                && (tag == Tag.ASSIGNED || tag == Tag.RESOLVED)) {
             this.setTag(tag);
         } else if (tag == null) {
-            throw new IllegalArgumentException("The given tag for bug report is not valid for this state of the bug report");
+            throw new IllegalArgumentException(
+                    "The given tag for bug report is not valid for this state of the bug report");
         } else if (!issuer.hasRolePermission(tag.getNeededPerm(), this.getSubsystem().getParentProject())) {
-            throw new PermissionException("The given issuer: " + issuer.getFullName() + ", doens't have the needed permission to change the tag of this bug report");
+            throw new PermissionException("The given issuer: " + issuer.getFullName()
+                    + ", doens't have the needed permission to change the tag of this bug report");
         } else {
             this.setTag(tag);
         }
@@ -400,7 +423,8 @@ public class BugReport implements Comparable<BugReport> {
      */
     private void setTag(Tag tag) throws IllegalArgumentException {
         if (!this.isValidTag(tag)) {
-            throw new IllegalArgumentException("The given tag for bug report is not valid for this state of the bug report");
+            throw new IllegalArgumentException(
+                    "The given tag for bug report is not valid for this state of the bug report");
         }
         this.tag = tag;
     }
@@ -440,7 +464,7 @@ public class BugReport implements Comparable<BugReport> {
         for (Comment comment : this.getCommentList()) {
             list.addAll(comment.getAllComments());
         }
-        return PList.<Comment>empty().plusAll(list);
+        return PList.<Comment> empty().plusAll(list);
     }
 
     /**
@@ -448,7 +472,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @param commentList the comment list for this bug report
      * @throws IllegalArgumentException if the given PList is not valid for this
-     *                                  bug report
+     *             bug report
      * @see BugReport#isValidCommentList(PList<Comment>)
      */
     private void setCommentList(PList<Comment> commentList) throws IllegalArgumentException {
@@ -471,11 +495,11 @@ public class BugReport implements Comparable<BugReport> {
         }
         // cannot add null object to purecollections list! -> redundant to check
 
-//		for (Comment comment: commentList){
-//			if (comment == null){
-//				return false;
-//			}
-//		}
+        // for (Comment comment: commentList){
+        // if (comment == null){
+        // return false;
+        // }
+        // }
         return true;
     }
 
@@ -484,7 +508,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @param comment to add to this bug report
      * @throws IllegalArgumentException if the given comment is not valid for
-     *                                  this bug report
+     *             this bug report
      * @see BugReport#isValidComment(Comment)
      */
     protected Comment addComment(Comment comment) throws IllegalArgumentException {
@@ -499,11 +523,11 @@ public class BugReport implements Comparable<BugReport> {
      * This method makes a Comment object and adds it to the sub-comment list
      *
      * @param creator the creator of the comment
-     * @param text    the text of the comment
+     * @param text the text of the comment
      * @throws IllegalArgumentException if the given parameters are not valid
-     *                                  for a comment
-     * @throws PermissionException      if the given creator doesn't have the needed
-     *                                  permissions
+     *             for a comment
+     * @throws PermissionException if the given creator doesn't have the needed
+     *             permissions
      * @see Comment#Comment(User, String)
      */
     public Comment addComment(User creator, String text) throws IllegalArgumentException, PermissionException {
@@ -516,7 +540,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @param comment to check
      * @return true if the given comment is valid as a comment for this bug
-     * report
+     *         report
      */
     @DomainAPI
     public boolean isValidComment(Comment comment) {
@@ -612,13 +636,12 @@ public class BugReport implements Comparable<BugReport> {
             }
         }
 
-
         // cannot add null object to purecollections list! -> redundant to check
-//		for (Developer user : userList){
-//			if (user == null){
-//				return false;
-//			}
-//		}
+        // for (Developer user : userList){
+        // if (user == null){
+        // return false;
+        // }
+        // }
         return true;
     }
 
@@ -628,12 +651,13 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @param dev he developer to check
      * @throws IllegalArgumentException If the given developer was not valid for
-     *                                  this bug report
+     *             this bug report
      */
     protected void addUser(Developer dev) throws IllegalArgumentException {
         if (!this.userList.contains(dev)) {
             if (!isValidUser(dev)) {
-                throw new IllegalArgumentException("The given developer is not a valid developer to associate with this bug report");
+                throw new IllegalArgumentException(
+                        "The given developer is not a valid developer to associate with this bug report");
             }
 
             // first time user associated check
@@ -650,10 +674,10 @@ public class BugReport implements Comparable<BugReport> {
      * This method adds a developer to this bug report issued by the given user
      *
      * @param user The user that wants to add a developer to this bug report
-     * @param dev  The developer to assign to this bug report
+     * @param dev The developer to assign to this bug report
      * @throws IllegalArgumentException If the given user was null
-     * @throws PermissionException      If the given users doesn't have the needed
-     *                                  permissions
+     * @throws PermissionException If the given users doesn't have the needed
+     *             permissions
      * @see BugReport#addUser(Developer)
      */
     public void addUser(User user, Developer dev) throws IllegalArgumentException, PermissionException {
@@ -661,7 +685,8 @@ public class BugReport implements Comparable<BugReport> {
             throw new IllegalArgumentException("the given user was null");
         }
         if (!user.hasRolePermission(RolePerm.ASSIGN_DEV_BUGREPORT, this.getSubsystem().getParentProject())) {
-            throw new PermissionException("The given user has insufficient permissions to assign the developer to this bug report");
+            throw new PermissionException(
+                    "The given user has insufficient permissions to assign the developer to this bug report");
         }
         this.addUser(dev);
     }
@@ -672,7 +697,7 @@ public class BugReport implements Comparable<BugReport> {
      *
      * @param dev the developer to check
      * @return true if the given developer is a valid developer for this bug
-     * report
+     *         report
      */
     @DomainAPI
     public boolean isValidUser(Developer dev) {
@@ -758,6 +783,45 @@ public class BugReport implements Comparable<BugReport> {
     }
 
     /**
+     * This is a getter for the Milestone.
+     * 
+     * @return The milestone of the bug report.
+     */
+    public Milestone getMilestone() {
+        return this.milestone;
+    }
+
+    /**
+     * Sets the Milestone of the bug report to the given Milestone.
+     *
+     * @param milestone The milestone of the bug report.
+     * @throws IllegalArgumentException When milestone is a invalid.
+     * @see #isValidMilestone(Milestone)
+     */
+    public void setMilestone(Milestone milestone) throws NullPointerException {
+        //TODO zie opdracht
+        if (!isValidMilestone(milestone)) {
+            throw new IllegalArgumentException("The given Milestone is not valid for this bug report");
+        }
+        this.milestone = milestone;
+    }
+
+    /**
+     * This method check if the given Milestone is a valid Milestone for a bug
+     * report
+     * 
+     * @param milestone the Milestone to check
+     * @return true if the given Milestone is valid for a bug report.
+     */
+    public static boolean isValidMilestone(Milestone milestone) {
+        //TODO zie opdracht voor valid milestone bij een bugreport
+        if (milestone == null) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
      * than, equal to, or greater than the specified object.
@@ -787,18 +851,17 @@ public class BugReport implements Comparable<BugReport> {
      * equals."
      * <p>
      * <p>
-     * In the foregoing description, the notation
-     * <tt>sgn(</tt><i>expression</i><tt>)</tt> designates the mathematical
-     * <i>signum</i> function, which is defined to return one of <tt>-1</tt>,
-     * <tt>0</tt>, or <tt>1</tt> according to whether the value of
-     * <i>expression</i> is negative, zero or positive.
+     * In the foregoing description, the notation <tt>sgn(</tt><i>expression</i>
+     * <tt>)</tt> designates the mathematical <i>signum</i> function, which is
+     * defined to return one of <tt>-1</tt>, <tt>0</tt>, or <tt>1</tt> according
+     * to whether the value of <i>expression</i> is negative, zero or positive.
      *
      * @param o the object to be compared.
      * @return a negative integer, zero, or a positive integer as this object is
-     * less than, equal to, or greater than the specified object.
+     *         less than, equal to, or greater than the specified object.
      * @throws NullPointerException if the specified object is null
-     * @throws ClassCastException   if the specified object's type prevents it
-     *                              from being compared to this object.
+     * @throws ClassCastException if the specified object's type prevents it
+     *             from being compared to this object.
      */
     @Override
     @DomainAPI
