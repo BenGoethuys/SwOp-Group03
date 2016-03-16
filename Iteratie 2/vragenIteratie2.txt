@@ -9,6 +9,8 @@
 *use case 4.17: suggest a new tag, do we have to give possible tags (what if there are none)? 
 
 *does a bug report must have a milestone? (assignment: "a bug report can also have a milestone" p. 13)
+**when making a bugreport with no milestone chosen to set, do we have to set it to that of the relevant subsystem +1 in the third number, or...?
+-->
 
 *notifications: when subscribing for ALL set tags to assigned, do you also subscribe for future bugreports?
 --> when newly made, can you have subscribers
@@ -16,3 +18,8 @@
 ==> "Specific objects of interest" p. 12
 
 *undo only in use case --> can only an admin undo stuff? (we suppose yes, since there is no other use case)
+
+
+
+TODO afdwingen dependencies bugreport enkel op zelfde project bugreps
+
