@@ -49,4 +49,37 @@ public class MilestoneTest {
         assertNotEquals("M1.2.0", milestone3.toString());
     }
 
+    @Test
+    public void testCompareTo() {
+        Milestone milestonecomp1 = new Milestone(2, 3, 4);
+
+        Milestone milestonecomp2 = new Milestone(1, 2, 2);
+        Milestone milestonecomp3 = new Milestone(1, 2, 4);
+
+        Milestone milestonecomp4 = new Milestone(1, 1, 3);
+        Milestone milestonecomp5 = new Milestone(1, 3, 3);
+
+        assertEquals(milestone3.compareTo(milestonecomp1), -1);
+        assertEquals(milestonecomp1.compareTo(milestone3), 1);
+
+        assertEquals(milestone3.compareTo(milestonecomp2), 1);
+        assertEquals(milestone3.compareTo(milestonecomp3), -1);
+
+        assertEquals(milestone3.compareTo(milestonecomp4), 1);
+        assertEquals(milestone3.compareTo(milestonecomp5), -1);
+    }
+
+    @Test
+    public void testEquals() {
+        assertTrue(milestone3.equals(milestone3));
+        Milestone milestonecomp2 = new Milestone(0);
+        assertFalse(milestone3.equals(milestonecomp2));
+        assertFalse(milestone3.equals(null));
+        Milestone milestonecomp3 = new Milestone(0);
+        assertTrue(milestonecomp2.equals(milestonecomp3));
+
+        // equals with other object
+        assertFalse(milestone3.equals(new Object()));
+    }
+
 }

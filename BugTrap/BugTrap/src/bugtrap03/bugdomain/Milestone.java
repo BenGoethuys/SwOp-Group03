@@ -61,4 +61,45 @@ public class Milestone extends VersionID {
         }
     }
 
+    /**
+     * Compares two Milestones.
+     *
+     * @return 0 if and only if two Milestones are equal, 1 if and only if the
+     *         second Milestone is greater than the first Milestone, -1
+     *         otherwise.
+     */
+    @DomainAPI
+    public int compareTo(Milestone other) {
+        if (this.getFirstNb() == other.getFirstNb() && this.getSecondNb() == other.getSecondNb()
+                && this.getThirdNb() == other.getThirdNb()) {
+            return 0;
+        }
+        if ((this.getFirstNb() < other.getFirstNb())
+                || (this.getFirstNb() >= other.getFirstNb() && this.getSecondNb() < other.getSecondNb())
+                || (this.getFirstNb() >= other.getFirstNb() && this.getSecondNb() >= other.getSecondNb()
+                        && this.getThirdNb() < other.getThirdNb())) {
+            return -1;
+        }
+        return 1;
+    }
+
+    /**
+     * Checks if two Milestones are equal.
+     *
+     * @param other The Milestone to compare.
+     * @return True if the Milestones are equal.
+     */
+    @Override
+    @DomainAPI
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+        if (other instanceof Milestone) {
+            Milestone otherID = (Milestone) other;
+            return this.compareTo(otherID) == 0;
+        }
+        return false;
+    }
+
 }
