@@ -11,26 +11,25 @@ import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
 
 public class AbstractSystemTest {
-    static Developer testDev;
-    static VersionID testVersion;
-    static String testName;
-    static String testDescription;
-    static GregorianCalendar testStartDate;
-    static GregorianCalendar testCreationDate;
-    static long testBudget;
-    static Project testProject;
+    private static Developer testDev;
+    private static VersionID testVersion;
+    private static String testName;
+    private static String testDescription;
+    private static GregorianCalendar testStartDate;
+    private static GregorianCalendar testCreationDate;
+    private static long testBudget;
+    private static Project testProject;
 
-    static VersionID subVersion;
-    static String subName;
-    static String subDescription;
-    static Subsystem subSysTest;
-    static Subsystem subSysTest2;
+    private static VersionID subVersion;
+    private static String subName;
+    private static String subDescription;
+    private static Subsystem subSysTest;
+    private static Subsystem subSysTest2;
 
-    static PList<BugReport> emptyDep;
-    static PList<BugReport> depToRep1;
-    static BugReport bugreport1;
-    static BugReport bugreport2;
-
+    private static PList<BugReport> emptyDep;
+    private static PList<BugReport> depToRep1;
+    private static BugReport bugreport1;
+    private static BugReport bugreport2;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -42,23 +41,22 @@ public class AbstractSystemTest {
         testCreationDate = new GregorianCalendar(2000, 12, 25);
         testBudget = 1000;
 
-
         subVersion = new VersionID(9, 8, 5);
         subName = "testSubAS";
         subDescription = "This is a test description of a as subsystem";
 
-
-        emptyDep = PList.<BugReport>empty();
+        emptyDep = PList.<BugReport> empty();
 
     }
 
     @Before
     public void setUp() throws Exception {
-        testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate, testBudget);
+        testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
+                testBudget);
         subSysTest = testProject.makeSubsystemChild(subVersion, subName, subDescription);
         subSysTest2 = subSysTest.makeSubsystemChild("mehAS", "moehAS");
         bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", emptyDep);
-        depToRep1 = PList.<BugReport>empty().plus(bugreport1);
+        depToRep1 = PList.<BugReport> empty().plus(bugreport1);
         bugreport2 = subSysTest2.addBugReport(testDev, "otherBug4AS", "i like bonobos", depToRep1);
     }
 
@@ -104,6 +102,11 @@ public class AbstractSystemTest {
         assertFalse(AbstractSystem.isValidName(null));
         assertTrue(AbstractSystem.isValidName(subName));
         assertTrue(AbstractSystem.isValidName(testName));
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetInvalidName() {
+        testProject.setName("");
     }
 
     @Test
@@ -159,9 +162,9 @@ public class AbstractSystemTest {
 
     @Test
     public void testGetChilds() {
-        assertEquals(PList.<Subsystem>empty().plus(subSysTest), testProject.getChilds());
-        assertEquals(PList.<Subsystem>empty().plus(subSysTest2), subSysTest.getChilds());
-        assertEquals(PList.<Subsystem>empty(), subSysTest2.getChilds());
+        assertEquals(PList.<Subsystem> empty().plus(subSysTest), testProject.getChilds());
+        assertEquals(PList.<Subsystem> empty().plus(subSysTest2), subSysTest.getChilds());
+        assertEquals(PList.<Subsystem> empty(), subSysTest2.getChilds());
     }
 
     @Test
@@ -196,7 +199,7 @@ public class AbstractSystemTest {
 
     @Test
     public void testGetAllBugReports() {
-        PList<BugReport> buglist = PList.<BugReport>empty().plus(bugreport2);
+        PList<BugReport> buglist = PList.<BugReport> empty().plus(bugreport2);
         assertEquals(buglist, subSysTest2.getAllBugReports());
         buglist = buglist.plus(bugreport1);
         assertEquals(buglist, subSysTest.getAllBugReports());
@@ -205,12 +208,23 @@ public class AbstractSystemTest {
 
     @Test
     public void testGetAllSubsystems() {
-        PList<Subsystem> sublist = PList.<Subsystem>empty();
+        PList<Subsystem> sublist = PList.<Subsystem> empty();
         assertEquals(sublist, subSysTest2.getAllSubsystems());
         sublist = sublist.plus(subSysTest2);
         assertEquals(sublist, subSysTest.getAllSubsystems());
-        PList<Subsystem> sublist2 = PList.<Subsystem>empty().plus(subSysTest).plus(subSysTest2);
+        PList<Subsystem> sublist2 = PList.<Subsystem> empty().plus(subSysTest).plus(subSysTest2);
         assertEquals(sublist2, testProject.getAllSubsystems());
+    }
+
+    @Test
+    public void testGetMilestone() {
+        Milestone milestone = new Milestone(0);
+        assertEquals(testProject.getMilestone(), milestone);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetInvalidMilestone() {
+        testProject.setMilestone(null);
     }
 
 }
