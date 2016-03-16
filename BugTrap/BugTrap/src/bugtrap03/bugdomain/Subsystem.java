@@ -7,8 +7,9 @@ import purecollections.PList;
 import java.util.GregorianCalendar;
 
 /**
- * This class is a subclass of abstract system (versionID, name, description and Childs list).
- * This type also contains a bug report PList, containing the bug reports linked to this subsystem.
+ * This class is a subclass of abstract system (versionID, name, description and
+ * Childs list). This type also contains a bug report PList, containing the bug
+ * reports linked to this subsystem.
  *
  * @author Group 03
  */
@@ -19,13 +20,15 @@ public class Subsystem extends AbstractSystem {
      * This constructor makes an element of the class subsystem, using it's
      * superclass, AbstractSystem, constructor.
      *
-     * @param version     The versionID (of that type) of this element.
-     * @param name        The string name for this element.
+     * @param version The versionID (of that type) of this element.
+     * @param name The string name for this element.
      * @param description The string description of this element.
-     * @param parent      The parent (a Project or Subsystem) of this element.
-     * @throws IllegalArgumentException if one of the String arguments is invalid.
+     * @param parent The parent (a Project or Subsystem) of this element.
+     * @throws IllegalArgumentException if one of the String arguments is
+     *             invalid.
      * @throws IllegalArgumentException if the version id is invalid.
-     * @throws IllegalArgumentException if the parent is invalid for this subsystem
+     * @throws IllegalArgumentException if the parent is invalid for this
+     *             subsystem
      * @see AbstractSystem#AbstractSystem(VersionID, String, String)
      * @see Subsystem#isValidParent(AbstractSystem)
      **/
@@ -37,28 +40,28 @@ public class Subsystem extends AbstractSystem {
         // given parent");
         // }
         this.setParent(parent);
-        this.bugReportList = PList.<BugReport>empty();
+        this.bugReportList = PList.<BugReport> empty();
     }
 
     /**
      * This constructor makes an element of the class subsystem, using it's
      * superclass, AbstractSystem, constructor.
      *
-     * @param name        The string name for this element.
+     * @param name The string name for this element.
      * @param description The string description of this element.
-     * @param parent      The parent (a Project or Subsystem) of this element.
-     * @throws IllegalArgumentException if one of the String arguments is invalid.
+     * @param parent The parent (a Project or Subsystem) of this element.
+     * @throws IllegalArgumentException if one of the String arguments is
+     *             invalid.
      * @see Subsystem#Subsystem(VersionID, String, String, AbstractSystem)
      **/
-    public Subsystem(String name, String description, AbstractSystem parent)
-            throws IllegalArgumentException {
+    public Subsystem(String name, String description, AbstractSystem parent) throws IllegalArgumentException {
         super(name, description);
         // if (!this.isValidName(name, parent)) {
         // throw new IllegalArgumentException("The name is invalid with the
         // given parent");
         // }
         this.setParent(parent);
-        this.bugReportList = PList.<BugReport>empty();
+        this.bugReportList = PList.<BugReport> empty();
     }
 
     private AbstractSystem parent;
@@ -69,7 +72,8 @@ public class Subsystem extends AbstractSystem {
      * elements of subclass subsystems have a parent different from null.
      *
      * @param parent The given parent of the AbstractSystem
-     * @throws IllegalArgumentException if the given parent isn't valid for this subsystem
+     * @throws IllegalArgumentException if the given parent isn't valid for this
+     *             subsystem
      * @see Subsystem#isValidParent(AbstractSystem)
      */
     private void setParent(AbstractSystem parent) throws IllegalArgumentException {
@@ -139,15 +143,16 @@ public class Subsystem extends AbstractSystem {
      * This method creates and adds a bug report to the list of associated
      * bugReports of this subsystem
      *
-     * @param creator      The issuer that wants to create the bug report
-     * @param title        The title of this bugReport
-     * @param description  The description of this bug report
+     * @param creator The issuer that wants to create the bug report
+     * @param title The title of this bugReport
+     * @param description The description of this bug report
      * @param dependencies The dependencies of the bug report
      * @return the created bug report
-     * @throws IllegalArgumentException If BugReport(creator, title, description, dependencies, this) fails
-     * @throws PermissionException      If the creation of a BugReport fails.
+     * @throws IllegalArgumentException If BugReport(creator, title,
+     *             description, dependencies, this) fails
+     * @throws PermissionException If the creation of a BugReport fails.
      * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
-     * String, PList, Subsystem)
+     *      String, PList, Subsystem)
      */
     public BugReport addBugReport(User creator, String title, String description, PList<BugReport> dependencies)
             throws IllegalArgumentException, PermissionException {
@@ -160,18 +165,19 @@ public class Subsystem extends AbstractSystem {
      * This method creates and adds a bug report to the list of associated
      * bugReports of this subsystem
      *
-     * @param creator      The issuer that wants to create the bug report
-     * @param title        The title of this bugReport
-     * @param description  The description of this bug report
+     * @param creator The issuer that wants to create the bug report
+     * @param title The title of this bugReport
+     * @param description The description of this bug report
      * @param dependencies The dependencies of the bug report
      * @return the created bug report
-     * @throws IllegalArgumentException If BugReport(creator, title, description, dependencies, this) fails
-     * @throws PermissionException      If the creation of a BugReport fails.
+     * @throws IllegalArgumentException If BugReport(creator, title,
+     *             description, dependencies, this) fails
+     * @throws PermissionException If the creation of a BugReport fails.
      * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
-     * String, PList, Subsystem)
+     *      String, PList, Subsystem)
      */
-    public BugReport addBugReport(User creator, String title, String description, GregorianCalendar creationDate, PList<BugReport> dependencies)
-            throws IllegalArgumentException, PermissionException {
+    public BugReport addBugReport(User creator, String title, String description, GregorianCalendar creationDate,
+            PList<BugReport> dependencies) throws IllegalArgumentException, PermissionException {
         BugReport bugReport = new BugReport(creator, title, description, creationDate, dependencies, this);
         this.bugReportList = this.getBugReportList().plus(bugReport);
         return bugReport;
@@ -184,21 +190,22 @@ public class Subsystem extends AbstractSystem {
      *
      * @return the clone of the subsystem
      * @throws IllegalArgumentException if the VersionID is invalid
-     * @throws IllegalArgumentException if one of the string arguments is invalid
+     * @throws IllegalArgumentException if one of the string arguments is
+     *             invalid
      * @throws IllegalArgumentException if the parent is invalid
      * @see Subsystem#Subsystem(VersionID, String, String, AbstractSystem)
      */
     public Subsystem cloneSubsystem(AbstractSystem parent) throws IllegalArgumentException {
         Subsystem clone = parent.makeSubsystemChild(this.getVersionID(), this.getName(), this.getDescription());
-        for (Subsystem child: this.getChilds()){
+        for (Subsystem child : this.getChilds()) {
             child.cloneSubsystem(clone);
         }
         return clone;
     }
 
     /**
-     * this method implements the abstract method from abstract system to return a string of
-     * details belonging to this subsystem.
+     * this method implements the abstract method from abstract system to return
+     * a string of details belonging to this subsystem.
      *
      * @return a string of details
      */
@@ -209,6 +216,8 @@ public class Subsystem extends AbstractSystem {
         details += this.getName();
         details += "\n\tSubsystem version:\t\t";
         details += this.getVersionID().toString();
+        details += "\nAchieved milestone:\t\t";
+        details += this.getMilestone().toString();
         details += "\n\tSubsystem description: \t";
         details += this.getDescription();
         details += "\n\tSubsystem parent: \t\t";
@@ -217,7 +226,6 @@ public class Subsystem extends AbstractSystem {
         details += this.getParentProject().getName();
         return details;
     }
-
 
     /**
      * This function checks the validity of the given name, in combination with

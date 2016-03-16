@@ -7,7 +7,6 @@ import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
@@ -25,12 +24,12 @@ public class Project extends AbstractSystem {
      * Creates a project with a given versionID, name, description,
      * creationDate, lead, startDate, budgetEstimate.
      *
-     * @param version        The versionID of this project.
-     * @param name           The name of this project.
-     * @param description    The description of this project.
-     * @param creationDate   The creation date of this project.
-     * @param lead           The lead developer of this project
-     * @param startDate      The start date of this project.
+     * @param version The versionID of this project.
+     * @param name The name of this project.
+     * @param description The description of this project.
+     * @param creationDate The creation date of this project.
+     * @param lead The lead developer of this project
+     * @param startDate The start date of this project.
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see AbstractSystem#AbstractSystem(VersionID, String, String)
@@ -40,7 +39,7 @@ public class Project extends AbstractSystem {
      * @see Project#isValidBudgetEstimate(long)
      */
     public Project(VersionID version, String name, String description, GregorianCalendar creationDate, Developer lead,
-                   GregorianCalendar startDate, long budgetEstimate) throws IllegalArgumentException {
+            GregorianCalendar startDate, long budgetEstimate) throws IllegalArgumentException {
         super(version, name, description);
         this.setCreationDate(creationDate);
         this.projectParticipants = new HashMap<>();
@@ -53,11 +52,11 @@ public class Project extends AbstractSystem {
      * Creates a project with a given versionID, name, description, lead,
      * startDate, budgetEstimate.
      *
-     * @param version        The versionID of this project.
-     * @param name           The name of this project.
-     * @param description    The description of this project.
-     * @param lead           The lead developer of this project
-     * @param startDate      The start date of this project.
+     * @param version The versionID of this project.
+     * @param name The name of this project.
+     * @param description The description of this project.
+     * @param lead The lead developer of this project
+     * @param startDate The start date of this project.
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see AbstractSystem#AbstractSystem(VersionID, String, String)
@@ -66,7 +65,7 @@ public class Project extends AbstractSystem {
      * @see Project#isValidBudgetEstimate(long)
      */
     public Project(VersionID version, String name, String description, Developer lead, GregorianCalendar startDate,
-                   long budgetEstimate) throws IllegalArgumentException {
+            long budgetEstimate) throws IllegalArgumentException {
         this(version, name, description, new GregorianCalendar(), lead, startDate, budgetEstimate);
     }
 
@@ -74,10 +73,10 @@ public class Project extends AbstractSystem {
      * Creates a project with a given versionID, name, description, lead,
      * startDate, budgetEstimate.
      *
-     * @param name           The name of this project.
-     * @param description    The description of this project.
-     * @param lead           The lead developer of this project
-     * @param startDate      The start date of this project.
+     * @param name The name of this project.
+     * @param description The description of this project.
+     * @param lead The lead developer of this project
+     * @param startDate The start date of this project.
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see AbstractSystem#AbstractSystem(String, String)
@@ -99,9 +98,9 @@ public class Project extends AbstractSystem {
      * Creates a project with a given versionID, name, description, lead,
      * startDate, budgetEstimate.
      *
-     * @param name           The name of this project.
-     * @param description    The description of this project.
-     * @param lead           The lead developer of this project
+     * @param name The name of this project.
+     * @param description The description of this project.
+     * @param lead The lead developer of this project
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see AbstractSystem#AbstractSystem(String, String)
@@ -132,8 +131,7 @@ public class Project extends AbstractSystem {
     public Developer getLead() {
         Developer lead = null;
         try {
-            lead = this.projectParticipants.entrySet().parallelStream()
-                    .filter(u -> u.getValue().contains(Role.LEAD))
+            lead = this.projectParticipants.entrySet().parallelStream().filter(u -> u.getValue().contains(Role.LEAD))
                     .findFirst().get().getKey();
         } catch (NoSuchElementException ex) {
             // no lead -> return null;
@@ -200,7 +198,7 @@ public class Project extends AbstractSystem {
      * This method checks the validity of the start date.
      *
      * @param creationDate The creation date.
-     * @param startDate    The start date.
+     * @param startDate The start date.
      * @return True if creation date <= start date.
      */
     @DomainAPI
@@ -281,8 +279,8 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * This method sets the Project's budget estimate to the given long,
-     * if valid.
+     * This method sets the Project's budget estimate to the given long, if
+     * valid.
      *
      * @param budgetEstimate to set, as a long
      * @throws IllegalArgumentException if the given budgetEstimate is invalid.
@@ -296,8 +294,8 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * Checks the validity of the given budgetEstimate.
-     * The value must be positive (or zero)
+     * Checks the validity of the given budgetEstimate. The value must be
+     * positive (or zero)
      *
      * @param budgetEstimate The budget estimate to check of type long
      * @return false if budgetEstimate is smaller than zero
@@ -323,7 +321,7 @@ public class Project extends AbstractSystem {
     /**
      * This method sets the role for a given developer
      *
-     * @param dev  The developer to give a role
+     * @param dev The developer to give a role
      * @param role The role the developer has in this project
      * @throws IllegalArgumentException if the given role was invalid
      */
@@ -333,7 +331,7 @@ public class Project extends AbstractSystem {
         }
         PList<Role> roleList = this.projectParticipants.get(dev);
         if (roleList == null) {
-            this.projectParticipants.put(dev, PList.<Role>empty().plus(role));
+            this.projectParticipants.put(dev, PList.<Role> empty().plus(role));
         } else {
             if (!roleList.contains(role)) {
                 this.projectParticipants.put(dev, roleList.plus(role));
@@ -342,19 +340,23 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * The given user uses this method to set the role of a given developer to the given role
+     * The given user uses this method to set the role of a given developer to
+     * the given role
      *
-     * @param user The user that wants to set the given role to the given developer
-     * @param dev  The developer to give the new role to
+     * @param user The user that wants to set the given role to the given
+     *            developer
+     * @param dev The developer to give the new role to
      * @param role The role that will be assigned to the given developer
-     * @throws PermissionException      If the given user doesn't have the needed permission to assign the given role to the given developer
+     * @throws PermissionException If the given user doesn't have the needed
+     *             permission to assign the given role to the given developer
      * @throws IllegalArgumentException If the given user is null
      * @throws IllegalArgumentException If the given developper is null
      * @throws IllegalArgumentException If the given role was null
      */
     public void setRole(User user, Developer dev, Role role) throws IllegalArgumentException, PermissionException {
         if (user == null || dev == null) {
-            throw new IllegalArgumentException("setRole(User, Developer, Role) does not allow a null-reference for user.");
+            throw new IllegalArgumentException(
+                    "setRole(User, Developer, Role) does not allow a null-reference for user.");
         }
         if (!user.hasRolePermission(role.getNeededPerm(), this)) {
             throw new PermissionException("The given user doesn't have the needed permission to set the role");
@@ -370,7 +372,7 @@ public class Project extends AbstractSystem {
     @DomainAPI
     @Override
     public PList<Developer> getAllDev() {
-        return PList.<Developer>empty().plusAll(this.projectParticipants.keySet());
+        return PList.<Developer> empty().plusAll(this.projectParticipants.keySet());
     }
 
     /**
@@ -383,14 +385,14 @@ public class Project extends AbstractSystem {
     @DomainAPI
     public PList<Role> getAllRolesDev(Developer dev) {
         PList<Role> roles = this.projectParticipants.get(dev);
-        return (roles != null) ? roles : PList.<Role>empty();
+        return (roles != null) ? roles : PList.<Role> empty();
     }
 
     /**
      * This method checks if the given developer has the requested permission
      * for this subsystem
      *
-     * @param dev  the developer to check
+     * @param dev the developer to check
      * @param perm the requested permission
      * @return true if the developer has the requested permission
      */
@@ -406,12 +408,12 @@ public class Project extends AbstractSystem {
 
     /**
      * Get the Project details in string format so it is nice to print out.
-     * (Includes Project name, description, version ID, budgetEstimate, startDate, Lead,
-     * creationDate)
+     * (Includes Project name, description, version ID, budgetEstimate,
+     * startDate, Lead, creationDate)
      *
-     * @return A string with on each line an attribute of the Project:
-     * name, description, versionID, budget estimate, start date,
-     * lead developer and creation date
+     * @return A string with on each line an attribute of the Project: name,
+     *         description, versionID, budget estimate, start date, lead
+     *         developer and creation date
      */
     @DomainAPI
     public String getDetails() {
@@ -419,6 +421,8 @@ public class Project extends AbstractSystem {
         details += this.getName();
         details += "\nProject version:\t\t";
         details += this.getVersionID().toString();
+        details += "\nAchieved milestone:\t\t";
+        details += this.getMilestone().toString();
         details += "\nProject description: \t";
         details += this.getDescription();
         details += "\nBudget estimate:\t\t" + this.getBudgetEstimate() + "\nStart date: \t\t\t";
@@ -436,13 +440,12 @@ public class Project extends AbstractSystem {
         return details;
     }
 
-
     /**
      * Performs a deep clone on this Project. excluding all bugReports.
      *
-     * @param version        The versionID of this project.
-     * @param lead           The lead developer of this project
-     * @param startDate      The start date of this project.
+     * @param version The versionID of this project.
+     * @param lead The lead developer of this project
+     * @param startDate The start date of this project.
      * @param budgetEstimate The budget estimate of this project
      * @return The deep-cloned project.
      * @see Subsystem#cloneSubsystem(AbstractSystem)
