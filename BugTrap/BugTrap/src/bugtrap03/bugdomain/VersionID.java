@@ -1,7 +1,10 @@
 package bugtrap03.bugdomain;
 
 /**
- * This class represents a version id consisting out of 3 numbers, separated by a dot
+ * This class represents a version id consisting out of 3 numbers, separated by
+ * a dot
+ * 
+ * @author Group 03.
  */
 @DomainAPI
 public class VersionID implements Comparable<VersionID> {
@@ -123,8 +126,8 @@ public class VersionID implements Comparable<VersionID> {
      * Compares two versionIDs.
      *
      * @return 0 if and only if two versionIDs are equal, 1 if and only if the
-     * second versionID is greater than the first versionID, -1
-     * otherwise.
+     *         second versionID is greater than the first versionID, -1
+     *         otherwise.
      */
     @Override
     @DomainAPI
@@ -136,7 +139,7 @@ public class VersionID implements Comparable<VersionID> {
         if ((this.getFirstNb() < other.getFirstNb())
                 || (this.getFirstNb() >= other.getFirstNb() && this.getSecondNb() < other.getSecondNb())
                 || (this.getFirstNb() >= other.getFirstNb() && this.getSecondNb() >= other.getSecondNb()
-                && this.getThirdNb() < other.getThirdNb())) {
+                        && this.getThirdNb() < other.getThirdNb())) {
             return -1;
         }
         return 1;

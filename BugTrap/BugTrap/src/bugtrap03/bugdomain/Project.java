@@ -7,7 +7,6 @@ import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
