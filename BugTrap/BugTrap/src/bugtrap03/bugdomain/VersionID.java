@@ -119,7 +119,13 @@ public class VersionID implements Comparable<VersionID> {
     @Override
     @DomainAPI
     public String toString() {
-        return firstNb + "." + secondNb + "." + thirdNb;
+        if (this.getThirdNb() != 0) {
+            return this.getFirstNb() + "." + this.getSecondNb() + "." + this.getThirdNb();
+        } else if (this.getSecondNb() != 0) {
+            return this.getFirstNb() + "." + this.getSecondNb();
+        } else {
+            return Integer.toString(this.getFirstNb());
+        }
     }
 
     /**
