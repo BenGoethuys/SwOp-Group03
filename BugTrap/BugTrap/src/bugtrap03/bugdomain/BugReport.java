@@ -5,6 +5,7 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
+import bugtrap03.bugdomain.usersystem.mail.Subject;
 import purecollections.PList;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.HashSet;
  * @author Ben Goethuys
  */
 @DomainAPI
-public class BugReport implements Comparable<BugReport> {
+public class BugReport extends Subject implements Comparable<BugReport> {
 
     /**
      * General constructor for initialising a bug report
