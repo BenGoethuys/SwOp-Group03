@@ -1,6 +1,3 @@
-/**
- *
- */
 package bugtrap03.bugdomain;
 
 import org.junit.Before;
@@ -79,8 +76,28 @@ public class VersionIDTest {
      * Test method for {@link VersionID#toString()}.
      */
     @Test
-    public void testToString() {
+    public void testToString3() {
         String test = "1.2.3";
+        assertEquals(versionID.toString(), test);
+    }
+    
+    /**
+     * Test method for {@link VersionID#toString()}.
+     */
+    @Test
+    public void testToString2() {
+        String test = "1.2";
+        versionID = new VersionID(1, 2);
+        assertEquals(versionID.toString(), test);
+    }
+    
+    /**
+     * Test method for {@link VersionID#toString()}.
+     */
+    @Test
+    public void testToString1() {
+        String test = "1";
+        versionID = new VersionID(1);
         assertEquals(versionID.toString(), test);
     }
 

@@ -55,7 +55,7 @@ public enum Tag {
         if (this == Tag.CLOSED || this == Tag.DUPLICATE || this == Tag.NOT_A_BUG) {
             return false;
         }
-        // will be null in initialisation: only moment Tag.New can be assigned
+        // will be null in initialization: only moment Tag.New can be assigned
         if (tag == Tag.NEW) {
             return false;
         }
