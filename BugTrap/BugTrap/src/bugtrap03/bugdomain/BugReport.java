@@ -7,6 +7,7 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.usersystem.mail.Subject;
 import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
 import purecollections.PList;
 
 import java.util.ArrayList;
@@ -23,57 +24,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
 
     /**
      * General constructor for initializing a bug report
-     *
-     * @param creator      The User that wants to create this bug report
-     * @param uniqueID     The unique ID for the bugReport
-     * @param title        The title of the bugReport
-     * @param description  The description of the bugReport
-     * @param creationDate The creationDate of the bugReport
-     * @param tag          The tag of the bugReport
-     * @param dependencies The depended bug reports of this bug report
-     * @param subsystem    The subsystem this bug report belongs to
-     * @param milestone    The milestone of the bug report
-     *
-     * @throws IllegalArgumentException if isValidCreator(creator) fails
-     * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
-     * @throws IllegalArgumentException if isValidTitle(title) fails
-     * @throws IllegalArgumentException if isValidDescription(description) fails
-     * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
-     * @throws IllegalArgumentException if isValidTag(tag) fails
-     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
-     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
-     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
-     *
-     * @see BugReport#isValidCreator(User)
-     * @see BugReport#isValidUniqueID(long)
-     * @see BugReport#isValidTitle(String)
-     * @see BugReport#isValidDescription(String)
-     * @see BugReport#isValidCreationDate(GregorianCalendar)
-     * @see BugReport#isValidTag(Tag)
-     * @see BugReport#isValidDependencies(PList)
-     * @see BugReport#isValidSubsystem(Subsystem)
-     * @see BugReport#isValidMilestone(Milestone)
-     */
-    protected BugReport(User creator, long uniqueID, String title, String description, GregorianCalendar creationDate,
-                        Tag tag, PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone)
-            throws IllegalArgumentException, PermissionException {
-        this.setCreator(creator);
-        this.setUniqueID(uniqueID);
-        this.setTitle(title);
-        this.setDescription(description);
-        this.setCreationDate(creationDate);
-        this.setTag(tag);
-
-        this.setCommentList(PList.<Comment>empty());
-        this.setUserList(PList.<Developer>empty());
-        this.setDependencies(dependencies);
-        this.setSubsystem(subsystem);
-        this.setMilestone(milestone);
-    }
-
-    /**
-     * Constructor for creating a bug report with default tag "New"
      *
      * @param creator      The User that wants to create this bug report
      * @param uniqueID     The unique ID for the bugReport
@@ -107,7 +57,20 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     protected BugReport(User creator, long uniqueID, String title, String description, GregorianCalendar creationDate,
                         PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone)
             throws IllegalArgumentException, PermissionException {
-        this(creator, uniqueID, title, description, creationDate, Tag.NEW, dependencies, subsystem, milestone);
+        this.setCreator(creator);
+        this.setUniqueID(uniqueID);
+        this.setTitle(title);
+        this.setDescription(description);
+        this.setCreationDate(creationDate);
+
+        this.setCommentList(PList.<Comment>empty());
+        this.userList = PList.<Developer>empty();
+        this.setDependencies(dependencies);
+
+        this.setSubsystem(subsystem);
+        this.setMilestone(milestone);
+
+        this.setInternState(new BugReportStateNew());
     }
 
     /**
@@ -144,7 +107,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @see BugReport#isValidMilestone(Milestone)
      * @see BugReport#getNewUniqueID()
      */
-    @Ensures("result.getTag() == Tag.New")
+    @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     public BugReport(User creator, String title, String description, GregorianCalendar creationDate,
                      PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone)
             throws IllegalArgumentException, PermissionException {
@@ -191,15 +154,16 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     private String title;
     private String description;
     private GregorianCalendar creationDate;
-    private Tag tag;
     private PList<Comment> commentList;
-    private Milestone milestone;
 
     private User creator;
     private PList<Developer> userList;
     private PList<BugReport> dependencies;
 
     private Subsystem subsystem;
+    private Milestone milestone;
+
+    private BugReportState state;
 
     // HashMap to guarantee uniqueness of IDs
     private static final HashSet<Long> allTakenIDs = new HashSet<Long>();
@@ -392,7 +356,9 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @DomainAPI
     public Tag getTag() {
-        return tag;
+        return this.getInternState().getTag();
+        //TODO remove old method comment
+        //return tag;
     }
 
     /**
@@ -408,36 +374,39 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @see BugReport#isValidTag(Tag)
      */
     public void setTag(Tag tag, User issuer) throws IllegalArgumentException, PermissionException {
-        if (this.getCreator().equals(issuer) && this.getTag() == Tag.UNDER_REVIEW
-                && (tag == Tag.ASSIGNED || tag == Tag.RESOLVED)) {
-            this.setTag(tag);
-        } else if (tag == null) {
-            throw new IllegalArgumentException(
-                    "The given tag for bug report is not valid for this state of the bug report");
-        } else if (!issuer.hasRolePermission(tag.getNeededPerm(), this.getSubsystem().getParentProject())) {
-            throw new PermissionException("The given issuer: " + issuer.getFullName()
-                    + ", doens't have the needed permission to change the tag of this bug report");
-        } else {
-            this.setTag(tag);
-        }
+        this.getInternState().setTag(this, issuer, tag);
+        // TODO better heading
+        // TODO remove old method comments
+//        if (this.getCreator().equals(issuer) && this.getTag() == Tag.UNDER_REVIEW
+//                && (tag == Tag.ASSIGNED || tag == Tag.RESOLVED)) {
+//            this.setTag(tag);
+//        } else if (tag == null) {
+//            throw new IllegalArgumentException(
+//                    "The given tag for bug report is not valid for this state of the bug report");
+//        } else if (!issuer.hasRolePermission(tag.getNeededPerm(), this.getSubsystem().getParentProject())) {
+//            throw new PermissionException("The given issuer: " + issuer.getFullName()
+//                    + ", doens't have the needed permission to change the tag of this bug report");
+//        } else {
+//            this.setTag(tag);
+//        }
     }
 
-    /**
-     * This method sets the current tag for this bug report
-     *
-     * @param tag the tag to set
-     *
-     * @throws IllegalArgumentException if isValidTag(tag) fails
-     *
-     * @see BugReport#isValidTag(Tag)
-     */
-    private void setTag(Tag tag) throws IllegalArgumentException {
-        if (!this.isValidTag(tag)) {
-            throw new IllegalArgumentException(
-                    "The given tag for bug report is not valid for this state of the bug report");
-        }
-        this.tag = tag;
-    }
+//    /**
+//     * This method sets the current tag for this bug report
+//     *
+//     * @param tag the tag to set
+//     *
+//     * @throws IllegalArgumentException if isValidTag(tag) fails
+//     *
+//     * @see BugReport#isValidTag(Tag)
+//     */
+//    private void setTag(Tag tag) throws IllegalArgumentException {
+//        if (!this.isValidTag(tag)) {
+//            throw new IllegalArgumentException(
+//                    "The given tag for bug report is not valid for this state of the bug report");
+//        }
+//        this.tag = tag;
+//    }
 
     /**
      * This method check if the given tag is valid for the bug report
@@ -448,10 +417,12 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @DomainAPI
     public boolean isValidTag(Tag tag) {
-        if (this.getTag() == null) {
-            return tag == Tag.NEW;
-        }
-        return this.getTag().isValidTag(tag);
+        return this.getInternState().isValidTag(tag);
+        //TODO remove old method comments
+//        if (this.getTag() == null) {
+//            return tag == Tag.NEW;
+//        }
+//        return this.getTag().isValidTag(tag);
     }
 
     /**
@@ -619,43 +590,43 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         return userList;
     }
 
-    /**
-     * This method sets the list of developers associated with this bug report
-     *
-     * @param userList the userList to set
-     */
-    private void setUserList(PList<Developer> userList) {
-        this.userList = userList;
-    }
-
-    /**
-     * This method checks if the given list of Developers is valid for this bug report.
-     *
-     * @param userList the list of developers for this bug report
-     *
-     * @return true if the given list is a valid list of developers
-     */
-    @DomainAPI
-    public static boolean isValidUserList(PList<Developer> userList) {
-        if (userList == null) {
-            return false;
-        }
-
-        for (Developer dev : userList) {
-            PList<Developer> list = userList.minus(dev);
-            if (list.contains(dev)) {
-                return false;
-            }
-        }
-
-        // cannot add null object to purecollections list! -> redundant to check
-        // for (Developer user : userList){
-        // if (user == null){
-        // return false;
-        // }
-        // }
-        return true;
-    }
+//    /**
+//     * This method sets the list of developers associated with this bug report
+//     *
+//     * @param userList the userList to set
+//     */
+//    private void setUserList(PList<Developer> userList) {
+//        this.userList = userList;
+//    }
+//
+//    /**
+//     * This method checks if the given list of Developers is valid for this bug report.
+//     *
+//     * @param userList the list of developers for this bug report
+//     *
+//     * @return true if the given list is a valid list of developers
+//     */
+//    @DomainAPI
+//    public static boolean isValidUserList(PList<Developer> userList) {
+//        if (userList == null) {
+//            return false;
+//        }
+//
+//        for (Developer dev : userList) {
+//            PList<Developer> list = userList.minus(dev);
+//            if (list.contains(dev)) {
+//                return false;
+//            }
+//        }
+//
+//        // cannot add null object to purecollections list! -> redundant to check
+//        // for (Developer user : userList){
+//        // if (user == null){
+//        // return false;
+//        // }
+//        // }
+//        return true;
+//    }
 
     /**
      * This method adds a developer to the associated developers list of this bug report
@@ -665,20 +636,21 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @throws IllegalArgumentException If the given developer was not valid for this bug report
      */
     protected void addUser(Developer dev) throws IllegalArgumentException {
-        if (!this.userList.contains(dev)) {
-            if (!isValidUser(dev)) {
-                throw new IllegalArgumentException(
-                        "The given developer is not a valid developer to associate with this bug report");
-            }
-
-            // first time user associated check
-            if (this.getTag() == Tag.NEW && this.getUserList().isEmpty()) {
-                this.setTag(Tag.ASSIGNED);
-            }
-            if (!this.userList.contains(dev)) {
-                this.userList = this.getUserList().plus(dev);
-            }
-        }
+        this.getInternState().addUser(this, dev);
+        //TODO remove old method comments
+//        if (!this.userList.contains(dev)) {
+//            if (!isValidUser(dev)) {
+//                throw new IllegalArgumentException( "The given developer is not a valid developer to associate with this bug report");
+//            }
+//
+//            // first time user associated check
+//            if (this.getTag() == Tag.NEW && this.getUserList().isEmpty()) {
+//                this.setTag(Tag.ASSIGNED);
+//            }
+//            if (!this.userList.contains(dev)) {
+//                this.userList = this.getUserList().plus(dev);
+//            }
+//        }
     }
 
     /**
@@ -689,8 +661,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      *
      * @throws IllegalArgumentException If the given user was null
      * @throws PermissionException      If the given users doesn't have the needed permissions
-     *
-     * @see BugReport#addUser(Developer)
      */
     public void addUser(User user, Developer dev) throws IllegalArgumentException, PermissionException {
         if (user == null) {
@@ -730,11 +700,12 @@ public class BugReport extends Subject implements Comparable<BugReport> {
 
     /**
      * This method sets the dependencies of the bug report
+     * This method should only be call in the initialisation of this bug report
      *
      * @param dependencies the dependencies to set for this bug report
      */
     private void setDependencies(PList<BugReport> dependencies) throws IllegalArgumentException {
-        if (!BugReport.isValidDependencies(dependencies)) {
+        if (! BugReport.isValidDependencies(dependencies)) {
             throw new IllegalArgumentException("The given dependency list is invalid for this bug report");
         }
         this.dependencies = dependencies;
@@ -752,6 +723,8 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         if (dependencies == null) {
             return false;
         }
+        // PList cannot contain null elements
+        // cannot contain itself because dependencies cannot change
         return true;
     }
 
@@ -912,5 +885,241 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         str += "\n subsystem: " + this.getSubsystem().getName();
 
         return str;
+    }
+
+    /**
+     * This method returns the current intern state of this bug report
+     *
+     * @return The current intern state of this bug report
+     */
+    private BugReportState getInternState(){
+        return this.state;
+    }
+
+    /**
+     * This method sets the intern sate of this bug report
+     * @param state The new intern state of this bug report
+     * @throws IllegalArgumentException If the given state is null and thus invalid for a bug report
+     */
+    private void setInternState(BugReportState state) throws IllegalArgumentException {
+        if (state == null){
+            throw new IllegalArgumentException("The given state is null and invalid for a bug report");
+        }
+        this.state = state;
+    }
+
+    /**
+     * This method adds a given test to the bug report state
+     *
+     * @param user  The user that wants to add the test to this bug report state
+     * @param test  The test that the user wants to add
+     *
+     * @throws PermissionException      If the given user doesn't have the permission to add a test
+     * @throws IllegalStateException    If the current state doesn't allow to add a test
+     * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
+     */
+    public void addTest(User user, String test) throws PermissionException, IllegalStateException, IllegalArgumentException{
+        this.getInternState().addTest(this, user, test);
+    }
+
+    /**
+     * This method adds a given patch to this bug report state
+     *
+     * @param user  The user that wants to add the patch to this bug report state
+     * @param patch The patch that the user wants to submit
+     *
+     * @throws PermissionException      If the given user doesn't have the permission to add a patch to this bug report state
+     * @throws IllegalStateException    If the given patch is invalid for this bug report
+     * @throws IllegalArgumentException If the given patch is not valid for this bug report state
+     */
+    public void addPatch(User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException{
+        this.getInternState().addPatch(user, patch);
+    }
+
+    /**
+     * This method selects a patch for this bug report state
+     *
+     * @param user  The user that wants to select the patch
+     * @param patch The patch that the user wants to select
+     *
+     * @throws PermissionException      If the given user doesn't have the permission to select a patch for this bug report state
+     * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
+     * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
+     */
+    public void selectPatch(User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException{
+        this.getInternState().selectPatch(this, user, patch);
+    }
+
+    /**
+     * This method gives the selected patch of this bug report states a score
+     * @param score The score that the creator wants to give
+     *
+     * @throws IllegalStateException    If the current state doesn't allow assigning a score
+     * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
+     */
+    public void giveScore(int score) throws IllegalStateException, IllegalArgumentException{
+        this.getInternState().giveScore(this, score);
+    }
+
+    /**
+     * An interface for the different states of a bug report
+     */
+    interface BugReportState {
+
+        /**
+         * This method returns the tag associated with this bug report state
+         *
+         * @return  The tag associated with this bug report state
+         */
+        Tag getTag();
+
+        /**
+         * This method sets the current tag for this bug report
+         *
+         * @param bugReport The bug report this state belongs to
+         * @param tag   The new tag of this bug report
+         * @param user  The issuer that wants to change the tag of this bug report
+         *
+         * @throws IllegalArgumentException If isValidTag(tag) throws this exception
+         * @throws PermissionException      If the given user doesn't have the needed permission to change the tag of this bug report
+         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
+         *
+         * @see #isValidTag(Tag)
+         */
+        @Requires("bugReport.getInternState() == this")
+        void setTag(BugReport bugReport, User user, Tag tag) throws PermissionException, IllegalArgumentException;
+
+        /**
+         * This method check if the given tag is valid for the bug report
+         *
+         * @param tag the tag to check
+         *
+         * @return true if the tag is a valid tag
+         */
+        boolean isValidTag(Tag tag);
+
+        /**
+         * This method adds a developer to this bug report issued by the given user
+         *
+         * @param bugReport The bug report this state belongs to
+         * @param dev       The developer to assign to this bug report
+         *
+         * @throws IllegalArgumentException If the given dev was null
+         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
+         */
+        @Requires("bugReport.getInternState() == this")
+        void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException;
+
+        /**
+         * This method adds a given test to the bug report state
+         *
+         * @param bugReport The bug report this state belongs to
+         * @param user  The user that wants to add the test to this bug report state
+         * @param test  The test that the user wants to add
+         *
+         * @throws PermissionException      If the given user doesn't have the permission to add a test
+         * @throws IllegalStateException    If the current state doesn't allow to add a test
+         * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
+         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
+         */
+        @Requires("bugReport.getInternState() == this")
+        void addTest(BugReport bugReport, User user, String test) throws PermissionException, IllegalStateException, IllegalArgumentException;
+
+        /**
+         * This method adds a given patch to this bug report state
+         *
+         * @param user  The user that wants to add the patch to this bug report state
+         * @param patch The patch that the user wants to submit
+         *
+         * @throws PermissionException      If the given user doesn't have the permission to add a patch to this bug report state
+         * @throws IllegalStateException    If the given patch is invalid for this bug report
+         * @throws IllegalArgumentException If the given patch is not valid for this bug report state
+         */
+        void addPatch(User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException;
+
+        /**
+         * This method selects a patch for this bug report state
+         *
+         * @param bugReport The bug report this state belongs to
+         * @param user  The user that wants to select the patch
+         * @param patch The patch that the user wants to select
+         *
+         * @throws PermissionException      If the given user doesn't have the permission to select a patch for this bug report state
+         * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
+         * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
+         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
+         */
+        @Requires("bugReport.getInternState() == this")
+        void selectPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException;
+
+        /**
+         * This method gives the selected patch of this bug report states a score
+         *
+         * @param bugReport The bug report this state belongs to
+         * @param score The score that the creator wants to give
+         *
+         * @throws IllegalStateException    If the current state doesn't allow assigning a score
+         * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
+         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
+         */
+        @Requires("bugReport.getInternState() == this")
+        void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException;
+
+    }
+
+    /**
+     * This class represents the New state of a bug report
+     */
+    class BugReportStateNew implements BugReportState {
+
+    }
+
+    /**
+     * This class represents the assigned state of a bug report
+     */
+    class BugReportStateAssigned implements BugReportState {
+
+    }
+
+    /**
+     * This class represents the assigned state with also an assigned test of a bug report
+     */
+    class BugReportStateAssignedWithTest implements BugReportState {
+
+    }
+
+    /**
+     * This class represents the under review state of a bug report
+     */
+    class BugReportStateUnderReview implements BugReportState {
+
+    }
+
+    /**
+     * This class represents the resolved state of a bug report
+     */
+    class BugReportStateResolved implements BugReportState {
+
+    }
+
+    /**
+     * This class represents the closed state of a bug report
+     */
+    class BugReportStateClosed implements BugReportState {
+
+    }
+
+    /**
+     * This class represents the Duplicate state of a bug report
+     */
+    class BugReportStateDuplicate implements BugReportState {
+
+    }
+
+    /**
+     * This class represents the NotABug state of a bug report
+     */
+    class BugReportStateNatABug implements BugReportState {
+
     }
 }
