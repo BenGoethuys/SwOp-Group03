@@ -429,7 +429,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      *
      * @throws IllegalArgumentException if the given PList is not valid for this bug report
      *
-     * @see BugReport#isValidCommentList(PList<Comment>)
+     * @see BugReport#isValidCommentList(PList)
      */
     private void setCommentList(PList<Comment> commentList) throws IllegalArgumentException {
         if (!isValidCommentList(commentList)) {
