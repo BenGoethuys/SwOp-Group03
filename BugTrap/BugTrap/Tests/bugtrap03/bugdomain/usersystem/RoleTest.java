@@ -37,12 +37,12 @@ public class RoleTest {
 
     @Test
     public void testLeadTag() {
-        assertTrue(roleLead.hasPermission(RolePerm.SET_TAG_RESOLVED));
-        assertTrue(roleLead.hasPermission(RolePerm.SET_TAG_CLOSED));
         assertTrue(roleLead.hasPermission(RolePerm.SET_TAG_NOT_A_BUG));
         assertTrue(roleLead.hasPermission(RolePerm.SET_TAG_DUPLICATE));
+        assertTrue(roleLead.hasPermission(RolePerm.SELECT_PATCH));
+        assertTrue(roleLead.hasPermission(RolePerm.SET_TAG_ASSIGNED));
         assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_DEV_PROJECT));
-        assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_DEV_BUGREPORT));
+        assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_DEV_BUG_REPORT));
         assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_PROG_ROLE));
         assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_TEST_ROLE));
 
@@ -51,14 +51,15 @@ public class RoleTest {
 
     @Test
     public void testTesterTag() {
-        assertTrue(roleTester.hasPermission(RolePerm.SET_TAG_UNDER_REVIEW));
+        assertTrue(roleTester.hasPermission(RolePerm.ADD_TEST));
+        assertTrue(roleTester.hasPermission(RolePerm.ASSIGN_DEV_BUG_REPORT));
 
         assertFalse(roleTester.hasPermission(null));
     }
 
     @Test
     public void testProgrammer() {
-        assertTrue(roleProgrammer.hasPermission(RolePerm.SET_TAG_UNDER_REVIEW));
+        assertTrue(roleProgrammer.hasPermission(RolePerm.ADD_PATCH));
 
         assertFalse(roleProgrammer.hasPermission(null));
     }
