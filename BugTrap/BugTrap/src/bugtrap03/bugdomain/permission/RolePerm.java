@@ -10,6 +10,7 @@ import bugtrap03.bugdomain.DomainAPI;
 @DomainAPI
 public enum RolePerm {
     // for project stuff:
+    //FIXME: is assign_dev_project redundant?
     ASSIGN_DEV_PROJECT,
     ASSIGN_TEST_ROLE,
     ASSIGN_PROG_ROLE,
