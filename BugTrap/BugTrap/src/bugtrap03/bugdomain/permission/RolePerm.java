@@ -9,16 +9,21 @@ import bugtrap03.bugdomain.DomainAPI;
  */
 @DomainAPI
 public enum RolePerm {
+    // for project stuff:
+    //FIXME: is assign_dev_project redundant?
     ASSIGN_DEV_PROJECT,
-    ASSIGN_DEV_BUGREPORT,
-
     ASSIGN_TEST_ROLE,
     ASSIGN_PROG_ROLE,
 
-    SET_TAG_CLOSED,
+    // for bug report stuff:
+    ASSIGN_DEV_BUG_REPORT,
+    ADD_TEST,
+    ADD_PATCH,
+    SELECT_PATCH,
+    SET_TAG_ASSIGNED,
     SET_TAG_DUPLICATE,
-    SET_TAG_UNDER_REVIEW,
-    SET_TAG_RESOLVED,
     SET_TAG_NOT_A_BUG,
-    SPECIAL; // nobody has permission
+
+    // nobody has permission:
+    SPECIAL;
 }
