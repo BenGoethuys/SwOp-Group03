@@ -1,5 +1,6 @@
 package bugtrap03;
 
+import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
@@ -56,6 +57,8 @@ public class Main {
         Developer major = model.createDeveloper("major", "Joseph", "Mays");
         Developer maria = model.createDeveloper("maria", "Maria", "Carney");
 
+        //TODO add additional info to bug report
+
         try {
             // create projectA
             Project projectA = model.createProject("ProjectA", "Description of projectA", major, 10000, admin);
@@ -84,16 +87,27 @@ public class Main {
             projectB = model.createProject("ProjectB", "Description of projectB", maria, 10000, admin);
             // add asked roles
             model.assignToProject(projectB, maria, major, Role.PROGRAMMER);
+            // add tester to ProjectB -> is needed bug not in assignment
+            model.assignToProject(projectB, maria, major, Role.TESTER);
             // make subsystems
             Subsystem subsystemB1 = model.createSubsystem(admin, projectB, "SubsystemB1", "Description of susbsystem B1");
             Subsystem subsystemB2 = model.createSubsystem(admin, projectB, "SubsystemB2", "Description of susbsystem B2");
             model.createSubsystem(admin, subsystemB2, "SubsystemB2.1", "Description of susbsystem B2.1");
             // make bug report 1
-            BugReport bugRep1 = model.createBugReport(doc, "The function parse_ewd returns unexpected results", "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 1, 3), PList.<BugReport>empty(), subsystemB1);
+            BugReport bugRep1 = model.createBugReport(doc, "The function parse_ewd returns unexpected results", "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 1, 3), PList.<BugReport>empty(), subsystemB1, new Milestone(1,1), false);
             model.addUsersToBugReport(maria, bugRep1, PList.<Developer>empty().plus(maria));
-            model.setTag(bugRep1, Tag.UNDER_REVIEW, major);
-            model.setTag(bugRep1, Tag.RESOLVED, doc);
-            model.setTag(bugRep1, Tag.CLOSED, maria);
+            model.addTest(bugRep1, major, "bool test_invalid_args1(){...}");
+            model.addTest(bugRep1, major, "test 2");
+            model.addTest(bugRep1, major, "test 3");
+
+            model.addPatch(bugRep1, major, "e3109fcc9...");
+            model.addPatch(bugRep1, major, "patch 2");
+            model.addPatch(bugRep1, major, "patch 3");
+
+            // select patch
+            model.selectPatch(bugRep1, maria, "e3109fcc9...");
+
+            model.giveScore(bugRep1, doc, 4);
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
             System.err.println(e.getMessage());
