@@ -318,7 +318,7 @@ public class BugReportTest {
     public void testGetAllComments() throws IllegalArgumentException, PermissionException {
         BugReport tempBugReport = new BugReport(issuer, "bla", "hihi", depList, subsystem);
         assertTrue(tempBugReport.getCommentList().isEmpty());
-        assertTrue(tempBugReport.getAllComments()..isEmpty());
+        assertTrue(tempBugReport.getAllComments().isEmpty());
 
         Comment comment = new Comment(issuer, "bla bla");
         tempBugReport.addComment(comment);
