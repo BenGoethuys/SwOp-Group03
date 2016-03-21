@@ -274,7 +274,7 @@ public class Comment {
      * @param str The StringBuilder used to build upon.
      * @param preString The preString which will contain the pre format of each Comment. (e.g 2.1)
      *
-     * @see Comment#commentsTreeToString(javax.swing.tree.DefaultMutableTreeNode)
+     * @see Comment#commentsTreeToString(Tree)
      */
     private static void commentsTreeToString(Tree<Comment> node, StringBuilder str, String preString) {
         if (node == null || str == null || preString == null) {
