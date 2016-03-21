@@ -2,8 +2,8 @@ package bugtrap03.model;
 
 import bugtrap03.bugdomain.*;
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.permission.PermissionException;
-import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.*;
 import com.google.java.contract.Ensures;

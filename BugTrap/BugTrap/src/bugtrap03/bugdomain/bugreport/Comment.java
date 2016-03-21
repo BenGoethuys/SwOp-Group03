@@ -1,5 +1,6 @@
-package bugtrap03.bugdomain;
+package bugtrap03.bugdomain.bugreport;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
@@ -246,7 +247,7 @@ public class Comment {
      * @throws ClassCastException When the Tree structure does not contain a Comment object.
      */
     @Requires("top != null")
-    public static String commentsTreeToString(DefaultMutableTreeNode top) throws ClassCastException {
+    public static String commentsTreeToString(Tree top) throws ClassCastException {
         StringBuilder str = new StringBuilder();
 
         Enumeration<DefaultMutableTreeNode> childIt = top.children();
@@ -294,27 +295,5 @@ public class Comment {
             commentsTreeToString(node, str, subPreString);
             count++;
         }
-    }
-
-    /**
-     * Check if the passed TreeNode contains this Comment.
-     * @param node The TreeNode to check in.
-     * @return True if this comment is equal to an element in the node (deep search).
-     */
-    @DomainAPI
-    public boolean containedIn(DefaultMutableTreeNode node) {
-        if (node == null) {
-            return false;
-        }
-        Enumeration<DefaultMutableTreeNode> commentEnum = node.breadthFirstEnumeration();
-        
-        while(commentEnum.hasMoreElements()) {
-            Comment com = (Comment) commentEnum.nextElement().getUserObject();
-            if(this == com) {
-                return true;
-            }
-        }
-        
-        return false;
     }
 }
