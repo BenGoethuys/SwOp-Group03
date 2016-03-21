@@ -3,6 +3,8 @@ package bugtrap03.bugdomain;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
+import com.google.java.contract.Requires;
+import java.util.Enumeration;
 import purecollections.PList;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -16,7 +18,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class Comment {
 
     /**
-     * This method initialises an Comment
+     * This method initializes an Comment
      *
      * @param issuer the issuer that creates this comment
      * @param text the comment text for this comment
@@ -136,8 +138,8 @@ public class Comment {
     @DomainAPI
     public DefaultMutableTreeNode getAllComments() {
         DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
-        
-        for(Comment comment : this.getSubComments()) {
+
+        for (Comment comment : this.getSubComments()) {
             node.add(comment.getAllComments());
         }
         return node;
@@ -221,24 +223,64 @@ public class Comment {
         }
         return true;
     }
-    
-    
-    
+
     /**
-     * Get the String form of the given Tree structure.
-     * This assumes all objects in the given structure are of type {@link Comment} and the top node carries null.
-     * 
-     * @param node The Tree structure used to get the String format of.
-     * @return The result of converting the Tree structure to a Comment
+     * Get the String form of the given Tree structure. This assumes all objects in the given structure are of type
+     * {@link Comment} and the top node carries null.
+     *
+     * @param top The Tree structure used to get the String format of.
+     * @return The result of converting the Tree structure to a Comment. When
+     *
+     * @throws ClassCastException When the Tree structure does not contain a Comment object.
      */
-    public static String commentsTreeToString(DefaultMutableTreeNode node) {
+    @Requires("top != null")
+    public static String commentsTreeToString(DefaultMutableTreeNode top) throws ClassCastException {
         StringBuilder str = new StringBuilder();
-        
-        
-        
-        
-        
+
+        Enumeration<DefaultMutableTreeNode> childIt = top.children();
+        int count = 1;
+        while (childIt.hasMoreElements()) {
+            DefaultMutableTreeNode node = childIt.nextElement();
+            Comment comment = (Comment) node.getUserObject();
+            String preString = Integer.toString(count);
+
+            str.append("\n \t ");
+            str.append(preString).append(". ");
+            str.append(comment.getText());
+            commentsTreeToString(node, str, preString);
+            count++;
+        }
+
         return str.toString();
     }
 
+    /**
+     * Convert the passed treeStructure to a String. This is used by
+     * {@link Comment#commentsTreeToString(javax.swing.tree.DefaultMutableTreeNode)} and should not be used elsewhere.
+     *
+     * @param node The node of which to print the children.
+     * @param str The StringBuilder used to build upon.
+     * @param preString The preString which will contain the pre format of each Comment. (e.g 2.1)
+     *
+     * @see Comment#commentsTreeToString(javax.swing.tree.DefaultMutableTreeNode)
+     */
+    private static void commentsTreeToString(DefaultMutableTreeNode node, StringBuilder str, String preString) {
+        if (node == null || str == null || preString == null) {
+            return;
+        }
+
+        Enumeration<DefaultMutableTreeNode> childIt = node.children();
+        int count = 1;
+        while (childIt.hasMoreElements()) {
+            DefaultMutableTreeNode subNode = childIt.nextElement();
+            Comment comment = (Comment) node.getUserObject();
+            String subPreString = preString + "." + count;
+
+            str.append("\n \t ");
+            str.append(subPreString).append(". ");
+            str.append(comment.getText());
+            commentsTreeToString(node, str, subPreString);
+            count++;
+        }
+    }
 }
