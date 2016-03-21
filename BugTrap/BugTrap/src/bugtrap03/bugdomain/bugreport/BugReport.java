@@ -34,6 +34,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @param dependencies The depended bug reports of this bug report
      * @param subsystem    The subsystem this bug report belongs to
      * @param milestone    The milestone of the bug report
+     * @param isPrivate    The boolean that says if this bug report should be private or not
      *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
@@ -56,7 +57,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @Ensures("result.getTag() == Tag.New")
     protected BugReport(User creator, long uniqueID, String title, String description, GregorianCalendar creationDate,
-                        PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone)
+                        PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone, boolean isPrivate)
             throws IllegalArgumentException, PermissionException {
         this.setCreator(creator);
         this.setUniqueID(uniqueID);
@@ -70,6 +71,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
 
         this.setSubsystem(subsystem);
         this.setMilestone(milestone);
+        this.isPrivate = isPrivate;
 
         this.setInternState(new BugReportStateNew());
     }
@@ -84,6 +86,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @param dependencies The depended bug reports of this bug report
      * @param subsystem    The subsystem this bug report belongs to
      * @param milestone    The milestone of the bug report
+     * @param isPrivate    The boolean that says if this bug report should be private or not
      *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
@@ -95,8 +98,8 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
      * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
      *
-     * <dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
-     * <dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
+     * <br><dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
+     * <br><dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
      *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
@@ -110,9 +113,10 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     public BugReport(User creator, String title, String description, GregorianCalendar creationDate,
-                     PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone)
+                     PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone, boolean isPrivate)
             throws IllegalArgumentException, PermissionException {
-        this(creator, BugReport.getNewUniqueID(), title, description, creationDate, dependencies, subsystem, milestone);
+        this(creator, BugReport.getNewUniqueID(), title, description, creationDate,
+                dependencies, subsystem, milestone, isPrivate);
     }
 
     /**
@@ -124,6 +128,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @param dependencies The depended bug reports of this bug report
      * @param subsystem    The subsystem this bug report belongs to
      * @param milestone    The milestone of the bug report
+     * @param isPrivate    The boolean that says if this bug report should be private or not
      *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -133,8 +138,8 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
      * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
      *
-     * <dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
-     * <dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
+     * <br><dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
+     * <br><dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
      *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidTitle(String)
@@ -146,9 +151,82 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     public BugReport(User creator, String title, String description, PList<BugReport> dependencies, Subsystem subsystem,
-                     Milestone milestone) throws IllegalArgumentException, PermissionException {
-        this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(), dependencies, subsystem,
-                milestone);
+                     Milestone milestone, boolean isPrivate) throws IllegalArgumentException, PermissionException {
+        this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(),
+                dependencies, subsystem, milestone, isPrivate);
+    }
+
+    /**
+     * Constructor for creating a bug report with default tag "New" and the current time as creationDate
+     *
+     * @param creator      The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
+     * @param dependencies The depended bug reports of this bug report
+     * @param subsystem    The subsystem this bug report belongs to
+     * @param isPrivate    The boolean that says if this bug report should be private or not
+     *
+     * @throws IllegalArgumentException if isValidCreator(creator) fails
+     * @throws IllegalArgumentException if isValidTitle(title) fails
+     * @throws IllegalArgumentException if isValidDescription(description) fails
+     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
+     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
+     *
+     * <br><dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
+     * <br><dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
+     * <br><dt><b>Postconditions:</b><dd> new.getMileStone() == null
+     *
+     * @see BugReport#isValidCreator(User)
+     * @see BugReport#isValidTitle(String)
+     * @see BugReport#isValidDescription(String)
+     * @see BugReport#isValidDependencies(PList)
+     * @see BugReport#isValidSubsystem(Subsystem)
+     * @see BugReport#getNewUniqueID()
+     */
+    @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
+    public BugReport(User creator, String title, String description, PList<BugReport> dependencies,
+                     Subsystem subsystem, boolean isPrivate) throws IllegalArgumentException, PermissionException {
+        this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(),
+                dependencies, subsystem, null, isPrivate);
+    }
+
+    /**
+     * Constructor for creating a bug report with default tag "New" and the current time as creationDate
+     *
+     * @param creator      The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
+     * @param dependencies The depended bug reports of this bug report
+     * @param subsystem    The subsystem this bug report belongs to
+     *
+     * @throws IllegalArgumentException if isValidCreator(creator) fails
+     * @throws IllegalArgumentException if isValidTitle(title) fails
+     * @throws IllegalArgumentException if isValidDescription(description) fails
+     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
+     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
+     *
+     * <br><dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
+     * <br><dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
+     * <br><dt><b>Postconditions:</b><dd> new.getMileStone() == null
+     * <br><dt><b>Postconditions:</b><dd> new.getPrivate() == false
+     *
+     * @see BugReport#isValidCreator(User)
+     * @see BugReport#isValidTitle(String)
+     * @see BugReport#isValidDescription(String)
+     * @see BugReport#isValidDependencies(PList)
+     * @see BugReport#isValidSubsystem(Subsystem)
+     * @see BugReport#isValidMilestone(Milestone)
+     * @see BugReport#getNewUniqueID()
+     */
+    @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
+    public BugReport(User creator, String title, String description, PList<BugReport> dependencies,
+                     Subsystem subsystem) throws IllegalArgumentException, PermissionException {
+        this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(),
+                dependencies, subsystem, null, false);
     }
 
     //TODO constructor with null milestone or auto milestone?
@@ -165,6 +243,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
 
     private Subsystem subsystem;
     private Milestone milestone;
+    private boolean isPrivate;
 
     private BugReportState state;
 
@@ -410,7 +489,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
-     * This method returns all comments in this bug report (deep search) 
+     * This method returns all comments in this bug report (deep search)
      * The top TreeNode will carry a null value.
      *
      * @return all the comments in this bug report
@@ -582,6 +661,17 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
+     * This method adds a user to the list of users associated with this bug report
+     * This method should only be used by BugReportState's !!
+     *
+     * @param dev   The developer to add
+     */
+    @Requires("BugReport.isValidUser(dev)")
+    void addUser(Developer dev){
+        this.userList = this.getUserList().plus(dev);
+    }
+
+    /**
      * This method check if the given developer is valid for adding to the associated developers list
      *
      * @param dev the developer to check
@@ -737,6 +827,25 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
+     * This method returns the private state of this bug report
+     *
+     * @return  true if this bug report is considered private
+     */
+    @DomainAPI
+    public boolean isPrivate(){
+        return isPrivate;
+    }
+
+    /**
+     * This method sets the private field of this bug report to the given boolean
+     *
+     * @param isPrivate The new boolean for this isPrivate field of this bug report
+     */
+    public void setPrivate(boolean isPrivate){
+        this.isPrivate = isPrivate;
+    }
+
+    /**
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
      * than, equal to, or greater than the specified object.
@@ -822,7 +931,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      *
      * @return The current intern state of this bug report
      */
-    private BugReportState getInternState(){
+    BugReportState getInternState(){
         return this.state;
     }
 
@@ -834,7 +943,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      *
      * @throws IllegalArgumentException If the given state is null and thus invalid for a bug report
      */
-    private void setInternState(BugReportState state) throws IllegalArgumentException {
+    void setInternState(BugReportState state) throws IllegalArgumentException {
         if (state == null){
             throw new IllegalArgumentException("The given state is null and invalid for a bug report");
         }
@@ -1052,1901 +1161,5 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     @DomainAPI
     public boolean isResolved() {
         return this.getInternState().isResolved();
-    }
-
-    /**
-     * An interface for the different states of a bug report
-     */
-    interface BugReportState {
-
-        /**
-         * This method returns the tag associated with this bug report state
-         *
-         * @return  The tag associated with this bug report state
-         */
-        Tag getTag();
-
-        /**
-         * This method sets the current tag for this bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param tag   The new tag of this bug report
-         *
-         * @throws IllegalArgumentException If isValidTag(tag) throws this exception
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         * @throws IllegalStateException    If the current state doesn't allow the new Tag
-         *
-         * @see #isValidTag(Tag)
-         */
-        @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-        void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException;
-
-        /**
-         * This method check if the given tag is valid for the bug report
-         *
-         * @param tag the tag to check
-         *
-         * @return true if the tag is a valid tag
-         */
-        boolean isValidTag(Tag tag);
-
-        /**
-         * This method adds a developer to this bug report issued by the given user
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param dev       The developer to assign to this bug report
-         *
-         * @throws IllegalArgumentException If the given dev was null
-         */
-        @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-        void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException;
-
-        /**
-         * This method adds a given test to the bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param test  The test that the user wants to add
-         *
-         * @throws IllegalStateException    If the current state doesn't allow to add a test
-         * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
-         */
-        @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-        void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException;
-
-        /**
-         * This method returns all the tests associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any tests
-         *
-         * @return  The list of tests associated with this bug report
-         */
-        PList<String> getTests() throws IllegalStateException;
-
-        /**
-         * This method adds a given patch to this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch The patch that the user wants to submit
-         *
-         * @throws IllegalStateException    If the given patch is invalid for this bug report
-         * @throws IllegalArgumentException If the given patch is not valid for this bug report state
-         */
-        @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-        void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException;
-
-        /**
-         * This method returns the patches associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return  The patches associated with this bug report
-         */
-        PList<String> getPatches() throws IllegalStateException;
-
-        /**
-         * This method selects a patch for this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch The patch that the user wants to select
-         *
-         * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
-         * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Requires("bugReport.getInternState() == this")
-        void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException;
-
-        /**
-         * This method returns the selected patch of this bug report state
-         *
-         * @throws IllegalStateException    If the given state doesn't have a select patch
-         *
-         * @return The selected patch for this bug report
-         */
-        String getSelectedPatch() throws IllegalStateException;
-
-        /**
-         * This method gives the selected patch of this bug report states a score
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param score The score that the creator wants to give
-         *
-         * @throws IllegalStateException    If the current state doesn't allow assigning a score
-         * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Requires("bugReport.getInternState() == this")
-        void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException;
-
-        /**
-         * This method returns the score associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return  The score associated with this bug report
-         */
-        int getScore() throws IllegalStateException;
-
-        /**
-         * This method changes this bug report to a duplicate of the given bug report
-         * @param bugReport The bug report this state belongs to
-         * @param duplicate The bug report that this bug report is a duplicate of
-         */
-        @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-        void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException;
-
-        /**
-         * This method returns the bug report this bug report is a duplicate of
-         *
-         * @throws IllegalStateException    If the current state doesn't have a duplicate bug report
-         *
-         * @return  The bug report this bug report is a duplicate of
-         */
-        BugReport getDuplicate() throws IllegalStateException;
-
-        /**
-         * This method check if the current state is a resolved state of a bug report
-         *
-         * @return true if the given state is considered resoled for a bug report
-         */
-        boolean isResolved();
-
-    }
-
-    /**
-     * This class represents the New state of a bug report
-     */
-    class BugReportStateNew implements BugReportState {
-
-        /**
-         * constructor for this state
-         */
-        BugReportStateNew(){
-
-        }
-
-        /**
-         * This method returns the tag associated with this bug report state
-         *
-         * @return The tag associated with this bug report state
-         */
-        @Override
-        public Tag getTag() {
-            return Tag.NEW;
-        }
-
-        /**
-         * This method sets the current tag for this bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param tag       The new tag of this bug report
-         * @throws IllegalArgumentException If isValidTag(tag) throws this exception
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         * @throws IllegalStateException    If the given state doesn't allow a the new tag
-         * @see #isValidTag(Tag)
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-        public void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
-            if (bugReport.hasUnresolvedDependencies()) {
-                throw new IllegalStateException("The bug report ahs unresolved dependencies");
-            }
-            // should be the only valid tag
-            assert (tag == Tag.NOT_A_BUG);
-            bugReport.setInternState(new BugReportStateNotABug());
-        }
-
-        /**
-         * This method checks if the current state of the bug report allows a user to set the requested tag
-         *
-         * @param tag the tag to check
-         * @return true if the tag is a valid tag
-         */
-        @Override
-        public boolean isValidTag(Tag tag) {
-            if (tag == Tag.NOT_A_BUG){
-                return true;
-            }
-            return false;
-        }
-
-        /**
-         * This method adds a developer to this bug report issued by the given user
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param dev       The developer to assign to this bug report
-         * @throws IllegalArgumentException If the given dev was null
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-        public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
-            bugReport.userList = bugReport.getUserList().plus(dev);
-            bugReport.setInternState(new BugReportStateAssigned());
-        }
-
-        /**
-         * This method adds a given test to the bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param test      The test that the user wants to add
-         * @throws IllegalStateException    If the current state doesn't allow to add a test
-         * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-        public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("The current state doesn't allow adding a test");
-        }
-
-        /**
-         * This method returns all the tests associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The list of tests associated with this bug report
-         */
-        @Override
-        public PList<String> getTests() throws IllegalStateException {
-            throw new IllegalStateException("The current state of this bug report doesn't have any test");
-        }
-
-        /**
-         * This method adds a given patch to this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to submit
-         * @throws IllegalStateException    If the given patch is invalid for this bug report
-         * @throws IllegalArgumentException If the given patch is not valid for this bug report state
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-        public void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("The current state doesn't allow adding a patch");
-        }
-
-        /**
-         * This method returns the patches associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The patches associated with this bug report
-         */
-        @Override
-        public PList<String> getPatches() throws IllegalStateException {
-            throw new IllegalStateException("The current state of this bug report doesn't have any patches");
-        }
-
-        /**
-         * This method selects a patch for this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to select
-         * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
-         * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("The current state doesn't allow selecting a patch");
-        }
-
-        /**
-         * This method returns the selected patch of this bug report state
-         *
-         * @return The selected patch for this bug report
-         * @throws IllegalStateException If the given state doesn't have a select patch
-         */
-        @Override
-        public String getSelectedPatch() throws IllegalStateException {
-            throw new IllegalStateException("The current state has no selected patch");
-        }
-
-        /**
-         * This method gives the selected patch of this bug report states a score
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param score     The score that the creator wants to give
-         * @throws IllegalStateException    If the current state doesn't allow assigning a score
-         * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("The current state doesn't allow to add a score");
-        }
-
-        /**
-         * This method returns the score associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The score associated with this bug report
-         */
-        @Override
-        public int getScore() throws IllegalStateException {
-            throw new IllegalStateException("The current state doesn't have an score associated with it");
-        }
-
-        /**
-         * This method changes this bug report to a duplicate of the given bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param duplicate The bug report that this bug report is a duplicate of
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-        public void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
-            if (bugReport.hasUnresolvedDependencies()) {
-                throw new IllegalStateException("The bug report ahs unresolved dependencies");
-            }
-            bugReport.setInternState(new BugReportStateDuplicate(duplicate));
-        }
-
-        /**
-         * This method returns the bug report this bug report is a duplicate of
-         *
-         * @return The bug report this bug report is a duplicate of
-         * @throws IllegalStateException If the current state doesn't have a duplicate bug report
-         */
-        @Override
-        public BugReport getDuplicate() throws IllegalStateException {
-            throw new IllegalStateException("The current state of this bug report doesn't have an duplicate");
-        }
-
-        /**
-         * This method check if the current state is a resolved state of a bug report
-         *
-         * @return true if the given state is considered resoled for a bug report
-         */
-        @Override
-        public boolean isResolved() {
-            return false;
-        }
-    }
-
-    /**
-     * This class represents the assigned state of a bug report
-     */
-    class BugReportStateAssigned implements BugReportState {
-
-        /**
-         * constructor for this state
-         */
-        BugReportStateAssigned(){
-
-        }
-
-        /**
-         * This method returns the tag associated with this bug report state
-         *
-         * @return The tag associated with this bug report state
-         */
-        @Override
-        public Tag getTag() {
-            return Tag.ASSIGNED;
-        }
-
-        /**
-         * This method sets the current tag for this bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param tag       The new tag of this bug report
-         * @throws IllegalArgumentException If isValidTag(tag) throws this exception
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         * @throws IllegalStateException    If the given state doesn't allow a the new tag
-         * @see #isValidTag(Tag)
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-        public void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
-            if (bugReport.hasUnresolvedDependencies()) {
-                throw new IllegalStateException("The bug report ahs unresolved dependencies");
-            }
-            // should be the only valid tag
-            assert (tag == Tag.NOT_A_BUG);
-            bugReport.setInternState(new BugReportStateNotABug());
-        }
-
-        /**
-         * This method checks if the current state of the bug report allows a user to set the requested tag
-         *
-         * @param tag the tag to check
-         * @return true if the tag is a valid tag
-         */
-        @Override
-        public boolean isValidTag(Tag tag) {
-            if (tag == Tag.NOT_A_BUG){
-                return true;
-            }
-            return false;
-        }
-
-        /**
-         * This method adds a developer to this bug report issued by the given user
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param dev       The developer to assign to this bug report
-         * @throws IllegalArgumentException If the given dev was null
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-        public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
-            bugReport.userList = bugReport.getUserList().plus(dev);
-        }
-
-        /**
-         * This method adds a given test to the bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param test      The test that the user wants to add
-         * @throws IllegalStateException    If the current state doesn't allow to add a test
-         * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-        public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
-            bugReport.setInternState(new BugReportStateAssignedWithTest(test));
-        }
-
-        /**
-         * This method returns all the tests associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The list of tests associated with this bug report
-         */
-        @Override
-        public PList<String> getTests() throws IllegalStateException {
-            throw new IllegalStateException("The current state of this bug report doesn't have any test");
-        }
-
-        /**
-         * This method adds a given patch to this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to submit
-         * @throws IllegalStateException    If the given patch is invalid for this bug report
-         * @throws IllegalArgumentException If the given patch is not valid for this bug report state
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-        public void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("The current state doesn't allow adding a patch");
-        }
-
-        /**
-         * This method returns the patches associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The patches associated with this bug report
-         */
-        @Override
-        public PList<String> getPatches() throws IllegalStateException {
-            throw new IllegalStateException("The current state of this bug report doesn't have any patches");
-        }
-
-        /**
-         * This method selects a patch for this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to select
-         * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
-         * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("The current state doesn't allow selecting a patch");
-        }
-
-        /**
-         * This method returns the selected patch of this bug report state
-         *
-         * @return The selected patch for this bug report
-         * @throws IllegalStateException If the given state doesn't have a select patch
-         */
-        @Override
-        public String getSelectedPatch() throws IllegalStateException {
-            throw new IllegalStateException("The current state has no selected patch");
-        }
-
-        /**
-         * This method gives the selected patch of this bug report states a score
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param score     The score that the creator wants to give
-         * @throws IllegalStateException    If the current state doesn't allow assigning a score
-         * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("The current state doesn't allow to add a score");
-        }
-
-        /**
-         * This method returns the score associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The score associated with this bug report
-         */
-        @Override
-        public int getScore() throws IllegalStateException {
-            throw new IllegalStateException("The current state doesn't have an score associated with it");
-        }
-
-        /**
-         * This method changes this bug report to a duplicate of the given bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param duplicate The bug report that this bug report is a duplicate of
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-        public void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
-            if (bugReport.hasUnresolvedDependencies()) {
-                throw new IllegalStateException("The bug report ahs unresolved dependencies");
-            }
-            bugReport.setInternState(new BugReportStateDuplicate(duplicate));
-        }
-
-        /**
-         * This method returns the bug report this bug report is a duplicate of
-         *
-         * @return The bug report this bug report is a duplicate of
-         * @throws IllegalStateException If the current state doesn't have a duplicate bug report
-         */
-        @Override
-        public BugReport getDuplicate() throws IllegalStateException {
-            throw new IllegalStateException("The current state of this bug report doesn't have an duplicate");
-        }
-
-        /**
-         * This method check if the current state is a resolved state of a bug report
-         *
-         * @return true if the given state is considered resoled for a bug report
-         */
-        @Override
-        public boolean isResolved() {
-            return false;
-        }
-    }
-
-    /**
-     * This class represents the assigned state with also an assigned test of a bug report
-     */
-    class BugReportStateAssignedWithTest implements BugReportState {
-
-        /**
-         * constructor for this state
-         */
-        @Requires("BugReport.isValidTest(test)")
-        BugReportStateAssignedWithTest(String test){
-            this.tests = PList.<String>empty().plus(test);
-        }
-
-        private PList<String> tests;
-
-        /**
-         * This method returns the tag associated with this bug report state
-         *
-         * @return The tag associated with this bug report state
-         */
-        @Override
-        public Tag getTag() {
-            return Tag.ASSIGNED;
-        }
-
-        /**
-         * This method sets the current tag for this bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param tag       The new tag of this bug report
-         * @throws IllegalArgumentException If isValidTag(tag) throws this exception
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         * @throws IllegalStateException    If the given state doesn't allow a the new tag
-         * @see #isValidTag(Tag)
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-        public void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
-            if (bugReport.hasUnresolvedDependencies()) {
-                throw new IllegalStateException("The bug report ahs unresolved dependencies");
-            }
-            // should be the only valid tag
-            assert (tag == Tag.NOT_A_BUG);
-            bugReport.setInternState(new BugReportStateNotABug());
-        }
-
-        /**
-         * This method checks if the current state of the bug report allows a user to set the requested tag
-         *
-         * @param tag the tag to check
-         * @return true if the tag is a valid tag
-         */
-        @Override
-        public boolean isValidTag(Tag tag) {
-            if (tag == Tag.NOT_A_BUG){
-                return true;
-            }
-            return false;
-        }
-
-        /**
-         * This method adds a developer to this bug report issued by the given user
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param dev       The developer to assign to this bug report
-         * @throws IllegalArgumentException If the given dev was null
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-        public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
-            bugReport.userList = bugReport.getUserList().plus(dev);
-        }
-
-        /**
-         * This method adds a given test to the bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param test      The test that the user wants to add
-         * @throws IllegalStateException    If the current state doesn't allow to add a test
-         * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-        public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
-            this.tests = this.getTests().plus(test);
-        }
-
-        /**
-         * This method returns all the tests associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The list of tests associated with this bug report
-         */
-        @Override
-        public PList<String> getTests() throws IllegalStateException {
-            return this.tests;
-        }
-
-        /**
-         * This method adds a given patch to this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to submit
-         * @throws IllegalStateException    If the given patch is invalid for this bug report
-         * @throws IllegalArgumentException If the given patch is not valid for this bug report state
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-        public void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            if (bugReport.hasUnresolvedDependencies()){
-                throw new IllegalStateException("This bug report has unresolved dependencies and thus cannot have a patch yet");
-            }
-            bugReport.setInternState(new BugReportStateUnderReview(this.getTests(), patch));
-        }
-
-        /**
-         * This method returns the patches associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The patches associated with this bug report
-         */
-        @Override
-        public PList<String> getPatches() throws IllegalStateException {
-            throw new IllegalStateException("The current state of this bug report doesn't have any patches");
-        }
-
-        /**
-         * This method selects a patch for this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to select
-         * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
-         * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("The current state doesn't allow selecting a patch");
-        }
-
-        /**
-         * This method returns the selected patch of this bug report state
-         *
-         * @return The selected patch for this bug report
-         * @throws IllegalStateException If the given state doesn't have a select patch
-         */
-        @Override
-        public String getSelectedPatch() throws IllegalStateException {
-            throw new IllegalStateException("The current state has no selected patch");
-        }
-
-        /**
-         * This method gives the selected patch of this bug report states a score
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param score     The score that the creator wants to give
-         * @throws IllegalStateException    If the current state doesn't allow assigning a score
-         * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("The current state doesn't allow to add a score");
-        }
-
-        /**
-         * This method returns the score associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The score associated with this bug report
-         */
-        @Override
-        public int getScore() throws IllegalStateException {
-            throw new IllegalStateException("The current state doesn't have an score associated with it");
-        }
-
-        /**
-         * This method changes this bug report to a duplicate of the given bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param duplicate The bug report that this bug report is a duplicate of
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-        public void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
-            if (bugReport.hasUnresolvedDependencies()) {
-                throw new IllegalStateException("The bug report ahs unresolved dependencies");
-            }
-            bugReport.setInternState(new BugReportStateDuplicate(duplicate));
-        }
-
-        /**
-         * This method returns the bug report this bug report is a duplicate of
-         *
-         * @return The bug report this bug report is a duplicate of
-         * @throws IllegalStateException If the current state doesn't have a duplicate bug report
-         */
-        @Override
-        public BugReport getDuplicate() throws IllegalStateException {
-            throw new IllegalStateException("The current state of this bug report doesn't have an duplicate");
-        }
-
-        /**
-         * This method check if the current state is a resolved state of a bug report
-         *
-         * @return true if the given state is considered resoled for a bug report
-         */
-        @Override
-        public boolean isResolved() {
-            return false;
-        }
-    }
-
-    /**
-     * This class represents the under review state of a bug report
-     */
-    class BugReportStateUnderReview implements BugReportState {
-
-        /**
-         * constructor for this state
-         */
-        @Requires("BugReport.isValidTPatch(patch)")
-        BugReportStateUnderReview(PList<String> tests, String patch){
-            //TODO assertion for valid tests? isValid?
-            this.tests = tests;
-            this.patches = PList.<String>empty().plus(patch);
-        }
-
-        private PList<String> tests;
-        private PList<String> patches;
-
-        /**
-         * This method returns the tag associated with this bug report state
-         *
-         * @return The tag associated with this bug report state
-         */
-        @Override
-        public Tag getTag() {
-            return Tag.UNDER_REVIEW;
-        }
-
-        /**
-         * This method sets the current tag for this bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param tag       The new tag of this bug report
-         * @throws IllegalArgumentException If isValidTag(tag) throws this exception
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         * @throws IllegalStateException    If the given state doesn't allow a the new tag
-         * @see #isValidTag(Tag)
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-        public void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
-            // cannot have unresolved deps, because otherwise would not have this tag
-            if (tag == Tag.NOT_A_BUG) {
-                bugReport.setInternState(new BugReportStateNotABug());
-            }
-            // Tag assigned should be the only valid left
-            assert (tag == Tag.ASSIGNED);
-            bugReport.setInternState(new BugReportStateAssigned());
-        }
-
-        /**
-         * This method checks if the current state of the bug report allows a user to set the requested tag
-         *
-         * @param tag the tag to check
-         * @return true if the tag is a valid tag
-         */
-        @Override
-        public boolean isValidTag(Tag tag) {
-            if (tag == Tag.NOT_A_BUG){
-                return true;
-            }
-            if (tag == Tag.ASSIGNED){
-                return true;
-            }
-            return false;
-        }
-
-        /**
-         * This method adds a developer to this bug report issued by the given user
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param dev       The developer to assign to this bug report
-         * @throws IllegalArgumentException If the given dev was null
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-        public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
-            bugReport.userList = bugReport.getUserList().plus(dev);
-        }
-
-        /**
-         * This method adds a given test to the bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param test      The test that the user wants to add
-         * @throws IllegalStateException    If the current state doesn't allow to add a test
-         * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-        public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("The current state of the bug report doesn't allow adding more tests");
-        }
-
-        /**
-         * This method returns all the tests associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The list of tests associated with this bug report
-         */
-        @Override
-        public PList<String> getTests() throws IllegalStateException {
-            return this.tests;
-        }
-
-        /**
-         * This method adds a given patch to this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to submit
-         * @throws IllegalStateException    If the given patch is invalid for this bug report
-         * @throws IllegalArgumentException If the given patch is not valid for this bug report state
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-        public void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            this.patches =  this.getPatches().plus(patch);
-        }
-
-        /**
-         * This method returns the patches associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The patches associated with this bug report
-         */
-        @Override
-        public PList<String> getPatches() throws IllegalStateException {
-            return this.patches;
-        }
-
-        /**
-         * This method selects a patch for this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to select
-         * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
-         * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            if (! this.getPatches().contains(patch)){
-                throw new IllegalArgumentException("The given patch is not a valid patch for this bug report state");
-            }
-            bugReport.setInternState(new BugReportStateResolved(this.getTests(), this.getPatches(), patch));
-        }
-
-        /**
-         * This method returns the selected patch of this bug report state
-         *
-         * @return The selected patch for this bug report
-         * @throws IllegalStateException If the given state doesn't have a select patch
-         */
-        @Override
-        public String getSelectedPatch() throws IllegalStateException {
-            throw new IllegalStateException("The current state has no selected patch");
-        }
-
-        /**
-         * This method gives the selected patch of this bug report states a score
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param score     The score that the creator wants to give
-         * @throws IllegalStateException    If the current state doesn't allow assigning a score
-         * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("The current state doesn't allow to add a score");
-        }
-
-        /**
-         * This method returns the score associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The score associated with this bug report
-         */
-        @Override
-        public int getScore() throws IllegalStateException {
-            throw new IllegalStateException("The current state doesn't have an score associated with it");
-        }
-
-        /**
-         * This method changes this bug report to a duplicate of the given bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param duplicate The bug report that this bug report is a duplicate of
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-        public void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
-            // cannot have unresolved dependencies at this point
-            bugReport.setInternState(new BugReportStateDuplicate(duplicate));
-        }
-
-        /**
-         * This method returns the bug report this bug report is a duplicate of
-         *
-         * @return The bug report this bug report is a duplicate of
-         * @throws IllegalStateException If the current state doesn't have a duplicate bug report
-         */
-        @Override
-        public BugReport getDuplicate() throws IllegalStateException {
-            throw new IllegalStateException("The current state of this bug report doesn't have an duplicate");
-        }
-
-        /**
-         * This method check if the current state is a resolved state of a bug report
-         *
-         * @return true if the given state is considered resoled for a bug report
-         */
-        @Override
-        public boolean isResolved() {
-            return false;
-        }
-    }
-
-    /**
-     * This class represents the resolved state of a bug report
-     */
-    class BugReportStateResolved implements BugReportState {
-
-        /**
-         * constructor for this state
-         */
-        BugReportStateResolved(PList<String> tests, PList<String> patches, String selectedPatch){
-            //TODO assertion for valid tests? isValid?
-            //TODO assertion for valid patches? isValid?
-            //TODO check valid selected patch?
-            this.tests = tests;
-            this.patches = patches;
-            this.selectedPatch = selectedPatch;
-        }
-
-        private PList<String> tests;
-        private PList<String> patches;
-        private String selectedPatch;
-
-        /**
-         * This method returns the tag associated with this bug report state
-         *
-         * @return The tag associated with this bug report state
-         */
-        @Override
-        public Tag getTag() {
-            return Tag.RESOLVED;
-        }
-
-        /**
-         * This method sets the current tag for this bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param tag       The new tag of this bug report
-         * @throws IllegalArgumentException If isValidTag(tag) throws this exception
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         * @throws IllegalStateException    If the given state doesn't allow a the new tag
-         * @see #isValidTag(Tag)
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-        public void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
-            // should be the only valid tag
-            assert (tag == Tag.NOT_A_BUG);
-            bugReport.setInternState(new BugReportStateNotABug());
-        }
-
-        /**
-         * This method checks if the current state of the bug report allows a user to set the requested tag
-         *
-         * @param tag the tag to check
-         * @return true if the tag is a valid tag
-         */
-        @Override
-        public boolean isValidTag(Tag tag) {
-            if (tag == Tag.NOT_A_BUG){
-                return true;
-            }
-            return false;
-        }
-
-        /**
-         * This method adds a developer to this bug report issued by the given user
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param dev       The developer to assign to this bug report
-         * @throws IllegalArgumentException If the given dev was null
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-        public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
-            bugReport.userList = bugReport.getUserList().plus(dev);
-        }
-
-        /**
-         * This method adds a given test to the bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param test      The test that the user wants to add
-         * @throws IllegalStateException    If the current state doesn't allow to add a test
-         * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-        public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("There is already a selected patch, no more tests allowed");
-        }
-
-        /**
-         * This method returns all the tests associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The list of tests associated with this bug report
-         */
-        @Override
-        public PList<String> getTests() throws IllegalStateException {
-            return this.tests;
-        }
-
-        /**
-         * This method adds a given patch to this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to submit
-         * @throws IllegalStateException    If the given patch is invalid for this bug report
-         * @throws IllegalArgumentException If the given patch is not valid for this bug report state
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-        public void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("There is already a selected patch, no more patches allowed");
-        }
-
-        /**
-         * This method returns the patches associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The patches associated with this bug report
-         */
-        @Override
-        public PList<String> getPatches() throws IllegalStateException {
-            return this.patches;
-        }
-
-        /**
-         * This method selects a patch for this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to select
-         * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
-         * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("There is already a selected patch");
-        }
-
-        /**
-         * This method returns the selected patch of this bug report state
-         *
-         * @return The selected patch for this bug report
-         * @throws IllegalStateException If the given state doesn't have a select patch
-         */
-        @Override
-        public String getSelectedPatch() throws IllegalStateException {
-            return this.selectedPatch;
-        }
-
-        /**
-         * This method gives the selected patch of this bug report states a score
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param score     The score that the creator wants to give
-         * @throws IllegalStateException    If the current state doesn't allow assigning a score
-         * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
-            if (! this.isValidScore(score)){
-                throw new IllegalArgumentException("The given score is not a score from 1 to 5");
-            }
-            bugReport.setInternState(new BugReportStateClosed(this.getTests(), this.getPatches(), this.getSelectedPatch(), score));
-        }
-
-        /**
-         * This method returns the score associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The score associated with this bug report
-         */
-        @Override
-        public int getScore() throws IllegalStateException {
-            throw new IllegalStateException("The current state doesn't have an score associated with it");
-        }
-
-        /**
-         * this method checks if the give score is a valid score for a bug report in this state
-         * @param score The score to check
-         * @return  True if the given score is a score on a 1 to 5 scale
-         */
-        private boolean isValidScore(int score){
-            if (score > 5 || score < 1){
-                return false;
-            }
-            return true;
-        }
-
-        /**
-         * This method changes this bug report to a duplicate of the given bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param duplicate The bug report that this bug report is a duplicate of
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-        public void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
-            // cannot have unresolved dependencies at this point
-            bugReport.setInternState(new BugReportStateDuplicate(duplicate));
-        }
-
-        /**
-         * This method returns the bug report this bug report is a duplicate of
-         *
-         * @return The bug report this bug report is a duplicate of
-         * @throws IllegalStateException If the current state doesn't have a duplicate bug report
-         */
-        @Override
-        public BugReport getDuplicate() throws IllegalStateException {
-            throw new IllegalStateException("The current state of this bug report doesn't have an duplicate");
-        }
-
-        /**
-         * This method check if the current state is a resolved state of a bug report
-         *
-         * @return true if the given state is considered resoled for a bug report
-         */
-        @Override
-        public boolean isResolved() {
-            return false;
-        }
-    }
-
-    /**
-     * This class represents the closed state of a bug report
-     */
-    class BugReportStateClosed implements BugReportState {
-
-        /**
-         * constructor for this state
-         */
-        BugReportStateClosed(PList<String> tests, PList<String> patches, String selectedPatch, int score){
-            //TODO assertion for valid tests? isValid?
-            //TODO assertion for valid patches? isValid?
-            //TODO check valid selected patch?
-            //TODO check valid score again?
-            this.tests = tests;
-            this.patches = patches;
-            this.selectedPatch = selectedPatch;
-            this.score = score;
-        }
-
-        private PList<String> tests;
-        private PList<String> patches;
-        private String selectedPatch;
-        private int score;
-
-        /**
-         * This method returns the tag associated with this bug report state
-         *
-         * @return The tag associated with this bug report state
-         */
-        @Override
-        public Tag getTag() {
-            return Tag.CLOSED;
-        }
-
-        /**
-         * This method sets the current tag for this bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param tag       The new tag of this bug report
-         * @throws IllegalArgumentException If isValidTag(tag) throws this exception
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         * @throws IllegalStateException    If the given state doesn't allow a the new tag
-         * @see #isValidTag(Tag)
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-        public void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
-            throw new IllegalStateException("State is closed -> cannot change anymore");
-        }
-
-        /**
-         * This method checks if the current state of the bug report allows a user to set the requested tag
-         *
-         * @param tag the tag to check
-         * @return true if the tag is a valid tag
-         */
-        @Override
-        public boolean isValidTag(Tag tag) {
-            return false;
-        }
-
-        /**
-         * This method adds a developer to this bug report issued by the given user
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param dev       The developer to assign to this bug report
-         * @throws IllegalArgumentException If the given dev was null
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-        public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
-            //TODO allow adding of user to closed state?
-            throw new IllegalStateException("State is closed -> cannot change anymore");
-        }
-
-        /**
-         * This method adds a given test to the bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param test      The test that the user wants to add
-         * @throws IllegalStateException    If the current state doesn't allow to add a test
-         * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-        public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("There is already a selected patch, no more tests allowed");
-        }
-
-        /**
-         * This method returns all the tests associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The list of tests associated with this bug report
-         */
-        @Override
-        public PList<String> getTests() throws IllegalStateException {
-            return this.tests;
-        }
-
-        /**
-         * This method adds a given patch to this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to submit
-         * @throws IllegalStateException    If the given patch is invalid for this bug report
-         * @throws IllegalArgumentException If the given patch is not valid for this bug report state
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-        public void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("There is already a selected patch, no more patches allowed");
-        }
-
-        /**
-         * This method returns the patches associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The patches associated with this bug report
-         */
-        @Override
-        public PList<String> getPatches() throws IllegalStateException {
-            return this.patches;
-        }
-
-        /**
-         * This method selects a patch for this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to select
-         * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
-         * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("There is already a selected patch");
-        }
-
-        /**
-         * This method returns the selected patch of this bug report state
-         *
-         * @return The selected patch for this bug report
-         * @throws IllegalStateException If the given state doesn't have a select patch
-         */
-        @Override
-        public String getSelectedPatch() throws IllegalStateException {
-            return this.selectedPatch;
-        }
-
-        /**
-         * This method gives the selected patch of this bug report states a score
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param score     The score that the creator wants to give
-         * @throws IllegalStateException    If the current state doesn't allow assigning a score
-         * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("State is closed -> cannot change anymore");
-        }
-
-        /**
-         * This method returns the score associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The score associated with this bug report
-         */
-        @Override
-        public int getScore() throws IllegalStateException {
-            return this.score;
-        }
-
-        /**
-         * This method changes this bug report to a duplicate of the given bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param duplicate The bug report that this bug report is a duplicate of
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-        public void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
-            throw new IllegalStateException("State is closed -> cannot change anymore");
-        }
-
-        /**
-         * This method returns the bug report this bug report is a duplicate of
-         *
-         * @return The bug report this bug report is a duplicate of
-         * @throws IllegalStateException If the current state doesn't have a duplicate bug report
-         */
-        @Override
-        public BugReport getDuplicate() throws IllegalStateException {
-            throw new IllegalStateException("The current state of this bug report doesn't have an duplicate");
-        }
-
-        /**
-         * This method check if the current state is a resolved state of a bug report
-         *
-         * @return true if the given state is considered resoled for a bug report
-         */
-        @Override
-        public boolean isResolved() {
-            return true;
-        }
-    }
-
-    /**
-     * This class represents the Duplicate state of a bug report
-     */
-    class BugReportStateDuplicate implements BugReportState {
-
-        /**
-         * constructor for this state
-         */
-        BugReportStateDuplicate(BugReport duplicate){
-            //TODO assertion for valid bugReport? isValid?
-            this.duplicate = duplicate;
-        }
-
-        private BugReport duplicate;
-
-        /**
-         * This method returns the tag associated with this bug report state
-         *
-         * @return The tag associated with this bug report state
-         */
-        @Override
-        public Tag getTag() {
-            return Tag.DUPLICATE;
-        }
-
-        /**
-         * This method sets the current tag for this bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param tag       The new tag of this bug report
-         * @throws IllegalArgumentException If isValidTag(tag) throws this exception
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         * @throws IllegalStateException    If the given state doesn't allow a the new tag
-         * @see #isValidTag(Tag)
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-        public void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
-            throw new IllegalStateException("State is Duplicate -> cannot change anymore");
-        }
-
-        /**
-         * This method checks if the current state of the bug report allows a user to set the requested tag
-         *
-         * @param tag the tag to check
-         * @return true if the tag is a valid tag
-         */
-        @Override
-        public boolean isValidTag(Tag tag) {
-            return false;
-        }
-
-        /**
-         * This method adds a developer to this bug report issued by the given user
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param dev       The developer to assign to this bug report
-         * @throws IllegalArgumentException If the given dev was null
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-        public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
-            //TODO allow adding of user to closed state?
-            throw new IllegalStateException("State is Duplicate -> cannot change anymore");
-        }
-
-        /**
-         * This method adds a given test to the bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param test      The test that the user wants to add
-         * @throws IllegalStateException    If the current state doesn't allow to add a test
-         * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-        public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("State is Duplicate -> cannot change anymore");
-        }
-
-        /**
-         * This method returns all the tests associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The list of tests associated with this bug report
-         */
-        @Override
-        public PList<String> getTests() throws IllegalStateException {
-            throw new IllegalStateException("This state has no tests");
-        }
-
-        /**
-         * This method adds a given patch to this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to submit
-         * @throws IllegalStateException    If the given patch is invalid for this bug report
-         * @throws IllegalArgumentException If the given patch is not valid for this bug report state
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-        public void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("State is Duplicate -> cannot change anymore");
-        }
-
-        /**
-         * This method returns the patches associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The patches associated with this bug report
-         */
-        @Override
-        public PList<String> getPatches() throws IllegalStateException {
-            throw new IllegalStateException("This state has no patches");
-        }
-
-        /**
-         * This method selects a patch for this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to select
-         * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
-         * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("State is Duplicate -> cannot change anymore");
-        }
-
-        /**
-         * This method returns the selected patch of this bug report state
-         *
-         * @return The selected patch for this bug report
-         * @throws IllegalStateException If the given state doesn't have a select patch
-         */
-        @Override
-        public String getSelectedPatch() throws IllegalStateException {
-            throw new IllegalStateException("This state has no selected patch");
-        }
-
-        /**
-         * This method gives the selected patch of this bug report states a score
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param score     The score that the creator wants to give
-         * @throws IllegalStateException    If the current state doesn't allow assigning a score
-         * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("State is Duplicate -> cannot change anymore");
-        }
-
-        /**
-         * This method returns the score associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The score associated with this bug report
-         */
-        @Override
-        public int getScore() throws IllegalStateException {
-            throw new IllegalStateException("This state has no score");
-        }
-
-        /**
-         * This method changes this bug report to a duplicate of the given bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param duplicate The bug report that this bug report is a duplicate of
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-        public void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
-            throw new IllegalStateException("State is Duplicate -> cannot change anymore");
-        }
-
-        /**
-         * This method returns the bug report this bug report is a duplicate of
-         *
-         * @return The bug report this bug report is a duplicate of
-         * @throws IllegalStateException If the current state doesn't have a duplicate bug report
-         */
-        @Override
-        public BugReport getDuplicate() throws IllegalStateException {
-            return this.duplicate;
-        }
-
-        /**
-         * This method check if the current state is a resolved state of a bug report
-         *
-         * @return true if the given state is considered resoled for a bug report
-         */
-        @Override
-        public boolean isResolved() {
-            // is true because deps are resolved
-            //TODO must duplicate be one of the deps?
-            //TODO or return status of duplicate
-            return true;
-        }
-
-    }
-
-    /**
-     * This class represents the NotABug state of a bug report
-     */
-    class BugReportStateNotABug implements BugReportState {
-        /**
-         * constructor for this state
-         */
-        BugReportStateNotABug(){
-
-        }
-
-        /**
-         * This method returns the tag associated with this bug report state
-         *
-         * @return The tag associated with this bug report state
-         */
-        @Override
-        public Tag getTag() {
-            return Tag.NOT_A_BUG;
-        }
-
-        /**
-         * This method sets the current tag for this bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param tag       The new tag of this bug report
-         * @throws IllegalArgumentException If isValidTag(tag) throws this exception
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         * @throws IllegalStateException    If the given state doesn't allow a the new tag
-         * @see #isValidTag(Tag)
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-        public void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
-            throw new IllegalStateException("State is NotABug -> cannot change anymore");
-        }
-
-        /**
-         * This method checks if the current state of the bug report allows a user to set the requested tag
-         *
-         * @param tag the tag to check
-         * @return true if the tag is a valid tag
-         */
-        @Override
-        public boolean isValidTag(Tag tag) {
-            return false;
-        }
-
-        /**
-         * This method adds a developer to this bug report issued by the given user
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param dev       The developer to assign to this bug report
-         * @throws IllegalArgumentException If the given dev was null
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-        public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
-            //TODO allow adding of user to NotABug state?
-            throw new IllegalStateException("State is NotABug -> cannot change anymore");
-        }
-
-        /**
-         * This method adds a given test to the bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param test      The test that the user wants to add
-         * @throws IllegalStateException    If the current state doesn't allow to add a test
-         * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-        public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("State is NotABug -> cannot change anymore");
-        }
-
-        /**
-         * This method returns all the tests associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The list of tests associated with this bug report
-         */
-        @Override
-        public PList<String> getTests() throws IllegalStateException {
-            throw new IllegalStateException("This state has no tests");
-        }
-
-        /**
-         * This method adds a given patch to this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to submit
-         * @throws IllegalStateException    If the given patch is invalid for this bug report
-         * @throws IllegalArgumentException If the given patch is not valid for this bug report state
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-        public void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("State is NotABug -> cannot change anymore");
-        }
-
-        /**
-         * This method returns the patches associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The patches associated with this bug report
-         */
-        @Override
-        public PList<String> getPatches() throws IllegalStateException {
-            throw new IllegalStateException("This state has no patches");
-        }
-
-        /**
-         * This method selects a patch for this bug report state
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param patch     The patch that the user wants to select
-         * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
-         * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("State is NotABug -> cannot change anymore");
-        }
-
-        /**
-         * This method returns the selected patch of this bug report state
-         *
-         * @return The selected patch for this bug report
-         * @throws IllegalStateException If the given state doesn't have a select patch
-         */
-        @Override
-        public String getSelectedPatch() throws IllegalStateException {
-            throw new IllegalStateException("This state has no selected patch");
-        }
-
-        /**
-         * This method gives the selected patch of this bug report states a score
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param score     The score that the creator wants to give
-         * @throws IllegalStateException    If the current state doesn't allow assigning a score
-         * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
-         * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this")
-        public void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
-            throw new IllegalStateException("State is NotABug -> cannot change anymore");
-        }
-
-        /**
-         * This method returns the score associated with this bug report
-         *
-         * @throws IllegalStateException    If the current state doesn't have any patches
-         *
-         * @return The score associated with this bug report
-         */
-        @Override
-        public int getScore() throws IllegalStateException {
-            throw new IllegalStateException("This state has no score");
-        }
-
-        /**
-         * This method changes this bug report to a duplicate of the given bug report
-         *
-         * @param bugReport The bug report this state belongs to
-         * @param duplicate The bug report that this bug report is a duplicate of
-         */
-        @Override
-        @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-        public void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
-            throw new IllegalStateException("State is NotABug -> cannot change anymore");
-        }
-
-        /**
-         * This method returns the bug report this bug report is a duplicate of
-         *
-         * @return The bug report this bug report is a duplicate of
-         * @throws IllegalStateException If the current state doesn't have a duplicate bug report
-         */
-        @Override
-        public BugReport getDuplicate() throws IllegalStateException {
-            throw new IllegalStateException("This state has no duplicate assigned to it");
-        }
-
-        /**
-         * This method check if the current state is a resolved state of a bug report
-         *
-         * @return true if the given state is considered resoled for a bug report
-         */
-        @Override
-        public boolean isResolved() {
-            return true;
-        }
     }
 }

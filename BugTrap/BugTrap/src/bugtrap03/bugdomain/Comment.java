@@ -5,7 +5,7 @@ import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
-import java.util.ArrayList;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * This is a class representing a comment.
@@ -19,9 +19,9 @@ public class Comment {
      * This method initialises an Comment
      *
      * @param issuer the issuer that creates this comment
-     * @param text   the comment text for this comment
+     * @param text the comment text for this comment
      * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
-     * @throws PermissionException      if the given creator doesn't have the needed permissions
+     * @throws PermissionException if the given creator doesn't have the needed permissions
      * @see Comment#isValidCreator(User)
      */
     public Comment(User issuer, String text) throws IllegalArgumentException, PermissionException {
@@ -49,7 +49,7 @@ public class Comment {
      *
      * @param creator the creator to set
      * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
-     * @throws PermissionException      if the given creator doesn't have the needed permissions
+     * @throws PermissionException if the given creator doesn't have the needed permissions
      * @see Comment#isValidCreator(User)
      * @see Comment#isValidText(String)
      */
@@ -129,18 +129,18 @@ public class Comment {
     }
 
     /**
-     * This method returns all comments in this comment (deep search) including this comment
+     * This method returns all comments in this comment (deep search) including this comment.
      *
      * @return all the comments in this comment
      */
     @DomainAPI
-    public PList<Comment> getAllComments() {
-        ArrayList<Comment> list = new ArrayList<>();
-        list.add(this);
-        for (Comment comment : this.getSubComments()) {
-            list.addAll(comment.getAllComments());
+    public DefaultMutableTreeNode getAllComments() {
+        DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
+        
+        for(Comment comment : this.getSubComments()) {
+            node.add(comment.getAllComments());
         }
-        return PList.<Comment>empty().plusAll(list);
+        return node;
     }
 
     /**
@@ -196,9 +196,9 @@ public class Comment {
      * This method makes a Comment object and adds it to the sub-comment list
      *
      * @param creator the creator of the comment
-     * @param text    the text of the comment
+     * @param text the text of the comment
      * @throws IllegalArgumentException if the given parameters are not valid for this comment
-     * @throws PermissionException      if the given creator doesn't have the needed permissions
+     * @throws PermissionException if the given creator doesn't have the needed permissions
      * @see Comment(Issuer, String)
      */
     public Comment addSubComment(User creator, String text) throws IllegalArgumentException, PermissionException {
@@ -220,6 +220,25 @@ public class Comment {
             return false;
         }
         return true;
+    }
+    
+    
+    
+    /**
+     * Get the String form of the given Tree structure.
+     * This assumes all objects in the given structure are of type {@link Comment} and the top node carries null.
+     * 
+     * @param node The Tree structure used to get the String format of.
+     * @return The result of converting the Tree structure to a Comment
+     */
+    public static String commentsTreeToString(DefaultMutableTreeNode node) {
+        StringBuilder str = new StringBuilder();
+        
+        
+        
+        
+        
+        return str.toString();
     }
 
 }
