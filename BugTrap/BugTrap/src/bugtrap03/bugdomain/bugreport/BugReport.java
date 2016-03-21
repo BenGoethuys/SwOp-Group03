@@ -11,9 +11,9 @@ import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 import purecollections.PList;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * This class represents a bug report
@@ -410,17 +410,19 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
-     * This method returns all comments in this bug report (deep search)
+     * This method returns all comments in this bug report (deep search) 
+     * The top TreeNode will carry a null value.
      *
      * @return all the comments in this bug report
      */
     @DomainAPI
-    public PList<Comment> getAllComments() {
-        ArrayList<Comment> list = new ArrayList<>();
-        for (Comment comment : this.getCommentList()) {
-            list.addAll(comment.getAllComments());
+    public DefaultMutableTreeNode getAllComments() {
+        DefaultMutableTreeNode node = new DefaultMutableTreeNode();
+        
+        for(Comment comment : this.getCommentList()) {
+            node.add(comment.getAllComments());
         }
-        return PList.<Comment>empty().plusAll(list);
+        return node;
     }
 
     /**
@@ -792,26 +794,26 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return the most important details of this bug report
      */
     public String getDetails() {
-        String str = "Bug report id: " + this.getUniqueID();
-        str += "\n creator: " + this.getCreator().getFullName();
-        str += "\n title: " + this.getTitle();
-        str += "\n description: " + this.getDescription();
-        str += "\n creation date: " + this.getCreationDate().getTime();
-        str += "\n tag: " + this.getTag().name();
-        str += "\n comments: ";
-        for (Comment comment : this.getAllComments()) {
-            str += "\n \t " + comment.getText();
-        }
-        str += "\n dependencies: ";
+        DefaultMutableTreeNode comments = this.getAllComments();
+        StringBuilder str = new StringBuilder();
+        
+        str.append("Bug report id: ").append(this.getUniqueID());
+        str.append("\n creator: ").append(this.getCreator().getFullName());
+        str.append("\n title: ").append(this.getTitle());
+        str.append("\n description: ").append(this.getDescription());
+        str.append("\n creation date: ").append(this.getCreationDate().getTime());
+        str.append("\n tag: ").append(this.getTag().name());
+        str.append("\n comments: ").append(Comment.commentsTreeToString(comments));
+        str.append("\n dependencies: ");
         for (BugReport bugrep : this.getDependencies()) {
-            str += "\n \t id: " + bugrep.getUniqueID() + ", title: " + bugrep.getTitle();
+            str.append("\n \t id: ").append(bugrep.getUniqueID()).append(", title: ").append(bugrep.getTitle());
         }
-        str += "\n subsystem: " + this.getSubsystem().getName();
+        str.append("\n subsystem: ").append(this.getSubsystem().getName());
 
         //FIXME: print new stuff .... score and duplicate ... depending on the state
         //TODO: add getDetails in states for this?!
 
-        return str;
+        return str.toString();
     }
 
     /**
