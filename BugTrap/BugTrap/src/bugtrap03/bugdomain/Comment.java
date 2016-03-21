@@ -289,7 +289,8 @@ public class Comment {
      * @param node The TreeNode to check in.
      * @return True if this comment is equal to an element in the node (deep search).
      */
-    private boolean containedIn(DefaultMutableTreeNode node) {
+    @DomainAPI
+    public boolean containedIn(DefaultMutableTreeNode node) {
         if (node == null) {
             return false;
         }
