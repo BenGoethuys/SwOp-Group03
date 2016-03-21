@@ -34,6 +34,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @param dependencies The depended bug reports of this bug report
      * @param subsystem    The subsystem this bug report belongs to
      * @param milestone    The milestone of the bug report
+     * @param isPrivate    The boolean that says if this bug report should be private or not
      *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
@@ -56,7 +57,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @Ensures("result.getTag() == Tag.New")
     protected BugReport(User creator, long uniqueID, String title, String description, GregorianCalendar creationDate,
-                        PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone)
+                        PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone, boolean isPrivate)
             throws IllegalArgumentException, PermissionException {
         this.setCreator(creator);
         this.setUniqueID(uniqueID);
@@ -70,6 +71,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
 
         this.setSubsystem(subsystem);
         this.setMilestone(milestone);
+        this.isPrivate = isPrivate;
 
         this.setInternState(new BugReportStateNew());
     }
@@ -84,6 +86,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @param dependencies The depended bug reports of this bug report
      * @param subsystem    The subsystem this bug report belongs to
      * @param milestone    The milestone of the bug report
+     * @param isPrivate    The boolean that says if this bug report should be private or not
      *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
@@ -95,8 +98,8 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
      * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
      *
-     * <dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
-     * <dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
+     * <br><dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
+     * <br><dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
      *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
@@ -110,9 +113,10 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     public BugReport(User creator, String title, String description, GregorianCalendar creationDate,
-                     PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone)
+                     PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone, boolean isPrivate)
             throws IllegalArgumentException, PermissionException {
-        this(creator, BugReport.getNewUniqueID(), title, description, creationDate, dependencies, subsystem, milestone);
+        this(creator, BugReport.getNewUniqueID(), title, description, creationDate,
+                dependencies, subsystem, milestone, isPrivate);
     }
 
     /**
@@ -124,6 +128,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @param dependencies The depended bug reports of this bug report
      * @param subsystem    The subsystem this bug report belongs to
      * @param milestone    The milestone of the bug report
+     * @param isPrivate    The boolean that says if this bug report should be private or not
      *
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -133,8 +138,8 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
      * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
      *
-     * <dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
-     * <dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
+     * <br><dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
+     * <br><dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
      *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidTitle(String)
@@ -146,9 +151,45 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     public BugReport(User creator, String title, String description, PList<BugReport> dependencies, Subsystem subsystem,
-                     Milestone milestone) throws IllegalArgumentException, PermissionException {
-        this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(), dependencies, subsystem,
-                milestone);
+                     Milestone milestone, boolean isPrivate) throws IllegalArgumentException, PermissionException {
+        this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(),
+                dependencies, subsystem, milestone, isPrivate);
+    }
+
+    /**
+     * Constructor for creating a bug report with default tag "New" and the current time as creationDate
+     *
+     * @param creator      The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
+     * @param dependencies The depended bug reports of this bug report
+     * @param subsystem    The subsystem this bug report belongs to
+     * @param isPrivate    The boolean that says if this bug report should be private or not
+     *
+     * @throws IllegalArgumentException if isValidCreator(creator) fails
+     * @throws IllegalArgumentException if isValidTitle(title) fails
+     * @throws IllegalArgumentException if isValidDescription(description) fails
+     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
+     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
+     *
+     * <br><dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
+     * <br><dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
+     *
+     * @see BugReport#isValidCreator(User)
+     * @see BugReport#isValidTitle(String)
+     * @see BugReport#isValidDescription(String)
+     * @see BugReport#isValidDependencies(PList)
+     * @see BugReport#isValidSubsystem(Subsystem)
+     * @see BugReport#isValidMilestone(Milestone)
+     * @see BugReport#getNewUniqueID()
+     */
+    @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
+    public BugReport(User creator, String title, String description, PList<BugReport> dependencies,
+                     Subsystem subsystem, boolean isPrivate) throws IllegalArgumentException, PermissionException {
+        this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(),
+                dependencies, subsystem, null, isPrivate);
     }
 
     //TODO constructor with null milestone or auto milestone?
@@ -165,6 +206,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
 
     private Subsystem subsystem;
     private Milestone milestone;
+    private boolean isPrivate;
 
     private BugReportState state;
 
@@ -740,6 +782,25 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             return false;
         }
         return true;
+    }
+
+    /**
+     * This method returns the private state of this bug report
+     *
+     * @return  true if this bug report is considered private
+     */
+    @DomainAPI
+    public boolean isPrivate(){
+        return isPrivate;
+    }
+
+    /**
+     * This method sets the private field of this bug report to the given boolean
+     *
+     * @param isPrivate The new boolean for this isPrivate field of this bug report
+     */
+    public void setPrivate(boolean isPrivate){
+        this.isPrivate = isPrivate;
     }
 
     /**
