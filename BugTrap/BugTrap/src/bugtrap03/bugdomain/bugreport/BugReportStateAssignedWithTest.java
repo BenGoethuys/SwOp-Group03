@@ -223,4 +223,14 @@ class BugReportStateAssignedWithTest implements BugReportState {
     public boolean isResolved() {
         return false;
     }
+
+    /**
+     * This method returns state specific information
+     *
+     * @return The details of this state as a String
+     */
+    @Override
+    public String getDetails() {
+        return "\n tag: " + this.getTag().name();
+    }
 }

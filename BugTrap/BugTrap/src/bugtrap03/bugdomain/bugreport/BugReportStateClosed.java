@@ -77,7 +77,6 @@ class BugReportStateClosed implements BugReportState {
     @Override
     @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
     public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
-        //TODO allow adding of user to closed state?
         throw new IllegalStateException("State is closed -> cannot change anymore");
     }
 
@@ -218,5 +217,31 @@ class BugReportStateClosed implements BugReportState {
     @Override
     public boolean isResolved() {
         return true;
+    }
+
+    /**
+     * This method returns state specific information
+     *
+     * @return The details of this state as a String
+     */
+    @Override
+    public String getDetails() {
+        StringBuilder str = new StringBuilder();
+        str.append("\n tag: ").append(this.getTag().name());
+        // add tests
+        str.append("\n tests: ");
+        for (String test : this.getTests()){
+            str.append("\n \t ").append(test);
+        }
+        // add patches
+        str.append("\n patches: ");
+        for (String patch : this.getPatches()){
+            str.append("\n \t ").append(patch);
+        }
+        // add selected
+        str.append("\n selected patch: ").append(this.getSelectedPatch());
+        // add score
+        str.append("\n score: ").append(this.getScore());
+        return str.toString();
     }
 }

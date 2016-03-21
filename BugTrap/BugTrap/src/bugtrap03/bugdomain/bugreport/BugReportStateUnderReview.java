@@ -228,4 +228,26 @@ class BugReportStateUnderReview implements BugReportState {
     public boolean isResolved() {
         return false;
     }
+
+    /**
+     * This method returns state specific information
+     *
+     * @return The details of this state as a String
+     */
+    @Override
+    public String getDetails() {
+        StringBuilder str = new StringBuilder();
+        str.append("\n tag: ").append(this.getTag().name());
+        // add tests
+        str.append("\n tests: ");
+        for (String test : this.getTests()){
+            str.append("\n \t ").append(test);
+        }
+        // add patches
+        str.append("\n patches: ");
+        for (String patch : this.getPatches()){
+            str.append("\n \t ").append(patch);
+        }
+        return str.toString();
+    }
 }

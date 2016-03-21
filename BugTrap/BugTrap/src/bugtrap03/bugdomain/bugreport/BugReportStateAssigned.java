@@ -3,6 +3,7 @@ package bugtrap03.bugdomain.bugreport;
 import bugtrap03.bugdomain.Tag;
 import bugtrap03.bugdomain.usersystem.Developer;
 import com.google.java.contract.Requires;
+import com.oracle.xmlns.internal.webservices.jaxws_databinding.ExistingAnnotationsType;
 import purecollections.PList;
 
 /**
@@ -216,5 +217,15 @@ class BugReportStateAssigned implements BugReportState {
     @Override
     public boolean isResolved() {
         return false;
+    }
+
+    /**
+     * This method returns state specific information
+     *
+     * @return The details of this state as a String
+     */
+    @Override
+    public String getDetails() {
+        return "\n tag: " + this.getTag().name();
     }
 }
