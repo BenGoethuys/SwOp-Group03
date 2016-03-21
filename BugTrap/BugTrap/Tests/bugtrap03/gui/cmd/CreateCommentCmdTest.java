@@ -14,6 +14,8 @@ import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
 import java.util.ArrayDeque;
+import java.util.Enumeration;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import static org.junit.Assert.assertTrue;
 
@@ -105,7 +107,17 @@ public class CreateCommentCmdTest {
         // Execute scenario
         Comment createdComment = cmd.exec(scan, model, issuer);
         // Test effects.
-        assertTrue(bugRep1.getAllComments().contains(createdComment));
+        
+        boolean containsComment = false;
+        Enumeration<DefaultMutableTreeNode> commentEnum = bugRep1.getAllComments().breadthFirstEnumeration();
+        while(!containsComment && commentEnum.hasMoreElements()) {
+            Comment comm = (Comment) commentEnum.nextElement().getUserObject();
+            if(comm.equals(createdComment)) {
+                containsComment = true;
+            }
+        }
+        
+        assertTrue(containsComment);
     }
 
     @Test
@@ -206,7 +218,16 @@ public class CreateCommentCmdTest {
         // Execute scenario
         Comment createdComment = cmd.exec(scan, model, issuer);
         // Test effects.
-        assertTrue(bugRep1.getAllComments().contains(createdComment));
+        boolean containsComment = false;
+        Enumeration<DefaultMutableTreeNode> commentEnum = bugRep1.getAllComments().breadthFirstEnumeration();
+        while(!containsComment && commentEnum.hasMoreElements()) {
+            Comment comm = (Comment) commentEnum.nextElement().getUserObject();
+            if(comm.equals(createdComment)) {
+                containsComment = true;
+            }
+        }
+        
+        assertTrue(containsComment);
     }
 
     /**
