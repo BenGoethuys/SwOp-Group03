@@ -1,11 +1,7 @@
 package bugtrap03.gui.cmd;
 
-import java.util.HashSet;
-import java.util.NoSuchElementException;
-
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
@@ -48,7 +44,8 @@ public class DeclareAchievedMilestoneCmd implements Cmd {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
 
-        // 1. The developer indicates that he wants to declare an achieved milestone.
+        // 1. The developer indicates that he wants to declare an achieved
+        // milestone.
         // 2. The system shows a list of projects.
         // 3. The developer selects a project.
         Project proj = new GetProjectCmd().exec(scan, model, user);
@@ -63,13 +60,19 @@ public class DeclareAchievedMilestoneCmd implements Cmd {
             throw new IllegalArgumentException("Cancelled command.");
         }
 
-        // 6. The system shows the currently achieved milestones and asks for a new one.
+        // 6. The system shows the currently achieved milestones and asks for a
+        // new one.
         scan.println("The currently achieved milestone: " + subsys.getMilestone().toString());
-        scan.print("Enter a new milestone: (M1.2.3)");
-        
+        scan.print("Enter a new milestone: (M1.2.3)  ");
+
         // 7. The developer proposes a new achieved milestone.
-        String bugReportMilestone = scan.nextLine();    //TODO 
-        
+        String bugReportMilestone = scan.nextLine(); // TODO
+
+        // 8. The system updates the achieved milestone of the selected
+        // component. If necessary, the system first recursively updates the
+        // achieved milestone of all the subsystems that the component contains.
+
+        // TODO COMPLETE scenario
 
         return proj;
     }
