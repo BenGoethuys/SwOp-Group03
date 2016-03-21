@@ -7,6 +7,7 @@ import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.misc.Tree;
 import com.google.java.contract.Requires;
 import java.util.Enumeration;
+import java.util.Iterator;
 import purecollections.PList;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -247,14 +248,15 @@ public class Comment {
      * @throws ClassCastException When the Tree structure does not contain a Comment object.
      */
     @Requires("top != null")
-    public static String commentsTreeToString(Tree top) throws ClassCastException {
+    public static String commentsTreeToString(Tree<Comment> top) throws ClassCastException {
         StringBuilder str = new StringBuilder();
 
-        Enumeration<DefaultMutableTreeNode> childIt = top.children();
+        
+        Iterator<Tree<Comment>> childIt = top.getSubTree().iterator();
         int count = 1;
-        while (childIt.hasMoreElements()) {
-            DefaultMutableTreeNode node = childIt.nextElement();
-            Comment comment = (Comment) node.getUserObject();
+        while (childIt.hasNext()) {
+            Tree<Comment> node = childIt.next();
+            Comment comment = node.getValue();
             String preString = Integer.toString(count);
 
             str.append("\n \t ");
@@ -277,16 +279,16 @@ public class Comment {
      *
      * @see Comment#commentsTreeToString(javax.swing.tree.DefaultMutableTreeNode)
      */
-    private static void commentsTreeToString(DefaultMutableTreeNode node, StringBuilder str, String preString) {
+    private static void commentsTreeToString(Tree<Comment> node, StringBuilder str, String preString) {
         if (node == null || str == null || preString == null) {
             return;
         }
 
-        Enumeration<DefaultMutableTreeNode> childIt = node.children();
+        Iterator<Tree<Comment>> childIt = node.getSubTree().iterator();
         int count = 1;
-        while (childIt.hasMoreElements()) {
-            DefaultMutableTreeNode subNode = childIt.nextElement();
-            Comment comment = (Comment) node.getUserObject();
+        while (childIt.hasNext()) {
+            Tree<Comment> subNode = childIt.next();
+            Comment comment = node.getValue();
             String subPreString = preString + "." + count;
 
             str.append("\n \t ");
