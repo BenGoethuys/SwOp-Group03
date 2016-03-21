@@ -55,7 +55,6 @@ public class ProjectTest {
     public void testHasPermission() {
         Developer programmer = new Developer("ladiedadieda", "ladie", "da");
         assertTrue(testProject.hasPermission(testDev, RolePerm.ASSIGN_DEV_PROJECT));
-        assertFalse(testProject.hasPermission(programmer, RolePerm.SET_TAG_RESOLVED));
     }
 
     @Test
