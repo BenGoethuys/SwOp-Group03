@@ -1,6 +1,6 @@
 package bugtrap03;
 
-import bugtrap03.bugdomain.BugReport;
+import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.Tag;

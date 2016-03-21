@@ -1,6 +1,6 @@
 package bugtrap03.bugdomain.usersystem.mail;
 
-import bugtrap03.bugdomain.BugReport;
+import bugtrap03.bugdomain.bugreport.BugReport;
 import java.util.ArrayList;
 import java.util.Collection;
 

@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain;
 
+import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
 import org.junit.BeforeClass;
