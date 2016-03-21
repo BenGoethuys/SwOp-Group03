@@ -924,12 +924,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             str.append("\n \t id: ").append(bugrep.getUniqueID()).append(", title: ").append(bugrep.getTitle());
         }
 
-
-
-
-        //FIXME: print new stuff .... score and duplicate ... depending on the state
-        //TODO: add getDetails in states for this?!
-
         return str.toString();
     }
 
