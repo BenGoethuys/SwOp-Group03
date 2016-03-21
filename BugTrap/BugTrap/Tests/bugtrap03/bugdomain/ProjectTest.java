@@ -53,7 +53,6 @@ public class ProjectTest {
 
     @Test
     public void testHasPermission() {
-        Developer programmer = new Developer("ladiedadieda", "ladie", "da");
         assertTrue(testProject.hasPermission(testDev, RolePerm.ASSIGN_DEV_PROJECT));
     }
 
