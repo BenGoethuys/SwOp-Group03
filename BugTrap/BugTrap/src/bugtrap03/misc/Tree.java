@@ -71,21 +71,24 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
 
     /**
      * Returns an iterator over elements of type Tree<T>. This will iterate over all nodes depth-first.
+     *
      * @return an Iterator
      */
     public Iterator<Tree<T>> nodeIterator() {
         return new TreeNodeIterator<>(this);
     }
+
     /**
      *
      * The number of elements in this collection. If this collection contains more than Integer.MAX_VALUE elements,
-     * Integer.MAX_VALUE will be returned. This will count the nodes, including this root.
+     * Integer.MAX_VALUE will be returned. This will count the nodes, including this root if the contained value is not
+     * null or the node has a parent, else this node is excluded from count.
      *
      * @return The number of elements in this tree if the tree contains less than Integer.MAX_VALUE elements.
      */
     @Override
     public int size() {
-        int count = 1;
+        int count = (this.value == null && this.parent == null) ? 0 : 1;
         for (Tree<T> subTree : this.children) {
             int subSize = subTree.size();
             long result = count + subSize;
@@ -132,6 +135,17 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
         }
     }
 
+    /**
+     * Returns an array containing all of the elements in this collection.
+     * <br> If this collection makes any guarantees as to what order its elements are returned by its iterator, this
+     * method must return the elements in the same order. The returned array will be "safe" in that no references to it
+     * are maintained by this collection. (In other words, this method must allocate a new array even if this collection
+     * is backed by an array). The caller is thus free to modify the returned array. This method acts as bridge between
+     * array-based and collection-based APIs.
+     *
+     * @return an array containing all of the elements in this collection
+     * @see Tree#size()
+     */
     @Override
     public Object[] toArray() {
         int length = this.size();
