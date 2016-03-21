@@ -816,10 +816,10 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     public boolean isValidMilestone(Milestone milestone) {
         if (milestone == null) {
-            return true; //It's possible a bugreport has not milestone.
+            return true; //It's possible a bugreport has not a milestone.
         }
         else if (milestone.compareTo(this.getSubsystem().getMilestone()) == 1) {
-                return true;
+                return true;    
             }
             else {
                 return false;
