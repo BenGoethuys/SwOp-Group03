@@ -3,7 +3,6 @@ package bugtrap03.bugdomain.bugreport;
 import bugtrap03.bugdomain.Tag;
 import bugtrap03.bugdomain.usersystem.Developer;
 import com.google.java.contract.Requires;
-import com.oracle.xmlns.internal.webservices.jaxws_databinding.ExistingAnnotationsType;
 import purecollections.PList;
 
 /**
