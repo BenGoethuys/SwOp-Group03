@@ -106,7 +106,7 @@ public class CreateCommentCmdTest {
         // Execute scenario
         Comment createdComment = cmd.exec(scan, model, issuer);
         // Test effects.
-        assertTrue(createdComment.containedIn(bugRep1.getAllComments()));
+        assertTrue(bugRep1.getAllComments().contains(createdComment));
     }
 
     @Test
@@ -207,7 +207,7 @@ public class CreateCommentCmdTest {
         // Execute scenario
         Comment createdComment = cmd.exec(scan, model, issuer);
         // Test effects.        
-        assertTrue(createdComment.containedIn(bugRep1.getAllComments()));
+        assertTrue(bugRep1.getAllComments().contains(createdComment));
     }
 
     /**
