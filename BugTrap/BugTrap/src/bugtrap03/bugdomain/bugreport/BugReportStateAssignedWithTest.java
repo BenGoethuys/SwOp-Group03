@@ -217,7 +217,7 @@ class BugReportStateAssignedWithTest implements BugReportState {
     /**
      * This method check if the current state is a resolved state of a bug report
      *
-     * @return true if the given state is considered resoled for a bug report
+     * @return true if the given state is considered resolved for a bug report
      */
     @Override
     public boolean isResolved() {
