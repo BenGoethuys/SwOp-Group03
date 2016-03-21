@@ -6,11 +6,9 @@ import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.misc.Tree;
 import com.google.java.contract.Requires;
-import java.util.Enumeration;
 import java.util.Iterator;
 import purecollections.PList;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * This is a class representing a comment.
@@ -251,7 +249,6 @@ public class Comment {
     public static String commentsTreeToString(Tree<Comment> top) throws ClassCastException {
         StringBuilder str = new StringBuilder();
 
-        
         Iterator<Tree<Comment>> childIt = top.getSubTree().iterator();
         int count = 1;
         while (childIt.hasNext()) {
@@ -294,7 +291,7 @@ public class Comment {
             str.append("\n \t ");
             str.append(subPreString).append(". ");
             str.append(comment.getText());
-            commentsTreeToString(node, str, subPreString);
+            commentsTreeToString(subNode, str, subPreString);
             count++;
         }
     }
