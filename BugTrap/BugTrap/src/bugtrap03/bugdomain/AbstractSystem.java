@@ -148,13 +148,14 @@ public abstract class AbstractSystem extends Subject {
         return false;
     }
 
-    /*
-     * If a project or subsystem has a bug report that is not NotABug, Duplicate
-     * or Closed and this bug report has a target milestone that is less than or
-     * equal to the newly proposed achieved milestone for the project or
-     * subsystem, the increment is rejected.
+    /**
+     * This method check if the given Milestone is a valid update for a
+     * Milestone of an AbstractSystem
+     * 
+     * @param milestone The Milestone to update
+     * @return True if the given Milestone is updated. False if the given
+     *         Milestone is not a valid Milestone.
      */
-
     public boolean canUpdateMilestone(Milestone milestone) {
         for (BugReport bugreport : this.getAllBugReports()) {
             if (!bugreport.isResolved()) {
@@ -163,7 +164,7 @@ public abstract class AbstractSystem extends Subject {
                 }
             }
         }
-
+        this.milestone = milestone;
         return true;
     }
 
