@@ -185,6 +185,30 @@ public class Subsystem extends AbstractSystem {
     }
 
     /**
+     * This method creates and adds a bug report to the list of associated
+     * bugReports of this subsystem
+     *
+     * @param creator The issuer that wants to create the bug report
+     * @param title The title of this bugReport
+     * @param description The description of this bug report
+     * @param dependencies The dependencies of the bug report
+     * @param milestone    The milestone of the bug report
+     * @param isPrivate    The boolean that says if this bug report should be private or not
+     * @return the created bug report
+     * @throws IllegalArgumentException If BugReport(creator, title,
+     *             description, dependencies, this) fails
+     * @throws PermissionException If the creation of a BugReport fails.
+     * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
+     *      String, PList, Subsystem)
+     */
+    public BugReport addBugReport(User creator, String title, String description, GregorianCalendar creationDate,
+                                  PList<BugReport> dependencies, Milestone milestone, boolean isPrivate) throws IllegalArgumentException, PermissionException {
+        BugReport bugReport = new BugReport(creator, title, description, creationDate, dependencies, this);
+        this.bugReportList = this.getBugReportList().plus(bugReport);
+        return bugReport;
+    }
+
+    /**
      * Returns a copy of the current subsystem, using the same versionID, name,
      * description and parent, but with a removal of the bug reports addressed
      * to this subsystem.
@@ -203,6 +227,8 @@ public class Subsystem extends AbstractSystem {
         }
         return clone;
     }
+
+    //TODO constructor with additional info
 
     /**
      * this method implements the abstract method from abstract system to return
