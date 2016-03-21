@@ -130,10 +130,40 @@ public abstract class AbstractSystem extends Subject {
      * @param milestone the Milestone to check
      * @return true if the given Milestone is valid for an AbstractSystem.
      */
-    public static boolean isValidMilestone(Milestone milestone) {
+    public boolean isValidMilestone(Milestone milestone) {
         if (milestone == null) {
             return false;
         }
+
+        Milestone high = new Milestone(0, 0, 0);
+        for (Subsystem subs : this.getAllSubsystems()) {
+            if (subs.getMilestone().compareTo(high) == 1) {
+                high = subs.getMilestone();
+            }
+        }
+
+        if (milestone.compareTo(high) <= 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /*
+     * If a project or subsystem has a bug report that is not NotABug, Duplicate
+     * or Closed and this bug report has a target milestone that is less than or
+     * equal to the newly proposed achieved milestone for the project or
+     * subsystem, the increment is rejected.
+     */
+
+    public boolean canUpdateMilestone(Milestone milestone) {
+        for (BugReport bugreport : this.getAllBugReports()) {
+            if (!bugreport.isResolved()) {
+                if (bugreport.getMilestone().compareTo(milestone) <= 0) {
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 
