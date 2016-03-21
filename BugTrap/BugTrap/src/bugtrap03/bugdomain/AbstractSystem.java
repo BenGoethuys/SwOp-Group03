@@ -130,10 +130,41 @@ public abstract class AbstractSystem extends Subject {
      * @param milestone the Milestone to check
      * @return true if the given Milestone is valid for an AbstractSystem.
      */
-    public static boolean isValidMilestone(Milestone milestone) {
+    public boolean isValidMilestone(Milestone milestone) {
         if (milestone == null) {
             return false;
         }
+
+        Milestone high = new Milestone(0, 0, 0);
+        for (Subsystem subs : this.getAllSubsystems()) {
+            if (subs.getMilestone().compareTo(high) == 1) {
+                high = subs.getMilestone();
+            }
+        }
+
+        if (milestone.compareTo(high) <= 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * This method check if the given Milestone is a valid update for a
+     * Milestone of an AbstractSystem
+     * 
+     * @param milestone The Milestone to update
+     * @return True if the given Milestone is updated. False if the given
+     *         Milestone is not a valid Milestone.
+     */
+    public boolean canUpdateMilestone(Milestone milestone) {
+        for (BugReport bugreport : this.getAllBugReports()) {
+            if (!bugreport.isResolved()) {
+                if (bugreport.getMilestone().compareTo(milestone) <= 0) {
+                    return false;
+                }
+            }
+        }
+        this.milestone = milestone;
         return true;
     }
 
