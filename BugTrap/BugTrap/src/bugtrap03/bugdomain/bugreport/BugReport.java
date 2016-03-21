@@ -722,13 +722,16 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      *
      * @return true if the given Milestone is valid for a bug report.
      */
-    public static boolean isValidMilestone(Milestone milestone) {
-        //TODO zie opdracht voor valid milestone bij een bugreport
-        //TODO allow null value?
+    public boolean isValidMilestone(Milestone milestone) {
         if (milestone == null) {
-            return false;
+            return true; //It's possible a bugreport has not milestone.
         }
-        return true;
+        else if (milestone.compareTo(this.getSubsystem().getMilestone()) == 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
     }
 
     /**
