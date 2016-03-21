@@ -56,7 +56,7 @@ public class BugReportTest {
         subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project);
 
         id1 = BugReport.getNewUniqueID();
-        bugReport1 = new BugReport(issuer, id1, "NastyBug", "bla bla", date, depList, subsystem);
+        bugReport1 = new BugReport(issuer, "NastyBug", "bla bla", date, depList, subsystem);
         id2 = BugReport.getNewUniqueID();
         bugReport2 = new BugReport(issuer, "FoundBug", "", depList, subsystem);
     }
@@ -94,7 +94,7 @@ public class BugReportTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testInValidUniqueId() throws PermissionException {
-        new BugReport(issuer, 0, "NastyBug", "bla bla", date, depList, subsystem);
+        new BugReport(issuer, "NastyBug", "bla bla", date, depList, subsystem, null, true);
     }
 
     @Test
@@ -170,7 +170,7 @@ public class BugReportTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testBugReportInvalidCreationDate2() throws IllegalArgumentException, PermissionException {
-        new BugReport(issuer, BugReport.getNewUniqueID(), "bla", "hihi", null, depList, subsystem);
+        new BugReport(issuer, "bla", "hihi", null, depList, subsystem);
     }
 
     @Test
@@ -196,11 +196,6 @@ public class BugReportTest {
         tempBugReport.setTag(Tag.RESOLVED, issuer);
         assertTrue(tempBugReport.getTag() == Tag.RESOLVED);
         tempBugReport.setTag(Tag.CLOSED, lead);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testBugReportInvalidTag() throws IllegalArgumentException, PermissionException {
-        new BugReport(issuer, BugReport.getNewUniqueID(), "bla", "boo", date, null, depList, subsystem);
     }
 
     @Test(expected = PermissionException.class)
@@ -325,7 +320,7 @@ public class BugReportTest {
     public void testGetAllComments() throws IllegalArgumentException, PermissionException {
         BugReport tempBugReport = new BugReport(issuer, "bla", "hihi", depList, subsystem);
         assertTrue(tempBugReport.getCommentList().isEmpty());
-        assertTrue(tempBugReport.getAllComments().isEmpty());
+        assertTrue(tempBugReport.getAllComments()..isEmpty());
 
         Comment comment = new Comment(issuer, "bla bla");
         tempBugReport.addComment(comment);
@@ -418,17 +413,6 @@ public class BugReportTest {
 
         tempBugReport.addUser(dev);
         assertTrue(tempBugReport.getUserList().contains(dev));
-    }
-
-    @Test
-    public void testIsValidUserList() {
-        PList<Developer> validListEmpty = PList.<Developer>empty();
-        PList<Developer> validList = validListEmpty.plus(dev);
-        PList<Developer> nullPointer = null;
-
-        assertTrue(BugReport.isValidUserList(validListEmpty));
-        assertTrue(BugReport.isValidUserList(validList));
-        assertFalse(BugReport.isValidUserList(nullPointer));
     }
 
     @Test
@@ -548,7 +532,7 @@ public class BugReportTest {
         // For bugRep with empty depList
         long id = BugReport.getNewUniqueID();
         GregorianCalendar cal = new GregorianCalendar();
-        BugReport bugRep = new BugReport(issuer, id, "This is a good title", "This is a good description", cal, depList, subsystem);
+        BugReport bugRep = new BugReport(issuer, id, "This is a good title", "This is a good description", cal, depList, subsystem, null, false);
 
         // expected response :
         String response = "Bug report id: " + id;
@@ -566,7 +550,7 @@ public class BugReportTest {
         // For bugRep with non empty depList
         long id2 = BugReport.getNewUniqueID();
         PList<BugReport> depList = PList.<BugReport>empty().plus(bugRep);
-        BugReport bugRep2 = new BugReport(issuer, id2, "This is a better title", "This is a better description", cal, depList, subsystem);
+        BugReport bugRep2 = new BugReport(issuer, id2, "This is a better title", "This is a better description", cal, depList, subsystem, null, false);
 
         // new response:
         response = "Bug report id: " + id2;
