@@ -3,7 +3,6 @@ package bugtrap03.bugdomain.bugreport;
 import bugtrap03.bugdomain.Tag;
 import bugtrap03.bugdomain.usersystem.Developer;
 import com.google.java.contract.Requires;
-import com.oracle.xmlns.internal.webservices.jaxws_databinding.ExistingAnnotationsType;
 import purecollections.PList;
 
 /**
@@ -212,7 +211,7 @@ class BugReportStateAssigned implements BugReportState {
     /**
      * This method check if the current state is a resolved state of a bug report
      *
-     * @return true if the given state is considered resoled for a bug report
+     * @return true if the given state is considered resolved for a bug report
      */
     @Override
     public boolean isResolved() {

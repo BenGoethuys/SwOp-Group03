@@ -54,6 +54,7 @@ public class CmdParser {
         cmdList.add(new SimpleEntry<>("assigntobugreport", new AssignToBugReportCmd()));
         cmdList.add(new SimpleEntry<>("assigntoproject", new AssignToProjectCmd()));
         cmdList.add(new SimpleEntry<>("updatebugreport", new UpdateBugReportCmd()));
+        cmdList.add(new SimpleEntry<>("declaremilestone", new DeclareAchievedMilestoneCmd()));
 
         cmdMap = new HashMap<>();
         for (int i = 0; i < cmdList.size(); i++) {
@@ -62,7 +63,7 @@ public class CmdParser {
         }
 
         cmdListExtra = new ArrayList<>();
-        //Custom abbreviations.
+        // Custom abbreviations.
         cmdListExtra.add(new SimpleEntry<>("createproj", new CreateProjectCmd()));
         cmdListExtra.add(new SimpleEntry<>("updateproj", new UpdateProjectCmd()));
         cmdListExtra.add(new SimpleEntry<>("deleteproj", new DeleteProjectCmd()));
@@ -79,6 +80,7 @@ public class CmdParser {
         cmdListExtra.add(new SimpleEntry<>("assigntobugrep", new AssignToBugReportCmd()));
         cmdListExtra.add(new SimpleEntry<>("assigntoproj", new AssignToProjectCmd()));
         cmdListExtra.add(new SimpleEntry<>("updatebugrep", new UpdateBugReportCmd()));
+        cmdListExtra.add(new SimpleEntry<>("declarems", new DeclareAchievedMilestoneCmd()));
 
         for (int i = 0; i < cmdListExtra.size(); i++) {
             cmdMap.put(cmdListExtra.get(i).getKey(), cmdListExtra.get(i).getValue());
@@ -92,7 +94,8 @@ public class CmdParser {
      *
      * @param command The string that would initiate a certain command.
      */
-    public void performCmd(TerminalScanner scan, DataModel model, User user, String command) throws CancelException, PermissionException {
+    public void performCmd(TerminalScanner scan, DataModel model, User user, String command)
+            throws CancelException, PermissionException {
         if (command == null) {
             new InvalidCmd().exec(scan, model, user);
         }
