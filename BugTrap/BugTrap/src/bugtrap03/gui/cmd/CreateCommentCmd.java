@@ -6,10 +6,12 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
+import bugtrap03.misc.Tree;
 import bugtrap03.model.DataModel;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -55,13 +57,7 @@ public class CreateCommentCmd implements Cmd {
 
         // 3. The system shows a list of all comments of the selected bugreport.
         // 4. The issuer indicates if he wants to comment directly on the bug report or on some other comment.
-        Enumeration<DefaultMutableTreeNode> commentsEnum = bugRep.getAllComments().depthFirstEnumeration();
-        ArrayList<Comment> list = new ArrayList<>();
-        
-        while(commentsEnum.hasMoreElements()) {
-            Comment com  = (Comment) commentsEnum.nextElement().getUserObject();
-            list.add(com);
-        }
+        ArrayList<Comment> list = new ArrayList<>(bugRep.getAllComments());
 
         scan.println("Please select a comment: ");
         scan.println("Available comments:");
