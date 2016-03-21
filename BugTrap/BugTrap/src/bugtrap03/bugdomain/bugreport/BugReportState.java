@@ -162,4 +162,6 @@ interface BugReportState {
      */
     boolean isResolved();
 
+    String getDetails();
+
 }
