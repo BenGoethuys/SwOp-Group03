@@ -107,17 +107,7 @@ public class CreateCommentCmdTest {
         // Execute scenario
         Comment createdComment = cmd.exec(scan, model, issuer);
         // Test effects.
-        
-        boolean containsComment = false;
-        Enumeration<DefaultMutableTreeNode> commentEnum = bugRep1.getAllComments().breadthFirstEnumeration();
-        while(!containsComment && commentEnum.hasMoreElements()) {
-            Comment comm = (Comment) commentEnum.nextElement().getUserObject();
-            if(comm.equals(createdComment)) {
-                containsComment = true;
-            }
-        }
-        
-        assertTrue(containsComment);
+        assertTrue(createdComment.containedIn(bugRep1.getAllComments()));
     }
 
     @Test
@@ -217,17 +207,8 @@ public class CreateCommentCmdTest {
 
         // Execute scenario
         Comment createdComment = cmd.exec(scan, model, issuer);
-        // Test effects.
-        boolean containsComment = false;
-        Enumeration<DefaultMutableTreeNode> commentEnum = bugRep1.getAllComments().breadthFirstEnumeration();
-        while(!containsComment && commentEnum.hasMoreElements()) {
-            Comment comm = (Comment) commentEnum.nextElement().getUserObject();
-            if(comm.equals(createdComment)) {
-                containsComment = true;
-            }
-        }
-        
-        assertTrue(containsComment);
+        // Test effects.        
+        assertTrue(createdComment.containedIn(bugRep1.getAllComments()));
     }
 
     /**
