@@ -3,6 +3,7 @@ package bugtrap03.bugdomain;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
+import bugtrap03.misc.Tree;
 import com.google.java.contract.Requires;
 import java.util.Enumeration;
 import purecollections.PList;
@@ -133,16 +134,27 @@ public class Comment {
     /**
      * This method returns all comments in this comment (deep search) including this comment.
      *
-     * @return all the comments in this comment
+     * @param tree The {@link Tree} to add these comments onto. When null a new Tree will be used.
+     * @return The tree containing all the comments of this comment.
+     * 
+     * @see Tree#Tree() 
+     * @see Tree#addTree(java.lang.Object) 
      */
     @DomainAPI
-    public DefaultMutableTreeNode getAllComments() {
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
-
-        for (Comment comment : this.getSubComments()) {
-            node.add(comment.getAllComments());
+    public Tree<Comment> getAllComments(Tree<Comment> tree) {
+        if(tree == null) {
+            tree = new Tree();
         }
-        return node;
+
+        //Add ourself to the tree.
+        Tree<Comment> thisNode = tree.addTree(this);
+        
+        //Let subComments add themselves.
+        for (Comment comment : this.getSubComments()) {
+            comment.getAllComments(thisNode);
+        }
+        
+        return tree;
     }
 
     /**
