@@ -176,6 +176,43 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      *
      * <br><dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
      * <br><dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
+     * <br><dt><b>Postconditions:</b><dd> new.getMileStone() == null
+     *
+     * @see BugReport#isValidCreator(User)
+     * @see BugReport#isValidTitle(String)
+     * @see BugReport#isValidDescription(String)
+     * @see BugReport#isValidDependencies(PList)
+     * @see BugReport#isValidSubsystem(Subsystem)
+     * @see BugReport#getNewUniqueID()
+     */
+    @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
+    public BugReport(User creator, String title, String description, PList<BugReport> dependencies,
+                     Subsystem subsystem, boolean isPrivate) throws IllegalArgumentException, PermissionException {
+        this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(),
+                dependencies, subsystem, null, isPrivate);
+    }
+
+    /**
+     * Constructor for creating a bug report with default tag "New" and the current time as creationDate
+     *
+     * @param creator      The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
+     * @param dependencies The depended bug reports of this bug report
+     * @param subsystem    The subsystem this bug report belongs to
+     *
+     * @throws IllegalArgumentException if isValidCreator(creator) fails
+     * @throws IllegalArgumentException if isValidTitle(title) fails
+     * @throws IllegalArgumentException if isValidDescription(description) fails
+     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
+     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
+     *
+     * <br><dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
+     * <br><dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
+     * <br><dt><b>Postconditions:</b><dd> new.getMileStone() == null
+     * <br><dt><b>Postconditions:</b><dd> new.getPrivate() == false
      *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidTitle(String)
@@ -187,9 +224,9 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     public BugReport(User creator, String title, String description, PList<BugReport> dependencies,
-                     Subsystem subsystem, boolean isPrivate) throws IllegalArgumentException, PermissionException {
+                     Subsystem subsystem) throws IllegalArgumentException, PermissionException {
         this(creator, BugReport.getNewUniqueID(), title, description, new GregorianCalendar(),
-                dependencies, subsystem, null, isPrivate);
+                dependencies, subsystem, null, false);
     }
 
     //TODO constructor with null milestone or auto milestone?
@@ -452,7 +489,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
-     * This method returns all comments in this bug report (deep search) 
+     * This method returns all comments in this bug report (deep search)
      * The top TreeNode will carry a null value.
      *
      * @return all the comments in this bug report
