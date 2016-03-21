@@ -1,5 +1,9 @@
 package bugtrap03.gui.cmd;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 831fe0d1b65ef9b2a3f61e8fcb618c17da97d456
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.permission.PermissionException;

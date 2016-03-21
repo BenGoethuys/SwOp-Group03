@@ -1,5 +1,6 @@
-package bugtrap03.bugdomain;
+package bugtrap03.bugdomain.bugreport;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;

@@ -1,10 +1,8 @@
 package bugtrap03.bugdomain.bugreport;
 
-import bugtrap03.bugdomain.Comment;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.Tag;
-import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -56,7 +54,7 @@ public class BugReportTest {
         subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project);
 
         id1 = BugReport.getNewUniqueID();
-        bugReport1 = new BugReport(issuer, id1, "NastyBug", "bla bla", date, depList, subsystem, null, false);
+        bugReport1 = new BugReport(issuer, "NastyBug", "bla bla", date, depList, subsystem);
         id2 = BugReport.getNewUniqueID();
         bugReport2 = new BugReport(issuer, "FoundBug", "", depList, subsystem);
     }
@@ -94,7 +92,7 @@ public class BugReportTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testInValidUniqueId() throws PermissionException {
-        new BugReport(issuer, 0, "NastyBug", "bla bla", date, depList, subsystem, null, false);
+        new BugReport(issuer, "NastyBug", "bla bla", date, depList, subsystem, null, true);
     }
 
     @Test
@@ -170,7 +168,7 @@ public class BugReportTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testBugReportInvalidCreationDate2() throws IllegalArgumentException, PermissionException {
-        new BugReport(issuer, BugReport.getNewUniqueID(), "bla", "hihi", null, depList, subsystem, null, false);
+        new BugReport(issuer, "bla", "hihi", null, depList, subsystem);
     }
 
     @Test
@@ -196,11 +194,6 @@ public class BugReportTest {
         tempBugReport.setTag(Tag.RESOLVED, issuer);
         assertTrue(tempBugReport.getTag() == Tag.RESOLVED);
         tempBugReport.setTag(Tag.CLOSED, lead);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testBugReportInvalidTag() throws IllegalArgumentException, PermissionException {
-        new BugReport(issuer, BugReport.getNewUniqueID(), "bla", "boo", date, null, depList, subsystem);
     }
 
     @Test(expected = PermissionException.class)
@@ -325,7 +318,7 @@ public class BugReportTest {
     public void testGetAllComments() throws IllegalArgumentException, PermissionException {
         BugReport tempBugReport = new BugReport(issuer, "bla", "hihi", depList, subsystem);
         assertTrue(tempBugReport.getCommentList().isEmpty());
-        assertTrue(tempBugReport.getAllComments().isEmpty());
+        assertTrue(tempBugReport.getAllComments()..isEmpty());
 
         Comment comment = new Comment(issuer, "bla bla");
         tempBugReport.addComment(comment);
@@ -418,17 +411,6 @@ public class BugReportTest {
 
         tempBugReport.addUser(dev);
         assertTrue(tempBugReport.getUserList().contains(dev));
-    }
-
-    @Test
-    public void testIsValidUserList() {
-        PList<Developer> validListEmpty = PList.<Developer>empty();
-        PList<Developer> validList = validListEmpty.plus(dev);
-        PList<Developer> nullPointer = null;
-
-        assertTrue(BugReport.isValidUserList(validListEmpty));
-        assertTrue(BugReport.isValidUserList(validList));
-        assertFalse(BugReport.isValidUserList(nullPointer));
     }
 
     @Test

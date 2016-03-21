@@ -1,8 +1,9 @@
 /**
  *
  */
-package bugtrap03.bugdomain;
+package bugtrap03.bugdomain.bugreport;
 
+import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Issuer;
@@ -68,7 +69,7 @@ public class CommentTest {
     }
 
     /**
-     * Test method for {@link bugtrap03.bugdomain.Comment#getCreator()}.
+     * Test method for {@link Comment#getCreator()}.
      */
     @Test
     public void testGetCreator() {
@@ -87,7 +88,7 @@ public class CommentTest {
     }
 
     /**
-     * Test method for {@link bugtrap03.bugdomain.Comment#getText()}.
+     * Test method for {@link Comment#getText()}.
      */
     @Test
     public void testGetText() {
@@ -96,7 +97,7 @@ public class CommentTest {
 
     /**
      * Test method for
-     * {@link bugtrap03.bugdomain.Comment#isValidText(java.lang.String)}.
+     * {@link Comment#isValidText(java.lang.String)}.
      */
     @Test
     public void testIsValidText() {
@@ -105,7 +106,7 @@ public class CommentTest {
     }
 
     /**
-     * Test method for {@link bugtrap03.bugdomain.Comment#getSubComments()}.
+     * Test method for {@link Comment#getSubComments()}.
      */
     @Test
     public void testGetSubComments() throws PermissionException {
@@ -138,7 +139,7 @@ public class CommentTest {
 
     /**
      * Test method for
-     * {@link bugtrap03.bugdomain.Comment#isValidSubComments(purecollections.PList)}
+     * {@link Comment#isValidSubComments(purecollections.PList)}
      * .
      */
     @Test
@@ -157,7 +158,7 @@ public class CommentTest {
 
     /**
      * Test method for
-     * {@link bugtrap03.bugdomain.Comment#addSubComment(bugtrap03.bugdomain.Comment)}
+     * {@link Comment#addSubComment(Comment)}
      * .
      */
     @Test
@@ -201,7 +202,7 @@ public class CommentTest {
 
     /**
      * Test method for
-     * {@link bugtrap03.bugdomain.Comment#isValidSubComment(bugtrap03.bugdomain.Comment)}
+     * {@link Comment#isValidSubComment(Comment)}
      * .
      */
     @Test
