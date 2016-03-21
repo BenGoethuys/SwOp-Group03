@@ -976,14 +976,16 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     /**
      * This method returns all the tests associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any tests
-     *
      * @return  The list of tests associated with this bug report
      */
     @DomainAPI
-    PList<String> getTests() throws IllegalStateException{
-        //TODO return dummy instead of throwing?
-        return this.getInternState().getTests();
+    PList<String> getTests() {
+        try {
+            return this.getInternState().getTests();
+        } catch (IllegalStateException e){
+            // where no tests -> return empty PList
+            return PList.<String>empty();
+        }
     }
 
     /**
@@ -1022,14 +1024,16 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     /**
      * This method returns the patches associated with this bug report
      *
-     * @throws IllegalStateException    If the current state of the bug report doesn't have any patches
-     *
      * @return  A list of patches associated with this bug report
      */
     @DomainAPI
-    public PList<String> getPatches() throws IllegalStateException {
-        //TODO return dummy instead of throwing?
-        return this.getInternState().getPatches();
+    public PList<String> getPatches() {
+        try {
+            return this.getInternState().getPatches();
+        } catch (IllegalStateException e){
+            // where no patches -> return empty PList
+            return PList.<String>empty();
+        }
     }
 
     /**
@@ -1071,7 +1075,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @DomainAPI
     public String getSelectedPatch() throws IllegalStateException {
-        //TODO return dummy instead of throwing?
         return this.getInternState().getSelectedPatch();
     }
 
@@ -1100,7 +1103,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @DomainAPI
     public int getScore() throws IllegalStateException {
-        //TODO return dummy instead of throwing?
         return this.getInternState().getScore();
     }
 
@@ -1135,7 +1137,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @DomainAPI
     public BugReport getDuplicate() throws IllegalStateException{
-        //TODO return dummy instead of throwing?
         return this.getInternState().getDuplicate();
     }
 
