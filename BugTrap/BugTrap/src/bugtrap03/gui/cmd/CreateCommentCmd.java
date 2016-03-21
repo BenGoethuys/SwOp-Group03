@@ -55,11 +55,11 @@ public class CreateCommentCmd implements Cmd {
 
         // 3. The system shows a list of all comments of the selected bugreport.
         // 4. The issuer indicates if he wants to comment directly on the bug report or on some other comment.
-        Enumeration commentsEnum = bugRep.getAllComments().depthFirstEnumeration();
+        Enumeration<DefaultMutableTreeNode> commentsEnum = bugRep.getAllComments().depthFirstEnumeration();
         ArrayList<Comment> list = new ArrayList<>();
         
         while(commentsEnum.hasMoreElements()) {
-            Comment com  = (Comment) ((DefaultMutableTreeNode) commentsEnum.nextElement()).getUserObject();
+            Comment com  = (Comment) commentsEnum.nextElement().getUserObject();
             list.add(com);
         }
 

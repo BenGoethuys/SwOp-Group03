@@ -14,6 +14,8 @@ import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
 import java.util.ArrayDeque;
+import java.util.Enumeration;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import static org.junit.Assert.assertTrue;
 
@@ -105,7 +107,7 @@ public class CreateCommentCmdTest {
         // Execute scenario
         Comment createdComment = cmd.exec(scan, model, issuer);
         // Test effects.
-        assertTrue(bugRep1.getAllComments().contains(createdComment));
+        assertTrue(createdComment.containedIn(bugRep1.getAllComments()));
     }
 
     @Test
@@ -205,8 +207,8 @@ public class CreateCommentCmdTest {
 
         // Execute scenario
         Comment createdComment = cmd.exec(scan, model, issuer);
-        // Test effects.
-        assertTrue(bugRep1.getAllComments().contains(createdComment));
+        // Test effects.        
+        assertTrue(createdComment.containedIn(bugRep1.getAllComments()));
     }
 
     /**

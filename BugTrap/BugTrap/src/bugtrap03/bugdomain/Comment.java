@@ -283,4 +283,26 @@ public class Comment {
             count++;
         }
     }
+
+    /**
+     * Check if the passed TreeNode contains this Comment.
+     * @param node The TreeNode to check in.
+     * @return True if this comment is equal to an element in the node (deep search).
+     */
+    @DomainAPI
+    public boolean containedIn(DefaultMutableTreeNode node) {
+        if (node == null) {
+            return false;
+        }
+        Enumeration<DefaultMutableTreeNode> commentEnum = node.breadthFirstEnumeration();
+        
+        while(commentEnum.hasMoreElements()) {
+            Comment com = (Comment) commentEnum.nextElement().getUserObject();
+            if(this == com) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }

@@ -87,9 +87,7 @@ public class SubsystemTest {
 
     @Test
     public void testHasPermission() {
-        Developer programmer = new Developer("ladiedadieda2", "ladie2", "da2");
         assertTrue(subSysTest.hasPermission(testDev, RolePerm.ASSIGN_DEV_PROJECT));
-        assertFalse(subSysTest.hasPermission(programmer, RolePerm.SET_TAG_RESOLVED));
     }
 
     @Test
