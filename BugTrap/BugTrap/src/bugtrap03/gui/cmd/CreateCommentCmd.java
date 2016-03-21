@@ -1,7 +1,7 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.Comment;
+import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
