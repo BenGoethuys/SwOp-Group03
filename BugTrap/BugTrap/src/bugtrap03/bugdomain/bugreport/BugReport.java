@@ -911,16 +911,18 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         str.append("\n title: ").append(this.getTitle());
         str.append("\n description: ").append(this.getDescription());
         str.append("\n creation date: ").append(this.getCreationDate().getTime());
-        str.append("\n tag: ").append(this.getTag().name());
+        str.append("\n is private: ").append(this.isPrivate());
+        str.append("\n target milestone: ").append(this.getMilestone().toString());
+        str.append("\n subsystem: ").append(this.getSubsystem().getName());
+        // add state specific stuff:
+        str.append(this.getInternState().getDetails());
+
+        // print list of comments and deps
         str.append("\n comments: ").append(Comment.commentsTreeToString(comments));
         str.append("\n dependencies: ");
         for (BugReport bugrep : this.getDependencies()) {
             str.append("\n \t id: ").append(bugrep.getUniqueID()).append(", title: ").append(bugrep.getTitle());
         }
-        str.append("\n subsystem: ").append(this.getSubsystem().getName());
-
-        //FIXME: print new stuff .... score and duplicate ... depending on the state
-        //TODO: add getDetails in states for this?!
 
         return str.toString();
     }
@@ -976,14 +978,16 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     /**
      * This method returns all the tests associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any tests
-     *
      * @return  The list of tests associated with this bug report
      */
     @DomainAPI
-    PList<String> getTests() throws IllegalStateException{
-        //TODO return dummy instead of throwing?
-        return this.getInternState().getTests();
+    PList<String> getTests() {
+        try {
+            return this.getInternState().getTests();
+        } catch (IllegalStateException e){
+            // where no tests -> return empty PList
+            return PList.<String>empty();
+        }
     }
 
     /**
@@ -1022,14 +1026,16 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     /**
      * This method returns the patches associated with this bug report
      *
-     * @throws IllegalStateException    If the current state of the bug report doesn't have any patches
-     *
      * @return  A list of patches associated with this bug report
      */
     @DomainAPI
-    public PList<String> getPatches() throws IllegalStateException {
-        //TODO return dummy instead of throwing?
-        return this.getInternState().getPatches();
+    public PList<String> getPatches() {
+        try {
+            return this.getInternState().getPatches();
+        } catch (IllegalStateException e){
+            // where no patches -> return empty PList
+            return PList.<String>empty();
+        }
     }
 
     /**
@@ -1071,7 +1077,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @DomainAPI
     public String getSelectedPatch() throws IllegalStateException {
-        //TODO return dummy instead of throwing?
         return this.getInternState().getSelectedPatch();
     }
 
@@ -1100,7 +1105,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @DomainAPI
     public int getScore() throws IllegalStateException {
-        //TODO return dummy instead of throwing?
         return this.getInternState().getScore();
     }
 
@@ -1135,7 +1139,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @DomainAPI
     public BugReport getDuplicate() throws IllegalStateException{
-        //TODO return dummy instead of throwing?
         return this.getInternState().getDuplicate();
     }
 

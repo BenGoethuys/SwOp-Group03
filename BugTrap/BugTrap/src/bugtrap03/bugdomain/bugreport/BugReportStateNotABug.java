@@ -206,4 +206,16 @@ class BugReportStateNotABug implements BugReportState {
     public boolean isResolved() {
         return true;
     }
+
+    /**
+     * This method returns state specific information
+     *
+     * @return The details of this state as a String
+     */
+    @Override
+    public String getDetails() {
+        StringBuilder str = new StringBuilder();
+        str.append("\n tag: ").append(this.getTag().name());
+        return str.toString();
+    }
 }

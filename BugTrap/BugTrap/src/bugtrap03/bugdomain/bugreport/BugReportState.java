@@ -162,4 +162,11 @@ interface BugReportState {
      */
     boolean isResolved();
 
+    /**
+     * This method returns state specific information
+     *
+     * @return The details of this state as a String
+     */
+    String getDetails();
+
 }

@@ -209,9 +209,20 @@ class BugReportStateDuplicate implements BugReportState {
     @Override
     public boolean isResolved() {
         // is true because deps are resolved
-        //TODO must duplicate be one of the deps?
-        //TODO or return status of duplicate
         return true;
+    }
+
+    /**
+     * This method returns state specific information
+     *
+     * @return The details of this state as a String
+     */
+    @Override
+    public String getDetails() {
+        StringBuilder str = new StringBuilder();
+        str.append("\n tag: ").append(this.getTag().name());
+        str.append("\n is duplicate of: ").append(this.getDuplicate().getUniqueID());
+        return str.toString();
     }
 
 }
