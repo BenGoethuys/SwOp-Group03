@@ -911,13 +911,21 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         str.append("\n title: ").append(this.getTitle());
         str.append("\n description: ").append(this.getDescription());
         str.append("\n creation date: ").append(this.getCreationDate().getTime());
+        str.append("\n is private: ").append(this.isPrivate());
         str.append("\n tag: ").append(this.getTag().name());
+        str.append("\n target milestone: ").append(this.getMilestone().toString());
+        str.append("\n subsystem: ").append(this.getSubsystem().getName());
+
+        // print list of comments and deps
         str.append("\n comments: ").append(Comment.commentsTreeToString(comments));
         str.append("\n dependencies: ");
         for (BugReport bugrep : this.getDependencies()) {
             str.append("\n \t id: ").append(bugrep.getUniqueID()).append(", title: ").append(bugrep.getTitle());
         }
-        str.append("\n subsystem: ").append(this.getSubsystem().getName());
+
+        // add state specific stuff:
+        str.append(this.getInternState().getDetails());
+
 
         //FIXME: print new stuff .... score and duplicate ... depending on the state
         //TODO: add getDetails in states for this?!
