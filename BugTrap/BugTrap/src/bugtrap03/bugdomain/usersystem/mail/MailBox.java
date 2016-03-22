@@ -22,7 +22,7 @@ public class MailBox<U extends Subject> implements Observer<U> {
     }
 
     /* List of other MailBox, sources of Notifications. */
-    List<MailBox<? extends U>> otherSources;
+    private List<MailBox<? extends U>> otherSources;
 
     /**
      * Adds the given MailBox as an extra source of 'information' for this MailBox.
@@ -51,9 +51,8 @@ public class MailBox<U extends Subject> implements Observer<U> {
         This one will most likely mainly remain empty as it will never subscribe to any Subjects
         and only contains a few sources (mailboxs) that will each observe a list of certain
         Subject types and when this MailBox wants the notifcations it has to merge sort (using Date) all notifications
-        of all sub Mailboxs. 
+        of all sub Mailboxs.
         */
-        
     }
-
+   
 }
