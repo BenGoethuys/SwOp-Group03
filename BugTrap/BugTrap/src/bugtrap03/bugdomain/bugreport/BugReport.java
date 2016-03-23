@@ -14,7 +14,6 @@ import purecollections.PList;
 
 import java.util.GregorianCalendar;
 import java.util.HashSet;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * This class represents a bug report
@@ -530,11 +529,13 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * This method returns all comments in this bug report (deep search)
      * The top TreeNode will carry a null value.
      *
+     * This tree is mutable, but changes on the tree will not affect the state of the system!
+     *
      * @return all the comments in this bug report
      */
     @DomainAPI
     public Tree<Comment> getAllComments() {
-        Tree<Comment> root = new Tree();
+        Tree<Comment> root = new Tree<>();
         
         //Let subComments add themselves.
         for(Comment comment : this.getCommentList()) {
