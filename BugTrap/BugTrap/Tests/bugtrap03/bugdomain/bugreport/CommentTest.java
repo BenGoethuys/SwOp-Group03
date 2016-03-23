@@ -3,7 +3,6 @@
  */
 package bugtrap03.bugdomain.bugreport;
 
-import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Issuer;
@@ -123,18 +122,18 @@ public class CommentTest {
     public void testGetAllComments() throws PermissionException {
         Comment comment = new Comment(issuer, "bla bla");
         assertTrue(comment.getSubComments().isEmpty());
-        assertTrue(comment.containedIn(comment.getAllComments()));
-        assertEquals(0, comment.getAllComments().getChildCount());
+        assertTrue(comment.getAllComments(null).contains(comment));
+        assertEquals(0, comment.getAllComments(null).size());
 
         Comment comment2 = new Comment(issuer, "hihi");
         comment.addSubComment(comment2);
         assertTrue(comment.getSubComments().contains(comment2));
-        assertTrue(comment2.containedIn(comment.getAllComments()));
+        assertTrue(comment.getAllComments(null).contains(comment2));
 
         Comment comment3 = new Comment(issuer, "hoho");
         comment2.addSubComment(comment3);
         assertFalse(comment.getSubComments().contains(comment3));
-        assertTrue(comment3.containedIn(comment.getAllComments()));
+        assertTrue(comment.getAllComments(null).contains(comment3));
     }
 
     /**

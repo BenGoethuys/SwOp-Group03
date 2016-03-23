@@ -7,6 +7,7 @@ import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.usersystem.mail.Subject;
+import bugtrap03.misc.Tree;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 import purecollections.PList;
@@ -532,13 +533,15 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return all the comments in this bug report
      */
     @DomainAPI
-    public DefaultMutableTreeNode getAllComments() {
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode();
+    public Tree<Comment> getAllComments() {
+        Tree<Comment> root = new Tree();
         
+        //Let subComments add themselves.
         for(Comment comment : this.getCommentList()) {
-            node.add(comment.getAllComments());
+            comment.getAllComments(root);
         }
-        return node;
+        
+        return root;
     }
 
     /**
@@ -940,7 +943,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return the most important details of this bug report
      */
     public String getDetails() {
-        DefaultMutableTreeNode comments = this.getAllComments();
+        Tree comments = this.getAllComments();
         StringBuilder str = new StringBuilder();
         
         str.append("Bug report id: ").append(this.getUniqueID());

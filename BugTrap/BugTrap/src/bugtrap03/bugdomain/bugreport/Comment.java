@@ -4,11 +4,11 @@ import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
+import bugtrap03.misc.Tree;
 import com.google.java.contract.Requires;
-import java.util.Enumeration;
+import java.util.Iterator;
 import purecollections.PList;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * This is a class representing a comment.
@@ -134,16 +134,27 @@ public class Comment {
     /**
      * This method returns all comments in this comment (deep search) including this comment.
      *
-     * @return all the comments in this comment
+     * @param tree The {@link Tree} to add these comments onto. When null a new Tree will be used.
+     * @return The tree containing all the comments of this comment.
+     * 
+     * @see Tree#Tree() 
+     * @see Tree#addTree(java.lang.Object) 
      */
     @DomainAPI
-    public DefaultMutableTreeNode getAllComments() {
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(this);
-
-        for (Comment comment : this.getSubComments()) {
-            node.add(comment.getAllComments());
+    public Tree<Comment> getAllComments(Tree<Comment> tree) {
+        if(tree == null) {
+            tree = new Tree();
         }
-        return node;
+
+        //Add ourself to the tree.
+        Tree<Comment> thisNode = tree.addTree(this);
+        
+        //Let subComments add themselves.
+        for (Comment comment : this.getSubComments()) {
+            comment.getAllComments(thisNode);
+        }
+        
+        return tree;
     }
 
     /**
@@ -235,14 +246,14 @@ public class Comment {
      * @throws ClassCastException When the Tree structure does not contain a Comment object.
      */
     @Requires("top != null")
-    public static String commentsTreeToString(DefaultMutableTreeNode top) throws ClassCastException {
+    public static String commentsTreeToString(Tree<Comment> top) throws ClassCastException {
         StringBuilder str = new StringBuilder();
 
-        Enumeration<DefaultMutableTreeNode> childIt = top.children();
+        Iterator<Tree<Comment>> childIt = top.getSubTree().iterator();
         int count = 1;
-        while (childIt.hasMoreElements()) {
-            DefaultMutableTreeNode node = childIt.nextElement();
-            Comment comment = (Comment) node.getUserObject();
+        while (childIt.hasNext()) {
+            Tree<Comment> node = childIt.next();
+            Comment comment = node.getValue();
             String preString = Integer.toString(count);
 
             str.append("\n \t ");
@@ -263,47 +274,25 @@ public class Comment {
      * @param str The StringBuilder used to build upon.
      * @param preString The preString which will contain the pre format of each Comment. (e.g 2.1)
      *
-     * @see Comment#commentsTreeToString(javax.swing.tree.DefaultMutableTreeNode)
+     * @see Comment#commentsTreeToString(Tree)
      */
-    private static void commentsTreeToString(DefaultMutableTreeNode node, StringBuilder str, String preString) {
+    private static void commentsTreeToString(Tree<Comment> node, StringBuilder str, String preString) {
         if (node == null || str == null || preString == null) {
             return;
         }
 
-        Enumeration<DefaultMutableTreeNode> childIt = node.children();
+        Iterator<Tree<Comment>> childIt = node.getSubTree().iterator();
         int count = 1;
-        while (childIt.hasMoreElements()) {
-            DefaultMutableTreeNode subNode = childIt.nextElement();
-            Comment comment = (Comment) node.getUserObject();
+        while (childIt.hasNext()) {
+            Tree<Comment> subNode = childIt.next();
+            Comment comment = node.getValue();
             String subPreString = preString + "." + count;
 
             str.append("\n \t ");
             str.append(subPreString).append(". ");
             str.append(comment.getText());
-            commentsTreeToString(node, str, subPreString);
+            commentsTreeToString(subNode, str, subPreString);
             count++;
         }
-    }
-
-    /**
-     * Check if the passed TreeNode contains this Comment.
-     * @param node The TreeNode to check in.
-     * @return True if this comment is equal to an element in the node (deep search).
-     */
-    @DomainAPI
-    public boolean containedIn(DefaultMutableTreeNode node) {
-        if (node == null) {
-            return false;
-        }
-        Enumeration<DefaultMutableTreeNode> commentEnum = node.breadthFirstEnumeration();
-        
-        while(commentEnum.hasMoreElements()) {
-            Comment com = (Comment) commentEnum.nextElement().getUserObject();
-            if(this == com) {
-                return true;
-            }
-        }
-        
-        return false;
     }
 }
