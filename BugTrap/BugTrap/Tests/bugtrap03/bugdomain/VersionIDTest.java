@@ -16,6 +16,9 @@ public class VersionIDTest {
         versionID = new VersionID(1, 2, 3);
     }
 
+    /**
+     * Test method for {@linkplain VersionID#VersionID(int, int, int)}
+     */
     @Test
     public void testCreateVersionID1() {
         versionID = new VersionID(0, 0, 0);
@@ -24,6 +27,9 @@ public class VersionIDTest {
         assertEquals(versionID.getThirdNb(), 0);
     }
 
+    /**
+     * Test method for {@linkplain VersionID#VersionID(int, int)}
+     */
     @Test
     public void testCreateVersionID2() {
         versionID = new VersionID(0, 0);
@@ -32,6 +38,9 @@ public class VersionIDTest {
         assertEquals(versionID.getThirdNb(), 0);
     }
 
+    /**
+     * Test method for {@linkplain VersionID#VersionID(int)}
+     */
     @Test
     public void testCreateVersionID3() {
         versionID = new VersionID(0);
@@ -40,6 +49,9 @@ public class VersionIDTest {
         assertEquals(versionID.getThirdNb(), 0);
     }
 
+    /**
+     * Test method for {@linkplain VersionID#VersionID()}
+     */
     @Test
     public void testCreateVersionID4() {
         versionID = new VersionID();
@@ -80,7 +92,7 @@ public class VersionIDTest {
         String test = "1.2.3";
         assertEquals(versionID.toString(), test);
     }
-    
+
     /**
      * Test method for {@link VersionID#toString()}.
      */
@@ -90,7 +102,7 @@ public class VersionIDTest {
         versionID = new VersionID(1, 2);
         assertEquals(versionID.toString(), test);
     }
-    
+
     /**
      * Test method for {@link VersionID#toString()}.
      */
@@ -102,8 +114,7 @@ public class VersionIDTest {
     }
 
     /**
-     * Test method for
-     * {@link VersionID#compareTo(VersionID)}.
+     * Test method for {@link VersionID#compareTo(VersionID)}.
      */
     @Test
     public void testCompareTo() {
@@ -139,6 +150,17 @@ public class VersionIDTest {
 
         // equals with other object
         assertFalse(versionID.equals(new Object()));
+    }
+
+    /**
+     * Test method for {@link VersionID#clone()}.
+     */
+    @Test
+    public void testClone() {
+        VersionID cloneVersionID = versionID.clone();
+        assertEquals(versionID.getFirstNb(), cloneVersionID.getFirstNb());
+        assertEquals(versionID.getSecondNb(), cloneVersionID.getSecondNb());
+        assertEquals(versionID.getThirdNb(), cloneVersionID.getThirdNb());
     }
 
 }
