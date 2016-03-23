@@ -23,8 +23,6 @@ import java.util.HashSet;
 @DomainAPI
 public class BugReport extends Subject implements Comparable<BugReport> {
 
-    //TODO additional information
-
     /**
      * General constructor for initializing a bug report
      *
