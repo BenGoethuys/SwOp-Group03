@@ -50,6 +50,8 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
      * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
      *
+     * <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
+     *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
