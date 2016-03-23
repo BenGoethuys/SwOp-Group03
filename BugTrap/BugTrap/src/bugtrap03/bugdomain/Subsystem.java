@@ -153,10 +153,12 @@ public class Subsystem extends AbstractSystem {
      * @param trigger      A trigger used to trigger the bug. Can be NULL.
      * @param stacktrace   The stacktrace got when the bug was triggered. Can be NULL.
      * @param error        The error got when the bug was triggered. Can be NULL.
+     *
      * @return the created bug report
-     * @throws IllegalArgumentException If BugReport(creator, title,
-     *             description, dependencies, this) fails
-     * @throws PermissionException If the creation of a BugReport fails.
+     *
+     * @throws Exception    See @see
+     * //FIXME ?
+     *
      * @see BugReport#BugReport(User, String, String, GregorianCalendar, PList, Subsystem, Milestone, boolean, String, String, String)
      */
     public BugReport addBugReport(User creator, String title, String description, GregorianCalendar creationDate,
