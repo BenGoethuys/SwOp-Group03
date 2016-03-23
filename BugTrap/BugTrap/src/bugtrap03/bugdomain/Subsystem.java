@@ -148,62 +148,23 @@ public class Subsystem extends AbstractSystem {
      * @param title The title of this bugReport
      * @param description The description of this bug report
      * @param dependencies The dependencies of the bug report
-     * @return the created bug report
-     * @throws IllegalArgumentException If BugReport(creator, title,
-     *             description, dependencies, this) fails
-     * @throws PermissionException If the creation of a BugReport fails.
-     * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
-     *      String, PList, Subsystem)
-     */
-    public BugReport addBugReport(User creator, String title, String description, PList<BugReport> dependencies)
-            throws IllegalArgumentException, PermissionException {
-        BugReport bugReport = new BugReport(creator, title, description, dependencies, this);
-        this.bugReportList = this.getBugReportList().plus(bugReport);
-        return bugReport;
-    }
-
-    /**
-     * This method creates and adds a bug report to the list of associated
-     * bugReports of this subsystem
-     *
-     * @param creator The issuer that wants to create the bug report
-     * @param title The title of this bugReport
-     * @param description The description of this bug report
-     * @param dependencies The dependencies of the bug report
-     * @return the created bug report
-     * @throws IllegalArgumentException If BugReport(creator, title,
-     *             description, dependencies, this) fails
-     * @throws PermissionException If the creation of a BugReport fails.
-     * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
-     *      String, PList, Subsystem)
-     */
-    public BugReport addBugReport(User creator, String title, String description, GregorianCalendar creationDate,
-            PList<BugReport> dependencies) throws IllegalArgumentException, PermissionException {
-        BugReport bugReport = new BugReport(creator, title, description, creationDate, dependencies, this);
-        this.bugReportList = this.getBugReportList().plus(bugReport);
-        return bugReport;
-    }
-
-    /**
-     * This method creates and adds a bug report to the list of associated
-     * bugReports of this subsystem
-     *
-     * @param creator The issuer that wants to create the bug report
-     * @param title The title of this bugReport
-     * @param description The description of this bug report
-     * @param dependencies The dependencies of the bug report
      * @param milestone    The milestone of the bug report
      * @param isPrivate    The boolean that says if this bug report should be private or not
+     * @param trigger      A trigger used to trigger the bug. Can be NULL.
+     * @param stacktrace   The stacktrace got when the bug was triggered. Can be NULL.
+     * @param error        The error got when the bug was triggered. Can be NULL.
      * @return the created bug report
      * @throws IllegalArgumentException If BugReport(creator, title,
      *             description, dependencies, this) fails
      * @throws PermissionException If the creation of a BugReport fails.
-     * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, String,
-     *      String, PList, Subsystem)
+     * @see BugReport#BugReport(User, String, String, GregorianCalendar, PList, Subsystem, Milestone, boolean, String, String, String)
      */
     public BugReport addBugReport(User creator, String title, String description, GregorianCalendar creationDate,
-                                  PList<BugReport> dependencies, Milestone milestone, boolean isPrivate) throws IllegalArgumentException, PermissionException {
-        BugReport bugReport = new BugReport(creator, title, description, creationDate, dependencies, this);
+                                  PList<BugReport> dependencies, Milestone milestone, boolean isPrivate,
+                                  String trigger, String stacktrace, String error)
+            throws IllegalArgumentException, PermissionException {
+        BugReport bugReport = new BugReport(creator, title, description, creationDate, dependencies, this,
+                milestone, isPrivate, trigger, stacktrace, error);
         this.bugReportList = this.getBugReportList().plus(bugReport);
         return bugReport;
     }
@@ -221,7 +182,7 @@ public class Subsystem extends AbstractSystem {
      * @see Subsystem#Subsystem(VersionID, String, String, AbstractSystem)
      */
     public Subsystem cloneSubsystem(AbstractSystem parent) throws IllegalArgumentException {
-        Subsystem clone = parent.makeSubsystemChild(this.getVersionID(), this.getName(), this.getDescription());
+        Subsystem clone = parent.makeSubsystemChild(this.getVersionID().clone(), this.getName(), this.getDescription());
         for (Subsystem child : this.getChilds()) {
             child.cloneSubsystem(clone);
         }
