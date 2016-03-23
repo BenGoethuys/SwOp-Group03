@@ -6,7 +6,9 @@ import bugtrap03.bugdomain.permission.PermissionException;
  *
  * @author Group 03
  */
-abstract class ModelCmd {
+public abstract class ModelCmd {
+    
+    //TODO: Add toString() to every ModelCmd.
 
     /**
      * Execute the given Command.
