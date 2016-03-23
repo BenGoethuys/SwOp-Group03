@@ -753,6 +753,78 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
+     * This method returns the current Trigger of this bug report
+     * @return  The trigger of this bug report. Can be NULL!
+     */
+    @DomainAPI
+    public String getTrigger() {
+        return trigger;
+    }
+
+    /**
+     * This method sets the trigger of this bug report to the given value
+     *
+     * @param user      The user that wants to set the trigger for this bug report
+     * @param trigger   The new value of the trigger field of this bug report
+     *
+     * @throws PermissionException  If the given user doesn't have the needed permission
+     */
+    public void setTrigger(User user, String trigger) throws PermissionException {
+        if (! this.getCreator().equals(user)){
+            throw new PermissionException("The given user doesn't have the permission to set the trigger");
+        }
+        this.trigger = trigger;
+    }
+
+    /**
+     * This method returns the current stacktrace associated with this bug report
+     * @return  The current stacktrace of this bug report
+     */
+    @DomainAPI
+    public String getStacktrace() {
+        return stacktrace;
+    }
+
+    /**
+     * This method sets the stacktrace of this bug report to the given value
+     *
+     * @param user      The user that wants to set the trigger for this bug report
+     * @param stacktrace    The new stacktrace of this bug report
+     *
+     * @throws PermissionException  If the given user doesn't have the needed permission
+     */
+    public void setStacktrace(User user, String stacktrace) throws PermissionException {
+        if (! this.getCreator().equals(user)){
+            throw new PermissionException("The given user doesn't have the permission to set the trigger");
+        }
+        this.stacktrace = stacktrace;
+    }
+
+    /**
+     * This method returns the error associated with this bug report
+     * @return  The eror field of this bug report
+     */
+    @DomainAPI
+    public String getError() {
+        return error;
+    }
+
+    /**
+     * This method sets the error associated with this bug report
+     *
+     * @param user      The user that wants to set the trigger for this bug report
+     * @param error The new error for this bug report
+     *
+     * @throws PermissionException  If the given user doesn't have the needed permission
+     */
+    public void setError(User user, String error) throws PermissionException {
+        if (! this.getCreator().equals(user)){
+            throw new PermissionException("The given user doesn't have the permission to set the trigger");
+        }
+        this.error = error;
+    }
+
+    /**
      * Compares this object with the specified object for order. Returns a
      * negative integer, zero, or a positive integer as this object is less
      * than, equal to, or greater than the specified object.
