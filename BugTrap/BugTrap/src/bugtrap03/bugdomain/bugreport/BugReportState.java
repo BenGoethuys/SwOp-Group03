@@ -7,6 +7,9 @@ import purecollections.PList;
 
 /**
  * An interface for the different states of a bug report
+ *
+ * Classes that implement this interface should only be used by a bug report
+ * Only a bug report will use the methods of this interface
  */
 interface BugReportState {
 
