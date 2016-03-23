@@ -71,6 +71,6 @@ public class Notification {
         }
         StringBuilder message = new StringBuilder(this.message);
         message.append(bugReport.getTitle());
-        message.append("\n This notifications is originated from the subscription on: ").append(subject.getName());
+        message.append("\n This notifications is originated from the subscription on: ").append(subject.getSubjectName());
     }
 }
