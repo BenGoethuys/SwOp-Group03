@@ -1,6 +1,8 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.*;
+import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -204,7 +206,7 @@ public class CreateCommentCmdTest {
 
         // Execute scenario
         Comment createdComment = cmd.exec(scan, model, issuer);
-        // Test effects.
+        // Test effects.        
         assertTrue(bugRep1.getAllComments().contains(createdComment));
     }
 

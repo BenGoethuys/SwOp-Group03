@@ -1,6 +1,6 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.bugdomain.BugReport;
+import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -65,7 +65,8 @@ public class AssignToBugReportCmd implements Cmd {
 
             // 3a. The selected bug report is of a project that the logged in developer is not involved in as lead or tester.
             // 1. The use case returns to step 2.
-            if (!user.hasRolePermission(RolePerm.ASSIGN_DEV_BUGREPORT, bugRep.getSubsystem().getParentProject())) {
+            //TODO: is this domain logic? ...
+            if (!user.hasRolePermission(RolePerm.ASSIGN_DEV_BUG_REPORT, bugRep.getSubsystem().getParentProject())) {
                 scan.println("You don't have the required permission.");
             } else {
                 hasPerm = true;

@@ -1,9 +1,12 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.*;
+import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.*;
+import com.google.java.contract.Ensures;
 import purecollections.PList;
 
 import java.util.ArrayList;
@@ -471,6 +474,45 @@ public class DataModel {
     }
 
     /**
+     * This method creates a bug report in the system
+     *
+     * @param user         The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
+     * @param calendar     The creationDate of the bugReport
+     * @param dependencies The depended bug reports of this bug report
+     * @param subsystem    The subsystem this bug report belongs to
+     * @param milestone    The milestone for the new bug report
+     * @param isPrivate    The boolean that states that the bug report is private or not
+     * @throws IllegalArgumentException if isValidCreator(creator) fails
+     * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
+     * @throws IllegalArgumentException if isValidTitle(title) fails
+     * @throws IllegalArgumentException if isValidDescription(description) fails
+     * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
+     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
+     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
+     * <br><dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
+     * <br><dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
+     * @see BugReport#isValidCreator(User)
+     * @see BugReport#isValidUniqueID(long)
+     * @see BugReport#isValidTitle(String)
+     * @see BugReport#isValidDescription(String)
+     * @see BugReport#isValidCreationDate(GregorianCalendar)
+     * @see BugReport#isValidDependencies(PList)
+     * @see BugReport#isValidSubsystem(Subsystem)
+     * @see BugReport#getNewUniqueID()
+     */
+    @DomainAPI
+    @Ensures("result.getTag() == Tag.NEW")
+    public BugReport createBugReport(User user, String title, String description, GregorianCalendar calendar,
+                                     PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone, boolean isPrivate) throws PermissionException, IllegalArgumentException {
+        return subsystem.addBugReport(user, title, description, calendar, dependencies, milestone, isPrivate);
+    }
+
+    //TODO constructor with additional info
+
+    /**
      * This method creates a comment on a given BugReport
      *
      * @param user      The creator of the comment
@@ -653,5 +695,80 @@ public class DataModel {
         }
 
         return bugReport.getUserList();
+    }
+
+    /**
+     * This method adds a given test to the bug report state
+     *
+     * @param bugReport The bug report to add the given test to
+     * @param user      The user that wants to add the test to this bug report state
+     * @param test      The test that the user wants to add
+     *
+     * @throws PermissionException      If the given user doesn't have the permission to add a test
+     * @throws IllegalStateException    If the current state doesn't allow to add a test
+     * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
+     *
+     * @see BugReport#isValidTest(String)
+     */
+    @DomainAPI
+    public void addTest(BugReport bugReport, User user, String test) throws PermissionException, IllegalStateException, IllegalArgumentException{
+        if (bugReport == null){
+            throw new IllegalArgumentException("The given bug report cannot be null");
+        }
+        bugReport.addTest(user, test);
+    }
+
+    /**
+     * This method adds a given patch to this bug report state
+     *
+     * @param bugReport The bug report to add the patch to
+     * @param user      The user that wants to add the patch to this bug report state
+     * @param patch     The patch that the user wants to submit
+     *
+     * @throws PermissionException      If the given user doesn't have the permission to add a patch to this bug report state
+     * @throws IllegalStateException    If the given patch is invalid for this bug report
+     * @throws IllegalArgumentException If the given patch is not valid for this bug report state
+     */
+    @DomainAPI
+    public void addPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException{
+        if (bugReport == null){
+            throw new IllegalArgumentException("The given bug report cannot be null");
+        }
+        bugReport.addPatch(user, patch);
+    }
+
+    /**
+     * This method selects a patch for this bug report state
+     *
+     * @param bugReport The bug report to add the patch to
+     * @param user      The user that wants to select the patch
+     * @param patch     The patch that the user wants to select
+     *
+     * @throws PermissionException      If the given user doesn't have the permission to select a patch for this bug report state
+     * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
+     * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
+     */
+    public void selectPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException{
+        if (bugReport == null){
+            throw new IllegalArgumentException("The given bug report cannot be null");
+        }
+        bugReport.selectPatch(user, patch);
+    }
+
+    /**
+     * This method gives the selected patch of this bug report states a score
+     *
+     * @param bugReport The bug report to evaluate
+     * @param user  The user that wants to assign a score to this bug report
+     * @param score The score that the creator wants to give
+     *
+     * @throws IllegalStateException    If the current state doesn't allow assigning a score
+     * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
+     */
+    public void giveScore(BugReport bugReport, User user, int score) throws IllegalStateException, IllegalArgumentException, PermissionException {
+        if (bugReport == null){
+            throw new IllegalArgumentException("The given bug report cannot be null");
+        }
+        bugReport.giveScore(user, score);
     }
 }

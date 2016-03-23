@@ -1,11 +1,14 @@
-package bugtrap03.bugdomain;
+package bugtrap03.bugdomain.bugreport;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
+import bugtrap03.misc.Tree;
+import com.google.java.contract.Requires;
+import java.util.Iterator;
 import purecollections.PList;
 
-import java.util.ArrayList;
 
 /**
  * This is a class representing a comment.
@@ -16,12 +19,12 @@ import java.util.ArrayList;
 public class Comment {
 
     /**
-     * This method initialises an Comment
+     * This method initializes an Comment
      *
      * @param issuer the issuer that creates this comment
-     * @param text   the comment text for this comment
+     * @param text the comment text for this comment
      * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
-     * @throws PermissionException      if the given creator doesn't have the needed permissions
+     * @throws PermissionException if the given creator doesn't have the needed permissions
      * @see Comment#isValidCreator(User)
      */
     public Comment(User issuer, String text) throws IllegalArgumentException, PermissionException {
@@ -49,7 +52,7 @@ public class Comment {
      *
      * @param creator the creator to set
      * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
-     * @throws PermissionException      if the given creator doesn't have the needed permissions
+     * @throws PermissionException if the given creator doesn't have the needed permissions
      * @see Comment#isValidCreator(User)
      * @see Comment#isValidText(String)
      */
@@ -129,18 +132,29 @@ public class Comment {
     }
 
     /**
-     * This method returns all comments in this comment (deep search) including this comment
+     * This method returns all comments in this comment (deep search) including this comment.
      *
-     * @return all the comments in this comment
+     * @param tree The {@link Tree} to add these comments onto. When null a new Tree will be used.
+     * @return The tree containing all the comments of this comment.
+     * 
+     * @see Tree#Tree() 
+     * @see Tree#addTree(java.lang.Object) 
      */
     @DomainAPI
-    public PList<Comment> getAllComments() {
-        ArrayList<Comment> list = new ArrayList<>();
-        list.add(this);
-        for (Comment comment : this.getSubComments()) {
-            list.addAll(comment.getAllComments());
+    public Tree<Comment> getAllComments(Tree<Comment> tree) {
+        if(tree == null) {
+            tree = new Tree();
         }
-        return PList.<Comment>empty().plusAll(list);
+
+        //Add ourself to the tree.
+        Tree<Comment> thisNode = tree.addTree(this);
+        
+        //Let subComments add themselves.
+        for (Comment comment : this.getSubComments()) {
+            comment.getAllComments(thisNode);
+        }
+        
+        return tree;
     }
 
     /**
@@ -196,9 +210,9 @@ public class Comment {
      * This method makes a Comment object and adds it to the sub-comment list
      *
      * @param creator the creator of the comment
-     * @param text    the text of the comment
+     * @param text the text of the comment
      * @throws IllegalArgumentException if the given parameters are not valid for this comment
-     * @throws PermissionException      if the given creator doesn't have the needed permissions
+     * @throws PermissionException if the given creator doesn't have the needed permissions
      * @see Comment(Issuer, String)
      */
     public Comment addSubComment(User creator, String text) throws IllegalArgumentException, PermissionException {
@@ -222,4 +236,63 @@ public class Comment {
         return true;
     }
 
+    /**
+     * Get the String form of the given Tree structure. This assumes all objects in the given structure are of type
+     * {@link Comment} and the top node carries null.
+     *
+     * @param top The Tree structure used to get the String format of.
+     * @return The result of converting the Tree structure to a Comment. When
+     *
+     * @throws ClassCastException When the Tree structure does not contain a Comment object.
+     */
+    @Requires("top != null")
+    public static String commentsTreeToString(Tree<Comment> top) throws ClassCastException {
+        StringBuilder str = new StringBuilder();
+
+        Iterator<Tree<Comment>> childIt = top.getSubTree().iterator();
+        int count = 1;
+        while (childIt.hasNext()) {
+            Tree<Comment> node = childIt.next();
+            Comment comment = node.getValue();
+            String preString = Integer.toString(count);
+
+            str.append("\n \t ");
+            str.append(preString).append(". ");
+            str.append(comment.getText());
+            commentsTreeToString(node, str, preString);
+            count++;
+        }
+
+        return str.toString();
+    }
+
+    /**
+     * Convert the passed treeStructure to a String. This is used by
+     * {@link Comment#commentsTreeToString(javax.swing.tree.DefaultMutableTreeNode)} and should not be used elsewhere.
+     *
+     * @param node The node of which to print the children.
+     * @param str The StringBuilder used to build upon.
+     * @param preString The preString which will contain the pre format of each Comment. (e.g 2.1)
+     *
+     * @see Comment#commentsTreeToString(Tree)
+     */
+    private static void commentsTreeToString(Tree<Comment> node, StringBuilder str, String preString) {
+        if (node == null || str == null || preString == null) {
+            return;
+        }
+
+        Iterator<Tree<Comment>> childIt = node.getSubTree().iterator();
+        int count = 1;
+        while (childIt.hasNext()) {
+            Tree<Comment> subNode = childIt.next();
+            Comment comment = node.getValue();
+            String subPreString = preString + "." + count;
+
+            str.append("\n \t ");
+            str.append(subPreString).append(". ");
+            str.append(comment.getText());
+            commentsTreeToString(subNode, str, subPreString);
+            count++;
+        }
+    }
 }

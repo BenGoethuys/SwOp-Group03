@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain;
 
+import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Administrator;
@@ -86,9 +87,7 @@ public class SubsystemTest {
 
     @Test
     public void testHasPermission() {
-        Developer programmer = new Developer("ladiedadieda2", "ladie2", "da2");
         assertTrue(subSysTest.hasPermission(testDev, RolePerm.ASSIGN_DEV_PROJECT));
-        assertFalse(subSysTest.hasPermission(programmer, RolePerm.SET_TAG_RESOLVED));
     }
 
     @Test

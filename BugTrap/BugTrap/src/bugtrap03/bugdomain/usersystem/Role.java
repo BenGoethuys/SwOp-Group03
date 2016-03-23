@@ -14,11 +14,11 @@ import java.util.Arrays;
 @DomainAPI
 public enum Role {
 
-    LEAD(RolePerm.SPECIAL, RolePerm.SET_TAG_RESOLVED, RolePerm.SET_TAG_CLOSED,
-            RolePerm.SET_TAG_NOT_A_BUG, RolePerm.SET_TAG_DUPLICATE, RolePerm.ASSIGN_DEV_PROJECT,
-            RolePerm.ASSIGN_DEV_BUGREPORT, RolePerm.ASSIGN_PROG_ROLE, RolePerm.ASSIGN_TEST_ROLE),
-    TESTER(RolePerm.ASSIGN_TEST_ROLE, RolePerm.SET_TAG_UNDER_REVIEW, RolePerm.ASSIGN_DEV_BUGREPORT),
-    PROGRAMMER(RolePerm.ASSIGN_PROG_ROLE, RolePerm.SET_TAG_UNDER_REVIEW);
+    LEAD(RolePerm.SPECIAL, RolePerm.SET_TAG_NOT_A_BUG, RolePerm.SET_TAG_DUPLICATE, RolePerm.SELECT_PATCH,
+            RolePerm.SET_TAG_ASSIGNED, RolePerm.ASSIGN_DEV_PROJECT, RolePerm.ASSIGN_DEV_BUG_REPORT,
+            RolePerm.ASSIGN_PROG_ROLE, RolePerm.ASSIGN_TEST_ROLE),
+    TESTER(RolePerm.ASSIGN_TEST_ROLE, RolePerm.ASSIGN_DEV_BUG_REPORT, RolePerm.ADD_TEST),
+    PROGRAMMER(RolePerm.ASSIGN_PROG_ROLE, RolePerm.ADD_PATCH);
 
     /**
      * A Role with a certain permission required to assign someone this role and

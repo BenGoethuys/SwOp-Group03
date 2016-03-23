@@ -1,19 +1,21 @@
 package bugtrap03.bugdomain;
 
+import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.mail.Subject;
 import purecollections.PList;
 
 import java.util.ArrayList;
 
 /**
- * This class represents an abstract system with a versionID, name, description
- * and list of subsystem associated with this AbstractSystem.
+ * This class represents an abstract system with a versionID, name, description and list of subsystem associated with
+ * this AbstractSystem.
  *
  * @author Group 03.
  */
 @DomainAPI
-public abstract class AbstractSystem {
+public abstract class AbstractSystem extends Subject {
 
     private VersionID version;
     private String name = "";
@@ -22,14 +24,12 @@ public abstract class AbstractSystem {
     private Milestone milestone;
 
     /**
-     * This constructor is used for all elements of type AbstractSystem,
-     * although possibly indirect.
+     * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
      *
      * @param version The versionID (of that type) of this element.
      * @param name The string name for this element.
      * @param description The string description of this element.
-     * @throws IllegalArgumentException if one of the String arguments is
-     *             invalid.
+     * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if isValidVersionID(version) fails
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
      * @see AbstractSystem#isValidVersionId(VersionID)
@@ -41,18 +41,16 @@ public abstract class AbstractSystem {
         setVersionID(version);
         setName(name);
         setDescription(description);
+        this.setChilds(PList.<Subsystem>empty());
         setMilestone(new Milestone(0));
-        this.setChilds(PList.<Subsystem> empty());
     }
 
     /**
-     * This constructor is used for all elements of type AbstractSystem,
-     * although possibly indirect.
+     * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
      *
      * @param name The string name for this element.
      * @param description The string description of this element.
-     * @throws IllegalArgumentException if one of the String arguments is
-     *             invalid.
+     * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @see AbstractSystem#AbstractSystem(VersionID, String, String)
      */
     public AbstractSystem(String name, String description) throws IllegalArgumentException {
@@ -84,8 +82,7 @@ public abstract class AbstractSystem {
     }
 
     /**
-     * This method check if the given VersionId is a valid versionId for an
-     * AbstractSystem
+     * This method check if the given VersionId is a valid versionId for an AbstractSystem
      *
      * @param versionID the versionId to check
      * @return true if the given versionId is a valid for an AbstractSystem
@@ -100,7 +97,7 @@ public abstract class AbstractSystem {
 
     /**
      * This is a getter for the Milestone.
-     * 
+     *
      * @return The milestone of the project.
      */
     public Milestone getMilestone() {
@@ -122,16 +119,44 @@ public abstract class AbstractSystem {
     }
 
     /**
-     * This method check if the given Milestone is a valid Milestone for an
-     * AbstractSystem
-     * 
+     * This method check if the given Milestone is a valid Milestone for an AbstractSystem
+     *
      * @param milestone the Milestone to check
      * @return true if the given Milestone is valid for an AbstractSystem.
      */
-    public static boolean isValidMilestone(Milestone milestone) {
+    public boolean isValidMilestone(Milestone milestone) {
         if (milestone == null) {
             return false;
         }
+
+        Milestone high = new Milestone(0, 0, 0);
+        for (Subsystem subs : this.getAllSubsystems()) {
+            if (subs.getMilestone().compareTo(high) == 1) {
+                high = subs.getMilestone();
+            }
+        }
+
+        if (milestone.compareTo(high) <= 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * This method check if the given Milestone is a valid update for a Milestone of an AbstractSystem
+     *
+     * @param milestone The Milestone to update
+     * @return True if the given Milestone is updated. False if the given Milestone is not a valid Milestone.
+     */
+    public boolean canUpdateMilestone(Milestone milestone) {
+        for (BugReport bugreport : this.getAllBugReports()) {
+            if (!bugreport.isResolved()) {
+                if (bugreport.getMilestone().compareTo(milestone) <= 0) {
+                    return false;
+                }
+            }
+        }
+        this.milestone = milestone;
         return true;
     }
 
@@ -255,8 +280,7 @@ public abstract class AbstractSystem {
     }
 
     /**
-     * This method adds the given child to the PList of childs. A child is of
-     * type Subsystem.
+     * This method adds the given child to the PList of childs. A child is of type Subsystem.
      *
      * @param child The given subsystem to set as child.
      */
@@ -272,9 +296,8 @@ public abstract class AbstractSystem {
     protected abstract AbstractSystem getParent();
 
     /**
-     * This method returns the head of the subsystem tree structure. This is an
-     * element from the type Project and can be recognized by his self reference
-     * in getParent().
+     * This method returns the head of the subsystem tree structure. This is an element from the type Project and can be
+     * recognized by his self reference in getParent().
      *
      * @return the Project to which all the subsystems are linked.
      */
@@ -301,8 +324,7 @@ public abstract class AbstractSystem {
     }
 
     /**
-     * This method returns all the bug reports associated with this
-     * AbstractSystem
+     * This method returns all the bug reports associated with this AbstractSystem
      *
      * @return the list of all bugReports
      */
@@ -312,12 +334,11 @@ public abstract class AbstractSystem {
         for (Subsystem subsystem : this.getChilds()) {
             list.addAll(subsystem.getAllBugReports());
         }
-        return PList.<BugReport> empty().plusAll(list);
+        return PList.<BugReport>empty().plusAll(list);
     }
 
     /**
-     * This recursive method returns all the subsystems that are a child of this
-     * AbstractSystem
+     * This recursive method returns all the subsystems that are a child of this AbstractSystem
      *
      * @return the list of all Subsystems associated with this AbstractSystem.
      */
@@ -328,12 +349,11 @@ public abstract class AbstractSystem {
             list.add(subsystem);
             list.addAll(subsystem.getAllSubsystems());
         }
-        return PList.<Subsystem> empty().plusAll(list);
+        return PList.<Subsystem>empty().plusAll(list);
     }
 
     /**
-     * This method checks if the given developer has the requested permission
-     * for this AbstractSystem
+     * This method checks if the given developer has the requested permission for this AbstractSystem
      *
      * @param dev the developer to check
      * @param perm the requested permission
