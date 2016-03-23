@@ -37,6 +37,7 @@ public class DeclareAchievedMilestoneCmdTest {
 
     private Project projectA;
     private Project projectB;
+    private Project chosen;
 
     private Subsystem subsystemA1;
     private Subsystem subsystemA2;
@@ -116,28 +117,48 @@ public class DeclareAchievedMilestoneCmdTest {
         question.add("4. SubsystemA3.2");
         question.add("I choose: ");
         answer.add("0");
+        question.add("The currently achieved milestone: M0");
+        question.add("Enter a new milestone: (M1.2.3)  ");
+        answer.add("M1.2.3");
+        //TODO Complete scenario.
         
         
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
         Project chosen = cmd.exec(scan, model, issuer);
-        // Test effects.
-        assertEquals(chosen, bugRep1);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testException() throws IllegalArgumentException, CancelException, PermissionException {
+        DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
+        chosen = cmd.exec(null, null, null);
     }
 
-    /**
-     * Add the searchMode options + first line to question. Please select a
-     * search mode.. <b> 0.. <b> 1.. <b> ..
-     *
-     * @param question
-     */
-    private void addSearchModeOptions(ArrayDeque<String> question) {
-        question.add("Please select a search mode: ");
-        question.add("0. title");
-        question.add("1. description");
-        question.add("2. creator");
-        question.add("3. assigned");
-        question.add("4. uniqueId");
+    @Test(expected = IllegalArgumentException.class)
+    public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
+        DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
+        DataModel model = new DataModel();
+        Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
+        chosen = cmd.exec(null, model, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
+        DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
+        chosen = cmd.exec(scan, null, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
+        DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
+        DataModel model = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        chosen = cmd.exec(scan, model, null);
     }
 }
