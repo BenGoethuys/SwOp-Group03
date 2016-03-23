@@ -49,6 +49,10 @@ public class MilestoneTest {
         assertNotEquals("M1.2.0", milestone3.toString());
     }
 
+    /**
+     * Test method for
+     * {@link bugtrap03.bugdomain.Milestone#compareTo(Milestone)}.
+     */
     @Test
     public void testCompareTo() {
         Milestone milestonecomp1 = new Milestone(2, 3, 4);
@@ -69,6 +73,9 @@ public class MilestoneTest {
         assertEquals(milestone3.compareTo(milestonecomp5), -1);
     }
 
+    /**
+     * Test method for {@link bugtrap03.bugdomain.Milestone#equals(Object)}.
+     */
     @Test
     public void testEquals() {
         assertTrue(milestone3.equals(milestone3));
