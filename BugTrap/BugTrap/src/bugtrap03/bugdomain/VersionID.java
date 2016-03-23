@@ -169,4 +169,14 @@ public class VersionID implements Comparable<VersionID> {
         }
         return false;
     }
+    
+    /**
+     * Clones a VersionID.
+     * 
+     * @return A clone of the Version ID.
+     */
+    @Override
+    public VersionID clone() {
+        return new VersionID(this.getFirstNb(), this.getSecondNb(), this.getThirdNb());
+    }
 }
