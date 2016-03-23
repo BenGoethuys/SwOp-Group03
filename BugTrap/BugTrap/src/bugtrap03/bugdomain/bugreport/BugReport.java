@@ -268,8 +268,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
                 dependencies, subsystem, null, false);
     }
 
-    //TODO constructor with null milestone or auto milestone?
-
     private long uniqueID;
     private String title;
     private String description;
