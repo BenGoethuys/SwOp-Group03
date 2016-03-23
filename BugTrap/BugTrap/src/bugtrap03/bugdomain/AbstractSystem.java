@@ -150,10 +150,13 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      */
     public boolean canUpdateMilestone(Milestone milestone) {
         for (BugReport bugreport : this.getAllBugReports()) {
-            if (!bugreport.isResolved()) {
-                if (bugreport.getMilestone().compareTo(milestone) <= 0) {
-                    return false;
-                }
+            // if (!bugreport.isResolved()) {
+            // if (bugreport.getMilestone().compareTo(milestone) <= 0) {
+            // return false;
+            // }
+            // }
+            if ((!bugreport.isResolved()) && (bugreport.getMilestone().compareTo(milestone) <= 0)) {
+                return false;
             }
         }
         this.milestone = milestone;

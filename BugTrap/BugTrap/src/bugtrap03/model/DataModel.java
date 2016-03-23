@@ -50,7 +50,7 @@ public class DataModel {
      * @param user The user to add.
      * @throws NullPointerException If user is null.
      */
-    private void addUser(User user) throws NullPointerException {
+    void addUser(User user) throws NullPointerException {
         this.userList = userList.plus(user);
     }
 
@@ -60,7 +60,7 @@ public class DataModel {
      * @param project The project to add.
      * @throws NullPointerException If project is null.
      */
-    private void addProject(Project project) throws NullPointerException {
+    void addProject(Project project) throws NullPointerException {
         this.projectList = projectList.plus(project);
     }
 
@@ -69,7 +69,7 @@ public class DataModel {
      *
      * @param project The project to delete.
      */
-    private void deleteProject(Project project) {
+    void deleteProject(Project project) {
         this.projectList = projectList.minus(project);
     }
 
@@ -409,44 +409,21 @@ public class DataModel {
     }
 
     /**
-     * This method creates a bug report in the system
+     * This method creates and adds a bug report to the list of associated
+     * bugReports of this subsystem
      *
+     * @param subsystem    The subsystem the new bugreport belongs to
      * @param user         The User that wants to create this bug report
      * @param title        The title of the bugReport
      * @param description  The description of the bugReport
+     * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param subsystem    The subsystem this bug report belongs to
-     * @throws IllegalArgumentException if isValidCreator(creator) fails
-     * @throws IllegalArgumentException if isValidTitle(title) fails
-     * @throws IllegalArgumentException if isValidDescription(description) fails
-     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
-     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
-     * @Ensures new.getDate() == current date at the moment of initialisation
-     * @Ensures new.getTag() == Tag.New
-     * @Ensures new.getUniqueID() is initialised with a valid ID
-     * @see BugReport#isValidCreator(User)
-     * @see BugReport#isValidTitle(String)
-     * @see BugReport#isValidDescription(String)
-     * @see BugReport#isValidDependencies(PList)
-     * @see BugReport#isValidSubsystem(Subsystem)
-     * @see BugReport#getNewUniqueID()
-     */
-    @DomainAPI
-    public BugReport createBugReport(User user, String title, String description, PList<BugReport> dependencies,
-                                     Subsystem subsystem) throws PermissionException, IllegalArgumentException {
-        return subsystem.addBugReport(user, title, description, dependencies);
-    }
-
-    /**
-     * This method creates a bug report in the system
+     * @param milestone    The milestone of the bug report
+     * @param isPrivate    The boolean that says if this bug report should be private or not
+     * @param trigger      A trigger used to trigger the bug. Can be NULL.
+     * @param stacktrace   The stacktrace got when the bug was triggered. Can be NULL.
+     * @param error        The error got when the bug was triggered. Can be NULL.
      *
-     * @param user         The User that wants to create this bug report
-     * @param title        The title of the bugReport
-     * @param description  The description of the bugReport
-     * @param calendar     The creationDate of the bugReport
-     * @param dependencies The depended bug reports of this bug report
-     * @param subsystem    The subsystem this bug report belongs to
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -454,46 +431,14 @@ public class DataModel {
      * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
      * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
-     * @Ensures new.getDate() == current date at the moment of initialisation
-     * @Ensures new.getTag() == Tag.New
-     * @Ensures new.getUniqueID() is initialised with a valid ID
-     * @see BugReport#isValidCreator(User)
-     * @see BugReport#isValidUniqueID(long)
-     * @see BugReport#isValidTitle(String)
-     * @see BugReport#isValidDescription(String)
-     * @see BugReport#isValidCreationDate(GregorianCalendar)
-     * @see BugReport#isValidDependencies(PList)
-     * @see BugReport#isValidSubsystem(Subsystem)
-     * @see BugReport#getNewUniqueID()
-     */
-    @DomainAPI
-    public BugReport createBugReport(User user, String title, String description, GregorianCalendar calendar,
-                                     PList<BugReport> dependencies, Subsystem subsystem) throws PermissionException, IllegalArgumentException {
-        return subsystem.addBugReport(user, title, description, calendar, dependencies);
-    }
-
-    /**
-     * This method creates a bug report in the system
      *
-     * @param user         The User that wants to create this bug report
-     * @param title        The title of the bugReport
-     * @param description  The description of the bugReport
-     * @param calendar     The creationDate of the bugReport
-     * @param dependencies The depended bug reports of this bug report
-     * @param subsystem    The subsystem this bug report belongs to
-     * @param milestone    The milestone for the new bug report
-     * @param isPrivate    The boolean that states that the bug report is private or not
-     * @throws IllegalArgumentException if isValidCreator(creator) fails
-     * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
-     * @throws IllegalArgumentException if isValidTitle(title) fails
-     * @throws IllegalArgumentException if isValidDescription(description) fails
-     * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
-     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
-     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
-     * <br><dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
-     * <br><dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
+     * @return The create bug report
+     *
+     * <br><dt><b>Postconditions:</b><dd> if creationDate == null: result.getDate() == current date at the moment of initialization
+     * <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
+     *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -501,16 +446,17 @@ public class DataModel {
      * @see BugReport#isValidCreationDate(GregorianCalendar)
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
-     * @see BugReport#getNewUniqueID()
+     * @see BugReport#isValidMilestone(Milestone)
      */
+    @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     @DomainAPI
-    @Ensures("result.getTag() == Tag.NEW")
-    public BugReport createBugReport(User user, String title, String description, GregorianCalendar calendar,
-                                     PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone, boolean isPrivate) throws PermissionException, IllegalArgumentException {
-        return subsystem.addBugReport(user, title, description, calendar, dependencies, milestone, isPrivate);
+    public BugReport createBugReport(Subsystem subsystem, User user, String title, String description,
+                                     GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
+                                     boolean isPrivate, String trigger, String stacktrace, String error)
+            throws IllegalArgumentException, PermissionException {
+        return subsystem.addBugReport(user, title, description, creationDate, dependencies, milestone, isPrivate,
+                trigger, stacktrace, error);
     }
-
-    //TODO constructor with additional info
 
     /**
      * This method creates a comment on a given BugReport
@@ -771,4 +717,6 @@ public class DataModel {
         }
         bugReport.giveScore(user, score);
     }
+
+    //TODO: add methods to set additional params of bug report
 }

@@ -1,37 +1,26 @@
-ok *use case 4.7: "what about other admins?"
+*use case 4.7: "what about other admins?"
 -->
 admin
 
-
-ok *(p. 12) can you set a tag 'not a bug'  on a bugreport with dependencies that are not resolved or closed?
+*(p. 12) can you set a tag 'not a bug'  on a bugreport with dependencies that are not resolved or closed?
 --> according to the assignment, this is not possible.
 
 
- ok * When you subscribe for create bug report. Do you subscribe system specific (all the bugreports), project specific or subsystem specific. 
+* When you subscribe for create bug report. Do you subscribe system specific (all the bugreports), project specific or subsystem specific. 
 
 
-ok *use case 4.17: suggest a new tag, do we have to give possible tags (what if there are none)? 
+*use case 4.17: suggest a new tag, do we have to give possible tags (what if there are none)? 
 
-<<<<<<< HEAD
-ok *does a bug report must have a milestone? (assignment: "a bug report can also have a milestone" p. 13)
-=======
 *does a bug report must have a milestone? (assignment: "a bug report can also have a milestone" p. 13)
+
 **when making a bugreport with no milestone chosen to set, do we have to set it to that of the relevant subsystem +1 in the third number, or...?
 -->
->>>>>>> 68a9c786b4761b7131dbdac6ec616cfcab9c017c
 
 *notifications: when subscribing for ALL set tags to assigned, do you also subscribe for future bugreports?
 --> when newly made, can you have subscribers
 ** can you subscribe system wide OR do you have to subscribe to a specific bugreport. 
 ==> "Specific objects of interest" p. 12
 
-<<<<<<< HEAD
- ok *undo only in use case --> can only an admin undo stuff? (we suppose yes, since there is no other use case)
-=======
 *undo only in use case --> can only an admin undo stuff? (we suppose yes, since there is no other use case)
 
-
-
 TODO afdwingen dependencies bugreport enkel op zelfde project bugreps
-
->>>>>>> 68a9c786b4761b7131dbdac6ec616cfcab9c017c
