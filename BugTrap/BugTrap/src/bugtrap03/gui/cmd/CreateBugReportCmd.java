@@ -1,5 +1,6 @@
 package bugtrap03.gui.cmd;
 
+import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
@@ -12,6 +13,7 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 
@@ -48,7 +50,7 @@ public class CreateBugReportCmd implements Cmd {
      * @throws IllegalArgumentException When the user has selected a project where for there are no subsystems.
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
-     * @see DataModel#createBugReport(User, String, String, PList, Subsystem)
+     * @see DataModel#createBugReport(Subsystem, User, String, String, GregorianCalendar, PList, Milestone, boolean, String, String, String)
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)
@@ -130,9 +132,11 @@ public class CreateBugReportCmd implements Cmd {
             }
         } while (!done);
 
+        //TODO additional params ?
+
         // 10. The system creates the bug report.
-        BugReport bugreport = model.createBugReport(user, bugreportTitle, bugReportDesc,
-                PList.<BugReport>empty().plusAll(depList), subsys);
+        BugReport bugreport = model.createBugReport(subsys, user, bugreportTitle, bugReportDesc, null,
+                PList.<BugReport>empty().plusAll(depList), null, false, null, null, null);
         scan.println("Created new bug report.");
         return bugreport;
     }
