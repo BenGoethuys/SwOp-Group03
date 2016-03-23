@@ -50,7 +50,7 @@ public class DataModel {
      * @param user The user to add.
      * @throws NullPointerException If user is null.
      */
-    private void addUser(User user) throws NullPointerException {
+    void addUser(User user) throws NullPointerException {
         this.userList = userList.plus(user);
     }
 
@@ -60,7 +60,7 @@ public class DataModel {
      * @param project The project to add.
      * @throws NullPointerException If project is null.
      */
-    private void addProject(Project project) throws NullPointerException {
+    void addProject(Project project) throws NullPointerException {
         this.projectList = projectList.plus(project);
     }
 
@@ -69,7 +69,7 @@ public class DataModel {
      *
      * @param project The project to delete.
      */
-    private void deleteProject(Project project) {
+    void deleteProject(Project project) {
         this.projectList = projectList.minus(project);
     }
 
