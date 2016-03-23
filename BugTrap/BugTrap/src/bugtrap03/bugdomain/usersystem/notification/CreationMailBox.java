@@ -1,5 +1,7 @@
 package bugtrap03.bugdomain.usersystem.notification;
 
+import bugtrap03.bugdomain.bugreport.BugReport;
+
 /**
  * This class represents the mailboxes dedicated to catching notifications from creations.
  *
@@ -20,7 +22,7 @@ public class CreationMailBox extends Mailbox {
         throw new IllegalArgumentException("This subject is invalid for this mailbox.");
     }
 
-    public void update(){
-        this.addNotification(new Notification());
+    public void update(BugReport bugReport){
+        this.addNotification(new Notification("The following bugreport has been created: ", bugReport, this.subject));
     }
 }
