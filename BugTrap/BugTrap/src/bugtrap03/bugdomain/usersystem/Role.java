@@ -16,9 +16,9 @@ public enum Role {
 
     LEAD(RolePerm.SPECIAL, RolePerm.SET_TAG_NOT_A_BUG, RolePerm.SET_TAG_DUPLICATE, RolePerm.SELECT_PATCH,
             RolePerm.SET_TAG_ASSIGNED, RolePerm.ASSIGN_DEV_PROJECT, RolePerm.ASSIGN_DEV_BUG_REPORT,
-            RolePerm.ASSIGN_PROG_ROLE, RolePerm.ASSIGN_TEST_ROLE),
-    TESTER(RolePerm.ASSIGN_TEST_ROLE, RolePerm.ASSIGN_DEV_BUG_REPORT, RolePerm.ADD_TEST),
-    PROGRAMMER(RolePerm.ASSIGN_PROG_ROLE, RolePerm.ADD_PATCH);
+            RolePerm.ASSIGN_PROG_ROLE, RolePerm.ASSIGN_TEST_ROLE, RolePerm.OPEN_PRIVATE_NOTIFICATION),
+    TESTER(RolePerm.ASSIGN_TEST_ROLE, RolePerm.ASSIGN_DEV_BUG_REPORT, RolePerm.ADD_TEST, RolePerm.OPEN_PRIVATE_NOTIFICATION),
+    PROGRAMMER(RolePerm.ASSIGN_PROG_ROLE, RolePerm.ADD_PATCH, RolePerm.OPEN_PRIVATE_NOTIFICATION);
 
     /**
      * A Role with a certain permission required to assign someone this role and

@@ -24,6 +24,9 @@ public enum RolePerm {
     SET_TAG_DUPLICATE,
     SET_TAG_NOT_A_BUG,
 
+    // for private notifications stuff:
+    OPEN_PRIVATE_NOTIFICATION,
+
     // nobody has permission:
     SPECIAL;
 }

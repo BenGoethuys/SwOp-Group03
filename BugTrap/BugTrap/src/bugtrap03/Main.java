@@ -72,10 +72,15 @@ public class Main {
             Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
             model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
             // make bug report 2
-            BugReport bugRep2 = model.createBugReport(charlie, "Crash while processing user input", "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15), PList.<BugReport>empty(), subsystemA3_1);
+            BugReport bugRep2 = model.createBugReport(subsystemA3_1, charlie, "Crash while processing user input",
+                    "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15),
+                    PList.<BugReport>empty(), null, false, null, null, "Internal Error 45: The...");
+            // add user -> assigned
             model.addUsersToBugReport(major, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(major, maria)));
             // make bug report 3
-            model.createBugReport(major, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), subsystemA2);
+            model.createBugReport(subsystemA2, major, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...",
+                    new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), new Milestone(3, 2), true,
+                    "Launch with command line invocation:...", "Exception in thread ”main” java.lang...", null);
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
             System.err.println(e.getMessage());
@@ -94,19 +99,25 @@ public class Main {
             Subsystem subsystemB2 = model.createSubsystem(admin, projectB, "SubsystemB2", "Description of susbsystem B2");
             model.createSubsystem(admin, subsystemB2, "SubsystemB2.1", "Description of susbsystem B2.1");
             // make bug report 1
-            BugReport bugRep1 = model.createBugReport(doc, "The function parse_ewd returns unexpected results", "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 1, 3), PList.<BugReport>empty(), subsystemB1, new Milestone(1,1), false);
+            BugReport bugRep1 = model.createBugReport(subsystemB1, doc, "The function parse_ewd returns unexpected results",
+                    "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 1, 3),
+                    PList.<BugReport>empty(), new Milestone(1,1), false, null, null, null);
+            // add user -> assigned
             model.addUsersToBugReport(maria, bugRep1, PList.<Developer>empty().plus(maria));
+            // add tests -> assignedWithTest
             model.addTest(bugRep1, major, "bool test_invalid_args1(){...}");
             model.addTest(bugRep1, major, "test 2");
             model.addTest(bugRep1, major, "test 3");
 
+            // add patch
             model.addPatch(bugRep1, major, "e3109fcc9...");
             model.addPatch(bugRep1, major, "patch 2");
             model.addPatch(bugRep1, major, "patch 3");
 
-            // select patch
+            // select patch -> underReview
             model.selectPatch(bugRep1, maria, "e3109fcc9...");
 
+            // give score -> closed
             model.giveScore(bugRep1, doc, 4);
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
