@@ -717,4 +717,6 @@ public class DataModel {
         }
         bugReport.giveScore(user, score);
     }
+
+    //TODO: add methods to set additional params of bug report
 }
