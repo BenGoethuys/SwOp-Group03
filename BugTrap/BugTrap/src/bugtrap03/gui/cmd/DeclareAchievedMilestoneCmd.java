@@ -1,7 +1,9 @@
 package bugtrap03.gui.cmd;
 
+import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
@@ -65,14 +67,33 @@ public class DeclareAchievedMilestoneCmd implements Cmd {
         // 6. The system shows the currently achieved milestones and asks for a
         // new one.
         scan.println("The currently achieved milestone: " + subsys.getMilestone().toString());
-        scan.print("Enter a new milestone: (M1.2.3)  ");
 
         // 7. The developer proposes a new achieved milestone.
-        String bugReportMilestone = scan.nextLine(); // TODO
 
         // 8. The system updates the achieved milestone of the selected
         // component. If necessary, the system first recursively updates the
         // achieved milestone of all the subsystems that the component contains.
+        Milestone bugReportMilestone = null;
+        do {
+            scan.print("Enter a new milestone: (format a.b.c) ");
+            String input = scan.nextLine();
+            String[] milestoneStr = input.split("\\.");
+
+            int nb1, nb2, nb3;
+            try {
+                nb1 = Integer.parseInt(milestoneStr[0]);
+                nb2 = Integer.parseInt(milestoneStr[1]);
+                nb3 = Integer.parseInt(milestoneStr[2]);
+
+                bugReportMilestone = new Milestone(nb1, nb2, nb3);
+                if (subsys.canUpdateMilestone(bugReportMilestone) == false) {
+                    bugReportMilestone = null;
+                    scan.println("Invalid milestone.");
+                }
+            } catch (IndexOutOfBoundsException | NumberFormatException ex) {
+                scan.println("Invalid input. Please try again using format: a.b.c");
+            }
+        } while (bugReportMilestone == null);
 
         // TODO COMPLETE scenario
 

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package bugtrap03.gui.cmd;
 
 import static org.junit.Assert.*;
@@ -30,28 +27,28 @@ import testCollection.TerminalTestScanner;
  */
 public class DeclareAchievedMilestoneCmdTest {
 
-    private DataModel model;
-    private Developer lead;
-    private Issuer issuer;
-    private Administrator admin;
+    DataModel model;
+    Developer lead;
+    Issuer issuer;
+    Administrator admin;
 
-    private Project projectA;
-    private Project projectB;
-    private Project chosen;
+    Project projectA;
+    Project projectB;
+    Project chosen;
 
-    private Subsystem subsystemA1;
-    private Subsystem subsystemA2;
-    private Subsystem subsystemA3;
-    private Subsystem subsystemA3_1;
-    private Subsystem subsystemA3_2;
+    Subsystem subsystemA1;
+    Subsystem subsystemA2;
+    Subsystem subsystemA3;
+    Subsystem subsystemA3_1;
+    Subsystem subsystemA3_2;
 
-    private BugReport bugRep1;
-    private BugReport bugRep2;
-    private BugReport bugRep3;
+    BugReport bugRep1;
+    BugReport bugRep2;
+    BugReport bugRep3;
 
-    private Comment comment1;
-    private Comment comment2;
-    private Comment comment3;
+    Comment comment1;
+    Comment comment2;
+    Comment comment3;
 
     /**
      * Test method for
@@ -120,15 +117,14 @@ public class DeclareAchievedMilestoneCmdTest {
         question.add("The currently achieved milestone: M0");
         question.add("Enter a new milestone: (M1.2.3)  ");
         answer.add("M1.2.3");
-        //TODO Complete scenario.
-        
-        
+        // TODO Complete scenario.
+
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
         Project chosen = cmd.exec(scan, model, issuer);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testException() throws IllegalArgumentException, CancelException, PermissionException {
         DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
