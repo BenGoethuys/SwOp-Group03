@@ -3,7 +3,7 @@ package bugtrap03.bugdomain;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.mail.Subject;
+import bugtrap03.bugdomain.usersystem.notification.AbstractSystemSubject;
 import purecollections.PList;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @author Group 03.
  */
 @DomainAPI
-public abstract class AbstractSystem extends Subject {
+public abstract class AbstractSystem extends AbstractSystemSubject {
 
     private VersionID version;
     private String name = "";
