@@ -85,49 +85,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         this.setInternState(new BugReportStateNew());
     }
 
-    /**
-     * Constructor for creating a bug report with default tag "New" and the current time as creationDate
-     *
-     * @param creator      The User that wants to create this bug report
-     * @param title        The title of the bugReport
-     * @param description  The description of the bugReport
-     * @param creationDate The creationDate of the bugReport
-     * @param dependencies The depended bug reports of this bug report
-     * @param subsystem    The subsystem this bug report belongs to
-     * @param milestone    The milestone of the bug report
-     * @param isPrivate    The boolean that says if this bug report should be private or not
-     *
-     * @throws IllegalArgumentException if isValidCreator(creator) fails
-     * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
-     * @throws IllegalArgumentException if isValidTitle(title) fails
-     * @throws IllegalArgumentException if isValidDescription(description) fails
-     * @throws IllegalArgumentException if isValidCreationDate(creationDate) fails
-     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
-     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
-     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
-     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
-     *
-     * <br><dt><b>Postconditions:</b><dd> new.getDate() == current date at the moment of initialization
-     * <br><dt><b>Postconditions:</b><dd> new.getUniqueID() is an unique ID for this bug report
-     *
-     * @see BugReport#isValidCreator(User)
-     * @see BugReport#isValidUniqueID(long)
-     * @see BugReport#isValidTitle(String)
-     * @see BugReport#isValidDescription(String)
-     * @see BugReport#isValidCreationDate(GregorianCalendar)
-     * @see BugReport#isValidDependencies(PList)
-     * @see BugReport#isValidSubsystem(Subsystem)
-     * @see BugReport#isValidMilestone(Milestone)
-     * @see BugReport#getNewUniqueID()
-     */
-    @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
-    public BugReport(User creator, String title, String description, GregorianCalendar creationDate,
-                     PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone, boolean isPrivate)
-            throws IllegalArgumentException, PermissionException {
-        this(creator, title, description, creationDate, dependencies, subsystem,
-                milestone, isPrivate, "", "", "");
-    }
-
     private long uniqueID;
     private String title;
     private String description;
@@ -724,11 +681,11 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             return true; //It's possible a bugreport has not a milestone.
         }
         else if (milestone.compareTo(this.getSubsystem().getMilestone()) == 1) {
-                return true;    
-            }
-            else {
-                return false;
-            }
+            return true;    
+        }
+        else {
+            return false;
+        }
     }
 
     /**
@@ -880,7 +837,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return the most important details of this bug report
      */
     public String getDetails() {
-        Tree comments = this.getAllComments();
+        Tree<Comment> comments = this.getAllComments();
         StringBuilder str = new StringBuilder();
         
         str.append("Bug report id: ").append(this.getUniqueID());
@@ -905,7 +862,16 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             str.append("\n \t id: ").append(bugrep.getUniqueID()).append(", title: ").append(bugrep.getTitle());
         }
         
-        //TODO: add additional info
+        if (this.getTrigger() != null){
+        	str.append("\n trigger: ").append(this.getTrigger());
+        }
+        if (this.getStacktrace() != null){
+        	str.append("\n stacktrace: ").append(this.getStacktrace());
+        }
+        if (this.getError() != null){
+        	str.append("\n error: ").append(this.getError());
+        }
+        
         return str.toString();
     }
 
@@ -1131,7 +1097,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @DomainAPI
     public boolean isValidDuplicate(BugReport duplicate){
-        // TODO should duplicate be one of the deps of this bug report?
         if (duplicate == null || duplicate == this){
             return false;
         }
