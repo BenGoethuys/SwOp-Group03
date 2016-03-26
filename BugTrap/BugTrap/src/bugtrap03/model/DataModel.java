@@ -42,15 +42,16 @@ public class DataModel {
      * Add the cmd to the cmd history. This will only be added when the cmd has been executed.
      *
      * @param cmd The {@link ModelCmd} to add to the history.
-     * @return Whether or not the cmd was added to the history.
+     * 
+     * @throws IllegalStateException When cmd is a null reference or has not been executed yet.
+     * @see ModelCmd#isExecuted() 
      */
-    private boolean addToHistory(ModelCmd cmd) {
+    private void addToHistory(ModelCmd cmd) throws IllegalStateException {
         if (cmd == null || !cmd.isExecuted()) {
-            return false;
+            throw new IllegalStateException("Tried to add a ModelCmd that hasn't been executed to the history.");
         }
 
         history.push(cmd);
-        return true;
     }
 
     /**
@@ -277,18 +278,18 @@ public class DataModel {
      * @param startDate The start date of the project
      * @param budget The budget estimate for this project
      * @param lead The lead developer of this project
-     * @return the created project
+     * @param creator The creator of this Project
+     *
+     * @return The created project
      * @throws IllegalArgumentException if the constructor of project fails
      * @throws PermissionException If the given creator has insufficient permissions
      */
     @DomainAPI
     public Project createProject(String name, String description, GregorianCalendar startDate, Developer lead,
             long budget, User creator) throws IllegalArgumentException, PermissionException {
-        if (!creator.hasPermission(UserPerm.CREATE_PROJ)) {
-            throw new PermissionException("The given user doesn't have the permission to create a project");
-        }
-        Project project = new Project(name, description, lead, startDate, budget);
-        addProject(project);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(this, name, description, startDate, lead, budget, creator);
+        Project project = cmd.exec();
+        addToHistory(cmd);
         return project;
     }
 
@@ -297,20 +298,20 @@ public class DataModel {
      *
      * @param name The name of the project
      * @param description The description of the project
-     * @param budget The budget estimate for this project
      * @param lead The lead developer of this project
-     * @return the created project
+     * @param budget The budget estimate for this project
+     * @param creator The creator of this project
+     *
+     * @return The created project
      * @throws IllegalArgumentException if the constructor of project fails
      * @throws PermissionException If the given creator has insufficient permissions
      */
     @DomainAPI
     public Project createProject(String name, String description, Developer lead, long budget, User creator)
             throws IllegalArgumentException, PermissionException {
-        if (!creator.hasPermission(UserPerm.CREATE_PROJ)) {
-            throw new PermissionException("The given user doesn't have the permission to create a project");
-        }
-        Project project = new Project(name, description, lead, budget);
-        addProject(project);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(this, name, description, lead, budget, creator);
+        Project project = cmd.exec();
+        addToHistory(cmd);
         return project;
     }
 
@@ -346,29 +347,16 @@ public class DataModel {
      * @param startDate The new startDate of the given project
      * @param budgetEstimate The new budget estimate of the given project
      * @throws PermissionException if the given user doesn't have the needed permission to update a project.
-     * @Ensures The attributes of the given project will not be updated if an error was thrown
+     * @throws IllegalArgumentException When any of the arguments is invalid.
+     * @Ensures The attributes of the given project will not be updated if an error was thrown //TODO: Ben: Fix Ensures here
      */
     @DomainAPI
     public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate,
             Long budgetEstimate) throws IllegalArgumentException, PermissionException {
-        // check needed permission
-        if (!user.hasPermission(UserPerm.UPDATE_PROJ)) {
-            throw new PermissionException("You don't have the needed permission to update a project!");
-        }
-
-        // Test to prevent inconsistent updating of vars
-        Project.isValidName(name);
-        Project.isValidDescription(description);
-        proj.isValidStartDate(startDate);
-        Project.isValidBudgetEstimate(budgetEstimate);
-
-        // update the vars in proj
-        proj.setName(name);
-        proj.setDescription(description);
-        proj.setStartDate(startDate);
-        proj.setBudgetEstimate(budgetEstimate);
-
-        return proj;
+        UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(proj, user, name, description, startDate, budgetEstimate);
+        Project project = cmd.exec();
+        addToHistory(cmd);
+        return project;
     }
 
     /**
