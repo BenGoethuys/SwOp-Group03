@@ -294,6 +294,17 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     private void addChild(Subsystem child) {
         this.childs = this.getChilds().plus(child);
     }
+    
+    /**
+     * This methods deletes the given child from the PList of childs. 
+     * @param child The subsystem to delete.
+     * @return Whether there was a change in the data.
+     */
+    public boolean deleteChild(Subsystem child) {
+        PList<Subsystem> oldChilds = this.getChilds();
+        this.childs = this.getChilds().minus(child);
+        return (oldChilds != this.childs);
+    }
 
     /**
      * This is an abstract getter for the parent of the AbstractSystem.
