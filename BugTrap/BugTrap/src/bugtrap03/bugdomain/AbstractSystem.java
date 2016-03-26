@@ -42,6 +42,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         setName(name);
         setDescription(description);
         this.setChilds(PList.<Subsystem>empty());
+        //TODO: Create a constructor with a passed milestone. Required to fullfill the invariants. (Project & SubSystem as well.)
         setMilestone(new Milestone(0));
     }
 
@@ -125,6 +126,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @return true if the given Milestone is valid for an AbstractSystem.
      */
     public boolean isValidMilestone(Milestone milestone) {
+        //TODO: isValidMilestone different for Project/Subsystem? -> make this abstract and implement in both.
         if (milestone == null) {
             return false;
         }
