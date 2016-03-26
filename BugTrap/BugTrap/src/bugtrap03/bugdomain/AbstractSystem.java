@@ -4,6 +4,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.notification.AbstractSystemSubject;
+import com.google.java.contract.Ensures;
 import purecollections.PList;
 
 import java.util.ArrayList;
@@ -278,8 +279,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @return The new subsystems that was added to this AbstractSystem
      * 
      * @throws IllegalArgumentException When name or description is invalid.
-     * @Ensures The new versionID will be equal to "new VersionID()" //TODO: Ben Fix Ensures plox
      */
+    @Ensures("result.getVersionID.equals(new VersionID())")
     public Subsystem makeSubsystemChild(String name, String description) {
         Subsystem newChild = new Subsystem(name, description, this);
         this.addChild(newChild);
