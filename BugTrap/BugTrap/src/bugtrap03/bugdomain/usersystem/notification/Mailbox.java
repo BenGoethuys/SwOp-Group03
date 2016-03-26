@@ -102,7 +102,7 @@ public class Mailbox {
      *
      * @param subject The subject for the subscription.
      *
-     * @see #tagSubscribe(Subject, Tag[])
+     * @see #tagSubscribe(Subject, EnumSet)
      */
     public void tagSubscribe(Subject subject){
         EnumSet<Tag> tags = EnumSet.allOf(Tag.class);
