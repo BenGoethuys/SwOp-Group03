@@ -394,53 +394,57 @@ public class DataModel {
      * @param project The project which has to be removed
      * @return The removed project
      * @throws PermissionException If the given user doesn't have the permission to delete a project
+     * @throws IllegalArgumentException When user == null
      */
     @DomainAPI
-    public Project deleteProject(User user, Project project) throws PermissionException {
-        if (!user.hasPermission(UserPerm.DELETE_PROJ)) {
-            throw new PermissionException("You dont have the needed permission to delete a project");
-        }
-        deleteProject(project);
-
-        return project;
+    public Project deleteProject(User user, Project project) throws PermissionException, IllegalArgumentException {
+        DeleteProjectModelCmd cmd = new DeleteProjectModelCmd(this, user, project);
+        Project proj = cmd.exec();
+        addToHistory(cmd);
+        return proj;
     }
 
     /**
-     * This method creates a new subsytem in the given Project/Subsystem
+     * This method creates a new subsystem in the given Project/Subsystem
      *
      * @param user The user that wants to create the subsystem
-     * @param abstractSystem The Project/Subsystem to add the new subsytem to
-     * @param name The name of the new Subsytem
-     * @param description The description of the new Subsytem
-     * @return The created subsytem
+     * @param abstractSystem The Project/Subsystem to add the new subsystem to
+     * @param name The name of the new Subsystem
+     * @param description The description of the new Subsystem
+     * 
+     * @return The created subsystem
      * @throws PermissionException If the user doesn't have the permission to create a subsystem
+     * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
     public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, String name, String description)
             throws PermissionException, IllegalArgumentException {
-        if (!user.hasPermission(UserPerm.CREATE_SUBSYS)) {
-            throw new PermissionException("You don't have the needed permission");
-        }
-        return abstractSystem.makeSubsystemChild(name, description);
+        CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(user, abstractSystem, name, description);
+        Subsystem sub = cmd.exec();
+        addToHistory(cmd);
+        return sub;
     }
 
     /**
-     * This method creates a new subsytem in the given Project/Subsystem
+     * This method creates a new subsystem in the given Project/Subsystem
      *
      * @param user The user that wants to create the subsystem
-     * @param abstractSystem The Project/Subsystem to add the new subsytem to
-     * @param name The name of the new Subsytem
-     * @param description The description of the new Subsytem
-     * @return The created subsytem
+     * @param abstractSystem The Project/Subsystem to add the new subsystem to
+     * @param versionID The versionID of the new Subsystem.
+     * @param name The name of the new Subsystem
+     * @param description The description of the new Subsystem
+     * 
+     * @return The created subsystem
      * @throws PermissionException If the user doesn't have the permission to create a subsystem
+     * @throws IllegalArgumentException When user == null || abstractSystem == null
      */
     @DomainAPI
     public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, VersionID versionID, String name,
             String description) throws PermissionException, IllegalArgumentException {
-        if (!user.hasPermission(UserPerm.CREATE_SUBSYS)) {
-            throw new PermissionException("You don't have the needed permission");
-        }
-        return abstractSystem.makeSubsystemChild(versionID, name, description);
+        CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(user, abstractSystem, versionID, name, description);
+        Subsystem sub = cmd.exec();
+        addToHistory(cmd);
+        return sub;
     }
 
     /**

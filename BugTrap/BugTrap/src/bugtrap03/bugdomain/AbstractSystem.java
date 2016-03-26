@@ -276,7 +276,9 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @param name The name of the new subsystem
      * @param description The description of the new subsystem
      * @return The new subsystems that was added to this AbstractSystem
-     * @Ensures The new versionID will be equal to "new VersionID()"
+     * 
+     * @throws IllegalArgumentException When name or description is invalid.
+     * @Ensures The new versionID will be equal to "new VersionID()" //TODO: Ben Fix Ensures plox
      */
     public Subsystem makeSubsystemChild(String name, String description) {
         Subsystem newChild = new Subsystem(name, description, this);
@@ -291,6 +293,17 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      */
     private void addChild(Subsystem child) {
         this.childs = this.getChilds().plus(child);
+    }
+    
+    /**
+     * This methods deletes the given child from the PList of childs. 
+     * @param child The subsystem to delete.
+     * @return Whether there was a change in the data.
+     */
+    public boolean deleteChild(Subsystem child) {
+        PList<Subsystem> oldChilds = this.getChilds();
+        this.childs = this.getChilds().minus(child);
+        return (oldChilds != this.childs);
     }
 
     /**

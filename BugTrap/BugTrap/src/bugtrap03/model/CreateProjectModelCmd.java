@@ -58,6 +58,9 @@ public class CreateProjectModelCmd extends ModelCmd {
         if (model == null) {
             throw new IllegalArgumentException("The DataModel passed to the CreateProjectModelCmd was a null reference.");
         }
+        if(creator == null) {
+            throw new IllegalArgumentException("The creator passed to the CreateProjectModelCmd was a null reference.");
+        }
 
         this.model = model;
         this.name = name;
