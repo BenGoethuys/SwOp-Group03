@@ -1,6 +1,6 @@
 package bugtrap03.bugdomain.usersystem.notification;
 
-import bugtrap03.bugdomain.Tag;
+import bugtrap03.bugdomain.bugreport.Tag;
 
 /**
  * This class represents the mailboxes dedicated to catching notifications from tag changes.
