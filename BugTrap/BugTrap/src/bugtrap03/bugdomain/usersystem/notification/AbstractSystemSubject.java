@@ -12,8 +12,5 @@ public abstract class AbstractSystemSubject extends Subject {
         this.CreationSubs = PList.<CreationMailBox>empty();
     }
 
-    @Override
-    protected abstract String getSubjectName();
-
     private PList<CreationMailBox> CreationSubs;
 }
