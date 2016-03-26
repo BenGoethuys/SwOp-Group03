@@ -7,7 +7,7 @@ import bugtrap03.bugdomain.usersystem.Issuer;
  *
  * @author Group 03
  */
-public class CreateDeveloperModelCmd extends ModelCmd {
+class CreateDeveloperModelCmd extends ModelCmd {
 
     /**
      * Create a {@link CreateDeveloperModelCmd} which can create a new {@link Developer} when executed.
@@ -53,9 +53,9 @@ public class CreateDeveloperModelCmd extends ModelCmd {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-    
+
     private Developer dev;
-    
+
     private final DataModel model;
     private final String username;
     private final String firstName;
@@ -80,8 +80,6 @@ public class CreateDeveloperModelCmd extends ModelCmd {
             throw new IllegalStateException("The CreateDeveloperModelCmd was already executed.");
         }
 
-        isExecuted = true;
-        
         if (middleName == null) {
             dev = new Developer(username, firstName, lastName);
         } else {
@@ -89,6 +87,7 @@ public class CreateDeveloperModelCmd extends ModelCmd {
         }
 
         model.addUser(dev);
+        isExecuted = true;
         return dev;
     }
 

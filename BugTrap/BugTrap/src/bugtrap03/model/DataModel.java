@@ -43,15 +43,16 @@ public class DataModel {
      * Add the cmd to the cmd history. This will only be added when the cmd has been executed.
      *
      * @param cmd The {@link ModelCmd} to add to the history.
-     * @return Whether or not the cmd was added to the history.
+     * 
+     * @throws IllegalStateException When cmd is a null reference or has not been executed yet.
+     * @see ModelCmd#isExecuted() 
      */
-    private boolean addToHistory(ModelCmd cmd) {
+    private void addToHistory(ModelCmd cmd) throws IllegalStateException {
         if (cmd == null || !cmd.isExecuted()) {
-            return false;
+            throw new IllegalStateException("Tried to add a ModelCmd that hasn't been executed to the history.");
         }
 
         history.push(cmd);
-        return true;
     }
 
     /**
@@ -278,18 +279,18 @@ public class DataModel {
      * @param startDate The start date of the project
      * @param budget The budget estimate for this project
      * @param lead The lead developer of this project
-     * @return the created project
+     * @param creator The creator of this Project
+     *
+     * @return The created project
      * @throws IllegalArgumentException if the constructor of project fails
      * @throws PermissionException If the given creator has insufficient permissions
      */
     @DomainAPI
     public Project createProject(String name, String description, GregorianCalendar startDate, Developer lead,
             long budget, User creator) throws IllegalArgumentException, PermissionException {
-        if (!creator.hasPermission(UserPerm.CREATE_PROJ)) {
-            throw new PermissionException("The given user doesn't have the permission to create a project");
-        }
-        Project project = new Project(name, description, lead, startDate, budget);
-        addProject(project);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(this, name, description, startDate, lead, budget, creator);
+        Project project = cmd.exec();
+        addToHistory(cmd);
         return project;
     }
 
@@ -298,20 +299,20 @@ public class DataModel {
      *
      * @param name The name of the project
      * @param description The description of the project
-     * @param budget The budget estimate for this project
      * @param lead The lead developer of this project
-     * @return the created project
+     * @param budget The budget estimate for this project
+     * @param creator The creator of this project
+     *
+     * @return The created project
      * @throws IllegalArgumentException if the constructor of project fails
      * @throws PermissionException If the given creator has insufficient permissions
      */
     @DomainAPI
     public Project createProject(String name, String description, Developer lead, long budget, User creator)
             throws IllegalArgumentException, PermissionException {
-        if (!creator.hasPermission(UserPerm.CREATE_PROJ)) {
-            throw new PermissionException("The given user doesn't have the permission to create a project");
-        }
-        Project project = new Project(name, description, lead, budget);
-        addProject(project);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(this, name, description, lead, budget, creator);
+        Project project = cmd.exec();
+        addToHistory(cmd);
         return project;
     }
 
@@ -347,29 +348,16 @@ public class DataModel {
      * @param startDate The new startDate of the given project
      * @param budgetEstimate The new budget estimate of the given project
      * @throws PermissionException if the given user doesn't have the needed permission to update a project.
-     * @Ensures The attributes of the given project will not be updated if an error was thrown
+     * @throws IllegalArgumentException When any of the arguments is invalid.
+     * @Ensures The attributes of the given project will not be updated if an error was thrown //TODO: Ben: Fix Ensures here
      */
     @DomainAPI
     public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate,
             Long budgetEstimate) throws IllegalArgumentException, PermissionException {
-        // check needed permission
-        if (!user.hasPermission(UserPerm.UPDATE_PROJ)) {
-            throw new PermissionException("You don't have the needed permission to update a project!");
-        }
-
-        // Test to prevent inconsistent updating of vars
-        Project.isValidName(name);
-        Project.isValidDescription(description);
-        proj.isValidStartDate(startDate);
-        Project.isValidBudgetEstimate(budgetEstimate);
-
-        // update the vars in proj
-        proj.setName(name);
-        proj.setDescription(description);
-        proj.setStartDate(startDate);
-        proj.setBudgetEstimate(budgetEstimate);
-
-        return proj;
+        UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(proj, user, name, description, startDate, budgetEstimate);
+        Project project = cmd.exec();
+        addToHistory(cmd);
+        return project;
     }
 
     /**
@@ -406,53 +394,57 @@ public class DataModel {
      * @param project The project which has to be removed
      * @return The removed project
      * @throws PermissionException If the given user doesn't have the permission to delete a project
+     * @throws IllegalArgumentException When user == null
      */
     @DomainAPI
-    public Project deleteProject(User user, Project project) throws PermissionException {
-        if (!user.hasPermission(UserPerm.DELETE_PROJ)) {
-            throw new PermissionException("You dont have the needed permission to delete a project");
-        }
-        deleteProject(project);
-
-        return project;
+    public Project deleteProject(User user, Project project) throws PermissionException, IllegalArgumentException {
+        DeleteProjectModelCmd cmd = new DeleteProjectModelCmd(this, user, project);
+        Project proj = cmd.exec();
+        addToHistory(cmd);
+        return proj;
     }
 
     /**
-     * This method creates a new subsytem in the given Project/Subsystem
+     * This method creates a new subsystem in the given Project/Subsystem
      *
      * @param user The user that wants to create the subsystem
-     * @param abstractSystem The Project/Subsystem to add the new subsytem to
-     * @param name The name of the new Subsytem
-     * @param description The description of the new Subsytem
-     * @return The created subsytem
+     * @param abstractSystem The Project/Subsystem to add the new subsystem to
+     * @param name The name of the new Subsystem
+     * @param description The description of the new Subsystem
+     * 
+     * @return The created subsystem
      * @throws PermissionException If the user doesn't have the permission to create a subsystem
+     * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
     public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, String name, String description)
             throws PermissionException, IllegalArgumentException {
-        if (!user.hasPermission(UserPerm.CREATE_SUBSYS)) {
-            throw new PermissionException("You don't have the needed permission");
-        }
-        return abstractSystem.makeSubsystemChild(name, description);
+        CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(user, abstractSystem, name, description);
+        Subsystem sub = cmd.exec();
+        addToHistory(cmd);
+        return sub;
     }
 
     /**
-     * This method creates a new subsytem in the given Project/Subsystem
+     * This method creates a new subsystem in the given Project/Subsystem
      *
      * @param user The user that wants to create the subsystem
-     * @param abstractSystem The Project/Subsystem to add the new subsytem to
-     * @param name The name of the new Subsytem
-     * @param description The description of the new Subsytem
-     * @return The created subsytem
+     * @param abstractSystem The Project/Subsystem to add the new subsystem to
+     * @param versionID The versionID of the new Subsystem.
+     * @param name The name of the new Subsystem
+     * @param description The description of the new Subsystem
+     * 
+     * @return The created subsystem
      * @throws PermissionException If the user doesn't have the permission to create a subsystem
+     * @throws IllegalArgumentException When user == null || abstractSystem == null
      */
     @DomainAPI
     public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, VersionID versionID, String name,
             String description) throws PermissionException, IllegalArgumentException {
-        if (!user.hasPermission(UserPerm.CREATE_SUBSYS)) {
-            throw new PermissionException("You don't have the needed permission");
-        }
-        return abstractSystem.makeSubsystemChild(versionID, name, description);
+        CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(user, abstractSystem, versionID, name, description);
+        Subsystem sub = cmd.exec();
+        addToHistory(cmd);
+        return sub;
     }
 
     /**

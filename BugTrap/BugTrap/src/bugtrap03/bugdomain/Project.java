@@ -188,6 +188,7 @@ public class Project extends AbstractSystem {
      * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
      */
     public void setStartDate(GregorianCalendar startDate) throws IllegalArgumentException {
+        //TODO: Clone startDate instead of using the reference.
         if (!isValidStartDate(this.creationDate, startDate)) {
             throw new IllegalArgumentException("Invalid startDate/creationDate.");
         }
