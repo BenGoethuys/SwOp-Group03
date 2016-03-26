@@ -1,5 +1,6 @@
-package bugtrap03.bugdomain;
+package bugtrap03.bugdomain.bugreport;
 
+import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.RolePerm;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -20,7 +21,7 @@ public class TagTest {
     @Test
     public void testGetNeededTag() {
         assertEquals(Tag.NEW.getNeededPerm(), RolePerm.SPECIAL);
-        assertEquals(Tag.ASSIGNED.getNeededPerm(), RolePerm.SPECIAL);
+        assertEquals(Tag.ASSIGNED.getNeededPerm(), RolePerm.SET_TAG_ASSIGNED);
         assertEquals(Tag.UNDER_REVIEW.getNeededPerm(), RolePerm.SPECIAL);
         assertEquals(Tag.RESOLVED.getNeededPerm(), RolePerm.SPECIAL);
         assertEquals(Tag.CLOSED.getNeededPerm(), RolePerm.SPECIAL);

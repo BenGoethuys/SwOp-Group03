@@ -1,5 +1,6 @@
-package bugtrap03.bugdomain;
+package bugtrap03.bugdomain.bugreport;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.permission.RolePerm;
 
 /**
@@ -10,7 +11,7 @@ import bugtrap03.bugdomain.permission.RolePerm;
 @DomainAPI
 public enum Tag {
     NEW(RolePerm.SPECIAL),
-    ASSIGNED(RolePerm.SPECIAL),
+    ASSIGNED(RolePerm.SET_TAG_ASSIGNED),
     NOT_A_BUG(RolePerm.SET_TAG_NOT_A_BUG),
     UNDER_REVIEW(RolePerm.SPECIAL),
     CLOSED(RolePerm.SPECIAL),

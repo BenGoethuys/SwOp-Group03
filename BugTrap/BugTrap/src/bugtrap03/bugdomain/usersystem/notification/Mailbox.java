@@ -1,7 +1,6 @@
 package bugtrap03.bugdomain.usersystem.notification;
 
-import bugtrap03.bugdomain.Tag;
-import bugtrap03.bugdomain.bugreport.Comment;
+import bugtrap03.bugdomain.bugreport.Tag;
 import purecollections.PList;
 
 import java.util.ArrayList;
