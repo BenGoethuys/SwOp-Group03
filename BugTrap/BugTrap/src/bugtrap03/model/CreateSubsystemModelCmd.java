@@ -11,7 +11,7 @@ import bugtrap03.bugdomain.usersystem.User;
  *
  * @author Admin
  */
-public class CreateSubsystemModelCmd extends ModelCmd {
+class CreateSubsystemModelCmd extends ModelCmd {
 
     /**
      * Creates a {@link ModelCmd} that can creates a new subsystem in the given Project/Subsystem

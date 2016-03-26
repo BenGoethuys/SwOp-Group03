@@ -7,7 +7,7 @@ import bugtrap03.bugdomain.usersystem.Issuer;
  *
  * @author Group 03
  */
-public class CreateDeveloperModelCmd extends ModelCmd {
+class CreateDeveloperModelCmd extends ModelCmd {
 
     /**
      * Create a {@link CreateDeveloperModelCmd} which can create a new {@link Developer} when executed.

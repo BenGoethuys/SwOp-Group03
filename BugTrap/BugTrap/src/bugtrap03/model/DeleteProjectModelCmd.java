@@ -9,7 +9,7 @@ import bugtrap03.bugdomain.usersystem.User;
  *
  * @author Admin
  */
-public class DeleteProjectModelCmd extends ModelCmd {
+class DeleteProjectModelCmd extends ModelCmd {
 
     /**
      * Create a {@link ModelCmd} that can delete a given {@link Project} when executed.

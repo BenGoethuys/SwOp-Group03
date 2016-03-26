@@ -11,7 +11,7 @@ import java.util.GregorianCalendar;
  *
  * @author Admin
  */
-public class CreateProjectModelCmd extends ModelCmd {
+class CreateProjectModelCmd extends ModelCmd {
 
     /**
      * Create a {@link ModelCmd} that can create a {@link Project} when executed.

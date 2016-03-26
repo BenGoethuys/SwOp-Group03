@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
  *
  * @author Admin
  */
-public class UpdateProjectModelCmd extends ModelCmd {
+class UpdateProjectModelCmd extends ModelCmd {
 
     /**
      * Create a new {@link ModelCmd} that can update a {@link Project} when executed.

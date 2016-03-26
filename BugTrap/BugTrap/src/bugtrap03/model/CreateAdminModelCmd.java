@@ -6,7 +6,7 @@ import bugtrap03.bugdomain.usersystem.Administrator;
  *
  * @author Group 03
  */
-public class CreateAdminModelCmd extends ModelCmd {
+class CreateAdminModelCmd extends ModelCmd {
 
     /**
      * Create a new {@link CreateAdminModelCmd} that can create an {@link Administrator} when executed.
