@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 
 /**
  *
- * @author Admin
+ * @author Group 03
  */
 class UpdateProjectModelCmd extends ModelCmd {
 

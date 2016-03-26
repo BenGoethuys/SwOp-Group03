@@ -7,7 +7,7 @@ import bugtrap03.bugdomain.usersystem.User;
 
 /**
  *
- * @author Admin
+ * @author Group 03
  */
 class DeleteProjectModelCmd extends ModelCmd {
 
