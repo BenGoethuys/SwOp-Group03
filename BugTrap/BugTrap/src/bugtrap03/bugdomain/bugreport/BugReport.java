@@ -889,7 +889,11 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         str.append("\n description: ").append(this.getDescription());
         str.append("\n creation date: ").append(this.getCreationDate().getTime());
         str.append("\n is private: ").append(this.isPrivate());
-        str.append("\n target milestone: ").append(this.getMilestone().toString());
+        if (this.getMilestone() == null){
+        	str.append("\n target milestone: ").append("This bugreport has no milstone");
+        } else {
+        	str.append("\n target milestone: ").append(this.getMilestone().toString());
+        }
         str.append("\n subsystem: ").append(this.getSubsystem().getName());
         // add state specific stuff:
         str.append(this.getInternState().getDetails());
@@ -900,7 +904,8 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         for (BugReport bugrep : this.getDependencies()) {
             str.append("\n \t id: ").append(bugrep.getUniqueID()).append(", title: ").append(bugrep.getTitle());
         }
-
+        
+        //TODO: add additional info
         return str.toString();
     }
 
