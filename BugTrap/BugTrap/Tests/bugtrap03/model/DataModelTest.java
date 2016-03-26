@@ -1,7 +1,7 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
-import bugtrap03.bugdomain.Tag;
+import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.*;
 import org.junit.Test;
