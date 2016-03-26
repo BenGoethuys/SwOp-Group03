@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.Stack;
 
 /**
@@ -37,21 +36,37 @@ public class DataModel {
 
     private PList<User> userList;
     private PList<Project> projectList;
-    private Deque<ModelCmd> history;
+    private Stack<ModelCmd> history;
+
+    /**
+     * Add the cmd to the cmd history. This will only be added when the cmd has been executed.
+     *
+     * @param cmd The {@link ModelCmd} to add to the history.
+     * @return Whether or not the cmd was added to the history.
+     */
+    private boolean addToHistory(ModelCmd cmd) {
+        if (cmd == null || !cmd.isExecuted()) {
+            return false;
+        }
+
+        history.push(cmd);
+        return true;
+    }
 
     /**
      * Get the last x ModelCmds added to the history of this DataModel. The most recently added ModelCmd will be in the
-     * first index of the list.
+     * first index of the list. When x is &lt 0 an empty list will be returned. When x is &gt the size of the history a
+     * list of the whole history will be returned.
      *
      * @param x The amount of ModelCmds to return. When less than 0 an empty List will be returned.
-     * @return The list of x last commands.
+     * @return The list of x last commands. All commands will be given when x is higher than the current amount.
      */
     @DomainAPI
     public PList<ModelCmd> getHistory(int x) {
         if (x < 0) {
             return PList.<ModelCmd>empty();
         }
-        
+
         x = Math.min(x, history.size());
 
         Deque<ModelCmd> temp = new ArrayDeque(history);
@@ -105,6 +120,15 @@ public class DataModel {
     }
 
     /**
+     * Delete the {@link User} from the list of users.
+     *
+     * @param user The user to delete.
+     */
+    void deleteUser(User user) {
+        this.userList = userList.minus(user);
+    }
+
+    /**
      * Get the list of users in this system who have the exact class type userType.
      *
      * @param <U> extends User type.
@@ -151,10 +175,10 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
-    public Issuer createIssuer(String username, String firstName, String middleName, String lastName)
-            throws IllegalArgumentException {
-        Issuer issuer = new Issuer(username, firstName, middleName, lastName);
-        addUser(issuer);
+    public Issuer createIssuer(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
+        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(this, username, firstName, middleName, lastName);
+        Issuer issuer = cmd.exec();
+        this.addToHistory(cmd);
         return issuer;
     }
 
@@ -169,8 +193,9 @@ public class DataModel {
      */
     @DomainAPI
     public Issuer createIssuer(String username, String firstName, String lastName) throws IllegalArgumentException {
-        Issuer issuer = new Issuer(username, firstName, lastName);
-        addUser(issuer);
+        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(this, username, firstName, lastName);
+        Issuer issuer = cmd.exec();
+        this.addToHistory(cmd);
         return issuer;
     }
 
@@ -185,10 +210,10 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
-    public Developer createDeveloper(String username, String firstName, String middleName, String lastName)
-            throws IllegalArgumentException {
-        Developer dev = new Developer(username, firstName, middleName, lastName);
-        addUser(dev);
+    public Developer createDeveloper(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
+        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(this, username, firstName, middleName, lastName);
+        Developer dev = cmd.exec();
+        this.addToHistory(cmd);
         return dev;
     }
 
@@ -202,10 +227,10 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
-    public Developer createDeveloper(String username, String firstName, String lastName)
-            throws IllegalArgumentException {
-        Developer dev = new Developer(username, firstName, lastName);
-        addUser(dev);
+    public Developer createDeveloper(String username, String firstName, String lastName) throws IllegalArgumentException {
+        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(this, username, firstName, lastName);
+        Developer dev = cmd.exec();
+        this.addToHistory(cmd);
         return dev;
     }
 
@@ -220,10 +245,10 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
-    public Administrator createAdministrator(String username, String firstName, String middleName, String lastName)
-            throws IllegalArgumentException {
-        Administrator admin = new Administrator(username, firstName, middleName, lastName);
-        addUser(admin);
+    public Administrator createAdministrator(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
+        CreateAdminModelCmd cmd = new CreateAdminModelCmd(this, username, firstName, middleName, lastName);
+        Administrator admin = cmd.exec();
+        this.addToHistory(cmd);
         return admin;
     }
 
@@ -237,10 +262,10 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
-    public Administrator createAdministrator(String username, String firstName, String lastName)
-            throws IllegalArgumentException {
-        Administrator admin = new Administrator(username, firstName, lastName);
-        addUser(admin);
+    public Administrator createAdministrator(String username, String firstName, String lastName) throws IllegalArgumentException {
+        CreateAdminModelCmd cmd = new CreateAdminModelCmd(this, username, firstName, lastName);
+        Administrator admin = cmd.exec();
+        this.addToHistory(cmd);
         return admin;
     }
 
