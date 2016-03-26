@@ -20,8 +20,14 @@ public class UpdateProjectModelCmd extends ModelCmd {
      * @param description The new description of the given project
      * @param startDate The new startDate of the given project
      * @param budgetEstimate The new budget estimate of the given project
+     *
+     * @throws IllegalArgumentException When user == null
      */
     UpdateProjectModelCmd(Project proj, User user, String name, String desc, GregorianCalendar startDate, long budgetEstimate) {
+        if (user == null) {
+            throw new IllegalArgumentException("The user passed to UpdateProjectModelCmd was a null reference.");
+        }
+
         this.proj = proj;
         this.user = user;
         this.name = name;
@@ -48,9 +54,9 @@ public class UpdateProjectModelCmd extends ModelCmd {
      * Update the given {@link Project} with the given name, desc, startDate and budget.
      *
      * @return The updated Project.
+     * @throws IllegalStateException When this ModelCmd was already executed.
      * @throws IllegalArgumentException When any of the arguments passed is invalid.
      * @throws PermissionException When the passed user does not have permission to update the given project.
-     * @throws IllegalStateException When this ModelCmd was already executed.
      */
     @Override
     Project exec() throws IllegalArgumentException, NullPointerException, PermissionException, IllegalStateException {
@@ -58,13 +64,13 @@ public class UpdateProjectModelCmd extends ModelCmd {
             throw new IllegalStateException("The UpdateProjectModelCmd was already executed.");
         }
 
+        if (proj == null) {
+            throw new IllegalArgumentException("The project passed to UpdateProjectModelCmd was a null reference.");
+        }
+
         // check needed permission
         if (!user.hasPermission(UserPerm.UPDATE_PROJ)) {
             throw new PermissionException("You don't have the needed permission to update a project!");
-        }
-
-        if (proj == null) {
-            throw new IllegalArgumentException("The project passed to UpdateProjectModelCmd was a null reference.");
         }
 
         // Test to prevent inconsistent updating of vars

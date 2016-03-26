@@ -397,12 +397,10 @@ public class DataModel {
      */
     @DomainAPI
     public Project deleteProject(User user, Project project) throws PermissionException {
-        if (!user.hasPermission(UserPerm.DELETE_PROJ)) {
-            throw new PermissionException("You dont have the needed permission to delete a project");
-        }
-        deleteProject(project);
-
-        return project;
+        DeleteProjectModelCmd cmd = new DeleteProjectModelCmd(this, user, project);
+        Project proj = cmd.exec();
+        addToHistory(cmd);
+        return proj;
     }
 
     /**
