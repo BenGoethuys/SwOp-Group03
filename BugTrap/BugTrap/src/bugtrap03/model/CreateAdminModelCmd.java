@@ -67,17 +67,15 @@ public class CreateAdminModelCmd extends ModelCmd {
      * @return The created {@link Administrator}
      * @throws IllegalArgumentException When any of the arguments passed to the constructor is invalid.
      * @throws IllegalStateException When this ModelCmd was already executed.
-     * 
+     *
      * @see Administrator#Administrator(java.lang.String, java.lang.String, java.lang.String)
-     * @see Administrator#Administrator(java.lang.String, java.lang.String, java.lang.String, java.lang.String) 
+     * @see Administrator#Administrator(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
     Administrator exec() throws IllegalArgumentException, IllegalStateException {
         if (this.isExecuted()) {
             throw new IllegalStateException("The CreateAdminModelCmd was already executed.");
         }
-
-        isExecuted = true;
 
         if (middleName == null) {
             admin = new Administrator(username, firstName, lastName);
@@ -86,6 +84,7 @@ public class CreateAdminModelCmd extends ModelCmd {
         }
 
         model.addUser(admin);
+        isExecuted = true;
         return admin;
     }
 

@@ -69,17 +69,15 @@ class CreateIssuerModelCmd extends ModelCmd {
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments passed to the constructor is invalid.
      * @throws IllegalStateException When this ModelCmd was already executed.
-     * 
+     *
      * @see Issuer#Issuer(java.lang.String, java.lang.String, java.lang.String)
-     * @see Issuer#Issuer(java.lang.String, java.lang.String, java.lang.String, java.lang.String) 
+     * @see Issuer#Issuer(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
-    Issuer exec() throws IllegalArgumentException, IllegalStateException{
+    Issuer exec() throws IllegalArgumentException, IllegalStateException {
         if (this.isExecuted()) {
             throw new IllegalStateException("The CreateIssuerModelCmd was already executed.");
         }
-
-        isExecuted = true;
 
         if (middleName == null) {
             issuer = new Issuer(username, firstName, lastName);
@@ -88,6 +86,7 @@ class CreateIssuerModelCmd extends ModelCmd {
         }
 
         model.addUser(issuer);
+        isExecuted = true;
         return issuer;
     }
 
