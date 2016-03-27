@@ -515,6 +515,7 @@ public class DataModel {
     @DomainAPI
     public Comment createComment(User user, BugReport bugReport, String text) throws PermissionException, IllegalArgumentException {
         return bugReport.addComment(user, text);
+        
     }
 
     /**
