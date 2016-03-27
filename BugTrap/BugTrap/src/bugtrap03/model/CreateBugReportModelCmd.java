@@ -5,7 +5,6 @@ import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import com.google.java.contract.Ensures;
 import java.util.GregorianCalendar;
 import purecollections.PList;
 
@@ -13,7 +12,7 @@ import purecollections.PList;
  *
  * @author Group 03
  */
-public class CreateBugReportModelCmd extends ModelCmd {
+class CreateBugReportModelCmd extends ModelCmd {
 
     /**
      * This method creates a {@link ModelCmd} that can create and add a bug report to the list of associated bugReports
