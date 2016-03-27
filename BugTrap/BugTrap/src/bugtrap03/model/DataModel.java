@@ -43,9 +43,9 @@ public class DataModel {
      * Add the cmd to the cmd history. This will only be added when the cmd has been executed.
      *
      * @param cmd The {@link ModelCmd} to add to the history.
-     * 
+     *
      * @throws IllegalStateException When cmd is a null reference or has not been executed yet.
-     * @see ModelCmd#isExecuted() 
+     * @see ModelCmd#isExecuted()
      */
     private void addToHistory(ModelCmd cmd) throws IllegalStateException {
         if (cmd == null || !cmd.isExecuted()) {
@@ -349,7 +349,8 @@ public class DataModel {
      * @param budgetEstimate The new budget estimate of the given project
      * @throws PermissionException if the given user doesn't have the needed permission to update a project.
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * @Ensures The attributes of the given project will not be updated if an error was thrown //TODO: Ben: Fix Ensures here
+     * @Ensures The attributes of the given project will not be updated if an error was thrown //TODO: Ben: Fix Ensures
+     * here
      */
     @DomainAPI
     public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate,
@@ -411,7 +412,7 @@ public class DataModel {
      * @param abstractSystem The Project/Subsystem to add the new subsystem to
      * @param name The name of the new Subsystem
      * @param description The description of the new Subsystem
-     * 
+     *
      * @return The created subsystem
      * @throws PermissionException If the user doesn't have the permission to create a subsystem
      * @throws IllegalArgumentException When any of the arguments is invalid.
@@ -433,7 +434,7 @@ public class DataModel {
      * @param versionID The versionID of the new Subsystem.
      * @param name The name of the new Subsystem
      * @param description The description of the new Subsystem
-     * 
+     *
      * @return The created subsystem
      * @throws PermissionException If the user doesn't have the permission to create a subsystem
      * @throws IllegalArgumentException When user == null || abstractSystem == null
@@ -462,7 +463,7 @@ public class DataModel {
      * @param stacktrace The stacktrace got when the bug was triggered. Can be NULL.
      * @param error The error got when the bug was triggered. Can be NULL.
      *
-     * @throws IllegalArgumentException if isValidCreator(creator) fails
+     * @throws IllegalArgumentException if isValidCreator(user) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
@@ -493,8 +494,11 @@ public class DataModel {
             GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
             boolean isPrivate, String trigger, String stacktrace, String error)
             throws IllegalArgumentException, PermissionException {
-        return subsystem.addBugReport(user, title, description, creationDate, dependencies, milestone, isPrivate,
-                trigger, stacktrace, error);
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description, 
+                creationDate, dependencies, milestone, isPrivate, trigger, stacktrace, error);
+        BugReport bugReport = cmd.exec();
+        addToHistory(cmd);
+        return bugReport;
     }
 
     /**
