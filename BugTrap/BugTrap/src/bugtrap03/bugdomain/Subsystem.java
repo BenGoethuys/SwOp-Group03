@@ -246,7 +246,18 @@ public class Subsystem extends AbstractSystem {
     }
 
     /**
-     * This function checks the validity of the given name, in combination with its parent.
+     * This method returns the subject name and type as a string.
+     *
+     * @return the name of this subject
+     */
+    @Override
+    protected String getSubjectName() {
+        return ("Subsystem " + this.getName());
+    }
+
+    /**
+     * This function checks the validity of the given name, in combination with
+     * its parent.
      *
      * @param name The string argument to be used as name.
      * @param parent The parent of the element to be named.

@@ -15,9 +15,9 @@ public class Notification {
         this.setSubject(subject);
     }
 
-    String message;
-    BugReport bugReport;
-    Subject subject;
+    private String message;
+    private BugReport bugReport;
+    private Subject subject;
 
     private void setMessage(String message) throws  IllegalArgumentException{
         if (this.isValidMessage(message)){
@@ -27,10 +27,10 @@ public class Notification {
     }
 
     public boolean isValidMessage(String string){
-        if (string == ""){
+        if (string == null){
             return false;
         }
-        if (string == null){
+        if (string.equals("")){
             return false;
         }
         return true;

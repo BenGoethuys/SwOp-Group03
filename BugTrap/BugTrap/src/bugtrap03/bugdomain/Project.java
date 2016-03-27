@@ -461,4 +461,14 @@ public class Project extends AbstractSystem {
         return cloneProject;
 
     }
+
+    /**
+     * This method returns the subject name and type as a string.
+     *
+     * @return the name of this subject
+     */
+    @Override
+    protected String getSubjectName() {
+        return ("Project " + this.getName());
+    }
 }

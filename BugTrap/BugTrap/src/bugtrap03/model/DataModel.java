@@ -349,8 +349,7 @@ public class DataModel {
      * @param budgetEstimate The new budget estimate of the given project
      * @throws PermissionException if the given user doesn't have the needed permission to update a project.
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * @Ensures The attributes of the given project will not be updated if an error was thrown //TODO: Ben: Fix Ensures
-     * here
+     * <br><dt><b>Postconditions:</b><dd> The attributes of the given project will not be updated if an error was thrown
      */
     @DomainAPI
     public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate,
