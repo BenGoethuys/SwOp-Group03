@@ -147,6 +147,7 @@ public class CreateBugReportModelCmd extends ModelCmd {
 
         bugReport = subsystem.addBugReport(user, title, desc, creationDate, dependencies, milestone, isPrivate,
                 trigger, stacktrace, error);
+        isExecuted = true;
         return bugReport;
     }
 
