@@ -97,7 +97,7 @@ class BugReportStateUnderReview implements BugReportState {
     @Override
     @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
     public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
-        throw new IllegalStateException("The current state of the bug report doesn't allow adding more tests");
+        this.tests = this.getTests().plus(test);
     }
 
     /**
