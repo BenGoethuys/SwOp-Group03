@@ -355,7 +355,7 @@ public class Project extends AbstractSystem {
      * @throws IllegalArgumentException If the given role was null
      */
     public void setRole(User user, Developer dev, Role role) throws IllegalArgumentException, PermissionException {
-        if (user == null || dev == null) {
+        if (user == null || dev == null || role == null) {
             throw new IllegalArgumentException(
                     "setRole(User, Developer, Role) does not allow a null-reference for user.");
         }
