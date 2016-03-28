@@ -37,8 +37,6 @@ public class BugReportTest {
     static Project project;
     static Subsystem subsystem;
     static Administrator admin;
-    static long id1;
-    static long id2;
     static String test;
     static String patch;
 
@@ -76,8 +74,9 @@ public class BugReportTest {
 
     @Test
     public void testGetUniqueID() {
-        assertEquals(id1, bugReport1.getUniqueID());
-        assertEquals(id2, bugReport2.getUniqueID());
+        long id1 = bugReport1.getUniqueID();
+        long id2 = bugReport2.getUniqueID();
+        assertNotEquals(id1, id2);
     }
 
     @Test
@@ -93,8 +92,8 @@ public class BugReportTest {
 
     @Test
     public void testIsValidUniqueID() {
-        assertFalse(BugReport.isValidUniqueID(id1));
-        assertFalse(BugReport.isValidUniqueID(id2));
+        assertFalse(BugReport.isValidUniqueID(bugReport1.getUniqueID()));
+        assertFalse(BugReport.isValidUniqueID(bugReport2.getUniqueID()));
 
         assertTrue(BugReport.isValidUniqueID(BugReport.getNewUniqueID()));
 
