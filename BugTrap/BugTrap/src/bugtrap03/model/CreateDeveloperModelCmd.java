@@ -7,18 +7,24 @@ import bugtrap03.bugdomain.usersystem.Issuer;
  *
  * @author Group 03
  */
-public class CreateDeveloperModelCmd extends ModelCmd {
+class CreateDeveloperModelCmd extends ModelCmd {
 
     /**
      * Create a {@link CreateDeveloperModelCmd} which can create a new {@link Developer} when executed.
      *
      * @param model The DataModel to add the developer to.
-     * @param username The username of the issuer.
-     * @param firstName The first name of the issuer.
-     * @param middleName The middle name of the issuer.
-     * @param lastName The last name of the issuer.
-     */   
-    CreateDeveloperModelCmd(DataModel model, String username, String firstName, String middleName, String lastName) {
+     * @param username The username of the developer.
+     * @param firstName The first name of the developer.
+     * @param middleName The middle name of the developer.
+     * @param lastName The last name of the developer.
+     *
+     * @throws IllegalArgumentException When model is a null reference.
+     */
+    CreateDeveloperModelCmd(DataModel model, String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
+        if (model == null) {
+            throw new IllegalArgumentException("The DataModel passed to the CreateDeveloperModelCmd was a null reference.");
+        }
+
         this.model = model;
         this.username = username;
         this.firstName = firstName;
@@ -30,17 +36,25 @@ public class CreateDeveloperModelCmd extends ModelCmd {
      * Create a new {@link ModelCmd} that can create an {@link Issuer} when executed.
      *
      * @param model The DataMode to add the developer to.
-     * @param username The username of the issuer.
-     * @param firstName The first name of the issuer.
-     * @param lastName The last name of the issuer.
+     * @param username The username of the developer.
+     * @param firstName The first name of the developer.
+     * @param lastName The last name of the developer.
+     *
+     * @throws IllegalArgumentException When model is a null reference.
      */
-    CreateDeveloperModelCmd(DataModel model, String username, String firstName, String lastName) {
+    CreateDeveloperModelCmd(DataModel model, String username, String firstName, String lastName) throws IllegalArgumentException {
+        if (model == null) {
+            throw new IllegalArgumentException("The DataModel passed to the CreateDeveloperModelCmd was a null reference.");
+        }
+
         this.model = model;
         this.username = username;
         this.middleName = null;
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    private Developer dev;
 
     private final DataModel model;
     private final String username;
@@ -56,22 +70,16 @@ public class CreateDeveloperModelCmd extends ModelCmd {
      * @return The created {@link Developer}
      * @throws IllegalArgumentException When any of the arguments passed to the constructor is invalid.
      * @throws IllegalStateException When this ModelCmd was already executed.
-     * 
-     * @see Developer#Developer(java.lang.String, java.lang.String, java.lang.String) 
-     * @see Developer#Developer(java.lang.String, java.lang.String, java.lang.String, java.lang.String) 
+     *
+     * @see Developer#Developer(java.lang.String, java.lang.String, java.lang.String)
+     * @see Developer#Developer(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
     Developer exec() throws IllegalArgumentException, IllegalStateException {
-        if (model == null) {
-            throw new IllegalArgumentException("The DataModel passed to the CreateIssuerModelCmd was a null reference.");
-        }
-        if(this.isExecuted()) {
+        if (this.isExecuted()) {
             throw new IllegalStateException("The CreateDeveloperModelCmd was already executed.");
         }
 
-        isExecuted = true;
-
-        Developer dev;
         if (middleName == null) {
             dev = new Developer(username, firstName, lastName);
         } else {
@@ -79,14 +87,20 @@ public class CreateDeveloperModelCmd extends ModelCmd {
         }
 
         model.addUser(dev);
+        isExecuted = true;
         return dev;
     }
 
     @Override
     boolean undo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (!this.isExecuted()) {
+            return false;
+        }
+
+        model.deleteUser(dev);
+        return true;
     }
-    
+
     @Override
     boolean isExecuted() {
         return this.isExecuted;

@@ -15,9 +15,9 @@ public class Notification {
         this.setSubject(subject);
     }
 
-    String message;
-    BugReport bugReport;
-    Subject subject;
+    private String message;
+    private BugReport bugReport;
+    private Subject subject;
 
     private void setMessage(String message) throws  IllegalArgumentException{
         if (this.isValidMessage(message)){
@@ -27,10 +27,10 @@ public class Notification {
     }
 
     public boolean isValidMessage(String string){
-        if (string == ""){
+        if (string == null){
             return false;
         }
-        if (string == null){
+        if (string.equals("")){
             return false;
         }
         return true;
@@ -67,10 +67,12 @@ public class Notification {
     public String open(User user){
         if (this.bugReport.isPrivate() && ! user.hasRolePermission(RolePerm.OPEN_PRIVATE_NOTIFICATION,
                 this.bugReport.getSubsystem().getParentProject())){
-            return "This notification is closed for you.";
+            return "This notification is closed for you at the moment.";
         }
         StringBuilder message = new StringBuilder(this.message);
         message.append(bugReport.getTitle());
-        message.append("\n This notifications is originated from the subscription on: ").append(subject.getSubjectName());
+        message.append("\n This notifications is originated from the subscription on: ");
+        message.append(subject.getSubjectName());
+        return message.toString();
     }
 }

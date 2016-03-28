@@ -46,7 +46,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="6" language="java" name="bugtrap03.bugdomain.Tag" project="BugTrap" 
+  <enumeration id="6" language="java" name="bugtrap03.bugdomain.bugreport.Tag" project="BugTrap"
     file="/BugTrap/src/bugtrap03/bugdomain/Tag.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="824" y="655"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

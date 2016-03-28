@@ -56,9 +56,11 @@ public class AbstractSystemTest {
                 testBudget);
         subSysTest = testProject.makeSubsystemChild(subVersion, subName, subDescription);
         subSysTest2 = subSysTest.makeSubsystemChild("mehAS", "moehAS");
-        bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", emptyDep);
+        //bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", emptyDep);
+        bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(), emptyDep, null, false, null, null, null);
         depToRep1 = PList.<BugReport> empty().plus(bugreport1);
-        bugreport2 = subSysTest2.addBugReport(testDev, "otherBug4AS", "i like bonobos", depToRep1);
+        //        bugreport2 = subSysTest2.addBugReport(testDev, "otherBug4AS", "i like bonobos", depToRep1);
+        bugreport2 = subSysTest2.addBugReport(testDev, "otherBug4AS", "i like bonobos", new GregorianCalendar(), depToRep1, null, false, null, null, null);
     }
 
     @Test

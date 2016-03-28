@@ -1,10 +1,11 @@
 package bugtrap03.bugdomain.usersystem.notification;
 
-import bugtrap03.bugdomain.Tag;
-import bugtrap03.bugdomain.bugreport.Comment;
+import bugtrap03.bugdomain.bugreport.Tag;
 import purecollections.PList;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.Iterator;
 
 /**
  * This class represents a mailbox for a user.
@@ -91,7 +92,7 @@ public class Mailbox {
      * @param subject The subject for the subscription.
      * @param tags The tags for which the subscription is interested.
      */
-    public void tagSubscribe(Subject subject, Tag[] tags){
+    public void tagSubscribe(Subject subject, EnumSet<Tag> tags){
         TagMailBox tmb = new TagMailBox(subject, tags);
         this.addBox(tmb);
     }
@@ -101,10 +102,10 @@ public class Mailbox {
      *
      * @param subject The subject for the subscription.
      *
-     * @see #tagSubscribe(Subject, Tag[])
+     * @see #tagSubscribe(Subject, EnumSet)
      */
     public void tagSubscribe(Subject subject){
-        Tag[] tags = Tag.values();
+        EnumSet<Tag> tags = EnumSet.allOf(Tag.class);
         this.tagSubscribe(subject, tags);
     }
 
