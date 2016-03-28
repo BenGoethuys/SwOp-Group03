@@ -315,6 +315,7 @@ public class Project extends AbstractSystem {
      *
      * @return this;
      */
+    @Override
     protected Project getParent() {
         return this;
     }
@@ -351,7 +352,7 @@ public class Project extends AbstractSystem {
      * @throws PermissionException If the given user doesn't have the needed
      *             permission to assign the given role to the given developer
      * @throws IllegalArgumentException If the given user is null
-     * @throws IllegalArgumentException If the given developper is null
+     * @throws IllegalArgumentException If the given developer is null
      * @throws IllegalArgumentException If the given role was null
      */
     public void setRole(User user, Developer dev, Role role) throws IllegalArgumentException, PermissionException {
@@ -363,6 +364,18 @@ public class Project extends AbstractSystem {
             throw new PermissionException("The given user doesn't have the needed permission to set the role");
         }
         this.setRole(dev, role);
+    }
+    
+    /**
+     * Remove all the roles the developer has in this project.
+     * <br><b> Caution: Only use when you can guarantee no constraints are effected.</b>
+     * (e.g This does change anything about BugReports with the developer as 'assigned'.)
+     * @param dev The developer to delete the roles off.
+     */
+    public void deleteRoles(Developer dev) {
+        if(dev != null) {
+            this.projectParticipants.remove(dev);
+        }
     }
 
     /**
