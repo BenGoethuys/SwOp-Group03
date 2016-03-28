@@ -48,10 +48,11 @@ class BugReportStateUnderReview implements BugReportState {
         // cannot have unresolved deps, because otherwise would not have this tag
         if (tag == Tag.NOT_A_BUG) {
             bugReport.setInternState(new BugReportStateNotABug());
+        } else {
+            // Tag assigned should be the only valid left
+            assert (tag == Tag.ASSIGNED);
+            bugReport.setInternState(new BugReportStateAssigned());
         }
-        // Tag assigned should be the only valid left
-        assert (tag == Tag.ASSIGNED);
-        bugReport.setInternState(new BugReportStateAssigned());
     }
 
     /**
