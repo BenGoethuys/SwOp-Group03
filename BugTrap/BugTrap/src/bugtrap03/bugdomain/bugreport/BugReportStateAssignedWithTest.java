@@ -230,6 +230,15 @@ class BugReportStateAssignedWithTest implements BugReportState {
      */
     @Override
     public String getDetails() {
-        return "\n tag: " + this.getTag().name();
+        StringBuilder str = new StringBuilder();
+        str.append("\n tag: ").append(this.getTag().name());
+
+        // add tests
+        str.append("\n tests: ");
+        for (String test : this.getTests()){
+            str.append("\n \t ").append(test);
+        }
+
+        return str.toString();
     }
 }
