@@ -66,9 +66,7 @@ public class BugReportTest {
         project.setRole(lead, tester, Role.TESTER);
         subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project);
 
-        id1 = BugReport.getNewUniqueID();
         bugReport1 = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, false, "", "", "");
-        id2 = BugReport.getNewUniqueID();
         bugReport2 = new BugReport(issuer, "FoundBug", "", date, depList, subsystem, null, true, trigger, stacktrace, error);
     }
 
