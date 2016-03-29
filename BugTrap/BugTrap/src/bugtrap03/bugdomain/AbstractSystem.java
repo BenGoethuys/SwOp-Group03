@@ -100,6 +100,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      *
      * @return The milestone of the project.
      */
+    @DomainAPI
     public Milestone getMilestone() {
         return this.milestone;
     }
