@@ -320,6 +320,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         if (!user.hasRolePermission(tag.getNeededPerm(), this.getSubsystem().getParentProject())) {
             throw new PermissionException("The given user doesn't have the permission to set the requested tag");
         }
+        this.notifyTagSubs(this);
         this.getInternState().setTag(this, tag);
     }
 
@@ -412,6 +413,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             throw new IllegalArgumentException("The given comment is not a valid comment for this bug report");
         }
         this.commentList = this.getCommentList().plus(comment);
+        this.notifyCommentSubs(this);
         return comment;
     }
 
@@ -1140,12 +1142,24 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         return subjectName.toString();
     }
 
+    /**
+     * This method notifies the subsystem it belongs to,
+     * to update it's mailboxes for a tag subscription and to notify it's parent.
+     *
+     * @param br The bugreport of which an attribute has changed.
+     */
     @Override
     public void notifyTagSubs(BugReport br) {
         this.getSubsystem().notifyTagSubs(br);
         this.updateTagSubs(br);
     }
 
+    /**
+     * This method notifies the subsystem it belongs to,
+     * to update it's mailboxes for a comment subscription and to notify it's parent.
+     *
+     * @param br The bugreport of which an attribute has changed.
+     */
     @Override
     public void notifyCommentSubs(BugReport br) {
         this.getSubsystem().notifyCommentSubs(br);
