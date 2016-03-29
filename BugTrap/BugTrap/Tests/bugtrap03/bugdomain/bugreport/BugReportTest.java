@@ -50,7 +50,7 @@ public class BugReportTest {
         programer = new Developer("ditGebruiktNiemandAnders2", "Jos", "Smidt");
         tester = new Developer("ditGebruiktNiemandAnders3", "Jantje", "Smidt");
         depList = PList.<BugReport>empty();
-        milestone = new Milestone(2,3);
+        milestone = new Milestone(2,6);
         trigger = "The trigger for repoducing this bug";
         stacktrace = "The stacktrace of this bug";
         error = "The error of this bug";
@@ -63,7 +63,7 @@ public class BugReportTest {
         project = new Project("ANewProject", "the description of the project", lead, 0);
         project.setRole(lead, programer, Role.PROGRAMMER);
         project.setRole(lead, tester, Role.TESTER);
-        subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project);
+        subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project, new Milestone(2,5));
 
         bugReport1 = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, false, "", "", "");
         bugReport2 = new BugReport(issuer, "FoundBug", "", date, depList, subsystem, null, true, trigger, stacktrace, error);
@@ -484,24 +484,31 @@ public class BugReportTest {
     
     @Test
     public void testSetMilestone() throws IllegalArgumentException, PermissionException{
+        // milestone null:
     	assertEquals(null, tempBugReport.getMilestone());
     	tempBugReport.setMilestone(milestone);
     	assertEquals(milestone, tempBugReport.getMilestone());
     	tempBugReport.setMilestone(null);
     	assertEquals(null, tempBugReport.getMilestone());
+
+        // milestone not null, but valid:
+        tempBugReport.setMilestone(new Milestone(3));
     }
     
-    @Test //(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testSetInvalidMilestone() throws IllegalArgumentException {
-    	// TODO: when milestones are fixed !
-    	fail("need to implement when milestone is fixed");
+        Milestone tempMilestone = new Milestone(2, 4);
+        tempBugReport.setMilestone(tempMilestone);
+        assertEquals(tempMilestone, tempBugReport.getMilestone());
     }
     
     @Test
     public void testIsValidMilestone(){
     	assertTrue(bugReport1.isValidMilestone(null));
-    	//TODO: when milestones are fixed !
-    	fail("need to implement when milestone is fixed");
+        // greater then subsystem
+        assertTrue(bugReport1.isValidMilestone(new Milestone(2, 5, 1)));
+        // lower then subsytem
+        assertFalse(bugReport1.isValidMilestone(new Milestone(2, 4)));
     }
     
     @Test
