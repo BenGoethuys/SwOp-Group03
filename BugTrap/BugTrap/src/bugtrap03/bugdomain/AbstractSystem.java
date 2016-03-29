@@ -421,4 +421,10 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         this.getParent().notifyCommentSubs(br);
         this.updateCommentSubs(br);
     }
+
+    @Override
+    public void notifyCreationSubs(BugReport br) {
+        this.getParent().notifyCreationSubs(br);
+        this.updateCreationSubs(br);
+    }
 }

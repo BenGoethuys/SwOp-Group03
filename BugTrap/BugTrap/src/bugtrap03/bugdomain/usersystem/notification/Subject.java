@@ -47,7 +47,7 @@ public abstract class Subject {
     public abstract void notifyTagSubs(BugReport br);
 
     /**
-     * Thid method updates all the mailboxes subscribed on a comment creation on this subject.
+     * This method updates all the mailboxes subscribed on a comment creation on this subject.
      *
      * @param br The bugreport needed for the update
      * @see CommentMailBox#update(BugReport)
