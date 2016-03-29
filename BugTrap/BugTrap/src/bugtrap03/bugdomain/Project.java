@@ -39,8 +39,8 @@ public class Project extends AbstractSystem {
      * @see Project#isValidBudgetEstimate(long)
      */
     public Project(VersionID version, String name, String description, GregorianCalendar creationDate, Developer lead,
-            GregorianCalendar startDate, long budgetEstimate) throws IllegalArgumentException {
-        super(version, name, description);
+            GregorianCalendar startDate, long budgetEstimate, Milestone milestone) throws IllegalArgumentException {
+        super(version, name, description, milestone);
         this.setCreationDate(creationDate);
         this.projectParticipants = new HashMap<>();
         this.setLead(lead);
@@ -65,8 +65,8 @@ public class Project extends AbstractSystem {
      * @see Project#isValidBudgetEstimate(long)
      */
     public Project(VersionID version, String name, String description, Developer lead, GregorianCalendar startDate,
-            long budgetEstimate) throws IllegalArgumentException {
-        this(version, name, description, new GregorianCalendar(), lead, startDate, budgetEstimate);
+            long budgetEstimate, Milestone milestone) throws IllegalArgumentException {
+        this(version, name, description, new GregorianCalendar(), lead, startDate, budgetEstimate, milestone);
     }
 
     /**
@@ -84,9 +84,9 @@ public class Project extends AbstractSystem {
      * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
      * @see Project#isValidBudgetEstimate(long)
      */
-    public Project(String name, String description, Developer lead, GregorianCalendar startDate, long budgetEstimate)
+    public Project(String name, String description, Developer lead, GregorianCalendar startDate, long budgetEstimate, Milestone milestone)
             throws IllegalArgumentException {
-        super(name, description);
+        super(name, description, milestone);
         this.setCreationDate(new GregorianCalendar());
         this.projectParticipants = new HashMap<>();
         this.setLead(lead);
@@ -107,9 +107,9 @@ public class Project extends AbstractSystem {
      * @see Project#isValidLead(Developer)
      * @see Project#isValidBudgetEstimate(long)
      */
-    public Project(String name, String description, Developer lead, long budgetEstimate)
+    public Project(String name, String description, Developer lead, long budgetEstimate, Milestone milestone)
             throws IllegalArgumentException {
-        super(name, description);
+        super(name, description, milestone);
         this.setCreationDate(new GregorianCalendar());
         this.projectParticipants = new HashMap<>();
         this.setLead(lead);
@@ -325,57 +325,83 @@ public class Project extends AbstractSystem {
      *
      * @param dev The developer to give a role
      * @param role The role the developer has in this project
+     * 
+     * @return Whether the roles of the developer have changed
      * @throws IllegalArgumentException if the given role was invalid
      */
-    private void setRole(Developer dev, Role role) {
+    private boolean setRole(Developer dev, Role role) {
         if (role == null) {
             throw new IllegalArgumentException("The given role was null");
         }
         PList<Role> roleList = this.projectParticipants.get(dev);
         if (roleList == null) {
             this.projectParticipants.put(dev, PList.<Role> empty().plus(role));
+            return true;
         } else {
             if (!roleList.contains(role)) {
                 this.projectParticipants.put(dev, roleList.plus(role));
+                return true;
+            } else {
+                return false;
             }
         }
     }
 
     /**
-     * The given user uses this method to set the role of a given developer to
-     * the given role
+     * The given user uses this method to set the role of a given developer to the given role
      *
-     * @param user The user that wants to set the given role to the given
-     *            developer
+     * @param user The user that wants to set the given role to the given developer
      * @param dev The developer to give the new role to
      * @param role The role that will be assigned to the given developer
-     * @throws PermissionException If the given user doesn't have the needed
-     *             permission to assign the given role to the given developer
-     * @throws IllegalArgumentException If the given user is null
-     * @throws IllegalArgumentException If the given developer is null
-     * @throws IllegalArgumentException If the given role was null
+     * 
+     * @return Whether the roles of the developer have changed.
+     * @throws PermissionException If the given user does not have sufficient permissions to assign the given role to
+     * the given developer
+     * @throws IllegalArgumentException When user == null
+     * @throws IllegalArgumentException When developer == null
+     * @throws IllegalArgumentException When role == null
      */
-    public void setRole(User user, Developer dev, Role role) throws IllegalArgumentException, PermissionException {
+    public boolean setRole(User user, Developer dev, Role role) throws IllegalArgumentException, PermissionException {
         if (user == null || dev == null || role == null) {
-            throw new IllegalArgumentException(
-                    "setRole(User, Developer, Role) does not allow a null-reference for user, dev and role.");
+            throw new IllegalArgumentException("setRole(User, Developer, Role) does not allow a null-reference for user, dev and role.");
         }
         if (!user.hasRolePermission(role.getNeededPerm(), this)) {
             throw new PermissionException("The given user doesn't have the needed permission to set the role");
         }
-        this.setRole(dev, role);
+        return this.setRole(dev, role);
     }
     
     /**
-     * Remove all the roles the developer has in this project.
+     * Remove the role from the developer for this project.
      * <br><b> Caution: Only use when you can guarantee no constraints are effected.</b>
      * (e.g This does change anything about BugReports with the developer as 'assigned'.)
      * <br> This is used for undoing an 'assign role' directly after assigning that role.
-     * @param dev The developer to delete the roles off.
+     * @param dev The developer to delete the role off.
+     * @param role The role to remove
+     * @return Whether the roles of the developer have changed. False when dev == null || role == null.
      */
-    public void deleteRoles(Developer dev) {
-        if(dev != null) {
+    public boolean deleteRole(Developer dev, Role role) {
+        if (dev == null || role == null) {
+            return false;
+        }
+
+        //retrieve info
+        PList<Role> roles = this.projectParticipants.get(dev);
+        if (roles == null || roles.isEmpty()) {
+            return false;
+        }
+        int oldSize = roles.size();
+        //delete
+        roles = roles.minus(role);
+        //clean up
+        if(roles.isEmpty()) { //Change, empty now
             this.projectParticipants.remove(dev);
+            return true;
+        } else if(roles.size() == oldSize) { //no change
+            return false;
+        } else { //change
+            this.projectParticipants.put(dev, roles);
+            return true;
         }
     }
 
@@ -465,10 +491,10 @@ public class Project extends AbstractSystem {
      * @return The deep-cloned project.
      * @see Subsystem#cloneSubsystem(AbstractSystem)
      */
-    public Project cloneProject(VersionID version, Developer lead, GregorianCalendar startDate, long budgetEstimate) {
+    public Project cloneProject(VersionID version, Developer lead, GregorianCalendar startDate, long budgetEstimate, Milestone milestone) {
 
         Project cloneProject = new Project(version, this.getName(), this.getDescription(), lead, startDate,
-                budgetEstimate);
+                budgetEstimate, milestone);
         for (Subsystem subsystemChild : this.getChilds()) {
             subsystemChild.cloneSubsystem(cloneProject);
         }

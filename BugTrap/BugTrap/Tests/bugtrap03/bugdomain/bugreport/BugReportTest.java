@@ -222,7 +222,7 @@ public class BugReportTest {
 
     @Test
     public void testIsValidTag() throws PermissionException {
-        
+
         assertFalse(tempBugReport.isValidTag(null));
 
         // For bugReport with Tag.NEW
@@ -839,6 +839,13 @@ public class BugReportTest {
     	assertTrue(tempBugReport.isValidDuplicate(bugReport1));
     	assertFalse(tempBugReport.isValidDuplicate(null));
     	assertFalse(tempBugReport.isValidDuplicate(tempBugReport));
+    }
+
+    @Test
+    public void getSubjectName(){
+        String result = bugReport1.getSubjectName();
+        String expected = bugReport1.getTitle();
+        assertEquals(expected, result);
     }
 
 }

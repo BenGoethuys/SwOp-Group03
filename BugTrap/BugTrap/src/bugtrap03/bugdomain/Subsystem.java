@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
  */
 @DomainAPI
 public class Subsystem extends AbstractSystem {
-
+    
     /**
      * This constructor makes an element of the class subsystem, using it's superclass, AbstractSystem, constructor.
      *
@@ -24,42 +24,38 @@ public class Subsystem extends AbstractSystem {
      * @param name The string name for this element.
      * @param description The string description of this element.
      * @param parent The parent (a Project or Subsystem) of this element.
+     * @param milestone The milestone of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if the version id is invalid.
      * @throws IllegalArgumentException if the parent is invalid for this subsystem
      * @see AbstractSystem#AbstractSystem(VersionID, String, String)
      * @see Subsystem#isValidParent(AbstractSystem)
-     *
      */
-    public Subsystem(VersionID version, String name, String description, AbstractSystem parent)
+    public Subsystem(VersionID version, String name, String description, AbstractSystem parent, Milestone milestone)
             throws IllegalArgumentException {
-        super(version, name, description);
-        // if (!this.isValidName(name, parent)) {
-        // throw new IllegalArgumentException("The name is invalid with the
-        // given parent");
-        // }
+        super(version, name, description, milestone);
         this.setParent(parent);
-        this.bugReportList = PList.<BugReport>empty();
+        this.bugReportList = PList.<BugReport> empty();
     }
-
+    
     /**
      * This constructor makes an element of the class subsystem, using it's superclass, AbstractSystem, constructor.
      *
      * @param name The string name for this element.
      * @param description The string description of this element.
      * @param parent The parent (a Project or Subsystem) of this element.
+     * @param milestone The milestone of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
-     * @see Subsystem#Subsystem(VersionID, String, String, AbstractSystem)
-     *
+     * @throws IllegalArgumentException if the version id is invalid.
+     * @throws IllegalArgumentException if the parent is invalid for this subsystem
+     * @see AbstractSystem#AbstractSystem(VersionID, String, String)
+     * @see Subsystem#isValidParent(AbstractSystem)
      */
-    public Subsystem(String name, String description, AbstractSystem parent) throws IllegalArgumentException {
-        super(name, description);
-        // if (!this.isValidName(name, parent)) {
-        // throw new IllegalArgumentException("The name is invalid with the
-        // given parent");
-        // }
+    public Subsystem(String name, String description, AbstractSystem parent, Milestone milestone)
+            throws IllegalArgumentException {
+        super(name, description, milestone);
         this.setParent(parent);
-        this.bugReportList = PList.<BugReport>empty();
+        this.bugReportList = PList.<BugReport> empty();
     }
 
     private AbstractSystem parent;
@@ -213,7 +209,7 @@ public class Subsystem extends AbstractSystem {
      * @see Subsystem#Subsystem(VersionID, String, String, AbstractSystem)
      */
     public Subsystem cloneSubsystem(AbstractSystem parent) throws IllegalArgumentException {
-        Subsystem clone = parent.makeSubsystemChild(this.getVersionID().clone(), this.getName(), this.getDescription());
+        Subsystem clone = parent.makeSubsystemChild(this.getVersionID().clone(), this.getName(), this.getDescription(), this.getMilestone());
         for (Subsystem child : this.getChilds()) {
             child.cloneSubsystem(clone);
         }
