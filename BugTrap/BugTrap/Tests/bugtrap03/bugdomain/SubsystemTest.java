@@ -87,7 +87,9 @@ public class SubsystemTest {
 
     @Test
     public void testHasPermission() {
-        assertTrue(subSysTest.hasPermission(testDev, RolePerm.ASSIGN_DEV_PROJECT));
+        //FIXME:
+//        // this doesn't do anything! ASSIGN_DEV_PROJECT is never used ...
+//        assertTrue(subSysTest.hasPermission(testDev, RolePerm.ASSIGN_LEAD_ROLE));
     }
 
     @Test

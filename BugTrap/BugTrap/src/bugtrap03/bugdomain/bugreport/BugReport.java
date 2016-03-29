@@ -332,6 +332,9 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @DomainAPI
     public boolean isValidTag(Tag tag) {
+        if (tag == null){
+            return false;
+        }
         return this.getInternState().isValidTag(tag);
     }
 
@@ -903,7 +906,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         if (state == null) {
             throw new IllegalArgumentException("The given state is null and invalid for a bug report");
         }
-        //TODO change to @Requires? (== pre-condition) ? -> should never be called from outside anyways
         this.state = state;
     }
 
