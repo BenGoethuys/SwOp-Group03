@@ -39,8 +39,8 @@ public class Project extends AbstractSystem {
      * @see Project#isValidBudgetEstimate(long)
      */
     public Project(VersionID version, String name, String description, GregorianCalendar creationDate, Developer lead,
-            GregorianCalendar startDate, long budgetEstimate) throws IllegalArgumentException {
-        super(version, name, description);
+            GregorianCalendar startDate, long budgetEstimate, Milestone milestone) throws IllegalArgumentException {
+        super(version, name, description, milestone);
         this.setCreationDate(creationDate);
         this.projectParticipants = new HashMap<>();
         this.setLead(lead);
@@ -65,8 +65,8 @@ public class Project extends AbstractSystem {
      * @see Project#isValidBudgetEstimate(long)
      */
     public Project(VersionID version, String name, String description, Developer lead, GregorianCalendar startDate,
-            long budgetEstimate) throws IllegalArgumentException {
-        this(version, name, description, new GregorianCalendar(), lead, startDate, budgetEstimate);
+            long budgetEstimate, Milestone milestone) throws IllegalArgumentException {
+        this(version, name, description, new GregorianCalendar(), lead, startDate, budgetEstimate, milestone);
     }
 
     /**
@@ -84,9 +84,9 @@ public class Project extends AbstractSystem {
      * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
      * @see Project#isValidBudgetEstimate(long)
      */
-    public Project(String name, String description, Developer lead, GregorianCalendar startDate, long budgetEstimate)
+    public Project(String name, String description, Developer lead, GregorianCalendar startDate, long budgetEstimate, Milestone milestone)
             throws IllegalArgumentException {
-        super(name, description);
+        super(name, description, milestone);
         this.setCreationDate(new GregorianCalendar());
         this.projectParticipants = new HashMap<>();
         this.setLead(lead);
@@ -107,9 +107,9 @@ public class Project extends AbstractSystem {
      * @see Project#isValidLead(Developer)
      * @see Project#isValidBudgetEstimate(long)
      */
-    public Project(String name, String description, Developer lead, long budgetEstimate)
+    public Project(String name, String description, Developer lead, long budgetEstimate, Milestone milestone)
             throws IllegalArgumentException {
-        super(name, description);
+        super(name, description, milestone);
         this.setCreationDate(new GregorianCalendar());
         this.projectParticipants = new HashMap<>();
         this.setLead(lead);
@@ -491,10 +491,10 @@ public class Project extends AbstractSystem {
      * @return The deep-cloned project.
      * @see Subsystem#cloneSubsystem(AbstractSystem)
      */
-    public Project cloneProject(VersionID version, Developer lead, GregorianCalendar startDate, long budgetEstimate) {
+    public Project cloneProject(VersionID version, Developer lead, GregorianCalendar startDate, long budgetEstimate, Milestone milestone) {
 
         Project cloneProject = new Project(version, this.getName(), this.getDescription(), lead, startDate,
-                budgetEstimate);
+                budgetEstimate, milestone);
         for (Subsystem subsystemChild : this.getChilds()) {
             subsystemChild.cloneSubsystem(cloneProject);
         }
