@@ -11,9 +11,12 @@ class BugReportStateDuplicate implements BugReportState {
 
     /**
      * constructor for this state
+     *
+     * <br><dt><b>Preconditions:</b><dd> the given duplicate must be valid for the bug report to which this state will belong ! (@see )
+     *
+     * @see BugReport#isValidDuplicate(BugReport)
      */
     BugReportStateDuplicate(BugReport duplicate){
-        //TODO assertion for valid bugReport? isValid?
         this.duplicate = duplicate;
     }
 
@@ -67,7 +70,6 @@ class BugReportStateDuplicate implements BugReportState {
     @Override
     @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
     public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
-        //TODO allow adding of user to closed state?
         throw new IllegalStateException("State is Duplicate -> cannot change anymore");
     }
 

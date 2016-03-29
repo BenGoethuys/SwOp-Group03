@@ -48,10 +48,11 @@ class BugReportStateUnderReview implements BugReportState {
         // cannot have unresolved deps, because otherwise would not have this tag
         if (tag == Tag.NOT_A_BUG) {
             bugReport.setInternState(new BugReportStateNotABug());
+        } else {
+            // Tag assigned should be the only valid left
+            assert (tag == Tag.ASSIGNED);
+            bugReport.setInternState(new BugReportStateAssigned());
         }
-        // Tag assigned should be the only valid left
-        assert (tag == Tag.ASSIGNED);
-        bugReport.setInternState(new BugReportStateAssigned());
     }
 
     /**
@@ -97,7 +98,7 @@ class BugReportStateUnderReview implements BugReportState {
     @Override
     @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
     public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
-        throw new IllegalStateException("The current state of the bug report doesn't allow adding more tests");
+        this.tests = this.getTests().plus(test);
     }
 
     /**

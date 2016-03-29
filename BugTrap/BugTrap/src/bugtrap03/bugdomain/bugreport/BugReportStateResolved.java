@@ -78,7 +78,7 @@ class BugReportStateResolved implements BugReportState {
     @Override
     @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
     public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
-        throw new IllegalStateException("Cannot assign uses in this state anymore");
+        bugReport.addUser(dev);
     }
 
     /**
@@ -195,7 +195,7 @@ class BugReportStateResolved implements BugReportState {
      * @param score The score to check
      * @return  True if the given score is a score on a 1 to 5 scale
      */
-    private boolean isValidScore(int score){
+    protected static boolean isValidScore(int score){
         if (score > 5 || score < 1){
             return false;
         }

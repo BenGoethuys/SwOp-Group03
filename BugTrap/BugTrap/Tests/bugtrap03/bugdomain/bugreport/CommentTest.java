@@ -123,7 +123,7 @@ public class CommentTest {
         Comment comment = new Comment(issuer, "bla bla");
         assertTrue(comment.getSubComments().isEmpty());
         assertTrue(comment.getAllComments(null).contains(comment));
-        assertEquals(0, comment.getAllComments(null).size());
+        assertEquals(1, comment.getAllComments(null).size());
 
         Comment comment2 = new Comment(issuer, "hihi");
         comment.addSubComment(comment2);
