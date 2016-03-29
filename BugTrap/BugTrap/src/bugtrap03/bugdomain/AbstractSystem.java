@@ -248,7 +248,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @param description The description of the new subsystem
      * @return The new subsystems that was added to this AbstractSystem
      */
-    public Subsystem makeSubsystemChild(VersionID version, String name, String description, Milestone milestone) {
+    public Subsystem makeSubsystemChild(VersionID version, String name, String description) {
         Subsystem newChild = new Subsystem(version, name, description, this);
         this.addChild(newChild);
         return newChild;
