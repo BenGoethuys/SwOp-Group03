@@ -284,8 +284,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @param description The description of the new subsystem
      * @return The new subsystems that was added to this AbstractSystem
      */
-    public Subsystem makeSubsystemChild(VersionID version, String name, String description) {
-        Subsystem newChild = new Subsystem(version, name, description, this);
+    public Subsystem makeSubsystemChild(VersionID version, String name, String description, Milestone milestone) {
+        Subsystem newChild = new Subsystem(version, name, description, this, milestone);
         this.addChild(newChild);
         return newChild;
     }
@@ -300,8 +300,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @throws IllegalArgumentException When name or description is invalid.
      */
     @Ensures("result.getVersionID.equals(new VersionID())")
-    public Subsystem makeSubsystemChild(String name, String description) {
-        Subsystem newChild = new Subsystem(name, description, this);
+    public Subsystem makeSubsystemChild(String name, String description, Milestone milestone) {
+        Subsystem newChild = new Subsystem(name, description, this, milestone);
         this.addChild(newChild);
         return newChild;
     }

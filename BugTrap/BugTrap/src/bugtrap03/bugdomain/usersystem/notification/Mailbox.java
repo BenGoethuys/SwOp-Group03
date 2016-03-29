@@ -5,7 +5,6 @@ import purecollections.PList;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.Iterator;
 
 /**
  * This class represents a mailbox for a user.
@@ -13,6 +12,9 @@ import java.util.Iterator;
  */
 public class Mailbox {
 
+    /**
+     * The constructor for a general mailbox.
+     */
     public Mailbox(){
         this.boxes = PList.<Mailbox>empty();
         this.notifications = PList.<Notification>empty();
