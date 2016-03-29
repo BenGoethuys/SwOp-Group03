@@ -182,6 +182,7 @@ public class Subsystem extends AbstractSystem {
                     milestone, isPrivate, trigger, stacktrace, error);
         }
         this.bugReportList = this.getBugReportList().plus(bugReport);
+        this.notifyCreationSubs(bugReport);
         return bugReport;
     }
 
