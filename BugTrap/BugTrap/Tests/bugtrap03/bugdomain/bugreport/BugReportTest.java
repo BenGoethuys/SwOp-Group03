@@ -60,7 +60,7 @@ public class BugReportTest {
 
         admin = new Administrator("ditGebruiktNiemandAnders4", "bla", "hihi");
 
-        project = new Project("ANewProject", "the description of the project", lead, 0);
+        project = new Project("ANewProject", "the description of the project", lead, 0, null);
         project.setRole(lead, programer, Role.PROGRAMMER);
         project.setRole(lead, tester, Role.TESTER);
         subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project, new Milestone(2,5));
