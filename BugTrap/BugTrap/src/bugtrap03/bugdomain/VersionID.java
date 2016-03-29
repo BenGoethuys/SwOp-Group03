@@ -2,7 +2,7 @@ package bugtrap03.bugdomain;
 
 /**
  * This class represents a version id consisting out of 3 numbers, separated by
- * a dot
+ * a dot. <br> This is an Immutable class.
  * 
  * @author Group 03.
  */
