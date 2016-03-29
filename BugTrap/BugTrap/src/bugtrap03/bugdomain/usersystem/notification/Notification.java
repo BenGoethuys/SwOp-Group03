@@ -5,10 +5,20 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
- * Created by Kwinten on 23/03/2016.
+ * This class represents a notification.
+ * @author group 03
  */
 public class Notification {
 
+    /**
+     * The constructor for a new notification with a given notification, a bugreport of which an attribute has changed,
+     * the subject for the subscription that created the notification.
+     *
+     * @param notification The string message for this notification
+     * @param bugReport The bugreport of which an attribute has changed.
+     * @param subject The subject from the subscription that creates the notification.
+     * @throws IllegalArgumentException
+     */
     public Notification(String notification, BugReport bugReport, Subject subject) throws IllegalArgumentException{
         this.setMessage(notification);
         this.setBugReport(bugReport);
@@ -19,6 +29,14 @@ public class Notification {
     private BugReport bugReport;
     private Subject subject;
 
+    /**
+     * This method sets the message for this notification.
+     *
+     * @param message The String message to set.
+     *
+     * @throws IllegalArgumentException if the message is invalid
+     * @see #isValidMessage(String)
+     */
     private void setMessage(String message) throws  IllegalArgumentException{
         if (this.isValidMessage(message)){
             this.message = message;
@@ -26,6 +44,13 @@ public class Notification {
         throw new IllegalArgumentException("The given message is invalid");
     }
 
+    /**
+     * This method checks the validity of a given message.
+     *
+     * @param string the message to check
+     *
+     * @return true if the message is not null or empty
+     */
     public boolean isValidMessage(String string){
         if (string == null){
             return false;
@@ -36,6 +61,14 @@ public class Notification {
         return true;
     }
 
+    /**
+     * This method sets the bugreport for this notifaction.
+     *
+     * @param bugReport Teh bugreport to set.
+     *
+     * @throws IllegalArgumentException if the bugreport is invalid.
+     * @see #isValidBugReport(BugReport)
+     */
     private void setBugReport(BugReport bugReport) throws IllegalArgumentException{
         if (this.isValidBugReport(bugReport)){
             this.bugReport = bugReport;
@@ -43,6 +76,13 @@ public class Notification {
         throw new IllegalArgumentException("The given bug report is invalid");
     }
 
+    /**
+     * This method checks the validity of a given bugreport.
+     *
+     * @param bugReport the bugreport to check.
+     *
+     * @return True if the given bugreport not null
+     */
     public boolean isValidBugReport(BugReport bugReport){
         if (bugReport == null){
             return false;
@@ -50,6 +90,14 @@ public class Notification {
         return true;
     }
 
+    /**
+     * This method sets the subject for this notification.
+     *
+     * @param subject The subject to set.
+     *
+     * @throws IllegalArgumentException if the given subject is invalid.
+     * @see #isValidSubject(Subject)
+     */
     private void setSubject(Subject subject) throws IllegalArgumentException{
         if (this.isValidSubject(subject)) {
             this.subject = subject;
@@ -57,6 +105,13 @@ public class Notification {
         throw new IllegalArgumentException("The given subject is invalid");
     }
 
+    /**
+     * This method checks the validity of a given subject.
+     *
+     * @param subject The subject to check.
+     *
+     * @return True if the given subject is not null.
+     */
     public boolean isValidSubject(Subject subject){
         if (subject == null){
             return false;
@@ -64,6 +119,15 @@ public class Notification {
         return true;
     }
 
+    /**
+     * This method returns a string representation of this notification when 'opened'.
+     * It gives a standard textual denial if the notification is private for the given User.
+     * If not, it returns a string containing the message, bugreport name and subject name.
+     *
+     * @param user The user that wishes to open this notification.
+     *
+     * @return A string representation of the contents of this notification.
+     */
     public String open(User user){
         if (this.bugReport.isPrivate() && ! user.hasRolePermission(RolePerm.OPEN_PRIVATE_NOTIFICATION,
                 this.bugReport.getSubsystem().getParentProject())){
@@ -71,7 +135,7 @@ public class Notification {
         }
         StringBuilder message = new StringBuilder(this.message);
         message.append(bugReport.getTitle());
-        message.append("\n This notifications is originated from the subscription on: ");
+        message.append("\n This notification originated from the subscription on: ");
         message.append(subject.getSubjectName());
         return message.toString();
     }
