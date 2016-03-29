@@ -133,6 +133,10 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @return true if the given Milestone is valid for an AbstractSystem.
      */
     public boolean isValidMilestone(Milestone milestone) {
+        if(milestone == null) {
+            return false;
+        }
+        
         if (this.getAllSubsystems().isEmpty()){
             return true;
         }
