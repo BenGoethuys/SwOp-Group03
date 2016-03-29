@@ -113,6 +113,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @see #isValidMilestone(Milestone)
      */
     public void setMilestone(Milestone milestone) throws NullPointerException {
+        //TODO: Mathias Read use case of declaring achieved milestone, they say something about recursively updating etc.
         if (!isValidMilestone(milestone)) {
             throw new IllegalArgumentException("The given Milestone is not valid for this abstractSystem");
         }
@@ -132,7 +133,12 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @param milestone the Milestone to check
      * @return true if the given Milestone is valid for an AbstractSystem.
      */
+    @DomainAPI
     public boolean isValidMilestone(Milestone milestone) {
+        if(milestone == null) {
+            return false;
+        }
+        
         if (this.getAllSubsystems().isEmpty()){
             return true;
         }
