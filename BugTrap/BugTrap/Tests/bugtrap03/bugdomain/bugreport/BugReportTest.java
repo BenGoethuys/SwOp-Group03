@@ -60,10 +60,11 @@ public class BugReportTest {
 
         admin = new Administrator("ditGebruiktNiemandAnders4", "bla", "hihi");
 
-        project = new Project("ANewProject", "the description of the project", lead, 0, null);
+        project = new Project("ANewProject", "the description of the project", lead, 0);
         project.setRole(lead, programer, Role.PROGRAMMER);
         project.setRole(lead, tester, Role.TESTER);
-        subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project, new Milestone(2,5));
+        subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project);
+        subsystem.setMilestone(new Milestone(2,5));
 
         bugReport1 = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, false, "", "", "");
         bugReport2 = new BugReport(issuer, "FoundBug", "", date, depList, subsystem, null, true, trigger, stacktrace, error);
