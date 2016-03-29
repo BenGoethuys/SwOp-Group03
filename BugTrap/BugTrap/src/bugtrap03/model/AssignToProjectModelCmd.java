@@ -60,6 +60,9 @@ class AssignToProjectModelCmd extends ModelCmd {
             throw new IllegalStateException("The AssignToProjectModelCmd was already executed.");
         }
 
+        
+        //TODO: Change Project setRole to return a boolean and just keep the boolean.
+        //Then change the undo function to instead of deleting all and adding the old just remove the one that has changed.
         oldRoles = project.getAllRolesDev(developer);
         project.setRole(user, developer, role);
         isExecuted = true;
