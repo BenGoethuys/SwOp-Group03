@@ -332,6 +332,9 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @DomainAPI
     public boolean isValidTag(Tag tag) {
+        if (tag == null){
+            return false;
+        }
         return this.getInternState().isValidTag(tag);
     }
 
