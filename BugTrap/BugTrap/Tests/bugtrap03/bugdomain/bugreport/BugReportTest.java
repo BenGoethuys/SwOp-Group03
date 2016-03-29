@@ -92,7 +92,7 @@ public class BugReportTest {
         new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
 
         long id2 = BugReport.getNewUniqueID();
-        assertFalse(id == id2);
+        assertNotEquals(id, id2);
     }
 
     @Test
@@ -157,8 +157,8 @@ public class BugReportTest {
 
     @Test
     public void testGetCreationDate() {
-        assertFalse(date == bugReport1.getCreationDate());
-        assertFalse(bugReport1.getCreationDate() == null);
+        assertNotEquals(date, bugReport1.getCreationDate());
+        assertNotNull(bugReport1.getCreationDate());
 
         assertEquals(date, bugReport2.getCreationDate());
     }
@@ -306,8 +306,8 @@ public class BugReportTest {
         assertTrue(tempBugReport.getCommentList().isEmpty());
         Comment returnComment = tempBugReport.addComment(issuer, "Bla");
         assertFalse(tempBugReport.getCommentList().isEmpty());
-        assertTrue(tempBugReport.getCommentList().getFirst().getCreator() == issuer);
-        assertTrue(tempBugReport.getCommentList().getFirst().getText() == "Bla");
+        assertEquals(issuer, tempBugReport.getCommentList().getFirst().getCreator());
+        assertEquals("Bla", tempBugReport.getCommentList().getFirst().getText());
         assertEquals(tempBugReport.getCommentList().getFirst(), returnComment);
     }
 
@@ -359,7 +359,7 @@ public class BugReportTest {
     @Test
     public void testGetCreator() throws IllegalArgumentException, PermissionException {
         BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
-        assertTrue(tempBugReport.getCreator() == issuer);
+        assertEquals(issuer, tempBugReport.getCreator());
     }
 
     @Test
@@ -391,16 +391,16 @@ public class BugReportTest {
     @Test
     public void testAddUser() throws IllegalArgumentException, PermissionException {
         assertTrue(tempBugReport.getUserList().isEmpty());
-        assertTrue(tempBugReport.getTag() == Tag.NEW);
+        assertEquals(Tag.NEW, tempBugReport.getTag());
         tempBugReport.addUser(lead, dev);
         assertTrue(tempBugReport.getUserList().contains(dev));
-        assertTrue(tempBugReport.getTag() == Tag.ASSIGNED);
+        assertEquals(Tag.ASSIGNED, tempBugReport.getTag());
 
         Developer temp = new Developer("barDitGebruiktNiemandAnders", "bla", "la");
         tempBugReport.addUser(temp);
         assertTrue(tempBugReport.getUserList().contains(dev));
         assertTrue(tempBugReport.getUserList().contains(temp));
-        assertTrue(tempBugReport.getTag() == Tag.ASSIGNED);
+        assertEquals(Tag.ASSIGNED, tempBugReport.getTag());
 
         tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
         assertFalse(tempBugReport.getUserList().contains(dev));
