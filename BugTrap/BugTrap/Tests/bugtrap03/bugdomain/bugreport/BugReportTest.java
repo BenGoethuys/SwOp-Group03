@@ -853,7 +853,7 @@ public class BugReportTest {
     public void getSubjectName(){
         String result = bugReport1.getSubjectName();
         String title = bugReport1.getTitle();
-        String id = "uniqueID" + bugReport1.getUniqueID();
+        String id = "uniqueID: " + bugReport1.getUniqueID();
         assertTrue(result.contains(title));
         assertTrue(result.contains(id));
     }
