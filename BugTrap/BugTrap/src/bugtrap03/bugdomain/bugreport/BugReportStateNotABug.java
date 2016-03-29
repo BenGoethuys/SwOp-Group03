@@ -63,7 +63,6 @@ class BugReportStateNotABug implements BugReportState {
     @Override
     @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
     public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
-        //TODO allow adding of user to NotABug state?
         throw new IllegalStateException("State is NotABug -> cannot change anymore");
     }
 
