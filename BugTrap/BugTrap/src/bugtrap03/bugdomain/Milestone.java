@@ -70,19 +70,25 @@ public class Milestone extends VersionID {
      */
     @DomainAPI
     public int compareTo(Milestone other) {
-        if (this.getFirstNb() == other.getFirstNb() && this.getSecondNb() == other.getSecondNb()
-                && this.getThirdNb() == other.getThirdNb()) {
-            return 0;
-        }
         if (this.getFirstNb() < other.getFirstNb()) {
             return -1;
-        } else if (this.getFirstNb() >= other.getFirstNb() && this.getSecondNb() < other.getSecondNb()) {
-            return -1;
-        } else if (this.getFirstNb() >= other.getFirstNb() && this.getSecondNb() >= other.getSecondNb()
-                && this.getThirdNb() < other.getThirdNb()) {
+        }
+        if (this.getFirstNb() > other.getFirstNb()) {
+            return 1;
+        }
+        if (this.getSecondNb() < other.getSecondNb()) {
             return -1;
         }
-        return 1;
+        if (this.getSecondNb() > other.getSecondNb()) {
+            return 1;
+        }
+        if (this.getThirdNb() < other.getThirdNb()) {
+            return -1;
+        }
+        if (this.getThirdNb() > other.getThirdNb()) {
+            return 1;
+        }
+        return 0;
     }
 
     /**
