@@ -138,17 +138,25 @@ public class VersionID implements Comparable<VersionID> {
     @Override
     @DomainAPI
     public int compareTo(VersionID other) {
-        if (this.getFirstNb() == other.getFirstNb() && this.getSecondNb() == other.getSecondNb()
-                && this.getThirdNb() == other.getThirdNb()) {
-            return 0;
-        }
-        if ((this.getFirstNb() < other.getFirstNb())
-                || (this.getFirstNb() >= other.getFirstNb() && this.getSecondNb() < other.getSecondNb())
-                || (this.getFirstNb() >= other.getFirstNb() && this.getSecondNb() >= other.getSecondNb()
-                        && this.getThirdNb() < other.getThirdNb())) {
+        if (this.getFirstNb() < other.getFirstNb()) {
             return -1;
         }
-        return 1;
+        if (this.getFirstNb() > other.getFirstNb()) {
+            return 1;
+        }
+        if (this.getSecondNb() < other.getSecondNb()) {
+            return -1;
+        }
+        if (this.getSecondNb() > other.getSecondNb()) {
+            return 1;
+        }
+        if (this.getThirdNb() < other.getThirdNb()) {
+            return -1;
+        }
+        if (this.getThirdNb() > other.getThirdNb()) {
+            return 1;
+        }
+        return 0;
     }
 
     /**
@@ -168,6 +176,11 @@ public class VersionID implements Comparable<VersionID> {
             return this.compareTo(otherID) == 0;
         }
         return false;
+    }
+   
+    @Override
+    public int hashCode() {
+        return (((this.firstNb * 119) + this.secondNb) * 111) + this.thirdNb;
     }
     
     /**
