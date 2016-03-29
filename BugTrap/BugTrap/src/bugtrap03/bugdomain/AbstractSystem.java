@@ -131,6 +131,13 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         if (!isValidMilestone(milestone)) {
             throw new IllegalArgumentException("The given Milestone is not valid for this abstractSystem");
         }
+        
+        for (BugReport bugreport : this.getAllBugReports()) {
+            if ((!bugreport.isResolved()) && (bugreport.getMilestone().compareTo(milestone) <= 0)) {
+                throw new IllegalArgumentException("An invalid milestone to update.");
+            }
+        }
+        
         this.milestone = milestone;
     }
 
@@ -156,21 +163,6 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
             return true;
         }
         return false;
-    }
-
-    /**
-     * This method updates a Milestone of an AbstractSystem.
-     *
-     * @param milestone The Milestone to update
-     * @throws IllegalArgumentException If the milestone to update to is an invalid milestone.
-     */
-    public void updateMilestone(Milestone milestone) {
-        for (BugReport bugreport : this.getAllBugReports()) {
-            if ((!bugreport.isResolved()) && (bugreport.getMilestone().compareTo(milestone) <= 0)) {
-                throw new IllegalArgumentException("An invalid milestone to update.");
-            }
-        }
-        this.milestone = milestone;
     }
 
     /**
