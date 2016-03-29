@@ -192,32 +192,7 @@ public class BugReportTest {
         tempBugReport.setTag(Tag.NOT_A_BUG, lead);
         assertEquals(Tag.NOT_A_BUG, tempBugReport.getTag());
 
-        // Test for assigned with test
-        tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
-        tempBugReport.addUser(lead, dev);
-        tempBugReport.addTest(tester, test);
-        assertEquals(Tag.ASSIGNED, tempBugReport.getTag());
-        assertTrue(tempBugReport.isValidTag(Tag.NOT_A_BUG));
-        tempBugReport.setTag(Tag.NOT_A_BUG, lead);
-        assertEquals(Tag.NOT_A_BUG, tempBugReport.getTag());
-
-        // Test for under review
-        tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
-        tempBugReport.addUser(lead, dev);
-        tempBugReport.addTest(tester, test);
-        tempBugReport.addPatch(programer, patch);
-        assertEquals(Tag.UNDER_REVIEW, tempBugReport.getTag());
-        tempBugReport.setTag(Tag.ASSIGNED, lead);
-
-        // Test for under review
-        tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
-        tempBugReport.addUser(lead, dev);
-        tempBugReport.addTest(tester, test);
-        tempBugReport.addPatch(programer, patch);
-        assertEquals(Tag.UNDER_REVIEW, tempBugReport.getTag());
-        tempBugReport.setTag(Tag.NOT_A_BUG, lead);
-
-        // TODO
+        // should be tested in states
     }
 
     @Test(expected = PermissionException.class)
@@ -247,8 +222,7 @@ public class BugReportTest {
 
     @Test
     public void testIsValidTag() throws PermissionException {
-
-        //FIXME move to state classes
+        
         assertFalse(tempBugReport.isValidTag(null));
 
         // For bugReport with Tag.NEW
