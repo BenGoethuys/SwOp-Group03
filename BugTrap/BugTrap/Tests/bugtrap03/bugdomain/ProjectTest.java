@@ -391,7 +391,7 @@ public class ProjectTest {
 
     @Test
     public void testGetAllBugReports() throws Exception {
-        BugReport bugrep = subSysTest.addBugReport(testDev, "something", "something else", PList.<BugReport>empty());
+        BugReport bugrep = subSysTest.addBugReport(testDev, "something", "something else", testCreationDate, PList.<BugReport>empty(), null, false, null, null, null);
         assertEquals(PList.<BugReport>empty().plus(bugrep), testProject.getAllBugReports());
     }
 
