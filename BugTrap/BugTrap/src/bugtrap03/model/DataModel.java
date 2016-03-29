@@ -493,7 +493,7 @@ public class DataModel {
             GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
             boolean isPrivate, String trigger, String stacktrace, String error)
             throws IllegalArgumentException, PermissionException {
-        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description, 
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description,
                 creationDate, dependencies, milestone, isPrivate, trigger, stacktrace, error);
         BugReport bugReport = cmd.exec();
         addToHistory(cmd);
@@ -513,8 +513,10 @@ public class DataModel {
      */
     @DomainAPI
     public Comment createComment(User user, BugReport bugReport, String text) throws PermissionException, IllegalArgumentException {
-        return bugReport.addComment(user, text);
-        
+        CreateCommentModelCmd cmd = new CreateCommentModelCmd(user, bugReport, text);
+        Comment comment = cmd.exec();
+        addToHistory(cmd);
+        return comment;
     }
 
     /**
@@ -530,7 +532,7 @@ public class DataModel {
      */
     @DomainAPI
     public Comment createComment(User user, Comment comment, String text) throws PermissionException, IllegalArgumentException {
-        return comment.addSubComment(user, text);
+        return comment.addSubComment(user, text); //TODO: undo. Implement subComment of comment trough BugReport.
     }
 
     /**
@@ -548,11 +550,10 @@ public class DataModel {
     @DomainAPI
     public Project cloneProject(Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate,
             long budgetEstimate) throws IllegalArgumentException {
-        Project clone = cloneSource.cloneProject(versionID, lead, startDate, budgetEstimate);
-        if (clone != null) {
-            addProject(clone);
-        }
-        return clone;
+        CloneProjectModelCmd cmd = new CloneProjectModelCmd(this, cloneSource, versionID, lead, startDate, budgetEstimate);
+        Project proj = cmd.exec();
+        addToHistory(cmd);
+        return proj;
     }
 
     /**
@@ -581,7 +582,7 @@ public class DataModel {
      */
     @DomainAPI
     public void addUsersToBugReport(User user, BugReport bugRep, PList<Developer> devList)
-            throws PermissionException, IllegalArgumentException {
+            throws PermissionException, IllegalArgumentException { //TODO: undo
         for (Developer dev : devList) {
             bugRep.addUser(user, dev);
         }
@@ -608,7 +609,7 @@ public class DataModel {
      */
     @DomainAPI
     public void setTag(BugReport bugrep, Tag tag, User user) throws PermissionException, IllegalArgumentException {
-        bugrep.setTag(tag, user);
+        bugrep.setTag(tag, user); //TODO: undo
     }
 
     /**
@@ -638,23 +639,21 @@ public class DataModel {
     }
 
     /**
-     * This method let's a user assign a role to a developer in a given project .
+     * This method lets a user assign a role to a developer in a given project .
      *
      * @param project The project in which the user will be assigned.
-     * @param user The user that assigns the role to the dev
+     * @param user The user that assigns the role to the developer
      * @param developer The developer that gets a role assigned
      * @param role The role that will be assigned
-     * @throws PermissionException if the user doesn't have the needed permission.
-     * @throws IllegalArgumentException If the given role was null
-     * @throws IllegalArgumentException If the given user is null
-     * @throws IllegalArgumentException If the given project was null
+     *
+     * @throws PermissionException When the user does not have sufficient permissions.
+     * @throws IllegalArgumentException When role == null || user == null || project == null || developer == null
      */
     @DomainAPI
     public void assignToProject(Project project, User user, Developer developer, Role role) throws PermissionException, IllegalArgumentException {
-        if (project == null) {
-            throw new IllegalArgumentException("The given project was null");
-        }
-        project.setRole(user, developer, role);
+        AssignToProjectModelCmd cmd = new AssignToProjectModelCmd(project, user, developer, role);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
@@ -662,7 +661,7 @@ public class DataModel {
      * Get the developers assigned to the given bugReport.
      *
      * @param bugReport The {@link BugReport} to check for.
-     * @return The list of developers assigned to the bugreport.
+     * @return The list of developers assigned to the bugReport.
      */
     @DomainAPI
     public PList<Developer> getDevelopersOfBugReport(BugReport bugReport) {
@@ -688,7 +687,7 @@ public class DataModel {
      */
     @DomainAPI
     public void addTest(BugReport bugReport, User user, String test) throws PermissionException, IllegalStateException, IllegalArgumentException {
-        if (bugReport == null) {
+        if (bugReport == null) { //TODO: undo
             throw new IllegalArgumentException("The given bug report cannot be null");
         }
         bugReport.addTest(user, test);
@@ -707,7 +706,7 @@ public class DataModel {
      */
     @DomainAPI
     public void addPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException {
-        if (bugReport == null) {
+        if (bugReport == null) { //TODO: undo
             throw new IllegalArgumentException("The given bug report cannot be null");
         }
         bugReport.addPatch(user, patch);
@@ -726,7 +725,7 @@ public class DataModel {
      * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
      */
     public void selectPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException {
-        if (bugReport == null) {
+        if (bugReport == null) { //TODo: undo
             throw new IllegalArgumentException("The given bug report cannot be null");
         }
         bugReport.selectPatch(user, patch);
@@ -741,9 +740,10 @@ public class DataModel {
      *
      * @throws IllegalStateException If the current state doesn't allow assigning a score
      * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
+     * @throws IllegalArgumentException When bugReport == null
      */
     public void giveScore(BugReport bugReport, User user, int score) throws IllegalStateException, IllegalArgumentException, PermissionException {
-        if (bugReport == null) {
+        if (bugReport == null) { //TODO: undo
             throw new IllegalArgumentException("The given bug report cannot be null");
         }
         bugReport.giveScore(user, score);
