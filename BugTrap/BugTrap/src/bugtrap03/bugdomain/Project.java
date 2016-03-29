@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain;
 
+import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -508,7 +509,17 @@ public class Project extends AbstractSystem {
      * @return the name of this subject
      */
     @Override
-    protected String getSubjectName() {
+    public String getSubjectName() {
         return ("Project " + this.getName());
+    }
+
+    @Override
+    public void notifyTagSubs(BugReport br) {
+        this.updateTagSubs(br);
+    }
+
+    @Override
+    public void notifyCommentSubs(BugReport br) {
+        this.updateCommentSubs(br);
     }
 }

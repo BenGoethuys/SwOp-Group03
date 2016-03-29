@@ -1132,6 +1132,23 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @Override
     public String getSubjectName() {
-        return this.getTitle();
+        StringBuilder subjectName = new StringBuilder();
+        subjectName.append("Bugreport ");
+        subjectName.append(this.getTitle());
+        subjectName.append(" with uniqueID ");
+        subjectName.append(this.getUniqueID());
+        return subjectName.toString();
+    }
+
+    @Override
+    public void notifyTagSubs(BugReport br) {
+        this.getSubsystem().notifyTagSubs(br);
+        this.updateTagSubs(br);
+    }
+
+    @Override
+    public void notifyCommentSubs(BugReport br) {
+        this.getSubsystem().notifyCommentSubs(br);
+        this.updateCommentSubs(br);
     }
 }

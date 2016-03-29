@@ -410,4 +410,15 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     @DomainAPI
     public abstract String getDetails();
 
+    @Override
+    public void notifyTagSubs(BugReport br) {
+        this.getParent().notifyTagSubs(br);
+        this.updateTagSubs(br);
+    }
+
+    @Override
+    public void notifyCommentSubs(BugReport br) {
+        this.getParent().notifyCommentSubs(br);
+        this.updateCommentSubs(br);
+    }
 }
