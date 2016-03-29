@@ -322,8 +322,29 @@ public class BugReportTest {
     }
 
     @Test
-    public void testDeleteComment(){
+    public void testDeleteComment() throws PermissionException {
+        Comment comment = tempBugReport.addComment(issuer, "First comment");
+        Comment comment1 = tempBugReport.addComment(issuer, "Second comment");
 
+        assertTrue(tempBugReport.getCommentList().contains(comment));
+        assertTrue(tempBugReport.getAllComments().contains(comment));
+
+        tempBugReport.deleteComment(comment);
+
+        assertFalse(tempBugReport.getCommentList().contains(comment));
+        assertFalse(tempBugReport.getAllComments().contains(comment));
+
+        boolean result = tempBugReport.deleteComment(comment1);
+
+        assertEquals(0, tempBugReport.getCommentList().size());
+        assertEquals(0, tempBugReport.getAllComments().size());
+        assertTrue(result);
+
+        result = tempBugReport.deleteComment(comment);
+        assertFalse(result);
+
+        result = tempBugReport.deleteComment(null);
+        assertFalse(result);
     }
 
     @Test
