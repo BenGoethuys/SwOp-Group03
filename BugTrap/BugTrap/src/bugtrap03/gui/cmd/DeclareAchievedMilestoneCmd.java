@@ -3,7 +3,6 @@ package bugtrap03.gui.cmd;
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
@@ -86,9 +85,11 @@ public class DeclareAchievedMilestoneCmd implements Cmd {
                 nb3 = Integer.parseInt(milestoneStr[2]);
 
                 bugReportMilestone = new Milestone(nb1, nb2, nb3);
-                if (subsys.canUpdateMilestone(bugReportMilestone) == false) {
+                try {
+                    subsys.setMilestone(bugReportMilestone);
+                } catch (IllegalArgumentException e) {
                     bugReportMilestone = null;
-                    scan.println("Invalid milestone.");
+                    scan.println("Invalid milestone");
                 }
             } catch (IndexOutOfBoundsException | NumberFormatException ex) {
                 scan.println("Invalid input. Please try again using format: a.b.c");
