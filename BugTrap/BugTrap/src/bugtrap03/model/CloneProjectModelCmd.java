@@ -1,6 +1,5 @@
 package bugtrap03.model;
 
-import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.usersystem.Developer;

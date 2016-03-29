@@ -11,6 +11,8 @@ import purecollections.PList;
  * Only a bug report will use the methods of this interface
  */
 interface BugReportState {
+    
+    //TODO: Ben, Immutable please. Zodat we geen memento moeten maken van die state.
 
     /**
      * This method returns the tag associated with this bug report state
