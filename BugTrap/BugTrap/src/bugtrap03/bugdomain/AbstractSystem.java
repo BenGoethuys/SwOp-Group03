@@ -40,11 +40,14 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @see AbstractSystem#isValidMilestone(Milestone)
      */
     public AbstractSystem(VersionID version, String name, String description, Milestone milestone) throws IllegalArgumentException {
-        setVersionID(version);
-        setName(name);
-        setDescription(description);
-        setChilds(PList.<Subsystem>empty());
-        setMilestone(milestone);
+        this.setVersionID(version);
+        this.setName(name);
+        this.setDescription(description);
+        this.setChilds(PList.<Subsystem>empty());
+        if (! this.isValidMilestone(milestone)){
+            throw new IllegalArgumentException("The given milestone is invalid");
+        }
+        this.milestone = milestone;
     }
 
     /**
@@ -162,7 +165,11 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      */
     public boolean isValidMilestone(Milestone milestone) {
         if (milestone == null) {
-            return false;
+            return true;
+        }
+
+        if (this.getAllSubsystems().isEmpty()){
+            return true;
         }
 
         Milestone high = new Milestone(0, 0, 0);
