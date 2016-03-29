@@ -490,7 +490,7 @@ public class BugReportTest {
     	assertEquals(milestone, tempBugReport.getMilestone());
     	tempBugReport.setMilestone(null);
     	assertEquals(null, tempBugReport.getMilestone());
-
+    	
         // milestone not null, but valid:
         tempBugReport.setMilestone(new Milestone(3));
     }
