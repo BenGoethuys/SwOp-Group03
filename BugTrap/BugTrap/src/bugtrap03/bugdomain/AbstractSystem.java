@@ -132,6 +132,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @param milestone the Milestone to check
      * @return true if the given Milestone is valid for an AbstractSystem.
      */
+    @DomainAPI
     public boolean isValidMilestone(Milestone milestone) {
         if(milestone == null) {
             return false;
