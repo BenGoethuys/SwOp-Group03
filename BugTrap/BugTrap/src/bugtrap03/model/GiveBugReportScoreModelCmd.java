@@ -3,8 +3,6 @@ package bugtrap03.model;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

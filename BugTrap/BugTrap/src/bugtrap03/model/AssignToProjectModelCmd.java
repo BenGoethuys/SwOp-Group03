@@ -5,9 +5,6 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.bugdomain.usersystem.User;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import purecollections.PList;
 
 /**
  *
@@ -43,7 +40,7 @@ class AssignToProjectModelCmd extends ModelCmd {
 
     private boolean isExecuted;
 
-    private PList<Role> oldRoles;
+    private boolean hasChanged;
 
     /**
      * This method let's a user assign a role to a developer in a given project .
@@ -60,13 +57,9 @@ class AssignToProjectModelCmd extends ModelCmd {
             throw new IllegalStateException("The AssignToProjectModelCmd was already executed.");
         }
 
-        
-        //TODO: Change Project setRole to return a boolean and just keep the boolean.
-        //Then change the undo function to instead of deleting all and adding the old just remove the one that has changed.
-        oldRoles = project.getAllRolesDev(developer);
-        project.setRole(user, developer, role);
+        hasChanged = project.setRole(user, developer, role);
         isExecuted = true;
-        return oldRoles != project.getAllRolesDev(developer);
+        return hasChanged;
     }
 
     @Override
@@ -76,15 +69,8 @@ class AssignToProjectModelCmd extends ModelCmd {
         }
 
         //If there was a change, undo it.
-        if (oldRoles != project.getAllRolesDev(developer)) {
-            project.deleteRoles(developer); //delete current roles
-            for (Role r : oldRoles) { //re-add old roles
-                try {
-                    project.setRole(user, developer, r);
-                } catch (IllegalArgumentException | PermissionException ex) {
-                    Logger.getLogger(AssignToProjectModelCmd.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        if (hasChanged) {
+            project.deleteRole(developer, role);
         }
         return true;
     }
