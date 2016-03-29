@@ -1137,7 +1137,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         StringBuilder subjectName = new StringBuilder();
         subjectName.append("Bugreport ");
         subjectName.append(this.getTitle());
-        subjectName.append(" with uniqueID ");
+        subjectName.append(", with uniqueID: ");
         subjectName.append(this.getUniqueID());
         return subjectName.toString();
     }
@@ -1146,23 +1146,23 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * This method notifies the subsystem it belongs to,
      * to update it's mailboxes for a tag subscription and to notify it's parent.
      *
-     * @param br The bugreport of which an attribute has changed.
+     * @param bugReport The bugreport of which an attribute has changed.
      */
     @Override
-    public void notifyTagSubs(BugReport br) {
-        this.getSubsystem().notifyTagSubs(br);
-        this.updateTagSubs(br);
+    public void notifyTagSubs(BugReport bugReport) {
+        this.getSubsystem().notifyTagSubs(bugReport);
+        this.updateTagSubs(bugReport);
     }
 
     /**
      * This method notifies the subsystem it belongs to,
      * to update it's mailboxes for a comment subscription and to notify it's parent.
      *
-     * @param br The bugreport of which an attribute has changed.
+     * @param bugReport The bugreport of which an attribute has changed.
      */
     @Override
-    public void notifyCommentSubs(BugReport br) {
-        this.getSubsystem().notifyCommentSubs(br);
-        this.updateCommentSubs(br);
+    public void notifyCommentSubs(BugReport bugReport) {
+        this.getSubsystem().notifyCommentSubs(bugReport);
+        this.updateCommentSubs(bugReport);
     }
 }
