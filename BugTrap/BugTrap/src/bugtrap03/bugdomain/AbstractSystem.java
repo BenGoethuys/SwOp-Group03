@@ -67,10 +67,23 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @param name The string name for this element.
      * @param description The string description of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
-     * @see AbstractSystem#AbstractSystem(VersionID, String, String)
+     * @see AbstractSystem#AbstractSystem(VersionID, String, String, Milestone)
      */
     public AbstractSystem(String name, String description) throws IllegalArgumentException {
         this(new VersionID(), name, description, new Milestone(0));
+    }
+    
+    /**
+     * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
+     *
+     * @param name The string name for this element.
+     * @param description The string description of this element.
+     * @param milestone The milestone of this element.
+     * @throws IllegalArgumentException if one of the String arguments is invalid.
+     * @see AbstractSystem#AbstractSystem(VersionID, String, String)
+     */
+    public AbstractSystem(String name, String description, Milestone milestone) throws IllegalArgumentException {
+        this(new VersionID(), name, description, milestone);
     }
 
     /**
