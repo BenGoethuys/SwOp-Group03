@@ -11,12 +11,13 @@ class BugReportStateClosed implements BugReportState {
 
     /**
      * constructor for this state
+     *
+     * <br><dt><b>Preconditions:</b><dd> selectedPatch is a valid patch in the previous state &&
+     * score is a valid score in the previous state.
      */
+    @Requires("for (String test: tests) { BugReport.isValidTest(test) } && " +
+            "for (String patch: patches) { BugReport.isValidPatch(patch) } &&")
     BugReportStateClosed(PList<String> tests, PList<String> patches, String selectedPatch, int score){
-        //TODO assertion for valid tests? isValid?
-        //TODO assertion for valid patches? isValid?
-        //TODO check valid selected patch?
-        //TODO check valid score again?
         this.tests = tests;
         this.patches = patches;
         this.selectedPatch = selectedPatch;
@@ -50,7 +51,7 @@ class BugReportStateClosed implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-    public void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
+    public BugReportState setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
         throw new IllegalStateException("State is closed -> cannot change anymore");
     }
 
@@ -75,7 +76,7 @@ class BugReportStateClosed implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-    public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
+    public BugReportState addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
         throw new IllegalStateException("State is closed -> cannot change anymore");
     }
 
@@ -90,7 +91,7 @@ class BugReportStateClosed implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-    public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
+    public BugReportState addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
         throw new IllegalStateException("There is already a selected patch, no more tests allowed");
     }
 
@@ -116,7 +117,7 @@ class BugReportStateClosed implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-    public void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
+    public BugReportState addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
         throw new IllegalStateException("There is already a selected patch, no more patches allowed");
     }
 
@@ -143,7 +144,7 @@ class BugReportStateClosed implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this")
-    public void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
+    public BugReportState selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
         throw new IllegalStateException("There is already a selected patch");
     }
 
@@ -169,7 +170,7 @@ class BugReportStateClosed implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this")
-    public void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
+    public BugReportState giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
         throw new IllegalStateException("State is closed -> cannot change anymore");
     }
 
@@ -193,7 +194,7 @@ class BugReportStateClosed implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-    public void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
+    public BugReportState setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
         throw new IllegalStateException("State is closed -> cannot change anymore");
     }
 

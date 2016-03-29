@@ -11,8 +11,6 @@ import purecollections.PList;
  * Only a bug report will use the methods of this interface
  */
 interface BugReportState {
-    
-    //TODO: Ben, Immutable please. Zodat we geen memento moeten maken van die state.
 
     /**
      * This method returns the tag associated with this bug report state
@@ -34,7 +32,7 @@ interface BugReportState {
      * @see #isValidTag(Tag)
      */
     @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-    void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException;
+    BugReportState setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException;
 
     /**
      * This method check if the given tag is valid for the bug report
@@ -54,7 +52,7 @@ interface BugReportState {
      * @throws IllegalArgumentException If the given dev was null
      */
     @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-    void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException;
+    BugReportState addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException;
 
     /**
      * This method adds a given test to the bug report state
@@ -66,7 +64,7 @@ interface BugReportState {
      * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
      */
     @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-    void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException;
+    BugReportState addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException;
 
     /**
      * This method returns all the tests associated with this bug report
@@ -87,7 +85,7 @@ interface BugReportState {
      * @throws IllegalArgumentException If the given patch is not valid for this bug report state
      */
     @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-    void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException;
+    BugReportState addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException;
 
     /**
      * This method returns the patches associated with this bug report
@@ -109,7 +107,7 @@ interface BugReportState {
      * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
      */
     @Requires("bugReport.getInternState() == this")
-    void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException;
+    BugReportState selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException;
 
     /**
      * This method returns the selected patch of this bug report state
@@ -131,7 +129,7 @@ interface BugReportState {
      * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
      */
     @Requires("bugReport.getInternState() == this")
-    void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException;
+    BugReportState giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException;
 
     /**
      * This method returns the score associated with this bug report
@@ -148,7 +146,7 @@ interface BugReportState {
      * @param duplicate The bug report that this bug report is a duplicate of
      */
     @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-    void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException;
+    BugReportState setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException;
 
     /**
      * This method returns the bug report this bug report is a duplicate of

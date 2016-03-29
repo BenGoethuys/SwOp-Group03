@@ -44,7 +44,7 @@ class BugReportStateDuplicate implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-    public void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
+    public BugReportState setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
         throw new IllegalStateException("State is Duplicate -> cannot change anymore");
     }
 
@@ -69,7 +69,7 @@ class BugReportStateDuplicate implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-    public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
+    public BugReportState addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
         throw new IllegalStateException("State is Duplicate -> cannot change anymore");
     }
 
@@ -84,7 +84,7 @@ class BugReportStateDuplicate implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-    public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
+    public BugReportState addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
         throw new IllegalStateException("State is Duplicate -> cannot change anymore");
     }
 
@@ -110,7 +110,7 @@ class BugReportStateDuplicate implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-    public void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
+    public BugReportState addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
         throw new IllegalStateException("State is Duplicate -> cannot change anymore");
     }
 
@@ -137,7 +137,7 @@ class BugReportStateDuplicate implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this")
-    public void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
+    public BugReportState selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
         throw new IllegalStateException("State is Duplicate -> cannot change anymore");
     }
 
@@ -163,7 +163,7 @@ class BugReportStateDuplicate implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this")
-    public void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
+    public BugReportState giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
         throw new IllegalStateException("State is Duplicate -> cannot change anymore");
     }
 
@@ -187,7 +187,7 @@ class BugReportStateDuplicate implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-    public void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
+    public BugReportState setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
         throw new IllegalStateException("State is Duplicate -> cannot change anymore");
     }
 

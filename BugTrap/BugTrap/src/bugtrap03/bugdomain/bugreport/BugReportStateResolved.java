@@ -11,11 +11,12 @@ class BugReportStateResolved implements BugReportState {
 
     /**
      * constructor for this state
+     *
+     * <br><dt><b>Preconditions:</b><dd> selectedPatch is a valid patch in the previous state.
      */
+    @Requires("for (String test: tests) { BugReport.isValidTest(test) } && " +
+            "for (String patch: patches) { BugReport.isValidPatch(patch) } &&")
     BugReportStateResolved(PList<String> tests, PList<String> patches, String selectedPatch){
-        //TODO assertion for valid tests? isValid?
-        //TODO assertion for valid patches? isValid?
-        //TODO check valid selected patch?
         this.tests = tests;
         this.patches = patches;
         this.selectedPatch = selectedPatch;
@@ -47,10 +48,12 @@ class BugReportStateResolved implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
-    public void setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
+    public BugReportState setTag(BugReport bugReport, Tag tag) throws IllegalArgumentException, IllegalStateException {
         // should be the only valid tag
         assert (tag == Tag.NOT_A_BUG);
-        bugReport.setInternState(new BugReportStateNotABug());
+        BugReportState newState = new BugReportStateNotABug();
+        bugReport.setInternState(newState);
+        return newState;
     }
 
     /**
@@ -77,8 +80,9 @@ class BugReportStateResolved implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
-    public void addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
+    public BugReportState addUser(BugReport bugReport, Developer dev) throws IllegalArgumentException {
         bugReport.addUser(dev);
+        return this;
     }
 
     /**
@@ -92,7 +96,7 @@ class BugReportStateResolved implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && BugReport.isValidTest(test)")
-    public void addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
+    public BugReportState addTest(BugReport bugReport, String test) throws IllegalStateException, IllegalArgumentException {
         throw new IllegalStateException("There is already a selected patch, no more tests allowed");
     }
 
@@ -118,7 +122,7 @@ class BugReportStateResolved implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
-    public void addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
+    public BugReportState addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
         throw new IllegalStateException("There is already a selected patch, no more patches allowed");
     }
 
@@ -145,7 +149,7 @@ class BugReportStateResolved implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this")
-    public void selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
+    public BugReportState selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
         throw new IllegalStateException("There is already a selected patch");
     }
 
@@ -171,11 +175,13 @@ class BugReportStateResolved implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this")
-    public void giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
+    public BugReportState giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
         if (! this.isValidScore(score)){
             throw new IllegalArgumentException("The given score is not a score from 1 to 5");
         }
-        bugReport.setInternState(new BugReportStateClosed(this.getTests(), this.getPatches(), this.getSelectedPatch(), score));
+        BugReportState newState = new BugReportStateClosed(this.getTests(), this.getPatches(), this.getSelectedPatch(), score);
+        bugReport.setInternState(newState);
+        return newState;
     }
 
     /**
@@ -210,9 +216,11 @@ class BugReportStateResolved implements BugReportState {
      */
     @Override
     @Requires("bugReport.getInternState() == this && bugReport.isValidDuplicate(duplicate)")
-    public void setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
+    public BugReportState setDuplicate(BugReport bugReport, BugReport duplicate) throws IllegalStateException {
         // cannot have unresolved dependencies at this point
-        bugReport.setInternState(new BugReportStateDuplicate(duplicate));
+        BugReportState newState = new BugReportStateDuplicate(duplicate);
+        bugReport.setInternState(newState);
+        return newState;
     }
 
     /**
