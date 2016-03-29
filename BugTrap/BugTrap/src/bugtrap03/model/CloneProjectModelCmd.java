@@ -25,7 +25,7 @@ class CloneProjectModelCmd extends ModelCmd {
      * @throws IllegalArgumentException When model == null
      */
     CloneProjectModelCmd(DataModel model, Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate,
-            long budgetEstimate, Milestone milestone) throws IllegalArgumentException {
+            long budgetEstimate) throws IllegalArgumentException {
         if (model == null) {
             throw new IllegalArgumentException("The model passed to CloneProjectModelCmd was a null reference.");
         }
@@ -36,7 +36,6 @@ class CloneProjectModelCmd extends ModelCmd {
         this.lead = lead;
         this.startDate = startDate;
         this.budgetEstimate = budgetEstimate;
-        this.milestone = milestone;
     }
 
     private final DataModel model;
@@ -45,7 +44,6 @@ class CloneProjectModelCmd extends ModelCmd {
     private final Developer lead;
     private final GregorianCalendar startDate;
     private final long budgetEstimate;
-    private final Milestone milestone;
     
     private boolean isExecuted = false;
     
@@ -70,7 +68,7 @@ class CloneProjectModelCmd extends ModelCmd {
             return null;
         }
 
-        clone = cloneSource.cloneProject(versionID, lead, startDate, budgetEstimate, milestone);
+        clone = cloneSource.cloneProject(versionID, lead, startDate, budgetEstimate);
         if (clone != null) {
             model.addProject(clone);
         }
