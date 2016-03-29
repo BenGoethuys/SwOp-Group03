@@ -43,7 +43,7 @@ public class BugReportTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        date = new GregorianCalendar();
+        date = new GregorianCalendar(1994, 2, 30);
         issuer = new Issuer("blaDitGebruiktNiemandAnders", "bla", "bla");
         dev = new Developer("booDitGebruiktNiemandAnders", "Jan", "Smidt");
         lead = new Developer("ditGebruiktNiemandAnders", "Jan", "Smidt");

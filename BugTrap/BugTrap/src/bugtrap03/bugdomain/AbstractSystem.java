@@ -30,38 +30,19 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @param version The versionID (of that type) of this element.
      * @param name The string name for this element.
      * @param description The string description of this element.
-     * @param milestone The milestone of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if isValidVersionID(version) fails
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
      * @see AbstractSystem#isValidVersionId(VersionID)
      * @see AbstractSystem#isValidName(String)
      * @see AbstractSystem#isValidDescription(String)
-     * @see AbstractSystem#isValidMilestone(Milestone)
      */
-    public AbstractSystem(VersionID version, String name, String description, Milestone milestone) throws IllegalArgumentException {
+    public AbstractSystem(VersionID version, String name, String description) throws IllegalArgumentException {
         this.setVersionID(version);
         this.setName(name);
         this.setDescription(description);
         this.setChilds(PList.<Subsystem>empty());
-        if (! this.isValidMilestone(milestone)){
-            throw new IllegalArgumentException("The given milestone is invalid");
-        }
-        this.milestone = milestone;
-    }
-
-    /**
-     * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
-     * 
-     * @param version The versionID (of that type) of this element.
-     * @param name The string name for this element.
-     * @param description The string description of this element.
-     * @throws IllegalArgumentException if one of the String arguments is invalid.
-     * @throws IllegalArgumentException if isValidVersionID(version) fails
-     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
-     */
-    public AbstractSystem(VersionID version, String name, String description) throws IllegalArgumentException {
-        this(version, name, description, new Milestone(0));
+        this.milestone = new Milestone(0);
     }
     
     /**
@@ -69,24 +50,11 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      *
      * @param name The string name for this element.
      * @param description The string description of this element.
-     * @throws IllegalArgumentException if one of the String arguments is invalid.
-     * @see AbstractSystem#AbstractSystem(VersionID, String, String, Milestone)
-     */
-    public AbstractSystem(String name, String description) throws IllegalArgumentException {
-        this(new VersionID(), name, description, new Milestone(0));
-    }
-    
-    /**
-     * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
-     *
-     * @param name The string name for this element.
-     * @param description The string description of this element.
-     * @param milestone The milestone of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @see AbstractSystem#AbstractSystem(VersionID, String, String)
      */
-    public AbstractSystem(String name, String description, Milestone milestone) throws IllegalArgumentException {
-        this(new VersionID(), name, description, milestone);
+    public AbstractSystem(String name, String description) throws IllegalArgumentException {
+        this(new VersionID(), name, description);
     }
 
     /**
@@ -164,10 +132,6 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @return true if the given Milestone is valid for an AbstractSystem.
      */
     public boolean isValidMilestone(Milestone milestone) {
-        if (milestone == null) {
-            return true;
-        }
-
         if (this.getAllSubsystems().isEmpty()){
             return true;
         }
@@ -301,6 +265,10 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      */
     @Ensures("result.getVersionID.equals(new VersionID())")
     public Subsystem makeSubsystemChild(String name, String description, Milestone milestone) {
+        if (this.getChilds().isEmpty() && this.getMilestone().compareTo(milestone) == -1 ){
+            throw new IllegalArgumentException("Milestone should be bigger then the project/subsystem this belong to, " +
+                    "else inconsistent state.");
+        }
         Subsystem newChild = new Subsystem(name, description, this, milestone);
         this.addChild(newChild);
         return newChild;
