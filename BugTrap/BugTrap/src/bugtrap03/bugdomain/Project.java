@@ -358,7 +358,7 @@ public class Project extends AbstractSystem {
     public void setRole(User user, Developer dev, Role role) throws IllegalArgumentException, PermissionException {
         if (user == null || dev == null || role == null) {
             throw new IllegalArgumentException(
-                    "setRole(User, Developer, Role) does not allow a null-reference for user.");
+                    "setRole(User, Developer, Role) does not allow a null-reference for user, dev and role.");
         }
         if (!user.hasRolePermission(role.getNeededPerm(), this)) {
             throw new PermissionException("The given user doesn't have the needed permission to set the role");
