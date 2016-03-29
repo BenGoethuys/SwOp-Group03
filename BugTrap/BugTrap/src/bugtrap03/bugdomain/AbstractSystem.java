@@ -264,8 +264,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @throws IllegalArgumentException When name or description is invalid.
      */
     @Ensures("result.getVersionID.equals(new VersionID())")
-    public Subsystem makeSubsystemChild(String name, String description, Milestone milestone) {
-        if (this.getChilds().isEmpty() && this.getMilestone().compareTo(milestone) == -1 ){
+    public Subsystem makeSubsystemChild(String name, String description) {
+        if (this.getChilds().isEmpty()){
             throw new IllegalArgumentException("Milestone should be bigger then the project/subsystem this belong to, " +
                     "else inconsistent state.");
         }
