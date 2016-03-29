@@ -49,10 +49,10 @@ public class BugReportStateAssignedWithTestTest {
         tester = new Developer("blaStateAssignedWithTestTest4", "Jantje", "Smidt");
         admin = new Administrator("blaStateAssignedWithTestTest5", "bla", "hihi");
 
-        project = new Project("ANewProject", "the description of the project", lead, 0);
+        project = new Project("ANewProject", "the description of the project", lead, 0, null);
         project.setRole(lead, programer, Role.PROGRAMMER);
         project.setRole(lead, tester, Role.TESTER);
-        subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project);
+        subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project, null);
 
         bugReport = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, false, "", "", "");
 
