@@ -113,6 +113,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @see #isValidMilestone(Milestone)
      */
     public void setMilestone(Milestone milestone) throws NullPointerException {
+        //TODO: Mathias Read use case of declaring achieved milestone, they say something about recursively updating etc.
         if (!isValidMilestone(milestone)) {
             throw new IllegalArgumentException("The given Milestone is not valid for this abstractSystem");
         }
