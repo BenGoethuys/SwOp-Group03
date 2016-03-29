@@ -249,7 +249,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @return The new subsystems that was added to this AbstractSystem
      */
     public Subsystem makeSubsystemChild(VersionID version, String name, String description, Milestone milestone) {
-        Subsystem newChild = new Subsystem(version, name, description, this, milestone);
+        Subsystem newChild = new Subsystem(version, name, description, this);
         this.addChild(newChild);
         return newChild;
     }
@@ -269,7 +269,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
             throw new IllegalArgumentException("Milestone should be bigger then the project/subsystem this belong to, " +
                     "else inconsistent state.");
         }
-        Subsystem newChild = new Subsystem(name, description, this, milestone);
+        Subsystem newChild = new Subsystem(name, description, this);
         this.addChild(newChild);
         return newChild;
     }
