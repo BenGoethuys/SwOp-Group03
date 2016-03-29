@@ -41,7 +41,7 @@ public class RoleTest {
         assertTrue(roleLead.hasPermission(RolePerm.SET_TAG_DUPLICATE));
         assertTrue(roleLead.hasPermission(RolePerm.SELECT_PATCH));
         assertTrue(roleLead.hasPermission(RolePerm.SET_TAG_ASSIGNED));
-        assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_DEV_PROJECT));
+        assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_LEAD_ROLE));
         assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_DEV_BUG_REPORT));
         assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_PROG_ROLE));
         assertTrue(roleLead.hasPermission(RolePerm.ASSIGN_TEST_ROLE));
