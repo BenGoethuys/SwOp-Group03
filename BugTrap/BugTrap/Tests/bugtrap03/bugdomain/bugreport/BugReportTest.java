@@ -21,6 +21,7 @@ public class BugReportTest {
     // classes for testing
     static BugReport bugReport1;
     static BugReport bugReport2;
+    static BugReport tempBugReport;
 
     // classes for initialisation
     static GregorianCalendar date;
@@ -70,6 +71,7 @@ public class BugReportTest {
 
     @Before
     public void setUp() throws Exception {
+
     }
 
     @Test
@@ -82,12 +84,15 @@ public class BugReportTest {
     @Test
     public void testGetNewUniqueID() throws IllegalArgumentException, PermissionException {
         long id = BugReport.getNewUniqueID();
-        BugReport tempBugReport = new BugReport(issuer, "bla bla", "bla", date, depList, subsystem, null, false, null, null, null);
-        assertTrue(tempBugReport.getUniqueID() == id);
+        assertTrue(tempBugReport.getUniqueID() != id);
+        assertTrue(bugReport1.getUniqueID() != id);
+        assertTrue(bugReport2.getUniqueID() != id);
+
+        // use the id
+        new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
 
         long id2 = BugReport.getNewUniqueID();
-        assertTrue(BugReport.getNewUniqueID() == id2);
-        assertTrue(BugReport.getNewUniqueID() != id);
+        assertFalse(id == id2);
     }
 
     @Test
@@ -323,6 +328,11 @@ public class BugReportTest {
     @Test(expected = PermissionException.class)
     public void testAddCommentNoPermission() throws PermissionException {
         bugReport1.addComment(admin, "This is a comment");
+    }
+
+    @Test
+    public void testDeleteComment(){
+
     }
 
     @Test
