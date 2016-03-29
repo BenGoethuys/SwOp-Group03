@@ -492,7 +492,7 @@ public class Project extends AbstractSystem {
      * @return The deep-cloned project.
      * @see Subsystem#cloneSubsystem(AbstractSystem)
      */
-    public Project cloneProject(VersionID version, Developer lead, GregorianCalendar startDate, long budgetEstimate, Milestone milestone) {
+    public Project cloneProject(VersionID version, Developer lead, GregorianCalendar startDate, long budgetEstimate) {
 
         Project cloneProject = new Project(version, this.getName(), this.getDescription(), lead, startDate,
                 budgetEstimate);
