@@ -851,8 +851,12 @@ public class BugReportTest {
     @Test
     public void getSubjectName(){
         String result = bugReport1.getSubjectName();
-        String expected = bugReport1.getTitle();
-        assertEquals(expected, result);
+        String title = bugReport1.getTitle();
+        String id = "uniqueID" + bugReport1.getUniqueID();
+        assertTrue(result.contains(title));
+        assertTrue(result.contains(id));
     }
+
+    //TODO test notify methods
 
 }

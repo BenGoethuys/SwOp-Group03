@@ -1,7 +1,6 @@
 package bugtrap03.bugdomain.usersystem.notification;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.bugreport.Comment;
 import purecollections.PList;
 
 /**
@@ -40,13 +39,29 @@ public abstract class Subject {
         }
     }
 
-    protected abstract void notifyTagSubs(BugReport br);
+    /**
+     * This abstract method let's subjects notify subjects higher in the hierarchy.
+     *
+     * @param br The bugreport of which an attribute has changed.
+     */
+    public abstract void notifyTagSubs(BugReport br);
 
+    /**
+     * Thid method updates all the mailboxes subscribed on a comment creation on this subject.
+     *
+     * @param br The bugreport needed for the update
+     * @see CommentMailBox#update(BugReport)
+     */
     protected void updateCommentSubs(BugReport br){
         for (CommentMailBox cmb: this.commentSubs){
             cmb.update(br);
         }
     }
 
-    protected abstract void notifyCommentSubs(BugReport br);
+    /**
+     * This abstract method let's subjects notify subjects higher in the hierarchy.
+     *
+     * @param br The bugreport of which an attribute has changed.
+     */
+    public abstract void notifyCommentSubs(BugReport br);
 }

@@ -247,9 +247,10 @@ public class Subsystem extends AbstractSystem {
      * @return the name of this subject
      */
     @Override
-    protected String getSubjectName() {
+    public String getSubjectName() {
         return ("Subsystem " + this.getName());
     }
+
 
     /**
      * This function checks the validity of the given name, in combination with
