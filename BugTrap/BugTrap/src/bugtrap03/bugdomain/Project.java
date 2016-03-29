@@ -370,6 +370,7 @@ public class Project extends AbstractSystem {
      * Remove all the roles the developer has in this project.
      * <br><b> Caution: Only use when you can guarantee no constraints are effected.</b>
      * (e.g This does change anything about BugReports with the developer as 'assigned'.)
+     * <br> This is used for undoing an 'assign role' directly after assigning that role.
      * @param dev The developer to delete the roles off.
      */
     public void deleteRoles(Developer dev) {
