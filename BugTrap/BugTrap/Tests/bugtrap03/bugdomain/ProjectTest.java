@@ -55,7 +55,7 @@ public class ProjectTest {
     @Test
     public void testHasPermission() {
         Developer testuser = new Developer("UniqueUsername4sure", "Unique", "Username");
-         assertFalse(testProject.hasPermission(testuser, RolePerm.OPEN_PRIVATE_NOTIFICATION));
+        assertFalse(testProject.hasPermission(testuser, RolePerm.OPEN_PRIVATE_NOTIFICATION));
     }
 
     @Test
