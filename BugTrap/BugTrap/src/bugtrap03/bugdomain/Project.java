@@ -534,4 +534,16 @@ public class Project extends AbstractSystem {
     public void notifyCommentSubs(BugReport br) {
         this.updateCommentSubs(br);
     }
+
+
+    /**
+     * This method notifies the subsystem it belongs to,
+     * to update it's mailboxes for a creation subscription and to notify it's parent.
+     *
+     * @param br The bugreport of which an attribute has changed.
+     */
+    @Override
+    public void notifyCreationSubs(BugReport br) {
+        this.updateCreationSubs(br);
+    }
 }
