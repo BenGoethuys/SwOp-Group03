@@ -5,6 +5,7 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
+import bugtrap03.bugdomain.usersystem.User;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -53,9 +54,8 @@ public class ProjectTest {
 
     @Test
     public void testHasPermission() {
-        // FIXME:
-//        // this doesn't do anything! ASSIGN_DEV_PROJECT is never used ...
-//        assertTrue(testProject.hasPermission(testDev, RolePerm.ASSIGN_DEV_PROJECT));
+        Developer testuser = new Developer("UniqueUsername4sure", "Unique", "Username");
+        assertFalse(testProject.hasPermission(testuser, RolePerm.OPEN_PRIVATE_NOTIFICATION));
     }
 
     @Test
