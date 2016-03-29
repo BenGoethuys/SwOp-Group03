@@ -6,7 +6,7 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.usersystem.mail.Subject;
+import bugtrap03.bugdomain.usersystem.notification.Subject;
 import bugtrap03.misc.Tree;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
@@ -1123,5 +1123,15 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     @DomainAPI
     public boolean isResolved() {
         return this.getInternState().isResolved();
+    }
+
+    /**
+     * This method returns the string name representation of this subject
+     *
+     * @return the string name representation of this subject
+     */
+    @Override
+    public String getSubjectName() {
+        return this.getTitle();
     }
 }
