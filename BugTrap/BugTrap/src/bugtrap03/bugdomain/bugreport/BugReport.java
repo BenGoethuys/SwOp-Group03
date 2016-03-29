@@ -1127,11 +1127,11 @@ public class BugReport extends Subject implements Comparable<BugReport> {
 
     /**
      * This method returns the string name representation of this subject
-     * 
+     *
      * @return the string name representation of this subject
      */
     @Override
-    protected String getSubjectName() {
+    public String getSubjectName() {
         return this.getTitle();
     }
 }
