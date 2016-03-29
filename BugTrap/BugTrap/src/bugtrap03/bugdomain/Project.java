@@ -513,11 +513,23 @@ public class Project extends AbstractSystem {
         return ("Project " + this.getName());
     }
 
+    /**
+     * This method notifies the subsystem it belongs to,
+     * to update it's mailboxes for a tag subscription and to notify it's parent.
+     *
+     * @param br The bugreport of which an attribute has changed.
+     */
     @Override
     public void notifyTagSubs(BugReport br) {
         this.updateTagSubs(br);
     }
 
+    /**
+     * This method notifies the subsystem it belongs to,
+     * to update it's mailboxes for a comment subscription and to notify it's parent.
+     *
+     * @param br The bugreport of which an attribute has changed.
+     */
     @Override
     public void notifyCommentSubs(BugReport br) {
         this.updateCommentSubs(br);
