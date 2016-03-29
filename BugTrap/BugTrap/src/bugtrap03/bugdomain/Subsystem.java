@@ -24,16 +24,15 @@ public class Subsystem extends AbstractSystem {
      * @param name The string name for this element.
      * @param description The string description of this element.
      * @param parent The parent (a Project or Subsystem) of this element.
-     * @param milestone The milestone of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if the version id is invalid.
      * @throws IllegalArgumentException if the parent is invalid for this subsystem
      * @see AbstractSystem#AbstractSystem(VersionID, String, String)
      * @see Subsystem#isValidParent(AbstractSystem)
      */
-    public Subsystem(VersionID version, String name, String description, AbstractSystem parent, Milestone milestone)
+    public Subsystem(VersionID version, String name, String description, AbstractSystem parent)
             throws IllegalArgumentException {
-        super(version, name, description, milestone);
+        super(version, name, description);
         this.setParent(parent);
         this.bugReportList = PList.<BugReport> empty();
     }
@@ -44,16 +43,15 @@ public class Subsystem extends AbstractSystem {
      * @param name The string name for this element.
      * @param description The string description of this element.
      * @param parent The parent (a Project or Subsystem) of this element.
-     * @param milestone The milestone of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if the version id is invalid.
      * @throws IllegalArgumentException if the parent is invalid for this subsystem
      * @see AbstractSystem#AbstractSystem(VersionID, String, String)
      * @see Subsystem#isValidParent(AbstractSystem)
      */
-    public Subsystem(String name, String description, AbstractSystem parent, Milestone milestone)
+    public Subsystem(String name, String description, AbstractSystem parent)
             throws IllegalArgumentException {
-        super(name, description, milestone);
+        super(name, description);
         this.setParent(parent);
         this.bugReportList = PList.<BugReport> empty();
     }
