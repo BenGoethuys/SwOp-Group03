@@ -1,9 +1,7 @@
 package bugtrap03.bugdomain.bugreport;
 
 import bugtrap03.bugdomain.Milestone;
-import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.User;
 import java.util.GregorianCalendar;
 import purecollections.PList;
 
@@ -17,18 +15,52 @@ import purecollections.PList;
  * <br>
  * <br> Specifically it does not guarantee consistency with the Subsystem and the comments or any internal state change
  * of the Developers.
+ * <br> Note: It does not save the UniqueID,Creator and subsystem as it is considered to be unchanged.
  *
  * @author Group 03
  */
-class BugReportMemento {
+public class BugReportMemento {
+    
+    /**
+     * Create a Memento for BugReport.
+     * 
+     * @param title The title of the BugReport during the snapshot
+     * @param desc The description of the BugReport during the snapshot.
+     * @param creationDate The creationDate of the BugReport during the snapshot.
+     * @param commentList the commentList of the BugReport during the snapshot.
+     * @param userList The userList of the BugReport during the snapshot.
+     * @param dependencies The dependencies of the BugReport during the snapshot.
+     * @param milestone The milestone of the BugReport during the snapshot.
+     * @param isPrivate The isPrivate of the BugReport during the snapshot.
+     * @param trigger The trigger of the BugReport during the snapshot.
+     * @param stacktrace The stack-trace of the BugReport during the snapshot.
+     * @param error The error of the BugReport during the snapshot.
+     * @param state The state of the BugReport during the snapshot.
+     */
+    BugReportMemento(String title, String desc, GregorianCalendar creationDate, PList<Comment> commentList, 
+            PList<Developer> userList, PList<BugReport> dependencies, Milestone milestone, boolean isPrivate,
+            String trigger, String stacktrace, String error, BugReportState state) {
+        this.title = title;
+        this.description = desc;
+        this.creationDate = creationDate;
+        this.commentList = commentList;
+        this.userList = userList;
+        this.dependencies = dependencies;
+        this.milestone = milestone;
+        this.isPrivate = isPrivate;
+        this.trigger = trigger;
+        this.stacktrace = stacktrace;
+        this.error = error;
+        this.state = state;
+    }
 
-    private long uniqueID; //stays same. np
+    //private long uniqueID; //stays same. np
     private String title; //immutable. np
     private String description; //immutable. np
     private GregorianCalendar creationDate; //clone. np
     private PList<Comment> commentList; //Immutable PList of Comments. np
 
-    private User creator; //Unchanged and internal state not cared about. np
+    //private User creator; //Unchanged and internal state not cared about. np
     private PList<Developer> userList; //Immutable PList + Internal state not cared about. np
     private PList<BugReport> dependencies; //Immutable PList + never changes anyway. np
 
@@ -36,7 +68,7 @@ class BugReportMemento {
      * Stays the same. The internal state of the subsystem can be changed but for undoing we'll be ignoring this; If we
      * later on don't want to ignore this an option is to recheck milestone constraint and throw Illegal if required.
      */
-    private Subsystem subsystem; //Stays the same.
+    //private Subsystem subsystem; //Stays the same.
     private Milestone milestone; //Immutable. np
     private boolean isPrivate; //Immutable. np
 
@@ -45,10 +77,6 @@ class BugReportMemento {
     private String error; //Immutable. np
 
     private BugReportState state; //Immutable. np
-
-    long getUniqueID() {
-        return this.uniqueID;
-    }
 
     String getTitle() {
         return this.title;
@@ -77,10 +105,6 @@ class BugReportMemento {
         return this.commentList;
     }
 
-    User getCreator() {
-        return this.creator;
-    }
-
     PList<Developer> getUserList() {
         return this.userList;
     }
@@ -94,9 +118,9 @@ class BugReportMemento {
      *
      * @return The reference to the Subsystem that the BugReport had at the time of the creation of this Memento.
      */
-    Subsystem getSubsystem() {
-        return this.subsystem;
-    }
+//    Subsystem getSubsystem() {
+//        return this.subsystem;
+//    }
 
     Milestone getMilestone() {
         return this.milestone;

@@ -14,6 +14,8 @@ import purecollections.PList;
 
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class represents a bug report
@@ -333,7 +335,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @DomainAPI
     public boolean isValidTag(Tag tag) {
-        if (tag == null){
+        if (tag == null) {
             return false;
         }
         return this.getInternState().isValidTag(tag);
@@ -678,7 +680,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      *
      * @see #isValidMilestone(Milestone)
      */
-    public void setMilestone(Milestone milestone) throws NullPointerException {
+    public void setMilestone(Milestone milestone) throws IllegalArgumentException {
         if (!isValidMilestone(milestone)) {
             throw new IllegalArgumentException("The given Milestone is not valid for this bug report");
         }
@@ -1143,8 +1145,8 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
-     * This method notifies the subsystem it belongs to,
-     * to update it's mailboxes for a tag subscription and to notify it's parent.
+     * This method notifies the subsystem it belongs to, to update it's mailboxes for a tag subscription and to notify
+     * it's parent.
      *
      * @param bugReport The bugreport of which an attribute has changed.
      */
@@ -1155,14 +1157,60 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
-     * This method notifies the subsystem it belongs to,
-     * to update it's mailboxes for a comment subscription and to notify it's parent.
+     * This method notifies the subsystem it belongs to, to update its mailboxes for a comment subscription and to
+     * notify its parent.
      *
-     * @param bugReport The bugreport of which an attribute has changed.
+     * @param bugReport The bugReport of which an attribute has changed.
      */
     @Override
     public void notifyCommentSubs(BugReport bugReport) {
         this.getSubsystem().notifyCommentSubs(bugReport);
         this.updateCommentSubs(bugReport);
+    }
+    
+    /**
+     * Get a snapshot of the current BugReport, a Memento.
+     * @return The Memento of this current BugReport.
+     */
+    public BugReportMemento getMemento() {
+        return new BugReportMemento(this.title, this.description, this.creationDate, this.commentList, 
+                this.userList, this.dependencies, this.milestone, this.isPrivate, this.trigger, this.stacktrace, 
+                this.error, this.getInternState());
+    }
+
+    /**
+     * Set the memento of this BugReport.
+     * <br> This does not change the UniqueID, Creator and subsystem.
+     *
+     * @param mem The Memento to use to set.
+     * @throws IllegalArgumentException When mem == null
+     * @throws IllegalArgumentException When any of the arguments stored in mem is invalid for the current state. (e.g
+     * milestones due to constraints)
+     */
+    public void setMemento(BugReportMemento mem) throws IllegalArgumentException {
+        if (mem == null) {
+            throw new IllegalArgumentException("The BugReportMemento passed to BugReport#setMemento shouldn't be null.");
+        }
+        this.setTitle(mem.getTitle());
+        this.setDescription(mem.getDescription());
+        this.setCreationDate(mem.getCreationDate());
+        this.setCommentList(mem.getComments());
+        
+        this.setDependencies(mem.getDependencies());
+        this.setUserList(mem.getUserList()); //TODO: create private setUserList (because mailbox should listen as well)
+        
+        this.setPrivate(mem.isPrivate());
+        this.setMilestone(mem.getMilestone()); //Can be Illegal due to constraints but is fine for undo.
+        
+        try {
+            this.setTrigger(creator, mem.getTrigger());
+            this.setStacktrace(creator, mem.getStackTrace());
+            this.setError(creator, mem.getError());
+        } catch (PermissionException ex) {
+            //never happens
+            Logger.getLogger(BugReport.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.setInternState(mem.getSate());
     }
 }
