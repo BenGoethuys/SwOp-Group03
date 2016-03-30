@@ -592,7 +592,7 @@ public class DataModel {
     /**
      * This method return a PList of all the possible tags that can be set.
      *
-     * @return a Plist of all the possible tags
+     * @return a PList of all the possible tags
      */
     @DomainAPI
     public PList<Tag> getAllTags() {
