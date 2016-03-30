@@ -1,6 +1,7 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.bugreport.BugReportMemento;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 
@@ -11,7 +12,7 @@ import bugtrap03.bugdomain.usersystem.User;
 class GiveBugReportScoreModelCmd extends ModelCmd {
 
     /**
-     * Create a {@link ModelCmd} that can gives the selected patch of this bugReport a score.
+     * Create a {@link ModelCmd} that can gives the selected patch of this bugReport a score when executed.
      *
      * @param bugReport The bug report to evaluate
      * @param user The user that wants to assign a score to this bug reports selected patch.
@@ -28,12 +29,12 @@ class GiveBugReportScoreModelCmd extends ModelCmd {
         this.user = user;
         this.score = score;
     }
-    
+
     private final BugReport bugReport;
     private final User user;
     private final int score;
-    
-    private int oldScore;
+
+    private BugReportMemento oldMem;
 
     private boolean isExecuted = false;
 
@@ -44,17 +45,18 @@ class GiveBugReportScoreModelCmd extends ModelCmd {
      * @param user The user that wants to assign a score to this bug report
      * @param score The score that the creator wants to give
      *
+     * @throws PermissionException When the user does not have sufficient permissions to give the bugReport a score
      * @throws IllegalStateException If the current state doesn't allow assigning a score
      * @throws IllegalStateException When this ModelCmd was already executed
      * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
      */
     @Override
-    Boolean exec() throws IllegalArgumentException, NullPointerException, PermissionException, IllegalStateException {
+    Boolean exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
         if (this.isExecuted()) {
             throw new IllegalStateException("The GiveBugReportScoreModelCmd was already executed.");
         }
 
-        oldScore = bugReport.getScore();
+        oldMem = bugReport.getMemento();
         bugReport.giveScore(user, score);
         isExecuted = true;
         return true;
@@ -65,15 +67,13 @@ class GiveBugReportScoreModelCmd extends ModelCmd {
         if (!this.isExecuted()) {
             return false;
         }
-
-        //Is there a bugReport state change when giving a score? Yes.
-        //TODO: Redo the undo of GiveBugReportScore to revert to old state.
+        
         try {
-            bugReport.giveScore(user, oldScore);
-        } catch (IllegalStateException | IllegalArgumentException | PermissionException ex) {
+            bugReport.setMemento(oldMem);
+        } catch (IllegalArgumentException ex) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -84,8 +84,7 @@ class GiveBugReportScoreModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        //TODO: Implement toString() on GiveBugReportScoreModelCmd
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Gave BugReport " + bugReport.getTitle() + " a score of " + this.score;
     }
 
 }
