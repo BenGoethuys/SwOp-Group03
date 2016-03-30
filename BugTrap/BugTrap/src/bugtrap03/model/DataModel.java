@@ -688,10 +688,9 @@ public class DataModel {
      */
     @DomainAPI
     public void addTest(BugReport bugReport, User user, String test) throws PermissionException, IllegalStateException, IllegalArgumentException {
-        if (bugReport == null) { //TODO: undo
-            throw new IllegalArgumentException("The given bug report cannot be null");
-        }
-        bugReport.addTest(user, test);
+        AddBugReportTestModelCmd cmd = new AddBugReportTestModelCmd(bugReport, user, test);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
@@ -704,13 +703,13 @@ public class DataModel {
      * @throws PermissionException If the given user doesn't have the permission to add a patch to this bug report state
      * @throws IllegalStateException If the given patch is invalid for this bug report
      * @throws IllegalArgumentException If the given patch is not valid for this bug report state
+     * @throws IllegalArgumentException When bugReport == null
      */
     @DomainAPI
     public void addPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException {
-        if (bugReport == null) { //TODO: undo
-            throw new IllegalArgumentException("The given bug report cannot be null");
-        }
-        bugReport.addPatch(user, patch);
+        AddBugReportPatchModelCmd cmd = new AddBugReportPatchModelCmd(bugReport, user, patch);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
@@ -724,12 +723,12 @@ public class DataModel {
      * state
      * @throws IllegalStateException If the current state doesn't allow the selecting of a patch
      * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
+     * @throws IllegalArgumentException When bugReport == null
      */
     public void selectPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException {
-        if (bugReport == null) { //TODo: undo
-            throw new IllegalArgumentException("The given bug report cannot be null");
-        }
-        bugReport.selectPatch(user, patch);
+        SelectBugReportPatchModelCmd cmd = new SelectBugReportPatchModelCmd(bugReport, user, patch);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
@@ -744,10 +743,9 @@ public class DataModel {
      * @throws IllegalArgumentException When bugReport == null
      */
     public void giveScore(BugReport bugReport, User user, int score) throws IllegalStateException, IllegalArgumentException, PermissionException {
-        if (bugReport == null) { //TODO: undo
-            throw new IllegalArgumentException("The given bug report cannot be null");
-        }
-        bugReport.giveScore(user, score);
+        GiveBugReportScoreModelCmd cmd = new GiveBugReportScoreModelCmd(bugReport, user, score);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     //TODO: add methods to set additional params of bug report
