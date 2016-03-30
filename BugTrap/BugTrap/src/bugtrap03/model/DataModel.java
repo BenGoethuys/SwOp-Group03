@@ -610,7 +610,9 @@ public class DataModel {
      */
     @DomainAPI
     public void setTag(BugReport bugrep, Tag tag, User user) throws PermissionException, IllegalArgumentException {
-        bugrep.setTag(tag, user); //TODO: undo
+        SetTagForBugReportModelCmd cmd = new SetTagForBugReportModelCmd(bugrep, tag, user);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**

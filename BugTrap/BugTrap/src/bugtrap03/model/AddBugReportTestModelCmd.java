@@ -44,6 +44,8 @@ class AddBugReportTestModelCmd extends ModelCmd {
      * @param bugReport The bug report to add the given test to
      * @param user The user that wants to add the test to this bug report state
      * @param test The test that the user wants to add
+     * 
+     * @return True
      *
      * @throws PermissionException If the given user doesn't have the permission to add a test
      * @throws IllegalStateException If the current state doesn't allow to add a test

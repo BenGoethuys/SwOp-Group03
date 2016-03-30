@@ -45,6 +45,7 @@ class SelectBugReportPatchModelCmd extends ModelCmd {
      * @param user The user that wants to select the patch
      * @param patch The patch that the user wants to select
      *
+     * @return True
      * @throws PermissionException If the given user doesn't have the permission to select a patch for this bugReport
      * state
      * @throws IllegalStateException If the current state doesn't allow the selecting of a patch

@@ -45,6 +45,7 @@ class AddBugReportPatchModelCmd extends ModelCmd {
      * @param user The user that wants to add the patch to this bug report state
      * @param patch The patch that the user wants to submit
      *
+     * @return True
      * @throws PermissionException If the given user doesn't have the permission to add a patch to this bug report state
      * @throws IllegalStateException If the given patch is invalid for this bug report
      * @throws IllegalStateException When this ModelCmd was already executed
