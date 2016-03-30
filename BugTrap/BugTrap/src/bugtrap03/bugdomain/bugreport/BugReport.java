@@ -539,6 +539,22 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         }
         this.getInternState().addUser(this, dev);
     }
+    
+    /**
+     * Set the list of users to the given userList.
+     * <br> It is not checked if the List is actually a Set so you should do this manually before or know what you're
+     * doing.
+     *
+     * @param userList The list of users to set.
+     * @throws IllegalArgumentException When userList == null
+     */
+    private void setUserList(PList<Developer> userList) {
+        if (userList == null) {
+            throw new IllegalArgumentException("The userList passed to BugReport to set was a null reference.");
+        }
+
+        this.userList = userList;
+    }
 
     /**
      * This method adds a user to the list of users associated with this bug report This method should only be used by
@@ -1197,7 +1213,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         this.setCommentList(mem.getComments());
         
         this.setDependencies(mem.getDependencies());
-        this.setUserList(mem.getUserList()); //TODO: create private setUserList (because mailbox should listen as well)
+        this.setUserList(mem.getUserList());
         
         this.setPrivate(mem.isPrivate());
         this.setMilestone(mem.getMilestone()); //Can be Illegal due to constraints but is fine for undo.
@@ -1211,6 +1227,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             Logger.getLogger(BugReport.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        this.setInternState(mem.getSate());
+        this.setInternState(mem.getSate()); //TODO: (Ask Ben if this is notify-able for Mailboxs)
     }
 }
