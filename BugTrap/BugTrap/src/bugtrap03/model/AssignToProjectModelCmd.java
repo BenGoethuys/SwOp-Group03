@@ -80,4 +80,9 @@ class AssignToProjectModelCmd extends ModelCmd {
         return isExecuted;
     }
 
+    @Override
+    public String toString() {
+        return "Assigned Developer " + this.developer.getFullName() + " to Project " + this.project.getName() + " with role " + role.toString();
+    }
+
 }

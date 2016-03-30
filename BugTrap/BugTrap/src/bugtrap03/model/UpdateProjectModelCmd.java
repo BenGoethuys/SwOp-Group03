@@ -115,4 +115,15 @@ class UpdateProjectModelCmd extends ModelCmd {
         return isExecuted;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("Updated Project ").append(this.proj.getName());
+        string.append(" with ").append(this.name);
+        string.append(", ").append(this.desc);
+        string.append(", ").append(this.startDate.toString());
+        string.append(", ").append(this.budgetEstimate);
+        return string.toString();
+    }
+
 }

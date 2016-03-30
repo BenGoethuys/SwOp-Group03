@@ -1,6 +1,5 @@
 package bugtrap03.model;
 
-import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.permission.PermissionException;
@@ -92,6 +91,12 @@ class CreateCommentModelCmd extends ModelCmd {
     @Override
     boolean isExecuted() {
         return isExecuted;
+    }
+
+    @Override
+    public String toString() {
+        //TODO: Implement toString() on CreateCommentModelCmd
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

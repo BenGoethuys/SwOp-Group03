@@ -106,4 +106,9 @@ class CreateDeveloperModelCmd extends ModelCmd {
         return this.isExecuted;
     }
 
+    @Override
+    public String toString() {
+        return "Created Developer " + this.dev.getFullName();
+    }
+
 }

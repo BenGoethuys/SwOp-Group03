@@ -105,4 +105,9 @@ class CreateIssuerModelCmd extends ModelCmd {
         return this.isExecuted;
     }
 
+    @Override
+    public String toString() {
+        return "Created Issuer " + this.issuer.getFullName();
+    }
+
 }

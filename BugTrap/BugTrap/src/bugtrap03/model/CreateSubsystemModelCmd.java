@@ -121,4 +121,9 @@ class CreateSubsystemModelCmd extends ModelCmd {
         return isExecuted;
     }
 
+    @Override
+    public String toString() {
+        return "Created subsystem " + this.system.getName();
+    }
+
 }

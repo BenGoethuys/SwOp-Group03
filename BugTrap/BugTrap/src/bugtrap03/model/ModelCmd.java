@@ -7,8 +7,6 @@ import bugtrap03.bugdomain.permission.PermissionException;
  * @author Group 03
  */
 public abstract class ModelCmd {
-    
-    //TODO: Add toString() to every ModelCmd.
 
     /**
      * Execute the given Command.
@@ -33,4 +31,7 @@ public abstract class ModelCmd {
      * @return Whether this command is executed.
      */
     abstract boolean isExecuted();
+    
+    @Override
+    public abstract String toString();
 }

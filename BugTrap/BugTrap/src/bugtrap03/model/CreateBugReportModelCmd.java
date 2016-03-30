@@ -164,4 +164,9 @@ class CreateBugReportModelCmd extends ModelCmd {
         return isExecuted;
     }
 
+    @Override
+    public String toString() {
+        return "Created BugReport " + this.bugReport.getTitle() + " on Subsystem " + this.subsystem.getName();
+    }
+
 }

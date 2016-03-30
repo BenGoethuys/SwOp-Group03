@@ -103,4 +103,9 @@ class CreateAdminModelCmd extends ModelCmd {
         return isExecuted;
     }
 
+    @Override
+    public String toString() {
+        return "Created Administrator " + this.admin.getFullName();
+    }
+
 }

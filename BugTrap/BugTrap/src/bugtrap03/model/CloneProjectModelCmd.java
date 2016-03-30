@@ -92,4 +92,9 @@ class CloneProjectModelCmd extends ModelCmd {
         return isExecuted;
     }
 
+    @Override
+    public String toString() {
+        return "Cloned Project " + this.cloneSource.getName();
+    }
+
 }

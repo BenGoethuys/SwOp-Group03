@@ -66,7 +66,8 @@ class GiveBugReportScoreModelCmd extends ModelCmd {
             return false;
         }
 
-        //TODO: Is there a bugReport state change when giving a score? Yes.
+        //Is there a bugReport state change when giving a score? Yes.
+        //TODO: Redo the undo of GiveBugReportScore to revert to old state.
         try {
             bugReport.giveScore(user, oldScore);
         } catch (IllegalStateException | IllegalArgumentException | PermissionException ex) {
@@ -79,6 +80,12 @@ class GiveBugReportScoreModelCmd extends ModelCmd {
     @Override
     boolean isExecuted() {
         return isExecuted;
+    }
+
+    @Override
+    public String toString() {
+        //TODO: Implement toString() on GiveBugReportScoreModelCmd
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

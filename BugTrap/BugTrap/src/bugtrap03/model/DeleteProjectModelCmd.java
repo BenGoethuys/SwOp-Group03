@@ -77,4 +77,9 @@ class DeleteProjectModelCmd extends ModelCmd {
         return isExecuted;
     }
 
+    @Override
+    public String toString() {
+        return "Deleted Project " + this.project;
+    }
+
 }
