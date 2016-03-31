@@ -77,7 +77,7 @@ public class Main {
             // make bug report 3
             model.createBugReport(subsystemA2, major, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...",
                     new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), new Milestone(3, 2), true,
-                    "Launch with command line invocation:...", "Exception in thread ”main” java.lang...", null);
+                    "Launch with command line invocation:...", "Exception in thread \"main\" java.lang...", null);
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
             System.err.println(e.getMessage());
