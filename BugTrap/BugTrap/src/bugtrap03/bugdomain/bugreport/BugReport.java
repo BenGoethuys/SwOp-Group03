@@ -520,6 +520,24 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
+     * Set the list of users to the given userList.
+     * <br> It is not checked if the List is actually a Set so you should do this manually before or know what you're
+     * doing.
+     *
+     * @param userList The list of users to set.
+     * @throws IllegalArgumentException When userList == null
+     */
+    private void setUserList(PList<Developer> userList) {
+        if (userList == null) {
+            throw new IllegalArgumentException("The userList passed to BugReport to set was a null reference.");
+        }
+
+        this.userList = userList;
+    }
+
+    //TODO: function for addUsers (with PList) + addUsersToBugReportModelCmd ook aanpassen op line 58
+
+    /**
      * This method adds a developer to this bug report issued by the given user
      *
      * @param user The user that wants to add a developer to this bug report
@@ -538,22 +556,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             throw new IllegalArgumentException("The given developer is invalid for a bug report");
         }
         this.getInternState().addUser(this, dev);
-    }
-    
-    /**
-     * Set the list of users to the given userList.
-     * <br> It is not checked if the List is actually a Set so you should do this manually before or know what you're
-     * doing.
-     *
-     * @param userList The list of users to set.
-     * @throws IllegalArgumentException When userList == null
-     */
-    private void setUserList(PList<Developer> userList) {
-        if (userList == null) {
-            throw new IllegalArgumentException("The userList passed to BugReport to set was a null reference.");
-        }
-
-        this.userList = userList;
     }
 
     /**
