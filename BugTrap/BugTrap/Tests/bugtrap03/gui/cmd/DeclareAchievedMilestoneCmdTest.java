@@ -64,7 +64,7 @@ public class DeclareAchievedMilestoneCmdTest {
         // Setup variables.
         model = new DataModel();
         lead = model.createDeveloper("Folow", "The", "Leader");
-        issuer = model.createIssuer("Issu", "er", "007");
+        issuer = model.createIssuer("Issu", "er", "0071");
         admin = model.createAdministrator("Ad", "Mi", "Ne20224");
 
         projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
@@ -82,6 +82,7 @@ public class DeclareAchievedMilestoneCmdTest {
         subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
+        //TODO: Do these need milestones??
         bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
                 PList.<BugReport> empty(), subsystemA2);
         bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",

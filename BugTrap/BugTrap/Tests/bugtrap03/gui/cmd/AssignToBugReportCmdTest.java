@@ -52,9 +52,8 @@ public class AssignToBugReportCmdTest {
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                subsystemA2);
+        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -132,10 +131,10 @@ public class AssignToBugReportCmdTest {
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                subsystemA2);
+        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null, false);
 
+        
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         AssignToBugReportCmd cmd = new AssignToBugReportCmd();
@@ -195,10 +194,9 @@ public class AssignToBugReportCmdTest {
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                subsystemA2);
-
+        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null, false);
+        
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         AssignToBugReportCmd cmd = new AssignToBugReportCmd();

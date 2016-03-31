@@ -462,6 +462,53 @@ public class DataModel {
         addToHistory(cmd);
         return sub;
     }
+    
+        /**
+     * This method creates and adds a bug report to the list of associated bugReports of this subsystem
+     *
+     * @param subsystem The subsystem the new bugreport belongs to
+     * @param user The User that wants to create this bug report
+     * @param title The title of the bugReport
+     * @param description The description of the bugReport
+     * @param dependencies The depended bug reports of this bug report
+     * @param milestone The milestone of the bug report
+     * @param isPrivate The boolean that says if this bug report should be private or not
+     *
+     * @throws IllegalArgumentException if isValidCreator(user) fails
+     * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
+     * @throws IllegalArgumentException if isValidTitle(title) fails
+     * @throws IllegalArgumentException if isValidDescription(description) fails
+     * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
+     * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
+     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
+     *
+     * @return The create bug report
+     *
+     * <br><dt><b>Postconditions:</b><dd> result.getDate() == current date at the moment of
+     * initialization
+     * <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
+     *
+     * @see BugReport#isValidCreator(User)
+     * @see BugReport#isValidUniqueID(long)
+     * @see BugReport#isValidTitle(String)
+     * @see BugReport#isValidDescription(String)
+     * @see BugReport#isValidCreationDate(GregorianCalendar)
+     * @see BugReport#isValidDependencies(PList)
+     * @see BugReport#isValidSubsystem(Subsystem)
+     * @see BugReport#isValidMilestone(Milestone)
+     */
+    @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
+    @DomainAPI
+    public BugReport createBugReport(Subsystem subsystem, User user, String title, String description, PList<BugReport> dependencies, Milestone milestone,
+            boolean isPrivate)
+            throws IllegalArgumentException, PermissionException {
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description,
+                null, dependencies, milestone, isPrivate, null, null, null);
+        BugReport bugReport = cmd.exec();
+        addToHistory(cmd);
+        return bugReport;
+    }
 
     /**
      * This method creates and adds a bug report to the list of associated bugReports of this subsystem

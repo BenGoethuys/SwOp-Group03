@@ -48,13 +48,13 @@ public class CreateCommentCmdTest {
         Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+        BugReport bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport>empty(), null, false);
+        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), subsystemA3_1);
+                null, false);
+        model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport>empty(), null, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -132,13 +132,13 @@ public class CreateCommentCmdTest {
         Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
-        BugReport bugRep2 = model.createBugReport(issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), subsystemA2);
-        BugReport bugRep1 = model.createBugReport(issuer, "bugRep is too awesome",
+        BugReport bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
+                PList.<BugReport>empty(), null, false);
+        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                subsystemA2);
-        BugReport bugRep3 = model.createBugReport(issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), subsystemA3_1);
+                null, false);
+        model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
+                PList.<BugReport>empty(), null, false);
 
         Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
