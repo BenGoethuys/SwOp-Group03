@@ -9,7 +9,6 @@ import com.google.java.contract.Requires;
 import java.util.Iterator;
 import purecollections.PList;
 
-
 /**
  * This is a class representing a comment.
  *
@@ -35,7 +34,7 @@ public class Comment {
 
     private User creator;
     private String text;
-    private PList<Comment> SubComments;
+    private PList<Comment> subComments;
 
     /**
      * Returns the creator of the comment
@@ -128,7 +127,7 @@ public class Comment {
      */
     @DomainAPI
     public PList<Comment> getSubComments() {
-        return SubComments;
+        return subComments;
     }
 
     /**
@@ -136,29 +135,29 @@ public class Comment {
      *
      * @param tree The {@link Tree} to add these comments onto. When null a new Tree will be used.
      * @return The tree containing all the comments of this comment.
-     * 
-     * @see Tree#Tree() 
-     * @see Tree#addTree(java.lang.Object) 
+     *
+     * @see Tree#Tree()
+     * @see Tree#addTree(java.lang.Object)
      */
     @DomainAPI
     public Tree<Comment> getAllComments(Tree<Comment> tree) {
-        if(tree == null) {
+        if (tree == null) {
             tree = new Tree();
         }
 
         //Add ourself to the tree.
         Tree<Comment> thisNode = tree.addTree(this);
-        
+
         //Let subComments add themselves.
         for (Comment comment : this.getSubComments()) {
             comment.getAllComments(thisNode);
         }
-        
+
         return tree;
     }
 
     /**
-     * This method sets the SubComments for this comment
+     * This method sets the subComments for this comment
      *
      * @param subComments the subComments to set
      * @throws IllegalArgumentException if the given PList is not valid for this comment
@@ -168,7 +167,7 @@ public class Comment {
         if (!isValidSubComments(subComments)) {
             throw new IllegalArgumentException("The given PList is invalid as subComments-list for this comment");
         }
-        SubComments = subComments;
+        this.subComments = subComments;
     }
 
     /**
@@ -202,7 +201,7 @@ public class Comment {
         if (!this.isValidSubComment(comment)) {
             throw new IllegalArgumentException("The given comment is not a valid sub-comment for this comment");
         }
-        this.SubComments = this.SubComments.plus(comment);
+        this.subComments = this.subComments.plus(comment);
         return comment;
     }
 
@@ -234,6 +233,20 @@ public class Comment {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Delete the given comment from the list of comments.
+     * <br><b>Caution: This does not perform any deep removals nor will it remove comments attached to the removed
+     * comment.</b>
+     *
+     * @param comment The comment to remove.
+     * @return Whether there was a change.
+     */
+    public boolean deleteComment(Comment comment) {
+        PList<Comment> oldList = this.subComments;
+        this.subComments = this.subComments.minus(comment);
+        return oldList != this.subComments;
     }
 
     /**
