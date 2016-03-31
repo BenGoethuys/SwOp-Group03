@@ -124,6 +124,16 @@ public class Project extends AbstractSystem {
     private long budgetEstimate;
 
     /**
+     * This method checks if the given parent is a valid parent for this project
+     * @param parent    The parent to check
+     *
+     * @return True if the given parent is a valid parent for this project.
+     */
+    public boolean isValidParent(AbstractSystem parent){
+        return parent == null;
+    }
+
+    /**
      * This method returns the lead of this project
      *
      * @return the lead developer of this project, null if no exists yet

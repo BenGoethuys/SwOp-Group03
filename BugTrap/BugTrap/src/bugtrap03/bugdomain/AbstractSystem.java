@@ -41,7 +41,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         this.setName(name);
         this.setDescription(description);
         this.setChilds(PList.<Subsystem>empty());
-        this.parent = parent;
+        this.setParent(parent);
         this.setMilestone(milestone);
     }
 
@@ -220,6 +220,37 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
             return true;
         }
         return false;
+    }
+
+    /**
+     * This method sets the parent of this Abstract System to the given parent
+     *
+     * @param parent    The new parent of this Abstract System
+     *
+     * @throws IllegalArgumentException If the given parent was invalid
+     *
+     * @see AbstractSystem#isValidParent(AbstractSystem)
+     */
+    private void setParent(AbstractSystem parent) throws IllegalArgumentException {
+        if (! this.isValidParent(parent)){
+            throw new IllegalArgumentException("The given parent was invalid for this Abstract System");
+        }
+        this.parent = parent;
+    }
+
+    /**
+     * This method check if a given Abstract System is valid as a parent for this Abstract System.
+     *
+     * @param parent    The parent to check
+     *
+     * @return  True if the given Abstract System is valid as a parent
+     */
+    @DomainAPI
+    public boolean isValidParent(AbstractSystem parent){
+        if (parent == null){
+            return false;
+        }
+        return true;
     }
 
     /**
