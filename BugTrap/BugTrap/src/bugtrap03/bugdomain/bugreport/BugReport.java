@@ -567,8 +567,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         }
     }
 
-    //TODO: function for addUsers (with PList) + addUsersToBugReportModelCmd ook aanpassen op line 58
-
     /**
      * This method adds a developer to this bug report issued by the given user
      *
