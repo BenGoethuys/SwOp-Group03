@@ -596,7 +596,9 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @Requires("BugReport.isValidUser(dev)")
     void addUser(Developer dev) {
-        this.userList = this.getUserList().plus(dev);
+        if (! this.userList.contains(dev)) {
+            this.userList = this.getUserList().plus(dev);
+        }
     }
 
     /**
