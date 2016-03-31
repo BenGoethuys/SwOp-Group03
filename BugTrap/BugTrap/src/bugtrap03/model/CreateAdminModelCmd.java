@@ -40,7 +40,7 @@ class CreateAdminModelCmd extends ModelCmd {
      *
      * @throws IllegalArgumentException When model is a null reference.
      */
-    CreateAdminModelCmd(DataModel model, String username, String middleName, String firstName, String lastName) throws IllegalArgumentException {
+    CreateAdminModelCmd(DataModel model, String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
         if (model == null) {
             throw new IllegalArgumentException("The DataModel passed to the CreateAdminModelCmd was a null reference.");
         }
