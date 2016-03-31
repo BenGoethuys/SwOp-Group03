@@ -52,7 +52,7 @@ public class BugReportStateNewTest {
         project = new Project("ANewProject", "the description of the project", lead, 0);
         project.setRole(lead, programer, Role.PROGRAMMER);
         project.setRole(lead, tester, Role.TESTER);
-        subsystem = new Subsystem("ANewSubSystem", "the decription of the subsystem", project);
+        subsystem = project.makeSubsystemChild("ANewSubSystem", "the decription of the subsystem");
 
         bugReport = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, false, "", "", "");
 
