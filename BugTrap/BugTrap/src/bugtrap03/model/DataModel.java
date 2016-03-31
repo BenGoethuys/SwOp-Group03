@@ -33,6 +33,7 @@ public class DataModel {
     public DataModel() {
         this.userList = PList.<User>empty();
         this.projectList = PList.<Project>empty();
+        this.history = new Stack<>();
     }
 
     private PList<User> userList;
@@ -40,7 +41,8 @@ public class DataModel {
     private Stack<ModelCmd> history;
 
     /**
-     * Add the cmd to the cmd history. This will only be added when the cmd has been executed.
+     * Add the cmd to the cmd history. 
+     * <br> This will only be added when the cmd has been executed.
      *
      * @param cmd The {@link ModelCmd} to add to the history.
      *
@@ -65,7 +67,7 @@ public class DataModel {
      */
     @DomainAPI
     public PList<ModelCmd> getHistory(int x) {
-        if (x < 0) {
+        if (x <= 0) {
             return PList.<ModelCmd>empty();
         }
 
@@ -578,15 +580,16 @@ public class DataModel {
      * @param devList The developers to add to the bug report
      * @throws PermissionException If the given user doesn't have the needed permission to add users to the given bug
      * report
-     * @throws IllegalArgumentException If the given user was null
+     * @throws IllegalArgumentException When user == null
+     * @throws IllegalArgumentException When bugRep == null
      * @throws IllegalArgumentException If the given developer was not valid for this bug report
      */
     @DomainAPI
     public void addUsersToBugReport(User user, BugReport bugRep, PList<Developer> devList)
-            throws PermissionException, IllegalArgumentException { //TODO: undo
-        for (Developer dev : devList) {
-            bugRep.addUser(user, dev);
-        }
+            throws PermissionException, IllegalArgumentException {
+        AddUsersToBugReportModelCmd cmd = new AddUsersToBugReportModelCmd(user, bugRep, devList);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
