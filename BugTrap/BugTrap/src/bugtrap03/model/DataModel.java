@@ -83,6 +83,20 @@ public class DataModel {
 
         return result;
     }
+    
+    /**
+     * Undo the last {@link ModelCmd} executed.
+     * 
+     * @return Whether the undoing was successful. When there was no ModelCmd true will be returned.
+     */
+    public boolean undoLastCmd() {
+        if(this.history.empty()) {
+            return true;
+        }
+        
+        ModelCmd cmd = this.history.pop();
+        return cmd.undo();
+    }
 
     /**
      * Get the list of users in this system.

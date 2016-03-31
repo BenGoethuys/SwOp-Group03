@@ -32,6 +32,7 @@ public abstract class ModelCmd {
      */
     abstract boolean isExecuted();
     
+    
     @Override
     public abstract String toString();
 }
