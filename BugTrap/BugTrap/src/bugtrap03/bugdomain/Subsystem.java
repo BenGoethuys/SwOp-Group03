@@ -27,13 +27,11 @@ public class Subsystem extends AbstractSystem {
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if the version id is invalid.
      * @throws IllegalArgumentException if the parent is invalid for this subsystem
-     * @see AbstractSystem#AbstractSystem(VersionID, String, String)
-     * @see Subsystem#isValidParent(AbstractSystem)
+     * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
      */
-    public Subsystem(VersionID version, String name, String description, AbstractSystem parent)
+    protected Subsystem(VersionID version, String name, String description, AbstractSystem parent)
             throws IllegalArgumentException {
-        super(version, name, description);
-        this.setParent(parent);
+        super(parent, version, name, description);
         this.bugReportList = PList.<BugReport> empty();
     }
     
@@ -51,12 +49,10 @@ public class Subsystem extends AbstractSystem {
      * @throws IllegalArgumentException if the parent is invalid for this subsystem
      * @throws IllegalArgumentException If the milestone is invalid
      * 
-     * @see AbstractSystem#AbstractSystem(VersionID, String, String, Milestone)
-     * @see Subsystem#isValidParent(AbstractSystem)
+     * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String, Milestone)
      */
-    public Subsystem(VersionID version, String name, String description, AbstractSystem parent, Milestone milestone) {
-        super(version, name, description, milestone);
-        this.setParent(parent);
+    protected Subsystem(VersionID version, String name, String description, AbstractSystem parent, Milestone milestone) {
+        super(parent, version, name, description, milestone);
         this.bugReportList = PList.<BugReport>empty();
     }
     
@@ -69,65 +65,61 @@ public class Subsystem extends AbstractSystem {
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if the version id is invalid.
      * @throws IllegalArgumentException if the parent is invalid for this subsystem
-     * @see AbstractSystem#AbstractSystem(VersionID, String, String)
-     * @see Subsystem#isValidParent(AbstractSystem)
+     * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
      */
-    public Subsystem(String name, String description, AbstractSystem parent)
+    protected Subsystem(String name, String description, AbstractSystem parent)
             throws IllegalArgumentException {
-        super(name, description);
-        this.setParent(parent);
+        super(parent, name, description);
         this.bugReportList = PList.<BugReport> empty();
     }
 
-    private AbstractSystem parent;
     private PList<BugReport> bugReportList;
 
-    /**
-     * Sets the parent of the AbstractSystem to the given parent, if valid. Only elements of subclass subsystems have a
-     * parent different from null.
-     *
-     * @param parent The given parent of the AbstractSystem
-     * @throws IllegalArgumentException if the given parent isn't valid for this subsystem
-     * @see Subsystem#isValidParent(AbstractSystem)
-     */
-    private void setParent(AbstractSystem parent) throws IllegalArgumentException {
-        if (!isValidParent(parent)) {
-            throw new IllegalArgumentException("Illegal parent for this subsystem");
-        }
-        this.parent = parent;
-    }
+//    /**
+//     * Sets the parent of the AbstractSystem to the given parent, if valid. Only elements of subclass subsystems have a
+//     * parent different from null.
+//     *
+//     * @param parent The given parent of the AbstractSystem
+//     * @throws IllegalArgumentException if the given parent isn't valid for this subsystem
+//     * @see Subsystem#isValidParent(AbstractSystem)
+//     */
+//    private void setParent(AbstractSystem parent) throws IllegalArgumentException {
+//        if (!isValidParent(parent)) {
+//            throw new IllegalArgumentException("Illegal parent for this subsystem");
+//        }
+//        this.parent = parent;
+//    }
+//
+//    /**
+//     * This function checks or the given parent isn't one of subsystem's own child
+//     *
+//     * @param parent The given parent to be checked.
+//     * @return true is the given parent isn't the subsystem's own child
+//     */
+//    @DomainAPI
+//    protected boolean isValidParent(AbstractSystem parent) {
+//        if (parent == null) {
+//            return false;
+//        }
+//        Project parentProject = parent.getParentProject();
+//        AbstractSystem currentSystem = parent;
+//        while (currentSystem != parentProject) {
+//            if (currentSystem == this) {
+//                return false;
+//            }
+//            currentSystem = currentSystem.getParent();
+//        }
+//        return true;
+//    }
 
-    /**
-     * This function checks or the given parent isn't one of subsystem's own child
-     *
-     * @param parent The given parent to be checked.
-     * @return true is the given parent isn't the subsystem's own child
-     */
-    @DomainAPI
-    protected boolean isValidParent(AbstractSystem parent) {
-        if (parent == null) {
-            return false;
-        }
-        Project parentProject = parent.getParentProject();
-        AbstractSystem currentSystem = parent;
-        while (currentSystem != parentProject) {
-            if (currentSystem == this) {
-                return false;
-            }
-            currentSystem = currentSystem.getParent();
-        }
-        return true;
-    }
-
-    /**
-     * This is a getter for the set parent of the Subsystem;
-     *
-     * @return the parent of instance AbstractSystem.
-     */
-    @DomainAPI
-    protected AbstractSystem getParent() {
-        return this.parent;
-    }
+//    /**
+//     * This is a getter for the set parent of the Subsystem;
+//     *
+//     * @return the parent of instance AbstractSystem.
+//     */
+//    protected AbstractSystem getParent() {
+//        return this.parent;
+//    }
 
     /**
      * This method returns the list of bug reports of this subsystem

@@ -33,7 +33,7 @@ public class Project extends AbstractSystem {
      * @param startDate The start date of this project.
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
-     * @see AbstractSystem#AbstractSystem(VersionID, String, String)
+     * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
      * @see Project#isValidCreationDate(GregorianCalendar)
      * @see Project#isValidLead(Developer)
      * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
@@ -41,7 +41,7 @@ public class Project extends AbstractSystem {
      */
     public Project(VersionID version, String name, String description, GregorianCalendar creationDate, Developer lead,
             GregorianCalendar startDate, long budgetEstimate) throws IllegalArgumentException {
-        super(version, name, description);
+        super(null, version, name, description);
         this.setCreationDate(creationDate);
         this.projectParticipants = new HashMap<>();
         this.setLead(lead);
@@ -60,7 +60,7 @@ public class Project extends AbstractSystem {
      * @param startDate The start date of this project.
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
-     * @see AbstractSystem#AbstractSystem(VersionID, String, String)
+     * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
      * @see Project#isValidLead(Developer)
      * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
      * @see Project#isValidBudgetEstimate(long)
@@ -80,14 +80,14 @@ public class Project extends AbstractSystem {
      * @param startDate The start date of this project.
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
-     * @see AbstractSystem#AbstractSystem(String, String)
+     * @see AbstractSystem#AbstractSystem(AbstractSystem, String, String)
      * @see Project#isValidLead(Developer)
      * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
      * @see Project#isValidBudgetEstimate(long)
      */
     public Project(String name, String description, Developer lead, GregorianCalendar startDate, long budgetEstimate)
             throws IllegalArgumentException {
-        super(name, description);
+        super(null, name, description);
         this.setCreationDate(new GregorianCalendar());
         this.projectParticipants = new HashMap<>();
         this.setLead(lead);
@@ -104,13 +104,13 @@ public class Project extends AbstractSystem {
      * @param lead The lead developer of this project
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
-     * @see AbstractSystem#AbstractSystem(String, String)
+     * @see AbstractSystem#AbstractSystem(AbstractSystem, String, String)
      * @see Project#isValidLead(Developer)
      * @see Project#isValidBudgetEstimate(long)
      */
     public Project(String name, String description, Developer lead, long budgetEstimate)
             throws IllegalArgumentException {
-        super(name, description);
+        super(null, name, description);
         this.setCreationDate(new GregorianCalendar());
         this.projectParticipants = new HashMap<>();
         this.setLead(lead);

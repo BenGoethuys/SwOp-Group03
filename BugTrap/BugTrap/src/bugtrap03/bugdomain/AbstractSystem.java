@@ -23,28 +23,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     private String description = "";
     private PList<Subsystem> childs;
     private Milestone milestone;
+    private AbstractSystem parent;
 
-    /**
-     * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
-     *
-     * @param version The versionID (of that type) of this element.
-     * @param name The string name for this element.
-     * @param description The string description of this element.
-     * @throws IllegalArgumentException if one of the String arguments is invalid.
-     * @throws IllegalArgumentException if isValidVersionID(version) fails
-     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
-     * @see AbstractSystem#isValidVersionId(VersionID)
-     * @see AbstractSystem#isValidName(String)
-     * @see AbstractSystem#isValidDescription(String)
-     */
-    public AbstractSystem(VersionID version, String name, String description) throws IllegalArgumentException {
-        this.setVersionID(version);
-        this.setName(name);
-        this.setDescription(description);
-        this.setChilds(PList.<Subsystem>empty());
-        this.setMilestone(new Milestone(0));
-    }
-    
     /**
      * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
      *
@@ -52,7 +32,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @param name The string name for this element.
      * @param description The string description of this element.
      * @param milestone The milestone of this element.
-     * 
+     *
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if isValidVersionID(version) fails
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
@@ -60,13 +40,33 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @see AbstractSystem#isValidName(String)
      * @see AbstractSystem#isValidDescription(String)
      */
-    public AbstractSystem(VersionID version, String name, String description, Milestone milestone) throws IllegalArgumentException {
+    public AbstractSystem(AbstractSystem parent, VersionID version, String name, String description, Milestone milestone) throws IllegalArgumentException {
         this.setVersionID(version);
         this.setName(name);
         this.setDescription(description);
         this.setChilds(PList.<Subsystem>empty());
+        this.parent = parent;
         this.setMilestone(milestone);
     }
+
+    /**
+     * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
+     *
+     * @param version The versionID (of that type) of this element.
+     * @param name The string name for this element.
+     * @param description The string description of this element.
+     * @throws IllegalArgumentException if one of the String arguments is invalid.
+     * @throws IllegalArgumentException if isValidVersionID(version) fails
+     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @see AbstractSystem#isValidVersionId(VersionID)
+     * @see AbstractSystem#isValidName(String)
+     * @see AbstractSystem#isValidDescription(String)
+     */
+    public AbstractSystem(AbstractSystem parent, VersionID version, String name, String description) throws IllegalArgumentException {
+        this(parent, version, name, description, new Milestone(0));
+    }
+    
+
     
 
     /**
@@ -75,10 +75,10 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @param name The string name for this element.
      * @param description The string description of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
-     * @see AbstractSystem#AbstractSystem(VersionID, String, String)
+     * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
      */
-    public AbstractSystem(String name, String description) throws IllegalArgumentException {
-        this(new VersionID(), name, description);
+    public AbstractSystem(AbstractSystem parent, String name, String description) throws IllegalArgumentException {
+        this(parent, new VersionID(), name, description);
     }
 
     /**
@@ -373,7 +373,9 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      *
      * @return The parent of an element with type Subclass or the Project.
      */
-    protected abstract AbstractSystem getParent();
+    protected AbstractSystem getParent(){
+        return this.parent;
+    }
 
     /**
      * This method returns the head of the subsystem tree structure. This is an element from the type Project and can be
