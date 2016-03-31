@@ -364,6 +364,42 @@ public class BugReportTest {
     }
 
     @Test
+    public void addUserList() throws PermissionException {
+        PList<Developer> list = PList.<Developer>empty();
+        list = list.plus(dev);
+        list = list.plus(dev);
+        list = list.plus(lead);
+        list = list.plus(programer);
+        list = list.plus(tester);
+
+        assertTrue(tempBugReport.getUserList().isEmpty());
+        tempBugReport.addUserList(lead, list);
+
+        assertTrue(tempBugReport.getUserList().contains(dev));
+        assertTrue(tempBugReport.getUserList().contains(lead));
+        assertTrue(tempBugReport.getUserList().contains(programer));
+        assertTrue(tempBugReport.getUserList().contains(tester));
+        assertEquals(4, tempBugReport.getUserList().size());
+    }
+
+    @Test (expected = PermissionException.class)
+    public void addUserListNullUser() throws PermissionException {
+        PList<Developer> list = PList.<Developer>empty();
+        tempBugReport.addUserList(null, list);
+    }
+
+    @Test (expected = PermissionException.class)
+    public void addUserListNoPermission() throws PermissionException {
+        PList<Developer> list = PList.<Developer>empty();
+        tempBugReport.addUserList(issuer, list);
+    }
+
+    @Test (expected = PermissionException.class)
+    public void addUserListNullList() throws PermissionException {
+        tempBugReport.addUserList(issuer, null);
+    }
+
+    @Test
     public void testAddUser() throws IllegalArgumentException, PermissionException {
         assertTrue(tempBugReport.getUserList().isEmpty());
         assertEquals(Tag.NEW, tempBugReport.getTag());

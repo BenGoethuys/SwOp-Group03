@@ -45,9 +45,11 @@ class AddUsersToBugReportModelCmd extends ModelCmd {
      *
      * @return True
      * @throws IllegalArgumentException If the given user was null
-     * @throws IllegalArgumentException If the given developer was not valid for this bug report
+     * @throws IllegalArgumentException If the given developer was not valid for this bug report or the list was null
      * @throws PermissionException If the given user doesn't have the needed permission to add users to the given bug
      * report
+     *
+     * @see BugReport#addUserList(User, PList)
      */
     @Override
     Boolean exec() throws PermissionException, IllegalArgumentException, IllegalStateException {
@@ -55,11 +57,7 @@ class AddUsersToBugReportModelCmd extends ModelCmd {
             throw new IllegalStateException("The AddUsersToBugReportModelCmd was already executed.");
         }
         oldMem = bugReport.getMemento();
-        if (devList != null) {
-            for (Developer dev : devList) {
-                bugReport.addUser(user, dev);
-            }
-        }
+        bugReport.addUserList(user, devList);
         isExecuted = true;
         return true;
     }

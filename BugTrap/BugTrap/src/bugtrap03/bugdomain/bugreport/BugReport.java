@@ -535,6 +535,38 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         this.userList = userList;
     }
 
+    /**
+     * This method lets the given user add all developers in the given list
+     * @param user      The user that wants to add the developers to this bug report
+     * @param userList  The list of the developers the user wants to add
+     *
+     * @throws PermissionException      If one of the given users is invalid for this bug report
+     * @throws IllegalArgumentException If one of the given users is invalid for this bug report
+     *
+     * @see BugReport#isValidUser(Developer)
+     */
+    public void addUserList(User user, PList<Developer> userList) throws PermissionException, IllegalArgumentException {
+        if (user == null
+                || !user.hasRolePermission(RolePerm.ASSIGN_DEV_BUG_REPORT, this.getSubsystem().getParentProject())) {
+            throw new PermissionException(
+                    "The given user has insufficient permissions to assign the developer to this bug report");
+        }
+        // check first to prevent inconsistent updates
+        if (userList == null){
+            throw new IllegalArgumentException("Cannot add a null list to the developers of a bug report!");
+        }
+        // PList cannot contain null -> no need to check !
+//        for (Developer dev : userList){
+//            if (! BugReport.isValidUser(dev)){
+//                throw new IllegalArgumentException("The given developer is invalid for a bug report");
+//            }
+//        }
+        // add users to this bug report
+        for (Developer dev : userList) {
+            this.getInternState().addUser(this, dev);
+        }
+    }
+
     //TODO: function for addUsers (with PList) + addUsersToBugReportModelCmd ook aanpassen op line 58
 
     /**
@@ -552,7 +584,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             throw new PermissionException(
                     "The given user has insufficient permissions to assign the developer to this bug report");
         }
-        if (!BugReport.isValidUser(dev)) {
+        if (! BugReport.isValidUser(dev)) {
             throw new IllegalArgumentException("The given developer is invalid for a bug report");
         }
         this.getInternState().addUser(this, dev);
