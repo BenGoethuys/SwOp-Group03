@@ -1227,6 +1227,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             Logger.getLogger(BugReport.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        this.setInternState(mem.getSate()); //TODO: (Ask Ben if this is notify-able for Mailboxs)
+        this.setInternState(mem.getSate());
     }
 }
