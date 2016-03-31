@@ -233,7 +233,6 @@ public class Subsystem extends AbstractSystem {
         return clone;
     }
 
-    //TODO constructor with additional info
     /**
      * this method implements the abstract method from abstract system to return a string of details belonging to this
      * subsystem.

@@ -5,6 +5,7 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.notification.AbstractSystemSubject;
 import com.google.java.contract.Ensures;
+import com.google.java.contract.Invariant;
 import purecollections.PList;
 
 import java.util.ArrayList;
@@ -16,18 +17,13 @@ import java.util.ArrayList;
  * @author Group 03.
  */
 @DomainAPI
+@Invariant("this.constraintCheck() == True")
 public abstract class AbstractSystem extends AbstractSystemSubject {
-
-    private VersionID version;
-    private String name = "";
-    private String description = "";
-    private PList<Subsystem> childs;
-    private Milestone milestone;
-    private AbstractSystem parent;
 
     /**
      * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
      *
+     * @param parent    The parent of this abstract system. (Can be null.)
      * @param version The versionID (of that type) of this element.
      * @param name The string name for this element.
      * @param description The string description of this element.
@@ -52,6 +48,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     /**
      * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
      *
+     * @param parent    The parent of this abstract system. (Can be null.)
      * @param version The versionID (of that type) of this element.
      * @param name The string name for this element.
      * @param description The string description of this element.
@@ -65,13 +62,11 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     public AbstractSystem(AbstractSystem parent, VersionID version, String name, String description) throws IllegalArgumentException {
         this(parent, version, name, description, new Milestone(0));
     }
-    
-
-    
 
     /**
      * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
      *
+     * @param parent    The parent of this abstract system. (Can be null.)
      * @param name The string name for this element.
      * @param description The string description of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
@@ -80,6 +75,13 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     public AbstractSystem(AbstractSystem parent, String name, String description) throws IllegalArgumentException {
         this(parent, new VersionID(), name, description);
     }
+
+    private VersionID version;
+    private String name = "";
+    private String description = "";
+    private PList<Subsystem> childs;
+    private Milestone milestone;
+    private AbstractSystem parent;
 
     /**
      * This is a getter for the version variable.
@@ -131,14 +133,13 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
 
     /**
      * Sets the Milestone of the project to the given Milestone.
+     * Children of this AbstractSystem will be recursively updated if required
      *
      * @param milestone The milestone of the project.
      * @throws IllegalArgumentException When milestone is a invalid.
      * @see #isValidMilestone(Milestone)
      */
     public void setMilestone(Milestone milestone) throws NullPointerException {
-        //TODO: Mathias Read use case of declaring achieved milestone, they say something about recursively updating etc.
-        
         //Idea:
         //Check BugReport constraint. 
         //Fail = quit
@@ -155,15 +156,21 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         this.milestone = milestone;
 
         if (! this.constraintCheck()){
-            // TODO: recursive update
+            // update all children
+            for (Subsystem subsystem : this.getChilds()){
+                subsystem.setMilestone(milestone);
+            }
         }
     }
 
     /**
      * This method check if the given Milestone is a valid Milestone for an AbstractSystem
+     * Checks if the constraintCheck is still valid for the parent of this AbstractSystem
      *
      * @param milestone the Milestone to check
      * @return true if the given Milestone is valid for an AbstractSystem.
+     *
+     * @see AbstractSystem#constraintCheck()
      */
     @DomainAPI
     public boolean isValidMilestone(Milestone milestone) {
@@ -185,24 +192,16 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
             return false;
         }
         return true;
-
-//        //Check if this milestone <= highest of subsystems.
-//        Milestone high = new Milestone(0, 0, 0);
-//        for (Subsystem subs : this.getAllSubsystems()) {
-//            if (subs.getMilestone().compareTo(high) == 1) {
-//                high = subs.getMilestone();
-//            }
-//        }
-//
-//        if (milestone.compareTo(high) <= 0) {
-//            return true;
-//        }
-//        return false;
     }
 
     /**
-     * //TODO: heading !
-     * @return
+     * This method checks the constraint for this AbstractSystem specified in the assignment:
+     *
+     * A project’s or subsystem’s achieved milestone should at all times be less
+     * than or equal to the highest achieved milestone of all the subsystems it
+     * (recursively) contains.
+     *
+     * @return if this state adheres to the constraint
      */
     public boolean constraintCheck(){
         if (this.getAllSubsystems().isEmpty()) {
