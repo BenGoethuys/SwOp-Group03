@@ -150,18 +150,20 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
     public Object[] toArray() {
         int length = this.size();
         Object[] arr = new Object[length];
-
-        arr[0] = this.value;
-        int currIndex = 1;
-        for (Tree<T> subTree : this.children) {
-            Object[] sArr = subTree.toArray();
-
-            long result = currIndex + sArr.length;
-
-            int sLength = (result > Integer.MAX_VALUE) ? Integer.MAX_VALUE - currIndex : sArr.length;
-            System.arraycopy(sArr, 0, arr, currIndex, sLength);
-
-            currIndex = (int) Math.min(result, Integer.MAX_VALUE);
+        
+        if (length != 0){
+	        arr[0] = this.value;
+	        int currIndex = 1;
+	        for (Tree<T> subTree : this.children) {
+	            Object[] sArr = subTree.toArray();
+	
+	            long result = currIndex + sArr.length;
+	
+	            int sLength = (result > Integer.MAX_VALUE) ? Integer.MAX_VALUE - currIndex : sArr.length;
+	            System.arraycopy(sArr, 0, arr, currIndex, sLength);
+	
+	            currIndex = (int) Math.min(result, Integer.MAX_VALUE);
+	        }
         }
 
         return arr;
