@@ -42,9 +42,33 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         this.setName(name);
         this.setDescription(description);
         this.setChilds(PList.<Subsystem>empty());
-        this.milestone = new Milestone(0);
+        this.setMilestone(new Milestone(0));
     }
     
+    /**
+     * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
+     *
+     * @param version The versionID (of that type) of this element.
+     * @param name The string name for this element.
+     * @param description The string description of this element.
+     * @param milestone The milestone of this element.
+     * 
+     * @throws IllegalArgumentException if one of the String arguments is invalid.
+     * @throws IllegalArgumentException if isValidVersionID(version) fails
+     * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @see AbstractSystem#isValidVersionId(VersionID)
+     * @see AbstractSystem#isValidName(String)
+     * @see AbstractSystem#isValidDescription(String)
+     */
+    public AbstractSystem(VersionID version, String name, String description, Milestone milestone) throws IllegalArgumentException {
+        this.setVersionID(version);
+        this.setName(name);
+        this.setDescription(description);
+        this.setChilds(PList.<Subsystem>empty());
+        this.setMilestone(milestone);
+    }
+    
+
     /**
      * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
      *
@@ -114,16 +138,28 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      */
     public void setMilestone(Milestone milestone) throws NullPointerException {
         //TODO: Mathias Read use case of declaring achieved milestone, they say something about recursively updating etc.
-        if (!isValidMilestone(milestone)) {
-            throw new IllegalArgumentException("The given Milestone is not valid for this abstractSystem");
-        }
+        
+        //Idea:
+        //Check BugReport constraint. 
+        //Fail = quit
+        //Succes = milestone = newMilestone
+        //Check Constraint from Parent Perspective
+        //Fail = milestone = oldMilestone + quit
+        //Succes = update Milestones Below if required (recursively)
+        //required = if now higher than the highest subsystem. 
+        
+        //Remove isValidMilestone
         
         for (BugReport bugreport : this.getAllBugReports()) {
             if ((!bugreport.isResolved()) && (bugreport.getMilestone().compareTo(milestone) <= 0)) {
                 throw new IllegalArgumentException("An invalid milestone to update.");
             }
         }
-        
+                
+        if (!isValidMilestone(milestone)) {
+            throw new IllegalArgumentException("The given Milestone is not valid for this abstractSystem");
+        }
+
         this.milestone = milestone;
     }
 
@@ -135,14 +171,17 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      */
     @DomainAPI
     public boolean isValidMilestone(Milestone milestone) {
-        if(milestone == null) {
+        if (milestone == null) {
             return false;
         }
-        
-        if (this.getAllSubsystems().isEmpty()){
-            return true;
-        }
 
+//        if (this.getAllSubsystems().isEmpty()) {
+//            return true;
+//        }
+
+        //Check if parent milestone <= highest of subsystems
+
+        //Check if this milestone <= highest of subsystems.
         Milestone high = new Milestone(0, 0, 0);
         for (Subsystem subs : this.getAllSubsystems()) {
             if (subs.getMilestone().compareTo(high) == 1) {
@@ -249,14 +288,19 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
 
     /**
      * This method adds a subsystem to this AbstractSystem
+     * <br> The Milestone of the subsystem will be the lowest possible while adhering to the constraints.
      *
      * @param version The versionID of the new subsystem
      * @param name The name of the new subsystem
      * @param description The description of the new subsystem
+     *
      * @return The new subsystems that was added to this AbstractSystem
+     * @throws IllegalArgumentException When name or description is invalid.
      */
     public Subsystem makeSubsystemChild(VersionID version, String name, String description) {
-        Subsystem newChild = new Subsystem(version, name, description, this);
+        Subsystem newChild = (this.getChilds().isEmpty()) ? new Subsystem(version, name, description, this, getMilestone()) : new Subsystem(version, name, description, this);
+        // throw new IllegalArgumentException("Milestone should be bigger then the project/subsystem this belong to, "
+        //+ "else inconsistent state.");
         this.addChild(newChild);
         return newChild;
     }
@@ -267,18 +311,12 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @param name The name of the new subsystem
      * @param description The description of the new subsystem
      * @return The new subsystems that was added to this AbstractSystem
-     * 
+     *
      * @throws IllegalArgumentException When name or description is invalid.
      */
     @Ensures("result.getVersionID.equals(new VersionID())")
     public Subsystem makeSubsystemChild(String name, String description) {
-        if (this.getChilds().isEmpty()){
-            throw new IllegalArgumentException("Milestone should be bigger then the project/subsystem this belong to, " +
-                    "else inconsistent state.");
-        }
-        Subsystem newChild = new Subsystem(name, description, this);
-        this.addChild(newChild);
-        return newChild;
+        return makeSubsystemChild(new VersionID(), name, description);
     }
 
     /**
@@ -289,9 +327,10 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     private void addChild(Subsystem child) {
         this.childs = this.getChilds().plus(child);
     }
-    
+
     /**
-     * This methods deletes the given child from the PList of childs. 
+     * This methods deletes the given child from the PList of childs.
+     *
      * @param child The subsystem to delete.
      * @return Whether there was a change in the data.
      */
