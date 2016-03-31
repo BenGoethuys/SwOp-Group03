@@ -82,7 +82,6 @@ public class DeclareAchievedMilestoneCmdTest {
         subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
                 "Description of susbsystem A3.2");
 
-        //TODO: Ben, I changed these to fit the new constructor but do these need milestones?? (the null currently)
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
                 PList.<BugReport> empty(), null, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",

@@ -70,7 +70,7 @@ class AddUsersToBugReportModelCmd extends ModelCmd {
             return false;
         }
 
-        try { //TODO: Ask Ben if this does not cause any problems.
+        try {
             bugReport.setMemento(oldMem);
         } catch (IllegalArgumentException ex) {
             return false;
