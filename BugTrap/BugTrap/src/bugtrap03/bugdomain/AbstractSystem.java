@@ -146,21 +146,17 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         //Check Constraint from Parent Perspective
         //Fail = milestone = oldMilestone + quit
         //Succes = update Milestones Below if required (recursively)
-        //required = if now higher than the highest subsystem. 
-        
-        //Remove isValidMilestone
-        
-        for (BugReport bugreport : this.getAllBugReports()) {
-            if ((!bugreport.isResolved()) && (bugreport.getMilestone().compareTo(milestone) <= 0)) {
-                throw new IllegalArgumentException("An invalid milestone to update.");
-            }
-        }
+        //required = if now higher than the highest subsystem.
                 
         if (!isValidMilestone(milestone)) {
             throw new IllegalArgumentException("The given Milestone is not valid for this abstractSystem");
         }
 
         this.milestone = milestone;
+
+        if (! this.constraintCheck()){
+            // TODO: recursive update
+        }
     }
 
     /**
@@ -174,14 +170,46 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         if (milestone == null) {
             return false;
         }
+        for (BugReport bugreport : this.getAllBugReports()) {
+            if ((!bugreport.isResolved()) && (bugreport.getMilestone().compareTo(milestone) <= 0)) {
+                return false;
+            }
+        }
 
-//        if (this.getAllSubsystems().isEmpty()) {
+        // Check if parent milestone <= highest of subsystems if the milestone would have changed:
+        Milestone oldM = this.getMilestone();
+        this.milestone = milestone;
+        boolean check = this.getParent().constraintCheck();
+        this.milestone = oldM;
+        if (! check){
+            return false;
+        }
+        return true;
+
+//        //Check if this milestone <= highest of subsystems.
+//        Milestone high = new Milestone(0, 0, 0);
+//        for (Subsystem subs : this.getAllSubsystems()) {
+//            if (subs.getMilestone().compareTo(high) == 1) {
+//                high = subs.getMilestone();
+//            }
+//        }
+//
+//        if (milestone.compareTo(high) <= 0) {
 //            return true;
 //        }
+//        return false;
+    }
 
-        //Check if parent milestone <= highest of subsystems
+    /**
+     * //TODO: heading !
+     * @return
+     */
+    public boolean constraintCheck(){
+        if (this.getAllSubsystems().isEmpty()) {
+            return true;
+        }
 
-        //Check if this milestone <= highest of subsystems.
+        // Check if this milestone <= highest of subsystems.
         Milestone high = new Milestone(0, 0, 0);
         for (Subsystem subs : this.getAllSubsystems()) {
             if (subs.getMilestone().compareTo(high) == 1) {
