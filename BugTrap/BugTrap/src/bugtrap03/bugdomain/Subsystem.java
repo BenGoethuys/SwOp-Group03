@@ -148,7 +148,10 @@ public class Subsystem extends AbstractSystem {
     @DomainAPI
     public PList<BugReport> getAllBugReports() {
         PList<BugReport> list = super.getAllBugReports();
-        list = list.plusAll(this.getBugReportList());
+        if (this.getBugReportList() != null) {
+            // will be null during initialisation !
+            list = list.plusAll(this.getBugReportList());
+        }
         return list;
     }
 
