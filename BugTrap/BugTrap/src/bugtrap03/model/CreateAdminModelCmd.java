@@ -105,7 +105,8 @@ class CreateAdminModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        return "Created Administrator " + this.admin.getFullName();
+        String name = (this.admin != null) ? this.admin.getFullName() : "-invalid argument-";
+        return "Created Administrator " + name;
     }
 
 }

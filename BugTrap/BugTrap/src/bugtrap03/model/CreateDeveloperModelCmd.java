@@ -108,7 +108,8 @@ class CreateDeveloperModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        return "Created Developer " + this.dev.getFullName();
+        String name = (this.dev != null) ? this.dev.getFullName() : "-invalid argument-";
+        return "Created Developer " + name;
     }
 
 }

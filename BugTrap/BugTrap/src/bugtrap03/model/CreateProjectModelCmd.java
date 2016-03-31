@@ -132,7 +132,8 @@ class CreateProjectModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        return "Created Project " + this.project.getName();
+        String projName = (this.project != null) ? this.project.getName() : "-invalid argument-";
+        return "Created Project " + projName;
     }
 
 }

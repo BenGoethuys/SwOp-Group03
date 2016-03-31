@@ -40,7 +40,7 @@ class AddBugReportTestModelCmd extends ModelCmd {
 
     /**
      * This method adds a given test to the bug report state
-     * 
+     *
      * @return True
      *
      * @throws PermissionException If the given user doesn't have the permission to add a test
@@ -84,7 +84,8 @@ class AddBugReportTestModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        return "Added a test for BugReport " + bugReport.getTitle();
+        String title = (bugReport != null) ? bugReport.getTitle() : "-invalid argument-";
+        return "Added a test for BugReport " + title;
     }
 
 }

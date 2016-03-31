@@ -117,11 +117,14 @@ class UpdateProjectModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
+        String projName = (proj != null) ? proj.getName() : "-invalid argument-";
+        String strDate = (startDate != null) ? startDate.toString() : "-invalid argument-";
+        
         StringBuilder string = new StringBuilder();
-        string.append("Updated Project ").append(this.proj.getName());
+        string.append("Updated Project ").append(projName);
         string.append(" with ").append(this.name);
         string.append(", ").append(this.desc);
-        string.append(", ").append(this.startDate.toString());
+        string.append(", ").append(strDate);
         string.append(", ").append(this.budgetEstimate);
         return string.toString();
     }

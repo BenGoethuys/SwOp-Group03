@@ -166,7 +166,9 @@ class CreateBugReportModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        return "Created BugReport " + this.bugReport.getTitle() + " on Subsystem " + this.subsystem.getName();
+        String bugTitle = (this.bugReport != null) ? this.bugReport.getTitle() : "-invalid argument-";
+        String subName = (this.subsystem != null) ? this.subsystem.getName() : "-invalid argument-";
+        return "Created BugReport " + bugTitle + " on Subsystem " + subName;
     }
 
 }

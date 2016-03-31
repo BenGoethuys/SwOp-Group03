@@ -81,6 +81,7 @@ class SetTagForBugReportModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
+        String tagName = (tag != null) ? tag.toString() : "-invalid argument-";
         return "Set the Tag " + tag.toString() + " for BugReport " + bugReport.getTitle();
     }
 

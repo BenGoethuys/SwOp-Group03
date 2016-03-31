@@ -123,7 +123,8 @@ class CreateSubsystemModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        return "Created subsystem " + this.system.getName();
+        String systemName = (this.system != null) ? this.system.getName() : "-invalid argument-";
+        return "Created subsystem " + systemName;
     }
 
 }

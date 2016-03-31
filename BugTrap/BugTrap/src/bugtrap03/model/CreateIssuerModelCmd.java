@@ -107,7 +107,8 @@ class CreateIssuerModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        return "Created Issuer " + this.issuer.getFullName();
+        String name = (this.issuer != null) ? this.issuer.getFullName() : "-invalid argument-";
+        return "Created Issuer " + name;
     }
 
 }

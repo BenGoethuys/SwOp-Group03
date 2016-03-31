@@ -85,7 +85,8 @@ class GiveBugReportScoreModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        return "Gave BugReport " + bugReport.getTitle() + " a score of " + this.score;
+        String bugTitle = (bugReport != null) ? bugReport.getTitle() : "-invalid argument-";
+        return "Gave BugReport " + bugTitle + " a score of " + this.score;
     }
 
 }
