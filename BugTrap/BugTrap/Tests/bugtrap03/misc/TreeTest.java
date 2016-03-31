@@ -38,7 +38,7 @@ public class TreeTest {
     public void testCons() {
         Tree<Integer> tree2 = new Tree();
 
-        assertEquals(1, tree2.size());
+        assertEquals(0, tree2.size());
         assertEquals(null, tree2.getValue());
         assertTrue(tree2.contains(null));
         assertEquals(0, tree2.childrenSize());
@@ -74,7 +74,7 @@ public class TreeTest {
         assertFalse(subTree.isEmpty());
 
         //Size
-        assertEquals(3, tree.size());
+        assertEquals(2, tree.size());
         assertEquals(1, subTree.size());
         assertEquals(0, subTree.childrenSize());
         assertEquals(2, tree.childrenSize());
@@ -88,7 +88,7 @@ public class TreeTest {
         tree.clear();
 
         assertEquals(null, tree.getValue());
-        assertEquals(1, tree.size());
+        assertEquals(0, tree.size());
         assertTrue(tree.contains(null));
         assertTrue(tree.getSubTree().isEmpty());
     }
