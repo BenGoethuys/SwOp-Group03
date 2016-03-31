@@ -11,20 +11,27 @@ import bugtrap03.bugdomain.usersystem.User;
  */
 class CreateCommentModelCmd extends ModelCmd {
 
-    //TODO Finish constructor for creating comment on comment.
-    CreateCommentModelCmd(User user, BugReport bugReport, Comment parentComment, String text) throws IllegalArgumentException {
-        if (bugReport == null) {
-            throw new IllegalArgumentException("The bugReport passed to the CreateCommentModelCmd was a null reference.");
+    /**
+     * Create a {@link ModelCmd} that can create a {@link Comment} on a {@link Comment} when executed.
+     *
+     * @param user The creator of the comment
+     * @param parentComment The comment to create the comment on
+     * @param text The text of the new comment
+     * @throws IllegalArgumentException When parentComment == null
+     */
+    CreateCommentModelCmd(User user, Comment parentComment, String text) throws IllegalArgumentException {
+        if (parentComment == null) {
+            throw new IllegalArgumentException("The parrentComment passed to the CreateCommentModelCmd was a null reference.");
         }
 
+        this.bugReport = null;
         this.user = user;
-        this.bugReport = bugReport;
         this.parentComment = parentComment;
         this.text = text;
     }
 
     /**
-     * Create a {@link ModelCmd} that can create a {@link Comment} when executed.
+     * Create a {@link ModelCmd} that can create a {@link Comment} on a {@link BugReport} when executed.
      *
      * @param user The creator of the comment
      * @param bugReport The bug report to create the comment on
@@ -72,7 +79,7 @@ class CreateCommentModelCmd extends ModelCmd {
         if (parentComment == null) {
             comment = bugReport.addComment(user, text);
         } else {
-            throw new IllegalStateException("Not yet implemented!"); //TODO implement creating subComment.
+            comment = parentComment.addSubComment(user, text);
         }
         isExecuted = true;
         return comment;
@@ -84,8 +91,11 @@ class CreateCommentModelCmd extends ModelCmd {
             return false;
         }
 
-        //TODO: implement undo'ing subcomment.
-        return bugReport.deleteComment(comment);
+        if (parentComment == null) {
+            return bugReport.deleteComment(comment);
+        } else {
+            return parentComment.deleteComment(comment);
+        }
     }
 
     @Override
@@ -95,8 +105,11 @@ class CreateCommentModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        //TODO: Implement toString() on CreateCommentModelCmd
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(parentComment == null) {
+            return "Created a comment " + text + " on a BugReport " + bugReport.getTitle();
+        } else {
+            return "Created a comment " + text + " on a Comment " + parentComment.getText();
+        }
     }
 
 }

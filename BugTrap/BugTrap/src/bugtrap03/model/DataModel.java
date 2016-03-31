@@ -41,7 +41,7 @@ public class DataModel {
     private Stack<ModelCmd> history;
 
     /**
-     * Add the cmd to the cmd history. 
+     * Add the cmd to the cmd history.
      * <br> This will only be added when the cmd has been executed.
      *
      * @param cmd The {@link ModelCmd} to add to the history.
@@ -83,17 +83,17 @@ public class DataModel {
 
         return result;
     }
-    
+
     /**
      * Undo the last {@link ModelCmd} executed.
-     * 
+     *
      * @return Whether the undoing was successful. When there was no ModelCmd true will be returned.
      */
     public boolean undoLastCmd() {
-        if(this.history.empty()) {
+        if (this.history.empty()) {
             return true;
         }
-        
+
         ModelCmd cmd = this.history.pop();
         return cmd.undo();
     }
@@ -524,6 +524,7 @@ public class DataModel {
      * @param text The text of the new comment
      * @return The new generated comment
      * @throws PermissionException If the given User doesn't have the permission to create the comment
+     * @throws IllegalArgumentException When bugReport == null
      * @throws IllegalArgumentException if the given comment is not valid for this bug report
      * @see BugReport#isValidComment(Comment)
      */
@@ -539,16 +540,20 @@ public class DataModel {
      * This method creates a comment on the given comment with the given text by the given user
      *
      * @param user The creator of the new comment
-     * @param comment The comment to create the comment on (= sub comment)
+     * @param parentComment The comment to create the comment on (= sub comment)
      * @param text The text of the new Comment
      * @return The new generated comment
      * @throws PermissionException If the given User doesn't have the permission to create the comment
+     * @throws IllegalArgumentException When parentComment == null
      * @throws IllegalArgumentException if the given parameters are not valid for this comment
      * @see Comment#isValidSubComment(Comment)
      */
     @DomainAPI
-    public Comment createComment(User user, Comment comment, String text) throws PermissionException, IllegalArgumentException {
-        return comment.addSubComment(user, text); //TODO: undo. Implement subComment of comment trough BugReport.
+    public Comment createComment(User user, Comment parentComment, String text) throws PermissionException, IllegalArgumentException {
+        CreateCommentModelCmd cmd = new CreateCommentModelCmd(user, parentComment, text);
+        Comment comment = cmd.exec();
+        addToHistory(cmd);
+        return comment;
     }
 
     /**
