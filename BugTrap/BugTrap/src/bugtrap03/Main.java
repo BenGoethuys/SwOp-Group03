@@ -56,8 +56,6 @@ public class Main {
         Developer major = model.createDeveloper("major", "Joseph", "Mays");
         Developer maria = model.createDeveloper("maria", "Maria", "Carney");
 
-        //TODO add additional info to bug report
-
         try {
             // create projectA
             Project projectA = model.createProject("ProjectA", "Description of projectA", major, 10000, admin);
