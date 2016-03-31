@@ -119,12 +119,12 @@ public class SubsystemTest {
         assertEquals(emptyDep, tempSub.getBugReportList());
     }
 
-    @Test
-    public void testIsValidParent() {
-        assertFalse(subSysTest.isValidParent(null));
-        assertFalse(subSysTest.isValidParent(subSysTest2));
-        assertTrue(subSysTest2.isValidParent(subSysTest));
-    }
+//    @Test
+//    public void testIsValidParent() {
+//        assertFalse(subSysTest.isValidParent(null));
+//        assertFalse(subSysTest.isValidParent(subSysTest2));
+//        assertTrue(subSysTest2.isValidParent(subSysTest));
+//    }
 
     @Test
     public void testGetBugReportList() {
