@@ -41,10 +41,6 @@ class SetTagForBugReportModelCmd extends ModelCmd {
 
     /**
      * This method lets the given user set the tag of the given bug report to the given tag
-     *
-     * @param bugrep The bug report of which the tag gets to be set
-     * @param tag The given tag to set
-     * @param user The user that wishes to set the tag
      * 
      * @return True
      * @throws PermissionException If the user doesn't have the needed permission to set the given tag to the bug report

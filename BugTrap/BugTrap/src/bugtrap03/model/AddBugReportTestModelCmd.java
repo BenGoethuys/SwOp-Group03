@@ -40,10 +40,6 @@ class AddBugReportTestModelCmd extends ModelCmd {
 
     /**
      * This method adds a given test to the bug report state
-     *
-     * @param bugReport The bug report to add the given test to
-     * @param user The user that wants to add the test to this bug report state
-     * @param test The test that the user wants to add
      * 
      * @return True
      *

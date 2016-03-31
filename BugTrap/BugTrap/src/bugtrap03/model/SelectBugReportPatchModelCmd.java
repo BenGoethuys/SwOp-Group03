@@ -41,10 +41,6 @@ class SelectBugReportPatchModelCmd extends ModelCmd {
     /**
      * This method selects a patch for this bug report state
      *
-     * @param bugReport The bug report to add the patch to
-     * @param user The user that wants to select the patch
-     * @param patch The patch that the user wants to select
-     *
      * @return True
      * @throws PermissionException If the given user doesn't have the permission to select a patch for this bugReport
      * state
