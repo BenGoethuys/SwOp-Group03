@@ -273,6 +273,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     @Ensures("result.getVersionID.equals(new VersionID())")
     public Subsystem makeSubsystemChild(String name, String description) {
         if (this.getChilds().isEmpty()){
+            //FIXME: give parent milestone to subsystem!
             throw new IllegalArgumentException("Milestone should be bigger then the project/subsystem this belong to, " +
                     "else inconsistent state.");
         }
