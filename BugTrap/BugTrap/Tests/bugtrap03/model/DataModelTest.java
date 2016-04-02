@@ -24,8 +24,7 @@ public class DataModelTest {
     Project project2;
 
     /**
-     * Test if the constructors instantiates both projects and user lists as
-     * empty lists.
+     * Test if the constructors instantiates both projects and user lists as empty lists.
      */
     @Test
     public void testcons() {
@@ -257,5 +256,90 @@ public class DataModelTest {
         assertTrue(model.getAllRoles().contains(Role.TESTER));
         assertTrue(model.getAllRoles().contains(Role.PROGRAMMER));
         assertTrue(model.getAllRoles().size() == 3);
+    }
+
+    /**
+     * Test {@link DataModel#getHistory(int)} x &lt 2, x &gt 2, x == 2, x &lt 0, x == 0
+     */
+    @Test
+    public void testGetHistory() {
+        model = new DataModel();
+
+        model.createAdministrator("UniqueUserNameOverHere", "FirstName", "LastName");
+        model.createIssuer("UniqueUserNameOverHere2", "FirstName2", "LastName2");
+
+        //Test overflow: x == 5 > 2
+        PList<ModelCmd> list = model.getHistory(5);
+        assertEquals(2, list.size());
+        assertTrue(list.get(0).toString().contains("Issuer"));
+        assertTrue(list.get(1).toString().contains("Admin"));
+
+        //Test exact: x == 2
+        list = model.getHistory(2);
+        assertEquals(2, list.size());
+        assertTrue(list.get(0).toString().contains("Issuer"));
+        assertTrue(list.get(1).toString().contains("Admin"));
+
+        //Test less: x == 1 < 2 
+        list = model.getHistory(1);
+        assertEquals(1, list.size());
+        assertTrue(list.get(0).toString().contains("Issuer"));
+
+        //x == -5
+        list = model.getHistory(-5);
+        assertTrue(list.isEmpty());
+
+        //x == 0
+        list = model.getHistory(0);
+        assertTrue(list.isEmpty());
+    }
+
+    /**
+     * Test {@link DataModel#undoLastChanges(bugtrap03.bugdomain.usersystem.User, int) when the user does not have sufficient permissions.
+     *
+     * @throws PermissionException Always.
+     */
+    @Test(expected = PermissionException.class)
+    public void testUndoNoPermissions() throws PermissionException {
+        model = new DataModel();
+        issuer = model.createIssuer("CrazyUserNameNoOneWillUse", "HelloFirst", "HelloLast");
+        model.undoLastChanges(issuer, 2);
+    }
+
+    /**
+     * Test {@link DataModel#undoLastChanges(bugtrap03.bugdomain.usersystem.User, int) when the user == null
+     * 
+     * @throws PermissionException Always
+     */
+    @Test(expected = PermissionException.class)
+    public void testUndoNullUser() throws PermissionException {
+        model = new DataModel();
+        model.undoLastChanges(null, 2);
+    }
+
+    /**
+     * Test {@link DataModel#undoLastChanges(User, int) as a success scenario with every possible branch.
+     * 
+     * @throws PermissionException  Never
+     */
+    @Test
+    public void testUndo() throws PermissionException {
+        model = new DataModel();
+        admin = model.createAdministrator("BlubBlabBlob", "FirstName", "LastName");
+        dev = model.createDeveloper("RikkyTheMan", "Bob", "DrivesHome");
+        model.createProject("ProjectName", "This is a test Project", dev, 50, admin);
+
+        //Before
+        assertEquals(3, model.getHistory(5).size());
+        assertEquals(1, model.getProjectList().size());
+        assertEquals(2, model.getUserList().size());
+
+        model.undoLastChanges(admin, 2);
+
+        //After
+        assertEquals(1, model.getHistory(5).size());
+        assertTrue(model.getProjectList().isEmpty());
+        assertEquals(1, model.getUserList().size());
+
     }
 }

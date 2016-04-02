@@ -44,28 +44,29 @@ public class UndoCmd implements Cmd {
 
         // 1. Indicates he wants to undo some successfully completed use cases.
         // 2. Show a list of the last 10 completed use case instances that modified the state
+        scan.println("Changes starting from most recent.");
         PList<ModelCmd> undoList = model.getHistory(UNDO_LIST_SIZE);
         for (int i = 1; i <= undoList.size(); i++) {
             scan.println(i + ". " + undoList.get(i - 1).toString());
         }
 
         // 3. Indicates how many use cases he wants to revert starting with the last.
-        scan.println("How many would you like to undo?");
         int undoAmount = -1;
+        scan.println("How many would you like to undo?");
         while (undoAmount < 0) {
             undoAmount = (new GetIntCmd()).exec(scan, model, user);
             if (undoAmount < 0) {
-                scan.println("Please chose a positive amount");
+                scan.println("Please choose a positive amount");
             }
         }
 
         // 4. The system reverts the selected use cases starting with the last completed one and, if necessary, sends 
         //the required notifications if some object of interest is modified by the undoing of a use case.
         boolean result = model.undoLastChanges(user, undoAmount);
-        if(result) {
+        if (result) {
             scan.println("Undoing successful.");
         } else {
-            scan.println("A undo action failed which caused the operation to abort.");
+            scan.println("An undo action failed which caused the operation to abort.");
         }
         return result;
     }
