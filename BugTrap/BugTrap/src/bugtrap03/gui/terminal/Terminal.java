@@ -88,6 +88,9 @@ public class Terminal {
             }
         } while (user == null);
         scan.println("");
+        scan.println("Type abort during an operation to abort.");
+        scan.println("Type help to get a list of possible operations.");
+        scan.println("");
 
         //Query
         String input;
