@@ -45,7 +45,8 @@ public class Administrator extends User {
     }
 
     private UserPerm[] permissions = {
-            UserPerm.CREATE_PROJ, UserPerm.ASSIGN_PROJ_LEAD, UserPerm.UPDATE_PROJ, UserPerm.DELETE_PROJ, UserPerm.CREATE_SUBSYS
+            UserPerm.CREATE_PROJ, UserPerm.ASSIGN_PROJ_LEAD, UserPerm.UPDATE_PROJ, UserPerm.DELETE_PROJ, UserPerm.CREATE_SUBSYS,
+            UserPerm.UNDO_COMMANDS
     };
 
     /**
