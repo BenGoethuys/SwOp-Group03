@@ -73,7 +73,7 @@ public class DataModel {
 
         x = Math.min(x, history.size());
 
-        Deque<ModelCmd> temp = new ArrayDeque(history);
+        Stack<ModelCmd> temp = (Stack<ModelCmd>) history.clone();
         PList<ModelCmd> result = PList.<ModelCmd>empty();
 
         for (int i = 0; i < x; i++) {
