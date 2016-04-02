@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
- * Class encapsulating our scanner (input methods) and print/println.. (output methpds).
+ * Class encapsulating our scanner (input methods) and print/println.. (output methods).
  * This can be used to provide custom out and input streams as well as
  * provides a way to override certain methods for testing purposes.
  *
