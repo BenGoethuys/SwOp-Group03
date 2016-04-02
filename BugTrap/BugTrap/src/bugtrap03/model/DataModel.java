@@ -89,13 +89,41 @@ public class DataModel {
      *
      * @return Whether the undoing was successful. When there was no ModelCmd true will be returned.
      */
-    public boolean undoLastCmd() {
+    private boolean undoLastModelCmd() {
         if (this.history.empty()) {
             return true;
         }
 
         ModelCmd cmd = this.history.pop();
         return cmd.undo();
+    }
+
+    /**
+     * Undo the last x possible model changes.
+     * <br> When there are only y changes to undo (y &lt x) only y will be undone.
+     * <br> As soon as the undoing of an action fails the undoing is stopped and false is returned.
+     *
+     * @param x The amount of changes to undo.
+     *
+     * @return True if all x changes were undone. When x &lt= 0 true is returned.
+     * @throws PermissionException When user == null or does not have sufficient permissions.
+     */
+    @DomainAPI
+    public boolean undoLastChanges(User user, int x) throws PermissionException {
+        if (user == null || !user.hasPermission(UserPerm.UNDO_COMMANDS)) {
+            throw new PermissionException("You do not have sufficient permissions to undo.");
+        }
+
+        if (x <= 0) {
+            return true;
+        }
+
+        for (int i = x; i > 0; i--) {
+            if (!undoLastModelCmd()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -462,8 +490,8 @@ public class DataModel {
         addToHistory(cmd);
         return sub;
     }
-    
-        /**
+
+    /**
      * This method creates and adds a bug report to the list of associated bugReports of this subsystem
      *
      * @param subsystem The subsystem the new bugreport belongs to
@@ -485,8 +513,7 @@ public class DataModel {
      *
      * @return The create bug report
      *
-     * <br><dt><b>Postconditions:</b><dd> result.getDate() == current date at the moment of
-     * initialization
+     * <br><dt><b>Postconditions:</b><dd> result.getDate() == current date at the moment of initialization
      * <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
      *
      * @see BugReport#isValidCreator(User)

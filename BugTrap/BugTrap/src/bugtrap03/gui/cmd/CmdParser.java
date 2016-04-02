@@ -55,6 +55,7 @@ public class CmdParser {
         cmdList.add(new SimpleEntry<>("assigntoproject", new AssignToProjectCmd()));
         cmdList.add(new SimpleEntry<>("updatebugreport", new UpdateBugReportCmd()));
         cmdList.add(new SimpleEntry<>("declaremilestone", new DeclareAchievedMilestoneCmd()));
+        cmdList.add(new SimpleEntry<>("undo", new UndoCmd()));
 
         cmdMap = new HashMap<>();
         for (int i = 0; i < cmdList.size(); i++) {
