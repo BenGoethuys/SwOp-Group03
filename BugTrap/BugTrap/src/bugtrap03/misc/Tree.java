@@ -2,10 +2,16 @@ package bugtrap03.misc;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import purecollections.PList;
 
 /**
  * A Tree data structure with an empty root node.
+ * <br> This collection is based on nodes holding values.
+ * <br> Removing a value does not result in removing the nodes unless the specific methods
+ * ({@link Tree#removeTree(java.lang.Object)}, {@link Tree#sizeObjNb()}) are used.
+ *
+ * <br> The Iterators included will not ignore these left-over-empty-nodes and will iterate over with null values.
  *
  * @author Group 03
  */
@@ -64,6 +70,11 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
         return node;
     }
 
+    /**
+     * Returns an iterator over elements of type T. This will iterate over all elements, including null.
+     * <br> It is not advised to make changes during the iteration of the iterator.
+     * @returns an Iterator.
+     */
     @Override
     public Iterator<T> iterator() {
         return new TreeIterator<>(this);
@@ -71,7 +82,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
 
     /**
      * Returns an iterator over elements of type Tree<T>. This will iterate over all nodes depth-first.
-     *
+     * <br> It is not advised to make changes during the iteration of the iterator.
      * @return an Iterator
      */
     public Iterator<Tree<T>> nodeIterator() {
@@ -79,18 +90,40 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
     }
 
     /**
+     * The number of nodes in this collection.
+     * <br> If this collection contains more than Integer.MAX_VALUE elements, Integer.MAX_VALUE will be returned. This
+     * will count the nodes, including this root if the (value != null null || parent != null) else this node is
+     * excluded from count.
      *
-     * The number of elements in this collection. If this collection contains more than Integer.MAX_VALUE elements,
-     * Integer.MAX_VALUE will be returned. This will count the nodes, including this root if the contained value is not
-     * null or the node has a parent, else this node is excluded from count.
-     *
-     * @return The number of elements in this tree if the tree contains less than Integer.MAX_VALUE elements.
+     * @return The number of nodes in this tree if the tree contains less than Integer.MAX_VALUE elements.
      */
     @Override
     public int size() {
         int count = (this.value == null && this.parent == null) ? 0 : 1;
         for (Tree<T> subTree : this.children) {
             int subSize = subTree.size();
+            long result = count + subSize;
+
+            if (result > Integer.MAX_VALUE) {
+                return Integer.MAX_VALUE;
+            }
+
+            count += subSize;
+        }
+        return count;
+    }
+
+    /**
+     * Count the amount of nodes holding values != null.
+     * <br> If this collection contains more than Integer.MAX_VALUE elements, Integer.MAX_VALUE will be returned.
+     *
+     * @return The amount of non-null objects in this collection if the tree contains less than Integer.MAX_VALUE
+     * elements.
+     */
+    public int sizeObjNb() {
+        int count = (this.value == null) ? 0 : 1;
+        for (Tree<T> subTree : this.children) {
+            int subSize = subTree.sizeObjNb();
             long result = count + subSize;
 
             if (result > Integer.MAX_VALUE) {
@@ -115,6 +148,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
     /**
      * Returns true if this collection contains the specified element. More formally, returns true if and only if this
      * collection contains at least one element e such that (o==null ? e==null : o.equals(e)).
+     * <br> This works for both passing the elements inside the Tree as the Tree references themselves.
      *
      * @param o - element whose presence in this collection is to be tested
      * @return true if this collection contains the specified element
@@ -123,7 +157,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
     public boolean contains(Object o) {
         if (o == null) {
             return this.value == null;
-        } else if (o.equals(this.value)) {
+        } else if (o.equals(this.value) || o == this) {
             return true;
         } else {
             for (Tree<T> subTree : this.children) {
@@ -186,6 +220,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
     /**
      * Ensures that this collection contains the specified element.
      * <br> This will add the element in a new tree node attached to this Tree.
+     * <br> Caution: null can be added but not removed.
      *
      * @param e The element to add.
      * @return Returns true if this collection changed as a result of the call.
@@ -201,28 +236,85 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
      * <br> More formally, removes an element e such that (o==null ? e==null : o.equals(e)), if this collection contains
      * one or more such elements. Returns true if this collection contained the specified element (or equivalently, if
      * this collection changed as a result of the call).
-     * <br> Clarification: This will remove based on the values held in the tree nodes. When such a value is found the
-     * node as well as all its sub-nodes are removed from this tree.
+     *
+     * <p>
+     * Clarification: This will remove based on the values held in the tree nodes. When such a value is found the the
+     * value is only removed from that node but the node remains. (Check {@link Tree#removeTree(java.lang.Object)} to
+     * remove whole trees).
+     *
+     * <p>
+     * When o == null no changes will be made as removing results in setting the value to null.
      *
      * @param o - element to be removed from this collection, if present
      * @return True if the element was removed due to this call.
      */
     @Override
     public boolean remove(Object o) {
+        //Check this node
         if (o == null) {
             return false;
-        }
-
-        if (o.equals(this.value)) {
+        } else if (o.equals(this.value)) {
             this.value = null;
             return true;
         }
 
+        //Check child nodes
         for (Tree<T> subTree : this.children) {
             if (subTree.remove(o)) {
-                //Remove subTree.
-                subTree.parent = null;
-                this.children = this.children.minus(subTree);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Clear the dangling null values.
+     * <br> Every Tree that does not contain any non null value in the node and below in all its subTrees will be
+     * removed.
+     */
+    public void clearLeftNull() {
+        //Remove null from all its subtrees
+        for (Tree<T> subTree : this.children) {
+            subTree.clearLeftNull();
+        }
+
+        //If left empty and contains null remove itself from parent
+        if (this.children.isEmpty()) {
+            if (this.value == null && this.parent != null) {
+                this.parent.children = this.parent.children.minus(this);
+            }
+        }
+    }
+
+    /**
+     * Remove the node and all its subtrees from this Tree for the node that contains o.
+     * <br> null will not be removed from top elements (value == null && no parent).
+     *
+     * @param o The object to remove the node over.
+     * @return Whether the collection was changed.
+     */
+    public boolean removeTree(Object o) {
+        //Check this node
+        if (o == null) {
+            if (o == this.value) {
+                this.value = null;
+                if (this.parent != null) { //Unlink from parent
+                    this.parent.children = this.parent.children.minus(this);
+                    return true;
+                }
+            }
+        } else if (o.equals(this.value)) {
+            this.value = null;
+            if (this.parent != null) { //Unlink from parent
+                this.parent.children = this.parent.children.minus(this);
+            }
+            return true;
+        }
+
+        //Check child nodes
+        for (Tree<T> subTree : this.children) {
+            if (subTree.removeTree(o)) {
                 return true;
             }
         }
@@ -294,7 +386,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
         while (iterator.hasNext()) {
             Tree<T> node = iterator.next();
             if (!c.contains(node.value)) {
-                changed = this.remove(c);
+                changed = this.remove(c) || changed;
             }
         }
         return changed;
@@ -361,7 +453,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
             /* Try to fill buffer */
             try {
                 bufferNode = next();
-            } catch (IllegalStateException e) {
+            } catch (NoSuchElementException e) {
                 //Can't fill buffer, no element left.
                 return false;
             }
@@ -400,14 +492,14 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
         /**
          * Go one node up and set the nextIndex to the correct one.
          *
-         * @throws IllegalStateException When the next node up is the parent node of the initial startNode meaning there
+         * @throws NoSuchElementException When the next node up is the parent node of the initial startNode meaning there
          * is no next element.
          */
         private void goOneUp() {
             Tree<T> oldNode = currNode;
             currNode = currNode.parent;
             if (currNode == startRoot.parent || currNode == null) {
-                throw new IllegalStateException("Trying to get next element while there is none left in the Tree.");
+                throw new NoSuchElementException("Trying to get next element while there is none left in the Tree.");
             }
             nextIndex = currNode.children.indexOf(oldNode) + 1;
         }
@@ -469,7 +561,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
             try {
                 next();
                 bufferNode = currNode;
-            } catch (IllegalStateException e) {
+            } catch (NoSuchElementException e) {
                 //Can't fill buffer, no element left.
                 return false;
             }
@@ -508,14 +600,14 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
         /**
          * Go one node up and set the nextIndex to the correct one.
          *
-         * @throws IllegalStateException When the next node up is the parent node of the initial startNode meaning there
+         * @throws NoSuchElementException When the next node up is the parent node of the initial startNode meaning there
          * is no next element.
          */
         private void goOneUp() {
             Tree<T> oldNode = currNode;
             currNode = currNode.parent;
             if (currNode == startRoot.parent) {
-                throw new IllegalStateException("Trying to get next element while there is none left in the Tree.");
+                throw new NoSuchElementException("Trying to get next element while there is none left in the Tree.");
             }
             nextIndex = currNode.children.indexOf(oldNode) + 1;
         }
