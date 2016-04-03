@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -193,7 +194,7 @@ public class TreeTest {
     public void testIterator() {
         Iterator<Integer> iterator = tree.iterator();
         int counter = 0;
-        
+
         assertTrue(iterator.hasNext());
 
         while (iterator.hasNext()) {
@@ -232,8 +233,7 @@ public class TreeTest {
         assertEquals((int) 50, (int) iterator.next());
         iterator.next();
     }
-    
-    
+
     /**
      * Test {@link Tree#iterator()} using {@link Iterator#next()} and {@link Iterator#hasNext()} to see if every element
      * returned is in the Tree and if the amount of elements is the same with the amount in the tree.
@@ -244,7 +244,7 @@ public class TreeTest {
         int counter = 0;
 
         assertTrue(iterator.hasNext());
-        
+
         while (iterator.hasNext()) {
             Tree<Integer> node = iterator.next();
             counter++;
@@ -282,7 +282,7 @@ public class TreeTest {
         assertEquals((int) 50, (int) iterator.next().getValue());
         iterator.next();
     }
-    
+
     /**
      * Test {@link Tree#removeAll(java.util.Collection)} with both present and not present values.
      */
@@ -294,40 +294,40 @@ public class TreeTest {
         list.add(50);
         list.add(70);
         list.add(450); //not element of
-        
+
         tree.removeAll(list);
-        
+
         assertEquals(6, tree.size());
         assertEquals(3, tree.sizeObjNb());
     }
-    
+
     /**
      * Test {@link Tree#containsAll(java.util.Collection) } for both True and False; for both Values as trees.
      */
     @Test
-    public void testContainsAll() { 
+    public void testContainsAll() {
         List list = new ArrayList<>();
-        
+
         //Test true with mix of values and trees.
         list.add(30);
         list.add(50);
         list.add(subTree2_1);
         list.add(null);
-        
+
         assertTrue(tree.containsAll(list));
-        
+
         //Test False by values.
         list.add(15);
         assertFalse(tree.containsAll(list));
-        
+
         //revert
         list.remove((Integer) 15);
-        
+
         //Test False by tree
         list.add(new Tree());
         assertFalse(tree.containsAll(list));
     }
-    
+
     @Test
     public void testAddAll() {
         List<Integer> list = new ArrayList();
@@ -336,19 +336,33 @@ public class TreeTest {
         list.add(30);
         list.add(null);
         Tree<Integer> tree = new Tree<>();
-        
+
         tree.addAll(list);
-        
+
         assertTrue(tree.contains(10));
         assertTrue(tree.contains(20));
         assertTrue(tree.contains(30));
-        
+
         assertEquals(4, tree.size());
         assertEquals(3, tree.sizeObjNb());
     }
+
+    /**
+     * Test {@link Tree#toArray(T[])} which should do nothing and return null (because not implemented).
+     */
+    public void testToArray_Obj() {
+        Tree<Integer> tree = new Tree<>();
+        assertNull(tree.toArray(new Integer[5]));
+    }
     
-    
-    
-    
+    @Test
+    public void testRetainAll() {
+        List<Integer> list = new ArrayList<>();
+        list.add(30);
+        assertTrue(tree.retainAll(list));
+        
+        assertEquals(2, tree.size());
+        assertEquals(1, tree.sizeObjNb());
+    }
 
 }
