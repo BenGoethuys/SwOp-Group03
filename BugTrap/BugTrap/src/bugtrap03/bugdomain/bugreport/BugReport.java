@@ -316,7 +316,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     public void setTag(Tag tag, User user) throws IllegalArgumentException, PermissionException {
         if (!this.isValidTag(tag)) {
-            throw new IllegalArgumentException("The given tag is null and thus invalid for a bug report");
+            throw new IllegalArgumentException("The given tag is invalid");
         }
         if (user == null) {
             throw new IllegalArgumentException("The given user was null and thus cannot change the tag of the bug report");
