@@ -1,6 +1,5 @@
 package bugtrap03.misc;
 
-import bugtrap03.model.DataModel;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +17,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class TreeTest {
 
-    //TODO: Tests for addAll, removeAll, retainAll, toArray
     @Before
     public void setUp() {
         S_tree = new Tree<>();
