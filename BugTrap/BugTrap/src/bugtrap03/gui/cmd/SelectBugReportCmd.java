@@ -23,6 +23,13 @@ import java.util.stream.Collectors;
  * @author Group 03
  */
 public class SelectBugReportCmd implements Cmd {
+    
+    /* 
+     * TODO: When a bug report is created, it can be marked as private. 
+     * Initially, a private bug report is only visible for the creator and for the developers assigned to the project. 
+     * Once the first patch is submitted for the bug report, it is visible for all the users of BugTrap. 
+     * Only if a bug report is visible is it considered by the use case “Select Bug Report” for all users.
+     */
 
     private ArrayList<AbstractMap.SimpleEntry<String, Predicate<BugReport>>> modeList = new ArrayList<>();
     private ArrayList<AbstractMap.SimpleEntry<String, Predicate<BugReport>>> modeListExtra = new ArrayList<>();
