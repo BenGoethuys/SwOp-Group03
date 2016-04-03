@@ -229,7 +229,8 @@ public class UpdateBugReportCmdTest {
         question.add("Invalid input.");
         question.add("I choose: ");
         answer.add("3");
-
+        question.add("You have selected: \tUNDER_REVIEW");
+        
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
