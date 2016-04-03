@@ -1,6 +1,9 @@
 package bugtrap03.misc;
 
+import bugtrap03.model.DataModel;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 import org.junit.Before;
 import org.junit.Test;
@@ -190,6 +193,8 @@ public class TreeTest {
     public void testIterator() {
         Iterator<Integer> iterator = tree.iterator();
         int counter = 0;
+        
+        assertTrue(iterator.hasNext());
 
         while (iterator.hasNext()) {
             int ele = iterator.next();
@@ -238,6 +243,8 @@ public class TreeTest {
         Iterator<Tree<Integer>> iterator = tree.nodeIterator();
         int counter = 0;
 
+        assertTrue(iterator.hasNext());
+        
         while (iterator.hasNext()) {
             Tree<Integer> node = iterator.next();
             counter++;
@@ -275,5 +282,73 @@ public class TreeTest {
         assertEquals((int) 50, (int) iterator.next().getValue());
         iterator.next();
     }
+    
+    /**
+     * Test {@link Tree#removeAll(java.util.Collection)} with both present and not present values.
+     */
+    @Test
+    public void removeAll() {
+        List<Integer> list = new ArrayList<>();
+        list.add(30);
+        list.add(0); //not element of
+        list.add(50);
+        list.add(70);
+        list.add(450); //not element of
+        
+        tree.removeAll(list);
+        
+        assertEquals(6, tree.size());
+        assertEquals(3, tree.sizeObjNb());
+    }
+    
+    /**
+     * Test {@link Tree#containsAll(java.util.Collection) } for both True and False; for both Values as trees.
+     */
+    @Test
+    public void testContainsAll() { 
+        List list = new ArrayList<>();
+        
+        //Test true with mix of values and trees.
+        list.add(30);
+        list.add(50);
+        list.add(subTree2_1);
+        list.add(null);
+        
+        assertTrue(tree.containsAll(list));
+        
+        //Test False by values.
+        list.add(15);
+        assertFalse(tree.containsAll(list));
+        
+        //revert
+        list.remove((Integer) 15);
+        
+        //Test False by tree
+        list.add(new Tree());
+        assertFalse(tree.containsAll(list));
+    }
+    
+    @Test
+    public void testAddAll() {
+        List<Integer> list = new ArrayList();
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(null);
+        Tree<Integer> tree = new Tree<>();
+        
+        tree.addAll(list);
+        
+        assertTrue(tree.contains(10));
+        assertTrue(tree.contains(20));
+        assertTrue(tree.contains(30));
+        
+        assertEquals(4, tree.size());
+        assertEquals(3, tree.sizeObjNb());
+    }
+    
+    
+    
+    
 
 }
