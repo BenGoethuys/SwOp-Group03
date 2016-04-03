@@ -371,7 +371,6 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
      * Retains only the elements in this collection that are contained in the specified collection (optional operation).
      * <br> In other words, removes from this collection all of its elements that are not contained in the specified
      * collection.
-     * <br><b>When removing any element of a Tree, the node as well as all its sub-nodes will be removed.</b>
      * <br> This can be a fairly expensive operation O(n²).
      *
      * @param c collection containing elements to be retained in this collection
@@ -380,9 +379,14 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         if (c == null) {
-            this.value = null;
-            this.children = PList.<Tree<T>>empty();
-            return true;
+            if (this.value != null || !this.children.isEmpty()) {
+                this.value = null;
+                this.children = PList.<Tree<T>>empty();
+                this.clearLeftNull();
+                return true;
+            } else {
+                return false;
+            }
         }
 
         Iterator<Tree<T>> iterator = new TreeNodeIterator<>(this);
@@ -391,9 +395,10 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
         while (iterator.hasNext()) {
             Tree<T> node = iterator.next();
             if (!c.contains(node.value)) {
-                changed = this.remove(c) || changed;
+                changed = this.remove(node.value) || changed;
             }
         }
+        this.clearLeftNull();
         return changed;
     }
 
