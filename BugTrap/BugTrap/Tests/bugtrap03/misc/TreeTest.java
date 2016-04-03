@@ -350,6 +350,7 @@ public class TreeTest {
     /**
      * Test {@link Tree#toArray(T[])} which should do nothing and return null (because not implemented).
      */
+    @Test
     public void testToArray_Obj() {
         Tree<Integer> tree = new Tree<>();
         assertNull(tree.toArray(new Integer[5]));
