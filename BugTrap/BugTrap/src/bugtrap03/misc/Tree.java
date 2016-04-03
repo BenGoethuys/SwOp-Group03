@@ -224,7 +224,8 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
     /**
      * Ensures that this collection contains the specified element.
      * <br> This will add the element in a new tree node attached to this Tree.
-     * <br> Caution: null can be added but not removed.
+     * <br> Caution: null can be added but not removed by {@link Tree#remove(java.lang.Object)}, only by {@link Tree#removeTree(java.lang.Object)
+     * } and {@link Tree#clearLeftNull()}.
      *
      * @param e The element to add.
      * @return Returns true if this collection changed as a result of the call.
