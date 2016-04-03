@@ -354,15 +354,28 @@ public class TreeTest {
         Tree<Integer> tree = new Tree<>();
         assertNull(tree.toArray(new Integer[5]));
     }
-    
+
+    /**
+     * Test {@link Tree#retainAll(java.util.Collection)}
+     */
     @Test
     public void testRetainAll() {
         List<Integer> list = new ArrayList<>();
         list.add(30);
         assertTrue(tree.retainAll(list));
-        
+
         assertEquals(2, tree.size());
         assertEquals(1, tree.sizeObjNb());
+    }
+
+    /**
+     * Test {@link Tree#retainAll(java.util.Collection)} by passing a null value as collection.
+     */
+    @Test
+    public void testRetainAll_null() {
+        tree.retainAll(null);
+        assertEquals(0, tree.size());
+        assertEquals(0, tree.sizeObjNb());
     }
 
 }
