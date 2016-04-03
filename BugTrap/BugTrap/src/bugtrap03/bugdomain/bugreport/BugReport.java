@@ -881,7 +881,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         str.append("\n creation date: ").append(this.getCreationDate().getTime());
         str.append("\n is private: ").append(this.isPrivate());
         if (this.getMilestone() == null) {
-            str.append("\n target milestone: ").append("This bugreport has no milstone");
+            str.append("\n target milestone: ").append("This bugreport has no milestone");
         } else {
             str.append("\n target milestone: ").append(this.getMilestone().toString());
         }

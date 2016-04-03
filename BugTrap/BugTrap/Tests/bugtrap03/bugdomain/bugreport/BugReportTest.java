@@ -695,7 +695,7 @@ public class BugReportTest {
         details = bugRep.getDetails();
         
         // for milestone:
-        expected = "target milestone: " + "This bugreport has no milstone";
+        expected = "target milestone: " + "This bugreport has no milestone";
         assertTrue(details.contains(expected));
         
     }
