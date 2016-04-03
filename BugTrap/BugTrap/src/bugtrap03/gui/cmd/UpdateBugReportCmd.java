@@ -57,6 +57,7 @@ public class UpdateBugReportCmd implements Cmd {
                 model.setTag(bugrep, tagToSet, user);
             } catch (IllegalArgumentException iae) {
                 scan.println("Invalid tag, select other tag");
+                //System.out.println(iae.toString());
                 tagToSet = null;
             }
         } while (tagToSet == null);
