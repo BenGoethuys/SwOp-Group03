@@ -73,6 +73,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
     /**
      * Returns an iterator over elements of type T. This will iterate over all elements, including null.
      * <br> It is not advised to make changes during the iteration of the iterator.
+     *
      * @returns an Iterator.
      */
     @Override
@@ -83,6 +84,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
     /**
      * Returns an iterator over elements of type Tree<T>. This will iterate over all nodes depth-first.
      * <br> It is not advised to make changes during the iteration of the iterator.
+     *
      * @return an Iterator
      */
     public Iterator<Tree<T>> nodeIterator() {
@@ -156,17 +158,19 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
     @Override
     public boolean contains(Object o) {
         if (o == null) {
-            return this.value == null;
+            if (this.value == null) {
+                return true;
+            }
         } else if (o.equals(this.value) || o == this) {
             return true;
-        } else {
-            for (Tree<T> subTree : this.children) {
-                if (subTree.contains(o)) {
-                    return true;
-                }
-            }
-            return false;
         }
+
+        for (Tree<T> subTree : this.children) {
+            if (subTree.contains(o)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -425,7 +429,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
          * @param root The root where to start iterating from.
          * @throws IllegalArgumentException When root is a null reference.
          */
-        public TreeNodeIterator(Tree<T> root) {
+        private TreeNodeIterator(Tree<T> root) {
             if (root == null) {
                 throw new IllegalArgumentException("Can not create a TreeIterator with root equal to a null reference.");
             }
@@ -492,8 +496,8 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
         /**
          * Go one node up and set the nextIndex to the correct one.
          *
-         * @throws NoSuchElementException When the next node up is the parent node of the initial startNode meaning there
-         * is no next element.
+         * @throws NoSuchElementException When the next node up is the parent node of the initial startNode meaning
+         * there is no next element.
          */
         private void goOneUp() {
             Tree<T> oldNode = currNode;
@@ -532,7 +536,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
          * @param root The root where to start iterating from.
          * @throws IllegalArgumentException When root is a null reference.
          */
-        public TreeIterator(Tree<T> root) {
+        private TreeIterator(Tree<T> root) {
             if (root == null) {
                 throw new IllegalArgumentException("Can not create a TreeIterator with root equal to a null reference.");
             }
@@ -600,8 +604,8 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
         /**
          * Go one node up and set the nextIndex to the correct one.
          *
-         * @throws NoSuchElementException When the next node up is the parent node of the initial startNode meaning there
-         * is no next element.
+         * @throws NoSuchElementException When the next node up is the parent node of the initial startNode meaning
+         * there is no next element.
          */
         private void goOneUp() {
             Tree<T> oldNode = currNode;
