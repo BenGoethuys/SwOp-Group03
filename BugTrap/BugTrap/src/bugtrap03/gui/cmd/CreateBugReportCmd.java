@@ -39,18 +39,19 @@ public class CreateBugReportCmd implements Cmd {
      * <br> 9. The issuer selects the dependencies.
      * <br> 10. The system creates the bug report.
      *
-     * @param scan  The scanner used to interact with the person.
+     * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user  The {@link User} who wants to executes this command.
+     * @param user The {@link User} who wants to executes this command.
      * @return The created bug report.
-     * @throws PermissionException      When the user does not have sufficient permissions.
-     * @throws CancelException          When the users wants to abort the current cmd
+     * @throws PermissionException When the user does not have sufficient permissions.
+     * @throws CancelException When the users wants to abort the current cmd
      * @throws IllegalArgumentException When scan, model,user is null
      * @throws IllegalArgumentException When there are no projects.
      * @throws IllegalArgumentException When the user has selected a project where for there are no subsystems.
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
-     * @see DataModel#createBugReport(Subsystem, User, String, String, GregorianCalendar, PList, Milestone, boolean, String, String, String)
+     * @see DataModel#createBugReport(Subsystem, User, String, String, GregorianCalendar, PList, Milestone, boolean,
+     * String, String, String)
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)
@@ -88,8 +89,29 @@ public class CreateBugReportCmd implements Cmd {
         scan.print("BugReport description:");
         String bugReportDesc = scan.nextLine();
 
+        // 8. The system asks which of the optional attributes of a bug report the issuer wants to add: 
+        // how to reproduce the bug, a stack trace or an error message. 
+        scan.println("- Additional attributes - Leave blank when not applicable.");
+        // 9. The issuer enters the selected optional attributes as text.
+        scan.print("How to reproduce the bug: ");
+        String trigger = scan.nextLine();
+        trigger = (!trigger.equals("")) ? trigger : null;
+
+        scan.print("Stacktrace: ");
+        String stacktrace = scan.nextLine();
+        stacktrace = (!stacktrace.equals("")) ? stacktrace : null;
+
+        scan.print("Error message: ");
+        String error = scan.nextLine();
+        error = (!error.equals("")) ? error : null;
+
+        // 10. The system asks if the bug report is private.
+        // 11. The issuer indicates if the bug report is private or not.
+        scan.print("Should this be private? (leave blank for no, anything for yes.)");
+        boolean isPrivate = (!scan.nextLine().equals(""));
+
         // BugReport Dependencies
-        // 8. The system shows a list of possible dependencies of this bug report 
+        // 12. The system shows a list of possible dependencies of this bug report 
         scan.println("Choose a dependency.");
         PList<BugReport> possibleDeps = proj.getAllBugReports();
         scan.println("Available bugReports:");
@@ -99,7 +121,7 @@ public class CreateBugReportCmd implements Cmd {
         }
 
         // Retrieve & process user input.
-        // 9. The issuer selects the dependencies.
+        // 13. The issuer selects the dependencies.
         HashSet<BugReport> depList = new HashSet<>();
         boolean done = false;
         do {
@@ -132,11 +154,9 @@ public class CreateBugReportCmd implements Cmd {
             }
         } while (!done);
 
-        //TODO additional params ?
-
-        // 10. The system creates the bug report.
+        // 14. The system creates the bug report.
         BugReport bugreport = model.createBugReport(subsys, user, bugreportTitle, bugReportDesc, null,
-                PList.<BugReport>empty().plusAll(depList), null, false, null, null, null);
+                PList.<BugReport>empty().plusAll(depList), null, isPrivate, trigger, stacktrace, error);
         scan.println("Created new bug report.");
         return bugreport;
     }
