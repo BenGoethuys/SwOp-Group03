@@ -136,7 +136,7 @@ public class SelectBugReportCmd implements Cmd {
             this.o = this.cmdMap.get(modeStr).exec(scan, model, user);
 
             //parallel can conflict w tests.
-            ArrayList<BugReport> selected = model.getAllBugReports().parallelStream().filter(mode)
+            ArrayList<BugReport> selected = model.getAllBugReports(user).parallelStream().filter(mode)
                     .collect(Collectors.toCollection(ArrayList::new));
             Collections.sort(selected);
 

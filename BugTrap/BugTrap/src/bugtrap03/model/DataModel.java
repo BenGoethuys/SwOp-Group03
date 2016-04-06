@@ -369,15 +369,24 @@ public class DataModel {
     }
 
     /**
-     * This method gets all bug reports in the system
+     * This method gets all bug reports in the system that are visible to the given user.
      *
-     * @return a list of all bug reports in the system
+     * @param user The user to get all bug reports for. All bug reports will be visible for him. null would mean the bug
+     * report is visible to everyone.
+     * @return a list of all bug reports in the system that are visible for the user.
+     *
+     * @see BugReport#isVisibleTo(bugtrap03.bugdomain.usersystem.User) 
      */
     @DomainAPI
-    public ArrayList<BugReport> getAllBugReports() {
+    public ArrayList<BugReport> getAllBugReports(User user) {
         ArrayList<BugReport> list = new ArrayList<>();
         for (Project project : this.projectList) {
-            list.addAll(project.getAllBugReports());
+            PList<BugReport> bugReports = project.getAllBugReports();
+            for(BugReport bugReport : bugReports) {
+                if(bugReport.isVisibleTo(user)) {
+                    list.add(bugReport);
+                }
+            }
         }
         return list;
     }
