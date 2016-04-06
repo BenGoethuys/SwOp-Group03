@@ -55,6 +55,8 @@ public class CmdParser {
         cmdList.add(new SimpleEntry<>("assigntoproject", new AssignToProjectCmd()));
         cmdList.add(new SimpleEntry<>("updatebugreport", new UpdateBugReportCmd()));
         cmdList.add(new SimpleEntry<>("declaremilestone", new DeclareAchievedMilestoneCmd()));
+        cmdList.add(new SimpleEntry<>("proposetest", new ProposeTestCmd()));
+        cmdList.add(new SimpleEntry<>("proposepatch", new ProposePatchCmd()));
         cmdList.add(new SimpleEntry<>("undo", new UndoCmd()));
 
         cmdMap = new HashMap<>();
@@ -82,6 +84,8 @@ public class CmdParser {
         cmdListExtra.add(new SimpleEntry<>("assigntoproj", new AssignToProjectCmd()));
         cmdListExtra.add(new SimpleEntry<>("updatebugrep", new UpdateBugReportCmd()));
         cmdListExtra.add(new SimpleEntry<>("declarems", new DeclareAchievedMilestoneCmd()));
+        cmdListExtra.add(new SimpleEntry<>("addtest", new ProposeTestCmd()));
+        cmdListExtra.add(new SimpleEntry<>("addpatch", new ProposePatchCmd()));
 
         for (int i = 0; i < cmdListExtra.size(); i++) {
             cmdMap.put(cmdListExtra.get(i).getKey(), cmdListExtra.get(i).getValue());
