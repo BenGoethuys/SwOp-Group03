@@ -59,7 +59,6 @@ public class CreateBugReportCmdTest {
                 "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4),
                 PList.<BugReport>empty(), null, false, null, null, null);
 
-
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         CreateBugReportCmd cmd = new CreateBugReportCmd();
@@ -94,6 +93,15 @@ public class CreateBugReportCmdTest {
         answer.add("BR Title");
         question.add("BugReport description:");
         answer.add("tester description");
+        question.add("- Additional attributes - Leave blank when not applicable.");
+        question.add("How to reproduce the bug: ");
+        answer.add("");
+        question.add("Stacktrace: ");
+        answer.add("");
+        question.add("Error message: ");
+        answer.add("");
+        question.add("Should this be private? (leave blank for no, anything for yes.)");
+        answer.add("");
         question.add("Choose a dependency.");
         question.add("Available bugReports:");
         question.add("0. " + bugRep1.getTitle() + " " + bugRep1.getUniqueID());
@@ -191,6 +199,15 @@ public class CreateBugReportCmdTest {
         answer.add("BR Title");
         question.add("BugReport description:");
         answer.add("tester description");
+        question.add("- Additional attributes - Leave blank when not applicable.");
+        question.add("How to reproduce the bug: ");
+        answer.add("");
+        question.add("Stacktrace: ");
+        answer.add("");
+        question.add("Error message: ");
+        answer.add("");
+        question.add("Should this be private? (leave blank for no, anything for yes.)");
+        answer.add("");
         question.add("Choose a dependency.");
         question.add("Available bugReports:");
         question.add("0. " + bugRep1.getTitle() + " " + bugRep1.getUniqueID());
