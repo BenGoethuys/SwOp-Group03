@@ -93,7 +93,7 @@ public class ProposeTestCmd implements Cmd {
             String temp;
             do {
                 temp = scan.nextLine();
-                strBuilder.append(temp);
+                strBuilder.append(temp).append("\n");
             } while (!temp.equalsIgnoreCase(""));
 
             // Save input
