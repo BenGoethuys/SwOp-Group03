@@ -4,6 +4,7 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.*;
+import bugtrap03.gui.cmd.ShowProjectCmd;
 import org.junit.Test;
 import purecollections.PList;
 
@@ -340,6 +341,17 @@ public class DataModelTest {
         assertEquals(1, model.getHistory(5).size());
         assertTrue(model.getProjectList().isEmpty());
         assertEquals(1, model.getUserList().size());
-
     }
+    
+    /**
+     * Test {@link DataModel#undoLastChanges(bugtrap03.bugdomain.usersystem.User, int) with a negative value.
+     * @throws PermissionException Never 
+     */
+    @Test
+    public void testUndoLastChangesNegative() throws PermissionException {
+        model = new DataModel();
+        admin = model.createAdministrator("ABCDEF0458", "first", "last");
+        assertTrue(model.undoLastChanges(admin, -5));
+    }
+  
 }
