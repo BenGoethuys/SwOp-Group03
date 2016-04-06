@@ -88,7 +88,6 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     // complex: trigger, error, stacktrace, isPrivate, milestone
-
     private long uniqueID;
     private String title;
     private String description;
@@ -539,10 +538,11 @@ public class BugReport extends Subject implements Comparable<BugReport> {
 
     /**
      * This method lets the given user add all developers in the given list
-     * @param user      The user that wants to add the developers to this bug report
-     * @param userList  The list of the developers the user wants to add
      *
-     * @throws PermissionException      If one of the given users is invalid for this bug report
+     * @param user The user that wants to add the developers to this bug report
+     * @param userList The list of the developers the user wants to add
+     *
+     * @throws PermissionException If one of the given users is invalid for this bug report
      * @throws IllegalArgumentException If one of the given users is invalid for this bug report
      *
      * @see BugReport#isValidUser(Developer)
@@ -554,7 +554,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
                     "The given user has insufficient permissions to assign the developer to this bug report");
         }
         // check first to prevent inconsistent updates
-        if (userList == null){
+        if (userList == null) {
             throw new IllegalArgumentException("Cannot add a null list to the developers of a bug report!");
         }
         // PList cannot contain null -> no need to check !
@@ -584,7 +584,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             throw new PermissionException(
                     "The given user has insufficient permissions to assign the developer to this bug report");
         }
-        if (! BugReport.isValidUser(dev)) {
+        if (!BugReport.isValidUser(dev)) {
             throw new IllegalArgumentException("The given developer is invalid for a bug report");
         }
         this.getInternState().addUser(this, dev);
@@ -598,7 +598,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     @Requires("BugReport.isValidUser(dev)")
     void addUser(Developer dev) {
-        if (! this.userList.contains(dev)) {
+        if (!this.userList.contains(dev)) {
             this.userList = this.getUserList().plus(dev);
         }
     }
@@ -764,6 +764,37 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     @DomainAPI
     public boolean isPrivate() {
         return isPrivate;
+    }
+
+    /**
+     * This methods returns whether this bug report is visible to the given user.
+     *
+     * @param user The User to check for
+     * @return Whether the user should be able to see this bug report. True when the bug report is not private or has a
+     * patch submitted or if the user is the creator or a developer on the project
+     */
+    public boolean isVisibleTo(User user) {
+        //if public
+        if (!isPrivate()) {
+            return true;
+        }
+        //if private but it has a patch submitted
+        if(!this.getPatches().isEmpty()) {
+            return true;
+        }
+        //if private and no patch but user == the creator
+        if (this.getCreator() == user) {
+            return true;
+        }
+
+        //if private and no patch but the user is a developer on the project
+        if (user instanceof Developer) {
+            return !this.getSubsystem().getParentProject().getAllRolesDev((Developer) user).isEmpty();
+        } else {
+            //not a developer -> false
+            return false;
+        }
+
     }
 
     /**
@@ -1188,14 +1219,15 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         this.getSubsystem().notifyCommentSubs(bugReport);
         this.updateCommentSubs(bugReport);
     }
-    
+
     /**
      * Get a snapshot of the current BugReport, a Memento.
+     *
      * @return The Memento of this current BugReport.
      */
     public BugReportMemento getMemento() {
-        return new BugReportMemento(this.title, this.description, this.creationDate, this.commentList, 
-                this.userList, this.dependencies, this.milestone, this.isPrivate, this.trigger, this.stacktrace, 
+        return new BugReportMemento(this.title, this.description, this.creationDate, this.commentList,
+                this.userList, this.dependencies, this.milestone, this.isPrivate, this.trigger, this.stacktrace,
                 this.error, this.getInternState());
     }
 
@@ -1216,13 +1248,13 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         this.setDescription(mem.getDescription());
         this.setCreationDate(mem.getCreationDate());
         this.setCommentList(mem.getComments());
-        
+
         this.setDependencies(mem.getDependencies());
         this.setUserList(mem.getUserList());
-        
+
         this.setPrivate(mem.isPrivate());
         this.setMilestone(mem.getMilestone()); //Can be Illegal due to constraints but is fine for undo.
-        
+
         try {
             this.setTrigger(creator, mem.getTrigger());
             this.setStacktrace(creator, mem.getStackTrace());
@@ -1231,7 +1263,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             //never happens
             Logger.getLogger(BugReport.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         this.setInternState(mem.getSate());
     }
 }
