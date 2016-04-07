@@ -70,7 +70,7 @@ public class CreateBugReportModelCmdTest {
         assertTrue(cmd.toString().contains("Created") || cmd.toString().contains("created"));
 
         // 3. undo()
-        cmd.undo();
+        assertTrue(cmd.undo());
 
         // test
         assertFalse(subsys.getAllBugReports().contains(bugReport));
@@ -107,7 +107,7 @@ public class CreateBugReportModelCmdTest {
         assertTrue(cmd.toString().contains("Created") || cmd.toString().contains("created"));
 
         // 3. undo
-        cmd.undo();
+        assertTrue(cmd.undo());
 
         // test
         assertFalse(subsys.getAllBugReports().contains(bugReport));

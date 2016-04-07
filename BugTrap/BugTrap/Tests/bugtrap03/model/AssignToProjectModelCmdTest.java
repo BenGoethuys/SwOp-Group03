@@ -1,20 +1,16 @@
 package bugtrap03.model;
 
-import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import purecollections.PList;
 
 /**
  *
@@ -69,7 +65,7 @@ public class AssignToProjectModelCmdTest {
         assertTrue(cmd.isExecuted());
 
         // 3. undo()
-        cmd.undo();
+        assertTrue(cmd.undo());
 
         // test
         assertEquals(oldSize - 1, proj.getAllRolesDev(dev).size());
@@ -111,5 +107,4 @@ public class AssignToProjectModelCmdTest {
         AssignToProjectModelCmd cmd = new AssignToProjectModelCmd(proj, admin, dev, Role.TESTER);
         cmd.exec();
     }
-
 }
