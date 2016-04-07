@@ -7,55 +7,58 @@ import bugtrap03.bugdomain.usersystem.User;
 
 /**
  *
- * @author Group 03
+ * @author Admin
  */
-class SelectBugReportPatchModelCmd extends ModelCmd {
+class GiveScoreToBugReportModelCmd extends ModelCmd {
 
     /**
-     * Create a {@link ModelCmd} that can select a certain patch for the bugReport when executed.
+     * Create a {@link ModelCmd} that can gives the selected patch of this bugReport a score when executed.
      *
      * @param bugReport The bug report to evaluate
      * @param user The user that wants to assign a score to this bug reports selected patch.
-     * @param patch The patch that the user wants to select.
+     * @param score The score that the creator wants to give
      *
      * @throws IllegalArgumentException When bugReport == null
      */
-    SelectBugReportPatchModelCmd(BugReport bugReport, User user, String patch) throws IllegalArgumentException {
+    GiveScoreToBugReportModelCmd(BugReport bugReport, User user, int score) throws IllegalArgumentException {
         if (bugReport == null) {
-            throw new IllegalArgumentException("The bugReport passed to SelectBugReportPatchModelCmd was a null reference.");
+            throw new IllegalArgumentException("The bugReport passed to GiveBugReportScoreModelCmd was a null reference.");
         }
 
         this.bugReport = bugReport;
         this.user = user;
-        this.patch = patch;
+        this.score = score;
     }
 
     private final BugReport bugReport;
     private final User user;
-    private final String patch;
+    private final int score;
 
     private BugReportMemento oldMem;
 
     private boolean isExecuted = false;
 
     /**
-     * This method selects a patch for this bug report state
+     * This method gives the selected patch of this bug report states a score
+     *
+     * @param bugReport The bug report to evaluate
+     * @param user The user that wants to assign a score to this bug report
+     * @param score The score that the creator wants to give
      *
      * @return True
-     * @throws PermissionException If the given user doesn't have the permission to select a patch for this bugReport
-     * state
-     * @throws IllegalStateException If the current state doesn't allow the selecting of a patch
+     * @throws PermissionException When the user does not have sufficient permissions to give the bugReport a score
+     * @throws IllegalStateException If the current state doesn't allow assigning a score
      * @throws IllegalStateException When this ModelCmd was already executed
-     * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
+     * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
      */
     @Override
     Boolean exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
         if (this.isExecuted()) {
-            throw new IllegalStateException("The SelectBugReportPatchModelCmd was already executed.");
+            throw new IllegalStateException("The GiveBugReportScoreModelCmd was already executed.");
         }
 
         oldMem = bugReport.getMemento();
-        bugReport.selectPatch(user, patch);
+        bugReport.giveScore(user, score);
         isExecuted = true;
         return true;
     }
@@ -65,7 +68,7 @@ class SelectBugReportPatchModelCmd extends ModelCmd {
         if (!this.isExecuted()) {
             return false;
         }
-
+        
         try {
             bugReport.setMemento(oldMem);
         } catch (IllegalArgumentException ex) {
@@ -82,7 +85,8 @@ class SelectBugReportPatchModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        return "Selected a patch for BugReport " + bugReport.getTitle();
+        String bugTitle = (bugReport != null) ? bugReport.getTitle() : "-invalid argument-";
+        return "Gave BugReport " + bugTitle + " a score of " + this.score;
     }
 
 }

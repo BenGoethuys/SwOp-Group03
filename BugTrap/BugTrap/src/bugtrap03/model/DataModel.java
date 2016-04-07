@@ -832,7 +832,7 @@ public class DataModel {
      * @throws IllegalArgumentException When bugReport == null
      */
     public void selectPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException {
-        SelectBugReportPatchModelCmd cmd = new SelectBugReportPatchModelCmd(bugReport, user, patch);
+        SelectPatchFromBugReportModelCmd cmd = new SelectPatchFromBugReportModelCmd(bugReport, user, patch);
         cmd.exec();
         addToHistory(cmd);
     }
@@ -849,7 +849,7 @@ public class DataModel {
      * @throws IllegalArgumentException When bugReport == null
      */
     public void giveScore(BugReport bugReport, User user, int score) throws IllegalStateException, IllegalArgumentException, PermissionException {
-        GiveBugReportScoreModelCmd cmd = new GiveBugReportScoreModelCmd(bugReport, user, score);
+        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugReport, user, score);
         cmd.exec();
         addToHistory(cmd);
     }
