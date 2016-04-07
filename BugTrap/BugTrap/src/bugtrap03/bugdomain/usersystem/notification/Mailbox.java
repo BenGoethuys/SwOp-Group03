@@ -94,9 +94,10 @@ public class Mailbox {
      * @param subject The subject for the subscription.
      * @param tags The tags for which the subscription is interested.
      */
-    public void tagSubscribe(Subject subject, EnumSet<Tag> tags){
+    public TagMailBox tagSubscribe(Subject subject, EnumSet<Tag> tags){
         TagMailBox tmb = new TagMailBox(subject, tags);
         this.addBox(tmb);
+        return tmb;
     }
 
     /**
@@ -106,9 +107,9 @@ public class Mailbox {
      *
      * @see #tagSubscribe(Subject, EnumSet)
      */
-    public void tagSubscribe(Subject subject){
+    public TagMailBox tagSubscribe(Subject subject){
         EnumSet<Tag> tags = EnumSet.allOf(Tag.class);
-        this.tagSubscribe(subject, tags);
+        return this.tagSubscribe(subject, tags);
     }
 
     /**
@@ -116,9 +117,10 @@ public class Mailbox {
      *
      * @param subject The subject for the subscription.
      */
-    public void commentSubscribe(Subject subject){
+    public CommentMailBox commentSubscribe(Subject subject){
         CommentMailBox cmb = new CommentMailBox(subject);
         this.addBox(cmb);
+        return cmb;
     }
 
     /**
@@ -126,9 +128,10 @@ public class Mailbox {
      *
      * @param abstractSystemSubject The subject for the subscription
      */
-    public void creationSubscribe(AbstractSystemSubject abstractSystemSubject){
+    public CreationMailBox creationSubscribe(AbstractSystemSubject abstractSystemSubject){
         CreationMailBox cmb = new CreationMailBox(abstractSystemSubject);
         this.addBox(cmb);
+        return cmb;
     }
 
     /**
