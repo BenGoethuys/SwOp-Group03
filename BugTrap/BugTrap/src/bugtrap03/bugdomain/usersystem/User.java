@@ -4,6 +4,8 @@ import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
+import bugtrap03.bugdomain.usersystem.notification.Mailbox;
+import purecollections.PList;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -31,12 +33,14 @@ public abstract class User {
      * @see #isValidFirstName(String firstName)
      * @see #isValidMiddleName(String middleName)
      * @see #isValidLastName(String lastName)
+     * @see #isValidMailBox(Mailbox mailbox)
      */
     public User(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
         setUsername(username);
         setFirstName(firstName);
         setMiddleName(middleName);
         setLastName(lastName);
+        setMailBox(new Mailbox());
     }
 
     /**
@@ -58,6 +62,7 @@ public abstract class User {
     private String firstName;
     private String middleName;
     private String lastName;
+    private Mailbox mailbox;
 
     private static HashSet<String> takenUsernames = new HashSet<String>();
 
@@ -85,6 +90,44 @@ public abstract class User {
         } else {
             throw new IllegalArgumentException("username:" + username + " is not a valid username.");
         }
+    }
+
+    /**
+     * Set the mailbox of this user to the given mailbox
+     *
+     * @param mailBox The new Mailbox.
+     * @throws IllegalArgumentException When the mailbox is not valid.
+     * @see #isValidMailBox(Mailbox)
+     */
+    private void setMailBox(Mailbox mailBox) throws IllegalArgumentException {
+        if (isValidMailBox(mailBox)){
+            this.mailbox = mailBox;
+        } else {
+            throw new IllegalArgumentException("Invalid mailbox");
+        }
+    }
+
+    /**
+     * Checks the validity of a given mailbox.
+     *
+     * @param mailbox The mailbox to check.
+     * @return True if the mailbox is not null;
+     */
+    @DomainAPI
+    public Boolean isValidMailBox(Mailbox mailbox){
+        if (mailbox == null){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Gets the mailbox of this user.
+     *
+     * @return the Mailbox of this user.
+     */
+    public Mailbox getMailbox(){
+        return this.mailbox;
     }
 
     /**
