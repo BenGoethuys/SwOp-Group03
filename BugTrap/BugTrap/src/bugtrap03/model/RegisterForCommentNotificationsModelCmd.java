@@ -2,15 +2,13 @@ package bugtrap03.model;
 
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.usersystem.notification.AbstractSystemSubject;
 import bugtrap03.bugdomain.usersystem.notification.CommentMailBox;
-import bugtrap03.bugdomain.usersystem.notification.CreationMailBox;
 import bugtrap03.bugdomain.usersystem.notification.Subject;
 
 /**
  * @author Group 03
  */
-public class RegisterForCommentNotificationsModelCmd extends RegisterForNotificationsModelCmd {
+class RegisterForCommentNotificationsModelCmd extends RegisterForNotificationsModelCmd {
 
     RegisterForCommentNotificationsModelCmd(User user, Subject subject){
         super(user);

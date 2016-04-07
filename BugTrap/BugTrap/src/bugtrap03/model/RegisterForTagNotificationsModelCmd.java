@@ -11,7 +11,7 @@ import java.util.EnumSet;
 /**
  * Created by Bruno on 7-4-2016.
  */
-public class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelCmd {
+class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelCmd {
 
 
     RegisterForTagNotificationsModelCmd(User user, Subject subject, EnumSet<Tag> tags){
