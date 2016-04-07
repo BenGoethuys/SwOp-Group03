@@ -9,7 +9,7 @@ import bugtrap03.bugdomain.usersystem.User;
  *
  * @author Group 03
  */
-class AddBugReportPatchModelCmd extends ModelCmd {
+class AddPatchToBugReportModelCmd extends ModelCmd {
 
     /**
      * Create a {@link ModelCmd} that can add a certain patch to the bugReport when executed.
@@ -20,7 +20,7 @@ class AddBugReportPatchModelCmd extends ModelCmd {
      *
      * @throws IllegalArgumentException When bugReport == null
      */
-    AddBugReportPatchModelCmd(BugReport bugReport, User user, String patch) throws IllegalArgumentException {
+    AddPatchToBugReportModelCmd(BugReport bugReport, User user, String patch) throws IllegalArgumentException {
         if (bugReport == null) {
             throw new IllegalArgumentException("The bugReport passed to AddBugReportPatchModelCmd was a null reference.");
         }

@@ -7,57 +7,58 @@ import bugtrap03.bugdomain.usersystem.User;
 
 /**
  *
- * @author Group 03
+ * @author Admin
  */
-class AddBugReportTestModelCmd extends ModelCmd {
+class GiveScoreToBugReportModelCmd extends ModelCmd {
 
     /**
-     * Create a {@link ModelCmd} that can add a certain test to the bugReport when executed.
+     * Create a {@link ModelCmd} that can gives the selected patch of this bugReport a score when executed.
      *
      * @param bugReport The bug report to evaluate
      * @param user The user that wants to assign a score to this bug reports selected patch.
-     * @param test The test that the user wants to add
+     * @param score The score that the creator wants to give
      *
      * @throws IllegalArgumentException When bugReport == null
      */
-    AddBugReportTestModelCmd(BugReport bugReport, User user, String test) throws IllegalArgumentException {
+    GiveScoreToBugReportModelCmd(BugReport bugReport, User user, int score) throws IllegalArgumentException {
         if (bugReport == null) {
-            throw new IllegalArgumentException("The bugReport passed to AddBugReportTestModelCmd was a null reference.");
+            throw new IllegalArgumentException("The bugReport passed to GiveBugReportScoreModelCmd was a null reference.");
         }
 
         this.bugReport = bugReport;
         this.user = user;
-        this.test = test;
+        this.score = score;
     }
 
     private final BugReport bugReport;
     private final User user;
-    private final String test;
+    private final int score;
 
     private BugReportMemento oldMem;
 
     private boolean isExecuted = false;
 
     /**
-     * This method adds a given test to the bug report state
+     * This method gives the selected patch of this bug report states a score
+     *
+     * @param bugReport The bug report to evaluate
+     * @param user The user that wants to assign a score to this bug report
+     * @param score The score that the creator wants to give
      *
      * @return True
-     *
-     * @throws PermissionException If the given user doesn't have the permission to add a test
-     * @throws IllegalStateException If the current state doesn't allow to add a test
+     * @throws PermissionException When the user does not have sufficient permissions to give the bugReport a score
+     * @throws IllegalStateException If the current state doesn't allow assigning a score
      * @throws IllegalStateException When this ModelCmd was already executed
-     * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
-     *
-     * @see BugReport#isValidTest(String)
+     * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
      */
     @Override
     Boolean exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
         if (this.isExecuted()) {
-            throw new IllegalStateException("The AddBugReportTestModelCmd was already executed.");
+            throw new IllegalStateException("The GiveBugReportScoreModelCmd was already executed.");
         }
 
         oldMem = bugReport.getMemento();
-        bugReport.addTest(user, test);
+        bugReport.giveScore(user, score);
         isExecuted = true;
         return true;
     }
@@ -67,7 +68,7 @@ class AddBugReportTestModelCmd extends ModelCmd {
         if (!this.isExecuted()) {
             return false;
         }
-
+        
         try {
             bugReport.setMemento(oldMem);
         } catch (IllegalArgumentException ex) {
@@ -84,8 +85,8 @@ class AddBugReportTestModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        String title = (bugReport != null) ? bugReport.getTitle() : "-invalid argument-";
-        return "Added a test for BugReport " + title;
+        String bugTitle = (bugReport != null) ? bugReport.getTitle() : "-invalid argument-";
+        return "Gave BugReport " + bugTitle + " a score of " + this.score;
     }
 
 }

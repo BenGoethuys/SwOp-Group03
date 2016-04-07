@@ -1,6 +1,3 @@
-/**
- *
- */
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.Project;

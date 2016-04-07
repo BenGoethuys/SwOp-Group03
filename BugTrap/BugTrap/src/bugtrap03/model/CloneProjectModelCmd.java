@@ -94,7 +94,7 @@ class CloneProjectModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        String sourceName = (this.cloneSource != null) ? this.cloneSource.getName() : "-invalid argment-";
+        String sourceName = (this.cloneSource != null) ? this.cloneSource.getName() : "-invalid argument-";
         return "Cloned Project " + sourceName;
     }
 

@@ -794,7 +794,7 @@ public class DataModel {
      */
     @DomainAPI
     public void addTest(BugReport bugReport, User user, String test) throws PermissionException, IllegalStateException, IllegalArgumentException {
-        AddBugReportTestModelCmd cmd = new AddBugReportTestModelCmd(bugReport, user, test);
+        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugReport, user, test);
         cmd.exec();
         addToHistory(cmd);
     }
@@ -813,7 +813,7 @@ public class DataModel {
      */
     @DomainAPI
     public void addPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException {
-        AddBugReportPatchModelCmd cmd = new AddBugReportPatchModelCmd(bugReport, user, patch);
+        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugReport, user, patch);
         cmd.exec();
         addToHistory(cmd);
     }
@@ -832,7 +832,7 @@ public class DataModel {
      * @throws IllegalArgumentException When bugReport == null
      */
     public void selectPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException {
-        SelectBugReportPatchModelCmd cmd = new SelectBugReportPatchModelCmd(bugReport, user, patch);
+        SelectPatchFromBugReportModelCmd cmd = new SelectPatchFromBugReportModelCmd(bugReport, user, patch);
         cmd.exec();
         addToHistory(cmd);
     }
@@ -849,7 +849,7 @@ public class DataModel {
      * @throws IllegalArgumentException When bugReport == null
      */
     public void giveScore(BugReport bugReport, User user, int score) throws IllegalStateException, IllegalArgumentException, PermissionException {
-        GiveBugReportScoreModelCmd cmd = new GiveBugReportScoreModelCmd(bugReport, user, score);
+        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugReport, user, score);
         cmd.exec();
         addToHistory(cmd);
     }
