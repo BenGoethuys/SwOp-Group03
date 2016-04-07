@@ -68,6 +68,7 @@ public class CloneProjectModelCmdTest {
         assertTrue(cmd.isExecuted());
         assertTrue(model.getProjectList().contains(clone));
         assertTrue(clone != proj);
+        assertTrue(clone != null);
 
         // 3. undo()
         assertTrue(cmd.undo());
@@ -129,8 +130,11 @@ public class CloneProjectModelCmdTest {
         CloneProjectModelCmd cmd = new CloneProjectModelCmd(model, null, new VersionID(2, 0, 1), dev, new GregorianCalendar(), 50);
         // 2. Exec()
         Project clone = cmd.exec();
+        assertTrue(cmd.toString().contains("invalid argument"));
         // 3. undo()
         assertNull(clone);
+        
+        assertTrue(cmd.undo());
     }
 
 }
