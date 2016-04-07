@@ -8,7 +8,7 @@ import bugtrap03.bugdomain.usersystem.notification.Mailbox;
 /**
  * Created by Bruno on 7-4-2016.
  */
-public abstract class RegisterForNotificationsModelCmd extends ModelCmd {
+abstract class RegisterForNotificationsModelCmd extends ModelCmd {
 
     RegisterForNotificationsModelCmd(User user){
         this.subscriber = user;

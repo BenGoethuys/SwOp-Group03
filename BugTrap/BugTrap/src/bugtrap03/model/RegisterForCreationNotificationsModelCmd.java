@@ -8,7 +8,7 @@ import bugtrap03.bugdomain.usersystem.notification.CreationMailBox;
 /**
  * @author Group 03
  */
-public class RegisterForCreationNotificationsModelCmd extends RegisterForNotificationsModelCmd {
+class RegisterForCreationNotificationsModelCmd extends RegisterForNotificationsModelCmd {
 
     RegisterForCreationNotificationsModelCmd(User user, AbstractSystemSubject abstractSystemSubject){
         super(user);
