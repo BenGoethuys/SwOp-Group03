@@ -987,7 +987,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return The list of tests associated with this bug report
      */
     @DomainAPI
-    PList<String> getTests() {
+    public PList<String> getTests() {
         try {
             return this.getInternState().getTests();
         } catch (IllegalStateException e) {
