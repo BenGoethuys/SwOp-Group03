@@ -118,6 +118,18 @@ public class AddUsersToBugReportModelCmdTest {
     }
 
     /**
+     * Test
+     * {@link AddUsersToBugReportModelCmd#AddUsersToBugReportModelCmd(bugtrap03.bugdomain.usersystem.User, bugtrap03.bugdomain.bugreport.BugReport, purecollections.PList)}
+     * with devList == null
+     */
+    @Test
+    public void testToString_DevListNull() {
+        AddUsersToBugReportModelCmd cmd = new AddUsersToBugReportModelCmd(dev, bugRep, null);
+        
+        assertTrue(cmd.toString().contains("0"));
+    }
+
+    /**
      * Test exec() with an administrator who has no permissions.
      *
      * @throws PermissionException Always

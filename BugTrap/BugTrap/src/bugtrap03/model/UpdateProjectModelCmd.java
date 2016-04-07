@@ -15,7 +15,8 @@ class UpdateProjectModelCmd extends ModelCmd {
     /**
      * Create a new {@link ModelCmd} that can update a {@link Project} when executed.
      *
-     * @param proj The project to update.
+     * @param proj The project to update
+     * @param user The person who wants to update the project
      * @param name The new name of the given project
      * @param description The new description of the given project
      * @param startDate The new startDate of the given project
@@ -118,7 +119,7 @@ class UpdateProjectModelCmd extends ModelCmd {
     @Override
     public String toString() {
         String projName = (proj != null) ? proj.getName() : "-invalid argument-";
-        String strDate = (startDate != null) ? startDate.toString() : "-invalid argument-";
+        String strDate = (startDate != null) ? startDate.getTime().toString() : "-invalid argument-";
         
         StringBuilder string = new StringBuilder();
         string.append("Updated Project ").append(projName);
