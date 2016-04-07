@@ -90,9 +90,16 @@ public class GiveScoreToBugReportModelCmdTest {
         assertTrue(cmd.undo());
 
         // test
+        // getScore() shouldn't work.
+        boolean shouldNotWork = false;
+        try {
+            bugRep.getScore();
+            shouldNotWork = false;
+        } catch(IllegalStateException e) {
+            shouldNotWork = true;
+        }
         
-        //FIXME: throws illegalstate because there is no score! (doesn't default to 0 ...)
-        assertEquals(0, bugRep.getScore());
+        assertTrue(shouldNotWork);
     }
 
     /**
