@@ -126,6 +126,7 @@ public abstract class User {
      *
      * @return the Mailbox of this user.
      */
+    @DomainAPI
     public Mailbox getMailbox(){
         return this.mailbox;
     }
