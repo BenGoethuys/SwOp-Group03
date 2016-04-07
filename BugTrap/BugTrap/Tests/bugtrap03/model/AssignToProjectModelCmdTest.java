@@ -29,8 +29,8 @@ public class AssignToProjectModelCmdTest {
     @Before
     public void setUp() throws PermissionException {
         model = new DataModel();
-        admin = model.createAdministrator("BlubBlabBlob0" + counter, "first", "last");
-        dev = model.createDeveloper("DeveloperOverHere0" + counter, "first", "last");
+        admin = model.createAdministrator("BlubBlabBlob2" + counter, "first", "last");
+        dev = model.createDeveloper("DeveloperOverHere2" + counter, "first", "last");
         proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
 
