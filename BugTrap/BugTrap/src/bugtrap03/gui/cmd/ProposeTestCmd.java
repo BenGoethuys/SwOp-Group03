@@ -2,19 +2,15 @@ package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /**
@@ -48,7 +44,11 @@ public class ProposeTestCmd implements Cmd {
      * @see DataModel#addTest(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, java.lang.String) 
      */
     @Override
-    public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+    public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
+        if(!(user instanceof Developer)) {
+            throw new PermissionException("A Developer is required to propose a test.");
+        }
+
         // 1. The developer indicates that he wants to submit a test for some bugReport.
         // 2. Include use case Select Bug Report.
         BugReport bugReport = (new SelectBugReportCmd()).exec(scan, model, user); //IllegalArg for scan,model,user == null
@@ -99,16 +99,12 @@ public class ProposeTestCmd implements Cmd {
             // Save input
             text = strBuilder.toString();
         }
+        
         // 5. The system attaches the test to the bug report.
-
+        // Extension 3a. The developer is not assigned as a tester to the corresponding project. (= PermissionException)
+        // 1. The use case ends here.
         model.addTest(bugReport, user, text); //Permission, IllegalState, IllegalArg
         return bugReport;
-
-        
-        /* TODO: Implement the extension of the scenario.
-         * 3a. The developer is not assigned as a tester to the corresponding project.
-         * 1. The use case ends here.
-         */
     }
 
 }
