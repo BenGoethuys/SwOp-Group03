@@ -3,23 +3,19 @@ package bugtrap03.model;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.VersionID;
-import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import java.util.GregorianCalendar;
-import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import purecollections.PList;
 
 /**
  *
- * @author Admin
+ * @author Group 03
  */
 public class CloneProjectModelCmdTest {
 
