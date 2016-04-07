@@ -153,4 +153,14 @@ public class SelectPatchFromBugReportModelCmdTest {
         SelectPatchFromBugReportModelCmd cmd = new SelectPatchFromBugReportModelCmd(null, dev, "patch");
     }
 
+    /**
+     * Test exec() with an administrator who has no permissions.
+     *
+     * @throws PermissionException Always
+     */
+    @Test(expected = PermissionException.class)
+    public void testNoPermissions() throws PermissionException {
+        SelectPatchFromBugReportModelCmd cmd = new SelectPatchFromBugReportModelCmd(bugRep, admin, "patch");
+        cmd.exec();
+    }
 }
