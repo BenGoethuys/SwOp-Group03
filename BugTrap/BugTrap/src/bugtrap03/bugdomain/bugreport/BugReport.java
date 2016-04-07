@@ -788,15 +788,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         }
 
         //if private and no patch but the user is a developer on the project
-        //FIXME use role permission instead of instance of
-        if (user instanceof Developer) {
-            return !this.getSubsystem().getParentProject().getAllRolesDev((Developer) user).isEmpty();
-            //return user.hasRolePermission(RolePerm.CAN_SEE_PRIVATE, this.getSubsystem().getParentProject())
-        } else {
-            //not a developer -> false
-            return false;
-        }
-
+       return this.getSubsystem().getParentProject().getAllDev().contains(user);
     }
 
     /**
