@@ -17,7 +17,7 @@ import purecollections.PList;
  *
  * @author Group 03
  */
-public class AddTestToBugReportModelCmdTest {
+public class AddPatchToBugReportModelCmdTest {
 
     private static int counter = Integer.MIN_VALUE;
 
@@ -55,13 +55,14 @@ public class AddTestToBugReportModelCmdTest {
         devList = devList.plus(dev3);
 
         model.addUsersToBugReport(dev, bugRep, devList);
+        model.addTest(bugRep, dev, "test here");
 
         counter++;
     }
 
     /**
      * Test
-     * {@link AddTestToBugReportModelCmd#AddTestToBugReportModelCmd(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, java.lang.String)}
+     * {@link AddPatchToBugReportModelCmd#AddPatchToBugReportModelCmd(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, java.lang.String)}
      * in a default scenario.
      *
      * @throws PermissionException Never
@@ -69,10 +70,10 @@ public class AddTestToBugReportModelCmdTest {
     @Test
     public void testGoodScenarioCons1() throws PermissionException {
         // 1. Add
-        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRep, dev, "test here");
+        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugRep, dev, "patch here");
 
         // test
-        assertTrue(cmd.toString().contains("Added a test for"));
+        assertTrue(cmd.toString().contains("Added a patch to"));
         assertTrue(cmd.toString().contains(bugRep.getTitle()));
         assertFalse(cmd.undo()); //can't undo yet.
         assertFalse(cmd.isExecuted());
@@ -81,9 +82,8 @@ public class AddTestToBugReportModelCmdTest {
         cmd.exec();
 
         // test
-        //TODO: Ben Does BugReport have a way to access the tests? (see line below)
-        //assertTrue(bugRep.getTests().contains("test here"));
-        assertTrue(cmd.toString().contains("Added a test for"));
+        assertTrue(bugRep.getPatches().contains("patch here"));
+        assertTrue(cmd.toString().contains("Added a patch to"));
         assertTrue(cmd.toString().contains(bugRep.getTitle()));
         assertTrue(cmd.isExecuted());
 
@@ -91,14 +91,13 @@ public class AddTestToBugReportModelCmdTest {
         assertTrue(cmd.undo());
 
         // test
-        //TODO: Ben same as question above for the line below.
-        //assertFalse(bugRep.getTests().contains("test here"));
+        assertFalse(bugRep.getPatches().contains("patch here"));
     }
 
     /**
      * Test
-     * {@link DeleteProjectModelCmd#DeleteProjectModelCmd(bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User, bugtrap03.bugdomain.Project)}
-     * when the bugreport is not in the right state.
+     * {@link AddPatchToBugReportModelCmd#AddPatchToBugReportModelCmd(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, java.lang.String)}
+     * when the bugReport is not in the right state
      *
      * @throws PermissionException Never
      */
@@ -106,7 +105,7 @@ public class AddTestToBugReportModelCmdTest {
     public void testExec_IllegalState() throws PermissionException {
 
         // 1. Add
-        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRepWrongState, dev, "test here");
+        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugRepWrongState, dev, "patch here");
 
         // 2. Exec()
         cmd.exec();
@@ -130,12 +129,12 @@ public class AddTestToBugReportModelCmdTest {
 
     /**
      * Test
-     * {@link AddTestToBugReportModelCmd#AddTestToBugReportModelCmd(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, java.lang.String)}
+     * {@link AddPatchToBugReportModelCmd#AddPatchToBugReportModelCmd(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, java.lang.String)}
      * with bugReport == null
      */
     @Test(expected = IllegalArgumentException.class)
     public void testCons_BugReportNull() {
-        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(null, dev, "test here");
+        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(null, dev, "patch here");
     }
 
     /**
@@ -145,7 +144,7 @@ public class AddTestToBugReportModelCmdTest {
      */
     @Test(expected = PermissionException.class)
     public void testNoPermissions() throws PermissionException {
-        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRep, admin, "test here");
+        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugRep, admin, "patch here");
         cmd.exec();
     }
 }
