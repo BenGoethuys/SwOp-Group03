@@ -32,8 +32,8 @@ public class CreateCommentModelCmdTest {
     @Before
     public void setUp() throws PermissionException {
         model = new DataModel();
-        admin = model.createAdministrator("BlubBlabBlob" + counter, "first", "last");
-        dev = model.createDeveloper("DeveloperOverHere" + counter, "first", "last");
+        admin = model.createAdministrator("BlubBlabBlob5" + counter, "first", "last");
+        dev = model.createDeveloper("DeveloperOverHere5" + counter, "first", "last");
         proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
         bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
