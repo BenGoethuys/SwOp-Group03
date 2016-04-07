@@ -42,12 +42,19 @@ public class SelectPatchFromBugReportModelCmdTest {
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
         bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
 
+        model.assignToProject(proj, dev, dev, Role.TESTER);
+        model.assignToProject(proj, dev, dev, Role.PROGRAMMER);
+
         dev2 = model.createDeveloper("Developer2OverHere12" + counter, "first", "last");
         dev3 = model.createDeveloper("Developer3OverHere12" + counter, "first", "last");
 
         devList = PList.<Developer>empty();
         devList = devList.plus(dev2);
         devList = devList.plus(dev3);
+
+        model.addUsersToBugReport(dev, bugRep, devList);
+        model.addTest(bugRep, dev, "This is a test");
+        model.addPatch(bugRep, dev, "another patch");
 
         counter++;
     }
@@ -61,12 +68,7 @@ public class SelectPatchFromBugReportModelCmdTest {
      */
     @Test
     public void testGoodScenarioCons1() throws PermissionException {
-        model.assignToProject(proj, dev, dev, Role.TESTER);
-        model.assignToProject(proj, dev, dev, Role.PROGRAMMER);
-        model.addUsersToBugReport(dev, bugRep, devList);
-        model.addTest(bugRep, dev, "This is a test");
         model.addPatch(bugRep, dev, "patch text here");
-        model.addPatch(bugRep, dev, "another patch");
 
         // 1. Delete
         SelectPatchFromBugReportModelCmd cmd = new SelectPatchFromBugReportModelCmd(bugRep, dev, "patch text here");
@@ -105,17 +107,12 @@ public class SelectPatchFromBugReportModelCmdTest {
     /**
      * Test
      * {@link DeleteProjectModelCmd#DeleteProjectModelCmd(bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User, bugtrap03.bugdomain.Project)}
-     * in a default scenario.
+     * when the patch is not added beforehand.
      *
      * @throws PermissionException Never
      */
     @Test(expected = IllegalArgumentException.class)
     public void test_IllegalPatch() throws PermissionException {
-        model.assignToProject(proj, dev, dev, Role.TESTER);
-        model.assignToProject(proj, dev, dev, Role.PROGRAMMER);
-        model.addUsersToBugReport(dev, bugRep, devList);
-        model.addTest(bugRep, dev, "This is a test");
-        model.addPatch(bugRep, dev, "another patch");
 
         // 1. Delete
         SelectPatchFromBugReportModelCmd cmd = new SelectPatchFromBugReportModelCmd(bugRep, dev, "patch text here");
@@ -135,7 +132,7 @@ public class SelectPatchFromBugReportModelCmdTest {
     @Test(expected = IllegalStateException.class)
     public void testIllegalExec() throws PermissionException {
         // 1. Create
-        SelectPatchFromBugReportModelCmd cmd = new SelectPatchFromBugReportModelCmd(bugRep, dev, "patch");
+        SelectPatchFromBugReportModelCmd cmd = new SelectPatchFromBugReportModelCmd(bugRep, dev, "another patch");
 
         // 2. Exec()
         cmd.exec();

@@ -28,6 +28,7 @@ public class GiveScoreToBugReportModelCmdTest {
     private Project proj;
     private Subsystem subsys;
     private BugReport bugRep;
+    private BugReport bugRepWrongState;
     private Developer dev;
     private Developer dev2;
     private Developer dev3;
@@ -42,6 +43,7 @@ public class GiveScoreToBugReportModelCmdTest {
         proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
         bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
+        bugRepWrongState = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
 
         dev2 = model.createDeveloper("Developer2OverHere3" + counter, "first", "last");
         dev3 = model.createDeveloper("Developer3OverHere3" + counter, "first", "last");
@@ -49,6 +51,13 @@ public class GiveScoreToBugReportModelCmdTest {
         devList = PList.<Developer>empty();
         devList = devList.plus(dev2);
         devList = devList.plus(dev3);
+
+        model.assignToProject(proj, dev, dev, Role.TESTER);
+        model.assignToProject(proj, dev, dev, Role.PROGRAMMER);
+        model.addUsersToBugReport(dev, bugRep, devList);
+        model.addTest(bugRep, dev, "This is a test");
+        model.addPatch(bugRep, dev, "This is a patch");
+        model.selectPatch(bugRep, dev, "This is a patch");
 
         counter++;
     }
@@ -61,14 +70,8 @@ public class GiveScoreToBugReportModelCmdTest {
      * @throws PermissionException Never
      */
     @Test
-    public void testGoodScenarioCons1() throws PermissionException {
+    public void testGoodScenarioCons() throws PermissionException {
         // 1. Create
-        model.assignToProject(proj, dev, dev, Role.TESTER);
-        model.assignToProject(proj, dev, dev, Role.PROGRAMMER);
-        model.addUsersToBugReport(dev, bugRep, devList);
-        model.addTest(bugRep, dev, "This is a test");
-        model.addPatch(bugRep, dev, "This is a patch");
-        model.selectPatch(bugRep, dev, "This is a patch");
         GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugRep, dev, 2);
 
         // test
@@ -95,10 +98,10 @@ public class GiveScoreToBugReportModelCmdTest {
         try {
             bugRep.getScore();
             shouldNotWork = false;
-        } catch(IllegalStateException e) {
+        } catch (IllegalStateException e) {
             shouldNotWork = true;
         }
-        
+
         assertTrue(shouldNotWork);
     }
 
@@ -110,7 +113,7 @@ public class GiveScoreToBugReportModelCmdTest {
     @Test(expected = IllegalStateException.class)
     public void testExec_IllegalState() throws PermissionException {
         // 1. Create
-        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugRep, dev, 2);
+        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugRepWrongState, dev, 2);
 
         // 2. Exec()
         assertTrue(cmd.exec());
