@@ -100,6 +100,10 @@ public class ProposePatchCmd implements Cmd {
         }
 
         // 5. The system attaches the patch to the bug report.
+        // Extension 3a. The developer is not assigned as a developer to the project. (=PermissionException)
+        //TODO: 3a. should be thrown when is not assigned a developer BUT model.addPatch throws when not a programmer.
+        //Is throwing when not a programmer correct and in the assignment??
+        // 1. The use case ends here.
         model.addPatch(bugReport, user, text); //Permission, IllegalState, IllegalArg
         return bugReport;
     }
