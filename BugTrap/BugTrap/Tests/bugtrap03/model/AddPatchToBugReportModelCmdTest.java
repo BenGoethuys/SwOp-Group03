@@ -68,7 +68,7 @@ public class AddPatchToBugReportModelCmdTest {
      * @throws PermissionException Never
      */
     @Test
-    public void testGoodScenarioCons1() throws PermissionException {
+    public void testGoodScenarioCons() throws PermissionException {
         // 1. Add
         AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugRep, dev, "patch here");
 
@@ -119,7 +119,7 @@ public class AddPatchToBugReportModelCmdTest {
     @Test(expected = IllegalStateException.class)
     public void testIllegalExec() throws PermissionException {
         // 1. Create
-        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRep, dev, "test here");
+        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugRep, dev, "patch here");
 
         // 2. Exec()
         cmd.exec();
