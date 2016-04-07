@@ -2,14 +2,12 @@ package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import java.util.GregorianCalendar;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -153,8 +151,6 @@ public class UpdateProjectModelCmdTest {
         UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(proj, admin, "new name", "new desc", startDate, -50);
         cmd.exec();
     }
-    
-    
 
     /**
      * Test exec with insufficient permissions.
