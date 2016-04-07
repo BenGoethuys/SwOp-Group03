@@ -124,7 +124,7 @@ public class GiveScoreToBugReportModelCmdTest {
     @Test(expected = IllegalStateException.class)
     public void testIllegalExec() throws PermissionException {
         // 1. Create
-        AddUsersToBugReportModelCmd cmd = new AddUsersToBugReportModelCmd(dev, bugRep, devList);
+        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugRep, dev, 2);
 
         // 2. Exec()
         assertTrue(cmd.exec());
