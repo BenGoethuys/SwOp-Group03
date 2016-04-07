@@ -31,12 +31,12 @@ public class CloneProjectModelCmdTest {
     @Before
     public void setUp() throws PermissionException {
         model = new DataModel();
-        admin = model.createAdministrator("BlubBlabBlob1" + counter, "first", "last");
-        dev = model.createDeveloper("DeveloperOverHere1" + counter, "first", "last");
+        admin = model.createAdministrator("BlubBlabBlob8" + counter, "first", "last");
+        dev = model.createDeveloper("DeveloperOverHere8" + counter, "first", "last");
         proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
 
-        dev2 = model.createDeveloper("Developer2OverHere1" + counter, "first", "last");
+        dev2 = model.createDeveloper("Developer2OverHere8" + counter, "first", "last");
 
         counter++;
     }
