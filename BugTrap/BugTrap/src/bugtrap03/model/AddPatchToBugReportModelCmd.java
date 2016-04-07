@@ -9,55 +9,52 @@ import bugtrap03.bugdomain.usersystem.User;
  *
  * @author Group 03
  */
-class AddBugReportTestModelCmd extends ModelCmd {
+class AddPatchToBugReportModelCmd extends ModelCmd {
 
     /**
-     * Create a {@link ModelCmd} that can add a certain test to the bugReport when executed.
+     * Create a {@link ModelCmd} that can add a certain patch to the bugReport when executed.
      *
      * @param bugReport The bug report to evaluate
      * @param user The user that wants to assign a score to this bug reports selected patch.
-     * @param test The test that the user wants to add
+     * @param patch The patch to add.
      *
      * @throws IllegalArgumentException When bugReport == null
      */
-    AddBugReportTestModelCmd(BugReport bugReport, User user, String test) throws IllegalArgumentException {
+    AddPatchToBugReportModelCmd(BugReport bugReport, User user, String patch) throws IllegalArgumentException {
         if (bugReport == null) {
-            throw new IllegalArgumentException("The bugReport passed to AddBugReportTestModelCmd was a null reference.");
+            throw new IllegalArgumentException("The bugReport passed to AddBugReportPatchModelCmd was a null reference.");
         }
 
         this.bugReport = bugReport;
         this.user = user;
-        this.test = test;
+        this.patch = patch;
     }
 
     private final BugReport bugReport;
     private final User user;
-    private final String test;
+    private final String patch;
 
     private BugReportMemento oldMem;
 
     private boolean isExecuted = false;
 
     /**
-     * This method adds a given test to the bug report state
+     * This method adds a given patch to this bug report state
      *
      * @return True
-     *
-     * @throws PermissionException If the given user doesn't have the permission to add a test
-     * @throws IllegalStateException If the current state doesn't allow to add a test
+     * @throws PermissionException If the given user doesn't have the permission to add a patch to this bug report state
+     * @throws IllegalStateException If the given patch is invalid for this bug report
      * @throws IllegalStateException When this ModelCmd was already executed
-     * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
-     *
-     * @see BugReport#isValidTest(String)
+     * @throws IllegalArgumentException If the given patch is not valid for this bug report state
      */
     @Override
     Boolean exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
         if (this.isExecuted()) {
-            throw new IllegalStateException("The AddBugReportTestModelCmd was already executed.");
+            throw new IllegalStateException("The AddBugReportPatchModelCmd was already executed.");
         }
 
         oldMem = bugReport.getMemento();
-        bugReport.addTest(user, test);
+        bugReport.addPatch(user, patch);
         isExecuted = true;
         return true;
     }
@@ -85,7 +82,7 @@ class AddBugReportTestModelCmd extends ModelCmd {
     @Override
     public String toString() {
         String title = (bugReport != null) ? bugReport.getTitle() : "-invalid argument-";
-        return "Added a test for BugReport " + title;
+        return "Added a patch to BugReport " + title;
     }
 
 }

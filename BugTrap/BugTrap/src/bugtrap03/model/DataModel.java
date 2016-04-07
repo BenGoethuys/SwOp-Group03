@@ -794,7 +794,7 @@ public class DataModel {
      */
     @DomainAPI
     public void addTest(BugReport bugReport, User user, String test) throws PermissionException, IllegalStateException, IllegalArgumentException {
-        AddBugReportTestModelCmd cmd = new AddBugReportTestModelCmd(bugReport, user, test);
+        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugReport, user, test);
         cmd.exec();
         addToHistory(cmd);
     }
@@ -813,7 +813,7 @@ public class DataModel {
      */
     @DomainAPI
     public void addPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException {
-        AddBugReportPatchModelCmd cmd = new AddBugReportPatchModelCmd(bugReport, user, patch);
+        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugReport, user, patch);
         cmd.exec();
         addToHistory(cmd);
     }
