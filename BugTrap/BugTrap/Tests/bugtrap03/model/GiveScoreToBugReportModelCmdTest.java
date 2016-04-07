@@ -9,6 +9,8 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import bugtrap03.bugdomain.usersystem.Role;
 import org.junit.Before;
 import org.junit.Test;
 import purecollections.PList;
@@ -61,7 +63,12 @@ public class GiveScoreToBugReportModelCmdTest {
     @Test
     public void testGoodScenarioCons1() throws PermissionException {
         // 1. Create
-        //TODO: Ben - Create a bugreport that can be assigned a score. (State resolved) and resolved requires .. and ..
+        model.assignToProject(proj, dev, dev, Role.TESTER);
+        model.assignToProject(proj, dev, dev, Role.PROGRAMMER);
+        model.addUsersToBugReport(dev, bugRep, devList);
+        model.addTest(bugRep, dev, "This is a test");
+        model.addPatch(bugRep, dev, "This is a patch");
+        model.selectPatch(bugRep, dev, "This is a patch");
         GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugRep, dev, 2);
 
         // test
@@ -83,6 +90,8 @@ public class GiveScoreToBugReportModelCmdTest {
         assertTrue(cmd.undo());
 
         // test
+        
+        //FIXME: throws illegalstate because there is no score! (doesn't default to 0 ...)
         assertEquals(0, bugRep.getScore());
     }
 
