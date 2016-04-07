@@ -6,30 +6,29 @@ import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
-import static org.junit.Assert.assertEquals;
+import bugtrap03.bugdomain.usersystem.Role;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import bugtrap03.bugdomain.usersystem.Role;
 import org.junit.Before;
 import org.junit.Test;
 import purecollections.PList;
 
 /**
  *
- * @author Admin
+ * @author Group 03
  */
-public class GiveScoreToBugReportModelCmdTest {
+public class AddTestToBugReportModelCmdTest {
 
     private static int counter = Integer.MIN_VALUE;
 
     private DataModel model;
     private Administrator admin;
     private Project proj;
+    private Developer dev;
     private Subsystem subsys;
     private BugReport bugRep;
     private BugReport bugRepWrongState;
-    private Developer dev;
+
     private Developer dev2;
     private Developer dev3;
 
@@ -38,54 +37,53 @@ public class GiveScoreToBugReportModelCmdTest {
     @Before
     public void setUp() throws PermissionException {
         model = new DataModel();
-        admin = model.createAdministrator("BlubBlabBlob3" + counter, "first", "last");
-        dev = model.createDeveloper("DeveloperOverHere3" + counter, "first", "last");
+        admin = model.createAdministrator("BlubBlabBlob13" + counter, "first", "last");
+        dev = model.createDeveloper("DeveloperOverHere13" + counter, "first", "last");
         proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
         bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
         bugRepWrongState = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
 
-        dev2 = model.createDeveloper("Developer2OverHere3" + counter, "first", "last");
-        dev3 = model.createDeveloper("Developer3OverHere3" + counter, "first", "last");
+        model.assignToProject(proj, dev, dev, Role.TESTER);
+        model.assignToProject(proj, dev, dev, Role.PROGRAMMER);
+
+        dev2 = model.createDeveloper("Developer2OverHere13" + counter, "first", "last");
+        dev3 = model.createDeveloper("Developer3OverHere13" + counter, "first", "last");
 
         devList = PList.<Developer>empty();
         devList = devList.plus(dev2);
         devList = devList.plus(dev3);
 
-        model.assignToProject(proj, dev, dev, Role.TESTER);
-        model.assignToProject(proj, dev, dev, Role.PROGRAMMER);
         model.addUsersToBugReport(dev, bugRep, devList);
-        model.addTest(bugRep, dev, "This is a test");
-        model.addPatch(bugRep, dev, "This is a patch");
-        model.selectPatch(bugRep, dev, "This is a patch");
 
         counter++;
     }
 
     /**
      * Test
-     * {@link GiveScoreToBugReportModelCmd#GiveScoreToBugReportModelCmd(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, int)}
+     * {@link AddTestToBugReportModelCmd#AddTestToBugReportModelCmd(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, java.lang.String)}
      * in a default scenario.
      *
      * @throws PermissionException Never
      */
     @Test
-    public void testGoodScenarioCons() throws PermissionException {
-        // 1. Create
-        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugRep, dev, 2);
+    public void testGoodScenarioCons1() throws PermissionException {
+        // 1. Add
+        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRep, dev, "test here");
 
         // test
-        assertTrue(cmd.toString().contains("score"));
+        assertTrue(cmd.toString().contains("Added a test for"));
         assertTrue(cmd.toString().contains(bugRep.getTitle()));
         assertFalse(cmd.undo()); //can't undo yet.
         assertFalse(cmd.isExecuted());
 
         // 2. Exec()
-        assertTrue(cmd.exec());
-        assertEquals(2, bugRep.getScore());
+        cmd.exec();
 
         // test
-        assertTrue(cmd.toString().contains("score"));
+        //TODO: Ben Does BugReport have a way to access the tests? (see line below)
+        //assertTrue(bugRep.getTests().contains("test here"));
+        assertTrue(cmd.toString().contains("Added a test for"));
         assertTrue(cmd.toString().contains(bugRep.getTitle()));
         assertTrue(cmd.isExecuted());
 
@@ -93,30 +91,25 @@ public class GiveScoreToBugReportModelCmdTest {
         assertTrue(cmd.undo());
 
         // test
-        // getScore() shouldn't work.
-        boolean shouldNotWork = false;
-        try {
-            bugRep.getScore();
-            shouldNotWork = false;
-        } catch (IllegalStateException e) {
-            shouldNotWork = true;
-        }
-
-        assertTrue(shouldNotWork);
+        //TODO: Ben same as question above for the line below.
+        //assertFalse(bugRep.getTests().contains("test here"));
     }
 
     /**
-     * Test {@link GiveScoreToBugReportModelCmd#exec()} with a BugReport that is not in a valid state for this.
+     * Test
+     * {@link DeleteProjectModelCmd#DeleteProjectModelCmd(bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User, bugtrap03.bugdomain.Project)}
+     * when the bugreport is not in the right state.
      *
      * @throws PermissionException Never
      */
     @Test(expected = IllegalStateException.class)
     public void testExec_IllegalState() throws PermissionException {
-        // 1. Create
-        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugRepWrongState, dev, 2);
+
+        // 1. Add
+        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRepWrongState, dev, "test here");
 
         // 2. Exec()
-        assertTrue(cmd.exec());
+        cmd.exec();
     }
 
     /**
@@ -127,22 +120,22 @@ public class GiveScoreToBugReportModelCmdTest {
     @Test(expected = IllegalStateException.class)
     public void testIllegalExec() throws PermissionException {
         // 1. Create
-        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugRep, dev, 2);
+        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRep, dev, "test here");
 
         // 2. Exec()
-        assertTrue(cmd.exec());
+        cmd.exec();
 
         cmd.exec(); // <-- error.
     }
 
     /**
      * Test
-     * {@link GiveScoreToBugReportModelCmd#GiveScoreToBugReportModelCmd(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, int)}
-     * with bugreport == null
+     * {@link AddTestToBugReportModelCmd#AddTestToBugReportModelCmd(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, java.lang.String)}
+     * with bugReport == null
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testCons_BugRepNull() {
-        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(null, dev, 2);
+    public void testCons_BugReportNull() {
+        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(null, dev, "test here");
     }
 
     /**
@@ -152,7 +145,7 @@ public class GiveScoreToBugReportModelCmdTest {
      */
     @Test(expected = PermissionException.class)
     public void testNoPermissions() throws PermissionException {
-        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugRep, admin, 2);
+        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRep, admin, "test here");
         cmd.exec();
     }
 }

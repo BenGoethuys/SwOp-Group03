@@ -41,6 +41,7 @@ public class UpdateBugReportCmd implements Cmd {
         if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
+        //TODO developer must be issuer according to new assignment
         // 1. The developer indicates he wants to update a bug report.
         // 2. Include use case Select Bug Report.
         BugReport bugrep = new SelectBugReportCmd().exec(scan, model, user);

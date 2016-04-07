@@ -231,7 +231,7 @@ public class UpdateBugReportCmdTest {
         answer.add("3");
         question.add("You have selected: \tUNDER_REVIEW");
         
-        //TODO: Change test model to have a test. AssignedState -> AssignWithTestState else this will fail.
+        //TODO: Ben Change test model to have a test. AssignedState -> AssignWithTestState else this will fail.
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario

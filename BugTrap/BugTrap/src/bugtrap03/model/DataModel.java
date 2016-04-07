@@ -378,7 +378,7 @@ public class DataModel {
      * @see BugReport#isVisibleTo(bugtrap03.bugdomain.usersystem.User) 
      */
     @DomainAPI
-    public ArrayList<BugReport> getAllBugReports(User user) {
+    public PList<BugReport> getAllBugReports(User user) {
         ArrayList<BugReport> list = new ArrayList<>();
         for (Project project : this.projectList) {
             PList<BugReport> bugReports = project.getAllBugReports();
@@ -388,7 +388,7 @@ public class DataModel {
                 }
             }
         }
-        return list;
+        return PList.<BugReport>empty().plusAll(list);
     }
 
     /**

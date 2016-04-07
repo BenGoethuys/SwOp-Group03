@@ -10,6 +10,12 @@ import bugtrap03.bugdomain.usersystem.notification.Subject;
  */
 class RegisterForCommentNotificationsModelCmd extends RegisterForNotificationsModelCmd {
 
+    /**
+     * Create a {@link ModelCmd} that subscribes to the given subject
+     * for the creation of comments on bugreports when executed
+     * @param user The user that wishes to subscribe
+     * @param subject The subject on which the user wishes to subscribe
+     */
     RegisterForCommentNotificationsModelCmd(User user, Subject subject){
         super(user);
         this.subject = subject;
@@ -17,8 +23,16 @@ class RegisterForCommentNotificationsModelCmd extends RegisterForNotificationsMo
 
     private Subject subject;
 
+    /**
+     * This method executes thie model command.
+     * @return The created commentmailbox representing the subscription that contains the notifications
+     * @throws IllegalArgumentException if on of the arguments is invalid
+     * @throws IllegalStateException if the state of this command is invalid
+     * @see bugtrap03.bugdomain.usersystem.notification.Mailbox#commentSubscribe(Subject)
+     * @see #setExecuted()
+     */
     @Override
-    CommentMailBox exec() throws IllegalArgumentException, NullPointerException, PermissionException, IllegalStateException {
+    CommentMailBox exec() throws IllegalArgumentException, IllegalStateException {
         this.setExecuted();
         CommentMailBox cmb = this.getMailbox().commentSubscribe(this.subject);
         this.setNewMailbox(cmb);

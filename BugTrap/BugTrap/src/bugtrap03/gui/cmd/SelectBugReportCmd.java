@@ -138,7 +138,7 @@ public class SelectBugReportCmd implements Cmd {
             scan.println("Please select a bug report: ");
             BugReport bugrep = new GetObjectOfListCmd<>(PList.<BugReport>empty().plusAll(selected),
                     (u -> u.getTitle() + "\t -UniqueID: " + u.getUniqueID()),
-                    ((u, input) -> u.getTitle().equals(input)))
+                    ((u, input) -> u.getTitle().equalsIgnoreCase(input)))
                     .exec(scan, model, user);
 
             if (bugrep != null) {
