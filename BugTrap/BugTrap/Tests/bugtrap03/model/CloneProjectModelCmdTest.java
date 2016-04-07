@@ -79,9 +79,7 @@ public class CloneProjectModelCmdTest {
     }
 
     /**
-     * Test
-     * {@link AddUsersToBugReportModelCmd#AddUsersToBugReportModelCmd(bugtrap03.bugdomain.usersystem.User, bugtrap03.bugdomain.bugreport.BugReport, purecollections.PList)}
-     * in a default scenario.
+     * Test exec with a startDate == null
      *
      * @throws PermissionException Never
      */
