@@ -50,8 +50,11 @@ public class CloneProjectModelCmdTest {
      */
     @Test
     public void testGoodScenarioCons1() throws PermissionException {
+        GregorianCalendar startDate = new GregorianCalendar();
+        startDate.add(GregorianCalendar.DAY_OF_WEEK, 1);
+
         // 1. Create
-        CloneProjectModelCmd cmd = new CloneProjectModelCmd(model, proj, new VersionID(2, 0, 1), dev, new GregorianCalendar(), 50);
+        CloneProjectModelCmd cmd = new CloneProjectModelCmd(model, proj, new VersionID(2, 0, 1), dev, startDate, 50);
 
         // test
         assertTrue(cmd.toString().contains("Cloned") || cmd.toString().contains("cloned"));
@@ -79,9 +82,7 @@ public class CloneProjectModelCmdTest {
     }
 
     /**
-     * Test
-     * {@link AddUsersToBugReportModelCmd#AddUsersToBugReportModelCmd(bugtrap03.bugdomain.usersystem.User, bugtrap03.bugdomain.bugreport.BugReport, purecollections.PList)}
-     * in a default scenario.
+     * Test exec with a startDate == null
      *
      * @throws PermissionException Never
      */
@@ -102,8 +103,11 @@ public class CloneProjectModelCmdTest {
      */
     @Test(expected = IllegalStateException.class)
     public void testIllegalExec() throws PermissionException {
+        GregorianCalendar startDate = new GregorianCalendar();
+        startDate.add(GregorianCalendar.DAY_OF_WEEK, 1);
+
         // 1. Create
-        CloneProjectModelCmd cmd = new CloneProjectModelCmd(model, proj, new VersionID(2, 0, 1), dev, new GregorianCalendar(), 50);
+        CloneProjectModelCmd cmd = new CloneProjectModelCmd(model, proj, new VersionID(2, 0, 1), dev, startDate, 50);
 
         // 2. Exec()
         cmd.exec();
@@ -126,14 +130,17 @@ public class CloneProjectModelCmdTest {
      */
     @Test
     public void testCons_ClonesourceNull() {
+        GregorianCalendar startDate = new GregorianCalendar();
+        startDate.add(GregorianCalendar.DAY_OF_WEEK, 1);
+
         // 1. Create
-        CloneProjectModelCmd cmd = new CloneProjectModelCmd(model, null, new VersionID(2, 0, 1), dev, new GregorianCalendar(), 50);
+        CloneProjectModelCmd cmd = new CloneProjectModelCmd(model, null, new VersionID(2, 0, 1), dev, startDate, 50);
         // 2. Exec()
         Project clone = cmd.exec();
         assertTrue(cmd.toString().contains("invalid argument"));
         // 3. undo()
         assertNull(clone);
-        
+
         assertTrue(cmd.undo());
     }
 
