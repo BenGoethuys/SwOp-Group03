@@ -788,13 +788,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         }
 
         //if private and no patch but the user is a developer on the project
-        if (user instanceof Developer) {
-            return !this.getSubsystem().getParentProject().getAllRolesDev((Developer) user).isEmpty();
-        } else {
-            //not a developer -> false
-            return false;
-        }
-
+       return this.getSubsystem().getParentProject().getAllDev().contains(user);
     }
 
     /**
@@ -993,7 +987,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return The list of tests associated with this bug report
      */
     @DomainAPI
-    PList<String> getTests() {
+    public PList<String> getTests() {
         try {
             return this.getInternState().getTests();
         } catch (IllegalStateException e) {

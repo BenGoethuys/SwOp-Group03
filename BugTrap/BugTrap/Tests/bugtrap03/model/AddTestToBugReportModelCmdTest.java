@@ -81,8 +81,7 @@ public class AddTestToBugReportModelCmdTest {
         cmd.exec();
 
         // test
-        //TODO: Ben Does BugReport have a way to access the tests? (see line below)
-        //assertTrue(bugRep.getTests().contains("test here"));
+        assertTrue(bugRep.getTests().contains("test here"));
         assertTrue(cmd.toString().contains("Added a test for"));
         assertTrue(cmd.toString().contains(bugRep.getTitle()));
         assertTrue(cmd.isExecuted());
@@ -91,8 +90,7 @@ public class AddTestToBugReportModelCmdTest {
         assertTrue(cmd.undo());
 
         // test
-        //TODO: Ben same as question above for the line below.
-        //assertFalse(bugRep.getTests().contains("test here"));
+       assertFalse(bugRep.getTests().contains("test here"));
     }
 
     /**
