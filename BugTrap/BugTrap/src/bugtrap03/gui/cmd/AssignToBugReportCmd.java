@@ -65,8 +65,7 @@ public class AssignToBugReportCmd implements Cmd {
 
             // 3a. The selected bug report is of a project that the logged in developer is not involved in as lead or tester.
             // 1. The use case returns to step 2.
-            //TODO: is this domain logic? ... (Maybe move logic into a function inside BugReport - boolean canAssignDeveloper(Developer dev).
-            if (!user.hasRolePermission(RolePerm.ASSIGN_DEV_BUG_REPORT, bugRep.getSubsystem().getParentProject())) {
+            if (!bugRep.canAssignDeveloper(user)) {
                 scan.println("You don't have the required permission.");
             } else {
                 hasPerm = true;
