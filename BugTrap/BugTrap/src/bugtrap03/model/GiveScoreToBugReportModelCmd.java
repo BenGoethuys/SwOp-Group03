@@ -7,7 +7,7 @@ import bugtrap03.bugdomain.usersystem.User;
 
 /**
  *
- * @author Admin
+ * @author Group 03
  */
 class GiveScoreToBugReportModelCmd extends ModelCmd {
 
@@ -85,8 +85,7 @@ class GiveScoreToBugReportModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        String bugTitle = (bugReport != null) ? bugReport.getTitle() : "-invalid argument-";
-        return "Gave BugReport " + bugTitle + " a score of " + this.score;
+        return "Gave BugReport " + bugReport.getTitle() + " a score of " + this.score;
     }
 
 }
