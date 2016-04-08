@@ -104,4 +104,58 @@ public class GetUserOfExactTypeCmdTest {
         assertEquals(dev, lead);
     }
 
+    /**
+     * Test exec() while model == null
+     *
+     * @throws CancelException Never
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ScanNull() throws CancelException {
+        // Setup variables.
+        DataModel model = new DataModel();
+        Developer lead = model.createDeveloper("meGoodLead020", "Luky", "Luke");
+        User admin = model.createAdministrator("admin020", "adminT", "bie");
+
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        GetUserOfExcactTypeCmd<Developer> cmd = new GetUserOfExcactTypeCmd<>(Developer.class);
+
+        // Setup scenario
+        question.add("Available options:");
+        question.add("0. " + lead.getUsername());
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+
+        // Execute scenario
+        Developer dev = cmd.exec(null, model, admin);
+
+        // Test effects.
+        assertEquals(dev, lead);
+    }
+
+    /**
+     * Test exec() while model == null
+     *
+     * @throws CancelException Never
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ModelNull() throws CancelException {
+        // Setup variables.
+        DataModel model = new DataModel();
+        User admin = model.createAdministrator("admin0020", "adminT", "bie");
+
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        GetUserOfExcactTypeCmd<Developer> cmd = new GetUserOfExcactTypeCmd<>(Developer.class);
+
+        // Setup scenario
+        question.add("Available options:");
+        answer.add("25");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+
+        // Execute scenario
+        Developer dev = cmd.exec(scan, null, admin);
+    }
+
 }

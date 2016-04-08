@@ -1,6 +1,5 @@
 package bugtrap03.gui.cmd.general;
 
-import bugtrap03.model.DataModel;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
@@ -14,12 +13,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class GetIntCmdTest {
 
-    DataModel model;
-
     @Test
     public void testExec() throws CancelException {
-        model = new DataModel();
-
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         GetIntCmd cmd = new GetIntCmd();
@@ -43,8 +38,6 @@ public class GetIntCmdTest {
 
     @Test(expected = CancelException.class)
     public void testAbortExec() throws CancelException {
-        model = new DataModel();
-
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         GetIntCmd cmd = new GetIntCmd();
@@ -59,6 +52,19 @@ public class GetIntCmdTest {
 
         // Execute scenario
         int chosen = cmd.exec(scan, null, null);
+    }
+
+    /**
+     * Test exec() with scan == null
+     *
+     * @throws CancelException
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ScanNull() throws CancelException {
+        GetIntCmd cmd = new GetIntCmd();
+
+        // Execute scenario
+        cmd.exec(null, null, null);
     }
 
 }
