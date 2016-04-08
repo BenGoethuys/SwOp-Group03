@@ -33,7 +33,7 @@ public class CreateDeveloperModelCmdTest {
     @Test
     public void testGoodScenarioCons1() throws PermissionException {
         // 1. Add
-        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(model, "uniqueUsernameOvereHere14" + counter, "firstName", "lastName");
+        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(model, "uniqueUsernameOvereHere16" + counter, "firstName", "lastName");
 
         // test
         assertTrue(cmd.toString().contains("Created Developer"));
@@ -49,7 +49,7 @@ public class CreateDeveloperModelCmdTest {
         assertTrue(cmd.toString().contains("Created Developer"));
         assertTrue(cmd.toString().contains(newDeveloper.getFullName()));
         assertTrue(cmd.isExecuted());
-        assertEquals("uniqueUsernameOvereHere14" + counter, newDeveloper.getUsername());
+        assertEquals("uniqueUsernameOvereHere16" + counter, newDeveloper.getUsername());
         assertEquals("firstName", newDeveloper.getFirstName());
         assertEquals("lastName", newDeveloper.getLastName());
         assertEquals("", newDeveloper.getMiddleName());
@@ -73,7 +73,7 @@ public class CreateDeveloperModelCmdTest {
     @Test
     public void testGoodScenarioCons2() throws PermissionException {
         // 1. Add
-        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(model, "uniqueUsernameOvereHere14" + counter, "firstName", "middleName", "lastName");
+        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(model, "uniqueUsernameOvereHere16" + counter, "firstName", "middleName", "lastName");
 
         // test
         assertTrue(cmd.toString().contains("Created Developer"));
@@ -89,7 +89,7 @@ public class CreateDeveloperModelCmdTest {
         assertTrue(cmd.toString().contains("Created Developer"));
         assertTrue(cmd.toString().contains(newDeveloper.getFullName()));
         assertTrue(cmd.isExecuted());
-        assertEquals("uniqueUsernameOvereHere14" + counter, newDeveloper.getUsername());
+        assertEquals("uniqueUsernameOvereHere16" + counter, newDeveloper.getUsername());
         assertEquals("firstName", newDeveloper.getFirstName());
         assertEquals("lastName", newDeveloper.getLastName());
         assertEquals("middleName", newDeveloper.getMiddleName());
@@ -111,9 +111,9 @@ public class CreateDeveloperModelCmdTest {
         boolean worked;
 
         try {
-            CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(model, "uniqueUsernameOvereHere14" + counter, "firstName", "lastName");
+            CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(model, "uniqueUsernameOvereHere16" + counter, "firstName", "lastName");
             cmd.exec();
-            cmd = new CreateDeveloperModelCmd(model, "uniqueUsernameOvereHere14" + counter, "firstName", "lastName");
+            cmd = new CreateDeveloperModelCmd(model, "uniqueUsernameOvereHere16" + counter, "firstName", "lastName");
             cmd.exec();
             worked = false;
         } catch (IllegalArgumentException ex) {
@@ -133,7 +133,7 @@ public class CreateDeveloperModelCmdTest {
     @Test(expected = IllegalStateException.class)
     public void testIllegalExec() throws PermissionException {
         // 1. Create
-        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(model, "uniqueUsernameOvereHere14", "firstName", "lastName");
+        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(model, "uniqueUsernameOvereHere16", "firstName", "lastName");
 
         // 2. Exec()
         cmd.exec();
@@ -148,7 +148,7 @@ public class CreateDeveloperModelCmdTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testCons1_ModelNull() {
-        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(null, "uniqueUsernameOvereHere14", "firstName", "lastName");
+        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(null, "uniqueUsernameOvereHere16", "firstName", "lastName");
     }
 
     /**
@@ -158,6 +158,6 @@ public class CreateDeveloperModelCmdTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testCons2_ModelNull() {
-        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(null, "uniqueUsernameOvereHere14", "firstName", "middleName", "lastName");
+        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(null, "uniqueUsernameOvereHere16", "firstName", "middleName", "lastName");
     }
 }

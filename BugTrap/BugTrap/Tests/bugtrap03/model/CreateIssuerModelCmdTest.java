@@ -33,7 +33,7 @@ public class CreateIssuerModelCmdTest {
     @Test
     public void testGoodScenarioCons1() throws PermissionException {
         // 1. Add
-        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(model, "uniqueUsernameOvereHere14" + counter, "firstName", "lastName");
+        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(model, "uniqueUsernameOvereHere15" + counter, "firstName", "lastName");
 
         // test
         assertTrue(cmd.toString().contains("Created Issuer"));
@@ -49,7 +49,7 @@ public class CreateIssuerModelCmdTest {
         assertTrue(cmd.toString().contains("Created Issuer"));
         assertTrue(cmd.toString().contains(newIssuer.getFullName()));
         assertTrue(cmd.isExecuted());
-        assertEquals("uniqueUsernameOvereHere14" + counter, newIssuer.getUsername());
+        assertEquals("uniqueUsernameOvereHere15" + counter, newIssuer.getUsername());
         assertEquals("firstName", newIssuer.getFirstName());
         assertEquals("lastName", newIssuer.getLastName());
         assertEquals("", newIssuer.getMiddleName());
@@ -73,7 +73,7 @@ public class CreateIssuerModelCmdTest {
     @Test
     public void testGoodScenarioCons2() throws PermissionException {
         // 1. Add
-        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(model, "uniqueUsernameOvereHere14" + counter, "firstName", "middleName", "lastName");
+        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(model, "uniqueUsernameOvereHere15" + counter, "firstName", "middleName", "lastName");
 
         // test
         assertTrue(cmd.toString().contains("Created Issuer"));
@@ -89,7 +89,7 @@ public class CreateIssuerModelCmdTest {
         assertTrue(cmd.toString().contains("Created Issuer"));
         assertTrue(cmd.toString().contains(newIssuer.getFullName()));
         assertTrue(cmd.isExecuted());
-        assertEquals("uniqueUsernameOvereHere14" + counter, newIssuer.getUsername());
+        assertEquals("uniqueUsernameOvereHere15" + counter, newIssuer.getUsername());
         assertEquals("firstName", newIssuer.getFirstName());
         assertEquals("lastName", newIssuer.getLastName());
         assertEquals("middleName", newIssuer.getMiddleName());
@@ -111,9 +111,9 @@ public class CreateIssuerModelCmdTest {
         boolean worked = false;
 
         try {
-            CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(model, "uniqueUsernameOvereHere14" + counter, "firstName", "lastName");
+            CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(model, "uniqueUsernameOvereHere15" + counter, "firstName", "lastName");
             cmd.exec();
-            cmd = new CreateIssuerModelCmd(model, "uniqueUsernameOvereHere14" + counter, "firstName", "lastName");
+            cmd = new CreateIssuerModelCmd(model, "uniqueUsernameOvereHere15" + counter, "firstName", "lastName");
             cmd.exec();
             worked = false;
         } catch (IllegalArgumentException ex) {
@@ -133,7 +133,7 @@ public class CreateIssuerModelCmdTest {
     @Test(expected = IllegalStateException.class)
     public void testIllegalExec() throws PermissionException {
         // 1. Create
-        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(model, "uniqueUsernameOvereHere14", "firstName", "lastName");
+        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(model, "uniqueUsernameOvereHere15", "firstName", "lastName");
 
         // 2. Exec()
         cmd.exec();
@@ -148,7 +148,7 @@ public class CreateIssuerModelCmdTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testCons1_ModelNull() {
-        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(null, "uniqueUsernameOvereHere14", "firstName", "lastName");
+        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(null, "uniqueUsernameOvereHere15", "firstName", "lastName");
     }
 
     /**
@@ -158,7 +158,7 @@ public class CreateIssuerModelCmdTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testCons2_ModelNull() {
-        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(null, "uniqueUsernameOvereHere14", "firstName", "middleName", "lastName");
+        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(null, "uniqueUsernameOvereHere15", "firstName", "middleName", "lastName");
     }
 
 }
