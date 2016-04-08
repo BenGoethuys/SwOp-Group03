@@ -762,24 +762,6 @@ public class DataModel {
     }
 
     /**
-     * *
-     * Get the developers assigned to the given bugReport.
-     *
-     * @param bugReport The {@link BugReport} to check for.
-     * @return The list of developers assigned to the bugReport.
-     */
-    @DomainAPI
-    public PList<Developer> getDevelopersOfBugReport(BugReport bugReport) {
-        if (bugReport == null) {
-            throw new IllegalArgumentException("The given bugreport was null.");
-        }
-
-        return bugReport.getUserList();
-
-        // FIXME: remove and use bugReport.getUserList() ! (is DomainAPI method, because getter)
-    }
-
-    /**
      * This method adds a given test to the bug report state
      *
      * @param bugReport The bug report to add the given test to
