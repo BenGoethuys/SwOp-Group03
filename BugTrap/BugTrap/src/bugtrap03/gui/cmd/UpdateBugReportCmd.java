@@ -52,7 +52,10 @@ public class UpdateBugReportCmd implements Cmd {
             // 3. The developer suggests a new tag for the bug report.
             tagToSet = this.selectTag(scan, model);
             try {
-                // 4. The system gives the selected bug report the new tag.
+                //TODO: Ben 4. The system asks for the corresponding information for that tag.
+                //TODO: Ben 5. The issuer provides the requested information.
+
+                // 6. The system gives the selected bug report the new tag.
                 // 4a.The developer does not have the permission to assign the
                 // tag: the use case ends.
                 model.setTag(bugrep, tagToSet, user);
