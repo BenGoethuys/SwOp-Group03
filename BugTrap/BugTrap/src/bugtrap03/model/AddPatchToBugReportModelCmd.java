@@ -81,8 +81,7 @@ class AddPatchToBugReportModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        String title = (bugReport != null) ? bugReport.getTitle() : "-invalid argument-";
-        return "Added a patch to BugReport " + title;
+        return "Added a patch to BugReport " + bugReport.getTitle();
     }
 
 }

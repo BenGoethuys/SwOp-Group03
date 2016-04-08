@@ -85,8 +85,7 @@ class AddUsersToBugReportModelCmd extends ModelCmd {
     @Override
     public String toString() {
         int size = (devList != null) ? devList.size() : 0;
-        String title = (bugReport != null) ? bugReport.getTitle() : "-invalid argument-";
-        return "Add " + size + " Users to BugReport " + title;
+        return "Add " + size + " Users to BugReport " + bugReport.getTitle();
     }
 
 }
