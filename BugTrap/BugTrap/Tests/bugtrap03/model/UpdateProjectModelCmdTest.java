@@ -134,6 +134,7 @@ public class UpdateProjectModelCmdTest {
 
     /**
      * Test exec with proj == null
+     *
      * @throws PermissionException Never
      */
     @Test(expected = IllegalArgumentException.class)
@@ -141,9 +142,10 @@ public class UpdateProjectModelCmdTest {
         UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(null, admin, "new name", "new desc", startDate, 100);
         cmd.exec();
     }
-    
+
     /**
      * Test exec with budgetEstimate invalid (negative)
+     *
      * @throws PermissionException Never
      */
     @Test(expected = IllegalArgumentException.class)
@@ -159,6 +161,16 @@ public class UpdateProjectModelCmdTest {
     public void testExec_NoPermission() throws PermissionException {
         UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(proj, dev, "new name", "new desc", startDate, 100);
         cmd.exec();
+    }
+
+    /**
+     * Test toString() while there are null arguments.
+     */
+    @Test
+    public void testToString_NullArgs() {
+        UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(null, admin, null, null, null, 100);
+        assertTrue(cmd.toString().contains("Project -invalid argument-"));
+        assertTrue(cmd.toString().contains("-invalid argument-, 100"));
     }
 
 }
