@@ -107,4 +107,39 @@ public class AssignToProjectModelCmdTest {
         AssignToProjectModelCmd cmd = new AssignToProjectModelCmd(proj, admin, dev, Role.TESTER);
         cmd.exec();
     }
+
+    /**
+     * Test toString() with null arguments.
+     */
+    @Test
+    public void testToStringNullArguments() {
+        AssignToProjectModelCmd cmd = new AssignToProjectModelCmd(proj, null, null, null);
+        assertTrue(cmd.toString().contains("-invalid argument-"));
+        assertFalse(cmd.toString().contains("null"));
+    }
+
+    /**
+     * Test undo when no changes have occurred, as in the developer already had the role assigned.
+     * @throws PermissionException Never
+     */
+    @Test
+    public void testUndoNoChanges() throws PermissionException {
+        AssignToProjectModelCmd cmd = new AssignToProjectModelCmd(proj, dev, dev, Role.TESTER);
+        cmd.exec();
+        assertTrue(proj.getAllRolesDev(dev).contains(Role.TESTER));
+        int oldSize = proj.getAllRolesDev(dev).size();
+
+        //assign once more
+        cmd = new AssignToProjectModelCmd(proj, dev, dev, Role.TESTER);
+        cmd.exec();
+        assertTrue(proj.getAllRolesDev(dev).contains(Role.TESTER));
+        assertEquals(oldSize, proj.getAllRolesDev(dev).size());
+
+        //undo
+        cmd.undo();
+
+        //should still be there because is assigned twice so new cmd didn't do anything.
+        assertTrue(proj.getAllRolesDev(dev).contains(Role.TESTER));
+        assertEquals(oldSize, proj.getAllRolesDev(dev).size());
+    }
 }
