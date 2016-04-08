@@ -78,7 +78,7 @@ public class SelectBugReportCmd implements Cmd {
      * @param scan  The {@link TerminalScanner} used to interact with the person.
      * @param model The {@link DataModel} used for model access.
      * @param user  The {@link User} who wants to executes this command.
-     * @return The {@link BugReport} selected by the person.
+     * @return The {@link BugReport} selected by the person. Never null.
      * @throws PermissionException      When the user does not have sufficient
      *                                  permissions.
      * @throws CancelException          When the users wants to abort the current cmd
