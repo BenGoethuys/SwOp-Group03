@@ -173,4 +173,26 @@ public class UpdateProjectModelCmdTest {
         assertTrue(cmd.toString().contains("-invalid argument-, 100"));
     }
 
+    /**
+     * Test exec while projName == null
+     *
+     * @throws PermissionException Never
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_InvalidName() throws PermissionException {
+        UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(proj, admin, null, "new desc", startDate, 100);
+        cmd.exec();
+    }
+
+    /**
+     * Test exec while projDesc == null
+     *
+     * @throws PermissionException Never
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_InvalidDesc() throws PermissionException {
+        UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(proj, admin, "new name", null, startDate, 100);
+        cmd.exec();
+    }
+
 }
