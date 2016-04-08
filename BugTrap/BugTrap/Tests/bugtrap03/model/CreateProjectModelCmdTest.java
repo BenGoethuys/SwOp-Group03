@@ -1,9 +1,6 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
-import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.VersionID;
-import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -13,7 +10,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import purecollections.PList;
 
 /**
  *
