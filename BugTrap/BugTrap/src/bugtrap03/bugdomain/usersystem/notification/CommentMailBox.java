@@ -32,10 +32,10 @@ public class CommentMailBox extends Mailbox {
      * @see #isValidSubject(Subject)
      */
     private void setSubject(Subject subject) throws IllegalArgumentException{
-        if (this.isValidSubject(subject)){
-            this.subject = subject;
+        if (! this.isValidSubject(subject)){
+            throw new IllegalArgumentException("The given subject is not valid for this type of mailbox");
         }
-        throw new IllegalArgumentException("The given subject is not valid for this type of mailbox");
+        this.subject = subject;
     }
 
     /**
