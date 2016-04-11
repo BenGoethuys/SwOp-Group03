@@ -64,6 +64,8 @@ public class CmdParser {
         cmdList.add(new SimpleEntry<>("declaremilestone", new DeclareAchievedMilestoneCmd()));
         cmdList.add(new SimpleEntry<>("givescoretobugreport", new GiveScoreToBugReportCmd()));
         cmdList.add(new SimpleEntry<>("registerfornotifications", new RegisterForNotificationsCmd()));
+        cmdList.add(new SimpleEntry<>("viewnotifications", new ViewNotificationsCmd()));
+
 
         cmdMap = new HashMap<>();
         for (int i = 0; i < cmdList.size(); i++) {
@@ -94,6 +96,7 @@ public class CmdParser {
         cmdListExtra.add(new SimpleEntry<>("addpatch", new ProposePatchCmd()));
         cmdListExtra.add(new SimpleEntry<>("regfornot", new RegisterForNotificationsCmd()));
         cmdListExtra.add(new SimpleEntry<>("subscribe", new RegisterForNotificationsCmd()));
+        cmdListExtra.add(new SimpleEntry<>("viewnot", new ViewNotificationsCmd()));
 
         for (int i = 0; i < cmdListExtra.size(); i++) {
             cmdMap.put(cmdListExtra.get(i).getKey(), cmdListExtra.get(i).getValue());
