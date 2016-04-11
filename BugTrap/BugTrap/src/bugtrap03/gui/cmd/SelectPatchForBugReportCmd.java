@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
@@ -79,13 +74,13 @@ public class SelectPatchForBugReportCmd implements Cmd<String> {
         // 3. The system shows a list of possible patches.
         // 4. The developer selects a patch.  
         scan.println("Use the index in front of the patch to select a patch.");
-        GetObjectOfListCmd<String> selectedPatchCmd = new GetObjectOfListCmd<>(patches, (p -> p), ((p, input) -> p.contains(input)));
+        GetObjectOfListCmd<String> selectedPatchCmd = new GetObjectOfListCmd<>(patches, (p -> p), ((p, input) -> p.equals(input)));
         String selectedPatch = selectedPatchCmd.exec(scan, model, user);
 
         // 5. The system selects the patch for the bug report.
         // extension: 5a. The developer does not have sufficient permissions.
         // 1. The use case ends here.
-        model.selectPatch(bugReport, user, selectedPatch);
+        model.selectPatch(bugRep, user, selectedPatch);
 
         return selectedPatch;
     }
