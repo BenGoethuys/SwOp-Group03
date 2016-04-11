@@ -51,32 +51,38 @@ public class RegisterForNotificationsCmd implements Cmd {
         String subjectype = new GetObjectOfListCmd<>(PList.<String>empty().plusAll(subjectypes),
                 u -> (u.toString()), ((u, input) -> ((u.equalsIgnoreCase(input))))).exec(scan, model, null);
         subjectype = subjectype.toLowerCase();
-        scan.println("Select project.");
-        Project selectedProj = new GetProjectCmd().exec(scan, model, user);
-        ArrayList<String> subscriptionTypes = new ArrayList<String>();
-        if (subjectype.equals("project")){
-            subscriptionTypes.add("Creation : the creation of bug reports.");
-        } else if (subjectype.equals("subsystem")){
-            scan.println("Select subsystem.");
-            PList<Subsystem> allSubsystems = model.getAllSubsystems(selectedProj);
-            Subsystem selectedSub = new GetObjectOfListCmd<>(allSubsystems, (u -> u.getName()),
-                    ((u, input) -> u.getName().equalsIgnoreCase(input)))
-                    .exec(scan, model, user);
-            subscriptionTypes.add("Creation : the creation of bug reports.");
-        } else if (subjectype.equals("bugreport")){
-            scan.println("Select bug report.");
-            BugReport selectedBug = new SelectBugReportCmd().exec(scan, model, user);
 
-        } else {
-            throw new IllegalArgumentException("Something went wrong while selecting subjecttype");
-        }
+        ArrayList<String> subscriptionTypes = new ArrayList<String>();
         subscriptionTypes.add("NewTag \t = the change of tag for a bug report.");
         subscriptionTypes.add("SpecificTag \t = the change to a specific tag for a bug report.");
         subscriptionTypes.add("Comment \t = the creation of a new comment on a bug report.");
+
+        if (subjectype.equals("project") || subjectype.equals("subsystem")) {
+            subscriptionTypes.add("Creation : the creation of bug reports.");scan.println("Select project.");
+            Project selectedProj = new GetProjectCmd().exec(scan, model, user);
+            if (subjectype.equals("subsystem")) {
+                Subsystem selectedSubsystem = this.getSubsystem(scan, model, user, selectedProj);
+            }
+        }
+        else if (subjectype.equals("bugreport")){
+            scan.println("Select bug report.");
+            BugReport selectedBug = new SelectBugReportCmd().exec(scan, model, user);
+        } else {
+            throw new IllegalArgumentException("Something went wrong while selecting subject type.");
+        }
         scan.println("Select subscription type. \n(Use the first word as key for selecting)");
         String subscriptionType = new GetObjectOfListCmd<>(PList.<String>empty().plusAll(subscriptionTypes),
                 u -> (u.toString()), ((u, input) -> ((u.substring(0).equalsIgnoreCase(input))))).exec(scan, model, null);
 
         return null;
+    }
+
+    private Subsystem getSubsystem(TerminalScanner scan, DataModel model, User user, Project selectedProj) throws CancelException {
+        scan.println("Select subsystem.");
+        PList<Subsystem> allSubsystems = model.getAllSubsystems(selectedProj);
+        Subsystem selectedSub = new GetObjectOfListCmd<>(allSubsystems, (u -> u.getName()),
+                ((u, input) -> u.getName().equalsIgnoreCase(input)))
+                .exec(scan, model, user);
+        return selectedSub;
     }
 }
