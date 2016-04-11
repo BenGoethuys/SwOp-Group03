@@ -54,6 +54,7 @@ class AssignToProjectModelCmd extends ModelCmd {
      * @throws IllegalArgumentException When role == null
      * @throws IllegalArgumentException When developer == null
      * @throws IllegalArgumentException When user == null
+     * @throws IllegalArgumentException When project is terminated
      */
     @Override
     Boolean exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
@@ -61,6 +62,9 @@ class AssignToProjectModelCmd extends ModelCmd {
             throw new IllegalStateException("The AssignToProjectModelCmd was already executed.");
         }
 
+        if (project.isTerminated()) {
+            throw new IllegalArgumentException("The given project is terminated.");
+        }
         hasChanged = project.setRole(user, developer, role);
         isExecuted = true;
         return hasChanged;

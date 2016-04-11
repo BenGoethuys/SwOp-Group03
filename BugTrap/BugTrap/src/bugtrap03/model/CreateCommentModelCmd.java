@@ -71,6 +71,7 @@ class CreateCommentModelCmd extends ModelCmd {
      * @throws PermissionException If the given User doesn't have the permission to create the comment
      * @throws IllegalStateException When this ModelCmd was already executed.
      * @throws IllegalArgumentException if the given comment is not valid for this bug report
+     * @throws IllegalArgumentException If parentComment == null && is terminated
      * @throws PermissionException When the user does not have sufficient permissions.
      * @see BugReport#isValidComment(Comment)
      */
@@ -81,6 +82,10 @@ class CreateCommentModelCmd extends ModelCmd {
         }
 
         if (parentComment == null) {
+            if (bugReport.isTerminated()) {
+                throw new IllegalArgumentException("The given bugReport is terminated.");
+            }
+            
             comment = bugReport.addComment(user, text);
         } else {
             comment = parentComment.addSubComment(user, text);

@@ -54,6 +54,7 @@ class GiveScoreToBugReportModelCmd extends ModelCmd {
      * @throws IllegalStateException If the current state doesn't allow assigning a score
      * @throws IllegalStateException When this ModelCmd was already executed
      * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
+     * @throws IllegalArgumentException If bugReport is terminated
      */
     @Override
     Boolean exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
@@ -61,6 +62,10 @@ class GiveScoreToBugReportModelCmd extends ModelCmd {
             throw new IllegalStateException("The GiveBugReportScoreModelCmd was already executed.");
         }
 
+        if (bugReport.isTerminated()) {
+            throw new IllegalArgumentException("The given bugReport is terminated.");
+        }
+        
         oldMem = bugReport.getMemento();
         bugReport.giveScore(user, score);
         isExecuted = true;

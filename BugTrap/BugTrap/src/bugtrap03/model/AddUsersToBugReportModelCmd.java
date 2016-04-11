@@ -50,6 +50,7 @@ class AddUsersToBugReportModelCmd extends ModelCmd {
      * @return True
      * @throws IllegalArgumentException If the given user was null
      * @throws IllegalArgumentException If the given developer was not valid for this bug report or the list was null
+     * @throws IllegalArgumentException If the bugReport is terminated
      * @throws PermissionException If the given user doesn't have the needed permission to add users to the given bug
      * report
      *
@@ -60,6 +61,10 @@ class AddUsersToBugReportModelCmd extends ModelCmd {
         if (this.isExecuted()) {
             throw new IllegalStateException("The AddUsersToBugReportModelCmd was already executed.");
         }
+        if (bugReport.isTerminated()) {
+            throw new IllegalArgumentException("The given bugReport is terminated.");
+        }
+                
         oldMem = bugReport.getMemento();
         bugReport.addUserList(user, devList);
         isExecuted = true;

@@ -90,11 +90,16 @@ class CreateSubsystemModelCmd extends ModelCmd {
      * @throws IllegalStateException When this ModelCmd was already executed.
      * @throws PermissionException If the user doesn't have the permission to create a subsystem
      * @throws IllegalArgumentException When name or description are invalid.
+     * @throws IllegalArgumentException When abstractSystem is terminated
      */
     @Override
     Subsystem exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
         if (this.isExecuted()) {
             throw new IllegalStateException("The CreateIssuerModelCmd was already executed.");
+        }
+        
+        if (abstractSystem.isTerminated()) {
+            throw new IllegalArgumentException("The given abstractSystem is terminated.");
         }
 
         if (!user.hasPermission(UserPerm.CREATE_SUBSYS)) {

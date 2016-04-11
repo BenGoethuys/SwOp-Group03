@@ -50,6 +50,7 @@ class SetDuplicateBugReportModelCmd extends ModelCmd {
      * @return The bugReport that has been changed.
      * 
      * @throws IllegalArgumentException If the given duplicate is invalid for this bug report 
+     * @throws IllegalArgumentException If bugReport or duplicate are terminated
      * @throws PermissionException If the given user does not have the needed permission
      * @throws IllegalStateException If the current state doesn't allow for a duplicate to be set.
      * 
@@ -61,6 +62,10 @@ class SetDuplicateBugReportModelCmd extends ModelCmd {
             throw new IllegalStateException("The SetDuplicateBugReportModelCmd was already executed.");
         }
 
+        if (bugReport.isTerminated() || duplicate.isTerminated()) {
+            throw new IllegalArgumentException("The given bugReport or duplicate are terminated.");
+        }
+        
         oldMem = bugReport.getMemento();
         bugReport.setDuplicate(user, duplicate);
         isExecuted = true;

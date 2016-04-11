@@ -36,12 +36,17 @@ class RegisterForCreationNotificationsModelCmd extends RegisterForNotificationsM
      * This method executes this model command.
      * @return The created creationmailbox representing the subscription that contains the notifications
      * @throws IllegalArgumentException if on of the arguments is invalid
+     * @throws IllegalArgumentException If abstractSystemSubject is terminated
      * @throws IllegalStateException if the state of this command is invalid
-     * @see bugtrap03.bugdomain.usersystem.notification.Mailbox#creationSubscribe(AbstractSystemSubject)
+     * @see Mailbox#creationSubscribe(AbstractSystemSubject)
      * @see #setExecuted()
      */
     @Override
     CreationMailBox exec() throws IllegalArgumentException, IllegalStateException {
+        if (abstractSystemSubject.isTerminated()) {
+            throw new IllegalArgumentException("The given abstractSystemSubject is terminated.");
+        }
+        
         this.setExecuted();
         CreationMailBox cmb = this.getMailbox().creationSubscribe(this.abstractSystemSubject);
         this.setNewMailbox(cmb);

@@ -65,6 +65,7 @@ class UpdateProjectModelCmd extends ModelCmd {
      * @return The updated Project.
      * @throws IllegalStateException When this ModelCmd was already executed.
      * @throws IllegalArgumentException When any of the arguments passed is invalid.
+     * @throws IllegalArgumentException When the given project is terminated.
      * @throws PermissionException When the passed user does not have permission to update the given project.
      */
     @Override
@@ -73,6 +74,10 @@ class UpdateProjectModelCmd extends ModelCmd {
             throw new IllegalStateException("The UpdateProjectModelCmd was already executed.");
         }
 
+        if (proj.isTerminated()) {
+            throw new IllegalArgumentException("The given project is terminated.");
+        }
+        
         // check needed permission
         if (!user.hasPermission(UserPerm.UPDATE_PROJ)) {
             throw new PermissionException("You don't have the needed permission to update a project!");
