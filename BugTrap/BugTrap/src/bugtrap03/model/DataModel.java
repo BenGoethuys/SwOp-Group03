@@ -849,7 +849,9 @@ public class DataModel {
      */
     public void setDuplicate(User user, BugReport bugReport, BugReport duplicate)
             throws IllegalStateException, IllegalArgumentException, PermissionException {
-        // FIXME!!
+        SetDuplicateBugReportModelCmd cmd = new SetDuplicateBugReportModelCmd(bugReport, duplicate, user);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
