@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
  *
  * @author Group 03
  */
-public class AssignToBugReportCmd implements Cmd {
+public class AssignToBugReportCmd implements Cmd<BugReport> {
 
     /**
      * Creates a {@link Cmd} for the AssignToBugReport scenario where the bugReport to add to is already chosen.
@@ -74,19 +74,21 @@ public class AssignToBugReportCmd implements Cmd {
 
         // 1. The developer indicates he wants to assign a developer to a bug report. 
         boolean hasPerm = false;
-        BugReport bugRep;
-        do {
-            // 2. Include use case Select Bug Report if required.
-            bugRep = (bugReport != null) ? bugReport : new SelectBugReportCmd().exec(scan, model, user);
+        BugReport bugRep = bugReport;
+        if (bugRep == null) {
+            do {
+                // 2. Include use case Select Bug Report if required.
+                bugRep = new SelectBugReportCmd().exec(scan, model, user);
 
-            // 3a. The selected bug report is of a project that the logged in developer is not involved in as lead or tester.
-            // 1. The use case returns to step 2.
-            if (!bugRep.canAssignDeveloper(user)) {
-                scan.println("You don't have the required permission.");
-            } else {
-                hasPerm = true;
-            }
-        } while (!hasPerm);
+                // 3a. The selected bug report is of a project that the logged in developer is not involved in as lead or tester.
+                // 1. The use case returns to step 2.
+                if (! bugRep.canAssignDeveloper(user)) {
+                    scan.println("You don't have the required permission.");
+                } else {
+                    hasPerm = true;
+                }
+            } while (!hasPerm);
+        }
 
         // 3. Show a list of developers that are involved in the project. 
         PList<Developer> list = model.getDeveloperInProject(bugRep);

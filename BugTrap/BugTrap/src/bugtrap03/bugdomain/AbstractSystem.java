@@ -188,10 +188,11 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         this.milestone = milestone;
         boolean check = this.getParent().constraintCheck();
         this.milestone = oldM;
-        if (! check){
-            return false;
-        }
-        return true;
+        //if (! check){
+        //    return false;
+        //}
+        //return true;
+        return check; // if (check == false) return false, else true
     }
 
     /**

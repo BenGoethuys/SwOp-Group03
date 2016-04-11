@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
  *
  * @author Group 03
  */
-public class SelectBugReportCmd implements Cmd {
+public class SelectBugReportCmd implements Cmd<BugReport> {
 
     private ArrayList<AbstractMap.SimpleEntry<String, Predicate<BugReport>>> modeList = new ArrayList<>();
     private ArrayList<AbstractMap.SimpleEntry<String, Predicate<BugReport>>> modeListExtra = new ArrayList<>();
     private HashMap<String, Predicate<BugReport>> modeMap = new HashMap<>();
-    private HashMap<String, Cmd> cmdMap = new HashMap<>();
+    private HashMap<String, Cmd<BugReport>> cmdMap = new HashMap<>();
     private Object o;
 
     public SelectBugReportCmd() {

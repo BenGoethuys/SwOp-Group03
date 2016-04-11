@@ -92,7 +92,7 @@ public class CreateCommentCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
-        question.add("Please select a comment: ");
+        question.add("Please select a comment.");
         question.add("Available comments:");
         question.add("I choose (Nr): (leave blank to create comment on the bugreport)");
         answer.add("");
@@ -180,7 +180,7 @@ public class CreateCommentCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
-        question.add("Please select a comment: ");
+        question.add("Please select a comment.");
         question.add("Available comments:");
         question.add("0. " + comment1.getText());
         question.add("1. " + comment2.getText());

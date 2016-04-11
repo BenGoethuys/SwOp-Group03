@@ -18,7 +18,7 @@ import purecollections.PList;
  *
  * @author Group 03
  */
-public class AssignToProjectCmd implements Cmd {
+public class AssignToProjectCmd implements Cmd<Project> {
 
     /**
      * <p>

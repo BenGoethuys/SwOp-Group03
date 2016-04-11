@@ -19,7 +19,7 @@ import java.util.Scanner;
  *
  * @author Group 03
  */
-public class CreateProjectCmd implements Cmd {
+public class CreateProjectCmd implements Cmd<Project> {
 
     /**
      * Execute the create project scenario.

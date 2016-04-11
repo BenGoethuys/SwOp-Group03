@@ -2,7 +2,6 @@ package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
-import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
@@ -17,25 +16,25 @@ import javax.swing.JFileChooser;
  *
  * @author Group 03
  */
-public class ProposePatchCmd implements Cmd {
+public class ProposePatchCmd implements Cmd<BugReport> {
 
-    
     /**
      * Creates a {@link Cmd} for the ProposePatch scenario where the bugRep to propose to is already chosen.
+     *
      * @param bugReport The bugRep to propose to.
      */
     public ProposePatchCmd(BugReport bugReport) {
         this.bugReport = bugReport;
     }
-    
+
     /**
      * Creates a {@link Cmd} for the ProposePatch scenario which includes a scenario to select the bug report.
      */
     public ProposePatchCmd() {
     }
-    
+
     private BugReport bugReport = null;
-    
+
     /**
      * Executing the command resulting in the possible adding of a Test for a certain {@link BugReport}
      * <p>
@@ -58,7 +57,7 @@ public class ProposePatchCmd implements Cmd {
      * @throws IllegalStateException When a BugReport is chosen with a state that does not allow adding a patch.
      */
     @Override
-    public Object exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
+    public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
         // 1. The developer indicates that he wants to submit a patch for some bug report.
         // 2. Include use case Select Bug Report if required.
         BugReport bugRep = (bugReport != null) ? bugReport : (new SelectBugReportCmd()).exec(scan, model, user); //IllegalArg for scan,model,user == null
@@ -97,19 +96,9 @@ public class ProposePatchCmd implements Cmd {
             }
         } else {
             /* By manual Text input */
-            scan.println("You have chosen to insert text. (Leave blank to finish the text)");
-            scan.print("text: ");
-
-            // Take input
-            StringBuilder strBuilder = new StringBuilder();
-            String temp;
-            do {
-                temp = scan.nextLine();
-                strBuilder.append(temp).append("\n");
-            } while (!temp.equalsIgnoreCase(""));
-
-            // Save input
-            text = strBuilder.toString();
+            
+            // Take & Save input
+            text = getInput(scan);
         }
 
         // 5. The system attaches the patch to the bug report.
@@ -119,5 +108,32 @@ public class ProposePatchCmd implements Cmd {
         // 1. The use case ends here.
         model.addPatch(bugRep, user, text); //Permission, IllegalState, IllegalArg
         return bugRep;
+    }
+
+    /**
+     * Get the input from the user.
+     * <br> This will keep asking for input until an empty input was given, the result is returned.
+     *
+     * @param scan The scanner to communicate with the user.
+     * @return The total input given by the user.
+     * @throws CancelException When the user canceled the cmd.
+     */
+    private String getInput(TerminalScanner scan) throws CancelException {
+        scan.println("You have chosen to insert text. (Leave blank to finish the text)");
+        scan.print("text: ");
+
+        StringBuilder strBuilder = new StringBuilder();
+        String temp;
+        do {
+            temp = scan.nextLine();
+            strBuilder.append(temp).append("\n");
+        } while (!temp.equalsIgnoreCase(""));
+
+        //remove last enter
+        strBuilder.deleteCharAt(strBuilder.length() - 1);
+        strBuilder.deleteCharAt(strBuilder.length() - 1);
+
+        // Save input
+        return strBuilder.toString();
     }
 }
