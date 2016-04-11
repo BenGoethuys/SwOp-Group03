@@ -1,6 +1,5 @@
 package bugtrap03.model;
 
-import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.usersystem.notification.CommentMailBox;
 import bugtrap03.bugdomain.usersystem.notification.Subject;
