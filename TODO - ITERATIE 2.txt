@@ -1,4 +1,2 @@
-- updateBugreport -> print details of selected bug report
-
 - Use case delete project -> delete all bugreports of that project from BugTrap
 solution: (Deprecated/Removed State for a BugReport and when returning or a constraint is checked: check the state for removed and then remove it.)
