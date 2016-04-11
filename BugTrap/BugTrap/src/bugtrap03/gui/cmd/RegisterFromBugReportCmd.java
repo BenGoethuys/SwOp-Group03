@@ -39,11 +39,17 @@ public class RegisterFromBugReportCmd implements Cmd{
         switch (index) {
             case 1:
                 model.registerForAllTagsNotifications(user, selectedBugRep);
+                break;
             case 2:
                 EnumSet<Tag> selectedTags = new SelectTagsCmd().exec(scan, model, user);
                 model.registerForSpecificTagsNotifications(user, selectedBugRep, selectedTags);
+                break;
             case 3:
                 model.registerForCommentNotifications(user, selectedBugRep);
+                break;
+            default:
+                throw new IllegalArgumentException("Something went wrong with selecting " +
+                        "the type of notification registration");
         }
 
         return selectedBugRep;

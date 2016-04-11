@@ -55,10 +55,10 @@ public class TagMailBox extends Mailbox {
      * @see #isValidTags(EnumSet)
      */
     private void setTags(EnumSet<Tag> tags)throws IllegalArgumentException{
-        if (this.isValidTags(tags)){
-            this.tags = tags;
+        if (! this.isValidTags(tags)){
+            throw new IllegalArgumentException("The given tag list is not valid");
         }
-        throw new IllegalArgumentException("The given tag list is not valid");
+        this.tags = tags;
     }
 
     /**
