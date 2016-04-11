@@ -47,17 +47,21 @@ public class CmdParser {
         cmdList.add(new SimpleEntry<>("deleteproject", new DeleteProjectCmd()));
         cmdList.add(new SimpleEntry<>("showprojectdetails", new ShowProjectCmd()));
         cmdList.add(new SimpleEntry<>("createsubsystem", new CreateSubsystemCmd()));
+        cmdList.add(new SimpleEntry<>("undo", new UndoCmd()));
         cmdList.add(new SimpleEntry<>("createbugreport", new CreateBugReportCmd()));
+        cmdList.add(new SimpleEntry<>("shownotifications", new ShowNotificationCmd()));
+        cmdList.add(new SimpleEntry<>("registerfornotifications", new RegisterForNotificationsCmd()));
+        cmdList.add(new SimpleEntry<>("unregisterfornotifications", new UnregisterForNotificationsCmd()));
         cmdList.add(new SimpleEntry<>("selectbugreport", new SelectBugReportCmd()));
         cmdList.add(new SimpleEntry<>("inspectbugreport", new InspectBugReportCmd()));
         cmdList.add(new SimpleEntry<>("createcomment", new CreateCommentCmd()));
-        cmdList.add(new SimpleEntry<>("assigntobugreport", new AssignToBugReportCmd()));
         cmdList.add(new SimpleEntry<>("assigntoproject", new AssignToProjectCmd()));
+        cmdList.add(new SimpleEntry<>("assigntobugreport", new AssignToBugReportCmd()));
         cmdList.add(new SimpleEntry<>("updatebugreport", new UpdateBugReportCmd()));
-        cmdList.add(new SimpleEntry<>("declaremilestone", new DeclareAchievedMilestoneCmd()));
         cmdList.add(new SimpleEntry<>("proposetest", new ProposeTestCmd()));
         cmdList.add(new SimpleEntry<>("proposepatch", new ProposePatchCmd()));
-        cmdList.add(new SimpleEntry<>("undo", new UndoCmd()));
+        cmdList.add(new SimpleEntry<>("declaremilestone", new DeclareAchievedMilestoneCmd()));
+        
 
         cmdMap = new HashMap<>();
         for (int i = 0; i < cmdList.size(); i++) {
