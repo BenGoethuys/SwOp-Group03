@@ -51,6 +51,7 @@ class SelectPatchFromBugReportModelCmd extends ModelCmd {
      * @throws IllegalStateException If the current state doesn't allow the selecting of a patch
      * @throws IllegalStateException When this ModelCmd was already executed
      * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
+     * @throws IllegalArgumentException If bugReport is terminated
      */
     @Override
     Boolean exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
@@ -58,6 +59,10 @@ class SelectPatchFromBugReportModelCmd extends ModelCmd {
             throw new IllegalStateException("The SelectBugReportPatchModelCmd was already executed.");
         }
 
+        if (bugReport.isTerminated()) {
+            throw new IllegalArgumentException("The given bugReport is terminated.");
+        }
+        
         oldMem = bugReport.getMemento();
         bugReport.selectPatch(user, patch);
         isExecuted = true;

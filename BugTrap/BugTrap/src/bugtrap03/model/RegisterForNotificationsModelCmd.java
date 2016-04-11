@@ -100,6 +100,7 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      */
     @Override
     public String toString() {
+        //FIXME: Kwinten newMailbox can be null?
         return ("Created subscription: \n" + this.newMailbox.getInfo());
     }
 }

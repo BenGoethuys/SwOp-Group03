@@ -51,6 +51,7 @@ class AddTestToBugReportModelCmd extends ModelCmd {
      * @throws IllegalStateException If the current state doesn't allow to add a test
      * @throws IllegalStateException When this ModelCmd was already executed
      * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
+     * @throws IllegalArgumentException When bugReport is terminated
      *
      * @see BugReport#isValidTest(String)
      */
@@ -58,6 +59,10 @@ class AddTestToBugReportModelCmd extends ModelCmd {
     Boolean exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
         if (this.isExecuted()) {
             throw new IllegalStateException("The AddBugReportTestModelCmd was already executed.");
+        }
+        
+        if (bugReport.isTerminated()) {
+            throw new IllegalArgumentException("The given bugReport is terminated.");
         }
 
         oldMem = bugReport.getMemento();

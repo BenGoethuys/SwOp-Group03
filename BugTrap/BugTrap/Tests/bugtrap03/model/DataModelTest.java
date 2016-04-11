@@ -4,7 +4,6 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.*;
-import bugtrap03.gui.cmd.ShowProjectCmd;
 import org.junit.Test;
 import purecollections.PList;
 
@@ -353,5 +352,7 @@ public class DataModelTest {
         admin = model.createAdministrator("ABCDEF0458", "first", "last");
         assertTrue(model.undoLastChanges(admin, -5));
     }
+    
+    
   
 }

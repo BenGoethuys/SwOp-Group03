@@ -61,6 +61,7 @@ class CloneProjectModelCmd extends ModelCmd {
      *
      * @return The resulting clone.
      * @throws IllegalArgumentException Check @see.
+     * @throws IllegalArgumentException When cloneSource is terminated
      * @throws IllegalStateException When this ModelCmd was already executed.
      * @see Project#cloneProject(VersionID, Developer, GregorianCalendar, long)
      */
@@ -70,6 +71,10 @@ class CloneProjectModelCmd extends ModelCmd {
             throw new IllegalStateException("The CloneProjectModelCmd was already executed.");
         }
 
+        if (cloneSource.isTerminated()) {
+            throw new IllegalArgumentException("The given cloneSource is terminated.");
+        }
+        
         clone = cloneSource.cloneProject(versionID, lead, startDate, budgetEstimate);
         if (clone != null) {
             model.addProject(clone);

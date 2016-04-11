@@ -49,6 +49,7 @@ class SetTagForBugReportModelCmd extends ModelCmd {
      * @return True
      * @throws PermissionException If the user doesn't have the needed permission to set the given tag to the bug report
      * @throws IllegalArgumentException If the given tag isn't a valid tag to set to the bug report
+     * @throws IllegalArgumentException If the bugReport is terminated
      * @throws IllegalStateException When this ModelCmd was already executed
      */
     @Override
@@ -57,6 +58,10 @@ class SetTagForBugReportModelCmd extends ModelCmd {
             throw new IllegalStateException("The SetTagForBugReportModelCmd was already executed.");
         }
 
+        if (bugReport.isTerminated()) {
+            throw new IllegalArgumentException("The given bugReport is terminated.");
+        }
+        
         oldMem = bugReport.getMemento();
         bugReport.setTag(tag, user);
         isExecuted = true;

@@ -26,10 +26,10 @@ class DeleteProjectModelCmd extends ModelCmd {
         if (model == null) {
             throw new IllegalArgumentException("The DataModel passed to the DeleteProjectModelCmd was a null reference.");
         }
-        if(user == null) {
+        if (user == null) {
             throw new IllegalArgumentException("The user passed to the DeleteProjectModelCmd was a null reference.");
         }
-        if (project ==  null){
+        if (project == null){
             throw new IllegalArgumentException("The given project was null and thus cannot be deleted");
         }
         if (project.isTerminated()){
@@ -51,20 +51,26 @@ class DeleteProjectModelCmd extends ModelCmd {
      * Delete the given {@link Project} from the given {@link DataModel}
      *
      * @return The deleted Project
+     * @throws IllegalArgumentException When the project is terminated
      * @throws IllegalStateException When this ModelCmd was already executed.
      * @throws PermissionException When the passed user does not have permission to delete the given project.
      */
     @Override
-    Project exec() throws PermissionException, IllegalStateException {
+    Project exec() throws PermissionException, IllegalStateException, IllegalArgumentException {
         if (this.isExecuted()) {
             throw new IllegalStateException("The UpdateProjectModelCmd was already executed.");
         }
 
+        if (project.isTerminated()) {
+            throw new IllegalArgumentException("The given project is terminated.");
+        }
+        
         if (!user.hasPermission(UserPerm.DELETE_PROJ)) {
             throw new PermissionException("You dont have the needed permission to delete a project");
         }
 
         model.deleteProject(project);
+        project.setTerminated(true);
         isExecuted = true;
         return project;
     }

@@ -189,6 +189,7 @@ public class UpdateBugReportCmdTest {
                 PList.<BugReport>empty(), null, false);
         model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plus(lead));
         model.assignToProject(projectA, lead, lead, Role.TESTER);
+        model.addTest(bugRep2, lead, "test here");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();

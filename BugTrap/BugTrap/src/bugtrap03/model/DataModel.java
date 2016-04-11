@@ -713,7 +713,7 @@ public class DataModel {
     public void setTag(BugReport bugrep, Tag tag, User user) throws PermissionException, IllegalArgumentException {
         SetTagForBugReportModelCmd cmd = new SetTagForBugReportModelCmd(bugrep, tag, user);
         cmd.exec();
-        addToHistory(cmd);
+        addToHistory(cmd); 
     }
 
     /**

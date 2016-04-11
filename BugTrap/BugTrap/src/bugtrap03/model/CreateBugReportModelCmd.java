@@ -108,6 +108,7 @@ class CreateBugReportModelCmd extends ModelCmd {
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws IllegalArgumentException If subsystem is terminated
      * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
      *
      * <br><dt><b>Postconditions:</b><dd> if creationDate == null: result.getDate() == current date at the moment of
@@ -131,6 +132,10 @@ class CreateBugReportModelCmd extends ModelCmd {
     BugReport exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
         if (this.isExecuted()) {
             throw new IllegalStateException("The CreateBugReportModelCmd was already executed.");
+        }
+        
+        if (subsystem.isTerminated()) {
+            throw new IllegalArgumentException("The given subsystem is terminated.");
         }
 
         bugReport = subsystem.addBugReport(user, title, desc, creationDate, dependencies, milestone, isPrivate,

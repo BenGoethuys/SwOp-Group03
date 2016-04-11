@@ -1,7 +1,6 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.bugreport.Tag;
-import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.usersystem.notification.Subject;
 import bugtrap03.bugdomain.usersystem.notification.TagMailBox;
@@ -53,14 +52,19 @@ class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelC
 
     /**
      * This method executes this model command.
-     * @return The created commentmailbox representing the subscription that contains the notifications
+     * @return The created TagMailBox representing the subscription that contains the notifications
      * @throws IllegalArgumentException if on of the arguments is invalid
+     * @throws IllegalArgumentException If subject is terminated
      * @throws IllegalStateException if the state of this command is invalid
-     * @see bugtrap03.bugdomain.usersystem.notification.Mailbox#tagSubscribe(Subject)
+     * @see Mailbox#tagSubscribe(Subject)
      * @see #setExecuted()
      */
     @Override
     TagMailBox exec() throws IllegalArgumentException, IllegalStateException {
+        if (subject.isTerminated()) {
+            throw new IllegalArgumentException("The given subject is terminated.");
+        }
+        
         this.setExecuted();
         TagMailBox tmb;
         if (this.tags == null){
