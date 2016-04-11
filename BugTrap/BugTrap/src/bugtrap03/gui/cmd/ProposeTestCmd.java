@@ -17,29 +17,29 @@ import javax.swing.JFileChooser;
  * @author Group 03
  */
 public class ProposeTestCmd implements Cmd<BugReport> {
-    
-    
+
     /**
      * Creates a {@link Cmd} for the ProposeTest scenario where the bugRep to propose to is already chosen.
+     *
      * @param bugReport The bugRep to propose to.
      */
     public ProposeTestCmd(BugReport bugReport) {
         this.bugReport = bugReport;
     }
-    
+
     /**
      * Creates a {@link Cmd} for the ProposeTest scenario which includes a scenario to select the bug report.
      */
     public ProposeTestCmd() {
     }
-    
+
     private BugReport bugReport = null;
 
     /**
      * Executing the command resulting in the possible adding of a Test for a certain {@link BugReport}.
      * <p>
- 1. The developer indicates that he wants to submit a test for some bugRep.
- <br> 2. Include use case Select Bug Report if required.
+     * 1. The developer indicates that he wants to submit a test for some bugRep.
+     * <br> 2. Include use case Select Bug Report if required.
      * <br> 3. The system shows the form for uploading the test code.
      * <br> 4. The developer provides the details for uploading the test code.
      * <br> 5. The system attaches the test to the bug report.
@@ -50,14 +50,14 @@ public class ProposeTestCmd implements Cmd<BugReport> {
      * @param scan The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user The {@link User} who wants to executes this command.
-     * 
+     *
      * @return The BugReport where a Test was proposed to.
      * @throws PermissionException When the user does not have sufficient permissions.
      * @throws CancelException When the users wants to abort the current cmd
      * @throws IllegalArgumentException If scan, model or user is null
      * @throws IllegalStateException When a BugReport is chosen with a state that does not allow adding a test.
-     * 
-     * @see DataModel#addTest(BugReport, User, String) 
+     *
+     * @see DataModel#addTest(BugReport, User, String)
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
@@ -97,26 +97,42 @@ public class ProposeTestCmd implements Cmd<BugReport> {
                 throw new CancelException("Cancelled submitting test file.");
             }
         } else {
-            scan.println("You have chosen to insert text. (Leave blank to finish the text)");
-            scan.print("text: ");
-
-            // Take input
-            StringBuilder strBuilder = new StringBuilder();
-            String temp;
-            do {
-                temp = scan.nextLine();
-                strBuilder.append(temp).append("\n");
-            } while (!temp.equalsIgnoreCase(""));
-
-            // Save input
-            text = strBuilder.toString();
+            // Take & Save input
+            text = getInput(scan);
         }
-        
+
         // 5. The system attaches the test to the bug report.
         // Extension 3a. The developer is not assigned as a tester to the corresponding project. (= PermissionException)
         // 1. The use case ends here.
         model.addTest(bugRep, user, text); //Permission, IllegalState, IllegalArg
         return bugRep;
+    }
+
+    /**
+     * Get the input from the user. 
+     * <br> This will keep asking for input until an empty input was given, the result is returned.
+     *
+     * @param scan The scanner to communicate with the user.
+     * @return The total input given by the user.
+     * @throws CancelException When the user canceled the cmd.
+     */
+    private String getInput(TerminalScanner scan) throws CancelException {
+        scan.println("You have chosen to insert text. (Leave blank to finish the text)");
+        scan.print("text: ");
+
+        StringBuilder strBuilder = new StringBuilder();
+        String temp;
+        do {
+            temp = scan.nextLine();
+            strBuilder.append(temp).append("\n");
+        } while (!temp.equalsIgnoreCase(""));
+
+        //remove last enter
+        strBuilder.deleteCharAt(strBuilder.length() - 1);
+        strBuilder.deleteCharAt(strBuilder.length() - 1);
+
+        // Save input
+        return strBuilder.toString();
     }
 
 }
