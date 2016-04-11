@@ -90,9 +90,9 @@ public class DeclareAchievedMilestoneCmdTest {
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
                 PList.<BugReport> empty(), null, false);
 
-        comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
-        comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
-        comment3 = model.createComment(issuer, bugRep1, "Second. On a more serious note, true story.");
+        comment1 = model.createComment(issuer, bugRep1, "First comment");
+        comment2 = model.createComment(issuer, comment1, "Inner commment");
+        comment3 = model.createComment(issuer, bugRep1, "Second");
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -115,9 +115,12 @@ public class DeclareAchievedMilestoneCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("The currently achieved milestone: M0");
-        question.add("Enter a new milestone: (M1.2.3)  ");
-        answer.add("M1.2.3");
-        // TODO Complete scenario.
+        question.add("Enter a new milestone: (format a.b.c) ");
+        answer.add("1.2");
+        question.add("Invalid input. Please try again using format: a.b.c");
+        question.add("Enter a new milestone: (format a.b.c) ");
+        answer.add("1.2.3");
+        question.add("The milestone is declared.");
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
