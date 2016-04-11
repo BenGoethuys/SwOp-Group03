@@ -46,11 +46,16 @@ class AddPatchToBugReportModelCmd extends ModelCmd {
      * @throws IllegalStateException If the given patch is invalid for this bug report
      * @throws IllegalStateException When this ModelCmd was already executed
      * @throws IllegalArgumentException If the given patch is not valid for this bug report state
+     * @throws IllegalArgumentException When bugReport is terminated.
      */
     @Override
     Boolean exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
         if (this.isExecuted()) {
             throw new IllegalStateException("The AddBugReportPatchModelCmd was already executed.");
+        }
+        
+        if(bugReport.isTerminated()) {
+            throw new IllegalArgumentException("The given bugReport is terminated.");
         }
 
         oldMem = bugReport.getMemento();
