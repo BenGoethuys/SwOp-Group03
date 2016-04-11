@@ -129,8 +129,7 @@ public class Notification {
      * @return A string representation of the contents of this notification.
      */
     public String open(User user){
-        if (this.bugReport.isPrivate() && ! user.hasRolePermission(RolePerm.OPEN_PRIVATE_NOTIFICATION,
-                this.bugReport.getSubsystem().getParentProject())){
+        if (! bugReport.isVisibleTo(user)){
             return "This notification is closed for you at the moment.";
         }
         StringBuilder message = new StringBuilder(this.message);

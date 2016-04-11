@@ -48,7 +48,7 @@ public class RegisterForNotificationsCmd implements Cmd {
         String subjectype = new GetObjectOfListCmd<>(PList.<String>empty().plusAll(this.cmdMapSubjectTypes.keySet()),
                 u -> (u.toString()), ((u, input) -> ((u.equalsIgnoreCase(input))))).exec(scan, model, null);
         this.cmdMapSubjectTypes.get(subjectype.toLowerCase()).exec(scan, model, user);
-        scan.println("Registration for notifications complete");
+        scan.println("Registration for notifications complete.");
         return user.getMailbox();
     }
 }
