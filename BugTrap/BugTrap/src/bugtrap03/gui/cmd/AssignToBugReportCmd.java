@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
  *
  * @author Group 03
  */
-public class AssignToBugReportCmd implements Cmd {
+public class AssignToBugReportCmd implements Cmd<BugReport> {
 
     /**
      * Creates a {@link Cmd} for the AssignToBugReport scenario where the bugReport to add to is already chosen.

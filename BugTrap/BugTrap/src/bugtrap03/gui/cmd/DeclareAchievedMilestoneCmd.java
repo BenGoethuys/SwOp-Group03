@@ -16,7 +16,7 @@ import purecollections.PList;
  * @author Mathias
  *
  */
-public class DeclareAchievedMilestoneCmd implements Cmd {
+public class DeclareAchievedMilestoneCmd implements Cmd<Project> {
 
     /**
      * <p>

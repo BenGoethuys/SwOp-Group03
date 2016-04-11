@@ -13,7 +13,7 @@ import purecollections.PList;
  *
  * @author Admin
  */
-public class UndoCmd implements Cmd {
+public class UndoCmd implements Cmd<Boolean> {
 
     public final static int UNDO_LIST_SIZE = 10;
 

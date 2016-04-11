@@ -2,7 +2,6 @@ package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
-import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
@@ -17,7 +16,7 @@ import javax.swing.JFileChooser;
  *
  * @author Group 03
  */
-public class ProposePatchCmd implements Cmd {
+public class ProposePatchCmd implements Cmd<BugReport> {
 
     
     /**
@@ -58,7 +57,7 @@ public class ProposePatchCmd implements Cmd {
      * @throws IllegalStateException When a BugReport is chosen with a state that does not allow adding a patch.
      */
     @Override
-    public Object exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
+    public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
         // 1. The developer indicates that he wants to submit a patch for some bug report.
         // 2. Include use case Select Bug Report if required.
         BugReport bugRep = (bugReport != null) ? bugReport : (new SelectBugReportCmd()).exec(scan, model, user); //IllegalArg for scan,model,user == null

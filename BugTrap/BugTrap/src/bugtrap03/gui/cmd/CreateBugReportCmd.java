@@ -22,7 +22,7 @@ import java.util.NoSuchElementException;
  *
  * @author Group 03
  */
-public class CreateBugReportCmd implements Cmd {
+public class CreateBugReportCmd implements Cmd<BugReport> {
 
     /**
      * Execute this command and possibly return a result.

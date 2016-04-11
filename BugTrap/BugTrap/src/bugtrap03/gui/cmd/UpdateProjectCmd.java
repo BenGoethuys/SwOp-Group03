@@ -16,7 +16,7 @@ import java.util.Scanner;
  *
  * @author Group 03
  */
-public class UpdateProjectCmd implements Cmd {
+public class UpdateProjectCmd implements Cmd<Project> {
 
     /**
      * Execute the update project scenario.

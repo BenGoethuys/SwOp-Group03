@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  *
  * @author Group 03
  */
-public class SelectBugReportCmd implements Cmd {
+public class SelectBugReportCmd implements Cmd<BugReport> {
 
     private ArrayList<AbstractMap.SimpleEntry<String, Predicate<BugReport>>> modeList = new ArrayList<>();
     private ArrayList<AbstractMap.SimpleEntry<String, Predicate<BugReport>>> modeListExtra = new ArrayList<>();

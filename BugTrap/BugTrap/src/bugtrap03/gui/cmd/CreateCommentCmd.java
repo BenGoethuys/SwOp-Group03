@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author Group 03
  */
-public class CreateCommentCmd implements Cmd {
+public class CreateCommentCmd implements Cmd<Comment> {
 
     /**
      * Execute this command and possibly return a result.
@@ -55,7 +55,7 @@ public class CreateCommentCmd implements Cmd {
         // 4. The issuer indicates if he wants to comment directly on the bug report or on some other comment.
         ArrayList<Comment> list = new ArrayList<>(bugRep.getAllComments());
 
-        scan.println("Please select a comment: ");
+        scan.println("Please select a comment.");
         scan.println("Available comments:");
         for (int i = 0; i < list.size(); i++) {
             Comment comment = list.get(i);

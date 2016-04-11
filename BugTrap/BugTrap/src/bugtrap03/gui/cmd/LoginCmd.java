@@ -21,7 +21,7 @@ import java.util.Scanner;
  *
  * @author Group 03
  */
-public class LoginCmd implements Cmd {
+public class LoginCmd implements Cmd<User> {
 
     /**
      * The construct of this command
