@@ -62,6 +62,7 @@ public class CmdParser {
         cmdList.add(new SimpleEntry<>("proposepatch", new ProposePatchCmd()));
         cmdList.add(new SimpleEntry<>("selectpatch", new SelectPatchForBugReportCmd()));
         cmdList.add(new SimpleEntry<>("declaremilestone", new DeclareAchievedMilestoneCmd()));
+        cmdList.add(new SimpleEntry<>("givescoretobugreport", new GiveScoreToBugReportCmd()));
 
         cmdMap = new HashMap<>();
         for (int i = 0; i < cmdList.size(); i++) {
