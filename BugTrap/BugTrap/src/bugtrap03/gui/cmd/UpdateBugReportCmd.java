@@ -39,7 +39,7 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
     public BugReport exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException, IllegalArgumentException {
         if (scan == null || model == null || user == null) {
-            throw new IllegalArgumentException("scan, model and user musn't be null.");
+            throw new IllegalArgumentException("scan, model and user cannot be null.");
         }
         // 1. The developer indicates he wants to update a bug report.
         // 2. Include use case Select Bug Report.
@@ -70,6 +70,9 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
                 break;
             case NOT_A_BUG :
                 this.setNotABug(user, bugrep, model);
+                break;
+            default :
+                throw new IllegalArgumentException("The given Tag cannot be set");
         }
         scan.println("The tag " + tagToSet.toString() + " has been set.");
         return bugrep;
