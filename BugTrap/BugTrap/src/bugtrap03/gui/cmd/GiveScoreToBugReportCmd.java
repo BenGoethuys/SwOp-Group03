@@ -1,4 +1,4 @@
-package bugtrap03.gui.cmd.general.bugReport;
+package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
