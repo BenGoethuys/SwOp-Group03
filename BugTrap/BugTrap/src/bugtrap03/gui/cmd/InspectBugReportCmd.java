@@ -12,7 +12,7 @@ import bugtrap03.model.DataModel;
  *
  * @author Group 03
  */
-public class InspectBugReportCmd implements Cmd {
+public class InspectBugReportCmd implements Cmd<BugReport> {
 
     /**
      * Execute this command and possibly return a result.

@@ -15,7 +15,7 @@ import purecollections.PList;
  *
  * @author Group 03
  */
-public class CreateSubsystemCmd implements Cmd {
+public class CreateSubsystemCmd implements Cmd<Subsystem> {
 
     /**
      * Execute this command and possibly return a result.

@@ -6,20 +6,16 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
-import bugtrap03.misc.Tree;
 import bugtrap03.model.DataModel;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * This command represents the use case for creating a comment in the system
  *
  * @author Group 03
  */
-public class CreateCommentCmd implements Cmd {
+public class CreateCommentCmd implements Cmd<Comment> {
 
     /**
      * Execute this command and possibly return a result.
@@ -59,7 +55,7 @@ public class CreateCommentCmd implements Cmd {
         // 4. The issuer indicates if he wants to comment directly on the bug report or on some other comment.
         ArrayList<Comment> list = new ArrayList<>(bugRep.getAllComments());
 
-        scan.println("Please select a comment: ");
+        scan.println("Please select a comment.");
         scan.println("Available comments:");
         for (int i = 0; i < list.size(); i++) {
             Comment comment = list.get(i);

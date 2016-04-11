@@ -8,10 +8,11 @@ import bugtrap03.model.DataModel;
 
 /**
  * This interface should be implemented by all executable commands in the system
- *
+ * 
  * @author Group 03
+ * @param <U> The return type to expect of this cmd.
  */
-public interface Cmd {
+public interface Cmd<U> {
 
     /**
      * Execute this command and possibly return a result.
@@ -27,6 +28,6 @@ public interface Cmd {
      * @throws IllegalArgumentException When any of the arguments is null and
      *                                  shouldn't be or when in the scenario a chosen option conflicted.
      */
-    Object exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException;
+    U exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException;
 
 }

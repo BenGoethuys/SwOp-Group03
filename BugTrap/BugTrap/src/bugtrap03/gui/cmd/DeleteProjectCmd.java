@@ -15,7 +15,7 @@ import java.util.Scanner;
  *
  * @author group 03
  */
-public class DeleteProjectCmd implements Cmd {
+public class DeleteProjectCmd implements Cmd<Project> {
 
     /**
      * Execute the update project scenario.

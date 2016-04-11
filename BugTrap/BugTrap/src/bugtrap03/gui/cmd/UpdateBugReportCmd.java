@@ -15,7 +15,7 @@ import purecollections.PList;
  *
  * @author Group 03
  */
-public class UpdateBugReportCmd implements Cmd {
+public class UpdateBugReportCmd implements Cmd<BugReport> {
 
     /**
      * <p>
