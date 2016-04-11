@@ -22,11 +22,19 @@ class CloneProjectModelCmd extends ModelCmd {
      * @param budgetEstimate The budgetEstimate for the clone project.
      *
      * @throws IllegalArgumentException When model == null
+     * @throws IllegalArgumentException When the given cloneSource is null or terminated
      */
     CloneProjectModelCmd(DataModel model, Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate,
             long budgetEstimate) throws IllegalArgumentException {
         if (model == null) {
             throw new IllegalArgumentException("The model passed to CloneProjectModelCmd was a null reference.");
+        }
+
+        if (cloneSource == null){
+            throw new IllegalArgumentException("The given cloneSource is null");
+        }
+        if (cloneSource.isTerminated()){
+            throw new IllegalArgumentException("The given cloneSource is terminated");
         }
 
         this.model = model;
@@ -51,7 +59,7 @@ class CloneProjectModelCmd extends ModelCmd {
     /**
      * Clone the given {@link Project} and set a few attributes.
      *
-     * @return The resulting clone. Null if the source Clone is null.
+     * @return The resulting clone.
      * @throws IllegalArgumentException Check @see.
      * @throws IllegalStateException When this ModelCmd was already executed.
      * @see Project#cloneProject(VersionID, Developer, GregorianCalendar, long)
@@ -60,11 +68,6 @@ class CloneProjectModelCmd extends ModelCmd {
     Project exec() throws IllegalArgumentException, IllegalStateException {
         if (this.isExecuted()) {
             throw new IllegalStateException("The CloneProjectModelCmd was already executed.");
-        }
-
-        if (cloneSource == null) {
-            isExecuted = true;
-            return null;
         }
 
         clone = cloneSource.cloneProject(versionID, lead, startDate, budgetEstimate);
@@ -80,10 +83,7 @@ class CloneProjectModelCmd extends ModelCmd {
         if (!this.isExecuted()) {
             return false;
         }
-
-        if(cloneSource != null) {
-            model.deleteProject(clone);
-        }
+        model.deleteProject(clone);
         return true;
     }
 
@@ -94,8 +94,7 @@ class CloneProjectModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        String sourceName = (this.cloneSource != null) ? this.cloneSource.getName() : "-invalid argument-";
-        return "Cloned Project " + sourceName;
+        return "Cloned Project " + this.cloneSource.getName();
     }
 
 }

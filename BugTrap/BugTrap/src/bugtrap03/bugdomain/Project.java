@@ -47,6 +47,8 @@ public class Project extends AbstractSystem {
         this.setLead(lead);
         this.setStartDate(startDate);
         this.setBudgetEstimate(budgetEstimate);
+
+        this.isTerminated = false;
     }
 
     /**
@@ -93,6 +95,8 @@ public class Project extends AbstractSystem {
         this.setLead(lead);
         this.setStartDate(startDate);
         this.setBudgetEstimate(budgetEstimate);
+
+        this.isTerminated = false;
     }
 
     /**
@@ -116,12 +120,16 @@ public class Project extends AbstractSystem {
         this.setLead(lead);
         this.setStartDate(new GregorianCalendar());
         this.setBudgetEstimate(budgetEstimate);
+
+        this.isTerminated = false;
     }
 
     private GregorianCalendar creationDate;
     private GregorianCalendar startDate;
     private HashMap<Developer, PList<Role>> projectParticipants;
     private long budgetEstimate;
+
+    private boolean isTerminated;
 
     /**
      * This method checks if the given parent is a valid parent for this project
@@ -555,5 +563,25 @@ public class Project extends AbstractSystem {
     @Override
     public void notifyCreationSubs(BugReport br) {
         this.updateCreationSubs(br);
+    }
+
+    /**
+     * This method sets the isTerminated boolean of this object
+     *
+     * @param terminated    the new value
+     */
+    public void setTerminated(boolean terminated){
+        this.isTerminated = terminated;
+    }
+
+    /**
+     * This method check whether or not the current Project is terminated
+     *
+     * @return true if the object is terminated
+     */
+    @Override
+    @DomainAPI
+    public boolean isTerminated(){
+        return this.isTerminated;
     }
 }

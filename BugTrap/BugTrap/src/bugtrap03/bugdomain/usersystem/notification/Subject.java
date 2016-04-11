@@ -64,4 +64,11 @@ public abstract class Subject {
      * @param br The bugreport of which an attribute has changed.
      */
     public abstract void notifyCommentSubs(BugReport br);
+
+    /**
+     * This method returns whether or not this subject is terminated
+     *
+     * @return true if this subject is terminated
+     */
+    public abstract boolean isTerminated();
 }

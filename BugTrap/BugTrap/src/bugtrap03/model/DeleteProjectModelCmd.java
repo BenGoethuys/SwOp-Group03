@@ -20,6 +20,7 @@ class DeleteProjectModelCmd extends ModelCmd {
      * 
      * @throws IllegalArgumentException When model == null
      * @throws IllegalArgumentException When user == null
+     * @throws IllegalArgumentException When the given project is null or terminated
      */
     DeleteProjectModelCmd(DataModel model, User user, Project project) {
         if (model == null) {
@@ -27,6 +28,12 @@ class DeleteProjectModelCmd extends ModelCmd {
         }
         if(user == null) {
             throw new IllegalArgumentException("The user passed to the DeleteProjectModelCmd was a null reference.");
+        }
+        if (project ==  null){
+            throw new IllegalArgumentException("The given project was null and thus cannot be deleted");
+        }
+        if (project.isTerminated()){
+            throw new IllegalArgumentException("The given project is terminated");
         }
 
         this.model = model;
@@ -67,7 +74,8 @@ class DeleteProjectModelCmd extends ModelCmd {
         if (!this.isExecuted()) {
             return false;
         }
-        
+
+        project.setTerminated(false);
         model.addProject(project);
         return true;
     }

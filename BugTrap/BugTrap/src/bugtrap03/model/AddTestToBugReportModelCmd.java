@@ -19,10 +19,14 @@ class AddTestToBugReportModelCmd extends ModelCmd {
      * @param test The test that the user wants to add
      *
      * @throws IllegalArgumentException When bugReport == null
+     * @throws IllegalArgumentException When the bugReport is terminated
      */
     AddTestToBugReportModelCmd(BugReport bugReport, User user, String test) throws IllegalArgumentException {
         if (bugReport == null) {
             throw new IllegalArgumentException("The bugReport passed to AddBugReportTestModelCmd was a null reference.");
+        }
+        if (bugReport.isTerminated()){
+            throw new IllegalArgumentException("The given bug report is terminated !");
         }
 
         this.bugReport = bugReport;

@@ -20,10 +20,14 @@ class SetTagForBugReportModelCmd extends ModelCmd {
      * @param user      The user that wishes to set the tag
      *
      * @throws IllegalArgumentException When bugReport == null
+     * @throws IllegalArgumentException When the given bug report is terminated
      */
     SetTagForBugReportModelCmd(BugReport bugReport, Tag tag, User user) throws IllegalArgumentException {
         if (bugReport == null) {
             throw new IllegalArgumentException("The bugReport passed to SetTagForReportModelCmd was a null reference.");
+        }
+        if (bugReport.isTerminated()){
+            throw new IllegalArgumentException("The given bug report is terminated");
         }
 
         this.bugReport = bugReport;

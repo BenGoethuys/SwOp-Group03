@@ -17,17 +17,21 @@ class AddUsersToBugReportModelCmd extends ModelCmd {
      * Create a {@link ModelCmd} that can add users to a BugReport when executed
      *
      * @param user The user that wants to add all the given developers to the bug report
-     * @param bugRep The bug report to add all the developers to
+     * @param bugReport The bug report to add all the developers to
      * @param devList The developers to add to the bug report
      *
-     * @throws IllegalArgumentException When bugRep == null
+     * @throws IllegalArgumentException When bugReport == null
+     * @throws IllegalArgumentException If the given bugReport is terminated
      */
-    AddUsersToBugReportModelCmd(User user, BugReport bugRep, PList<Developer> devList) throws IllegalArgumentException {
-        if (bugRep == null) {
+    AddUsersToBugReportModelCmd(User user, BugReport bugReport, PList<Developer> devList) throws IllegalArgumentException {
+        if (bugReport == null) {
             throw new IllegalArgumentException("The bugReport passed to AddUsersToReportModelCmd was a null reference.");
         }
+        if (bugReport.isTerminated()){
+            throw new IllegalArgumentException("The given bug report is terminated !");
+        }
 
-        this.bugReport = bugRep;
+        this.bugReport = bugReport;
         this.devList = devList;
         this.user = user;
     }

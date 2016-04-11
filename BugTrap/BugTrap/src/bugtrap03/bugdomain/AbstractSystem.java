@@ -32,6 +32,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if isValidVersionID(version) fails
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     *
      * @see AbstractSystem#isValidVersionId(VersionID)
      * @see AbstractSystem#isValidName(String)
      * @see AbstractSystem#isValidDescription(String)
@@ -249,6 +250,9 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     @DomainAPI
     public boolean isValidParent(AbstractSystem parent){
         if (parent == null){
+            return false;
+        }
+        if (parent.isTerminated()) {
             return false;
         }
         return true;
@@ -501,6 +505,16 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     public void notifyCreationSubs(BugReport br) {
         this.getParent().notifyCreationSubs(br);
         this.updateCreationSubs(br);
+    }
+
+    /**
+     * This method check whether or not the current AbstractSystem is terminated
+     *
+     * @return true if the object is terminated
+     */
+    @DomainAPI
+    public boolean isTerminated(){
+        return this.getParent().isTerminated();
     }
 
     //TODO ADD COMMENTARY

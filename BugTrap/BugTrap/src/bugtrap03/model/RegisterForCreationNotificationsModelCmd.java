@@ -13,9 +13,20 @@ class RegisterForCreationNotificationsModelCmd extends RegisterForNotificationsM
      * Create a {@link ModelCmd} that subscribes to the given subject for the creation of bugreports when executed
      * @param user the user that wishes to subscribe
      * @param abstractSystemSubject the abstract system subject on which the user wishes to subscribe
+     *
+     * @throws IllegalArgumentException When the given abstractSystemSubject is null
+     * @throws IllegalArgumentException When the given abstractSystemSubject is Terminated
      */
     RegisterForCreationNotificationsModelCmd(User user, AbstractSystemSubject abstractSystemSubject){
         super(user);
+
+        if (abstractSystemSubject == null) {
+            throw new IllegalArgumentException("The given abstractSystemSubject is null");
+        }
+        if (abstractSystemSubject.isTerminated()){
+            throw new IllegalArgumentException("The given abstractSystemSubject is terminated");
+        }
+
         this.abstractSystemSubject = abstractSystemSubject;
     }
 

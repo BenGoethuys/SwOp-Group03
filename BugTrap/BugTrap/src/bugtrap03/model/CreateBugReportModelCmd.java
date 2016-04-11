@@ -31,6 +31,7 @@ class CreateBugReportModelCmd extends ModelCmd {
      * @param error The error got when the bug was triggered. Can be NULL.
      *
      * @throws IllegalArgumentException When subsystem == null
+     * @throws IllegalArgumentException When the given subsystem is terminated
      */
     CreateBugReportModelCmd(Subsystem subsystem, User user, String title, String description,
             GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
@@ -38,6 +39,9 @@ class CreateBugReportModelCmd extends ModelCmd {
             throws IllegalArgumentException {
         if (subsystem == null) {
             throw new IllegalArgumentException("The subsystem passed to CreateBugReportModelCmd was null.");
+        }
+        if (subsystem.isTerminated()){
+            throw new IllegalArgumentException("The given subsystem is terminated");
         }
 
         this.subsystem = subsystem;
@@ -70,23 +74,8 @@ class CreateBugReportModelCmd extends ModelCmd {
      */
     CreateBugReportModelCmd(Subsystem subsystem, User user, String title, String description,
             GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
-            boolean isPrivate)
-            throws IllegalArgumentException {
-        if (subsystem == null) {
-            throw new IllegalArgumentException("The subsystem passed to CreateBugReportModelCmd was null.");
-        }
-
-        this.subsystem = subsystem;
-        this.user = user;
-        this.title = title;
-        this.desc = description;
-        this.creationDate = creationDate;
-        this.dependencies = dependencies;
-        this.milestone = milestone;
-        this.isPrivate = isPrivate;
-        this.trigger = null;
-        this.stacktrace = null;
-        this.error = null;
+            boolean isPrivate) throws IllegalArgumentException {
+        this(subsystem, user, title, description, creationDate, dependencies, milestone, isPrivate, null, null, null);
     }
 
     private final Subsystem subsystem;

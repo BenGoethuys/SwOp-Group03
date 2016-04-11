@@ -13,6 +13,7 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      * @param user
      */
     RegisterForNotificationsModelCmd(User user){
+        // FIXME: null check
         this.subscriber = user;
         this.isExecuted = false;
     }

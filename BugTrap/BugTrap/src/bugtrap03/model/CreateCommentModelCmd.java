@@ -38,10 +38,14 @@ class CreateCommentModelCmd extends ModelCmd {
      * @param text The text of the new comment
      *
      * @throws IllegalArgumentException When bugReport == null
+     * @throws IllegalArgumentException When the given bug report is terminated
      */
     CreateCommentModelCmd(User user, BugReport bugReport, String text) throws IllegalArgumentException {
         if (bugReport == null) {
             throw new IllegalArgumentException("The BugReport passed to CreateCommentModelCmd was a null reference.");
+        }
+        if (bugReport.isTerminated()){
+            throw new IllegalArgumentException("The given bug report is terminated");
         }
 
         this.user = user;
