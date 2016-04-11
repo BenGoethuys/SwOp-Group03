@@ -1,11 +1,13 @@
 package bugtrap03.model;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.permission.PermissionException;
 
 /**
  *
  * @author Group 03
  */
+@DomainAPI
 public abstract class ModelCmd {
 
     /**
@@ -33,6 +35,7 @@ public abstract class ModelCmd {
     abstract boolean isExecuted();
     
     
+    @DomainAPI
     @Override
     public abstract String toString();
 }
