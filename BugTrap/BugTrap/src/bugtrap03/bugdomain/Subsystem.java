@@ -242,11 +242,11 @@ public class Subsystem extends AbstractSystem {
     @DomainAPI
     @Override
     public String getDetails() {
-        String details = "\n\n\tSubsystem name:\t\t \t";
+        String details = "\n\n\tSubsystem name:\t\t\t";
         details += this.getName();
         details += "\n\tSubsystem version:\t\t";
         details += this.getVersionID().toString();
-        details += "\nAchieved milestone:\t\t";
+        details += "\n\tAchieved milestone:\t\t";
         details += this.getMilestone().toString();
         details += "\n\tSubsystem description: \t";
         details += this.getDescription();
