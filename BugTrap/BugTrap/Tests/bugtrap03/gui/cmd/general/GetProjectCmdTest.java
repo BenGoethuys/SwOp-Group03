@@ -23,10 +23,9 @@ public class GetProjectCmdTest {
      * Test execution of getProjectCmd exec using the index.
      *
      * @throws IllegalArgumentException Never
-     * @throws PermissionException      Never
-     * @throws CancelException          Never
-     * @see GetProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner,
-     * DataModel, bugtrap03.bugdomain.usersystem.User)
+     * @throws PermissionException Never
+     * @throws CancelException Never
+     * @see GetProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)
      */
     @Test
     public void testExecByIndex() throws IllegalArgumentException, PermissionException, CancelException {
@@ -72,10 +71,9 @@ public class GetProjectCmdTest {
      * Test execution of getProjectCmd exec using the project name.
      *
      * @throws IllegalArgumentException Never
-     * @throws PermissionException      Never
-     * @throws CancelException          Never
-     * @see GetProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner,
-     * DataModel, bugtrap03.bugdomain.usersystem.User)
+     * @throws PermissionException Never
+     * @throws CancelException Never
+     * @see GetProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)
      */
     @Test
     public void testExecName() throws IllegalArgumentException, PermissionException, CancelException {
@@ -114,14 +112,66 @@ public class GetProjectCmdTest {
         assertEquals(chosenProj, proj1);
     }
 
+    /**
+     * Test the constructor using an option list.
+     *
+     * @throws PermissionException Never
+     */
     @Test
-    public void testGetProjectCmd() throws IllegalArgumentException, PermissionException {
+    public void testGetProjectCmd() throws PermissionException {
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead2", "Luky", "Luke");
         User admin = model.createAdministrator("adminB2", "adminT", "bie");
         Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
         PList<Project> projectOptionList = PList.<Project>empty().plus(proj0);
+
         GetProjectCmd cmd = new GetProjectCmd(projectOptionList);
+    }
+
+    /**
+     * Test exec() while scan == null
+     *
+     * @throws PermissionException Never
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ScanNull() throws PermissionException, CancelException {
+        DataModel model = new DataModel();
+        Developer lead = model.createDeveloper("meGoodLead0000", "Luky", "Luke");
+        User admin = model.createAdministrator("adminB0000", "adminT", "bie");
+        Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+
+        PList<Project> projectOptionList = PList.<Project>empty().plus(proj0);
+
+        GetProjectCmd cmd = new GetProjectCmd(projectOptionList);
+        cmd.exec(null, model, admin);
+    }
+
+    /**
+     * Test exec() while model == null
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ModelNull() throws PermissionException, CancelException {
+        DataModel model = new DataModel();
+        Developer lead = model.createDeveloper("meGoodLead000", "Luky", "Luke");
+        User admin = model.createAdministrator("adminB000", "adminT", "bie");
+        Project proj0 = model.createProject("ProjectTest000", "Project for testing 0", lead, 500, admin);
+        Project proj1 = model.createProject("ProjectTest100", "Project for testing 1", lead, 1000, admin);
+
+        PList<Project> projectOptionList = PList.<Project>empty().plus(proj0);
+
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+
+        // Setup scenario
+        question.add("Available options:");
+        answer.add("5");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+
+        GetProjectCmd cmd = new GetProjectCmd(projectOptionList);
+
+        cmd.exec(scan, null, null);
     }
 
 }

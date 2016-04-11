@@ -24,11 +24,14 @@ class CreateProjectModelCmd extends ModelCmd {
      * @param budget The budget estimate for this project
      * @param creator The creator of this project.
      *
-     * @throws IllegalArgumentException When model is a null reference.
+     * @throws IllegalArgumentException When model or creator is a null reference.
      */
-    CreateProjectModelCmd(DataModel model, String name, String desc, GregorianCalendar startDate, Developer lead, long budget, User creator) throws IllegalArgumentException, PermissionException {
+    CreateProjectModelCmd(DataModel model, String name, String desc, GregorianCalendar startDate, Developer lead, long budget, User creator) throws IllegalArgumentException {
         if (model == null) {
             throw new IllegalArgumentException("The DataModel passed to the CreateProjectModelCmd was a null reference.");
+        }
+        if (creator == null) {
+            throw new IllegalArgumentException("The creator passed to the CreateProjectModelCmd was a null reference.");
         }
 
         this.model = model;
@@ -52,13 +55,14 @@ class CreateProjectModelCmd extends ModelCmd {
      *
      * @return The created project
      * @throws IllegalArgumentException if the constructor of project fails
+     * @throws IllegalArgumentException if model or creator is null
      * @throws PermissionException If the given creator has insufficient permissions
      */
     CreateProjectModelCmd(DataModel model, String name, String desc, Developer lead, long budget, User creator) {
         if (model == null) {
             throw new IllegalArgumentException("The DataModel passed to the CreateProjectModelCmd was a null reference.");
         }
-        if(creator == null) {
+        if (creator == null) {
             throw new IllegalArgumentException("The creator passed to the CreateProjectModelCmd was a null reference.");
         }
 
@@ -100,7 +104,7 @@ class CreateProjectModelCmd extends ModelCmd {
         if (this.isExecuted()) {
             throw new IllegalStateException("The CreateIssuerModelCmd was already executed.");
         }
-        
+
         if (!creator.hasPermission(UserPerm.CREATE_PROJ)) {
             throw new PermissionException("The given user doesn't have the permission to create a project");
         }
@@ -132,8 +136,7 @@ class CreateProjectModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        String projName = (this.project != null) ? this.project.getName() : "-invalid argument-";
-        return "Created Project " + projName;
+        return "Created Project " + name;
     }
 
 }

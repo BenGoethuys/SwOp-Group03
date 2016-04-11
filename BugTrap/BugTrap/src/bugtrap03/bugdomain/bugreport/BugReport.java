@@ -546,10 +546,10 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @throws IllegalArgumentException If one of the given users is invalid for this bug report
      *
      * @see BugReport#isValidUser(Developer)
+     * @see BugReport#canAssignDeveloper(User)
      */
     public void addUserList(User user, PList<Developer> userList) throws PermissionException, IllegalArgumentException {
-        if (user == null
-                || !user.hasRolePermission(RolePerm.ASSIGN_DEV_BUG_REPORT, this.getSubsystem().getParentProject())) {
+        if (! canAssignDeveloper(user)) {
             throw new PermissionException(
                     "The given user has insufficient permissions to assign the developer to this bug report");
         }
@@ -577,10 +577,11 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      *
      * @throws IllegalArgumentException If the given user was null
      * @throws PermissionException If the given users doesn't have the needed permissions
+     * 
+     * @see BugReport#canAssignDeveloper(User)
      */
     public void addUser(User user, Developer dev) throws IllegalArgumentException, PermissionException {
-        if (user == null
-                || !user.hasRolePermission(RolePerm.ASSIGN_DEV_BUG_REPORT, this.getSubsystem().getParentProject())) {
+        if (!canAssignDeveloper(user)) {
             throw new PermissionException(
                     "The given user has insufficient permissions to assign the developer to this bug report");
         }
@@ -616,6 +617,19 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             return false;
         }
         return true;
+    }
+    
+    /**
+     * Whether the given user can assign a developer to this bug report.
+     * @param user The user to check for.
+     * @return True if the user can assign a developer to the bug report.
+     */
+    @DomainAPI
+    public boolean canAssignDeveloper(User user) {
+        if(user == null) {
+            return false;
+        }
+        return user.hasRolePermission(RolePerm.ASSIGN_DEV_BUG_REPORT, this.getSubsystem().getParentProject());
     }
 
     /**

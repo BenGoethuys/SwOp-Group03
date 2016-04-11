@@ -30,7 +30,7 @@ public class Project extends AbstractSystem {
      * @param description The description of this project.
      * @param creationDate The creation date of this project.
      * @param lead The lead developer of this project
-     * @param startDate The start date of this project.
+     * @param startDate The start date of this project. This will be cloned.
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
@@ -57,7 +57,7 @@ public class Project extends AbstractSystem {
      * @param name The name of this project.
      * @param description The description of this project.
      * @param lead The lead developer of this project
-     * @param startDate The start date of this project.
+     * @param startDate The start date of this project. This will be cloned.
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
@@ -77,7 +77,7 @@ public class Project extends AbstractSystem {
      * @param name The name of this project.
      * @param description The description of this project.
      * @param lead The lead developer of this project
-     * @param startDate The start date of this project.
+     * @param startDate The start date of this project. This will be cloned.
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see AbstractSystem#AbstractSystem(AbstractSystem, String, String)
@@ -184,26 +184,26 @@ public class Project extends AbstractSystem {
     /**
      * This is a getter for the startdate variable.
      *
-     * @return The start date of the project.
+     * @return A clone of the start date of the project.
      */
     @DomainAPI
     public GregorianCalendar getStartDate() {
-        return startDate;
+        return (GregorianCalendar) startDate.clone();
     }
 
     /**
      * Sets the start date of the project to the given date.
+     * A clone of this startDate will be stored.
      *
      * @param startDate The start date of the project.
      * @throws IllegalArgumentException if the given date is invalid
      * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
      */
     public void setStartDate(GregorianCalendar startDate) throws IllegalArgumentException {
-        //TODO: Clone startDate instead of using the reference.
         if (!isValidStartDate(this.creationDate, startDate)) {
             throw new IllegalArgumentException("Invalid startDate/creationDate.");
         }
-        this.startDate = startDate;
+        this.startDate = (GregorianCalendar) startDate.clone();
     }
 
     /**

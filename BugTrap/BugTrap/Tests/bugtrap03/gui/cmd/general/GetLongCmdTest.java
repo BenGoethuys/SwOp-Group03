@@ -1,23 +1,26 @@
 package bugtrap03.gui.cmd.general;
 
+import java.util.ArrayDeque;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
-import java.util.ArrayDeque;
-
-import static org.junit.Assert.assertEquals;
-
 /**
+ *
  * @author Group 03
  */
-public class GetIntCmdTest {
+public class GetLongCmdTest {
 
+    /**
+     * Test exec
+     * @throws CancelException never
+     */
     @Test
     public void testExec() throws CancelException {
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        GetIntCmd cmd = new GetIntCmd();
+        GetLongCmd cmd = new GetLongCmd();
 
         // Setup scenario
         question.add("Give number: ");
@@ -30,17 +33,21 @@ public class GetIntCmdTest {
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
-        int chosen = cmd.exec(scan, null, null);
+        long chosen = cmd.exec(scan, null, null);
 
         // Test effects.
         assertEquals(chosen, -5);
     }
 
+    /**
+     * Test exec() while typing abort.
+     * @throws CancelException 
+     */
     @Test(expected = CancelException.class)
     public void testAbortExec() throws CancelException {
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        GetIntCmd cmd = new GetIntCmd();
+        GetLongCmd cmd = new GetLongCmd();
 
         // Setup scenario
         question.add("Give number: ");
@@ -51,7 +58,7 @@ public class GetIntCmdTest {
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
-        int chosen = cmd.exec(scan, null, null);
+        cmd.exec(scan, null, null);
     }
 
     /**
@@ -61,7 +68,7 @@ public class GetIntCmdTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testExec_ScanNull() throws CancelException {
-        GetIntCmd cmd = new GetIntCmd();
+        GetLongCmd cmd = new GetLongCmd();
 
         // Execute scenario
         cmd.exec(null, null, null);

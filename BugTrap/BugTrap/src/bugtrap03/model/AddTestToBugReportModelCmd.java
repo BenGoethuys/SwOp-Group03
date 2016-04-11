@@ -84,8 +84,7 @@ class AddTestToBugReportModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        String title = (bugReport != null) ? bugReport.getTitle() : "-invalid argument-";
-        return "Added a test for BugReport " + title;
+        return "Added a test for BugReport " + bugReport.getTitle();
     }
 
 }

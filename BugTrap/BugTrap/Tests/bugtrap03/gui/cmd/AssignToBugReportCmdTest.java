@@ -106,9 +106,9 @@ public class AssignToBugReportCmdTest {
         BugReport chosen = cmd.exec(scan, model, lead);
 
         // Test effects.
-        assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(dev2));
-        assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(lead));
-        assertEquals(model.getDevelopersOfBugReport(bugRep1).size(), 2);
+        assertTrue(bugRep1.getUserList().contains(dev2));
+        assertTrue(bugRep1.getUserList().contains(lead));
+        assertEquals(bugRep1.getUserList().size(), 2);
     }
 
     /**
@@ -249,9 +249,9 @@ public class AssignToBugReportCmdTest {
         BugReport chosen = cmd.exec(scan, model, lead);
 
         // Test effects.
-        assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(dev2));
-        assertTrue(model.getDevelopersOfBugReport(bugRep1).contains(lead));
-        assertEquals(model.getDevelopersOfBugReport(bugRep1).size(), 2);
+        assertTrue(bugRep1.getUserList().contains(dev2));
+        assertTrue(bugRep1.getUserList().contains(lead));
+        assertEquals(bugRep1.getUserList().size(), 2);
     }
 
     @Test(expected = IllegalArgumentException.class)

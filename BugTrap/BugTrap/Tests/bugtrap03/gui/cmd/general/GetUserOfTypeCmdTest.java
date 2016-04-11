@@ -136,4 +136,57 @@ public class GetUserOfTypeCmdTest {
         assertEquals(null, chosen);
     }
 
+    /**
+     * Test exec() while scan == null
+     * @throws CancelException Never
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ScanNull() throws CancelException {
+        // Setup variables.
+        DataModel model = new DataModel();
+        User admin = model.createAdministrator("admin000", "adminT", "bie");
+
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd<>(Issuer.class);
+
+        // Setup scenario
+        question.add("No options found.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+
+        // Execute scenario
+        Issuer chosen = cmd.exec(null, model, admin);
+
+        // Test effects.
+        assertEquals(null, chosen);
+    }
+
+    /**
+     * Test exec() while model == null
+     * 
+     * @throws CancelException Never
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ModelNull() throws CancelException {
+        // Setup variables.
+        DataModel model = new DataModel();
+        User admin = model.createAdministrator("admin0000", "adminT", "bie");
+
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        GetUserOfTypeCmd<Issuer> cmd = new GetUserOfTypeCmd<>(Issuer.class);
+
+        // Setup scenario
+        question.add("No options found.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+
+        // Execute scenario
+        Issuer chosen = cmd.exec(scan, null, admin);
+
+        // Test effects.
+        assertEquals(null, chosen);
+    }
+
 }

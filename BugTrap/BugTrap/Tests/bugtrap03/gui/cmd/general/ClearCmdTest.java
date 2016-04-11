@@ -20,4 +20,13 @@ public class ClearCmdTest {
         assertEquals(result, null);
     }
 
+    /**
+     * Test exec() while scan == null
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ScanNull() {
+        ClearCmd cmd = new ClearCmd();
+        cmd.exec(null, null, null);
+    }
+
 }
