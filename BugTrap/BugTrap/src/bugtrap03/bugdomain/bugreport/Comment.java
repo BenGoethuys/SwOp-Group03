@@ -298,7 +298,7 @@ public class Comment {
         int count = 1;
         while (childIt.hasNext()) {
             Tree<Comment> subNode = childIt.next();
-            Comment comment = node.getValue();
+            Comment comment = subNode.getValue();
             String subPreString = preString + "." + count;
 
             str.append("\n \t ");

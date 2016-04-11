@@ -57,9 +57,9 @@ public class HelpCmdTest {
         HelpCmd cmd = new HelpCmd(printList);
 
         question.add("List of possible commands:");
-        question.add("test");
-        question.add("getUserOfExactTypeCmd");
-        question.add("clear");
+        question.add("0. test");
+        question.add("1. getUserOfExactTypeCmd");
+        question.add("2. clear");
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
