@@ -38,8 +38,9 @@ public abstract class AbstractSystemSubject extends Subject {
     public void addCreationSub(CreationMailBox cmb) throws IllegalArgumentException{
         if (isValidMb(cmb)){
             this.CreationSubs = this.CreationSubs.plus(cmb);
+        } else {
+            throw new IllegalArgumentException("Invalid creationmailbox");
         }
-        throw new IllegalArgumentException("Invalid creationmailbox");
     }
 
     /**

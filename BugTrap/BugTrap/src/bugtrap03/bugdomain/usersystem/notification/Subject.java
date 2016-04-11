@@ -50,8 +50,9 @@ public abstract class Subject {
     public void addTagSub(TagMailBox tmb)throws IllegalArgumentException{
         if (isValidMb(tmb)){
             this.tagSubs = this.tagSubs.plus(tmb);
+        } else {
+            throw new IllegalArgumentException("Invalid tagmailbox");
         }
-        throw new IllegalArgumentException("Invalid tagmailbox");
     }
 
     /**
@@ -84,8 +85,9 @@ public abstract class Subject {
     public void addCommentSub(CommentMailBox cmb) throws IllegalArgumentException{
         if (isValidMb(cmb)){
             this.commentSubs = this.commentSubs.plus(cmb);
+        } else {
+            throw new IllegalArgumentException("Invalid commentmailbox");
         }
-        throw new IllegalArgumentException("Invalid commentmailbox");
     }
 
     /**
