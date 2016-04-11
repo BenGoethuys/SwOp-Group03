@@ -7,13 +7,12 @@ import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.*;
+import bugtrap03.bugdomain.usersystem.notification.AbstractSystemSubject;
+import bugtrap03.bugdomain.usersystem.notification.Subject;
 import com.google.java.contract.Ensures;
 import purecollections.PList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * This class is the main controller of the system.
@@ -836,5 +835,70 @@ public class DataModel {
         addToHistory(cmd);
     }
 
+    /**
+     * This method lets a user register for notifications concerning a comment creation on a subject.
+     *
+     * @param user the user that wishes to subscribe for notifications
+     * @param subject the subject on which the user wishes to subscribe
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
+    public void registerForCommentNotifications(User user, Subject subject)
+            throws IllegalArgumentException, IllegalStateException{
+        RegisterForCommentNotificationsModelCmd cmd = new RegisterForCommentNotificationsModelCmd(user, subject);
+        cmd.exec();
+        addToHistory(cmd);
+    }
+
+    /**
+     * This method lets a user register for notifications concerning a comment creation on a subject.
+     *
+     * @param user the user that wishes to subscribe for notifications
+     * @param abstractSystemSubject the abstract system subject on which the user wishes to subscribe
+     *
+     * @throws IllegalArgumentException If the abstract system subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
+    public void registerForCreationNotifications(User user, AbstractSystemSubject abstractSystemSubject)
+            throws IllegalArgumentException, IllegalStateException{
+        RegisterForCreationNotificationsModelCmd cmd =
+                new RegisterForCreationNotificationsModelCmd(user, abstractSystemSubject);
+        cmd.exec();
+        addToHistory(cmd);
+    }
+
+    /**
+     * This method lets a user register for notifications concerning a specific tag change on a subject.
+     *
+     * @param user the user that wishes to subscribe for notifications
+     * @param subject the subject on which the user wishes to subscribe
+     * @param enumSet the enumset of specific tags to which the user wishes to subscribe
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
+    public void registerForSpecificTagsNotifications(User user, Subject subject, EnumSet<Tag> enumSet)
+            throws IllegalArgumentException, IllegalStateException {
+        RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject, enumSet);
+        cmd.exec();
+        addToHistory(cmd);
+    }
+
+    /**
+     * This method lets a user register for notifications concerning a tag change on a subject.
+     *
+     * @param user the user that wishes to subscribe for notifications
+     * @param subject the subject on which the user wishes to subscribe
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
+    public void registerForAllTagsNotifications(User user, Subject subject)
+            throws IllegalArgumentException, IllegalStateException {
+        RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject);
+        cmd.exec();
+        addToHistory(cmd);
+    }
     //TODO: add methods to set additional params of bug report
 }
