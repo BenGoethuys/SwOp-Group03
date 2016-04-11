@@ -812,6 +812,7 @@ public class DataModel {
      * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
      * @throws IllegalArgumentException When bugReport == null
      */
+    @DomainAPI
     public void selectPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException {
         SelectPatchFromBugReportModelCmd cmd = new SelectPatchFromBugReportModelCmd(bugReport, user, patch);
         cmd.exec();
@@ -829,10 +830,26 @@ public class DataModel {
      * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
      * @throws IllegalArgumentException When bugReport == null
      */
+    @DomainAPI
     public void giveScore(BugReport bugReport, User user, int score) throws IllegalStateException, IllegalArgumentException, PermissionException {
         GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugReport, user, score);
         cmd.exec();
         addToHistory(cmd);
+    }
+
+    /**
+     * This method sets the duplicate of the given bug report to the given duplicate
+     * @param user      The user that wants to set the duplicate of the bug report
+     * @param bugReport The bug report that will be assigned the duplicate
+     * @param duplicate The duplicate of the given bug report
+     *
+     * @throws IllegalStateException    If the bugReport doesn't allow a duplicate to be set
+     * @throws IllegalArgumentException If the given bugReport/duplicate is invalid
+     * @throws PermissionException      If the user doesn't have the needed permission to set the duplicate
+     */
+    public void setDuplicate(User user, BugReport bugReport, BugReport duplicate)
+            throws IllegalStateException, IllegalArgumentException, PermissionException {
+        // FIXME!!
     }
 
     /**
@@ -844,6 +861,7 @@ public class DataModel {
      * @throws IllegalArgumentException If the subject is invalid (=null).
      * @throws IllegalStateException If the current state of the command is invalid.
      */
+    @DomainAPI
     public void registerForCommentNotifications(User user, Subject subject)
             throws IllegalArgumentException, IllegalStateException{
         RegisterForCommentNotificationsModelCmd cmd = new RegisterForCommentNotificationsModelCmd(user, subject);
@@ -860,6 +878,7 @@ public class DataModel {
      * @throws IllegalArgumentException If the abstract system subject is invalid (=null).
      * @throws IllegalStateException If the current state of the command is invalid.
      */
+    @DomainAPI
     public void registerForCreationNotifications(User user, AbstractSystemSubject abstractSystemSubject)
             throws IllegalArgumentException, IllegalStateException{
         RegisterForCreationNotificationsModelCmd cmd =
@@ -878,6 +897,7 @@ public class DataModel {
      * @throws IllegalArgumentException If the subject is invalid (=null).
      * @throws IllegalStateException If the current state of the command is invalid.
      */
+    @DomainAPI
     public void registerForSpecificTagsNotifications(User user, Subject subject, EnumSet<Tag> enumSet)
             throws IllegalArgumentException, IllegalStateException {
         RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject, enumSet);
@@ -894,11 +914,11 @@ public class DataModel {
      * @throws IllegalArgumentException If the subject is invalid (=null).
      * @throws IllegalStateException If the current state of the command is invalid.
      */
+    @DomainAPI
     public void registerForAllTagsNotifications(User user, Subject subject)
             throws IllegalArgumentException, IllegalStateException {
         RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject);
         cmd.exec();
         addToHistory(cmd);
     }
-    //TODO: add methods to set additional params of bug report
 }
