@@ -19,11 +19,28 @@ import javax.swing.JFileChooser;
  */
 public class ProposePatchCmd implements Cmd {
 
+    
+    /**
+     * Creates a {@link Cmd} for the ProposePatch scenario where the bugRep to propose to is already chosen.
+     * @param bugReport The bugRep to propose to.
+     */
+    public ProposePatchCmd(BugReport bugReport) {
+        this.bugReport = bugReport;
+    }
+    
+    /**
+     * Creates a {@link Cmd} for the ProposePatch scenario which includes a scenario to select the bug report.
+     */
+    public ProposePatchCmd() {
+    }
+    
+    private BugReport bugReport = null;
+    
     /**
      * Executing the command resulting in the possible adding of a Test for a certain {@link BugReport}
      * <p>
      * 1. The developer indicates that he wants to submit a patch for some bug report.
-     * <br> 2. Include use case Select Bug Report.
+     * <br> 2. Include use case Select Bug Report if required.
      * <br> 3. The system shows the form for uploading the patch.
      * <br> 4. The developer provides the details for uploading the patch.
      * <br> 5. The system attaches the patch to the bug report.
@@ -42,13 +59,9 @@ public class ProposePatchCmd implements Cmd {
      */
     @Override
     public Object exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
-        if (!(user instanceof Developer)) {
-            throw new PermissionException("A Developer is required to propose a patch.");
-        }
-
         // 1. The developer indicates that he wants to submit a patch for some bug report.
-        // 2. Include use case Select Bug Report.
-        BugReport bugReport = (new SelectBugReportCmd()).exec(scan, model, user); //IllegalArg for scan,model,user == null
+        // 2. Include use case Select Bug Report if required.
+        BugReport bugRep = (bugReport != null) ? bugReport : (new SelectBugReportCmd()).exec(scan, model, user); //IllegalArg for scan,model,user == null
         String text;
 
         // 3. The system shows the form for uploading the patch.
@@ -104,7 +117,7 @@ public class ProposePatchCmd implements Cmd {
         //TODO: Ben 3a. should be thrown when is not assigned a developer BUT model.addPatch throws when not a programmer.
         //-------> Is throwing when not a programmer correct and in the assignment?
         // 1. The use case ends here.
-        model.addPatch(bugReport, user, text); //Permission, IllegalState, IllegalArg
-        return bugReport;
+        model.addPatch(bugRep, user, text); //Permission, IllegalState, IllegalArg
+        return bugRep;
     }
 }
