@@ -19,10 +19,21 @@ class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelC
      * @param user The user that wishes to subscribe
      * @param subject The subject on which the user wishes to subscribe
      * @param tags The tags on for which the user wishes to subscribe
+     *
+     * @throws IllegalArgumentException When the given subject is null
+     * @throws IllegalArgumentException When the given subject is Terminated
      */
     RegisterForTagNotificationsModelCmd(User user, Subject subject, EnumSet<Tag> tags){
         super(user);
+
+        if (subject == null) {
+            throw new IllegalArgumentException("The given subject is null");
+        }
+        if (subject.isTerminated()){
+            throw new IllegalArgumentException("The given subject is terminated");
+        }
         this.subject = subject;
+
         this.tags = tags;
     }
 

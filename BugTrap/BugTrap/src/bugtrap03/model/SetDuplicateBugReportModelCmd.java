@@ -21,10 +21,15 @@ class SetDuplicateBugReportModelCmd extends ModelCmd {
      * @throws IllegalArgumentException When bugReport == null
      * @throws IllegalArgumentException When duplicate == null
      * @throws IllegalArgumentException When user == null
+     * @throws IllegalArgumentException When the given bug report or duplicate is terminated
      */
     SetDuplicateBugReportModelCmd(BugReport bugReport, BugReport duplicate, User user) throws IllegalArgumentException {
         if (bugReport == null || duplicate == null || user == null) {
             throw new IllegalArgumentException("The bugReport, duplicate or user passed to SetDuplicateBugReportModelCmd was a null reference.");
+        }
+
+        if (bugReport.isTerminated() || duplicate.isTerminated()){
+            throw new IllegalArgumentException("the given bug report or duplicate is terminated");
         }
 
         this.bugReport = bugReport;

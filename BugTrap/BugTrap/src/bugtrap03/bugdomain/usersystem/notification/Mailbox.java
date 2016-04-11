@@ -76,7 +76,10 @@ public class Mailbox {
      * @return True if the subject is not null.
      */
     public boolean isValidSubject(Subject subj){
-        return (subj != null);
+        if (subj == null){
+            return false;
+        }
+        return true;
     }
 
     /**

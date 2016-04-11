@@ -46,6 +46,7 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
         // 1. The developer indicates he wants to update a bug report.
         // 2. Include use case Select Bug Report.
         BugReport bugrep = new SelectBugReportCmd().exec(scan, model, user);
+        scan.println(bugrep.getDetails());
 
         // 3. The developer suggests a new tag for the bug report.
         Tag tagToSet = this.selectTag(scan, model);

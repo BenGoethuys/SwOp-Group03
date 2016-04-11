@@ -21,7 +21,7 @@ public class SelectTagsCmd implements Cmd {
         boolean selecting = true;
         while (selecting){
             selectedtags.add(this.selectTag(scan, model));
-            scan.println("Do you wish to selec another tag? Y/N");
+            scan.println("Do you wish to select another tag? Y/N");
             String input = scan.nextLine();
             if (input.equalsIgnoreCase("Y")){
                 selecting = true;

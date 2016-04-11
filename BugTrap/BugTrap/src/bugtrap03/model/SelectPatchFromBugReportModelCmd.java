@@ -19,10 +19,14 @@ class SelectPatchFromBugReportModelCmd extends ModelCmd {
      * @param patch The patch that the user wants to select.
      *
      * @throws IllegalArgumentException When bugReport == null
+     * @throws IllegalArgumentException When the given bug report is terminated
      */
     SelectPatchFromBugReportModelCmd(BugReport bugReport, User user, String patch) throws IllegalArgumentException {
         if (bugReport == null) {
             throw new IllegalArgumentException("The bugReport passed to SelectBugReportPatchModelCmd was a null reference.");
+        }
+        if (bugReport.isTerminated()){
+            throw new IllegalArgumentException("The given bugreport is terminated");
         }
 
         this.bugReport = bugReport;

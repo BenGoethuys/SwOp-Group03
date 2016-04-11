@@ -19,10 +19,14 @@ class AddPatchToBugReportModelCmd extends ModelCmd {
      * @param patch The patch to add.
      *
      * @throws IllegalArgumentException When bugReport == null
+     * @throws IllegalArgumentException When the bugReport is terminated
      */
     AddPatchToBugReportModelCmd(BugReport bugReport, User user, String patch) throws IllegalArgumentException {
         if (bugReport == null) {
             throw new IllegalArgumentException("The bugReport passed to AddBugReportPatchModelCmd was a null reference.");
+        }
+        if (bugReport.isTerminated()){
+            throw new IllegalArgumentException("The given bug report is terminated !");
         }
 
         this.bugReport = bugReport;

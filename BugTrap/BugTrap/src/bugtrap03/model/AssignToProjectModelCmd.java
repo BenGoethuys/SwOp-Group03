@@ -21,10 +21,14 @@ class AssignToProjectModelCmd extends ModelCmd {
      * @param role The role that will be assigned
      *
      * @throws IllegalArgumentException When project == null
+     * @throws IllegalArgumentException If the given project is terminated
      */
     AssignToProjectModelCmd(Project project, User user, Developer developer, Role role) throws IllegalArgumentException {
         if (project == null) {
             throw new IllegalArgumentException("The project passed to AssignToProjectModelCmd was a null reference.");
+        }
+        if (project.isTerminated()){
+            throw new IllegalArgumentException("The given project is terminated");
         }
 
         this.project = project;

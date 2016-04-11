@@ -18,15 +18,23 @@ class UpdateProjectModelCmd extends ModelCmd {
      * @param proj The project to update
      * @param user The person who wants to update the project
      * @param name The new name of the given project
-     * @param description The new description of the given project
+     * @param desc The new description of the given project
      * @param startDate The new startDate of the given project
      * @param budgetEstimate The new budget estimate of the given project
      *
      * @throws IllegalArgumentException When user == null
+     * @throws IllegalArgumentException When any of the arguments passed is invalid.
+     * @throws IllegalArgumentException When the given project is terminated
      */
     UpdateProjectModelCmd(Project proj, User user, String name, String desc, GregorianCalendar startDate, long budgetEstimate) {
         if (user == null) {
             throw new IllegalArgumentException("The user passed to UpdateProjectModelCmd was a null reference.");
+        }
+        if (proj == null){
+            throw new IllegalArgumentException("The project passed to UpdateProjectModelCmd was a null reference.");
+        }
+        if (proj.isTerminated()){
+            throw new IllegalArgumentException("The given project is terminated");
         }
 
         this.proj = proj;
@@ -63,10 +71,6 @@ class UpdateProjectModelCmd extends ModelCmd {
     Project exec() throws IllegalArgumentException, NullPointerException, PermissionException, IllegalStateException {
         if (this.isExecuted()) {
             throw new IllegalStateException("The UpdateProjectModelCmd was already executed.");
-        }
-
-        if (proj == null) {
-            throw new IllegalArgumentException("The project passed to UpdateProjectModelCmd was a null reference.");
         }
 
         // check needed permission
@@ -118,11 +122,10 @@ class UpdateProjectModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        String projName = (proj != null) ? proj.getName() : "-invalid argument-";
         String strDate = (startDate != null) ? startDate.getTime().toString() : "-invalid argument-";
         
         StringBuilder string = new StringBuilder();
-        string.append("Updated Project ").append(projName);
+        string.append("Updated Project ").append(proj.getName());
         string.append(" with ").append(this.name);
         string.append(", ").append(this.desc);
         string.append(", ").append(strDate);

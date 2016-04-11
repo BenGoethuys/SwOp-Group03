@@ -1,6 +1,5 @@
 package bugtrap03.model;
 
-import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.usersystem.notification.CommentMailBox;
 import bugtrap03.bugdomain.usersystem.notification.Subject;
@@ -15,9 +14,19 @@ class RegisterForCommentNotificationsModelCmd extends RegisterForNotificationsMo
      * for the creation of comments on bugreports when executed
      * @param user The user that wishes to subscribe
      * @param subject The subject on which the user wishes to subscribe
+     *
+     * @throws IllegalArgumentException When the given subject is null
+     * @throws IllegalArgumentException When the given subject is Terminated
      */
     RegisterForCommentNotificationsModelCmd(User user, Subject subject){
         super(user);
+
+        if (subject == null) {
+            throw new IllegalArgumentException("The given subject is null");
+        }
+        if (subject.isTerminated()){
+            throw new IllegalArgumentException("The given subject is terminated");
+        }
         this.subject = subject;
     }
 

@@ -644,7 +644,7 @@ public class DataModel {
      * @param lead The lead developer for the clone project.
      * @param startDate The startDate for the clone project.
      * @param budgetEstimate The budgetEstimate for the clone project.
-     * @return The resulting clone. Null if the source Clone is null.
+     * @return The resulting clone.
      * @throws IllegalArgumentException Check @see.
      * @see Project#cloneProject(VersionID, Developer, GregorianCalendar, long)
      */

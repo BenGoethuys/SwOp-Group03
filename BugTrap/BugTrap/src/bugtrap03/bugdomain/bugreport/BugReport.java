@@ -635,11 +635,17 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     /**
      * This method returns the dependencyList of this bug report
      *
-     * @return the dependencies of the bug report
+     * @return the list of not terminated dependencies of this bug report
      */
     @DomainAPI
     public PList<BugReport> getDependencies() {
-        return dependencies;
+        PList<BugReport> dep = PList.<BugReport>empty();
+        for (BugReport bugReport : this.dependencies){
+            if (! bugReport.isTerminated()) {
+                dep = dep.plus(bugReport);
+            }
+        }
+        return dep;
     }
 
     /**
@@ -665,6 +671,9 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     @DomainAPI
     public static boolean isValidDependencies(PList<BugReport> dependencies) {
         if (dependencies == null) {
+            return false;
+        }
+        if (dependencies.parallelStream().anyMatch(u -> u.isTerminated())){
             return false;
         }
         // PList cannot contain null elements
@@ -784,10 +793,14 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * This methods returns whether this bug report is visible to the given user.
      *
      * @param user The User to check for
+     *             
      * @return Whether the user should be able to see this bug report. True when the bug report is not private or has a
      * patch submitted or if the user is the creator or a developer on the project
      */
     public boolean isVisibleTo(User user) {
+        if (isTerminated()){
+            return false;
+        }
         //if public
         if (!isPrivate()) {
             return true;
@@ -1273,5 +1286,15 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         }
 
         this.setInternState(mem.getSate());
+    }
+
+    /**
+     * This method returns whether or not the bug report is terminated
+     *
+     * @return  the isTerminateded boolean value of this bug report
+     */
+    @DomainAPI
+    public boolean isTerminated(){
+        return this.getSubsystem().isTerminated();
     }
 }

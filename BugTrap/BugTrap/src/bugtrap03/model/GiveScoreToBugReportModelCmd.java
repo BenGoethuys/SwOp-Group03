@@ -19,10 +19,14 @@ class GiveScoreToBugReportModelCmd extends ModelCmd {
      * @param score The score that the creator wants to give
      *
      * @throws IllegalArgumentException When bugReport == null
+     * @throws IllegalArgumentException When the given bug report is terminated
      */
     GiveScoreToBugReportModelCmd(BugReport bugReport, User user, int score) throws IllegalArgumentException {
         if (bugReport == null) {
             throw new IllegalArgumentException("The bugReport passed to GiveBugReportScoreModelCmd was a null reference.");
+        }
+        if (bugReport.isTerminated()){
+            throw new IllegalArgumentException("The given bug report is terminated");
         }
 
         this.bugReport = bugReport;

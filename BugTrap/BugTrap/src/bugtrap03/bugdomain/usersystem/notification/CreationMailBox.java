@@ -34,10 +34,10 @@ public class CreationMailBox extends Mailbox {
      * @see #isValidSubject(Subject)
      */
     private void setSubject(AbstractSystemSubject subj) throws IllegalArgumentException{
-        if (this.isValidSubject(subj)){
-            this.subject = subj;
+        if (! this.isValidSubject(subj)){
+            throw new IllegalArgumentException("This subject is invalid for this mailbox.");
         }
-        throw new IllegalArgumentException("This subject is invalid for this mailbox.");
+        this.subject = subj;
     }
 
     /**

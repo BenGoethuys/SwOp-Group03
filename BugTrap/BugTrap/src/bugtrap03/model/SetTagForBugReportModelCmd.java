@@ -15,15 +15,19 @@ class SetTagForBugReportModelCmd extends ModelCmd {
     /**
      * Create a {@link ModelCmd} that can set a certain tag for a bugReport when executed.
      *
-     * @param bugrep The bug report of which the tag gets to be set
-     * @param tag The given tag to set
-     * @param user The user that wishes to set the tag
+     * @param bugReport The bug report of which the tag gets to be set
+     * @param tag       The given tag to set
+     * @param user      The user that wishes to set the tag
      *
      * @throws IllegalArgumentException When bugReport == null
+     * @throws IllegalArgumentException When the given bug report is terminated
      */
     SetTagForBugReportModelCmd(BugReport bugReport, Tag tag, User user) throws IllegalArgumentException {
         if (bugReport == null) {
             throw new IllegalArgumentException("The bugReport passed to SetTagForReportModelCmd was a null reference.");
+        }
+        if (bugReport.isTerminated()){
+            throw new IllegalArgumentException("The given bug report is terminated");
         }
 
         this.bugReport = bugReport;
@@ -82,7 +86,7 @@ class SetTagForBugReportModelCmd extends ModelCmd {
     @Override
     public String toString() {
         String tagName = (tag != null) ? tag.toString() : "-invalid argument-";
-        return "Set the Tag " + tag.toString() + " for BugReport " + bugReport.getTitle();
+        return "Set the Tag " + tagName + " for BugReport " + bugReport.getTitle();
     }
 
 }
