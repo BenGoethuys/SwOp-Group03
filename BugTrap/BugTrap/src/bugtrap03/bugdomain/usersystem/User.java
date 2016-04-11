@@ -5,7 +5,6 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.notification.Mailbox;
-import purecollections.PList;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -33,14 +32,14 @@ public abstract class User {
      * @see #isValidFirstName(String firstName)
      * @see #isValidMiddleName(String middleName)
      * @see #isValidLastName(String lastName)
-     * @see #isValidMailBox(Mailbox mailbox)
+     * @see #isValidMailbox(Mailbox)
      */
     public User(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
         setUsername(username);
         setFirstName(firstName);
         setMiddleName(middleName);
         setLastName(lastName);
-        setMailBox(new Mailbox());
+        setMailbox(new Mailbox());
     }
 
     /**
@@ -95,13 +94,13 @@ public abstract class User {
     /**
      * Set the mailbox of this user to the given mailbox
      *
-     * @param mailBox The new Mailbox.
+     * @param mailbox The new Mailbox.
      * @throws IllegalArgumentException When the mailbox is not valid.
-     * @see #isValidMailBox(Mailbox)
+     * @see #isValidMailbox(Mailbox)
      */
-    private void setMailBox(Mailbox mailBox) throws IllegalArgumentException {
-        if (isValidMailBox(mailBox)){
-            this.mailbox = mailBox;
+    private void setMailbox(Mailbox mailbox) throws IllegalArgumentException {
+        if (isValidMailbox(mailbox)){
+            this.mailbox = mailbox;
         } else {
             throw new IllegalArgumentException("Invalid mailbox");
         }
@@ -114,7 +113,7 @@ public abstract class User {
      * @return True if the mailbox is not null;
      */
     @DomainAPI
-    public Boolean isValidMailBox(Mailbox mailbox){
+    public Boolean isValidMailbox(Mailbox mailbox){
         if (mailbox == null){
             return false;
         }
