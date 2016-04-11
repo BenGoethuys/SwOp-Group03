@@ -88,16 +88,20 @@ public class DeclareAchievedMilestoneCmd implements Cmd {
                 try {
                     subsys.setMilestone(bugReportMilestone);
                 } catch (IllegalArgumentException e) {
-                    bugReportMilestone = null;
+                    // 8a. The new achieved milestone could not be assigned due
+                    // to some constraint.
+                    // 1. The system is restored and the use case has no effect.
+                    // 2. The use case ends here.
                     scan.println("Invalid milestone");
+                    return proj;
                 }
             } catch (IndexOutOfBoundsException | NumberFormatException ex) {
                 scan.println("Invalid input. Please try again using format: a.b.c");
             }
         } while (bugReportMilestone == null);
-
-        // TODO COMPLETE scenario
-
+        
+        scan.println("The milestone is declared.");
+        
         return proj;
     }
 
