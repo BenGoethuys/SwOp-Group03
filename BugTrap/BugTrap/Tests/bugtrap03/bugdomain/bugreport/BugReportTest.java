@@ -789,7 +789,7 @@ public class BugReportTest {
     }
     
     @Test
-    public void testIsvalidPatch(){
+    public void testInvalidPatch(){
     	assertTrue(BugReport.isValidPatch(patch));
     	assertFalse(BugReport.isValidPatch(null));
     	assertFalse(BugReport.isValidPatch(""));
@@ -838,6 +838,7 @@ public class BugReportTest {
     	tempBugReport.addTest(tester, test);
     	tempBugReport.addPatch(programer, patch);
     	tempBugReport.selectPatch(lead, patch);
+        // programmer cannot set score
     	tempBugReport.giveScore(programer, 4);
     }
     
@@ -895,5 +896,10 @@ public class BugReportTest {
     }
 
     //TODO test notify methods
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetMementoNull(){
+        bugReport1.setMemento(null);
+    }
 
 }
