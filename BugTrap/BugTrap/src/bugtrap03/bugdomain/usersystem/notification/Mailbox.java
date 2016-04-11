@@ -101,6 +101,7 @@ public class Mailbox {
      */
     public TagMailBox tagSubscribe(Subject subject, EnumSet<Tag> tags) throws IllegalArgumentException{
         TagMailBox tmb = new TagMailBox(subject, tags);
+        subject.addTagSub(tmb);
         this.addBox(tmb);
         return tmb;
     }
@@ -126,6 +127,7 @@ public class Mailbox {
      */
     public CommentMailBox commentSubscribe(Subject subject) throws IllegalArgumentException{
         CommentMailBox cmb = new CommentMailBox(subject);
+        subject.addCommentSub(cmb);
         this.addBox(cmb);
         return cmb;
     }
@@ -139,6 +141,7 @@ public class Mailbox {
      */
     public CreationMailBox creationSubscribe(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
         CreationMailBox cmb = new CreationMailBox(abstractSystemSubject);
+        abstractSystemSubject.addCreationSub(cmb);
         this.addBox(cmb);
         return cmb;
     }
