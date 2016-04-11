@@ -62,6 +62,7 @@ public class GetObjectOfListCmdTest {
      *
      * @throws CancelException Never
      */
+    @Test
     public void testCons_OptionsNull() throws CancelException {
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();

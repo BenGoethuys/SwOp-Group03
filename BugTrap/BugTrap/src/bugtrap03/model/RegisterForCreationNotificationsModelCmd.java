@@ -23,7 +23,7 @@ class RegisterForCreationNotificationsModelCmd extends RegisterForNotificationsM
     private AbstractSystemSubject abstractSystemSubject;
 
     /**
-     * This method executes thie model command.
+     * This method executes this model command.
      * @return The created creationmailbox representing the subscription that contains the notifications
      * @throws IllegalArgumentException if on of the arguments is invalid
      * @throws IllegalStateException if the state of this command is invalid
