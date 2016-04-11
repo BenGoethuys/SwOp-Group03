@@ -56,6 +56,20 @@ public class Mailbox {
     }
 
     /**
+     * This method returns all the mailboxes belonging to this mailbox.
+     * These are the mailboxes of which this mailbox is composed.
+     *
+     * @return A PList of mailboxes belonging to this mailbox.
+     */
+    public PList<Mailbox> getAllBoxes(){
+        ArrayList<Mailbox> allBoxes = new ArrayList<Mailbox>(this.getBoxes());
+        for (Mailbox mb: this.getBoxes()){
+            allBoxes.addAll(mb.getAllBoxes());
+        }
+        return PList.<Mailbox>empty().plusAll(allBoxes);
+    }
+
+    /**
      * This method returns the list of mail boxes belonging to this mailbox.
      *
      * @return A PList of mailboxes belonging to this mailbox.
