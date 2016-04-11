@@ -10,7 +10,7 @@ import bugtrap03.model.DataModel;
 /**
  * @author Group 03
  */
-public class SetDuplicateBugReportCmd implements Cmd {
+public class SetDuplicateBugReportCmd implements Cmd<BugReport> {
 
     /**
      * This is the constructor with a given bug report

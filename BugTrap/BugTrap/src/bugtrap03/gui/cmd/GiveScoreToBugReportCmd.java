@@ -12,7 +12,7 @@ import bugtrap03.model.DataModel;
 /**
  * @author Group 03
  */
-public class GiveScoreToBugReportCmd implements Cmd {
+public class GiveScoreToBugReportCmd implements Cmd<Integer> {
 
     /**
      * This is the constructor for this cmd
