@@ -82,6 +82,8 @@ public class SelectPatchForBugReportCmd implements Cmd<String> {
         // 1. The use case ends here.
         model.selectPatch(bugRep, user, selectedPatch);
 
+        scan.println("The selected patch is set to: " + selectedPatch);
+
         return selectedPatch;
     }
 

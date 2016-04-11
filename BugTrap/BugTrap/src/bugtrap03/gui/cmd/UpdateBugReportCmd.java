@@ -29,10 +29,12 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
      * @return The BugReport of which the tag has been updated.
-     * @throws PermissionException      When the user doesn't have the needed
-     *                                  permission to set the tag.
+     *
+     * @throws PermissionException      When the user doesn't have the needed permission to set the tag.
      * @throws CancelException          When the user wants to abort the process
      * @throws IllegalArgumentException If scan, model or user is null
+     * @throws IllegalArgumentException If the chosen tag cannot be set
+     *
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
