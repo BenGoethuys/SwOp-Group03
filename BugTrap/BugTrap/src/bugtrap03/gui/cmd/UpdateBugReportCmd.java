@@ -6,6 +6,7 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
+import bugtrap03.gui.cmd.general.bugReport.GiveScoreToBugReportCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
@@ -41,7 +42,6 @@ public class UpdateBugReportCmd implements Cmd {
         if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
-        //TODO developer must be issuer according to new assignment
         // 1. The developer indicates he wants to update a bug report.
         // 2. Include use case Select Bug Report.
         BugReport bugrep = new SelectBugReportCmd().exec(scan, model, user);
@@ -52,7 +52,25 @@ public class UpdateBugReportCmd implements Cmd {
             // 3. The developer suggests a new tag for the bug report.
             tagToSet = this.selectTag(scan, model);
             try {
-                //TODO: Mathias / Ben 4. The system asks for the corresponding information for that tag.
+                // 4. The system asks for the corresponding information for that tag.
+                switch (tagToSet){
+                    case ASSIGNED :
+                        this.setAssigned(user, bugrep, scan, model);
+                        break;
+                    case UNDER_REVIEW :
+                        this.setUnderReview(user, bugrep, scan, model);
+                        break;
+                    case RESOLVED :
+                        new SelectPatchForBugReportCmd(bugrep).exec(scan, model, user);
+                        break;
+                    case CLOSED :
+                        new GiveScoreToBugReportCmd(bugrep).exec(scan, model, user);
+                        break;
+                    case DUPLICATE:
+                        //TODO
+                        break;
+                    //TODO
+                }
                 //TODO: Mathias / Ben 5. The issuer provides the requested information.
 
                 // 6. The system gives the selected bug report the new tag.
@@ -86,5 +104,44 @@ public class UpdateBugReportCmd implements Cmd {
 
         scan.println("You have selected: \t" + tagToSet.toString());
         return tagToSet;
+    }
+
+    /**
+     * This method tries to set the tag of the given bug report to the Tag assigned
+     *
+     * @param user      The user that wants to change the Tag
+     * @param bugReport The bugReport that needs a Tag change
+     * @param scanner   The scanner of the cmd' s
+     * @param model     The model of the cmd' s
+     *
+     * @throws PermissionException      If the given user doesn't have the needed permissions
+     * @throws IllegalStateException    If the current bugReport doesn't allow the tag change
+     */
+    private void setAssigned(User user, BugReport bugReport, TerminalScanner scanner, DataModel model) throws PermissionException, IllegalStateException {
+        if (bugReport.getTag() == Tag.NEW){
+            new AssignToBugReportCmd(bugReport).exec(scanner, model, user);
+        } else if (bugReport.getTag() == Tag.UNDER_REVIEW){
+            bugReport.setTag(Tag.UNDER_REVIEW, user);
+        } else {
+            throw new IllegalStateException("The requested Tag cannot be set to the given bug report");
+        }
+    }
+
+    /**
+     * This method tries to set the Tag of the given bug report to UnderReview
+     *
+     * @param user      The user that wants to change the tag
+     * @param bugReport The bug report that needs a tag change
+     * @param scanner   The scanner of the cmd' s
+     * @param model     The model of the cmd' s
+     *
+     * @throws PermissionException      If the given user doesn't have the needed permissions
+     * @throws IllegalStateException    If the current bugReport doesn't allow the tag change
+     */
+    private void setUnderReview(User user, BugReport bugReport, TerminalScanner scanner, DataModel model) throws PermissionException, IllegalStateException {
+        if (bugReport.getTests().isEmpty()){
+            new ProposeTestCmd(bugReport).exec(scanner, model, user);
+        }
+        new ProposeTestCmd(bugReport).exec(scanner, model, user);
     }
 }
