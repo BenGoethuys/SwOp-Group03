@@ -21,12 +21,29 @@ import java.util.NoSuchElementException;
 public class AssignToBugReportCmd implements Cmd {
 
     /**
+     * Creates a {@link Cmd} for the AssignToBugReport scenario where the bugReport to add to is already chosen.
+     * @param bugReport The bugReport to assign to.
+     */
+    public AssignToBugReportCmd(BugReport bugReport) {
+        this.bugReport = bugReport;
+    }
+    
+    /**
+     * Creates a {@link Cmd} for the AssignToBugReport scenario which includes a scenario to select the bug report.
+     */
+    public AssignToBugReportCmd() {
+    }
+    
+    private BugReport bugReport = null;
+    
+    
+    /**
      * Execute this command and possibly return a result.
      * <p>
      * <p>
      * <br> 1. The developer indicates he wants to assign a developer to a bug
      * report.
-     * <br> 2. Include use case Select Bug Report.
+     * <br> 2. Include use case Select Bug Report if required.
      * <br> 3. The system shows a list of developers that are involved in the
      * project.
      * <br> 4. The logged in developer selects one or more of the developers to
@@ -59,8 +76,8 @@ public class AssignToBugReportCmd implements Cmd {
         boolean hasPerm = false;
         BugReport bugRep;
         do {
-            // 2. Include use case Select Bug Report.
-            bugRep = new SelectBugReportCmd().exec(scan, model, user);
+            // 2. Include use case Select Bug Report if required.
+            bugRep = (bugReport != null) ? bugReport : new SelectBugReportCmd().exec(scan, model, user);
 
             // 3a. The selected bug report is of a project that the logged in developer is not involved in as lead or tester.
             // 1. The use case returns to step 2.
