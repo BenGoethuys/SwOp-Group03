@@ -28,6 +28,21 @@ public abstract class AbstractSystemSubject extends Subject {
     }
 
     /**
+     * This method adds a commentsubscriber to the subject.
+     *
+     * @param cmb The comment mailbox to add
+     *
+     * @throws IllegalArgumentException if the cmb is invalid
+     * @see Subject#isValidMb(Mailbox)
+     */
+    public void addCreationSub(CreationMailBox cmb) throws IllegalArgumentException{
+        if (isValidMb(cmb)){
+            this.CreationSubs = this.CreationSubs.plus(cmb);
+        }
+        throw new IllegalArgumentException("Invalid creationmailbox");
+    }
+
+    /**
      * This abstract method let's subjects notify subjects higher in the hierarchy.
      *
      * @param br The bugreport of which an attribute has changed.

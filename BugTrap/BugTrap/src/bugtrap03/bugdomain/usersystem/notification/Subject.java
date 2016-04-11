@@ -40,6 +40,21 @@ public abstract class Subject {
     }
 
     /**
+     * This method adds a commentsubscriber to the subject.
+     *
+     * @param tmb The comment mailbox to add
+     *
+     * @throws IllegalArgumentException if the cmb is invalid
+     * @see #isValidMb(Mailbox)
+     */
+    public void addTagSub(TagMailBox tmb)throws IllegalArgumentException{
+        if (isValidMb(tmb)){
+            this.tagSubs = this.tagSubs.plus(tmb);
+        }
+        throw new IllegalArgumentException("Invalid tagmailbox");
+    }
+
+    /**
      * This abstract method let's subjects notify subjects higher in the hierarchy.
      *
      * @param br The bugreport of which an attribute has changed.
@@ -56,6 +71,35 @@ public abstract class Subject {
         for (CommentMailBox cmb: this.commentSubs){
             cmb.update(br);
         }
+    }
+
+    /**
+     * This method adds a commentsubscriber to the subject.
+     *
+     * @param cmb The comment mailbox to add
+     *
+     * @throws IllegalArgumentException if the cmb is invalid
+     * @see #isValidMb(Mailbox)
+     */
+    public void addCommentSub(CommentMailBox cmb) throws IllegalArgumentException{
+        if (isValidMb(cmb)){
+            this.commentSubs = this.commentSubs.plus(cmb);
+        }
+        throw new IllegalArgumentException("Invalid commentmailbox");
+    }
+
+    /**
+     * This method checks the validity of a given mailbox.
+     *
+     * @param mb The mailbox to check
+     *
+     * @return true if the mailbox is not null
+     */
+    public boolean isValidMb(Mailbox mb){
+        if (mb == null){
+            return false;
+        }
+        return true;
     }
 
     /**
