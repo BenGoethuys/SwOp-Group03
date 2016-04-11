@@ -40,8 +40,8 @@ public class SetTagForBugReportModelCmdTest {
     @Before
     public void setUp() throws PermissionException {
         model = new DataModel();
-        admin = model.createAdministrator("BlubBlabBlob13" + counter, "first", "last");
-        dev = model.createDeveloper("DeveloperOverHere13" + counter, "first", "last");
+        admin = model.createAdministrator("BlubBlabBlob18" + counter, "first", "last");
+        dev = model.createDeveloper("DeveloperOverHere18" + counter, "first", "last");
         proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
         bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
@@ -50,8 +50,8 @@ public class SetTagForBugReportModelCmdTest {
         model.assignToProject(proj, dev, dev, Role.TESTER);
         model.assignToProject(proj, dev, dev, Role.PROGRAMMER);
 
-        dev2 = model.createDeveloper("Developer2OverHere13" + counter, "first", "last");
-        dev3 = model.createDeveloper("Developer3OverHere13" + counter, "first", "last");
+        dev2 = model.createDeveloper("Developer2OverHere18" + counter, "first", "last");
+        dev3 = model.createDeveloper("Developer3OverHere18" + counter, "first", "last");
 
         devList = PList.<Developer>empty();
         devList = devList.plus(dev2);
