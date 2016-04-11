@@ -18,12 +18,29 @@ import javax.swing.JFileChooser;
  * @author Group 03
  */
 public class ProposeTestCmd implements Cmd {
+    
+    
+    /**
+     * Creates a {@link Cmd} for the ProposeTest scenario where the bugRep to propose to is already chosen.
+     * @param bugReport The bugRep to propose to.
+     */
+    public ProposeTestCmd(BugReport bugReport) {
+        this.bugReport = bugReport;
+    }
+    
+    /**
+     * Creates a {@link Cmd} for the ProposeTest scenario which includes a scenario to select the bug report.
+     */
+    public ProposeTestCmd() {
+    }
+    
+    private BugReport bugReport = null;
 
     /**
      * Executing the command resulting in the possible adding of a Test for a certain {@link BugReport}.
      * <p>
-     * 1. The developer indicates that he wants to submit a test for some bugReport.
-     * <br> 2. Include use case Select Bug Report.
+ 1. The developer indicates that he wants to submit a test for some bugRep.
+ <br> 2. Include use case Select Bug Report if required.
      * <br> 3. The system shows the form for uploading the test code.
      * <br> 4. The developer provides the details for uploading the test code.
      * <br> 5. The system attaches the test to the bug report.
@@ -41,17 +58,13 @@ public class ProposeTestCmd implements Cmd {
      * @throws IllegalArgumentException If scan, model or user is null
      * @throws IllegalStateException When a BugReport is chosen with a state that does not allow adding a test.
      * 
-     * @see DataModel#addTest(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, java.lang.String) 
+     * @see DataModel#addTest(BugReport, User, String) 
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
-        if(!(user instanceof Developer)) {
-            throw new PermissionException("A Developer is required to propose a test.");
-        }
-
-        // 1. The developer indicates that he wants to submit a test for some bugReport.
-        // 2. Include use case Select Bug Report.
-        BugReport bugReport = (new SelectBugReportCmd()).exec(scan, model, user); //IllegalArg for scan,model,user == null
+        // 1. The developer indicates that he wants to submit a test for some bugRep.
+        // 2. Include use case Select Bug Report if required.
+        BugReport bugRep = (bugReport != null) ? bugReport : (new SelectBugReportCmd()).exec(scan, model, user); //IllegalArg for scan,model,user == null
         String text;
 
         // 3. The system shows the form for uploading the test code.
@@ -103,8 +116,8 @@ public class ProposeTestCmd implements Cmd {
         // 5. The system attaches the test to the bug report.
         // Extension 3a. The developer is not assigned as a tester to the corresponding project. (= PermissionException)
         // 1. The use case ends here.
-        model.addTest(bugReport, user, text); //Permission, IllegalState, IllegalArg
-        return bugReport;
+        model.addTest(bugRep, user, text); //Permission, IllegalState, IllegalArg
+        return bugRep;
     }
 
 }

@@ -6,13 +6,9 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
-import bugtrap03.misc.Tree;
 import bugtrap03.model.DataModel;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * This command represents the use case for creating a comment in the system

@@ -47,7 +47,7 @@ public class RegisterForNotificationsCmd implements Cmd {
 
     /**
      * Execute the Register for Notifications scenario
-     * <br> 1. The issuer indicates that he wants to register for receiving notiﬁcations.
+     * <br> 1. The issuer indicates that he wants to register for receiving notifications.
      * <br> 2. The system asks if he wants to register for a project, subsystem or bug report.
      * <br> 3. The issuer indicates he wants to register for a project.
      * @param scan  The scanner used to interact with the person.
