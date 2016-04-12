@@ -163,4 +163,13 @@ public class VersionIDTest {
         assertEquals(versionID.getThirdNb(), cloneVersionID.getThirdNb());
     }
 
+    @Test
+    public void testHashcode(){
+        VersionID id1 = new VersionID(1,1,0);
+        VersionID id2 = new VersionID(1,1);
+
+        assertEquals(0, id1.compareTo(id2));
+        assertEquals(id1.hashCode(), id2.hashCode());
+    }
+
 }

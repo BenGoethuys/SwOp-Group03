@@ -1,6 +1,7 @@
 package bugtrap03.bugdomain.usersystem;
 
 import bugtrap03.bugdomain.permission.UserPerm;
+import bugtrap03.bugdomain.usersystem.notification.Mailbox;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -30,6 +31,7 @@ public class UserTest {
         assertEquals(user.getFirstName(), firstName);
         assertEquals(user.getMiddleName(), middleName);
         assertEquals(user.getLastName(), lastName);
+        assertNotNull(user.getMailbox());
     }
 
     /**
@@ -234,6 +236,16 @@ public class UserTest {
         assertFalse(user.hasPermission(UserPerm.UPDATE_PROJ));
     }
 
+    /**
+     * Test isValidMailbox
+     */
+    @Test
+    public void testIsValidMailBox() {
+        user = new UserTestDummy("AlwaysFalse", "First", "Last");
+        assertFalse(user.isValidMailbox(null));
+        assertTrue(user.isValidMailbox(new Mailbox()));
+    }
+    
     @Test
     public void testEquals() {
         user = new UserTestDummy("D", "um", "my");

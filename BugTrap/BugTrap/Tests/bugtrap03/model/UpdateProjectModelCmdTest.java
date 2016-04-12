@@ -168,9 +168,19 @@ public class UpdateProjectModelCmdTest {
      */
     @Test
     public void testToString_NullArgs() {
-        UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(null, admin, null, null, null, 100);
-        assertTrue(cmd.toString().contains("Project -invalid argument-"));
+        UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(proj, admin, null, null, null, 100);
         assertTrue(cmd.toString().contains("-invalid argument-, 100"));
+    }
+
+    /**
+     * Test exec while proj == null
+     *
+     * @throws PermissionException Never
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_InvalidProj() throws PermissionException {
+        UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(null, admin, "testingstuff", "new desc", startDate, 100);
+        cmd.exec();
     }
 
     /**

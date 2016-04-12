@@ -2,11 +2,13 @@ package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
+import java.util.GregorianCalendar;
 import org.junit.Before;
 import org.junit.Test;
 import purecollections.PList;
@@ -24,10 +26,12 @@ public class SetDuplicateBugReportModelCmdTest {
     private DataModel model;
     private Administrator admin;
     private Project proj;
+    private Project proj2;
     private Developer dev;
     private Subsystem subsys;
     private BugReport bugRep;
     private BugReport duplicate;
+    private BugReport duplicate2;
 
     private Developer dev2;
     private Developer dev3;
@@ -43,6 +47,10 @@ public class SetDuplicateBugReportModelCmdTest {
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
         bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
         duplicate = model.createBugReport(subsys, dev, "titleDuplicate", "descDuplicate", PList.<BugReport>empty(), null, false);
+        
+        proj2 = model.createProject("TestProject49", "fajfief", dev, 50, admin);
+        Subsystem subsys2 = model.createSubsystem(admin, proj2, "azdazd", "ferfre");
+        duplicate2 = model.createBugReport(subsys2, dev, "titleDuplicate", "descDuplicate", PList.<BugReport>empty(), null, false);
 
         model.assignToProject(proj, dev, dev, Role.TESTER);
         model.assignToProject(proj, dev, dev, Role.PROGRAMMER);
@@ -177,4 +185,41 @@ public class SetDuplicateBugReportModelCmdTest {
         cmd.exec();
     }
 
+    /**
+     * Test constructor with terminated bugReport
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_BugReportTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        SetDuplicateBugReportModelCmd cmd = new SetDuplicateBugReportModelCmd(bugRep, duplicate, dev);
+    }
+
+    /**
+     * Test exec() with terminated bugReport
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_BugReportTerminated() throws PermissionException {
+        SetDuplicateBugReportModelCmd cmd = new SetDuplicateBugReportModelCmd(bugRep, duplicate, dev);
+        model.deleteProject(admin, proj);
+        cmd.exec();
+    }
+
+    /**
+     * Test constructor with terminated duplicate
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_DuplicateTerminated() throws PermissionException {
+        model.deleteProject(admin, proj2);
+        SetDuplicateBugReportModelCmd cmd = new SetDuplicateBugReportModelCmd(bugRep, duplicate2, dev);
+    }
+
+    /**
+     * Test exec() with terminated duplicate
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_DuplicateTerminated() throws PermissionException {
+        SetDuplicateBugReportModelCmd cmd = new SetDuplicateBugReportModelCmd(bugRep, duplicate2, dev);
+        model.deleteProject(admin, proj2);
+        cmd.exec();
+    }
 }

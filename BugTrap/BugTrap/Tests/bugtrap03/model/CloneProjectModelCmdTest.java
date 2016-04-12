@@ -8,7 +8,6 @@ import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import java.util.GregorianCalendar;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -128,20 +127,40 @@ public class CloneProjectModelCmdTest {
     /**
      * Test creation of a clone with null as a cloneSource.
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testCons_ClonesourceNull() {
         GregorianCalendar startDate = new GregorianCalendar();
         startDate.add(GregorianCalendar.DAY_OF_WEEK, 1);
 
         // 1. Create
         CloneProjectModelCmd cmd = new CloneProjectModelCmd(model, null, new VersionID(2, 0, 1), dev, startDate, 50);
-        // 2. Exec()
-        Project clone = cmd.exec();
-        assertTrue(cmd.toString().contains("invalid argument"));
-        // 3. undo()
-        assertNull(clone);
+    }
 
-        assertTrue(cmd.undo());
+    /**
+     * Test constructor with terminated clonesSource
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_CloneSourceTerminated() throws PermissionException {
+        GregorianCalendar startDate = new GregorianCalendar();
+        startDate.add(GregorianCalendar.DAY_OF_WEEK, 1);
+
+        // 1. Create
+        model.deleteProject(admin, proj);
+        CloneProjectModelCmd cmd = new CloneProjectModelCmd(model, proj, new VersionID(2, 0, 1), dev, startDate, 50);
+    }
+
+    /**
+     * Test exec() with terminated clonesSource
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_CloneSourceTerminated() throws PermissionException {
+        GregorianCalendar startDate = new GregorianCalendar();
+        startDate.add(GregorianCalendar.DAY_OF_WEEK, 1);
+
+        // 1. Create
+        CloneProjectModelCmd cmd = new CloneProjectModelCmd(model, proj, new VersionID(2, 0, 1), dev, startDate, 50);
+        model.deleteProject(admin, proj);
+        cmd.exec();
     }
 
 }
