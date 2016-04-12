@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 import java.util.ArrayDeque;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import bugtrap03.bugdomain.Project;
@@ -25,12 +24,16 @@ import testCollection.TerminalTestScanner;
  *
  */
 public class GiveScoreToBugReportCmdTest {
+    
+    //TODO: Implement tests.
 
     private static DataModel model;
     private static Administrator admin;
     private static Developer lead;
     private static Project proj0;
     private static Project proj1;
+    
+    private static int counter = Integer.MIN_VALUE;
 
     /**
      * @throws java.lang.Exception
@@ -38,10 +41,11 @@ public class GiveScoreToBugReportCmdTest {
     @Before
     public void setUp() throws Exception {
         model = new DataModel();
-        lead = model.createDeveloper("theLeaderVinnieVidiVici", "theVinnie", "LeaderVinnie");
-        admin = model.createAdministrator("theAdminVinnie", "AdVinnie", "MinVinnie");
+        lead = model.createDeveloper("the10LeaderVinnieVidiVici" + counter, "theVinnie", "LeaderVinnie");
+        admin = model.createAdministrator("the10AdminVinnie" + counter, "AdVinnie", "MinVinnie");
         proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
         proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        counter++;
     }
 
     /**
