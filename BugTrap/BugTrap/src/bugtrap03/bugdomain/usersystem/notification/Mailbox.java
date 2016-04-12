@@ -10,7 +10,7 @@ import java.util.EnumSet;
  * This class represents a mailbox for a user.
  * @author Group 03
  */
-public abstract class Mailbox {
+public class Mailbox {
 
     /**
      * The constructor for a general mailbox.
@@ -101,7 +101,9 @@ public abstract class Mailbox {
      *
      * @return A string with information.
      */
-    public abstract String getInfo();
+    public String getInfo(){
+        return ("This mailbox is doesn't have any info about itself");
+    }
 
     /**
      * This method makes a subscription to a subject for the specified tags on the bugreports related to that subject.
