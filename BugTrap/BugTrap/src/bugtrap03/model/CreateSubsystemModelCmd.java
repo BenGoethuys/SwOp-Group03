@@ -57,6 +57,7 @@ class CreateSubsystemModelCmd extends ModelCmd {
      * @return The created subsystem
      * @throws IllegalArgumentException When user == null
      * @throws IllegalArgumentException When abstractSystem == null
+     * @throws IllegalArgumentException When abstractSystem is terminated
      */
     CreateSubsystemModelCmd(User user, AbstractSystem abstractSystem, String name, String description) throws IllegalArgumentException {
         if (user == null) {
@@ -65,6 +66,10 @@ class CreateSubsystemModelCmd extends ModelCmd {
 
         if (abstractSystem == null) {
             throw new IllegalArgumentException("The abstractSystem passed to CreateSubsystemModelCmd was a null reference.");
+        }
+
+        if (abstractSystem.isTerminated()) {
+            throw new IllegalArgumentException("The given abstractSystem is terminated");
         }
 
         this.user = user;

@@ -159,4 +159,42 @@ public class CreateBugReportModelCmdTest {
         CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, admin, "title", "desc", null, PList.<BugReport>empty(), null, false);
         cmd.exec();
     }
+
+    /**
+     * Test constructor with terminated subsystem
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons1_ProjectTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), null, false);
+    }
+
+    /**
+     * Test exec() with terminated subsystem
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec1_ProjectTerminated() throws PermissionException {
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), null, false);
+        model.deleteProject(admin, proj);
+        cmd.exec();
+    }
+
+    /**
+     * Test constructor with terminated subsystem
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons2_SubsystemTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), new Milestone(2, 0, 0), false, "trigger", "stackTrace", "error");
+    }
+
+    /**
+     * Test exec() with terminated subsystem
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec2_SubsystemTerminated() throws PermissionException {
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), new Milestone(2, 0, 0), false, "trigger", "stackTrace", "error");
+        model.deleteProject(admin, proj);
+        cmd.exec();
+    }
 }

@@ -120,6 +120,7 @@ public class AssignToProjectModelCmdTest {
 
     /**
      * Test undo when no changes have occurred, as in the developer already had the role assigned.
+     *
      * @throws PermissionException Never
      */
     @Test
@@ -141,5 +142,24 @@ public class AssignToProjectModelCmdTest {
         //should still be there because is assigned twice so new cmd didn't do anything.
         assertTrue(proj.getAllRolesDev(dev).contains(Role.TESTER));
         assertEquals(oldSize, proj.getAllRolesDev(dev).size());
+    }
+
+    /**
+     * Test constructor with terminated project
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_ProjectTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        AssignToProjectModelCmd cmd = new AssignToProjectModelCmd(proj, dev, dev, Role.TESTER);
+    }
+
+    /**
+     * Test exec() with terminated project
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ProjectTerminated() throws PermissionException {
+        AssignToProjectModelCmd cmd = new AssignToProjectModelCmd(proj, dev, dev, Role.TESTER);
+        model.deleteProject(admin, proj);
+        cmd.exec();
     }
 }

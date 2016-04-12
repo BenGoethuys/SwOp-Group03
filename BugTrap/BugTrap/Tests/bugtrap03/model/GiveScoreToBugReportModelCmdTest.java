@@ -155,4 +155,23 @@ public class GiveScoreToBugReportModelCmdTest {
         GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugRep, admin, 2);
         cmd.exec();
     }
+
+    /**
+     * Test constructor with terminated BugReport
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_BugReportTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugRep, dev, 2);
+    }
+
+    /**
+     * Test exec() with terminated BugReport
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_BugReportTerminated() throws PermissionException {
+        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugRep, dev, 2);
+        model.deleteProject(admin, proj);
+        cmd.exec();
+    }
 }

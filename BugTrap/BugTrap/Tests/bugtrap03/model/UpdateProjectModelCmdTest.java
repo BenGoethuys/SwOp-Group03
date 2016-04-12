@@ -205,4 +205,23 @@ public class UpdateProjectModelCmdTest {
         cmd.exec();
     }
 
+    /**
+     * Test constructor with terminated project
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_ProjectTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(proj, admin, "new name", "new desc", startDate, 100);
+    }
+
+    /**
+     * Test exec() with terminated project
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ProjectTerminated() throws PermissionException {
+        UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(proj, admin, "new name", "new desc", startDate, 100);
+        model.deleteProject(admin, proj);
+        cmd.exec();
+    }
+
 }

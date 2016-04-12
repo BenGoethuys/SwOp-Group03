@@ -90,7 +90,7 @@ public class AddTestToBugReportModelCmdTest {
         assertTrue(cmd.undo());
 
         // test
-       assertFalse(bugRep.getTests().contains("test here"));
+        assertFalse(bugRep.getTests().contains("test here"));
     }
 
     /**
@@ -144,6 +144,25 @@ public class AddTestToBugReportModelCmdTest {
     @Test(expected = PermissionException.class)
     public void testNoPermissions() throws PermissionException {
         AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRep, admin, "test here");
+        cmd.exec();
+    }
+
+    /**
+     * Test constructor with terminated bugReport
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_BugReportTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRep, dev, "test here");
+    }
+
+    /**
+     * Test exec() with terminated bugReport
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_BugReportTerminated() throws PermissionException {
+        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRep, dev, "test here");
+        model.deleteProject(admin, proj);
         cmd.exec();
     }
 }

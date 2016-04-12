@@ -167,7 +167,7 @@ public class CreateCommentModelCmdTest {
      * Test constructor with terminated bugreport
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testCons_DuplicateTerminated() throws PermissionException {
+    public void testCons_BugReportTerminated() throws PermissionException {
         model.deleteProject(admin, proj);
         CreateCommentModelCmd cmd = new CreateCommentModelCmd(dev, bugRep, "text here");
     }
@@ -176,7 +176,7 @@ public class CreateCommentModelCmdTest {
      * Test exec() with terminated bugreport
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testExec_DuplicateTerminated() throws PermissionException {
+    public void testExec_BugReportTerminated() throws PermissionException {
         CreateCommentModelCmd cmd = new CreateCommentModelCmd(dev, bugRep, "text here");
         model.deleteProject(admin, proj);
         cmd.exec();

@@ -6,6 +6,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.Role;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -125,7 +126,7 @@ public class AddUsersToBugReportModelCmdTest {
     @Test
     public void testToString_DevListNull() {
         AddUsersToBugReportModelCmd cmd = new AddUsersToBugReportModelCmd(dev, bugRep, null);
-        
+
         assertTrue(cmd.toString().contains("0"));
     }
 
@@ -140,4 +141,22 @@ public class AddUsersToBugReportModelCmdTest {
         cmd.exec();
     }
 
+    /**
+     * Test constructor with terminated bugReport
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_BugReportTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        AddUsersToBugReportModelCmd cmd = new AddUsersToBugReportModelCmd(dev, bugRep, devList);
+    }
+
+    /**
+     * Test exec() with terminated bugReport
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_BugReportTerminated() throws PermissionException {
+        AddUsersToBugReportModelCmd cmd = new AddUsersToBugReportModelCmd(dev, bugRep, devList);
+        model.deleteProject(admin, proj);
+        cmd.exec();
+    }
 }

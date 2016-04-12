@@ -112,5 +112,25 @@ public class DeleteProjectModelCmdTest {
         DeleteProjectModelCmd cmd = new DeleteProjectModelCmd(model, dev, proj);
         cmd.exec();
     }
+    
+    /**
+     * Test constructor with terminated project
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_ProjectTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        DeleteProjectModelCmd cmd = new DeleteProjectModelCmd(model, admin, proj);
+    }
 
+    /**
+     * Test exec() with terminated project
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ProjectTerminated() throws PermissionException {
+        DeleteProjectModelCmd cmd = new DeleteProjectModelCmd(model, admin, proj);
+        model.deleteProject(admin, proj);
+        cmd.exec();
+    }
+    
+    
 }
