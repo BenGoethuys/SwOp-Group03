@@ -56,6 +56,20 @@ public class Mailbox {
     }
 
     /**
+     * This method returns all the mailboxes belonging to this mailbox.
+     * These are the mailboxes of which this mailbox is composed.
+     *
+     * @return A PList of mailboxes belonging to this mailbox.
+     */
+    public PList<Mailbox> getAllBoxes(){
+        ArrayList<Mailbox> allBoxes = new ArrayList<Mailbox>(this.getBoxes());
+        for (Mailbox mb: this.getBoxes()){
+            allBoxes.addAll(mb.getAllBoxes());
+        }
+        return PList.<Mailbox>empty().plusAll(allBoxes);
+    }
+
+    /**
      * This method returns the list of mail boxes belonging to this mailbox.
      *
      * @return A PList of mailboxes belonging to this mailbox.
@@ -88,7 +102,7 @@ public class Mailbox {
      * @return A string with information.
      */
     public String getInfo(){
-        return "This subscription doesn't have any information about itself";
+        return ("This mailbox is doesn't have any info about itself");
     }
 
     /**
@@ -154,5 +168,6 @@ public class Mailbox {
     public void unsubscribe(Mailbox mb){
         this.boxes = this.getBoxes().minus(mb);
     }
+
 }
 

@@ -17,7 +17,12 @@ public class ViewNotificationsCmd implements Cmd {
     public Mailbox exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
         PList<Notification> notifications = user.getMailbox().getAllNotifications();
-        scan.println("Length of inbox "+ notifications.size());
+        int size = notifications.size();
+        if (size < 1){
+            scan.println("No notifications in mailbox.");
+            return null;
+        }
+        scan.println("Length of inbox "+ size);
         scan.println("How many notifications do you wish to see? (numeric)");
         int index = 0;
         while(index == 0){
@@ -25,7 +30,7 @@ public class ViewNotificationsCmd implements Cmd {
                 scan.println("Invalid input, try again");
             } else{
                 index = scan.nextInt();
-                if (index < 0 || index > notifications.size()){
+                if (index < 1 || index > size){
                     index = 0;
                     scan.println("Invalid input, try again");
                 }

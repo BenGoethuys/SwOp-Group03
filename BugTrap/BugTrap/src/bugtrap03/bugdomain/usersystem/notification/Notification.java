@@ -40,8 +40,9 @@ public class Notification {
     private void setMessage(String message) throws  IllegalArgumentException{
         if (this.isValidMessage(message)){
             this.message = message;
+        } else {
+            throw new IllegalArgumentException("The given message is invalid");
         }
-        throw new IllegalArgumentException("The given message is invalid");
     }
 
     /**
@@ -72,8 +73,9 @@ public class Notification {
     private void setBugReport(BugReport bugReport) throws IllegalArgumentException{
         if (this.isValidBugReport(bugReport)){
             this.bugReport = bugReport;
+        } else {
+            throw new IllegalArgumentException("The given bug report is invalid");
         }
-        throw new IllegalArgumentException("The given bug report is invalid");
     }
 
     /**
@@ -101,8 +103,9 @@ public class Notification {
     private void setSubject(Subject subject) throws IllegalArgumentException{
         if (this.isValidSubject(subject)) {
             this.subject = subject;
+        } else {
+            throw new IllegalArgumentException("The given subject is invalid");
         }
-        throw new IllegalArgumentException("The given subject is invalid");
     }
 
     /**
@@ -130,11 +133,11 @@ public class Notification {
      */
     public String open(User user){
         if (! bugReport.isVisibleTo(user)){
-            return "This notification is closed for you at the moment.";
+            return " \tThis notification is closed for you at the moment.";
         }
-        StringBuilder message = new StringBuilder(this.message);
+        StringBuilder message = new StringBuilder("\t" + this.message);
         message.append(bugReport.getTitle());
-        message.append("\n This notification originated from the subscription on: ");
+        message.append("\n\tThis notification originated from the subscription on: ");
         message.append(subject.getSubjectName());
         return message.toString();
     }
