@@ -53,7 +53,7 @@ public class CreateBugReportModelCmdTest {
         CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), null, false);
 
         // test
-        assertTrue(cmd.toString().contains("BugReport -invalid argument-"));
+        assertTrue(cmd.toString().contains("BugReport title"));
         assertFalse(cmd.undo()); //can't undo yet.
 
         // 2. Exec()
@@ -89,7 +89,7 @@ public class CreateBugReportModelCmdTest {
         CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), new Milestone(2, 0, 0), false, "trigger", "stackTrace", "error");
 
         // test
-        assertTrue(cmd.toString().contains("BugReport -invalid argument-"));
+        assertTrue(cmd.toString().contains("BugReport title"));
         assertFalse(cmd.undo()); //can't undo yet.
 
         // 2. exec()

@@ -93,8 +93,7 @@ class DeleteProjectModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        String projName = (this.project != null) ? this.project.getName() : "-invalid argument-";
-        return "Deleted Project " + projName;
+        return "Deleted Project " + project.getName();
     }
 
 }

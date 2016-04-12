@@ -164,7 +164,7 @@ public class CreateCommentModelCmdTest {
     }
 
     /**
-     * Test constructor with terminated bugreport
+     * Test constructor with terminated bugReport
      */
     @Test(expected = IllegalArgumentException.class)
     public void testCons_BugReportTerminated() throws PermissionException {
@@ -173,7 +173,7 @@ public class CreateCommentModelCmdTest {
     }
 
     /**
-     * Test exec() with terminated bugreport
+     * Test exec() with terminated bugReport
      */
     @Test(expected = IllegalArgumentException.class)
     public void testExec_BugReportTerminated() throws PermissionException {

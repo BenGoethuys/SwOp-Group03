@@ -103,6 +103,16 @@ public class DeleteProjectModelCmdTest {
     }
 
     /**
+     * Test
+     * {@link DeleteProjectModelCmd#DeleteProjectModelCmd(bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User, bugtrap03.bugdomain.Project)}
+     * with proj == null
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_ProjNull() {
+        DeleteProjectModelCmd cmd = new DeleteProjectModelCmd(model, admin, null);
+    }
+
+    /**
      * Test exec() with a dev who has no permissions.
      *
      * @throws PermissionException Always
@@ -112,7 +122,7 @@ public class DeleteProjectModelCmdTest {
         DeleteProjectModelCmd cmd = new DeleteProjectModelCmd(model, dev, proj);
         cmd.exec();
     }
-    
+
     /**
      * Test constructor with terminated project
      */
@@ -131,6 +141,5 @@ public class DeleteProjectModelCmdTest {
         model.deleteProject(admin, proj);
         cmd.exec();
     }
-    
-    
+
 }
