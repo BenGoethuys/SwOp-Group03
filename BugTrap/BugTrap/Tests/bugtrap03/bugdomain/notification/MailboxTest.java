@@ -177,8 +177,8 @@ public class MailboxTest {
         assertTrue(testMB.unsubscribe(cmb2));
         assertFalse(testMB.getAllBoxes().contains(cmb2));
         assertFalse(testMB2.getAllBoxes().contains(cmb2));
-        assertTrue(testMB.unsubscribe(cmb));
         assertFalse(testMB.unsubscribe(testCMB2));
+        assertTrue(testMB.unsubscribe(cmb));
         assertFalse(testMB.getAllBoxes().contains(cmb));
     }
 
