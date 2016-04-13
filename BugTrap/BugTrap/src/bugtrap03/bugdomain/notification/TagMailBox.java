@@ -82,13 +82,17 @@ public class TagMailBox extends Mailbox {
      * This method updates the notifications list with a new notification if the tag on a begureport has been changed.
      *
      * @param bugReport The bugreport of which the tag is changed.
+     *
+     * @return The added notification.
      */
-    public void update(BugReport bugReport){
+    public Notification update(BugReport bugReport){
         StringBuilder message = new StringBuilder();
         message.append("The tag ");
         message.append(bugReport.getTag());
         message.append(" has been set on ");
-        this.addNotification(new Notification(message.toString(), bugReport, this.subject));
+        Notification newNotif = new Notification(message.toString(), bugReport, this.subject);
+        this.addNotification(newNotif);
+        return newNotif;
     }
 
     /**
@@ -102,7 +106,7 @@ public class TagMailBox extends Mailbox {
         StringBuilder message = new StringBuilder();
         message.append("You are subscribed to a change of following tags: ");
         message.append(this.tags.toString());
-        message.append(" on ");
+        message.append(" on: ");
         message.append(this.subject.getSubjectName());
         return message.toString();
     }

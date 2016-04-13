@@ -134,6 +134,11 @@ public class MailboxTest {
         testMB.tagSubscribe(project4MB, null);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testTagSubscribeEmptyTags() throws Exception {
+        testMB.tagSubscribe(project4MB, EnumSet.noneOf(Tag.class));
+    }
+
     @Test
     public void testTagSubscribe1() throws Exception {
         EnumSet<Tag> tags = EnumSet.allOf(Tag.class);
