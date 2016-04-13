@@ -519,7 +519,7 @@ public class UpdateBugReportCmdTest {
         Administrator admin = model.createAdministrator("General5", "Kwinten", "JK");
 
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        projectA.setRole(lead, lead, Role.PROGRAMMER);
+        model.assignToProject(projectA, lead, lead, Role.PROGRAMMER);
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
@@ -599,7 +599,7 @@ public class UpdateBugReportCmdTest {
         Administrator admin = model.createAdministrator("General6", "Kwinten", "JK");
 
         Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        projectA.setRole(lead, lead, Role.PROGRAMMER);
+        model.assignToProject(projectA, lead, lead, Role.PROGRAMMER);
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
@@ -617,7 +617,7 @@ public class UpdateBugReportCmdTest {
         model.addTest(bugRep2, lead, "test here");
         model.addPatch(bugRep2, lead, "Test");
         model.selectPatch(bugRep2, lead, "Test");
-        
+
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         UpdateBugReportCmd cmd = new UpdateBugReportCmd();
@@ -653,16 +653,13 @@ public class UpdateBugReportCmdTest {
         answer.add("wrongInput");
         question.add("Invalid input.");
         question.add("I choose: ");
-        answer.add("RESOLVED");
-        question.add("You have selected: \tRESOLVED");
-        question.add("Selecting patch.");
-        question.add("Use the index in front of the patch to select a patch.");
-        question.add("Available options:");
-        question.add("0. Test");
-        question.add("I choose: ");
-        answer.add("0");
-        question.add("The selected patch is set to: Test");
-        question.add("The tag RESOLVED has been set.");
+        answer.add("CLOSED");
+        question.add("You have selected: \tCLOSED");
+        question.add("Give a score between 1 and 5: ");
+        question.add("Give number: ");
+        answer.add("3");
+        question.add("The score is set to: 3");
+        question.add("The tag CLOSED has been set.");
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
