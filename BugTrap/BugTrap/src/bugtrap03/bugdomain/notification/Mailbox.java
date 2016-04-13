@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain.notification;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.Tag;
 import purecollections.PList;
 
@@ -31,6 +32,7 @@ public class Mailbox {
      *
      * @return a PList of notifications belonging to this mailbox.
      */
+    @DomainAPI
     public PList<Notification> getAllNotifications(){
         ArrayList<Notification> nfs = new ArrayList<>(this.getNotifications());
         for (Mailbox mb: this.getBoxes()){
@@ -44,7 +46,7 @@ public class Mailbox {
      *
      * @return A PList of notifications belonging to this specific mailbox.
      */
-    protected PList<Notification> getNotifications(){
+    private PList<Notification> getNotifications(){
         return this.notifications;
     }
 
@@ -65,6 +67,7 @@ public class Mailbox {
      *
      * @return A PList of mailboxes belonging to this mailbox.
      */
+    @DomainAPI
     public PList<Mailbox> getAllBoxes(){
         ArrayList<Mailbox> allBoxes = new ArrayList<Mailbox>(this.getBoxes());
         for (Mailbox mb: this.getBoxes()){
@@ -78,7 +81,7 @@ public class Mailbox {
      *
      * @return A PList of mailboxes belonging to this mailbox.
      */
-    public PList<Mailbox> getBoxes(){
+    private PList<Mailbox> getBoxes(){
         return this.boxes;
     }
 
@@ -105,6 +108,7 @@ public class Mailbox {
      *
      * @return A string with information.
      */
+    @DomainAPI
     public String getInfo(){
         return ("This mailbox is doesn't have any info about itself");
     }
