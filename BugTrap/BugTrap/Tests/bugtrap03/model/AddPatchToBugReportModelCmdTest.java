@@ -147,4 +147,23 @@ public class AddPatchToBugReportModelCmdTest {
         AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugRep, admin, "patch here");
         cmd.exec();
     }
+
+    /**
+     * Test constructor with terminated bugReport
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_BugReportTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugRep, dev, "patch here");
+    }
+
+    /**
+     * Test exec() with terminated bugReport
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_BugReportTerminated() throws PermissionException {
+        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugRep, dev, "patch here");
+        model.deleteProject(admin, proj);
+        cmd.exec();
+    }
 }

@@ -1,6 +1,8 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.*;
@@ -308,7 +310,7 @@ public class DataModelTest {
 
     /**
      * Test {@link DataModel#undoLastChanges(bugtrap03.bugdomain.usersystem.User, int) when the user == null
-     * 
+     *
      * @throws PermissionException Always
      */
     @Test(expected = PermissionException.class)
@@ -319,7 +321,7 @@ public class DataModelTest {
 
     /**
      * Test {@link DataModel#undoLastChanges(User, int) as a success scenario with every possible branch.
-     * 
+     *
      * @throws PermissionException  Never
      */
     @Test
@@ -341,10 +343,11 @@ public class DataModelTest {
         assertTrue(model.getProjectList().isEmpty());
         assertEquals(1, model.getUserList().size());
     }
-    
+
     /**
      * Test {@link DataModel#undoLastChanges(bugtrap03.bugdomain.usersystem.User, int) with a negative value.
-     * @throws PermissionException Never 
+     *
+     * @throws PermissionException Never
      */
     @Test
     public void testUndoLastChangesNegative() throws PermissionException {
@@ -352,7 +355,61 @@ public class DataModelTest {
         admin = model.createAdministrator("ABCDEF0458", "first", "last");
         assertTrue(model.undoLastChanges(admin, -5));
     }
+
+    /**
+     * Test {@link DataModel#undoLastChanges(bugtrap03.bugdomain.usersystem.User, int) while there are no more.
+     *
+     * @throws PermissionException Never
+     */
+    @Test
+    public void testUndoLastChangesNone() throws PermissionException {
+        model = new DataModel();
+        admin = model.createAdministrator("A0BCDEF0458", "first", "last");
+        assertTrue(model.undoLastChanges(admin, 2));
+    }
+    
+    /**
+     * Test {@link DataModel#getDetails(User, BugReport)} without permissions.
+     * @throws PermissionException 
+     */
+    @Test(expected = PermissionException.class)
+    public void testGetDetailsNoPerm() throws PermissionException {
+        model = new DataModel();
+        admin = model.createAdministrator("A2BCDEF0459", "first", "last");
+        dev = model.createDeveloper("A2BCDEF460", "first", "last");
+        project = model.createProject("name", "desc", dev, 50, admin);
+        
+        Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
+        BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, false);
+        
+        model.getDetails(admin, bugRep);
+    }
+    
+    /**
+     * Test {@link DataModel#giveScore(BugReport, User, int)}.
+     * (superficial as it is tested in the ModelCmds used.
+     * @throws PermissionException 
+     */
+    @Test
+    public void testGiveScore() throws PermissionException {
+        model = new DataModel();
+        admin = model.createAdministrator("A3BCDEF0459", "first", "last");
+        dev = model.createDeveloper("A3BCDEF460", "first", "last");
+        project = model.createProject("name", "desc", dev, 50, admin);
+        
+        Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
+        BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, false);
+        model.assignToProject(project, dev, dev, Role.TESTER);
+        model.assignToProject(project, dev, dev, Role.PROGRAMMER);
+        model.addUsersToBugReport(dev, bugRep, (PList.<Developer>empty()).plus(dev));
+        model.addTest(bugRep, dev, "test");
+        model.addPatch(bugRep, dev, "patch");
+        model.selectPatch(bugRep, dev, "patch");
+        
+        model.giveScore(bugRep, dev, 3);
+        assertEquals(3, bugRep.getScore());
+    }
     
     
-  
+
 }

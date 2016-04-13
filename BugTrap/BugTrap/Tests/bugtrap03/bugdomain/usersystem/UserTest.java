@@ -241,7 +241,7 @@ public class UserTest {
      */
     @Test
     public void testIsValidMailBox() {
-        user = new UserTestDummy("AlwaysFalse", "First", "Last");
+        user = new UserTestDummy("AlwaysFalse1", "First", "Last");
         assertFalse(user.isValidMailbox(null));
         assertTrue(user.isValidMailbox(new Mailbox()));
     }

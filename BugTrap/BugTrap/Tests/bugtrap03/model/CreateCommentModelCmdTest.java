@@ -163,4 +163,22 @@ public class CreateCommentModelCmdTest {
         cmd.exec();
     }
 
+    /**
+     * Test constructor with terminated bugReport
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_BugReportTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        CreateCommentModelCmd cmd = new CreateCommentModelCmd(dev, bugRep, "text here");
+    }
+
+    /**
+     * Test exec() with terminated bugReport
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_BugReportTerminated() throws PermissionException {
+        CreateCommentModelCmd cmd = new CreateCommentModelCmd(dev, bugRep, "text here");
+        model.deleteProject(admin, proj);
+        cmd.exec();
+    }
 }

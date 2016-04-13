@@ -91,9 +91,8 @@ class AssignToProjectModelCmd extends ModelCmd {
     @Override
     public String toString() {
         String devName = (developer != null) ? this.developer.getFullName() : "-invalid argument-";
-        String projName = (project != null) ? this.project.getName() : "-invalid argument-";
         String roleName = (role != null) ? this.role.toString() : "-invalid argument-";
-        return "Assigned Developer " + devName + " to Project " + projName + " with role " + roleName;
+        return "Assigned Developer " + devName + " to Project " + project.getName() + " with role " + roleName;
     }
 
 }

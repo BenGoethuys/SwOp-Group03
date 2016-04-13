@@ -13,6 +13,7 @@ import testCollection.TerminalTestScanner;
 import java.util.ArrayDeque;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Group 03
@@ -172,6 +173,36 @@ public class GetProjectCmdTest {
         GetProjectCmd cmd = new GetProjectCmd(projectOptionList);
 
         cmd.exec(scan, null, null);
+    }
+
+    /**
+     * Test execution of getProjectCmd exec when proj == null
+     *
+     * @throws IllegalArgumentException Never
+     * @throws PermissionException Never
+     * @throws CancelException Never
+     * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExecWithNull() throws IllegalArgumentException, PermissionException, CancelException {
+        // Setup variables.
+        DataModel model = new DataModel();
+        Developer lead = model.createDeveloper("meGoodLead015", "Luky", "Luke");
+        User admin = model.createAdministrator("admin015", "adminT", "bie");
+
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        GetProjectCmd cmd = new GetProjectCmd();
+
+        // Setup scenario
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+
+        // Execute scenario
+        Project chosenProj = cmd.exec(scan, model, admin);
+
+        // Test effects.
+        assertNull(chosenProj);
     }
 
 }

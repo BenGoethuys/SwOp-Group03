@@ -178,4 +178,42 @@ public class CreateSubsystemModelCmdTest {
         cmd.exec();
     }
 
+    /**
+     * Test constructor with terminated project
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons1_ProjectTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(admin, proj, "name here", "desc here");
+    }
+
+    /**
+     * Test exec() with terminated project
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec1_ProjectTerminated() throws PermissionException {
+        CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(admin, proj, "name here", "desc here");
+        model.deleteProject(admin, proj);
+        cmd.exec();
+    }
+
+    /**
+     * Test constructor with terminated project
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons2_ProjectTerminated() throws PermissionException {
+        model.deleteProject(admin, proj);
+        CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(admin, proj, new VersionID(2, 0, 1), "name here", "desc here");
+    }
+
+    /**
+     * Test exec() with terminated project
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec2_ProjectTerminated() throws PermissionException {
+        CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(admin, proj, new VersionID(2, 0, 1), "name here", "desc here");
+        model.deleteProject(admin, proj);
+        cmd.exec();
+    }
+
 }
