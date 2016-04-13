@@ -65,7 +65,8 @@ public class ProposePatchCmd implements Cmd<BugReport> {
 
         // 3. The system shows the form for uploading the patch.
         // 4. The developer provides the details for uploading the patch.
-        scan.println("If you wish to submit a file please type yes or no.");
+        scan.println("Adding patch.");
+        scan.println("Do you wish to submit a file? Please type yes or no.");
         if (scan.nextLine().equalsIgnoreCase("yes")) {
             /* By file */
             scan.println("Please select the patch code file.");
@@ -107,6 +108,7 @@ public class ProposePatchCmd implements Cmd<BugReport> {
         //-------> Is throwing when not a programmer correct and in the assignment?
         // 1. The use case ends here.
         model.addPatch(bugRep, user, text); //Permission, IllegalState, IllegalArg
+        scan.println("Added patch.");
         return bugRep;
     }
 
