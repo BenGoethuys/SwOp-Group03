@@ -24,3 +24,8 @@
 	The system reverts the selected use cases starting with the last completed one 
 	and, if necessary, sends the required notifications if some object of interest 
 	is modified by the undoing of a use case.
+
+8. create bug report
+	OK
+
+9. show notifications
