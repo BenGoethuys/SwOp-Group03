@@ -132,6 +132,29 @@ public class Project extends AbstractSystem {
     private boolean isTerminated;
 
     /**
+     * This method check if the given Milestone is a valid Milestone for an AbstractSystem
+     * Checks if the constraintCheck is still valid for the parent of this AbstractSystem
+     *
+     * @param milestone the Milestone to check
+     *
+     * @return true if the given Milestone is valid for an AbstractSystem.
+     */
+    @DomainAPI
+    @Override
+    public boolean isValidMilestone(Milestone milestone) {
+        if (milestone == null) {
+            return false;
+        }
+        for (BugReport bugreport : this.getAllBugReports()) {
+            if ((!bugreport.isResolved()) && (bugreport.getMilestone() != null) &&
+                    (bugreport.getMilestone().compareTo(milestone) <= 0)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * This method checks if the given parent is a valid parent for this project
      * @param parent    The parent to check
      *
@@ -514,7 +537,7 @@ public class Project extends AbstractSystem {
 
         Project cloneProject = new Project(version, this.getName(), this.getDescription(), lead, startDate,
                 budgetEstimate);
-        for (Subsystem subsystemChild : this.getChilds()) {
+        for (Subsystem subsystemChild : this.getSubsystems()) {
             subsystemChild.cloneSubsystem(cloneProject);
         }
         return cloneProject;
