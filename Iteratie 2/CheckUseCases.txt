@@ -48,7 +48,12 @@
 	OK
 
 15. assign to project
+	OK
 
+16. assign to bugreport
+	OK
+
+17. update bug report
 
 
 
