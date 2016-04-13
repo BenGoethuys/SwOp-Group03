@@ -4,7 +4,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.usersystem.notification.Subject;
+import bugtrap03.bugdomain.notification.Subject;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.gui.cmd.general.SelectTagsCmd;

@@ -3,7 +3,7 @@ package bugtrap03.gui.cmd.general;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.usersystem.notification.AbstractSystemSubject;
+import bugtrap03.bugdomain.notification.AbstractSystemSubject;
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;

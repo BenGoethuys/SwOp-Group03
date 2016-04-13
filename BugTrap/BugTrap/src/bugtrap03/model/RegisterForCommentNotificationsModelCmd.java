@@ -1,8 +1,8 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.usersystem.notification.CommentMailBox;
-import bugtrap03.bugdomain.usersystem.notification.Subject;
+import bugtrap03.bugdomain.notification.CommentMailBox;
+import bugtrap03.bugdomain.notification.Subject;
 
 /**
  * @author Group 03
