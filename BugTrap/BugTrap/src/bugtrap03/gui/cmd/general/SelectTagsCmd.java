@@ -16,7 +16,10 @@ import java.util.EnumSet;
  */
 public class SelectTagsCmd implements Cmd<EnumSet<Tag>> {
     @Override
-    public EnumSet<Tag> exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+    public EnumSet<Tag> exec(TerminalScanner scan, DataModel model, User userdummy) throws PermissionException, CancelException, IllegalArgumentException {
+        if (scan == null || model == null) {
+            throw new IllegalArgumentException("scan and model musn't be null.");
+        }
         ArrayList<Tag> selectedtags = new ArrayList<>();
         boolean selecting = true;
         while (selecting){

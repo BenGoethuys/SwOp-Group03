@@ -1,6 +1,7 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.notification.Mailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notification.Subject;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 /**
  * @author Group 03
  */
-public class RegisterFromSubsystemCmd implements Cmd<Subject> {
+public class RegisterFromSubsystemCmd implements Cmd<Mailbox> {
     public RegisterFromSubsystemCmd(){
         this.subsriptionTypes = new HashMap<>();
         this.subsriptionTypes.put("alltags",1);
@@ -24,9 +25,12 @@ public class RegisterFromSubsystemCmd implements Cmd<Subject> {
     private HashMap<String, Integer> subsriptionTypes;
 
     @Override
-    public Subject exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+    public Mailbox exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+        if (scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
         Subsystem selectedSubsys = new GetSubsystemCmd().exec(scan, model, user);
-        new RegisterFromASCmd(selectedSubsys).exec(scan, model, user);
-        return selectedSubsys;
+        Mailbox newMailbox = new RegisterFromASCmd(selectedSubsys).exec(scan, model, user);
+        return newMailbox;
     }
 }
