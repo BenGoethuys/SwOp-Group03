@@ -57,7 +57,7 @@ public class GiveScoreToBugReportCmd implements Cmd<Integer> {
         // ask user for score
         scan.println("Give a score between 1 and 5: ");
         int score = new GetIntCmd().exec(scan, model, user);
-        this.bugReport.giveScore(user, score);
+        model.giveScore(bugReport, user, score);
 
         scan.println("The score is set to: " + score);
         return score;
