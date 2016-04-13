@@ -6,6 +6,7 @@ import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
 /**
+ * This class represents the unregistration command.
  * @author Group 03
  */
 public class UnregisterFromNotificationsModelCmd extends ModelCmd{
@@ -74,6 +75,10 @@ public class UnregisterFromNotificationsModelCmd extends ModelCmd{
         throw new IllegalStateException("Something went wrong while unsubscribing. Mailbox not found in subscriptions.");
     }
 
+    /**
+     * This method undoes the unregistration if it had been executed before.
+     * @return true if successfully undone the unregistration.
+     */
     @Override
     boolean undo() {
         if (! isExecuted()){
@@ -84,11 +89,19 @@ public class UnregisterFromNotificationsModelCmd extends ModelCmd{
         return true;
     }
 
+    /**
+     * This method returns wheter or not this command has been executed
+     * @return the value of isExecuted.
+     */
     @Override
     boolean isExecuted() {
         return this.isExecuted;
     }
 
+    /**
+     * This method prints the current state of this command.
+     * @return A string containing the status of this command.
+     */
     @Override
     public String toString() {
         if (! this.isExecuted()){
