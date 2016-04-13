@@ -81,6 +81,25 @@ public class RegisterForNotificationsModelCmdTest {
         assertTrue(cmd.undo());
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void testToString_IllegalState() {
+        RegNotModelCmdDummy cmd = new RegNotModelCmdDummy(admin);
+        cmd.setExecuted();
+        cmd.toString();
+    }
+
+    @Test
+    public void testToString_NotExecuted() {
+        RegNotModelCmdDummy cmd = new RegNotModelCmdDummy(admin);
+        assertEquals("Subscription not yet created.", cmd.toString());
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetNewMailbox_IllegalMB() {
+        RegNotModelCmdDummy cmd = new RegNotModelCmdDummy(admin);
+        cmd.setNewMailbox(null);
+    }
+
     /**
      * Dummy class to test methods.
      */
