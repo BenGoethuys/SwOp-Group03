@@ -21,6 +21,44 @@ import static org.junit.Assert.assertNull;
 public class GetProjectCmdTest {
 
     /**
+     * Get the questions in the default scenario where project with index 0 is selected.
+     *
+     * @return The projects in the order as they would appear
+     */
+    public static ArrayDeque<String> getDefaultQuestions(Project... projects) {
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        question.add("Available options:");
+        for (int i = 0; i < projects.length; i++) {
+            question.add(i + ". " + projects[i].getName() + " version: " + projects[i].getVersionID());
+        }
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have chosen:");
+        question.add(projects[0].getDetails());
+        return question;
+    }
+
+    /**
+     * Get the answers in the default scenario
+     *
+     * @return The projects in the order as they would appear
+     */
+    public static ArrayDeque<String> getDefaultAnswers(Project... projects) {
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        question.add("Available options:");
+        for (int i = 0; i < projects.length; i++) {
+            question.add(i + ". " + projects[i].getName() + " version: " + projects[i].getVersionID());
+        }
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have chosen:");
+        question.add(projects[0].getDetails());
+        return answer;
+    }
+
+    /**
      * Test execution of getProjectCmd exec using the index.
      *
      * @throws IllegalArgumentException Never
@@ -195,7 +233,6 @@ public class GetProjectCmdTest {
         GetProjectCmd cmd = new GetProjectCmd();
 
         // Setup scenario
-
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
