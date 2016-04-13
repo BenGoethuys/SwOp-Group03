@@ -31,7 +31,7 @@ public class RegisterForTagNotificationsModelCmdTest {
     public void setUp() throws PermissionException {
         model = new DataModel();
         admin = model.createAdministrator("MathiasLikes0Plop" + counter, "first", "last");
-        lead = model.createDeveloper("u1i" + counter, "first", "last");
+        lead = model.createDeveloper("u0i" + counter, "first", "last");
 
         GregorianCalendar startDate = new GregorianCalendar();
         startDate.add(GregorianCalendar.DAY_OF_WEEK, 1);
