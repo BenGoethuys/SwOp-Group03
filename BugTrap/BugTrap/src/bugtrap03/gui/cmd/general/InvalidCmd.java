@@ -10,7 +10,7 @@ import bugtrap03.model.DataModel;
  *
  * @author Group 03
  */
-public class InvalidCmd implements Cmd {
+public class InvalidCmd implements Cmd<Object> {
 
     /**
      * Inform the user of the invalid command.

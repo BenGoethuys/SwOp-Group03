@@ -13,7 +13,7 @@ import purecollections.PList;
  * This command provides a GUI interaction to select a subsystem.
  * @author Group 03
  */
-public class GetSubsystemCmd implements Cmd {
+public class GetSubsystemCmd implements Cmd<Subsystem> {
     @Override
     public Subsystem exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException, IllegalArgumentException {
