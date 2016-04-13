@@ -112,9 +112,4 @@ public class SetTagForBugReportModelCmdTest {
         // invalid second execute
         cmd.exec();
     }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void testExecTerminated(){
-        // TODO
-    }
 }
