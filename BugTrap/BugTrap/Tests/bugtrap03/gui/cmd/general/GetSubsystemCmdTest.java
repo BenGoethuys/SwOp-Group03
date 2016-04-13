@@ -81,5 +81,27 @@ public class GetSubsystemCmdTest {
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         Subsystem subsys = cmd.exec(scan, null, null);
     }
+    
+    
+    @Test
+    public void testExec_ByName() throws PermissionException, CancelException {
+        ArrayDeque<String> question = GetProjectCmdTest.getDefaultQuestions(project1, project2);
+        ArrayDeque<String> answer = GetProjectCmdTest.getDefaultAnswers(project1, project2);
+        GetSubsystemCmd cmd = new GetSubsystemCmd();
+
+        // Setup scenario
+        question.add("Select subsystem.");
+        question.add("Available options:");
+        question.add("0. " + subsys1.getName());
+        question.add("1. " + subsys11.getName());
+        question.add("2. " + subsys2.getName());
+        question.add("I choose: ");
+        answer.add(subsys11.getName());
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        Subsystem subsys = cmd.exec(scan, model, null);
+
+        assertEquals(subsys11, subsys);
+    }
 
 }
