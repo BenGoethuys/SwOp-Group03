@@ -102,9 +102,9 @@ public class ProposePatchCmdTest {
 
         model.addUsersToBugReport(lead, bugRep, PList.<Developer>empty().plus(dev2));
         model.addUsersToBugReport(lead, bugRep, PList.<Developer>empty().plus(dev3));
-        
+
         model.addTest(bugRep, dev3, "test over here");
-        
+
         counter++;
     }
 
@@ -124,6 +124,64 @@ public class ProposePatchCmdTest {
         cmd.exec(scan, model, dev2);
 
         assertTrue(bugRep.getPatches().contains("patch over here\npatch line 2"));
+    }
+
+    /**
+     * Test exec() while there is no bug report assigned, this includes the select bug report scenario.
+     *
+     * @throws PermissionException
+     * @throws CancelException
+     */
+    @Test
+    public void testExec_NoBugReport() throws PermissionException, CancelException {
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        ProposePatchCmd cmd = new ProposePatchCmd();
+
+        question.add("Adding patch.");
+
+        question.add("Select a bug report.");
+        addSearchModeOptions(question);
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("Please enter the required search term ...");
+        question.add("enter text: ");
+        answer.add("");
+        question.add("Please select a bug report: ");
+        question.add("Available options:");
+        question.add("0. " + bugRep.getTitle() + "\t -UniqueID: " + bugRep.getUniqueID());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have selected: " + bugRep.getTitle() + "\t -UniqueID: " + bugRep.getUniqueID());
+        question.add("Adding patch.");
+
+        question.add("Do you wish to submit a file? Please type yes or no.");
+        answer.add("no");
+        question.add("You have chosen to insert text. (Leave blank to finish the text)");
+        question.add("text: ");
+        answer.add("patch over here");
+        answer.add("patch line 2");
+        answer.add("");
+        question.add("Added patch.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, model, dev2);
+
+        assertTrue(bugRep.getPatches().contains("patch over here\npatch line 2"));
+    }
+
+    /**
+     * Add the searchMode options + first line to question. Please select a search mode.. <b> 0.. <b> 1.. <b> ..
+     *
+     * @param question
+     */
+    private void addSearchModeOptions(ArrayDeque<String> question) {
+        question.add("Please select a search mode: ");
+        question.add("0. title");
+        question.add("1. description");
+        question.add("2. creator");
+        question.add("3. assigned");
+        question.add("4. uniqueId");
     }
 
 }

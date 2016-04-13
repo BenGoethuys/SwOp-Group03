@@ -106,6 +106,7 @@ public class ProposeTestCmdTest {
 
     /**
      * Test the exec() while there is a bugReport assigned already.
+     *
      * @throws PermissionException Never
      * @throws CancelException Never
      */
@@ -119,6 +120,63 @@ public class ProposeTestCmdTest {
         cmd.exec(scan, model, dev3);
 
         assertTrue(bugRep.getTests().contains("test over here\ntest line 2"));
+    }
+
+    /**
+     * Test exec() while there is no bug report assigned, this includes the select bug report scenario.
+     * @throws PermissionException
+     * @throws CancelException 
+     */
+    @Test
+    public void testExec_NoBugReport() throws PermissionException, CancelException {
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        ProposeTestCmd cmd = new ProposeTestCmd();
+
+        question.add("Adding test.");
+        
+        question.add("Select a bug report.");
+        addSearchModeOptions(question);
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("Please enter the required search term ...");
+        question.add("enter text: ");
+        answer.add("");
+        question.add("Please select a bug report: ");
+        question.add("Available options:");
+        question.add("0. " + bugRep.getTitle() + "\t -UniqueID: " + bugRep.getUniqueID());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have selected: " + bugRep.getTitle() + "\t -UniqueID: " + bugRep.getUniqueID());
+        question.add("Adding test.");
+        
+        question.add("Do you wish to submit a file? Please type yes or no.");
+        answer.add("no");
+        question.add("You have chosen to insert text. (Leave blank to finish the text)");
+        question.add("text: ");
+        answer.add("test over here");
+        answer.add("test line 2");
+        answer.add("");
+        question.add("Added test.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, model, dev3);
+
+        assertTrue(bugRep.getTests().contains("test over here\ntest line 2"));
+    }
+
+    /**
+     * Add the searchMode options + first line to question. Please select a search mode.. <b> 0.. <b> 1.. <b> ..
+     *
+     * @param question
+     */
+    private void addSearchModeOptions(ArrayDeque<String> question) {
+        question.add("Please select a search mode: ");
+        question.add("0. title");
+        question.add("1. description");
+        question.add("2. creator");
+        question.add("3. assigned");
+        question.add("4. uniqueId");
     }
 
 }
