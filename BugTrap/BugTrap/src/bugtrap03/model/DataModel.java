@@ -941,7 +941,15 @@ public class DataModel {
         addToHistory(cmd);
     }
 
-    // TODO
+    /**
+     * This method lets the given user change the milestone of the given abstractSystem to the given milestone
+     *
+     * @param user              The user that wants to change the milestone
+     * @param abstractSystem    The abstractSystem that needs a milestone change
+     * @param milestone         The new milestone
+     * @throws PermissionException
+     */
+    @DomainAPI
     public void setMilestone(User user, AbstractSystem abstractSystem, Milestone milestone) throws PermissionException {
         SetMilestoneASModelCmd cmd = new SetMilestoneASModelCmd(user, abstractSystem, milestone);
         cmd.exec();
