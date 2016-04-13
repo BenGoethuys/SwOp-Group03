@@ -62,13 +62,18 @@ public class SetTagForBugReportModelCmdTest {
         counter++;
     }
 
-    /**
-     * Test
-     * {@link AddPatchToBugReportModelCmd#AddPatchToBugReportModelCmd(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, java.lang.String)}
-     * in a default scenario.
-     *
-     * @throws PermissionException Never
-     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testCreateInvalidBugReportNull(){
+        new SetTagForBugReportModelCmd(null, Tag.NOT_A_BUG, dev);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testCreateInvalidBugReportTerminated(){
+        proj.setTerminated(true);
+        assertTrue(bugRep.isTerminated());
+        new SetTagForBugReportModelCmd(bugRep, Tag.NOT_A_BUG, dev);
+    }
+
     @Test
     public void testGoodScenarioCons() throws PermissionException {
         Tag old = bugRep.getTag();
@@ -99,57 +104,12 @@ public class SetTagForBugReportModelCmdTest {
         assertEquals(old, bugRep.getTag());
     }
 
-    /**
-     * Test
-     * {@link AddPatchToBugReportModelCmd#AddPatchToBugReportModelCmd(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, java.lang.String)}
-     * when the bugReport is not in the right state
-     *
-     * @throws PermissionException Never
-     */
-    @Test(expected = IllegalStateException.class)
-    public void testExec_IllegalState() throws PermissionException {
-
-        // 1. Add
-        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugRepWrongState, dev, "patch here");
-
-        // 2. Exec()
-        cmd.exec();
-    }
-
-    /**
-     * Test the exec() for a second time.
-     *
-     * @throws PermissionException Never
-     */
-    @Test(expected = IllegalStateException.class)
-    public void testIllegalExec() throws PermissionException {
-        // 1. Create
-        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugRep, dev, "patch here");
-
-        // 2. Exec()
+    @Test (expected = IllegalStateException.class)
+    public void testExecTwice() throws PermissionException {
+        SetTagForBugReportModelCmd cmd = new SetTagForBugReportModelCmd(bugRep, Tag.NOT_A_BUG, dev);
         cmd.exec();
 
-        cmd.exec(); // <-- error.
-    }
-
-    /**
-     * Test
-     * {@link AddPatchToBugReportModelCmd#AddPatchToBugReportModelCmd(bugtrap03.bugdomain.bugreport.BugReport, bugtrap03.bugdomain.usersystem.User, java.lang.String)}
-     * with bugReport == null
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void testCons_BugReportNull() {
-        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(null, dev, "patch here");
-    }
-
-    /**
-     * Test exec() with an administrator who has no permissions.
-     *
-     * @throws PermissionException Always
-     */
-    @Test(expected = PermissionException.class)
-    public void testNoPermissions() throws PermissionException {
-        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugRep, admin, "patch here");
+        // invalid second execute
         cmd.exec();
     }
 }
