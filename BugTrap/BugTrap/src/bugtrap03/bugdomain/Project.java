@@ -6,6 +6,7 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.bugdomain.usersystem.User;
+import com.google.java.contract.Requires;
 import purecollections.PList;
 
 import java.util.GregorianCalendar;
@@ -130,6 +131,29 @@ public class Project extends AbstractSystem {
     private long budgetEstimate;
 
     private boolean isTerminated;
+
+    /**
+     * This method check if the given Milestone is a valid Milestone for an AbstractSystem
+     * Checks if the constraintCheck is still valid for the parent of this AbstractSystem
+     *
+     * @param milestone the Milestone to check
+     *
+     * @return true if the given Milestone is valid for an AbstractSystem.
+     */
+    @DomainAPI
+    @Override
+    public boolean isValidMilestone(Milestone milestone) {
+        if (milestone == null) {
+            return false;
+        }
+        for (BugReport bugreport : this.getAllBugReports()) {
+            if ((!bugreport.isResolved()) && (bugreport.getMilestone() != null) &&
+                    (bugreport.getMilestone().compareTo(milestone) <= 0)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * This method checks if the given parent is a valid parent for this project
@@ -348,10 +372,8 @@ public class Project extends AbstractSystem {
      * @return Whether the roles of the developer have changed
      * @throws IllegalArgumentException if the given role was invalid
      */
+    @Requires("dev != null && role != null")
     private boolean setRole(Developer dev, Role role) {
-        if (role == null) {
-            throw new IllegalArgumentException("The given role was null");
-        }
         PList<Role> roleList = this.projectParticipants.get(dev);
         if (roleList == null) {
             this.projectParticipants.put(dev, PList.<Role> empty().plus(role));
@@ -514,7 +536,7 @@ public class Project extends AbstractSystem {
 
         Project cloneProject = new Project(version, this.getName(), this.getDescription(), lead, startDate,
                 budgetEstimate);
-        for (Subsystem subsystemChild : this.getChilds()) {
+        for (Subsystem subsystemChild : this.getSubsystems()) {
             subsystemChild.cloneSubsystem(cloneProject);
         }
         return cloneProject;

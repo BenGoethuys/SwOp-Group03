@@ -20,9 +20,7 @@ import static org.junit.Assert.*;
  * @author Group 03
  */
 public class SetTagForBugReportModelCmdTest {
-    
-    //TODO: Implement (adjust) all tests whed UpdateBugReport use case has been updated -> update SetTagForBugReport...
-    
+
     private static int counter = Integer.MIN_VALUE;
 
     private DataModel model;

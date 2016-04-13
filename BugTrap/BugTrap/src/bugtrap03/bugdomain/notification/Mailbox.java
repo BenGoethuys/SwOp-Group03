@@ -78,7 +78,7 @@ public class Mailbox {
         return this.boxes;
     }
 
-    private void addBox(Mailbox mb){
+    public void addBox(Mailbox mb){
         this.boxes = this.getBoxes().plus(mb);
     }
 
@@ -165,8 +165,18 @@ public class Mailbox {
      *1
      * @param mb The mailbox representing the subscription.
      */
-    public void unsubscribe(Mailbox mb){
-        this.boxes = this.getBoxes().minus(mb);
+    public boolean unsubscribe(Mailbox mb){
+        if (this.boxes.contains(mb)){
+            this.boxes = this.getBoxes().minus(mb);
+            return true;
+        } else{
+            boolean value = false;
+            for (Mailbox mailbox: this.boxes){
+                value = (value || mailbox.unsubscribe(mb));
+            }
+            return value;
+        }
+
     }
 
 }

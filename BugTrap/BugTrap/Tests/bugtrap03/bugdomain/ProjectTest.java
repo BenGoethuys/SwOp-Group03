@@ -5,7 +5,6 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
-import bugtrap03.bugdomain.usersystem.User;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -49,7 +48,26 @@ public class ProjectTest {
     @Before
     public void setUp() throws Exception {
         testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate, testBudget);
-        subSysTest = testProject.makeSubsystemChild(subVersion, subName, subDescription);
+        subSysTest = testProject.addSubsystem(subVersion, subName, subDescription);
+    }
+
+    @Test
+    public void isValidMilestone() throws PermissionException {
+        PList<BugReport> emptyDep = PList.empty();
+        Project project = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
+                testBudget);
+        Milestone projMil = new Milestone(2,4);
+        project.setMilestone(projMil);
+        Subsystem subsystem = project.addSubsystem("Subsys 1", "Description subsys 1");
+        subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
+                emptyDep, null, false, null, null, null);
+        subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
+                emptyDep, new Milestone(5,6), false, null, null, null);
+
+        assertFalse(project.isValidMilestone(null));
+        assertTrue(project.isValidMilestone(new Milestone(3)));
+        assertFalse(project.isValidMilestone(new Milestone(6)));
+
     }
 
     @Test
@@ -252,6 +270,22 @@ public class ProjectTest {
         testProject.setRole(programmer, testDev, Role.TESTER);
     }
 
+    @Test
+    public void testDeleteRole() throws PermissionException {
+        Developer programmer = new Developer("BenWasHierOok", "Joshua2", "de Smedt");
+        testProject.setRole(testDev, testDev, Role.TESTER);
+
+        assertFalse(testProject.deleteRole(null, Role.PROGRAMMER));
+        assertFalse(testProject.deleteRole(testDev, null));
+
+        assertFalse(testProject.deleteRole(programmer, Role.PROGRAMMER));
+
+        assertFalse(testProject.deleteRole(testDev, Role.PROGRAMMER));
+        assertTrue(testProject.deleteRole(testDev, Role.TESTER));
+
+        testProject.setRole(testDev, programmer, Role.PROGRAMMER);
+        assertTrue(testProject.deleteRole(programmer, Role.PROGRAMMER));
+    }
 
     @Test
     public void testGetDetails() {
@@ -290,8 +324,8 @@ public class ProjectTest {
         assertEquals(testName, cloneProject.getName());
         assertEquals(testDescription, cloneProject.getDescription());
 
-        assertNotEquals(null, cloneProject.getChilds());
-        assertNotEquals(childList, cloneProject.getChilds());
+        assertNotEquals(null, cloneProject.getSubsystems());
+        assertNotEquals(childList, cloneProject.getSubsystems());
     }
 
     @Test
@@ -355,18 +389,18 @@ public class ProjectTest {
     @Test
     public void testGetChilds() throws Exception {
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
-        assertEquals(childList, testProject.getChilds());
+        assertEquals(childList, testProject.getSubsystems());
     }
 
     @Test
     public void testMakeSubsystemChild() throws Exception {
         String ede = "Extra test description woehoew";
         String ena = "Extra test name woehoew";
-        Subsystem esu = testProject.makeSubsystemChild(ena, ede);
+        Subsystem esu = testProject.addSubsystem(ena, ede);
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
-        assertNotEquals(childList, testProject.getChilds());
+        assertNotEquals(childList, testProject.getSubsystems());
         childList = childList.plus(esu);
-        assertEquals(childList, testProject.getChilds());
+        assertEquals(childList, testProject.getSubsystems());
     }
 
     @Test
@@ -374,11 +408,11 @@ public class ProjectTest {
         VersionID vid = new VersionID(56, 21, 22);
         String ede = "Extra test description woehoew";
         String ena = "Extra test name woehoew";
-        Subsystem esu = testProject.makeSubsystemChild(vid, ena, ede);
+        Subsystem esu = testProject.addSubsystem(vid, ena, ede);
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
-        assertNotEquals(childList, testProject.getChilds());
+        assertNotEquals(childList, testProject.getSubsystems());
         childList = childList.plus(esu);
-        assertEquals(childList, testProject.getChilds());
+        assertEquals(childList, testProject.getSubsystems());
     }
 
     @Test
@@ -399,7 +433,7 @@ public class ProjectTest {
 
     @Test
     public void testGetAllSubsystems() throws Exception {
-        Subsystem ss2 = testProject.makeSubsystemChild("uhu", "aha");
+        Subsystem ss2 = testProject.addSubsystem("uhu", "aha");
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest).plus(ss2);
         assertEquals(childList, testProject.getAllSubsystems());
     }
@@ -417,6 +451,12 @@ public class ProjectTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetNullProjVersionID() {
         testProject.setVersionID(null);
+    }
+
+    @Test
+    public void testGetSubjectName(){
+        String res = testProject.getSubjectName();
+        assertTrue(res.contains("Project " + testProject.getName()));
     }
 
 

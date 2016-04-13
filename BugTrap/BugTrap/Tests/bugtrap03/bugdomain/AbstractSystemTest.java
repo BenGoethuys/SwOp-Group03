@@ -1,7 +1,9 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.gui.cmd.ProposeTestCmd;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -54,8 +56,8 @@ public class AbstractSystemTest {
     public void setUp() throws Exception {
         testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
                 testBudget);
-        subSysTest = testProject.makeSubsystemChild(subVersion, subName, subDescription);
-        subSysTest2 = subSysTest.makeSubsystemChild("mehAS", "moehAS");
+        subSysTest = testProject.addSubsystem(subVersion, subName, subDescription);
+        subSysTest2 = subSysTest.addSubsystem("mehAS", "moehAS");
         //bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", emptyDep);
         bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(), emptyDep, null, false, null, null, null);
         depToRep1 = PList.<BugReport> empty().plus(bugreport1);
@@ -83,6 +85,34 @@ public class AbstractSystemTest {
         assertTrue(AbstractSystem.isValidVersionId(new VersionID(0, 0, 2)));
         assertTrue(AbstractSystem.isValidVersionId(new VersionID()));
         assertFalse(AbstractSystem.isValidVersionId(null));
+    }
+
+    @Test
+    public void isValidMilestone() throws PermissionException {
+        Project project = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
+                testBudget);
+        Milestone projMil = new Milestone(2,4);
+        project.setMilestone(projMil);
+        Subsystem subsystem = project.addSubsystem("Subsys 1", "Description subsys 1");
+        subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
+                emptyDep, null, false, null, null, null);
+        subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
+                emptyDep, new Milestone(5,6), false, null, null, null);
+
+        assertFalse(subsystem.isValidMilestone(null));
+        assertTrue(subsystem.isValidMilestone(new Milestone(3)));
+        assertFalse(subsystem.isValidMilestone(new Milestone(6)));
+
+    }
+
+    @Test
+    public void isValidParent(){
+        Project project = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
+                testBudget);
+        project.setTerminated(true);
+        assertFalse(subSysTest.isValidParent(null));
+        assertFalse(subSysTest.isValidParent(project));
+        assertTrue(subSysTest.isValidParent(testProject));
     }
 
     @Test
@@ -165,9 +195,9 @@ public class AbstractSystemTest {
 
     @Test
     public void testGetChilds() {
-        assertEquals(PList.<Subsystem> empty().plus(subSysTest), testProject.getChilds());
-        assertEquals(PList.<Subsystem> empty().plus(subSysTest2), subSysTest.getChilds());
-        assertEquals(PList.<Subsystem> empty(), subSysTest2.getChilds());
+        assertEquals(PList.<Subsystem> empty().plus(subSysTest), testProject.getSubsystems());
+        assertEquals(PList.<Subsystem> empty().plus(subSysTest2), subSysTest.getSubsystems());
+        assertEquals(PList.<Subsystem> empty(), subSysTest2.getSubsystems());
     }
 
     @Test
@@ -175,22 +205,22 @@ public class AbstractSystemTest {
         VersionID extraVersion = new VersionID(5, 3, 7);
         String extraName = "extra naam";
         String extraDes = "extra des";
-        Subsystem extraSubsys = testProject.makeSubsystemChild(extraVersion, extraName, extraDes);
+        Subsystem extraSubsys = testProject.addSubsystem(extraVersion, extraName, extraDes);
         assertEquals(extraVersion, extraSubsys.getVersionID());
         assertEquals(extraName, extraSubsys.getName());
         assertEquals(extraDes, extraSubsys.getDescription());
-        assertTrue(testProject.getChilds().contains(extraSubsys));
+        assertTrue(testProject.getSubsystems().contains(extraSubsys));
     }
 
     @Test
     public void testMakeSubsystemChildStringString() {
         String extraName = "extra naam2";
         String extraDes = "extra des2";
-        Subsystem extraSubsys = testProject.makeSubsystemChild(extraName, extraDes);
+        Subsystem extraSubsys = testProject.addSubsystem(extraName, extraDes);
         assertEquals(new VersionID(), extraSubsys.getVersionID());
         assertEquals(extraName, extraSubsys.getName());
         assertEquals(extraDes, extraSubsys.getDescription());
-        assertTrue(testProject.getChilds().contains(extraSubsys));
+        assertTrue(testProject.getSubsystems().contains(extraSubsys));
     }
 
     @Test
@@ -228,6 +258,19 @@ public class AbstractSystemTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetInvalidMilestone() {
         testProject.setMilestone(null);
+    }
+
+    @Test
+    public void testSetMilestone(){
+        testProject.addSubsystem("Another test subsystem", "the description");
+
+        Milestone newM = new Milestone(10,5,3);
+        testProject.setMilestone(newM);
+        assertEquals(newM, testProject.getMilestone());
+
+        for (Subsystem subsystem : testProject.getSubsystems()){
+            assertEquals(newM, subsystem.getMilestone());
+        }
     }
 
 }
