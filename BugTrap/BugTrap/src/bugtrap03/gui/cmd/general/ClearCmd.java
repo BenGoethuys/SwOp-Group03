@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  * @author Group 03
  */
-public class ClearCmd implements Cmd {
+public class ClearCmd implements Cmd<Object> {
 
     /**
      * Attempt to clear the console screen.

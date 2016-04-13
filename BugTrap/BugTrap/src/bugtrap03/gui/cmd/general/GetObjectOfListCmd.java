@@ -13,7 +13,7 @@ import java.util.function.Function;
 /**
  * @author Group 03
  */
-public class GetObjectOfListCmd<U extends Object> implements Cmd {
+public class GetObjectOfListCmd<U extends Object> implements Cmd<U> {
 
     /**
      * Create a GetObjectOfListCmd that will use the given list of users as the

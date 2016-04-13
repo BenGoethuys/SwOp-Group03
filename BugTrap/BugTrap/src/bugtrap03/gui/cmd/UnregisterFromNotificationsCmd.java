@@ -10,7 +10,7 @@ import purecollections.PList;
 /**
  * @author Group 03
  */
-public class UnregisterFromNotificationsCmd implements Cmd {
+public class UnregisterFromNotificationsCmd implements Cmd<Mailbox> {
     @Override
     public Mailbox exec(TerminalScanner scan, DataModel model, User user) throws CancelException, IllegalArgumentException, IllegalStateException {
         PList<Mailbox> allBoxes = user.getMailbox().getAllBoxes();

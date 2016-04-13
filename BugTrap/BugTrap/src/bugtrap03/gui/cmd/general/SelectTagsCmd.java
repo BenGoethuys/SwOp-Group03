@@ -14,7 +14,7 @@ import java.util.EnumSet;
 /**
  * @author Group 03
  */
-public class SelectTagsCmd implements Cmd {
+public class SelectTagsCmd implements Cmd<EnumSet<Tag>> {
     @Override
     public EnumSet<Tag> exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
         ArrayList<Tag> selectedtags = new ArrayList<>();

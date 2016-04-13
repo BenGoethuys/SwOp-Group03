@@ -86,7 +86,7 @@ public class DeclareAchievedMilestoneCmd implements Cmd<Project> {
 
                 bugReportMilestone = new Milestone(nb1, nb2, nb3);
                 try {
-                    subsys.setMilestone(bugReportMilestone);
+                    model.setMilestone(user, subsys, bugReportMilestone);
                 } catch (IllegalArgumentException e) {
                     // 8a. The new achieved milestone could not be assigned due
                     // to some constraint.

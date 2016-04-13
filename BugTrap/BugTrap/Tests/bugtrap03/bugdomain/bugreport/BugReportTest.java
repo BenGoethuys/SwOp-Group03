@@ -64,7 +64,7 @@ public class BugReportTest {
         project.setRole(lead, programer, Role.PROGRAMMER);
         project.setRole(lead, tester, Role.TESTER);
         subsystem = project.addSubsystem("ANewSubSystem", "the decription of the subsystem");
-        subsystem.setMilestone(new Milestone(2,5));
+        subsystem.setMilestone(dev, new Milestone(2,5));
 
         bugReport1 = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, false, "", "", "");
         bugReport2 = new BugReport(issuer, "FoundBug", "", date, depList, subsystem, null, true, trigger, stacktrace, error);
