@@ -33,7 +33,7 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      * @return True if the user is not null.
      */
     public boolean isValidUser(User user){
-        if (user == null){
+        if (user == null || user.getMailbox() == null){
             return false;
         }
         return true;
