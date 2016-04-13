@@ -56,7 +56,7 @@ class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelC
      * @throws IllegalArgumentException if on of the arguments is invalid
      * @throws IllegalArgumentException If subject is terminated
      * @throws IllegalStateException if the state of this command is invalid
-     * @see Mailbox#tagSubscribe(Subject)
+     * @see bugtrap03.bugdomain.notification.Mailbox#tagSubscribe(Subject)
      * @see #setExecuted()
      */
     @Override
