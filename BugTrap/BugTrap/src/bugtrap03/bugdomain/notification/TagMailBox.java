@@ -15,6 +15,8 @@ public class TagMailBox extends Mailbox {
     /**
      * The constructor for a new mailbox subscription to the change of tag to a given tag on the subject.
      *
+     * NOTE: This constructor should be only called by {@link Mailbox#tagSubscribe(Subject)} for correct coupling.
+     *
      * @param subject The subject to subscribe on.
      * @param tags The tags to subscribe on.
      *
