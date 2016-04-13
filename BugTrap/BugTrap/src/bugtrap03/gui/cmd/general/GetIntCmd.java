@@ -12,7 +12,7 @@ import java.util.InputMismatchException;
  *
  * @author Group 03
  */
-public class GetIntCmd implements Cmd {
+public class GetIntCmd implements Cmd<Integer> {
 
     /**
      * Execute this command and possibly return a result.

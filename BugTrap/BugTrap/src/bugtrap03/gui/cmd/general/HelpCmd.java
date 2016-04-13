@@ -14,11 +14,11 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
 /**
- * This command prints all the commandos supplied when executed
+ * This command prints all the commands supplied when executed
  *
  * @author Group 03
  */
-public class HelpCmd implements Cmd {
+public class HelpCmd implements Cmd<Object> {
 
     /**
      * Create a HelpCmd with a List of commands to use for printing. Any

@@ -11,7 +11,7 @@ import bugtrap03.model.DataModel;
  *
  * @author Group 03
  */
-public class AbortCmd implements Cmd {
+public class AbortCmd implements Cmd<Object> {
 
     /**
      * Throws a {@link CancelException} representing an indication of abort.

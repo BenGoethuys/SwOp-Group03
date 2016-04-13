@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * @author Group 03
  */
-public class RegisterFromASCmd implements Cmd {
+public class RegisterFromASCmd implements Cmd<Object> {
     public RegisterFromASCmd(AbstractSystemSubject abstractSystemSubject) {
         this.abstractSystemSubject = abstractSystemSubject;
         this.subsriptionTypes = new HashMap<>();
