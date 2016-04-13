@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain.notification;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.usersystem.User;
 
@@ -130,6 +131,7 @@ public class Notification {
      *
      * @return A string representation of the contents of this notification.
      */
+    @DomainAPI
     public String open(User user){
         if (! bugReport.isVisibleTo(user)){
             return " \tThis notification is closed for you at the moment.";

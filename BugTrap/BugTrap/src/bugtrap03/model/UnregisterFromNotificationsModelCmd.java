@@ -1,7 +1,6 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.notification.Mailbox;
-import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
@@ -107,7 +106,7 @@ public class UnregisterFromNotificationsModelCmd extends ModelCmd{
         if (! this.isExecuted()){
             return ("This unregistration has not yet been executed.");
         } else{
-            return (this.unsubscriber.getFullName() + " has unregisterd from notifications by deleting subscription: "
+            return (this.unsubscriber.getFullName() + " has unregistered from notifications by deleting subscription: "
                     + this.mailbox.getInfo());
         }
     }
