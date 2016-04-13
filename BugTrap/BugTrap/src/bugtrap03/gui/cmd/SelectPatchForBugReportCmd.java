@@ -12,7 +12,7 @@ import purecollections.PList;
 /**
  *
  * A SelectPatchForBugReport scenario where the user selects a patch for a certain bug report.
- * 
+ *
  * @author Group 03
  */
 public class SelectPatchForBugReportCmd implements Cmd<String> {
@@ -64,7 +64,15 @@ public class SelectPatchForBugReportCmd implements Cmd<String> {
 
         // 1. The developer indicates that he wants to select a patch for some bug report.
         // 2. Include use case Select Bug Report if required.
-        BugReport bugRep = (bugReport != null) ? bugReport : (new SelectBugReportCmd()).exec(scan, model, user); //IllegalArg for scan,model,user == null
+        scan.println("Selecting patch.");
+        BugReport bugRep;
+        if (bugReport == null) {
+            scan.println("Select a bug report.");
+            bugRep = (new SelectBugReportCmd()).exec(scan, model, user);  //IllegalArg for scan,model,user == null
+            scan.println("Selecting patch.");
+        } else {
+            bugRep = bugReport;
+        }
 
         PList<String> patches = bugRep.getPatches();
         if (patches.isEmpty()) {
