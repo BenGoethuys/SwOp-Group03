@@ -175,7 +175,7 @@ public class SelectPatchCmdTest {
         question.add("The selected patch is set to: " + patch1);
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
-        cmd.exec(scan, model, dev2);
+        cmd.exec(scan, model, lead);
 
         assertTrue(bugRep.getSelectedPatch().equals("patch over here\npatch line 2"));
     }
