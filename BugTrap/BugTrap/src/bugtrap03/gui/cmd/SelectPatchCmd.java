@@ -51,15 +51,16 @@ public class SelectPatchCmd implements Cmd<String> {
      * @param user The {@link User} who wants to executes this command.
      *
      * @return The BugReport that a patch was selected for.
+     * @throws IllegalStateException When there are on patches.
      * @throws PermissionException When the user does not have sufficient permissions.
      * @throws CancelException When the users wants to abort the current cmd
-     * @throws IllegalArgumentException When scan or model == null
+     * @throws IllegalArgumentException When scan or model or user == null
      * @see DataModel#selectPatch(BugReport, User, String)
      */
     @Override
-    public String exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
-        if (scan == null) {
-            throw new IllegalArgumentException("scan musn't be null.");
+    public String exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
+        if (scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
 
         // 1. The developer indicates that he wants to select a patch for some bug report.

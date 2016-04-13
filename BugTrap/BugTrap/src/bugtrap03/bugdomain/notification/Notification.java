@@ -142,4 +142,36 @@ public class Notification {
         message.append(subject.getSubjectName());
         return message.toString();
     }
+
+    /**
+     * This method determines if a given object is equal to this notification.
+     * @param object The given object to compare
+     * @return true if the object is a notification with the same attributes as this notification.
+     */
+    @Override
+    public boolean equals(Object object){
+        if (! (object instanceof Notification)){
+            return false;
+        }
+        Notification notification = (Notification) object;
+        if (this.subject != notification.subject){
+            return false;
+        }
+        if (this.bugReport != notification.bugReport){
+            return false;
+        }
+        if (! this.message.equals(notification.message)){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * This method determines the has value of this notification.
+     * @return An int hashvalue.
+     */
+    @Override
+    public int hashCode() {
+        return ((((this.bugReport.hashCode() * 113) + this.subject.hashCode()) * 31) + this.message.hashCode());
+    }
 }

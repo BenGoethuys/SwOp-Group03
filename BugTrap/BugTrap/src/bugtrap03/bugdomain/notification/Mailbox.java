@@ -55,7 +55,7 @@ public class Mailbox {
      *
      * @param notif The notification to add.
      */
-    protected void addNotification(Notification notif){
+    protected void addNotification(Notification notif) throws IllegalArgumentException{
         if (! this.isTerminated){
             this.notifications = this.getNotifications().plus(notif);
         }
@@ -85,7 +85,20 @@ public class Mailbox {
         return this.boxes;
     }
 
-    public void addBox(Mailbox mb){
+
+    /**
+     * This method adds a mailbox to the list of mailboxes belonging to this mailbox.
+     * @param mb The mailbox to add.
+     * @throws IllegalArgumentException if the given mailbox is this mailbox
+     * @throws IllegalArgumentException if the given mailbox already is in your (sub)list of mailboxes
+     */
+    public void addBox(Mailbox mb)throws IllegalArgumentException{
+        if (mb == this){
+            throw new IllegalArgumentException("You cannot add yourself as a mailbox");
+        }
+        if (this.getAllBoxes().contains(mb)){
+            throw new IllegalArgumentException("You are already have this mailbox as a subscription)");
+        }
         this.boxes = this.getBoxes().plus(mb);
     }
 

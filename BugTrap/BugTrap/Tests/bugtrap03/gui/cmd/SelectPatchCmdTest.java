@@ -35,6 +35,7 @@ public class SelectPatchCmdTest {
     private BugReport bugRep;
     private String patch1;
     private String patch2;
+    private Subsystem subsystemA2;
 
     private static int counter = Integer.MIN_VALUE;
 
@@ -103,7 +104,7 @@ public class SelectPatchCmdTest {
         model.assignToProject(projectA, lead, dev3, Role.TESTER);
 
         // make subsystems
-        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+        subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
         bugRep = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null, false);
@@ -136,6 +137,64 @@ public class SelectPatchCmdTest {
         cmd.exec(scan, model, lead);
 
         assertTrue(bugRep.getSelectedPatch().equals("patch over here\npatch line 2"));
+    }
+
+    /**
+     * Test the exec() while there are no patches.
+     *
+     * @throws PermissionException Never
+     * @throws CancelException Never
+     */
+    @Test(expected = IllegalStateException.class)
+    public void testExec_NoPatches() throws PermissionException, CancelException {
+        BugReport bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep2 is too awesome",
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null, false);
+        model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plus(dev3));
+        model.addTest(bugRep2, dev3, "test over here");
+
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep2);       
+        question.add("Selecting patch.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, model, lead);
+    }
+
+    @Test(expected = PermissionException.class)
+    public void testExec_NoPermission() throws PermissionException, CancelException {
+        ArrayDeque<String> question = SelectPatchCmdTest.getDefaultQuestions(patch1, patch2);
+        ArrayDeque<String> answer = SelectPatchCmdTest.getDefaultAnswers(patch1, patch2);
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, model, dev2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ScanNull() throws PermissionException, CancelException {
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
+        cmd.exec(null, model, lead);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ModelNull() throws PermissionException, CancelException {
+        ArrayDeque<String> question = SelectPatchCmdTest.getDefaultQuestions(patch1, patch2);
+        ArrayDeque<String> answer = SelectPatchCmdTest.getDefaultAnswers(patch1, patch2);
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, null, lead);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_UserNull() throws PermissionException, CancelException {
+        ArrayDeque<String> question = SelectPatchCmdTest.getDefaultQuestions(patch1, patch2);
+        ArrayDeque<String> answer = SelectPatchCmdTest.getDefaultAnswers(patch1, patch2);
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, model, null);
     }
 
     /**
@@ -175,7 +234,7 @@ public class SelectPatchCmdTest {
         question.add("The selected patch is set to: " + patch1);
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
-        cmd.exec(scan, model, dev2);
+        cmd.exec(scan, model, lead);
 
         assertTrue(bugRep.getSelectedPatch().equals("patch over here\npatch line 2"));
     }
