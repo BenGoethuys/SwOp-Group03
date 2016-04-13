@@ -4,12 +4,14 @@ import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import purecollections.PList;
 
+import java.util.EnumSet;
 import java.util.GregorianCalendar;
 
 import static org.junit.Assert.*;
@@ -22,7 +24,8 @@ public class MailboxTest {
 
     private static Mailbox testMB;
     private static Mailbox testMB2;
-    private static Notification notification4MB;
+    private static CreationMailBox testCMB2;
+    private static Notification notification4MB2;
 
 
     private static Developer dev4MB;
@@ -41,8 +44,11 @@ public class MailboxTest {
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
                 false, "triggerhappy", "stacktacktack", "error404");
 
+
+        notification4MB2 = new Notification("this is a test notification for mb", bugreport4MB, project4MB);
         testMB2 = new Mailbox();
-        notification4MB = new Notification("this is a test notification for mb", bugreport4MB, project4MB);
+        testCMB2= testMB2.creationSubscribe(project4MB);
+        testCMB2.addNotification(notification4MB2);
 
     }
 
@@ -53,7 +59,8 @@ public class MailboxTest {
 
     @Test
     public void testGetAllNotifications() throws Exception {
-        assertEquals(PList.<Notification>empty(), testMB.getAllNotifications());
+        assertTrue(testMB.getAllNotifications().isEmpty());
+        assertTrue(testMB2.getAllNotifications().contains(notification4MB2));
     }
 
     @Test
@@ -65,7 +72,8 @@ public class MailboxTest {
 
     @Test
     public void testGetAllBoxes() throws Exception {
-        assertEquals(PList.<Mailbox>empty(), testMB.getAllBoxes());
+        assertTrue(testMB.getAllBoxes().isEmpty());
+        assertTrue(testMB2.getAllBoxes().contains(testCMB2));
     }
 
     @Test
@@ -89,41 +97,90 @@ public class MailboxTest {
 
     @Test
     public void testIsValidSubject() throws Exception {
-
+        assertTrue(testMB.isValidSubject(project4MB));
+        assertTrue(testMB.isValidSubject(subsystem4MB));
+        assertTrue(testMB.isValidSubject(bugreport4MB));
+        assertFalse(testMB.isValidSubject(null));
     }
 
     @Test
     public void testGetInfo() throws Exception {
-
+        assertNotEquals("", testMB.getInfo());
+        assertNotEquals(null, testMB.getInfo());
+        assertTrue(testCMB2.getInfo().contains(project4MB.getSubjectName()));
     }
 
     @Test
     public void testTagSubscribe() throws Exception {
+        EnumSet<Tag> tags = EnumSet.of(Tag.ASSIGNED, Tag.UNDER_REVIEW);
+        TagMailBox tmb = testMB.tagSubscribe(project4MB, tags);
+        assertTrue(testMB.getAllBoxes().contains(tmb));
+        assertEquals(tags, tmb.getTagsOfInterest());
+    }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testTagSubscribeNullSubject() throws Exception {
+        testMB.tagSubscribe(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testTagSubscribeNullSubject1() throws Exception {
+        EnumSet<Tag> tags = EnumSet.of(Tag.ASSIGNED, Tag.UNDER_REVIEW);
+        testMB.tagSubscribe(null, tags);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testTagSubscribeNullTags() throws Exception {
+        testMB.tagSubscribe(project4MB, null);
     }
 
     @Test
     public void testTagSubscribe1() throws Exception {
-
+        EnumSet<Tag> tags = EnumSet.allOf(Tag.class);
+        TagMailBox tmb = testMB.tagSubscribe(project4MB);
+        assertTrue(testMB.getAllBoxes().contains(tmb));
+        assertEquals(tags, tmb.getTagsOfInterest());
     }
 
     @Test
     public void testCommentSubscribe() throws Exception {
+        CommentMailBox cmb = testMB.commentSubscribe(subsystem4MB);
+        assertTrue(testMB.getAllBoxes().contains(cmb));
+    }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testCommentSubscribeNull() throws Exception {
+        testMB.commentSubscribe(null);
     }
 
     @Test
     public void testCreationSubscribe() throws Exception {
+        CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
+        assertTrue(testMB.getAllBoxes().contains(cmb));
+    }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testCreationSubscribeNull() throws Exception {
+        testMB.creationSubscribe(null);
     }
 
     @Test
     public void testUnsubscribe() throws Exception {
-
+        CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
+        assertTrue(testMB.getAllBoxes().contains(cmb));
+        assertTrue(testMB.unsubscribe(cmb));
+        assertFalse(testMB.unsubscribe(testCMB2));
+        assertFalse(testMB.getAllBoxes().contains(cmb));
     }
 
     @Test
     public void testActivate() throws Exception {
-
+        CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
+        testMB.unsubscribe(cmb);
+        cmb.addNotification(notification4MB2);
+        assertFalse(cmb.getAllNotifications().contains(notification4MB2));
+        cmb.activate();
+        cmb.addNotification(notification4MB2);
+        assertTrue(cmb.getAllNotifications().contains(notification4MB2));
     }
 }

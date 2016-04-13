@@ -96,7 +96,7 @@ public class Mailbox {
         if (mb == this){
             throw new IllegalArgumentException("You cannot add yourself as a mailbox");
         }
-        if (! this.getAllBoxes().contains(mb)){
+        if (this.getAllBoxes().contains(mb)){
             throw new IllegalArgumentException("You are already have this mailbox as a subscription)");
         }
         this.boxes = this.getBoxes().plus(mb);
