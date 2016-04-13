@@ -29,7 +29,6 @@ class SetTagForBugReportModelCmd extends ModelCmd {
         if (bugReport.isTerminated()){
             throw new IllegalArgumentException("The given bug report is terminated");
         }
-        // TODO: Vincent: check tag is null ? -> throw IllegalArgument?
 
         this.bugReport = bugReport;
         this.tag = tag;
@@ -57,10 +56,6 @@ class SetTagForBugReportModelCmd extends ModelCmd {
     Boolean exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
         if (this.isExecuted()) {
             throw new IllegalStateException("The SetTagForBugReportModelCmd was already executed.");
-        }
-
-        if (bugReport.isTerminated()) {
-            throw new IllegalArgumentException("The given bugReport is terminated.");
         }
         
         oldMem = bugReport.getMemento();
