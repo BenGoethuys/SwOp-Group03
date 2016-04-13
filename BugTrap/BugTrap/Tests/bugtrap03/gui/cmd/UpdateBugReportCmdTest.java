@@ -30,7 +30,7 @@ public class UpdateBugReportCmdTest {
      * {@link bugtrap03.gui.cmd.UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * . Tries to set a tag while the current tag is NEW -&gt no permissions.
      */
-    @Test(expected = PermissionException.class)
+    @Test(expected=IllegalArgumentException.class)
     public void testExecNewNewNoPermissions() throws PermissionException, CancelException {
         // Setup variables.
         DataModel model = new DataModel();
@@ -47,10 +47,10 @@ public class UpdateBugReportCmdTest {
         Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
 
-        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
-        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here",
+                "createComment has an output error", PList.<BugReport> empty(), null, false);
+        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository",
+                "title says it all.", PList.<BugReport> empty(), null, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -75,6 +75,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
+        question.add(bugRep2.getDetails());
         question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
@@ -84,7 +85,11 @@ public class UpdateBugReportCmdTest {
         question.add("5. RESOLVED");
         question.add("6. DUPLICATE");
         question.add("I choose: ");
-        answer.add("5");
+        answer.add("0");
+        question.add("You have selected: \tNEW");
+        question.add("The given Tag cannot be set");
+        question.add("Command cancelled. Execute a new command.");
+
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
@@ -116,10 +121,10 @@ public class UpdateBugReportCmdTest {
         Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
 
-        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
-        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here",
+                "createComment has an output error", PList.<BugReport> empty(), null, false);
+        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository",
+                "title says it all.", PList.<BugReport> empty(), null, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -183,11 +188,11 @@ public class UpdateBugReportCmdTest {
         Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
 
-        BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
-        BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
-        model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plus(lead));
+        BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here",
+                "createComment has an output error", PList.<BugReport> empty(), null, false);
+        BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository",
+                "title says it all.", PList.<BugReport> empty(), null, false);
+        model.addUsersToBugReport(lead, bugRep2, PList.<Developer> empty().plus(lead));
         model.assignToProject(projectA, lead, lead, Role.TESTER);
         model.addTest(bugRep2, lead, "test here");
 
@@ -231,8 +236,9 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("3");
         question.add("You have selected: \tUNDER_REVIEW");
-        
-        //TODO: Ben Change test model to have a test. AssignedState -> AssignWithTestState else this will fail.
+
+        // TODO: Ben Change test model to have a test. AssignedState ->
+        // AssignWithTestState else this will fail.
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
@@ -265,10 +271,10 @@ public class UpdateBugReportCmdTest {
         Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
 
-        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
-        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here",
+                "createComment has an output error", PList.<BugReport> empty(), null, false);
+        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository",
+                "title says it all.", PList.<BugReport> empty(), null, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -336,10 +342,10 @@ public class UpdateBugReportCmdTest {
         Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
 
-        BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
-        BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+        BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here",
+                "createComment has an output error", PList.<BugReport> empty(), null, false);
+        BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository",
+                "title says it all.", PList.<BugReport> empty(), null, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();

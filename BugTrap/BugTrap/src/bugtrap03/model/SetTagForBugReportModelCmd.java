@@ -29,7 +29,9 @@ class SetTagForBugReportModelCmd extends ModelCmd {
         if (bugReport.isTerminated()){
             throw new IllegalArgumentException("The given bug report is terminated");
         }
-        // TODO: Vincent: check tag is null ? -> throw IllegalArgument?
+        if (tag == null) {
+            throw new IllegalArgumentException("The tag passed to the SetTagForReportModelCmd was a null reference");
+        }
 
         this.bugReport = bugReport;
         this.tag = tag;
