@@ -7,8 +7,8 @@ import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.*;
-import bugtrap03.bugdomain.usersystem.notification.AbstractSystemSubject;
-import bugtrap03.bugdomain.usersystem.notification.Subject;
+import bugtrap03.bugdomain.notification.AbstractSystemSubject;
+import bugtrap03.bugdomain.notification.Subject;
 import com.google.java.contract.Ensures;
 import purecollections.PList;
 

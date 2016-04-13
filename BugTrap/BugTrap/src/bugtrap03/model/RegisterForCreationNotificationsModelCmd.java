@@ -1,8 +1,8 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.usersystem.notification.AbstractSystemSubject;
-import bugtrap03.bugdomain.usersystem.notification.CreationMailBox;
+import bugtrap03.bugdomain.notification.AbstractSystemSubject;
+import bugtrap03.bugdomain.notification.CreationMailBox;
 
 /**
  * @author Group 03

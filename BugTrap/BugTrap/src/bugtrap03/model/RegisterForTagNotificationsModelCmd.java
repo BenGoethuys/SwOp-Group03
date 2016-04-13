@@ -2,8 +2,8 @@ package bugtrap03.model;
 
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.usersystem.notification.Subject;
-import bugtrap03.bugdomain.usersystem.notification.TagMailBox;
+import bugtrap03.bugdomain.notification.Subject;
+import bugtrap03.bugdomain.notification.TagMailBox;
 
 import java.util.EnumSet;
 

@@ -1,7 +1,7 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.usersystem.notification.Mailbox;
+import bugtrap03.bugdomain.notification.Mailbox;
 
 /**
  * @author Group 03

@@ -1,4 +1,4 @@
-package bugtrap03.bugdomain.usersystem.notification;
+package bugtrap03.bugdomain.notification;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;

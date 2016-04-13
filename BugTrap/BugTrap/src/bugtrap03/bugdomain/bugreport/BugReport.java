@@ -6,7 +6,7 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.usersystem.notification.Subject;
+import bugtrap03.bugdomain.notification.Subject;
 import bugtrap03.misc.Tree;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
