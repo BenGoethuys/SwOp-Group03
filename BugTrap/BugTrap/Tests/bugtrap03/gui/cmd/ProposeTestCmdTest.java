@@ -121,11 +121,48 @@ public class ProposeTestCmdTest {
 
         assertTrue(bugRep.getTests().contains("test over here\ntest line 2"));
     }
+    
+    @Test(expected = PermissionException.class)
+    public void testExec_NoPermission() throws PermissionException, CancelException {
+        ArrayDeque<String> question = ProposeTestCmdTest.getDefaultQuestions();
+        ArrayDeque<String> answer = ProposeTestCmdTest.getDefaultAnswers();
+        ProposeTestCmd cmd = new ProposeTestCmd(bugRep);
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, model, dev2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ScanNull() throws PermissionException, CancelException {
+        ProposeTestCmd cmd = new ProposeTestCmd(bugRep);
+        cmd.exec(null, model, dev3);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ModelNull() throws PermissionException, CancelException {
+        ArrayDeque<String> question = ProposeTestCmdTest.getDefaultQuestions();
+        ArrayDeque<String> answer = ProposeTestCmdTest.getDefaultAnswers();
+        ProposeTestCmd cmd = new ProposeTestCmd(bugRep);
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, null, dev3);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_UserNull() throws PermissionException, CancelException {
+        ArrayDeque<String> question = ProposeTestCmdTest.getDefaultQuestions();
+        ArrayDeque<String> answer = ProposeTestCmdTest.getDefaultAnswers();
+        ProposeTestCmd cmd = new ProposeTestCmd(bugRep);
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, model, null);
+    }
 
     /**
      * Test exec() while there is no bug report assigned, this includes the select bug report scenario.
+     *
      * @throws PermissionException
-     * @throws CancelException 
+     * @throws CancelException
      */
     @Test
     public void testExec_NoBugReport() throws PermissionException, CancelException {
@@ -134,7 +171,7 @@ public class ProposeTestCmdTest {
         ProposeTestCmd cmd = new ProposeTestCmd();
 
         question.add("Adding test.");
-        
+
         question.add("Select a bug report.");
         addSearchModeOptions(question);
         question.add("I choose: ");
@@ -149,7 +186,7 @@ public class ProposeTestCmdTest {
         answer.add("0");
         question.add("You have selected: " + bugRep.getTitle() + "\t -UniqueID: " + bugRep.getUniqueID());
         question.add("Adding test.");
-        
+
         question.add("Do you wish to submit a file? Please type yes or no.");
         answer.add("no");
         question.add("You have chosen to insert text. (Leave blank to finish the text)");

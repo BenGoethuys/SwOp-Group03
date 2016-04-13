@@ -61,18 +61,22 @@ public class ProposeTestCmd implements Cmd<BugReport> {
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
+        if (scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
+        
         // 1. The developer indicates that he wants to submit a test for some bugRep.
         // 2. Include use case Select Bug Report if required.
         scan.println("Adding test.");
         BugReport bugRep;
-        if(bugReport == null) {
+        if (bugReport == null) {
             scan.println("Select a bug report.");
             bugRep = (new SelectBugReportCmd()).exec(scan, model, user);  //IllegalArg for scan,model,user == null
             scan.println("Adding test.");
         } else {
             bugRep = bugReport;
         }
-        
+
         String text;
 
         // 3. The system shows the form for uploading the test code.

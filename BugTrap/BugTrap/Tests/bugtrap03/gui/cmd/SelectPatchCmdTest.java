@@ -137,6 +137,42 @@ public class SelectPatchCmdTest {
 
         assertTrue(bugRep.getSelectedPatch().equals("patch over here\npatch line 2"));
     }
+    
+        @Test(expected = PermissionException.class)
+    public void testExec_NoPermission() throws PermissionException, CancelException {
+        ArrayDeque<String> question = SelectPatchCmdTest.getDefaultQuestions(patch1, patch2);
+        ArrayDeque<String> answer = SelectPatchCmdTest.getDefaultAnswers(patch1, patch2);
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, model, dev2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ScanNull() throws PermissionException, CancelException {
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
+        cmd.exec(null, model, lead);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ModelNull() throws PermissionException, CancelException {
+        ArrayDeque<String> question = SelectPatchCmdTest.getDefaultQuestions(patch1, patch2);
+        ArrayDeque<String> answer = SelectPatchCmdTest.getDefaultAnswers(patch1, patch2);
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, null, lead);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_UserNull() throws PermissionException, CancelException {
+        ArrayDeque<String> question = SelectPatchCmdTest.getDefaultQuestions(patch1, patch2);
+        ArrayDeque<String> answer = SelectPatchCmdTest.getDefaultAnswers(patch1, patch2);
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, model, null);
+    }
 
     /**
      * Test exec() while there is no bug report assigned, this includes the select bug report scenario.
@@ -175,7 +211,7 @@ public class SelectPatchCmdTest {
         question.add("The selected patch is set to: " + patch1);
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
-        cmd.exec(scan, model, dev2);
+        cmd.exec(scan, model, lead);
 
         assertTrue(bugRep.getSelectedPatch().equals("patch over here\npatch line 2"));
     }

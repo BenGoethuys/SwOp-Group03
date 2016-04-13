@@ -58,6 +58,9 @@ public class ProposePatchCmd implements Cmd<BugReport> {
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
+        if (scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
         // 1. The developer indicates that he wants to submit a patch for some bug report.
         // 2. Include use case Select Bug Report if required.
         scan.println("Adding patch.");
