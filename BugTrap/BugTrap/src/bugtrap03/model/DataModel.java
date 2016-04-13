@@ -4,11 +4,13 @@ import bugtrap03.bugdomain.*;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notification.Mailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.*;
 import bugtrap03.bugdomain.notification.AbstractSystemSubject;
 import bugtrap03.bugdomain.notification.Subject;
+import bugtrap03.gui.cmd.UnregisterFromNotificationsCmd;
 import com.google.java.contract.Ensures;
 import purecollections.PList;
 
@@ -922,5 +924,10 @@ public class DataModel {
         RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject);
         cmd.exec();
         addToHistory(cmd);
+    }
+
+    @DomainAPI
+    public void unsubscribe(User user, Mailbox mailbox){
+        UnregisterFromNotificationsModelCmd cmd = new UnregisterFromNotificationsModelCmd(user, mailbox);
     }
 }

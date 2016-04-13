@@ -8,7 +8,7 @@ import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
- * Created by Bruno on 11-4-2016.
+ * @author Group 03
  */
 public class UnregisterFromNotificationsCmd implements Cmd {
     @Override
@@ -37,7 +37,7 @@ public class UnregisterFromNotificationsCmd implements Cmd {
         }
         Mailbox selected = allBoxes.get(index);
         scan.println("You selected: " + selected.getInfo());
-        user.getMailbox().unsubscribe(selected);
+        model.unsubscribe(user, selected);
         return selected;
     }
 }
