@@ -68,7 +68,8 @@ public class ProposeTestCmd implements Cmd<BugReport> {
 
         // 3. The system shows the form for uploading the test code.
         // 4. The developer provides the details for uploading the test code.
-        scan.println("If you wish to submit a file please type yes or no.");
+        scan.println("Adding test.");
+        scan.println("Do you wish to submit a file? Please type yes or no.");
         if (scan.nextLine().equalsIgnoreCase("yes")) {
             scan.println("Please select the test code file.");
 
@@ -105,6 +106,7 @@ public class ProposeTestCmd implements Cmd<BugReport> {
         // Extension 3a. The developer is not assigned as a tester to the corresponding project. (= PermissionException)
         // 1. The use case ends here.
         model.addTest(bugRep, user, text); //Permission, IllegalState, IllegalArg
+        scan.println("Added test.");
         return bugRep;
     }
 
