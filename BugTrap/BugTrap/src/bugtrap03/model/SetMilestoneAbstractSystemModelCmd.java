@@ -11,7 +11,7 @@ import java.util.HashMap;
 /**
  * @author Group 03
  */
-public class SetMilestoneAbstractSystemModelCmd extends ModelCmd {
+class SetMilestoneAbstractSystemModelCmd extends ModelCmd {
 
     /**
      * The constructor of this Cmd
@@ -20,7 +20,7 @@ public class SetMilestoneAbstractSystemModelCmd extends ModelCmd {
      * @param abstractSystem    The abstractSystem that needs a milestone change
      * @param milestone         The new milestone
      */
-    public SetMilestoneAbstractSystemModelCmd(User user, AbstractSystem abstractSystem, Milestone milestone){
+    SetMilestoneAbstractSystemModelCmd(User user, AbstractSystem abstractSystem, Milestone milestone){
         if (user == null) {
             throw new IllegalArgumentException("The given user cannot be null");
         }
