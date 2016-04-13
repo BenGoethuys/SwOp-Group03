@@ -57,10 +57,6 @@ class SetTagForBugReportModelCmd extends ModelCmd {
         if (this.isExecuted()) {
             throw new IllegalStateException("The SetTagForBugReportModelCmd was already executed.");
         }
-
-        if (bugReport.isTerminated()) {
-            throw new IllegalArgumentException("The given bugReport is terminated.");
-        }
         
         oldMem = bugReport.getMemento();
         bugReport.setTag(tag, user);
