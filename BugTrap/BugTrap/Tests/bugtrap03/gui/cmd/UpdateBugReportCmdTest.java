@@ -30,7 +30,7 @@ public class UpdateBugReportCmdTest {
      * {@link bugtrap03.gui.cmd.UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * . Tries to set a tag while the current tag is NEW -&gt no permissions.
      */
-    @Test(expected = PermissionException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testExecNewNewNoPermissions() throws PermissionException, CancelException {
         // Setup variables.
         DataModel model = new DataModel();
@@ -47,10 +47,10 @@ public class UpdateBugReportCmdTest {
         Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
 
-        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
-        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here",
+                "createComment has an output error", PList.<BugReport> empty(), null, false);
+        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository",
+                "title says it all.", PList.<BugReport> empty(), null, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -75,6 +75,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
+        question.add(bugRep2.getDetails());
         question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
@@ -84,7 +85,11 @@ public class UpdateBugReportCmdTest {
         question.add("5. RESOLVED");
         question.add("6. DUPLICATE");
         question.add("I choose: ");
-        answer.add("5");
+        answer.add("0");
+        question.add("You have selected: \tNEW");
+        question.add("The given Tag cannot be set");
+        question.add("Command cancelled. Execute a new command.");
+
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
@@ -116,10 +121,10 @@ public class UpdateBugReportCmdTest {
         Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
 
-        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
-        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here",
+                "createComment has an output error", PList.<BugReport> empty(), null, false);
+        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository",
+                "title says it all.", PList.<BugReport> empty(), null, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -144,6 +149,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
+        question.add(bugRep2.getDetails());
         question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
@@ -154,6 +160,14 @@ public class UpdateBugReportCmdTest {
         question.add("6. DUPLICATE");
         question.add("I choose: ");
         answer.add("3");
+        question.add("You have selected: \tUNDER_REVIEW");
+        question.add("Adding test.");
+        question.add("Do you wish to submit a file? Please type yes or no.");
+        answer.add("no");
+        question.add("You have chosen to insert text. (Leave blank to finish the text)");
+        question.add("text: ");
+        answer.add("test\n");
+        question.add("The given user doesn't have the permission to add a test");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
@@ -183,11 +197,11 @@ public class UpdateBugReportCmdTest {
         Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
 
-        BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
-        BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
-        model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plus(lead));
+        BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here",
+                "createComment has an output error", PList.<BugReport> empty(), null, false);
+        BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository",
+                "title says it all.", PList.<BugReport> empty(), null, false);
+        model.addUsersToBugReport(lead, bugRep2, PList.<Developer> empty().plus(lead));
         model.assignToProject(projectA, lead, lead, Role.TESTER);
         model.addTest(bugRep2, lead, "test here");
 
@@ -214,6 +228,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
+        question.add(bugRep2.getDetails());
         question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
@@ -231,8 +246,15 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("3");
         question.add("You have selected: \tUNDER_REVIEW");
-        
-        //TODO: Ben Change test model to have a test. AssignedState -> AssignWithTestState else this will fail.
+        question.add("Adding test.");
+        question.add("Do you wish to submit a file? Please type yes or no.");
+        answer.add("no");
+        question.add("You have chosen to insert text. (Leave blank to finish the text)");
+        question.add("text: ");
+        answer.add("test\n");
+        question.add("Added test.");
+        question.add("The tag UNDER_REVIEW has been set.");
+
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
@@ -265,10 +287,10 @@ public class UpdateBugReportCmdTest {
         Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
 
-        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
-        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here",
+                "createComment has an output error", PList.<BugReport> empty(), null, false);
+        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository",
+                "title says it all.", PList.<BugReport> empty(), null, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -293,6 +315,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
+        question.add(bugRep2.getDetails());
         question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
@@ -307,6 +330,27 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("DUPLICATE");
         question.add("You have selected: \t" + "DUPLICATE");
+        question.add("Please select the duplicate bug report: ");
+        question.add("Please select a search mode: ");
+        question.add("0. title");
+        question.add("1. description");
+        question.add("2. creator");
+        question.add("3. assigned");
+        question.add("4. uniqueId");
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("Please enter the required search term ...");
+        question.add("enter text: ");
+        answer.add("");
+        question.add("Please select a bug report: ");
+        question.add("Available options:");
+        question.add("0. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
+        question.add("1. " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
+        question.add("I choose: ");
+        answer.add("1");
+        question.add("You have selected: " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
+        question.add("The tag DUPLICATE has been set.");
+
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
@@ -319,7 +363,7 @@ public class UpdateBugReportCmdTest {
      * {@link bugtrap03.gui.cmd.UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * . Set a tag from NEW TO resolved by creator.
      */
-    @Test(expected = CancelException.class)
+    @Test(expected = IllegalStateException.class)
     public void testExecNewToResolved() throws PermissionException, CancelException {
         // Setup variables.
         DataModel model = new DataModel();
@@ -336,10 +380,10 @@ public class UpdateBugReportCmdTest {
         Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
                 "Description of susbsystem A3.1");
 
-        BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
-        BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+        BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here",
+                "createComment has an output error", PList.<BugReport> empty(), null, false);
+        BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository",
+                "title says it all.", PList.<BugReport> empty(), null, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -364,6 +408,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
+        question.add(bugRep2.getDetails());
         question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
@@ -378,17 +423,8 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("5");
         question.add("You have selected: \t" + "RESOLVED");
-        question.add("Invalid tag, select other tag");
-        question.add("Available options:");
-        question.add("0. NEW");
-        question.add("1. ASSIGNED");
-        question.add("2. NOT_A_BUG");
-        question.add("3. UNDER_REVIEW");
-        question.add("4. CLOSED");
-        question.add("5. RESOLVED");
-        question.add("6. DUPLICATE");
-        question.add("I choose: ");
-        answer.add("abort");
+        question.add("Selecting patch.");
+        
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
