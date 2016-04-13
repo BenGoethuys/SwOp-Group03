@@ -483,13 +483,13 @@ public class Project extends AbstractSystem {
         details += this.getVersionID().toString();
         details += "\nAchieved milestone:\t\t";
         details += this.getMilestone().toString();
-        details += "\nProject description: \t";
+        details += "\nProject description: \t\t";
         details += this.getDescription();
         details += "\nBudget estimate:\t\t" + this.getBudgetEstimate() + "\nStart date: \t\t\t";
         details += this.getStartDate().getTime();
-        details += "\nLead dev. full name:\t";
+        details += "\nLead dev. full name:\t\t";
         details += this.getLead().getFullName();
-        details += "\nLead dev. user name:\t";
+        details += "\nLead dev. user name:\t\t";
         details += this.getLead().getUsername();
         details += "\nCreation date:\t\t\t";
         details += this.getCreationDate().getTime();
