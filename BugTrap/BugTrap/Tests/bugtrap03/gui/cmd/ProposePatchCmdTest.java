@@ -126,6 +126,43 @@ public class ProposePatchCmdTest {
         assertTrue(bugRep.getPatches().contains("patch over here\npatch line 2"));
     }
 
+        
+    @Test(expected = PermissionException.class)
+    public void testExec_NoPermission() throws PermissionException, CancelException {
+        ArrayDeque<String> question = ProposePatchCmdTest.getDefaultQuestions();
+        ArrayDeque<String> answer = ProposePatchCmdTest.getDefaultAnswers();
+        ProposePatchCmd cmd = new ProposePatchCmd(bugRep);
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, model, dev2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ScanNull() throws PermissionException, CancelException {
+        ProposePatchCmd cmd = new ProposePatchCmd(bugRep);
+        cmd.exec(null, model, dev2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ModelNull() throws PermissionException, CancelException {
+        ArrayDeque<String> question = ProposePatchCmdTest.getDefaultQuestions();
+        ArrayDeque<String> answer = ProposePatchCmdTest.getDefaultAnswers();
+        ProposePatchCmd cmd = new ProposePatchCmd(bugRep);
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, null, dev2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_UserNull() throws PermissionException, CancelException {
+        ArrayDeque<String> question = ProposePatchCmdTest.getDefaultQuestions();
+        ArrayDeque<String> answer = ProposePatchCmdTest.getDefaultAnswers();
+        ProposePatchCmd cmd = new ProposePatchCmd(bugRep);
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        cmd.exec(scan, model, null);
+    }
+    
     /**
      * Test exec() while there is no bug report assigned, this includes the select bug report scenario.
      *
