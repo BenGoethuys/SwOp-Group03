@@ -27,8 +27,13 @@ public class LoginCmd implements Cmd<User> {
      * The construct of this command
      *
      * @param terminal The terminal of the system
+     * @throws IllegalArgumentException When terminal == null
      */
-    public LoginCmd(Terminal terminal) {
+    public LoginCmd(Terminal terminal) throws IllegalArgumentException {
+        if(terminal == null) {
+            throw new IllegalArgumentException("Terminal musn't be null.");
+        }
+        
         this.terminal = terminal;
         initLoginInfo();
     }

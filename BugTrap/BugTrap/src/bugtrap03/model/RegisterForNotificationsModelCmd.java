@@ -4,23 +4,26 @@ import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notification.Mailbox;
 
 /**
+ * This class represents the 'action' of registering/subscribing for a certain notification and it holds the Mailbox associated with
+ * this new registration.
+ * 
  * @author Group 03
  */
 abstract class RegisterForNotificationsModelCmd extends ModelCmd {
 
     /**
-     * Create a abstract {@link ModelCmd}
+     * Create an abstract {@link ModelCmd}
      * @param user The user that wishes to subscribe.
      */
     RegisterForNotificationsModelCmd(User user){
         if (! isValidUser(user)){
             throw new IllegalArgumentException("The given user for notification registration is invalid!");
         }
-        this.subscriber = user;
+        this.userMailbox = user.getMailbox();
         this.isExecuted = false;
     }
 
-    private User subscriber;
+    private Mailbox userMailbox;
     private boolean isExecuted;
     private Mailbox newMailbox;
 
@@ -42,7 +45,7 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      * @return the Mailbox of the subscriber
      */
     protected Mailbox getMailbox(){
-        return this.subscriber.getMailbox();
+        return this.userMailbox;
     }
 
     /**

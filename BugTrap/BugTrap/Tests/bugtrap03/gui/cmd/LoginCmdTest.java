@@ -125,4 +125,49 @@ public class LoginCmdTest {
         // Test effects.
         assertEquals(user, dummyTerminal.getUser());
     }
+
+    /**
+     * Test exec() with scan == null
+     *
+     * @throws CancelException
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ScanNull() throws CancelException {
+        // Setup variables.
+        Terminal dummyTerminal = new Terminal(model);
+        LoginCmd cmd = new LoginCmd(dummyTerminal);
+
+        // Execute scenario
+        User user = cmd.exec(null, model, null);
+    }
+
+    /**
+     * Test exec() with model == null
+     *
+     * @throws CancelException
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testExec_ModelNull() throws CancelException {
+        // Setup variables.        
+        Terminal dummyTerminal = new Terminal(model);
+        LoginCmd cmd = new LoginCmd(dummyTerminal);
+
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+
+        // Execute scenario
+        User user = cmd.exec(scan, null, null);
+    }
+
+    /**
+     * Test constructor with terminal == null
+     *
+     * @throws CancelException
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCons_TerminalNull() throws CancelException {
+        // Setup variables.        
+        LoginCmd cmd = new LoginCmd(null);
+    }
 }
