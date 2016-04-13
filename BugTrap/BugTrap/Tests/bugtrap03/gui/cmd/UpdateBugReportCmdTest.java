@@ -149,6 +149,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
+        question.add(bugRep2.getDetails());
         question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
@@ -159,6 +160,14 @@ public class UpdateBugReportCmdTest {
         question.add("6. DUPLICATE");
         question.add("I choose: ");
         answer.add("3");
+        question.add("You have selected: \tUNDER_REVIEW");
+        question.add("Adding test.");
+        question.add("Do you wish to submit a file? Please type yes or no.");
+        answer.add("no");
+        question.add("You have chosen to insert text. (Leave blank to finish the text)");
+        question.add("text: ");
+        answer.add("test\n");
+        question.add("The given user doesn't have the permission to add a test");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
