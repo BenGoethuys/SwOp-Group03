@@ -49,9 +49,9 @@ public class CmdParser {
         cmdList.add(new SimpleEntry<>("createsubsystem", new CreateSubsystemCmd()));
         cmdList.add(new SimpleEntry<>("undo", new UndoCmd()));
         cmdList.add(new SimpleEntry<>("createbugreport", new CreateBugReportCmd()));
-        cmdList.add(new SimpleEntry<>("shownotifications", new ShowNotificationCmd()));
+        cmdList.add(new SimpleEntry<>("shownotifications", new ShowNotificationsCmd()));
         cmdList.add(new SimpleEntry<>("registerfornotifications", new RegisterForNotificationsCmd()));
-        cmdList.add(new SimpleEntry<>("unregisterfornotifications", new UnregisterForNotificationsCmd()));
+        cmdList.add(new SimpleEntry<>("unregisterfromnotifications", new UnregisterFromNotificationsCmd()));
         cmdList.add(new SimpleEntry<>("selectbugreport", new SelectBugReportCmd()));
         cmdList.add(new SimpleEntry<>("inspectbugreport", new InspectBugReportCmd()));
         cmdList.add(new SimpleEntry<>("createcomment", new CreateCommentCmd()));
@@ -63,9 +63,6 @@ public class CmdParser {
         cmdList.add(new SimpleEntry<>("selectpatch", new SelectPatchForBugReportCmd()));
         cmdList.add(new SimpleEntry<>("declaremilestone", new DeclareAchievedMilestoneCmd()));
         cmdList.add(new SimpleEntry<>("givescoretobugreport", new GiveScoreToBugReportCmd()));
-        cmdList.add(new SimpleEntry<>("registerfornotifications", new RegisterForNotificationsCmd()));
-        cmdList.add(new SimpleEntry<>("viewnotifications", new ShowNotificationsCmd()));
-        cmdList.add(new SimpleEntry<>("unregisterfromnotifications", new UnregisterFromNotificationsCmd()));
 
 
         cmdMap = new HashMap<>();
