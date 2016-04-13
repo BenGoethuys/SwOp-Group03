@@ -8,11 +8,12 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 import purecollections.PList;
+
+import static org.junit.Assert.*;
 
 /**
  *
@@ -72,11 +73,15 @@ public class SetTagForBugReportModelCmdTest {
      */
     @Test
     public void testGoodScenarioCons() throws PermissionException {
+        Tag old = bugRep.getTag();
+        Tag tag = Tag.NOT_A_BUG;
         // 1. Add
-        SetTagForBugReportModelCmd cmd = new SetTagForBugReportModelCmd(bugRep, Tag.NEW, dev);
+        SetTagForBugReportModelCmd cmd = new SetTagForBugReportModelCmd(bugRep, tag, dev);
 
         // test
-        assertTrue(cmd.toString().contains("Added a patch to"));
+        assertTrue(cmd.toString().contains("Set the Tag"));
+        assertTrue(cmd.toString().contains(tag.name()));
+        assertTrue(cmd.toString().contains("for BugReport"));
         assertTrue(cmd.toString().contains(bugRep.getTitle()));
         assertFalse(cmd.undo()); //can't undo yet.
         assertFalse(cmd.isExecuted());
@@ -85,16 +90,15 @@ public class SetTagForBugReportModelCmdTest {
         cmd.exec();
 
         // test
-        assertTrue(bugRep.getPatches().contains("patch here"));
-        assertTrue(cmd.toString().contains("Added a patch to"));
-        assertTrue(cmd.toString().contains(bugRep.getTitle()));
+        assertEquals(tag, bugRep.getTag());
         assertTrue(cmd.isExecuted());
 
         // 3. undo()
         assertTrue(cmd.undo());
 
         // test
-        assertFalse(bugRep.getPatches().contains("patch here"));
+        assertNotEquals(tag, bugRep.getTag());
+        assertEquals(old, bugRep.getTag());
     }
 
     /**
