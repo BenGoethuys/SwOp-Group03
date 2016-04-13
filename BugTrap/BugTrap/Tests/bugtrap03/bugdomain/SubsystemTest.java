@@ -290,4 +290,10 @@ public class SubsystemTest {
     public void testSetNullSubsVersionID() {
         subSysTest.setVersionID(null);
     }
+
+    @Test
+    public void testGetSubjectName(){
+        String res = subSysTest.getSubjectName();
+        assertTrue(res.contains("Subsystem " + subSysTest.getName()));
+    }
 }
