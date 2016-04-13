@@ -3,6 +3,9 @@ package bugtrap03.bugdomain.usersystem;
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.RolePerm;
+import bugtrap03.bugdomain.permission.UserPerm;
+
+import java.util.Arrays;
 
 /**
  * This class represents a developer in th system
@@ -40,6 +43,26 @@ public class Developer extends Issuer {
      */
     public Developer(String uniqueUsername, String firstName, String lastName) throws IllegalArgumentException {
         super(uniqueUsername, firstName, lastName);
+    }
+
+    private UserPerm[] permissions = {
+            UserPerm.SET_MILESTONE
+    };
+
+    /**
+     * Check if this {@link Administrator} has the given {@link UserPerm}.
+     *
+     * @param perm The userPermission to check for.
+     * @return Whether this has the permission.
+     */
+    @Override
+    @DomainAPI
+    public boolean hasPermission(UserPerm perm) {
+        boolean check = super.hasPermission(perm);
+        if (check) {
+            return true;
+        }
+        return Arrays.stream(this.permissions).anyMatch(permission -> permission == perm);
     }
 
     /**

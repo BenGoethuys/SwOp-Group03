@@ -10,7 +10,6 @@ import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.*;
 import bugtrap03.bugdomain.notification.AbstractSystemSubject;
 import bugtrap03.bugdomain.notification.Subject;
-import bugtrap03.gui.cmd.UnregisterFromNotificationsCmd;
 import com.google.java.contract.Ensures;
 import purecollections.PList;
 
@@ -937,6 +936,21 @@ public class DataModel {
     @DomainAPI
     public void unregisterFromNotifications(User user, Mailbox mailbox) throws IllegalArgumentException, IllegalStateException{
         UnregisterFromNotificationsModelCmd cmd = new UnregisterFromNotificationsModelCmd(user, mailbox);
+        cmd.exec();
+        addToHistory(cmd);
+    }
+
+    /**
+     * This method lets the given user change the milestone of the given abstractSystem to the given milestone
+     *
+     * @param user              The user that wants to change the milestone
+     * @param abstractSystem    The abstractSystem that needs a milestone change
+     * @param milestone         The new milestone
+     * @throws PermissionException
+     */
+    @DomainAPI
+    public void setMilestone(User user, AbstractSystem abstractSystem, Milestone milestone) throws PermissionException {
+        SetMilestoneAbstractSystemModelCmd cmd = new SetMilestoneAbstractSystemModelCmd(user, abstractSystem, milestone);
         cmd.exec();
         addToHistory(cmd);
     }
