@@ -63,12 +63,20 @@ public class ProposeTestCmd implements Cmd<BugReport> {
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
         // 1. The developer indicates that he wants to submit a test for some bugRep.
         // 2. Include use case Select Bug Report if required.
-        BugReport bugRep = (bugReport != null) ? bugReport : (new SelectBugReportCmd()).exec(scan, model, user); //IllegalArg for scan,model,user == null
+        scan.println("Adding test.");
+        BugReport bugRep;
+        if(bugReport == null) {
+            scan.println("Select a bug report.");
+            bugRep = (new SelectBugReportCmd()).exec(scan, model, user);  //IllegalArg for scan,model,user == null
+            scan.println("Adding test.");
+        } else {
+            bugRep = bugReport;
+        }
+        
         String text;
 
         // 3. The system shows the form for uploading the test code.
         // 4. The developer provides the details for uploading the test code.
-        scan.println("Adding test.");
         scan.println("Do you wish to submit a file? Please type yes or no.");
         if (scan.nextLine().equalsIgnoreCase("yes")) {
             scan.println("Please select the test code file.");
@@ -111,7 +119,7 @@ public class ProposeTestCmd implements Cmd<BugReport> {
     }
 
     /**
-     * Get the input from the user. 
+     * Get the input from the user.
      * <br> This will keep asking for input until an empty input was given, the result is returned.
      *
      * @param scan The scanner to communicate with the user.
