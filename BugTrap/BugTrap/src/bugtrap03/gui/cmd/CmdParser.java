@@ -63,6 +63,7 @@ public class CmdParser {
         cmdList.add(new SimpleEntry<>("selectpatch", new SelectPatchForBugReportCmd()));
         cmdList.add(new SimpleEntry<>("declaremilestone", new DeclareAchievedMilestoneCmd()));
         cmdList.add(new SimpleEntry<>("givescoretobugreport", new GiveScoreToBugReportCmd()));
+        cmdList.add(new SimpleEntry<>("setduplicatebugreport", new SetDuplicateBugReportCmd()));
 
 
         cmdMap = new HashMap<>();
