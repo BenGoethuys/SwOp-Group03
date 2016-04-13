@@ -45,10 +45,6 @@ class GiveScoreToBugReportModelCmd extends ModelCmd {
     /**
      * This method gives the selected patch of this bug report states a score
      *
-     * @param bugReport The bug report to evaluate
-     * @param user The user that wants to assign a score to this bug report
-     * @param score The score that the creator wants to give
-     *
      * @return True
      * @throws PermissionException When the user does not have sufficient permissions to give the bugReport a score
      * @throws IllegalStateException If the current state doesn't allow assigning a score
