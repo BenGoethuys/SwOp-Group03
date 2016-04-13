@@ -15,14 +15,14 @@ import purecollections.PList;
  *
  * @author Group 03
  */
-public class SelectPatchForBugReportCmd implements Cmd<String> {
+public class SelectPatchCmd implements Cmd<String> {
 
     /**
      * Creates a {@link Cmd} for selecting a patch from the list of patches of a bugReport.
      *
      * @param bugReport The bugRep to select from.
      */
-    public SelectPatchForBugReportCmd(BugReport bugReport) {
+    public SelectPatchCmd(BugReport bugReport) {
         this.bugReport = bugReport;
     }
 
@@ -30,7 +30,7 @@ public class SelectPatchForBugReportCmd implements Cmd<String> {
      * Creates a {@link Cmd} for selecting a patch from the list of patches of a bugReport. A scenario to select the bug
      * report is included.
      */
-    public SelectPatchForBugReportCmd() {
+    public SelectPatchCmd() {
     }
 
     private BugReport bugReport;

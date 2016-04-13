@@ -130,7 +130,7 @@ public class SelectPatchCmdTest {
     public void testExec_BugReportGiven() throws PermissionException, CancelException {
         ArrayDeque<String> question = SelectPatchCmdTest.getDefaultQuestions(patch1, patch2);
         ArrayDeque<String> answer = SelectPatchCmdTest.getDefaultAnswers(patch1, patch2);
-        SelectPatchForBugReportCmd cmd = new SelectPatchForBugReportCmd(bugRep);
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         cmd.exec(scan, model, lead);
@@ -148,7 +148,7 @@ public class SelectPatchCmdTest {
     public void testExec_NoBugReport() throws PermissionException, CancelException {
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        SelectPatchForBugReportCmd cmd = new SelectPatchForBugReportCmd();
+        SelectPatchCmd cmd = new SelectPatchCmd();
 
         question.add("Selecting patch.");
         question.add("Select a bug report.");

@@ -63,7 +63,7 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
                 this.setUnderReview(user, bugrep, scan, model);
                 break;
             case RESOLVED :
-                new SelectPatchForBugReportCmd(bugrep).exec(scan, model, user);
+                new SelectPatchCmd(bugrep).exec(scan, model, user);
                 break;
             case CLOSED :
                 new GiveScoreToBugReportCmd(bugrep).exec(scan, model, user);
