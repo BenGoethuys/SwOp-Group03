@@ -35,9 +35,9 @@ public class UnregisterFromNotificationsCmd implements Cmd {
                 }
             }
         }
-        Mailbox selected = allBoxes.get(index);
-        scan.println("You selected: " + selected.getInfo());
-        model.unsubscribe(user, selected);
-        return selected;
+        Mailbox selectedMB = allBoxes.get(index);
+        scan.println("You selected: " + selectedMB.getInfo());
+        model.unregisterFromNotifications(user, selectedMB);
+        return selectedMB;
     }
 }

@@ -60,7 +60,7 @@ public class CreationMailBox extends Mailbox {
         StringBuilder message = new StringBuilder();
         message.append("You are subscribed to the creation of Bugreports on ");
         message.append(this.subject.getSubjectName());
-        message.append(" and all it's subsystems");
+        message.append(" and all it's subsystems.");
         return message.toString();
     }
 }
