@@ -41,7 +41,7 @@ public class BugReportStateDuplicateTest {
         lead = new Developer("blaStateDuplicateTest2", "Jan", "Smidt");
 
         project = new Project("ANewProject", "the description of the project", lead, 0);
-        subsystem = project.makeSubsystemChild("ANewSubSystem", "the decription of the subsystem");
+        subsystem = project.addSubsystem("ANewSubSystem", "the decription of the subsystem");
 
         duplicate = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, false, "", "", "");
 

@@ -212,7 +212,7 @@ public class Comment {
      * @param text the text of the comment
      * @throws IllegalArgumentException if the given parameters are not valid for this comment
      * @throws PermissionException if the given creator doesn't have the needed permissions
-     * @see Comment(Issuer, String)
+     * @see Comment(User, String)
      */
     public Comment addSubComment(User creator, String text) throws IllegalArgumentException, PermissionException {
         return this.addSubComment(new Comment(creator, text));
@@ -281,7 +281,7 @@ public class Comment {
 
     /**
      * Convert the passed treeStructure to a String. This is used by
-     * {@link Comment#commentsTreeToString(javax.swing.tree.DefaultMutableTreeNode)} and should not be used elsewhere.
+     * {@link Comment#commentsTreeToString(Tree)} and should not be used elsewhere.
      *
      * @param node The node of which to print the children.
      * @param str The StringBuilder used to build upon.

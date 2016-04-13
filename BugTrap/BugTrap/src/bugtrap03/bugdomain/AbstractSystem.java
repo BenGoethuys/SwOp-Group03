@@ -158,7 +158,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
 
         if (! this.constraintCheck()){
             // update all children
-            for (Subsystem subsystem : this.getChilds()){
+            for (Subsystem subsystem : this.getSubsystems()){
                 subsystem.setMilestone(milestone);
             }
         }
@@ -179,7 +179,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
             return false;
         }
         for (BugReport bugreport : this.getAllBugReports()) {
-            if ((!bugreport.isResolved()) && (bugreport.getMilestone().compareTo(milestone) <= 0)) {
+            if ((!bugreport.isResolved()) && (bugreport.getMilestone() != null) &&
+            (bugreport.getMilestone().compareTo(milestone) <= 0)) {
                 return false;
             }
         }
@@ -345,7 +346,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      *
      * @return an PList of childs.
      */
-    protected PList<Subsystem> getChilds() {
+    protected PList<Subsystem> getSubsystems() {
         return this.childs;
     }
 
@@ -360,8 +361,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @return The new subsystems that was added to this AbstractSystem
      * @throws IllegalArgumentException When name or description is invalid.
      */
-    public Subsystem makeSubsystemChild(VersionID version, String name, String description) {
-        Subsystem newChild = (this.getChilds().isEmpty()) ? new Subsystem(version, name, description, this, getMilestone()) : new Subsystem(version, name, description, this);
+    public Subsystem addSubsystem(VersionID version, String name, String description) {
+        Subsystem newChild = (this.getSubsystems().isEmpty()) ? new Subsystem(version, name, description, this, getMilestone()) : new Subsystem(version, name, description, this);
         // throw new IllegalArgumentException("Milestone should be bigger then the project/subsystem this belong to, "
         //+ "else inconsistent state.");
         this.addChild(newChild);
@@ -378,8 +379,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @throws IllegalArgumentException When name or description is invalid.
      */
     @Ensures("result.getVersionID.equals(new VersionID())")
-    public Subsystem makeSubsystemChild(String name, String description) {
-        return makeSubsystemChild(new VersionID(), name, description);
+    public Subsystem addSubsystem(String name, String description) {
+        return addSubsystem(new VersionID(), name, description);
     }
 
     /**
@@ -388,7 +389,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @param child The given subsystem to set as child.
      */
     private void addChild(Subsystem child) {
-        this.childs = this.getChilds().plus(child);
+        this.childs = this.getSubsystems().plus(child);
     }
 
     /**
@@ -398,8 +399,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @return Whether there was a change in the data.
      */
     public boolean deleteChild(Subsystem child) {
-        PList<Subsystem> oldChilds = this.getChilds();
-        this.childs = this.getChilds().minus(child);
+        PList<Subsystem> oldChilds = this.getSubsystems();
+        this.childs = this.getSubsystems().minus(child);
         return (oldChilds != this.childs);
     }
 
@@ -448,7 +449,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     @DomainAPI
     public PList<BugReport> getAllBugReports() {
         ArrayList<BugReport> list = new ArrayList<>();
-        for (Subsystem subsystem : this.getChilds()) {
+        for (Subsystem subsystem : this.getSubsystems()) {
             list.addAll(subsystem.getAllBugReports());
         }
         return PList.<BugReport>empty().plusAll(list);
@@ -462,7 +463,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     @DomainAPI
     public PList<Subsystem> getAllSubsystems() {
         ArrayList<Subsystem> list = new ArrayList<>();
-        for (Subsystem subsystem : this.getChilds()) {
+        for (Subsystem subsystem : this.getSubsystems()) {
             list.add(subsystem);
             list.addAll(subsystem.getAllSubsystems());
         }
