@@ -173,12 +173,13 @@ public class MailboxTest {
     public void testUnsubscribe() throws Exception {
         CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
         assertTrue(testMB.getAllBoxes().contains(cmb));
+        assertFalse(testMB.unsubscribe(testCMB2));
         CommentMailBox cmb2 = cmb.commentSubscribe(subsystem4MB);
         assertTrue(testMB.unsubscribe(cmb2));
         assertFalse(testMB.getAllBoxes().contains(cmb2));
         assertFalse(testMB2.getAllBoxes().contains(cmb2));
-        assertTrue(testMB.unsubscribe(cmb));
         assertFalse(testMB.unsubscribe(testCMB2));
+        assertTrue(testMB.unsubscribe(cmb));
         assertFalse(testMB.getAllBoxes().contains(cmb));
     }
 

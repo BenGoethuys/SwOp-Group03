@@ -182,7 +182,7 @@ public class Mailbox {
     }
 
     /**
-     * This method unsubscibes the mailbox by deleting the mailbox representing the subscription.
+     * This method unsubscribes the mailbox by deleting the mailbox representing the subscription.
      *1
      * @param mb The mailbox representing the subscription.
      */
