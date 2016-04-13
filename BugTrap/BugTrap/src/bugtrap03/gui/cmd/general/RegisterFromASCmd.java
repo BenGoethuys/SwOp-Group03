@@ -19,8 +19,8 @@ public class RegisterFromASCmd implements Cmd {
     public RegisterFromASCmd(AbstractSystemSubject abstractSystemSubject) {
         this.abstractSystemSubject = abstractSystemSubject;
         this.subsriptionTypes = new HashMap<>();
-        this.subsriptionTypes.put("alltags", 1);
-        this.subsriptionTypes.put("specictags", 2);
+        this.subsriptionTypes.put("newtag", 1);
+        this.subsriptionTypes.put("specifictags", 2);
         this.subsriptionTypes.put("comment", 3);
         this.subsriptionTypes.put("creation", 4);
     }
