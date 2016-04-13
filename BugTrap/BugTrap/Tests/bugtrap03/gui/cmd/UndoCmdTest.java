@@ -4,6 +4,7 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
@@ -64,7 +65,9 @@ public class UndoCmdTest {
     @Test(expected = IllegalArgumentException.class)
     public void testExecNullScan() throws PermissionException, CancelException {
         UndoCmd cmd = new UndoCmd();
-        cmd.exec(null, new DataModel(), new Administrator("Test_51", "Test", "Test"));
+        DataModel model = new DataModel();
+        Administrator admin = model.createAdministrator("Test_51", "Test", "Test");
+        cmd.exec(null, model, admin);
     }
 
     /**
@@ -75,7 +78,9 @@ public class UndoCmdTest {
     @Test(expected = IllegalArgumentException.class)
     public void testExecNullModel() throws PermissionException, CancelException {
         UndoCmd cmd = new UndoCmd();
-        cmd.exec(new TerminalScanner(System.in, System.out), null, new Administrator("Test_52", "Test", "Test"));
+        DataModel model = new DataModel();
+        Administrator admin = model.createAdministrator("Test_52", "Test", "Test");
+        cmd.exec(new TerminalScanner(System.in, System.out), null, admin);
     }
 
     /**
