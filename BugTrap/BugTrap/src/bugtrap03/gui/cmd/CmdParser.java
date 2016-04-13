@@ -64,7 +64,7 @@ public class CmdParser {
         cmdList.add(new SimpleEntry<>("declaremilestone", new DeclareAchievedMilestoneCmd()));
         cmdList.add(new SimpleEntry<>("givescoretobugreport", new GiveScoreToBugReportCmd()));
         cmdList.add(new SimpleEntry<>("registerfornotifications", new RegisterForNotificationsCmd()));
-        cmdList.add(new SimpleEntry<>("viewnotifications", new ViewNotificationsCmd()));
+        cmdList.add(new SimpleEntry<>("viewnotifications", new ShowNotificationsCmd()));
         cmdList.add(new SimpleEntry<>("unregisterfromnotifications", new UnregisterFromNotificationsCmd()));
 
 
@@ -97,7 +97,7 @@ public class CmdParser {
         cmdListExtra.add(new SimpleEntry<>("addpatch", new ProposePatchCmd()));
         cmdListExtra.add(new SimpleEntry<>("regfornot", new RegisterForNotificationsCmd()));
         cmdListExtra.add(new SimpleEntry<>("subscribe", new RegisterForNotificationsCmd()));
-        cmdListExtra.add(new SimpleEntry<>("viewnot", new ViewNotificationsCmd()));
+        cmdListExtra.add(new SimpleEntry<>("viewnot", new ShowNotificationsCmd()));
         cmdListExtra.add(new SimpleEntry<>("unsubscribe", new UnregisterFromNotificationsCmd()));
         cmdListExtra.add(new SimpleEntry<>("unregfromnot", new UnregisterFromNotificationsCmd()));
 
