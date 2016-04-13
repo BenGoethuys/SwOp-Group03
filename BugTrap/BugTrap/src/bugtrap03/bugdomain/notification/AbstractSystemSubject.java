@@ -4,7 +4,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
 import purecollections.PList;
 
 /**
- * Created by Kwinten on 23/03/2016.
+ * @author Group 03
  */
 public abstract class AbstractSystemSubject extends Subject {
 
