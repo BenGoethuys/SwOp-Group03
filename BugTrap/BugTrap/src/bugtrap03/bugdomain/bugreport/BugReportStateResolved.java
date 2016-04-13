@@ -181,6 +181,7 @@ class BugReportStateResolved implements BugReportState {
         }
         BugReportState newState = new BugReportStateClosed(this.getTests(), this.getPatches(), this.getSelectedPatch(), score);
         bugReport.setInternState(newState);
+        bugReport.notifyTagSubs(bugReport);
         return newState;
     }
 

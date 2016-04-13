@@ -6,7 +6,7 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.usersystem.notification.Subject;
+import bugtrap03.bugdomain.notification.Subject;
 import bugtrap03.misc.Tree;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
@@ -323,8 +323,8 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         if (!user.hasRolePermission(tag.getNeededPerm(), this.getSubsystem().getParentProject())) {
             throw new PermissionException("The given user doesn't have the permission to set the requested tag");
         }
-        this.notifyTagSubs(this);
         this.getInternState().setTag(this, tag);
+        this.notifyTagSubs(this);
     }
 
     /**
@@ -1164,6 +1164,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             throw new PermissionException("The given user doesn't have the permission to set this bug report as a duplicate");
         }
         this.getInternState().setDuplicate(this, duplicate);
+        this.notifyTagSubs(this);
     }
 
     /**

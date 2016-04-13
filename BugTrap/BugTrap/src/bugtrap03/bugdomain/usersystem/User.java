@@ -4,7 +4,7 @@ import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
-import bugtrap03.bugdomain.usersystem.notification.Mailbox;
+import bugtrap03.bugdomain.notification.Mailbox;
 
 import java.util.HashSet;
 import java.util.Objects;

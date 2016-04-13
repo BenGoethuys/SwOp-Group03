@@ -1,16 +1,14 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.usersystem.notification.Mailbox;
-import bugtrap03.bugdomain.usersystem.notification.Notification;
+import bugtrap03.bugdomain.notification.Mailbox;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
- * Created by Bruno on 11-4-2016.
+ * @author Group 03
  */
 public class UnregisterFromNotificationsCmd implements Cmd {
     @Override
@@ -39,7 +37,7 @@ public class UnregisterFromNotificationsCmd implements Cmd {
         }
         Mailbox selected = allBoxes.get(index);
         scan.println("You selected: " + selected.getInfo());
-        user.getMailbox().unsubscribe(selected);
+        model.unsubscribe(user, selected);
         return selected;
     }
 }

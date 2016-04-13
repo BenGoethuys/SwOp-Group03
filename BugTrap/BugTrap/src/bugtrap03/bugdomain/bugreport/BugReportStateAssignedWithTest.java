@@ -134,6 +134,7 @@ class BugReportStateAssignedWithTest implements BugReportState {
         }
         BugReportState newState = new BugReportStateUnderReview(this.getTests(), patch);
         bugReport.setInternState(newState);
+        bugReport.notifyTagSubs(bugReport);
         return newState;
     }
 
