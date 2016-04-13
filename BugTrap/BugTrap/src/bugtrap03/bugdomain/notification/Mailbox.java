@@ -18,10 +18,12 @@ public class Mailbox {
     public Mailbox(){
         this.boxes = PList.<Mailbox>empty();
         this.notifications = PList.<Notification>empty();
+        this.activate();
     }
 
-    PList<Mailbox> boxes;
-    PList<Notification> notifications;
+    private PList<Mailbox> boxes;
+    private PList<Notification> notifications;
+    private boolean isTerminated;
 
     /**
      * This method returns all the notifications belonging to this mailbox.
@@ -52,7 +54,9 @@ public class Mailbox {
      * @param notif The notification to add.
      */
     protected void addNotification(Notification notif){
-        this.notifications = this.getNotifications().plus(notif);
+        if (! this.isTerminated){
+            this.notifications = this.getNotifications().plus(notif);
+        }
     }
 
     /**
@@ -168,6 +172,7 @@ public class Mailbox {
     public boolean unsubscribe(Mailbox mb){
         if (this.boxes.contains(mb)){
             this.boxes = this.getBoxes().minus(mb);
+            mb.isTerminated = true;
             return true;
         } else{
             boolean value = false;
@@ -177,6 +182,13 @@ public class Mailbox {
             return value;
         }
 
+    }
+
+    /**
+     * This method sets the terminated status to false;
+     */
+    public void activate(){
+        this.isTerminated = false;
     }
 
 }

@@ -926,8 +926,17 @@ public class DataModel {
         addToHistory(cmd);
     }
 
+    /**
+     * This method lets a user unregister for notifications
+     * @param user
+     * @param mailbox
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     */
     @DomainAPI
-    public void unsubscribe(User user, Mailbox mailbox){
+    public void unregisterFromNotifications(User user, Mailbox mailbox) throws IllegalArgumentException, IllegalStateException{
         UnregisterFromNotificationsModelCmd cmd = new UnregisterFromNotificationsModelCmd(user, mailbox);
+        cmd.exec();
+        addToHistory(cmd);
     }
 }
