@@ -134,7 +134,7 @@ public class ProposePatchCmdTest {
         ProposePatchCmd cmd = new ProposePatchCmd(bugRep);
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
-        cmd.exec(scan, model, dev2);
+        cmd.exec(scan, model, dev3);
     }
 
     @Test(expected = IllegalArgumentException.class)
