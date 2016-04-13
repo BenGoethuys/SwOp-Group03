@@ -1,8 +1,26 @@
-1. Use Case: login
+1. login
 	OK
 
-2. Use Case: create project
+2. create project
 	OK
 
-3. Use Case: update project
-	
+3. update project
+	OK
+
+4. delete project
+	Check step 4: 
+	The system deletes a project and recursively all subsystems that are part of
+	the project. All bug reports fore those subsystem are also removed from BugTrap.
+
+5. show project
+	OK
+
+6. create subsystem
+	OK
+
+7. undo
+	OK
+	Check step 4:
+	The system reverts the selected use cases starting with the last completed one 
+	and, if necessary, sends the required notifications if some object of interest 
+	is modified by the undoing of a use case.
