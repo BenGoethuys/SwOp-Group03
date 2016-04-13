@@ -928,10 +928,10 @@ public class DataModel {
 
     /**
      * This method lets a user unregister for notifications
-     * @param user
-     * @param mailbox
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
+     * @param user The user that wishes to unregister.
+     * @param mailbox The mailbox that contains the notifications from which the user wishes to unregister.
+     * @throws IllegalArgumentException If the mailbox is not found in
+     * @throws IllegalStateException If the command has already been executed.
      */
     @DomainAPI
     public void unregisterFromNotifications(User user, Mailbox mailbox) throws IllegalArgumentException, IllegalStateException{

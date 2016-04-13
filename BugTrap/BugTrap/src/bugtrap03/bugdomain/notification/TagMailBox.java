@@ -69,6 +69,9 @@ public class TagMailBox extends Mailbox {
      * @return true if the Tag enumset is not empty.
      */
     private boolean isValidTags(EnumSet<Tag> tags){
+        if (tags == null){
+            return false;
+        }
         if (tags.isEmpty()){
             return false;
         }
@@ -102,5 +105,13 @@ public class TagMailBox extends Mailbox {
         message.append(" on ");
         message.append(this.subject.getSubjectName());
         return message.toString();
+    }
+
+    /**
+     * This method returns a copy of the tags in which this subscription is interested.
+     * @return An enumset of tags.
+     */
+    public EnumSet<Tag> getTagsOfInterest(){
+        return EnumSet.copyOf(this.tags);
     }
 }
