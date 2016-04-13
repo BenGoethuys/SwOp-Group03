@@ -2,8 +2,11 @@ package bugtrap03.model;
 
 import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.Milestone;
+import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
+
+import java.util.HashMap;
 
 /**
  * @author Group 03
@@ -32,12 +35,14 @@ public class SetMilestoneAbstractSystemModelCmd extends ModelCmd {
         this.abstractSystem = abstractSystem;
         this.milestone = milestone;
         this.isExecuted = false;
+        this.oldValues = new HashMap<>();
     }
 
     private User user;
     private AbstractSystem abstractSystem;
     private Milestone milestone;
     private boolean isExecuted;
+    private HashMap<AbstractSystem, Milestone> oldValues;
 
     /**
      * Execute the given Command.
@@ -55,8 +60,13 @@ public class SetMilestoneAbstractSystemModelCmd extends ModelCmd {
             throw new IllegalStateException("The CreateIssuerModelCmd was already executed.");
         }
 
-        // TODO: save state!
+        // save state
+        oldValues.put(abstractSystem, abstractSystem.getMilestone());
+        for (Subsystem subsystem : abstractSystem.getAllSubsystems()) {
+            oldValues.put(subsystem, subsystem.getMilestone());
+        }
 
+        // set new milestone
         abstractSystem.setMilestone(user, milestone);
         isExecuted = true;
         return abstractSystem;
@@ -70,9 +80,23 @@ public class SetMilestoneAbstractSystemModelCmd extends ModelCmd {
     @Override
     boolean undo() {
 
-        // TODO
+        if (! this.isExecuted()){
+            return false;
+        }
+        try {
+            abstractSystem.setMilestone(user, oldValues.get(abstractSystem));
+        } catch (PermissionException exception){
+            // should not happen, because had permission in the first place
+        }
+        for (Subsystem subsystem : abstractSystem.getAllSubsystems()) {
+            try {
+                subsystem.setMilestone(user, oldValues.get(subsystem));
+            } catch (PermissionException e) {
+                // should never happen
+            }
+        }
 
-        return false;
+        return true;
     }
 
     /**
