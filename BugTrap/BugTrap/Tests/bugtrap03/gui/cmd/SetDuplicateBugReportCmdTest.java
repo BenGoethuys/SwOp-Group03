@@ -7,8 +7,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayDeque;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import bugtrap03.bugdomain.Project;
@@ -32,23 +30,23 @@ import testCollection.TerminalTestScanner;
  */
 public class SetDuplicateBugReportCmdTest {
 
-     Subsystem subsystemA1;
-     Subsystem subsystemA2;
-     Subsystem subsystemA3;
-     Subsystem subsystemA3_1;
-     Subsystem subsystemA3_2;
-     BugReport bugRep1;
-     BugReport bugRep2;
-     BugReport bugRep3;
-     BugReport chosen;
-     Comment comment1;
-     Comment comment2;
-     Comment comment3;
-     Project proj1;
-     DataModel model;
-     Developer lead;
-     Issuer issuer;
-     Administrator admin;
+    Subsystem subsystemA1;
+    Subsystem subsystemA2;
+    Subsystem subsystemA3;
+    Subsystem subsystemA3_1;
+    Subsystem subsystemA3_2;
+    BugReport bugRep1;
+    BugReport bugRep2;
+    BugReport bugRep3;
+    BugReport chosen;
+    Comment comment1;
+    Comment comment2;
+    Comment comment3;
+    Project proj1;
+    DataModel model;
+    Developer lead;
+    Issuer issuer;
+    Administrator admin;
 
     /**
      * Test method for
@@ -144,7 +142,7 @@ public class SetDuplicateBugReportCmdTest {
         // Execute scenario
         BugReport chosen = cmd.exec(scan, model, lead);
         // Test effects.
-
+        assertEquals(chosen, bugRep1);
     }
 
     /**
@@ -245,7 +243,7 @@ public class SetDuplicateBugReportCmdTest {
         assertNotEquals(chosen, bugRep2);
         assertNotEquals(chosen, bugRep3);
     }
-    
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.SetDuplicateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
@@ -255,7 +253,7 @@ public class SetDuplicateBugReportCmdTest {
      * @throws PermissionException
      * @throws IllegalArgumentException
      */
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testExec3() throws IllegalArgumentException, PermissionException, CancelException {
         model = new DataModel();
         lead = model.createDeveloper("Ploperdeplop016", "Luky", "Luke");
@@ -404,5 +402,4 @@ public class SetDuplicateBugReportCmdTest {
         assertNotEquals(chosen, bugRep3);
     }
 
-    
 }
