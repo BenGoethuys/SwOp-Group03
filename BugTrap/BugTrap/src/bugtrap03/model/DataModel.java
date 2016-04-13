@@ -940,4 +940,11 @@ public class DataModel {
         cmd.exec();
         addToHistory(cmd);
     }
+
+    // TODO
+    public void setMilestone(User user, AbstractSystem abstractSystem, Milestone milestone) throws PermissionException {
+        SetMilestoneASModelCmd cmd = new SetMilestoneASModelCmd(user, abstractSystem, milestone);
+        cmd.exec();
+        addToHistory(cmd);
+    }
 }
