@@ -1,7 +1,9 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.gui.cmd.ProposeTestCmd;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -83,6 +85,34 @@ public class AbstractSystemTest {
         assertTrue(AbstractSystem.isValidVersionId(new VersionID(0, 0, 2)));
         assertTrue(AbstractSystem.isValidVersionId(new VersionID()));
         assertFalse(AbstractSystem.isValidVersionId(null));
+    }
+
+    @Test
+    public void isValidMilestone() throws PermissionException {
+        Project project = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
+                testBudget);
+        Milestone projMil = new Milestone(2,4);
+        project.setMilestone(projMil);
+        Subsystem subsystem = project.addSubsystem("Subsys 1", "Description subsys 1");
+        subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
+                emptyDep, null, false, null, null, null);
+        subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
+                emptyDep, new Milestone(5,6), false, null, null, null);
+
+        assertFalse(subsystem.isValidMilestone(null));
+        assertTrue(subsystem.isValidMilestone(new Milestone(3)));
+        assertFalse(subsystem.isValidMilestone(new Milestone(6)));
+
+    }
+
+    @Test
+    public void isValidParent(){
+        Project project = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
+                testBudget);
+        project.setTerminated(true);
+        assertFalse(subSysTest.isValidParent(null));
+        assertFalse(subSysTest.isValidParent(project));
+        assertTrue(subSysTest.isValidParent(testProject));
     }
 
     @Test
