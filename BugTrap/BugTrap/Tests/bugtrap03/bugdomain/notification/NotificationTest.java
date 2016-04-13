@@ -22,7 +22,7 @@ public class NotificationTest {
     private static String message4Not;
 
 
-    private static Developer dev4Not
+    private static Developer dev4Not;
     private static Project project4MB;
     private static Subsystem subsystem4MB;
     private static BugReport bugreport4MB;
