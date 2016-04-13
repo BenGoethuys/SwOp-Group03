@@ -116,7 +116,7 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
         if (bugReport.getTag() == Tag.NEW){
             new AssignToBugReportCmd(bugReport).exec(scanner, model, user);
         } else if (bugReport.getTag() == Tag.UNDER_REVIEW){
-            model.setTag(bugReport, Tag.UNDER_REVIEW, user);
+            model.setTag(bugReport, Tag.ASSIGNED, user);
         } else {
             throw new IllegalStateException("The requested Tag cannot be set to the given bug report");
         }

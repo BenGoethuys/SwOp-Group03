@@ -42,9 +42,13 @@ public class CommentMailBox extends Mailbox {
      * This method updates the notifications list with a new notification if a comment on a bugreport has been created.
      *
      * @param bugReport The bugreport on which a comment has been created.
+     *
+     * @return The added notification.
      */
-    public void update(BugReport bugReport){
-        this.addNotification(new Notification("A comment has been created on ", bugReport, this.subject));
+    public Notification update(BugReport bugReport){
+        Notification newNotif = new Notification("The following bugreport has been created: ", bugReport, this.subject);
+        this.addNotification(newNotif);
+        return newNotif;
     }
 
     /**

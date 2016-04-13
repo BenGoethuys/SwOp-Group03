@@ -44,9 +44,13 @@ public class CreationMailBox extends Mailbox {
      * This method updates the notifications list with a new notification if a bugreport has been created.
      *
      * @param bugReport The created bugreport.
+     *
+     * @return The added notification.
      */
-    public void update(BugReport bugReport){
-        this.addNotification(new Notification("The following bugreport has been created: ", bugReport, this.subject));
+    public Notification update(BugReport bugReport){
+        Notification newNotif = new Notification("The following bugreport has been created: ", bugReport, this.subject);
+        this.addNotification(newNotif);
+        return newNotif;
     }
 
     /**
