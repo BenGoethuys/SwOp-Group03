@@ -211,4 +211,19 @@ public class CommentTest {
         assertFalse(comment1.isValidSubComment(null));
     }
 
+    @Test
+    public void testCommentTreeToString() throws PermissionException {
+        Comment comment = new Comment(issuer, text);
+        Comment subCom = comment.addSubComment(issuer, "SubComment 1");
+        Comment subSubCom = subCom.addSubComment(issuer, "SubComment 1.1");
+        Comment subCom2 = comment.addSubComment(issuer, "SubComment 2");
+
+        String res = Comment.commentsTreeToString(comment.getAllComments(null));
+
+        assertTrue(res.contains("1. " + comment.getText()));
+        assertTrue(res.contains("1.1. " + subCom.getText()));
+        assertTrue(res.contains("1.1.1. " + subSubCom.getText()));
+        assertTrue(res.contains("1.2. " + subCom2.getText()));
+    }
+
 }
