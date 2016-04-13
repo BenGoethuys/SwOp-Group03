@@ -25,7 +25,7 @@ class SetMilestoneAbstractSystemModelCmd extends ModelCmd {
             throw new IllegalArgumentException("The given user cannot be null");
         }
         if (abstractSystem == null) {
-            throw new IllegalArgumentException("The given abstractsystem cannot be null");
+            throw new IllegalArgumentException("The given abstractSystem cannot be null");
         }
         if (milestone == null) {
             throw new IllegalArgumentException("The given milestone cannot be null");
