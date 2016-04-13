@@ -58,20 +58,19 @@ public class UnregisterFromNotificationsModelCmd extends ModelCmd{
 
     /**
      * This method executes this unregistration command.
-     * @return the mailbox that represented the
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
+     * @return the mailbox that represented the subscription.
+     * @throws IllegalStateException If the command has already been executed
+     * @throws IllegalStateException If the mailbox of this command couold not be found in the list of mailboxes.
      */
     @Override
-    Mailbox exec() throws IllegalArgumentException, IllegalStateException {
+    Mailbox exec() throws IllegalStateException {
         if (this.isExecuted()){
             throw new IllegalStateException("This unsubscribe command is already executed and cannot be executed again.");
         }
         if (this.unsubscriber.getMailbox().unsubscribe(this.mailbox)){
             this.isExecuted = true;
-            return this.mailbox;
         }
-        throw new IllegalStateException("Something went wrong while unsubscribing. Mailbox not found in subscriptions.");
+        return this.mailbox;
     }
 
     /**
