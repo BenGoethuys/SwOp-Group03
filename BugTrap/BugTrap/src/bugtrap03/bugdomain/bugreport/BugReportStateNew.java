@@ -77,6 +77,7 @@ class BugReportStateNew implements BugReportState {
         bugReport.addUser(dev);
         BugReportState newState = new BugReportStateAssigned();
         bugReport.setInternState(newState);
+        bugReport.notifyTagSubs(bugReport);
         return newState;
     }
 

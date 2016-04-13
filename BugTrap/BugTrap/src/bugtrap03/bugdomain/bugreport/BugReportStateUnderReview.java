@@ -174,6 +174,7 @@ class BugReportStateUnderReview implements BugReportState {
         }
         BugReportState newState = new BugReportStateResolved(this.getTests(), this.getPatches(), patch);
         bugReport.setInternState(newState);
+        bugReport.notifyTagSubs(bugReport);
         return newState;
     }
 

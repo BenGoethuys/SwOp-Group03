@@ -323,8 +323,8 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         if (!user.hasRolePermission(tag.getNeededPerm(), this.getSubsystem().getParentProject())) {
             throw new PermissionException("The given user doesn't have the permission to set the requested tag");
         }
-        this.notifyTagSubs(this);
         this.getInternState().setTag(this, tag);
+        this.notifyTagSubs(this);
     }
 
     /**
@@ -1164,6 +1164,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             throw new PermissionException("The given user doesn't have the permission to set this bug report as a duplicate");
         }
         this.getInternState().setDuplicate(this, duplicate);
+        this.notifyTagSubs(this);
     }
 
     /**
