@@ -478,7 +478,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
-        question.add(bugRep2.getDetails());
+        question.add(model.getDetails(issuer, bugRep2));
         question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
@@ -559,7 +559,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
-        question.add(bugRep2.getDetails());
+        question.add(model.getDetails(issuer, bugRep2));
         question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
@@ -640,7 +640,7 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
-        question.add(bugRep2.getDetails());
+        question.add(model.getDetails(issuer, bugRep2));
         question.add("Available options:");
         question.add("0. NEW");
         question.add("1. ASSIGNED");
