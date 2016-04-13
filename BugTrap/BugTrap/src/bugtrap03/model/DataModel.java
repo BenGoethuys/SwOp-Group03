@@ -10,7 +10,6 @@ import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.*;
 import bugtrap03.bugdomain.notification.AbstractSystemSubject;
 import bugtrap03.bugdomain.notification.Subject;
-import bugtrap03.gui.cmd.UnregisterFromNotificationsCmd;
 import com.google.java.contract.Ensures;
 import purecollections.PList;
 
@@ -951,7 +950,7 @@ public class DataModel {
      */
     @DomainAPI
     public void setMilestone(User user, AbstractSystem abstractSystem, Milestone milestone) throws PermissionException {
-        SetMilestoneASModelCmd cmd = new SetMilestoneASModelCmd(user, abstractSystem, milestone);
+        SetMilestoneAbstractSystemModelCmd cmd = new SetMilestoneAbstractSystemModelCmd(user, abstractSystem, milestone);
         cmd.exec();
         addToHistory(cmd);
     }

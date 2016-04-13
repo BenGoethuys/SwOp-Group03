@@ -8,7 +8,7 @@ import bugtrap03.bugdomain.usersystem.User;
 /**
  * @author Group 03
  */
-public class SetMilestoneASModelCmd extends ModelCmd {
+public class SetMilestoneAbstractSystemModelCmd extends ModelCmd {
 
     /**
      * The constructor of this Cmd
@@ -17,7 +17,7 @@ public class SetMilestoneASModelCmd extends ModelCmd {
      * @param abstractSystem    The abstractSystem that needs a milestone change
      * @param milestone         The new milestone
      */
-    public SetMilestoneASModelCmd(User user, AbstractSystem abstractSystem, Milestone milestone){
+    public SetMilestoneAbstractSystemModelCmd(User user, AbstractSystem abstractSystem, Milestone milestone){
         if (user == null) {
             throw new IllegalArgumentException("The given user cannot be null");
         }
