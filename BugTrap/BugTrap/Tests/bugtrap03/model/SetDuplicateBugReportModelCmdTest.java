@@ -7,6 +7,7 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
+import bugtrap03.bugdomain.usersystem.User;
 import org.junit.Before;
 import org.junit.Test;
 import purecollections.PList;
