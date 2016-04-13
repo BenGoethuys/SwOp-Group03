@@ -16,10 +16,35 @@ public class UnregisterFromNotificationsModelCmd extends ModelCmd{
         if (! isValidMailbox(mailbox)){
             throw new IllegalArgumentException("Invalid Mailbox for unregistration from notifiactions");
         }
-        this.mailbox =
+        this.mailbox = mailbox;
     }
 
     private User unsubscriber;
+    private Mailbox mailbox;
+
+    /**
+     * This method checks the validity of a given user.
+     * @param user The user to check.
+     * @return True if the user is not null.
+     */
+    public boolean isValidUser(User user){
+        if (user == null){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * This method checks the validity of a given user.
+     * @param mailbox The user to check.
+     * @return True if the user is not null.
+     */
+    public boolean isValidMailbox(Mailbox mailbox){
+        if (mailbox == null){
+            return false;
+        }
+        return true;
+    }
 
     @Override
     Object exec() throws IllegalArgumentException, NullPointerException, PermissionException, IllegalStateException {
