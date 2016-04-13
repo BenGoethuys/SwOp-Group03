@@ -669,13 +669,76 @@ public class UpdateBugReportCmdTest {
     }
 
     @Test
-    public void testExecNewToNotABug() {
+    public void testExecNewToNotABug() throws IllegalArgumentException, PermissionException, CancelException {
+     // Setup variables.
+        DataModel model = new DataModel();
+        Developer lead = model.createDeveloper("Flying7", "Cars", "nice");
+        Issuer issuer = model.createIssuer("Autonomous7", "BMW", "looks", "nice");
+        Administrator admin = model.createAdministrator("General7", "Kwinten", "JK");
 
+        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        // make subsystems
+        Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+                "Description of susbsystem A2");
+        Subsystem subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+                "Description of susbsystem A3");
+        Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+                "Description of susbsystem A3.1");
+
+        BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here",
+                "createComment has an output error", PList.<BugReport> empty(), null, false);
+        BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository",
+                "title says it all.", PList.<BugReport> empty(), null, false);
+
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        UpdateBugReportCmd cmd = new UpdateBugReportCmd();
+
+        // Setup scenario
+        question.add("Please select a search mode: ");
+        question.add("0. title");
+        question.add("1. description");
+        question.add("2. creator");
+        question.add("3. assigned");
+        question.add("4. uniqueId");
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("Please enter the required search term ...");
+        question.add("enter text: ");
+        answer.add("");
+        question.add("Please select a bug report: ");
+        question.add("Available options:");
+        question.add("0. " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
+        question.add("1. " + bugRep1.getTitle() + "\t -UniqueID: " + bugRep1.getUniqueID());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have selected: " + bugRep2.getTitle() + "\t -UniqueID: " + bugRep2.getUniqueID());
+        question.add(model.getDetails(issuer, bugRep2));
+        question.add("Available options:");
+        question.add("0. NEW");
+        question.add("1. ASSIGNED");
+        question.add("2. NOT_A_BUG");
+        question.add("3. UNDER_REVIEW");
+        question.add("4. CLOSED");
+        question.add("5. RESOLVED");
+        question.add("6. DUPLICATE");
+        question.add("I choose: ");
+        answer.add("wrongInput");
+        question.add("Invalid input.");
+        question.add("I choose: ");
+        answer.add("NOT_A_BUG");
+        question.add("You have selected: \t" + "NOT_A_BUG");
+        question.add("The tag NOT_A_BUG has been set.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+
+        // Execute scenario
+        BugReport updatedBR = cmd.exec(scan, model, lead);
+        // Test effects.
     }
 
-    // Under_review => resolved (geldige case)
-    // Resolved => closed
-    // iets => notAbug
+    // under_review => assigned
+    // random => assigned : illegal
 
     @Test(expected = IllegalArgumentException.class)
     public void testException() throws IllegalArgumentException, CancelException, PermissionException {
