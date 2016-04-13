@@ -38,7 +38,7 @@ class RegisterForCreationNotificationsModelCmd extends RegisterForNotificationsM
      * @throws IllegalArgumentException if on of the arguments is invalid
      * @throws IllegalArgumentException If abstractSystemSubject is terminated
      * @throws IllegalStateException if the state of this command is invalid
-     * @see Mailbox#creationSubscribe(AbstractSystemSubject)
+     * @see bugtrap03.bugdomain.notification.Mailbox#creationSubscribe(AbstractSystemSubject)
      * @see #setExecuted()
      */
     @Override

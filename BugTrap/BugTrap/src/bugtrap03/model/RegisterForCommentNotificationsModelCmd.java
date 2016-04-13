@@ -38,7 +38,7 @@ class RegisterForCommentNotificationsModelCmd extends RegisterForNotificationsMo
      * @throws IllegalArgumentException if on of the arguments is invalid
      * @throws IllegalArgumentException If subject is terminated
      * @throws IllegalStateException if the state of this command is invalid
-     * @see Mailbox#commentSubscribe(Subject)
+     * @see bugtrap03.bugdomain.notification.Mailbox#commentSubscribe(Subject)
      * @see #setExecuted()
      */
     @Override
