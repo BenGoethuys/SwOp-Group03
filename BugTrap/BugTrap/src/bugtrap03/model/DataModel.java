@@ -849,6 +849,7 @@ public class DataModel {
      * @throws IllegalArgumentException If the given bugReport/duplicate is invalid
      * @throws PermissionException      If the user doesn't have the needed permission to set the duplicate
      */
+    @DomainAPI
     public void setDuplicate(User user, BugReport bugReport, BugReport duplicate)
             throws IllegalStateException, IllegalArgumentException, PermissionException {
         SetDuplicateBugReportModelCmd cmd = new SetDuplicateBugReportModelCmd(bugReport, duplicate, user);

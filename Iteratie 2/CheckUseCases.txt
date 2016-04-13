@@ -56,7 +56,17 @@
 17. update bug report
 	OK
 
+18. propose test
+	OK
 
+19. propose patch
+	OK
+
+20. declare achieved milestone
+	OK
+	To check: 
+	The developer indicates he wants to change the achieved milestone of the entire 
+	project.
 
 
 
