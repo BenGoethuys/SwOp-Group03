@@ -28,7 +28,7 @@ import testCollection.TerminalTestScanner;
  *
  */
 public class GiveScoreToBugReportCmdTest {
-    
+
     private static int counter = Integer.MIN_VALUE;
 
     private DataModel model;
@@ -50,13 +50,13 @@ public class GiveScoreToBugReportCmdTest {
         dev = model.createDeveloper("Ploperdeplop002" + counter, "first", "last");
         proj = model.createProject("Ploperdeplop003", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
-        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
-        bugRepWrongState = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
+        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport> empty(), null, false);
+        bugRepWrongState = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport> empty(), null, false);
 
         dev2 = model.createDeveloper("Ploperdeplop004" + counter, "first", "last");
         dev3 = model.createDeveloper("Ploperdeplop005" + counter, "first", "last");
 
-        devList = PList.<Developer>empty();
+        devList = PList.<Developer> empty();
         devList = devList.plus(dev2);
         devList = devList.plus(dev3);
 
@@ -70,36 +70,21 @@ public class GiveScoreToBugReportCmdTest {
         counter++;
     }
 
-    
-    /**
-     * Test method for
-     * {@link bugtrap03.gui.cmd.GiveScoreToBugReportCmd#GiveScoreToBugReportCmd()}
-     * .
-     * @throws CancelException 
-     * @throws PermissionException 
-     * @throws IllegalArgumentException 
-     */
-    @Test
-    public void testGiveScoreToBugReportCmd() throws IllegalArgumentException, PermissionException, CancelException {
-
-    }
-    
-    
-
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.GiveScoreToBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * @throws CancelException 
-     * @throws PermissionException 
-     * @throws IllegalArgumentException 
+     * 
+     * @throws CancelException
+     * @throws PermissionException
+     * @throws IllegalArgumentException
      */
     @Test
-    public void testExec() throws IllegalArgumentException, PermissionException, CancelException {
+    public void testExec1() throws IllegalArgumentException, PermissionException, CancelException {
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         GiveScoreToBugReportCmd cmd = new GiveScoreToBugReportCmd();
-        
+
         question.add("Please select a search mode: ");
         question.add("0. title");
         question.add("1. description");
@@ -121,10 +106,35 @@ public class GiveScoreToBugReportCmdTest {
         question.add("Give a score between 1 and 5: ");
         question.add("Give number: ");
         answer.add("2");
-        
+
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         Integer score = cmd.exec(scan, model, dev);
-        
+
+        assertTrue(score == 2);
+    }
+    
+    /**
+     * Test method for
+     * {@link bugtrap03.gui.cmd.GiveScoreToBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
+     * .
+     * 
+     * @throws CancelException
+     * @throws PermissionException
+     * @throws IllegalArgumentException
+     */
+    @Test
+    public void testExec2() throws IllegalArgumentException, PermissionException, CancelException {
+        ArrayDeque<String> question = new ArrayDeque<>();
+        ArrayDeque<String> answer = new ArrayDeque<>();
+        GiveScoreToBugReportCmd cmd = new GiveScoreToBugReportCmd(bugRep);
+
+        question.add("Give a score between 1 and 5: ");
+        question.add("Give number: ");
+        answer.add("2");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        Integer score = cmd.exec(scan, model, dev);
+
         assertTrue(score == 2);
     }
 
