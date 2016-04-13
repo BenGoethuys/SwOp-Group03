@@ -23,14 +23,14 @@ public class UnregisterFromNotificationsCmd implements Cmd {
         for (int i=0;i<allBoxes.size();i++){
             scan.println(i + ". " + allBoxes.get(i).getInfo());
         }
-        int index = 0;
-        while(index == 0){
+        int index = -1;
+        while(index == -1){
             if (! scan.hasNextInt()){
                 scan.println("Invalid input, try again");
             } else{
                 index = scan.nextInt();
-                if (index < 1 || index > size){
-                    index = 0;
+                if (index < 0 || index > size){
+                    index = -1;
                     scan.println("Invalid input, try again");
                 }
             }
