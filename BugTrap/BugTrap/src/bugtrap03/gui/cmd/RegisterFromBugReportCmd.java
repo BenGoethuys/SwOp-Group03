@@ -29,8 +29,8 @@ public class RegisterFromBugReportCmd implements Cmd<Mailbox>{
     private HashMap<String, Integer> subsriptionTypes;
 
     /**
-     * <br> 1. Include use case Select Bug Report.
-     * <br> 2. The use case continues with step 6.
+     * <br> 3.b.1. Include use case Select Bug Report.
+     * <br> 3.b.2. The use case continues with step 6.
      * <br> 6. The system presents a form describing the specific system changes that can be subscribed to for the selected object of interest:
      * <br>     • The creation of a new bug report (only applicable if the object of interest is a project or subsystem)
      * <br>     • A bug report receiving a new tag
@@ -42,8 +42,10 @@ public class RegisterFromBugReportCmd implements Cmd<Mailbox>{
      * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
+     *
      * @return The newly created mailbox representing the registration for notifications.
-     * @throws PermissionException If the user does noet have enough permissions.
+     *
+     * @throws PermissionException If the user does not have enough permissions.
      * @throws CancelException If the abort command has been given.
      * @throws IllegalArgumentException If any of the arguments is null or invalid.
      */

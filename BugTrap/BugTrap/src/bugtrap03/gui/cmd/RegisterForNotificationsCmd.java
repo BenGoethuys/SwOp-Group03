@@ -31,13 +31,16 @@ public class RegisterForNotificationsCmd implements Cmd<Mailbox> {
      * <br> 3. The issuer indicates he wants to register for a project.
      * <br> 3.a The issuer indicates he wants to register for a subsystem.
      * <br> 3.b The issuer indicates he wants to register for a bug report.
+     *
      * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
+     *
      * @return The mailbox of the user in which the new mailbox will be stored.
-     * @throws PermissionException
-     * @throws CancelException
-     * @throws IllegalArgumentException
+     *
+     * @throws PermissionException If the user does not have enough permissions.
+     * @throws CancelException If the abort command has been given.
+     * @throws IllegalArgumentException If any of the arguments is null or invalid.
      */
     @Override
     public Mailbox exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
