@@ -8,9 +8,7 @@
 	OK
 
 4. delete project
-	Check step 4: 
-	The system deletes a project and recursively all subsystems that are part of
-	the project. All bug reports fore those subsystem are also removed from BugTrap.
+	OK
 
 5. show project
 	OK
@@ -64,9 +62,6 @@
 
 20. declare achieved milestone
 	OK
-	To check: 
-	The developer indicates he wants to change the achieved milestone of the entire 
-	project.
 
 
 
