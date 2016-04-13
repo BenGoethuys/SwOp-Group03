@@ -252,8 +252,8 @@ public class Subsystem extends AbstractSystem {
      * @see Subsystem#Subsystem(VersionID, String, String, AbstractSystem)
      */
     public Subsystem cloneSubsystem(AbstractSystem parent) throws IllegalArgumentException {
-        Subsystem clone = parent.makeSubsystemChild(this.getVersionID().clone(), this.getName(), this.getDescription());
-        for (Subsystem child : this.getChilds()) {
+        Subsystem clone = parent.addSubsystem(this.getVersionID().clone(), this.getName(), this.getDescription());
+        for (Subsystem child : this.getSubsystems()) {
             child.cloneSubsystem(clone);
         }
         return clone;
@@ -323,7 +323,7 @@ public class Subsystem extends AbstractSystem {
      * @return True if the name is unique.
      */
     // private boolean childNamesNotEqual(String name, AbstractSystem parent) {
-    // for (Subsystem child : parent.getChilds()) {
+    // for (Subsystem child : parent.getSubsystems()) {
     // if (child.getName() == name) {
     // return false;
     // }

@@ -112,9 +112,9 @@ class CreateSubsystemModelCmd extends ModelCmd {
         }
 
         if (versionID == null) {
-            system = abstractSystem.makeSubsystemChild(name, description);
+            system = abstractSystem.addSubsystem(name, description);
         } else {
-            system = abstractSystem.makeSubsystemChild(versionID, name, description);
+            system = abstractSystem.addSubsystem(versionID, name, description);
         }
         isExecuted = true;
         return system;

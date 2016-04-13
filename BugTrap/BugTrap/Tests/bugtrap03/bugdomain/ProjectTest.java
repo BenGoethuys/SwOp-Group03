@@ -5,7 +5,6 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
-import bugtrap03.bugdomain.usersystem.User;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -49,7 +48,7 @@ public class ProjectTest {
     @Before
     public void setUp() throws Exception {
         testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate, testBudget);
-        subSysTest = testProject.makeSubsystemChild(subVersion, subName, subDescription);
+        subSysTest = testProject.addSubsystem(subVersion, subName, subDescription);
     }
 
     @Test
@@ -290,8 +289,8 @@ public class ProjectTest {
         assertEquals(testName, cloneProject.getName());
         assertEquals(testDescription, cloneProject.getDescription());
 
-        assertNotEquals(null, cloneProject.getChilds());
-        assertNotEquals(childList, cloneProject.getChilds());
+        assertNotEquals(null, cloneProject.getSubsystems());
+        assertNotEquals(childList, cloneProject.getSubsystems());
     }
 
     @Test
@@ -355,18 +354,18 @@ public class ProjectTest {
     @Test
     public void testGetChilds() throws Exception {
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
-        assertEquals(childList, testProject.getChilds());
+        assertEquals(childList, testProject.getSubsystems());
     }
 
     @Test
     public void testMakeSubsystemChild() throws Exception {
         String ede = "Extra test description woehoew";
         String ena = "Extra test name woehoew";
-        Subsystem esu = testProject.makeSubsystemChild(ena, ede);
+        Subsystem esu = testProject.addSubsystem(ena, ede);
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
-        assertNotEquals(childList, testProject.getChilds());
+        assertNotEquals(childList, testProject.getSubsystems());
         childList = childList.plus(esu);
-        assertEquals(childList, testProject.getChilds());
+        assertEquals(childList, testProject.getSubsystems());
     }
 
     @Test
@@ -374,11 +373,11 @@ public class ProjectTest {
         VersionID vid = new VersionID(56, 21, 22);
         String ede = "Extra test description woehoew";
         String ena = "Extra test name woehoew";
-        Subsystem esu = testProject.makeSubsystemChild(vid, ena, ede);
+        Subsystem esu = testProject.addSubsystem(vid, ena, ede);
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest);
-        assertNotEquals(childList, testProject.getChilds());
+        assertNotEquals(childList, testProject.getSubsystems());
         childList = childList.plus(esu);
-        assertEquals(childList, testProject.getChilds());
+        assertEquals(childList, testProject.getSubsystems());
     }
 
     @Test
@@ -399,7 +398,7 @@ public class ProjectTest {
 
     @Test
     public void testGetAllSubsystems() throws Exception {
-        Subsystem ss2 = testProject.makeSubsystemChild("uhu", "aha");
+        Subsystem ss2 = testProject.addSubsystem("uhu", "aha");
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest).plus(ss2);
         assertEquals(childList, testProject.getAllSubsystems());
     }

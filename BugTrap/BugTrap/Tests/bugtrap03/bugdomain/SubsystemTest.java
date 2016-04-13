@@ -2,7 +2,6 @@ package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
-import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
@@ -55,8 +54,8 @@ public class SubsystemTest {
         subName2 = "meh";
         subDescription2 = "moeh";
 
-        subSysTest = testProject.makeSubsystemChild(subVersion, subName, subDescription);
-        subSysTest2 = subSysTest.makeSubsystemChild(subName2, subDescription2);
+        subSysTest = testProject.addSubsystem(subVersion, subName, subDescription);
+        subSysTest2 = subSysTest.addSubsystem(subName2, subDescription2);
         emptyDep = PList.<BugReport>empty();
         bugreport1 = subSysTest.addBugReport(testDev, "testBug3", "this is description of testbug 3", testStartDate, emptyDep, null, false, null, null, null);
         depToRep1 = PList.<BugReport>empty().plus(bugreport1);
@@ -232,18 +231,18 @@ public class SubsystemTest {
 
     @Test
     public void testGetChilds() throws Exception {
-        assertTrue(testProject.getChilds().contains(subSysTest));
-        assertFalse(testProject.getChilds().contains(subSysTest2));
-        assertTrue(subSysTest.getChilds().contains(subSysTest2));
-        assertFalse(subSysTest.getChilds().contains(subSysTest));
+        assertTrue(testProject.getSubsystems().contains(subSysTest));
+        assertFalse(testProject.getSubsystems().contains(subSysTest2));
+        assertTrue(subSysTest.getSubsystems().contains(subSysTest2));
+        assertFalse(subSysTest.getSubsystems().contains(subSysTest));
     }
 
     @Test
     public void testMakeSubsystemChild() throws Exception {
         String ede = "Extra test description woehoew 2";
         String ena = "Extra test name woehoew 2";
-        Subsystem esu = subSysTest.makeSubsystemChild(ena, ede);
-        assertTrue(subSysTest.getChilds().contains(esu));
+        Subsystem esu = subSysTest.addSubsystem(ena, ede);
+        assertTrue(subSysTest.getSubsystems().contains(esu));
     }
 
     @Test
@@ -251,8 +250,8 @@ public class SubsystemTest {
         VersionID vid = new VersionID(56, 21, 20);
         String ede = "Extra test description woehoew 2";
         String ena = "Extra test name woehoew 2";
-        Subsystem esu = subSysTest.makeSubsystemChild(vid, ena, ede);
-        assertTrue(subSysTest.getChilds().contains(esu));
+        Subsystem esu = subSysTest.addSubsystem(vid, ena, ede);
+        assertTrue(subSysTest.getSubsystems().contains(esu));
     }
 
     @Test
@@ -270,7 +269,7 @@ public class SubsystemTest {
     @Test
     public void testGetAllSubsystems() throws Exception {
         assertTrue(subSysTest.getAllSubsystems().contains(subSysTest2));
-        Subsystem ss3 = subSysTest2.makeSubsystemChild("uhu", "aha");
+        Subsystem ss3 = subSysTest2.addSubsystem("uhu", "aha");
         PList<Subsystem> childList = PList.<Subsystem>empty().plus(subSysTest2).plus(ss3);
         assertTrue(subSysTest.getAllSubsystems().containsAll(childList));
         assertTrue(subSysTest2.getAllSubsystems().contains(ss3));
