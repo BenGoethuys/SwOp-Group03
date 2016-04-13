@@ -12,17 +12,17 @@ import purecollections.PList;
 /**
  *
  * A SelectPatchForBugReport scenario where the user selects a patch for a certain bug report.
- * 
+ *
  * @author Group 03
  */
-public class SelectPatchForBugReportCmd implements Cmd<String> {
+public class SelectPatchCmd implements Cmd<String> {
 
     /**
      * Creates a {@link Cmd} for selecting a patch from the list of patches of a bugReport.
      *
      * @param bugReport The bugRep to select from.
      */
-    public SelectPatchForBugReportCmd(BugReport bugReport) {
+    public SelectPatchCmd(BugReport bugReport) {
         this.bugReport = bugReport;
     }
 
@@ -30,7 +30,7 @@ public class SelectPatchForBugReportCmd implements Cmd<String> {
      * Creates a {@link Cmd} for selecting a patch from the list of patches of a bugReport. A scenario to select the bug
      * report is included.
      */
-    public SelectPatchForBugReportCmd() {
+    public SelectPatchCmd() {
     }
 
     private BugReport bugReport;
@@ -53,18 +53,26 @@ public class SelectPatchForBugReportCmd implements Cmd<String> {
      * @return The BugReport that a patch was selected for.
      * @throws PermissionException When the user does not have sufficient permissions.
      * @throws CancelException When the users wants to abort the current cmd
-     * @throws IllegalArgumentException When scan or model == null
+     * @throws IllegalArgumentException When scan or model or user == null
      * @see DataModel#selectPatch(BugReport, User, String)
      */
     @Override
     public String exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
-        if (scan == null) {
-            throw new IllegalArgumentException("scan musn't be null.");
+        if (scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
 
         // 1. The developer indicates that he wants to select a patch for some bug report.
         // 2. Include use case Select Bug Report if required.
-        BugReport bugRep = (bugReport != null) ? bugReport : (new SelectBugReportCmd()).exec(scan, model, user); //IllegalArg for scan,model,user == null
+        scan.println("Selecting patch.");
+        BugReport bugRep;
+        if (bugReport == null) {
+            scan.println("Select a bug report.");
+            bugRep = (new SelectBugReportCmd()).exec(scan, model, user);  //IllegalArg for scan,model,user == null
+            scan.println("Selecting patch.");
+        } else {
+            bugRep = bugReport;
+        }
 
         PList<String> patches = bugRep.getPatches();
         if (patches.isEmpty()) {

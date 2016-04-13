@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * @author Group 03
  */
-public class RegisterForNotificationsCmd implements Cmd {
+public class RegisterForNotificationsCmd implements Cmd<Mailbox> {
 
     public RegisterForNotificationsCmd(){
         this.cmdMapSubjectTypes = new HashMap<>();

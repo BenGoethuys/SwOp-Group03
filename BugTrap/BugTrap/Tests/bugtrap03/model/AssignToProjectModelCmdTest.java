@@ -60,6 +60,8 @@ public class AssignToProjectModelCmdTest {
         int oldSize = proj.getAllRolesDev(dev).size();
 
         // test
+        assertEquals(2, oldSize);
+        assertTrue(proj.getAllRolesDev(dev).contains(Role.TESTER));
         assertTrue(cmd.toString().contains("Assigned"));
         assertTrue(cmd.toString().contains(dev.getFullName()));
         assertTrue(cmd.isExecuted());
@@ -69,6 +71,7 @@ public class AssignToProjectModelCmdTest {
 
         // test
         assertEquals(oldSize - 1, proj.getAllRolesDev(dev).size());
+        assertFalse(proj.getAllRolesDev(dev).contains(Role.TESTER));
     }
 
     /**

@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * @author Group 03
  */
-public class RegisterFromBugReportCmd implements Cmd{
+public class RegisterFromBugReportCmd implements Cmd<Subject>{
     public RegisterFromBugReportCmd(){
         this.subsriptionTypes = new HashMap<>();
         this.subsriptionTypes.put("alltags",1);

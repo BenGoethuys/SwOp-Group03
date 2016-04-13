@@ -58,14 +58,25 @@ public class ProposePatchCmd implements Cmd<BugReport> {
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
+        if (scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
         // 1. The developer indicates that he wants to submit a patch for some bug report.
         // 2. Include use case Select Bug Report if required.
-        BugReport bugRep = (bugReport != null) ? bugReport : (new SelectBugReportCmd()).exec(scan, model, user); //IllegalArg for scan,model,user == null
+        scan.println("Adding patch.");
+        BugReport bugRep;
+        if (bugReport == null) {
+            scan.println("Select a bug report.");
+            bugRep = (new SelectBugReportCmd()).exec(scan, model, user);  //IllegalArg for scan,model,user == null
+            scan.println("Adding patch.");
+        } else {
+            bugRep = bugReport;
+        }
         String text;
 
         // 3. The system shows the form for uploading the patch.
         // 4. The developer provides the details for uploading the patch.
-        scan.println("If you wish to submit a file please type yes or no.");
+        scan.println("Do you wish to submit a file? Please type yes or no.");
         if (scan.nextLine().equalsIgnoreCase("yes")) {
             /* By file */
             scan.println("Please select the patch code file.");
@@ -96,7 +107,7 @@ public class ProposePatchCmd implements Cmd<BugReport> {
             }
         } else {
             /* By manual Text input */
-            
+
             // Take & Save input
             text = getInput(scan);
         }
@@ -107,6 +118,7 @@ public class ProposePatchCmd implements Cmd<BugReport> {
         //-------> Is throwing when not a programmer correct and in the assignment?
         // 1. The use case ends here.
         model.addPatch(bugRep, user, text); //Permission, IllegalState, IllegalArg
+        scan.println("Added patch.");
         return bugRep;
     }
 

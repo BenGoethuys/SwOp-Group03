@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  * @author Group 03
  */
-public class RegisterFromSubsystemCmd implements Cmd {
+public class RegisterFromSubsystemCmd implements Cmd<Subject> {
     public RegisterFromSubsystemCmd(){
         this.subsriptionTypes = new HashMap<>();
         this.subsriptionTypes.put("alltags",1);

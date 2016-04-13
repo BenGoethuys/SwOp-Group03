@@ -11,7 +11,7 @@ import bugtrap03.model.DataModel;
 /**
  * @author  Group 03
  */
-public class RegisterFromProjectCmd implements Cmd{
+public class RegisterFromProjectCmd implements Cmd<Subject>{
     public RegisterFromProjectCmd(){}
 
     @Override

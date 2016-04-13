@@ -17,5 +17,6 @@ public enum UserPerm {
     CREATE_BUGREPORT,
     CREATE_COMMENT,
     INSPECT_BUGREPORT,
+    SET_MILESTONE,
     UNDO_COMMANDS;
 }

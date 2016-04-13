@@ -12,7 +12,7 @@ import purecollections.PList;
 /**
  * @author Group 03
  */
-public class ShowNotificationsCmd implements Cmd {
+public class ShowNotificationsCmd implements Cmd<Mailbox> {
     @Override
     public Mailbox exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {

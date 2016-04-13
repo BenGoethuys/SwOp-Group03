@@ -46,7 +46,7 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
         // 1. The developer indicates he wants to update a bug report.
         // 2. Include use case Select Bug Report.
         BugReport bugrep = new SelectBugReportCmd().exec(scan, model, user);
-        scan.println(bugrep.getDetails());
+        scan.println(model.getDetails(user, bugrep));
 
         // 3. The developer suggests a new tag for the bug report.
         Tag tagToSet = this.selectTag(scan, model);
@@ -63,7 +63,7 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
                 this.setUnderReview(user, bugrep, scan, model);
                 break;
             case RESOLVED :
-                new SelectPatchForBugReportCmd(bugrep).exec(scan, model, user);
+                new SelectPatchCmd(bugrep).exec(scan, model, user);
                 break;
             case CLOSED :
                 new GiveScoreToBugReportCmd(bugrep).exec(scan, model, user);
@@ -116,7 +116,7 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
         if (bugReport.getTag() == Tag.NEW){
             new AssignToBugReportCmd(bugReport).exec(scanner, model, user);
         } else if (bugReport.getTag() == Tag.UNDER_REVIEW){
-            bugReport.setTag(Tag.UNDER_REVIEW, user);
+            model.setTag(bugReport, Tag.UNDER_REVIEW, user);
         } else {
             throw new IllegalStateException("The requested Tag cannot be set to the given bug report");
         }

@@ -1,9 +1,12 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
+import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.notification.AbstractSystemSubject;
+import bugtrap03.bugdomain.usersystem.User;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Invariant;
 import purecollections.PList;
@@ -140,7 +143,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @throws IllegalArgumentException When milestone is a invalid.
      * @see #isValidMilestone(Milestone)
      */
-    public void setMilestone(Milestone milestone) throws NullPointerException {
+    protected void setMilestone(Milestone milestone) {
         //Idea:
         //Check BugReport constraint. 
         //Fail = quit
@@ -162,6 +165,25 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
                 subsystem.setMilestone(milestone);
             }
         }
+    }
+
+    /**
+     * This method sets the Milestone of the project to the given Milestone.
+     * Children of this AbstractSystem will be recursively updated if required
+     *
+     * @param user      The user that wants to change the milestone
+     * @param milestone The new milestone
+     *
+     * @throws PermissionException  If the given user doesn't have the needed permission
+     * @throws IllegalArgumentException When milestone is a invalid.
+     *
+     * @see #isValidMilestone(Milestone)
+     */
+    public void setMilestone(User user, Milestone milestone) throws PermissionException {
+        if (! user.hasPermission(UserPerm.SET_MILESTONE)){
+            throw new PermissionException("The given user doesn't have the needed permission to change the milestone");
+        }
+        this.setMilestone(milestone);
     }
 
     /**

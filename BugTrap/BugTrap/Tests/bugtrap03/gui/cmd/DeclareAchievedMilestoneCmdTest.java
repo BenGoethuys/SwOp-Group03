@@ -125,7 +125,7 @@ public class DeclareAchievedMilestoneCmdTest {
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
-        Project chosen = cmd.exec(scan, model, issuer);
+        Project chosen = cmd.exec(scan, model, lead);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -138,18 +138,15 @@ public class DeclareAchievedMilestoneCmdTest {
     public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
         DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
         DataModel model = new DataModel();
-        Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
-        chosen = cmd.exec(null, model, admin);
+        chosen = cmd.exec(null, model, lead);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
         DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
-        DataModel model = new DataModel();
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
                 new ArrayDeque<>());
-        Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
-        chosen = cmd.exec(scan, null, admin);
+        chosen = cmd.exec(scan, null, lead);
     }
 
     @Test(expected = IllegalArgumentException.class)

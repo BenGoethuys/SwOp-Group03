@@ -23,7 +23,7 @@ import testCollection.TerminalTestScanner;
  *
  * @author Group 03
  */
-public class ProposeTestCmdTest {
+public class SelectPatchCmdTest {
 
     private DataModel model;
     private Developer lead;
@@ -33,49 +33,57 @@ public class ProposeTestCmdTest {
     private Administrator admin;
     private Project projectA;
     private BugReport bugRep;
+    private String patch1;
+    private String patch2;
 
     private static int counter = Integer.MIN_VALUE;
 
     /**
-     * Get the questions in the default scenario with a given BugReport where the test added is equal to "test over
-     * here\ntest line 2"
+     * Get the questions in the default scenario with a given BugReport where the patch selected is equal to the patch
+     * that is added to the bugReport the first. (index = 0)
+     *
+     * @param patches The patches in the system, to chose from, should be arranged with the first element being the one
+     * that was added to the system the first.
      *
      * @return
      */
-    public static ArrayDeque<String> getDefaultQuestions() {
+    public static ArrayDeque<String> getDefaultQuestions(String... patches) {
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        question.add("Adding test.");
-        question.add("Do you wish to submit a file? Please type yes or no.");
-        answer.add("no");
-        question.add("You have chosen to insert text. (Leave blank to finish the text)");
-        question.add("text: ");
-        answer.add("test over here");
-        answer.add("test line 2");
-        answer.add("");
-        question.add("Added test.");
+        question.add("Selecting patch.");
+        question.add("Use the index in front of the patch to select a patch.");
+        question.add("Available options:");
+        for (int i = 0; i < patches.length; i++) {
+            question.add(i + ". " + patches[i]);
+        }
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("The selected patch is set to: " + patches[0]);
 
         return question;
     }
 
     /**
-     * Get the answers in the default scenario with a given BugReport where the test added is equal to "test over
-     * here\ntest line 2"
+     * Get the answers in the default scenario with a given BugReport where the patch selected is equal to the patch
+     * that is added to the bugReport the first. (index = 0)
+     *
+     * @param patches The patches in the system, to chose from, should be arranged with the first element being the one
+     * that was added to the system the first.
      *
      * @return
      */
-    public static final ArrayDeque<String> getDefaultAnswers() {
+    public static final ArrayDeque<String> getDefaultAnswers(String... patches) {
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        question.add("Adding test.");
-        question.add("Do you wish to submit a file? Please type yes or no.");
-        answer.add("no");
-        question.add("You have chosen to insert text. (Leave blank to finish the text)");
-        question.add("text: ");
-        answer.add("test over here");
-        answer.add("test line 2");
-        answer.add("");
-        question.add("Added test.");
+        question.add("Selecting patch.");
+        question.add("Use the index in front of the patch to select a patch.");
+        question.add("Available options:");
+        for (int i = 0; i < patches.length; i++) {
+            question.add(i + ". " + patches[i]);
+        }
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("The selected patch is set to: " + patches[0]);
 
         return answer;
     }
@@ -84,11 +92,11 @@ public class ProposeTestCmdTest {
     public void setUp() throws PermissionException {
         // Setup variables.
         model = new DataModel();
-        lead = model.createDeveloper("trolbol08-6" + counter, "Luky", "Luke");
-        dev2 = model.createDeveloper("Duck8" + counter, "Truck", "Luck");
-        dev3 = model.createDeveloper("Truck8" + counter, "Duck", "Luck");
-        issuer = model.createIssuer("C0ws08-6" + counter, "Fly", "High");
-        admin = model.createAdministrator("Adm1ral08-6" + counter, "Kwinten", "JK");
+        lead = model.createDeveloper("trolbol12-6" + counter, "Luky", "Luke");
+        dev2 = model.createDeveloper("Duck12" + counter, "Truck", "Luck");
+        dev3 = model.createDeveloper("Truck12" + counter, "Duck", "Luck");
+        issuer = model.createIssuer("C0ws012-6" + counter, "Fly", "High");
+        admin = model.createAdministrator("Adm1ral012-6" + counter, "Kwinten", "JK");
 
         projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
         model.assignToProject(projectA, lead, dev2, Role.PROGRAMMER);
@@ -100,7 +108,15 @@ public class ProposeTestCmdTest {
         bugRep = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null, false);
 
+        model.addUsersToBugReport(lead, bugRep, PList.<Developer>empty().plus(dev2));
         model.addUsersToBugReport(lead, bugRep, PList.<Developer>empty().plus(dev3));
+
+        model.addTest(bugRep, dev3, "test over here");
+        patch1 = "patch over here\npatch line 2";
+        patch2 = "patchBlub over here\npatchBlub line 2";
+        model.addPatch(bugRep, dev2, patch1);
+        model.addPatch(bugRep, dev2, patch2);
+
         counter++;
     }
 
@@ -112,21 +128,21 @@ public class ProposeTestCmdTest {
      */
     @Test
     public void testExec_BugReportGiven() throws PermissionException, CancelException {
-        ArrayDeque<String> question = ProposeTestCmdTest.getDefaultQuestions();
-        ArrayDeque<String> answer = ProposeTestCmdTest.getDefaultAnswers();
-        ProposeTestCmd cmd = new ProposeTestCmd(bugRep);
+        ArrayDeque<String> question = SelectPatchCmdTest.getDefaultQuestions(patch1, patch2);
+        ArrayDeque<String> answer = SelectPatchCmdTest.getDefaultAnswers(patch1, patch2);
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
-        cmd.exec(scan, model, dev3);
+        cmd.exec(scan, model, lead);
 
-        assertTrue(bugRep.getTests().contains("test over here\ntest line 2"));
+        assertTrue(bugRep.getSelectedPatch().equals("patch over here\npatch line 2"));
     }
     
-    @Test(expected = PermissionException.class)
+        @Test(expected = PermissionException.class)
     public void testExec_NoPermission() throws PermissionException, CancelException {
-        ArrayDeque<String> question = ProposeTestCmdTest.getDefaultQuestions();
-        ArrayDeque<String> answer = ProposeTestCmdTest.getDefaultAnswers();
-        ProposeTestCmd cmd = new ProposeTestCmd(bugRep);
+        ArrayDeque<String> question = SelectPatchCmdTest.getDefaultQuestions(patch1, patch2);
+        ArrayDeque<String> answer = SelectPatchCmdTest.getDefaultAnswers(patch1, patch2);
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         cmd.exec(scan, model, dev2);
@@ -134,25 +150,25 @@ public class ProposeTestCmdTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testExec_ScanNull() throws PermissionException, CancelException {
-        ProposeTestCmd cmd = new ProposeTestCmd(bugRep);
-        cmd.exec(null, model, dev3);
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
+        cmd.exec(null, model, lead);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testExec_ModelNull() throws PermissionException, CancelException {
-        ArrayDeque<String> question = ProposeTestCmdTest.getDefaultQuestions();
-        ArrayDeque<String> answer = ProposeTestCmdTest.getDefaultAnswers();
-        ProposeTestCmd cmd = new ProposeTestCmd(bugRep);
+        ArrayDeque<String> question = SelectPatchCmdTest.getDefaultQuestions(patch1, patch2);
+        ArrayDeque<String> answer = SelectPatchCmdTest.getDefaultAnswers(patch1, patch2);
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
-        cmd.exec(scan, null, dev3);
+        cmd.exec(scan, null, lead);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testExec_UserNull() throws PermissionException, CancelException {
-        ArrayDeque<String> question = ProposeTestCmdTest.getDefaultQuestions();
-        ArrayDeque<String> answer = ProposeTestCmdTest.getDefaultAnswers();
-        ProposeTestCmd cmd = new ProposeTestCmd(bugRep);
+        ArrayDeque<String> question = SelectPatchCmdTest.getDefaultQuestions(patch1, patch2);
+        ArrayDeque<String> answer = SelectPatchCmdTest.getDefaultAnswers(patch1, patch2);
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep);
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         cmd.exec(scan, model, null);
@@ -168,10 +184,9 @@ public class ProposeTestCmdTest {
     public void testExec_NoBugReport() throws PermissionException, CancelException {
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        ProposeTestCmd cmd = new ProposeTestCmd();
+        SelectPatchCmd cmd = new SelectPatchCmd();
 
-        question.add("Adding test.");
-
+        question.add("Selecting patch.");
         question.add("Select a bug report.");
         addSearchModeOptions(question);
         question.add("I choose: ");
@@ -185,21 +200,20 @@ public class ProposeTestCmdTest {
         question.add("I choose: ");
         answer.add("0");
         question.add("You have selected: " + bugRep.getTitle() + "\t -UniqueID: " + bugRep.getUniqueID());
-        question.add("Adding test.");
+        question.add("Selecting patch.");
 
-        question.add("Do you wish to submit a file? Please type yes or no.");
-        answer.add("no");
-        question.add("You have chosen to insert text. (Leave blank to finish the text)");
-        question.add("text: ");
-        answer.add("test over here");
-        answer.add("test line 2");
-        answer.add("");
-        question.add("Added test.");
+        question.add("Use the index in front of the patch to select a patch.");
+        question.add("Available options:");
+        question.add("0. " + patch1);
+        question.add("1. " + patch2);
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("The selected patch is set to: " + patch1);
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
-        cmd.exec(scan, model, dev3);
+        cmd.exec(scan, model, lead);
 
-        assertTrue(bugRep.getTests().contains("test over here\ntest line 2"));
+        assertTrue(bugRep.getSelectedPatch().equals("patch over here\npatch line 2"));
     }
 
     /**
