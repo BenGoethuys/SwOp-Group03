@@ -10,13 +10,28 @@ import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
- * This command provides a GUI interaction to select a subsystem.
+ * This command provides a UI interaction to select a subsystem.
  * @author Group 03
  */
 public class GetSubsystemCmd implements Cmd<Subsystem> {
+    
+    /**
+     * Execute the command and get a subsystem chosen by the user trough interaction.
+     * @param scan The scanner used to interact with the user
+     * @param model The model used to access the system data.
+     * @param user The user who executes this cmd
+     * @return The chosen subsystem.
+     * @throws PermissionException When user does not have sufficient permissions.
+     * @throws CancelException When the user aborted the cmd
+     * @throws IllegalArgumentException When scan or model == null
+     */
     @Override
     public Subsystem exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException, IllegalArgumentException {
+        if (scan == null || model == null) {
+            throw new IllegalArgumentException("scan and model musn't be null.");
+        }
+        
         Project selectedProj = new GetProjectCmd().exec(scan, model, user);
         scan.println("Select subsystem.");
         PList<Subsystem> allSubsystems = model.getAllSubsystems(selectedProj);
