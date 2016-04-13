@@ -8,8 +8,8 @@ import purecollections.PList;
  * This class represents the unregistration command.
  * @author Group 03
  */
-public class UnregisterFromNotificationsModelCmd extends ModelCmd{
-    public UnregisterFromNotificationsModelCmd(User user, Mailbox mailbox){
+class UnregisterFromNotificationsModelCmd extends ModelCmd{
+    UnregisterFromNotificationsModelCmd(User user, Mailbox mailbox){
         if (! isValidUser(user)){
             throw new IllegalArgumentException("Invalid User for unregistration from notifications.");
         }
@@ -30,7 +30,7 @@ public class UnregisterFromNotificationsModelCmd extends ModelCmd{
      * @param user The user to check.
      * @return True if the user is not null.
      */
-    public boolean isValidUser(User user){
+    boolean isValidUser(User user){
         if (user == null){
             return false;
         }
@@ -42,7 +42,7 @@ public class UnregisterFromNotificationsModelCmd extends ModelCmd{
      * @param mailbox The user to check.
      * @return True if the user is not null or the given mailox cannot be found in the all the mailboxes from the user.
      */
-    public boolean isValidMailbox(Mailbox mailbox, User user){
+    boolean isValidMailbox(Mailbox mailbox, User user){
         if (mailbox == null){
             return false;
         }
