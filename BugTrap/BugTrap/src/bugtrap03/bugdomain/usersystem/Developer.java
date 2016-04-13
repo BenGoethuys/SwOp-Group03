@@ -58,6 +58,10 @@ public class Developer extends Issuer {
     @Override
     @DomainAPI
     public boolean hasPermission(UserPerm perm) {
+        boolean check = super.hasPermission(perm);
+        if (check) {
+            return true;
+        }
         return Arrays.stream(this.permissions).anyMatch(permission -> permission == perm);
     }
 
