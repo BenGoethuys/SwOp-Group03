@@ -114,8 +114,11 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      */
     @Override
     public String toString() {
-        if (this.newMailbox == null){
-            return ("Subscription created yet.");
+        if (this.newMailbox == null && ! this.isExecuted()){
+            return ("Subscription not yet created.");
+        }
+        if (this.newMailbox == null && this.isExecuted()){
+           throw new IllegalStateException("Empty subscription created.");
         }
         return ("Created subscription: \n" + this.newMailbox.getInfo());
     }
