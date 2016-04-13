@@ -29,3 +29,34 @@
 	OK
 
 9. show notifications
+	TO CHECK
+
+10. register for notifications
+	OK
+
+11. unregister from notifications
+	TO CHECK
+	kan niet unregister 0? Wel 1,2...
+
+12. select bug report
+	OK
+
+13. inspect bug report
+	OK
+
+14. create comment
+	OK
+
+15. assign to project
+	OK
+
+16. assign to bugreport
+	OK
+
+17. update bug report
+	OK
+
+
+
+
+

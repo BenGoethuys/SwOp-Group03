@@ -6,6 +6,7 @@ package bugtrap03.bugdomain.bugreport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Issuer;
+import bugtrap03.misc.Tree;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -42,8 +43,7 @@ public class CommentTest {
     }
 
     /**
-     * Test method for
-     * {@link Comment#Comment(bugtrap03.bugdomain.usersystem.User, String)}.
+     * Test method for {@link Comment#Comment(bugtrap03.bugdomain.usersystem.User, String)}.
      */
     @Test
     public void testComment() throws PermissionException {
@@ -76,8 +76,7 @@ public class CommentTest {
     }
 
     /**
-     * Test method for
-     * {@link Comment#isValidCreator(bugtrap03.bugdomain.usersystem.User)}.
+     * Test method for {@link Comment#isValidCreator(bugtrap03.bugdomain.usersystem.User)}.
      */
     @Test
     public void testIsValidCreator() {
@@ -95,8 +94,7 @@ public class CommentTest {
     }
 
     /**
-     * Test method for
-     * {@link Comment#isValidText(java.lang.String)}.
+     * Test method for {@link Comment#isValidText(java.lang.String)}.
      */
     @Test
     public void testIsValidText() {
@@ -137,9 +135,7 @@ public class CommentTest {
     }
 
     /**
-     * Test method for
-     * {@link Comment#isValidSubComments(purecollections.PList)}
-     * .
+     * Test method for {@link Comment#isValidSubComments(purecollections.PList)} .
      */
     @Test
     public void testIsValidSubComments() throws PermissionException {
@@ -156,9 +152,7 @@ public class CommentTest {
     }
 
     /**
-     * Test method for
-     * {@link Comment#addSubComment(Comment)}
-     * .
+     * Test method for {@link Comment#addSubComment(Comment)} .
      */
     @Test
     public void testAddSubComment() throws PermissionException {
@@ -200,9 +194,7 @@ public class CommentTest {
     }
 
     /**
-     * Test method for
-     * {@link Comment#isValidSubComment(Comment)}
-     * .
+     * Test method for {@link Comment#isValidSubComment(Comment)} .
      */
     @Test
     public void testIsValidSubComment() throws PermissionException {
@@ -211,19 +203,56 @@ public class CommentTest {
         assertFalse(comment1.isValidSubComment(null));
     }
 
+    /**
+     * Test method {@link Comment#deleteComment(Comment)}
+     */
     @Test
-    public void testCommentTreeToString() throws PermissionException {
+    public void testdeleteComment() throws PermissionException {
         Comment comment = new Comment(issuer, text);
-        Comment subCom = comment.addSubComment(issuer, "SubComment 1");
-        Comment subSubCom = subCom.addSubComment(issuer, "SubComment 1.1");
-        Comment subCom2 = comment.addSubComment(issuer, "SubComment 2");
-
-        String res = Comment.commentsTreeToString(comment.getAllComments(null));
-
-        assertTrue(res.contains("1. " + comment.getText()));
-        assertTrue(res.contains("1.1. " + subCom.getText()));
-        assertTrue(res.contains("1.1.1. " + subSubCom.getText()));
-        assertTrue(res.contains("1.2. " + subCom2.getText()));
+        Comment subComment = comment.addSubComment(issuer, "subBlub");
+        assertTrue(comment.getSubComments().contains(subComment));
+        
+        //Test delete subcomment
+        assertTrue(comment.deleteComment(subComment));
+        
+        assertFalse(comment.getSubComments().contains(subComment));
+        assertFalse(comment.deleteComment(subComment));
+        
+        //Test delete null
+        assertFalse(comment.deleteComment(null));
+        
+        //Test delete none subcomment
+        assertFalse(comment.deleteComment(new Comment(issuer, "blub")));
     }
-
+    
+    
+    /**
+     * Test {@link Comment#commentsTreeToString(Tree)}
+     * @throws PermissionException Never
+     */
+    @Test
+    public void testCommentsTreeToString() throws PermissionException {
+        Comment comment = new Comment(issuer, "firstComment");
+        Comment subComment1 = comment.addSubComment(issuer, "subComment1");
+        Comment subComment2 = comment.addSubComment(issuer, "subComment2");
+        
+        Comment subsubComment11 = subComment1.addSubComment(issuer, "subsubComment11");
+        Comment subsubComment12 = subComment1.addSubComment(issuer, "subComment12");
+        
+        Comment subsubComment21 = subComment2.addSubComment(issuer, "subComment21");        
+        
+        Tree<Comment> tree = comment.getAllComments(null);
+        String result = Comment.commentsTreeToString(tree);
+        
+        StringBuilder str = new StringBuilder();
+        str.append("\n \t 1. ").append(comment.getText());
+        str.append("\n \t 1.1. ").append(subComment1.getText());
+        str.append("\n \t 1.1.1. ").append(subsubComment11.getText());
+        str.append("\n \t 1.1.2. ").append(subsubComment12.getText());
+        str.append("\n \t 1.2. ").append(subComment2.getText());
+        str.append("\n \t 1.2.1. ").append(subsubComment21.getText());
+        
+        assertEquals(str.toString(), result);
+    }
+    
 }
