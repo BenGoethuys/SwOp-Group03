@@ -99,6 +99,14 @@ public class RegisterForNotificationsModelCmdTest {
         RegNotModelCmdDummy cmd = new RegNotModelCmdDummy(admin);
         cmd.setNewMailbox(null);
     }
+    
+    @Test
+    public void testSetNewMailBox_toString() {
+        RegNotModelCmdDummy cmd = new RegNotModelCmdDummy(admin);
+        Mailbox box = new Mailbox();
+        cmd.setNewMailbox(box);
+        assertEquals("Created subscription: \n" + box.getInfo(), cmd.toString());
+    }
 
     /**
      * Dummy class to test methods.
