@@ -18,6 +18,7 @@ import java.util.*;
 public class RegisterFromASCmd implements Cmd<Object> {
     public RegisterFromASCmd(AbstractSystemSubject abstractSystemSubject) {
         this.abstractSystemSubject = abstractSystemSubject;
+        //TODO CHECK FOR NULL --> change test?
         this.subsriptionTypes = new HashMap<>();
         this.subsriptionTypes.put("newtag", 1);
         this.subsriptionTypes.put("specifictags", 2);

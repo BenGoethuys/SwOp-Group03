@@ -22,7 +22,7 @@ public class RegisterFromBugReportCmd implements Cmd<Mailbox>{
     public RegisterFromBugReportCmd(){
         this.subsriptionTypes = new HashMap<>();
         this.subsriptionTypes.put("newtag",1);
-        this.subsriptionTypes.put("specictags",2);
+        this.subsriptionTypes.put("specifictags",2);
         this.subsriptionTypes.put("comment",3);
     }
 
