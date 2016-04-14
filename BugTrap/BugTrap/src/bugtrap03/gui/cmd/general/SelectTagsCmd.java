@@ -15,8 +15,22 @@ import java.util.EnumSet;
  * @author Group 03
  */
 public class SelectTagsCmd implements Cmd<EnumSet<Tag>> {
+    
+    /**
+     * Execute the command and get a set of tags chosen by the user trough interaction.
+     * @param scan The scanner used to interact with the user
+     * @param model The model used to access the system data.
+     * @param user dummy
+     * @return The chosen set of tags.
+     * @throws CancelException When the user aborted the cmd
+     * @throws IllegalArgumentException When scan or model == null
+     */
     @Override
-    public EnumSet<Tag> exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+    public EnumSet<Tag> exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException, IllegalArgumentException {
+        if(scan == null || model == null) {
+            throw new IllegalArgumentException("Scan and model musn't be null.");
+        }
+        
         ArrayList<Tag> selectedtags = new ArrayList<>();
         boolean selecting = true;
         while (selecting){
@@ -39,7 +53,7 @@ public class SelectTagsCmd implements Cmd<EnumSet<Tag>> {
         PList<Tag> taglist = model.getAllTags();
         scan.println("Please select tag.");
         Tag tagToSet = new GetObjectOfListCmd<>(taglist, (u -> u.name()), ((u, input) -> u.name().equalsIgnoreCase(input)))
-                .exec(scan, model, null);
+                .exec(scan, null, null);
         scan.println("Tag " + tagToSet.toString() + " added to subscription.");
         return tagToSet;
     }
