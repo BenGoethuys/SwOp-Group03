@@ -38,6 +38,7 @@ public class GetSubsystemCmd implements Cmd<Subsystem> {
         Subsystem selectedSub = new GetObjectOfListCmd<>(allSubsystems, (u -> u.getName()),
                 ((u, input) -> u.getName().equalsIgnoreCase(input)))
                 .exec(scan, model, user);
+        scan.println("You selected: " + selectedSub.getName());
         return selectedSub;
     }
 }

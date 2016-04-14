@@ -10,8 +10,7 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 
-import java.util.EnumSet;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * @author Group 03
@@ -35,7 +34,7 @@ public class RegisterFromASCmd implements Cmd<Object> {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
         scan.println("Select subscription type.");
-        String subscriptionType = new GetObjectOfListCmd<>(PList.<String>empty().plusAll(this.subsriptionTypes.keySet()),
+        String subscriptionType = new GetObjectOfListCmd<>(PList.<String>empty().plusAll(new TreeSet<>(this.subsriptionTypes.keySet())),
                 u -> (u.toString()), ((u, input) -> ((u.equalsIgnoreCase(input))))).exec(scan, model, null);
         subscriptionType = subscriptionType.toLowerCase();
         Integer index = this.subsriptionTypes.get(subscriptionType);

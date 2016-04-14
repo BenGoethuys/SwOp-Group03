@@ -21,7 +21,7 @@ import java.util.*;
 public class RegisterFromBugReportCmd implements Cmd<Mailbox>{
     public RegisterFromBugReportCmd(){
         this.subsriptionTypes = new HashMap<>();
-        this.subsriptionTypes.put("alltags",1);
+        this.subsriptionTypes.put("newtag",1);
         this.subsriptionTypes.put("specictags",2);
         this.subsriptionTypes.put("comment",3);
     }
@@ -57,7 +57,7 @@ public class RegisterFromBugReportCmd implements Cmd<Mailbox>{
         BugReport selectedBugRep = new SelectBugReportCmd().exec(scan, model, user);
 
         scan.println("Select subscription type.");
-        String subscriptionType = new GetObjectOfListCmd<>(PList.<String>empty().plusAll(this.subsriptionTypes.keySet()),
+        String subscriptionType = new GetObjectOfListCmd<>(PList.<String>empty().plusAll(new TreeSet<>(this.subsriptionTypes.keySet())),
                 u -> (u.toString()), ((u, input) -> ((u.equalsIgnoreCase(input))))).exec(scan, model, null);
         subscriptionType = subscriptionType.toLowerCase();
         Integer index = this.subsriptionTypes.get(subscriptionType);

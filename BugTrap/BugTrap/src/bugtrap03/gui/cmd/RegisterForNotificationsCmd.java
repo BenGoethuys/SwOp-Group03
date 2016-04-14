@@ -8,7 +8,12 @@ import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.TreeSet;
 
 /**
  * @author Group 03
@@ -49,7 +54,7 @@ public class RegisterForNotificationsCmd implements Cmd<Mailbox> {
         }
         //precondition of issuer? Assignment talks of 'user'...
         scan.println("Select subject type.");
-        String subjectype = new GetObjectOfListCmd<>(PList.<String>empty().plusAll(this.cmdMapSubjectTypes.keySet()),
+        String subjectype = new GetObjectOfListCmd<>(PList.<String>empty().plusAll(new TreeSet<>(this.cmdMapSubjectTypes.keySet())),
                 u -> (u.toString()), ((u, input) -> ((u.equalsIgnoreCase(input))))).exec(scan, model, null);
         Mailbox newMailbox = (Mailbox) this.cmdMapSubjectTypes.get(subjectype.toLowerCase()).exec(scan, model, user);
         scan.println("Registration for notifications complete.");
