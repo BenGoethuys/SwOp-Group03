@@ -1,8 +1,11 @@
 bugtrap03
 bugtrap03.bugdomain
+bugtrap03.bugdomain.bugreport
+bugtrap03.bugdomain.notification
 bugtrap03.bugdomain.permission
 bugtrap03.bugdomain.usersystem
 bugtrap03.gui.cmd
 bugtrap03.gui.cmd.general
 bugtrap03.gui.terminal
+bugtrap03.misc
 bugtrap03.model

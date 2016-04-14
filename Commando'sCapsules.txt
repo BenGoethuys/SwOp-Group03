@@ -1,3 +1,3 @@
 DOC:
 	tools -> generate javadoc
-	-docletpath C:\Users\Ben\Documents\Studies\2015-2016\SotwareOntwerp\Project\GitRepo\SwOp-Group03\BugTrap\libs\capsules-1.4\capsules.jar -doclet capsules.doclet.Doclet -exportKeyword bugtrap03.bugdomain.DomainAPI
+	-docletpath C:\Users\Ben\Documents\Studies\2015-2016\SoftwareOntwerp\Project\GitRepo\SwOp-Group03\BugTrap\libs\capsules-1.4\capsules.jar -doclet capsules.doclet.Doclet -exportKeyword bugtrap03.bugdomain.DomainAPI
