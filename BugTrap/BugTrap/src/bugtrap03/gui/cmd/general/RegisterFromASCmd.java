@@ -2,7 +2,6 @@ package bugtrap03.gui.cmd.general;
 
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notification.Mailbox;
-import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notification.AbstractSystemSubject;
 import bugtrap03.gui.cmd.Cmd;
@@ -16,9 +15,13 @@ import java.util.*;
  * @author Group 03
  */
 public class RegisterFromASCmd implements Cmd<Object> {
+    
+    /**
+     * Create a cmd which can be used to execute the scenario to register for a certain change on the abstractSystemSubject
+     * @param abstractSystemSubject The AbstractSystemSubject to register on.
+     */
     public RegisterFromASCmd(AbstractSystemSubject abstractSystemSubject) {
         this.abstractSystemSubject = abstractSystemSubject;
-        //TODO CHECK FOR NULL --> change test?
         this.subsriptionTypes = new HashMap<>();
         this.subsriptionTypes.put("newtag", 1);
         this.subsriptionTypes.put("specifictags", 2);
@@ -29,8 +32,18 @@ public class RegisterFromASCmd implements Cmd<Object> {
     private HashMap<String, Integer> subsriptionTypes;
     private AbstractSystemSubject abstractSystemSubject;
 
+    /**
+     * Execute the command and register for a certain change.
+     * @param scan The scanner used to interact with the user
+     * @param model The model used to access the system data.
+     * @param user The user who wants to execute this cmd.
+     * @return The Mailbox created by registering for a certain change.
+     * @throws CancelException When the user aborted the cmd
+     * @throws IllegalArgumentException When scan, model or user == null
+     * @throws IllegalArgumentException When the abstractSystemSubject == null
+     */
     @Override
-    public Mailbox exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+    public Mailbox exec(TerminalScanner scan, DataModel model, User user) throws CancelException, IllegalArgumentException {
         if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
