@@ -132,6 +132,42 @@ public class RegisterNullTests {
 
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testScanNull6() throws Exception {
+        generalNullScan(new ShowNotificationsCmd());
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testModelNull6() throws Exception {
+        generalNullMode(new ShowNotificationsCmd());
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testUserNull6() throws Exception {
+        generalNullUser(new ShowNotificationsCmd());
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testScanNull7() throws Exception {
+        generalNullScan(new UnregisterFromNotificationsCmd());
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testModelNull7() throws Exception {
+        generalNullMode(new UnregisterFromNotificationsCmd());
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testUserNull7() throws Exception {
+        generalNullUser(new UnregisterFromNotificationsCmd());
+
+    }
+
     private static void generalNullUser(Cmd cmd) throws Exception {
         //set up scenario
         answer.add("dummy");

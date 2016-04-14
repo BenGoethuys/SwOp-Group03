@@ -48,7 +48,7 @@ public class CommentMailBox extends Mailbox {
      * @return The added notification.
      */
     public Notification update(BugReport bugReport){
-        Notification newNotif = new Notification("The following bugreport has been created: ", bugReport, this.subject);
+        Notification newNotif = new Notification("The following bugreport has been commented upon: ", bugReport, this.subject);
         this.addNotification(newNotif);
         return newNotif;
     }

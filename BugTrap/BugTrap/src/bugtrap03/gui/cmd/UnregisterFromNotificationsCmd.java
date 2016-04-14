@@ -11,8 +11,12 @@ import purecollections.PList;
  * @author Group 03
  */
 public class UnregisterFromNotificationsCmd implements Cmd<Mailbox> {
+
     @Override
     public Mailbox exec(TerminalScanner scan, DataModel model, User user) throws CancelException, IllegalArgumentException, IllegalStateException {
+        if (scan == null || model == null || user == null) {
+            throw new IllegalArgumentException("scan, model and user musn't be null.");
+        }
         PList<Mailbox> allBoxes = user.getMailbox().getAllBoxes();
         int size = allBoxes.size();
         if (size < 1){
