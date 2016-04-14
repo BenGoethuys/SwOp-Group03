@@ -33,8 +33,8 @@ public class GetSubsystemCmdTest {
     @Before
     public void setUp() throws PermissionException {
         model = new DataModel();
-        admin = model.createAdministrator("Jammer" + counter, "first", "last");
-        lead = model.createDeveloper("Jamme1r" + counter, "first", "last");
+        admin = model.createAdministrator("Jammer123" + counter, "first", "last");
+        lead = model.createDeveloper("Jamme1r123" + counter, "first", "last");
         project1 = model.createProject("Project1", "ProjDesc", lead, 100, admin);
         project2 = model.createProject("Project2", "projDesc", lead, 100, admin);
         subsys1 = model.createSubsystem(admin, project1, "subsys1", "desc");
