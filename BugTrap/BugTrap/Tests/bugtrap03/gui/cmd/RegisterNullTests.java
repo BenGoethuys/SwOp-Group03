@@ -1,7 +1,9 @@
 package bugtrap03.gui.cmd;
 
+import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notification.AbstractSystemSubject;
+import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.gui.cmd.general.RegisterFromASCmd;
 import bugtrap03.gui.cmd.general.SelectTagsCmd;
@@ -33,6 +35,8 @@ public class RegisterNullTests {
         question = new ArrayDeque<>();
         answer = new ArrayDeque<>();
         developerRegisterCmd = model.createDeveloper("developerRegisterCmd" + index, "firstname", "lastname");
+        adminRegisterCmd = model.createAdministrator("adminRegisterCmd"+ index, "firstname", "lastname");
+        project = model.createProject("title","desc", developerRegisterCmd, 1000, adminRegisterCmd);
 
     }
 
@@ -42,7 +46,9 @@ public class RegisterNullTests {
     private static ArrayDeque<String> question;
     private static ArrayDeque<String> answer;
 
+    private static Project project;
     private static Developer developerRegisterCmd;
+    private static Administrator adminRegisterCmd;
 
     private static Cmd cmd;
 
@@ -101,20 +107,17 @@ public class RegisterNullTests {
 
     @Test(expected = IllegalArgumentException.class)
     public void testScanNull4() throws Exception {
-        generalNullScan(new RegisterFromASCmd(new AbstractSystemSubjectDummy()));
-        //FIXME: use of non DomainAPI AbstractSystemSubjectDummy -> needs to be in same package ! -> copy to this package also?
+        generalNullScan(new RegisterFromASCmd(project));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testModelNull4() throws Exception {
-        generalNullMode(new RegisterFromASCmd(new AbstractSystemSubjectDummy()));
-        //FIXME: (Ben CHECK IF FIXED) use of non DomainAPI AbstractSystemSubjectDummy -> needs to be in same package ! -> copy to this package also?
+        generalNullMode(new RegisterFromASCmd(project));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testUserNull4() throws Exception {
-        generalNullUser(new RegisterFromASCmd(new AbstractSystemSubjectDummy()));
-        //FIXME: (Ben CHECK IF FIXED) use of non DomainAPI AbstractSystemSubjectDummy -> needs to be in same package ! -> copy to this package also?
+        generalNullUser(new RegisterFromASCmd(project));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -155,32 +158,4 @@ public class RegisterNullTests {
         // Test effects.
     }
 
-    class AbstractSystemSubjectDummy extends AbstractSystemSubject {
-
-        @Override
-        public void notifyCreationSubs(BugReport br) {
-            this.updateCreationSubs(br);
-        }
-
-        @Override
-        public String getSubjectName() {
-            return "naam";
-        }
-
-        @Override
-        public void notifyTagSubs(BugReport br) {
-            this.updateTagSubs(br);
-        }
-
-        @Override
-        public void notifyCommentSubs(BugReport br) {
-            this.updateCommentSubs(br);
-        }
-
-        @Override
-        public boolean isTerminated() {
-            return false;
-        }
-
-    }
 }
