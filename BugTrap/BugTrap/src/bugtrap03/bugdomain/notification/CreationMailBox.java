@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain.notification;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 
 /**
@@ -7,6 +8,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
  *
  * @author Group 03
  */
+@DomainAPI
 public class CreationMailBox extends Mailbox {
 
     /**

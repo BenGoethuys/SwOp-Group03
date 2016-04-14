@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain.notification;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import purecollections.PList;
 
@@ -7,6 +8,7 @@ import purecollections.PList;
  * This abstract class represents the objects on which one can subscribe.
  * @author Group 03
  */
+@DomainAPI
 public abstract class Subject {
 
     /**

@@ -8,6 +8,7 @@ import bugtrap03.bugdomain.usersystem.User;
  * This class represents a notification.
  * @author group 03
  */
+@DomainAPI
 public class Notification {
 
     /**

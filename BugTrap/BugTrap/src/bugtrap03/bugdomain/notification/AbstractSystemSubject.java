@@ -1,11 +1,13 @@
 package bugtrap03.bugdomain.notification;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import purecollections.PList;
 
 /**
  * @author Group 03
  */
+@DomainAPI
 public abstract class AbstractSystemSubject extends Subject {
 
     public AbstractSystemSubject(){

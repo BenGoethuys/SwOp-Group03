@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain.notification;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
 
@@ -10,6 +11,7 @@ import java.util.EnumSet;
  *
  * @author Group 03
  */
+@DomainAPI
 public class TagMailBox extends Mailbox {
 
     /**
@@ -25,6 +27,7 @@ public class TagMailBox extends Mailbox {
      * @see #setSubject(Subject)
      * @see #setTags(EnumSet)
      */
+
     public TagMailBox(Subject subject, EnumSet<Tag> tags) throws IllegalArgumentException{
         this.setSubject(subject);
         this.setTags(tags);

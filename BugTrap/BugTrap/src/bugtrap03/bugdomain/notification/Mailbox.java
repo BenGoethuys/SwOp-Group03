@@ -11,6 +11,7 @@ import java.util.EnumSet;
  * This class represents a mailbox for a user.
  * @author Group 03
  */
+@DomainAPI
 public class Mailbox {
 
     /**
