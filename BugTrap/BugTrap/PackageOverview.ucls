@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.9" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="bugtrap03.bugdomain" project="BugTrap" file="/BugTrap/src/bugtrap03/bugdomain" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="230" width="603" x="254" y="63"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="bugtrap03.bugdomain.bugreport" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/bugreport" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="389" y="248"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="bugtrap03.bugdomain.notification" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/notification" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="393" y="154"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="bugtrap03.bugdomain.permission" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/permission" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="711" y="248"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="bugtrap03.bugdomain.usersystem" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/usersystem" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="713" y="155"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="bugtrap03.model" project="BugTrap" file="/BugTrap/src/bugtrap03/model" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="554" y="356"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <dependency id="7">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="8">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
