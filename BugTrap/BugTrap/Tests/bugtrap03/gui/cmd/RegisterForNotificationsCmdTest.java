@@ -38,7 +38,7 @@ public class RegisterForNotificationsCmdTest {
         answer = new ArrayDeque<>();
 
         administratorRegisterCmd = model.createAdministrator("administratorRegisterCmd" + index,"first","last");
-        developerRegisterCmd =  new Developer("developerRegisterCmd" + index, "firstname", "lastname");
+        developerRegisterCmd = model.createDeveloper("developerRegisterCmd" + index, "firstname", "lastname");
         projectRegisterCmd = model.createProject("projectRegisterCmd","testdescription", developerRegisterCmd, 1000, administratorRegisterCmd);
         subsystemRegisterCmd = model.createSubsystem(administratorRegisterCmd, projectRegisterCmd, "subsystemRegisterCmd","testdescription");
         bugReportRegisterCmd = model.createBugReport(subsystemRegisterCmd, developerRegisterCmd, "", "",
