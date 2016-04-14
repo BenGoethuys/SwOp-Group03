@@ -65,7 +65,7 @@ public class GetProjectCmd implements Cmd {
     @Override
     public Project exec(TerminalScanner scan, DataModel model, User dummy3) throws CancelException, IllegalArgumentException {
         if (scan == null || model == null) {
-            throw new IllegalArgumentException("scan, model and user musn't be null.");
+            throw new IllegalArgumentException("scan and model musn't be null.");
         }
         // show all projects
 

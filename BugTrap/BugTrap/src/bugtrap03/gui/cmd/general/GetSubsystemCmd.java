@@ -2,7 +2,6 @@ package bugtrap03.gui.cmd.general;
 
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
@@ -19,25 +18,24 @@ public class GetSubsystemCmd implements Cmd<Subsystem> {
      * Execute the command and get a subsystem chosen by the user trough interaction.
      * @param scan The scanner used to interact with the user
      * @param model The model used to access the system data.
-     * @param user The user who executes this cmd
+     * @param dummy1 dummy
      * @return The chosen subsystem.
-     * @throws PermissionException When user does not have sufficient permissions.
      * @throws CancelException When the user aborted the cmd
      * @throws IllegalArgumentException When scan or model == null
      */
     @Override
-    public Subsystem exec(TerminalScanner scan, DataModel model, User user)
-            throws PermissionException, CancelException, IllegalArgumentException {
+    public Subsystem exec(TerminalScanner scan, DataModel model, User dummy1)
+            throws CancelException, IllegalArgumentException {
         if (scan == null || model == null) {
-            throw new IllegalArgumentException("scan and model musn't be null.");
+            throw new IllegalArgumentException("scan musn't be null.");
         }
         
-        Project selectedProj = new GetProjectCmd().exec(scan, model, user);
+        Project selectedProj = new GetProjectCmd().exec(scan, model, null);
         scan.println("Select subsystem.");
         PList<Subsystem> allSubsystems = model.getAllSubsystems(selectedProj);
         Subsystem selectedSub = new GetObjectOfListCmd<>(allSubsystems, (u -> u.getName()),
                 ((u, input) -> u.getName().equalsIgnoreCase(input)))
-                .exec(scan, model, user);
+                .exec(scan, null, null);
         return selectedSub;
     }
 }
