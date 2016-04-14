@@ -20,10 +20,10 @@ public class ShowNotificationsCmd implements Cmd<Mailbox> {
     @Override
     public Mailbox exec(TerminalScanner scan, DataModel model, User user)
             throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
-        ArrayList<Notification> notificationsAL = new ArrayList<Notification>(user.getMailbox().getAllNotifications());
         if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
+        ArrayList<Notification> notificationsAL = new ArrayList<Notification>(user.getMailbox().getAllNotifications());
         PList<Notification> notifications = PList.<Notification>empty().plusAll(notificationsAL);
         Collections.reverse(notifications);
         int size = notifications.size();

@@ -3,6 +3,7 @@ package bugtrap03.gui.cmd;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notification.Mailbox;
 import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.cmd.general.GetIntCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
@@ -23,21 +24,19 @@ public class UnregisterFromNotificationsCmd implements Cmd<Mailbox> {
             scan.println("No subscriptions to show.");
             return null;
         }
-        scan.println("Please select a subscription. (use index)");
-        for (int i=0;i<allBoxes.size();i++){
+        scan.println("Please select a subscription from list. (use index)");
+        for (int i=0;i<size;i++){
             scan.println(i + ". " + allBoxes.get(i).getInfo());
         }
         int index = -1;
-        while(index == -1){
-            if (! scan.hasNextInt()){
-                scan.println("Invalid input, try again");
-            } else{
-                index = scan.nextInt();
-                if (index < 0 || index > size){
-                    index = -1;
-                    scan.println("Invalid input, try again");
+        while(index < 0){
+                index = new GetIntCmd().exec(scan, null, null);
+                if (index >= size) {
+                    index = size - 1;
                 }
-            }
+                if (index < 0) {
+                    scan.println("Invalid input, give new index.");
+                }
         }
         Mailbox selectedMB = allBoxes.get(index);
         scan.println("You selected: " + selectedMB.getInfo());
