@@ -31,7 +31,7 @@ public class RegisterNullTests {
         model = new DataModel();
         question = new ArrayDeque<>();
         answer = new ArrayDeque<>();
-        developerRegisterCmd =  new Developer("developerRegisterCmd" + index, "firstname", "lastname");
+        developerRegisterCmd = model.createDeveloper("developerRegisterCmd" + index, "firstname", "lastname");
 
     }
 
@@ -102,19 +102,19 @@ public class RegisterNullTests {
     @Test (expected = IllegalArgumentException.class)
     public void testScanNull4() throws Exception {
         generalNullScan(new RegisterFromASCmd(new AbstractSystemSubjectDummy()));
-
+        //FIXME: use of non DomainAPI AbstractSystemSubjectDummy -> needs to be in same package ! -> copy to this package also?
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testModelNull4() throws Exception {
         generalNullMode(new RegisterFromASCmd(new AbstractSystemSubjectDummy()));
-
+        //FIXME: use of non DomainAPI AbstractSystemSubjectDummy -> needs to be in same package ! -> copy to this package also?
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testUserNull4() throws Exception {
         generalNullUser(new RegisterFromASCmd(new AbstractSystemSubjectDummy()));
-
+        //FIXME: use of non DomainAPI AbstractSystemSubjectDummy -> needs to be in same package ! -> copy to this package also?
     }
 
     @Test (expected = IllegalArgumentException.class)
