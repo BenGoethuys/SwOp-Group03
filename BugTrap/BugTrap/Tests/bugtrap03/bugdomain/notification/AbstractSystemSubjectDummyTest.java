@@ -31,14 +31,14 @@ public class AbstractSystemSubjectDummyTest {
         testDummy = new AbstractSystemSubjectDummy();
         assubjectDummyDev = new Developer("ASsubjectDummyDev", "first", "last");
 
-        assubjectDummyProject = new Project("sdp","sdp",assubjectDummyDev,1000);
-        assubjectDummySubsystem = assubjectDummyProject.addSubsystem("This seems","easy");
+        assubjectDummyProject = new Project("sdp", "sdp", assubjectDummyDev, 1000);
+        assubjectDummySubsystem = assubjectDummyProject.addSubsystem("This seems", "easy");
         assubjectDummyBugreport = assubjectDummySubsystem.addBugReport(assubjectDummyDev, "", "", new GregorianCalendar(),
-                PList.<BugReport>empty(), new Milestone(1), false, "hi","ha","ho");
+                PList.<BugReport>empty(), new Milestone(1), false, "hi", "ha", "ho");
     }
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         asssubjectDummyCrMB = assubjectDummyDev.getMailbox().creationSubscribe(testDummy);
     }
 
@@ -64,8 +64,36 @@ public class AbstractSystemSubjectDummyTest {
         assertFalse(extraCMrB.getAllNotifications().isEmpty());
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testAddCreationSubNull() throws Exception {
         testDummy.addCreationSub(null);
+    }
+
+    static class AbstractSystemSubjectDummy extends AbstractSystemSubject {
+
+        @Override
+        public void notifyCreationSubs(BugReport br) {
+            this.updateCreationSubs(br);
+        }
+
+        @Override
+        public String getSubjectName() {
+            return "naam";
+        }
+
+        @Override
+        public void notifyTagSubs(BugReport br) {
+            this.updateTagSubs(br);
+        }
+
+        @Override
+        public void notifyCommentSubs(BugReport br) {
+            this.updateCommentSubs(br);
+        }
+
+        @Override
+        public boolean isTerminated() {
+            return false;
+        }
     }
 }
