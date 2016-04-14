@@ -41,8 +41,10 @@ class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelC
      * for the change of all tags on bugreports when executed
      * @param user The user that wishes to subscribe
      * @param subject The subject on which the user wishes to subscribe
+     * 
+     * @see RegisterForTagNotificationsModelCmd#RegisterForTagNotificationsModelCmd(User, Subject, EnumSet)
      */
-    RegisterForTagNotificationsModelCmd(User user, Subject subject){
+    RegisterForTagNotificationsModelCmd(User user, Subject subject) {
         this(user,subject,null);
     }
 
