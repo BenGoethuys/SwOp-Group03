@@ -62,6 +62,7 @@ public class CommentMailBox extends Mailbox {
      * and a textual explanation of the subscription.
      */
     @Override
+    @DomainAPI
     public String getInfo(){
         StringBuilder message = new StringBuilder();
         message.append("You are subscribed to the creation of comments on ");

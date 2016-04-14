@@ -289,6 +289,7 @@ public class Subsystem extends AbstractSystem {
      * @return the name of this subject
      */
     @Override
+    @DomainAPI
     public String getSubjectName() {
         return ("Subsystem " + this.getName());
     }

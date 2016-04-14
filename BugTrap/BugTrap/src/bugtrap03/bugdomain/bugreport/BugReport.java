@@ -1209,6 +1209,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return the string name representation of this subject
      */
     @Override
+    @DomainAPI
     public String getSubjectName() {
         StringBuilder subjectName = new StringBuilder();
         subjectName.append("Bugreport ");

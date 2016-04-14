@@ -549,6 +549,7 @@ public class Project extends AbstractSystem {
      * @return the name of this subject
      */
     @Override
+    @DomainAPI
     public String getSubjectName() {
         return ("Project " + this.getName());
     }

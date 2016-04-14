@@ -27,6 +27,7 @@ public abstract class Subject {
      *
      * @return the string containing subject name and type.
      */
+    @DomainAPI
     public abstract String getSubjectName();
 
     /**
