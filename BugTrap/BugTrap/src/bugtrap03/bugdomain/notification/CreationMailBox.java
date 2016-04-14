@@ -56,6 +56,8 @@ public class CreationMailBox extends Mailbox {
     /**
      * This method returns a String representation of the mailbox information.
      *
+     * NOTE: This constructor should be only called by {@link Mailbox#creationSubscribe(AbstractSystemSubject)} for correct coupling.
+     *
      * @return A String containing the subject name to which this mailbox is subscribed
      * and a textual explanation of the subscription.
      */

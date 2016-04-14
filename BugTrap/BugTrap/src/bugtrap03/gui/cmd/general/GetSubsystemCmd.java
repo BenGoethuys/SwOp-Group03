@@ -35,7 +35,8 @@ public class GetSubsystemCmd implements Cmd<Subsystem> {
         PList<Subsystem> allSubsystems = model.getAllSubsystems(selectedProj);
         Subsystem selectedSub = new GetObjectOfListCmd<>(allSubsystems, (u -> u.getName()),
                 ((u, input) -> u.getName().equalsIgnoreCase(input)))
-                .exec(scan, null, null);
+                .exec(scan, model, null);
+        scan.println("You selected: " + selectedSub.getName());
         return selectedSub;
     }
 }

@@ -67,5 +67,6 @@ public class TagMailBoxTest {
         assertNotEquals(null, testTMB.getTagsOfInterest());
         assertFalse(testTMB.getTagsOfInterest().isEmpty());
         assertEquals(tagsTMB, testTMB.getTagsOfInterest());
+        assertFalse(testTMB.getTagsOfInterest().contains(Tag.RESOLVED));
     }
 }

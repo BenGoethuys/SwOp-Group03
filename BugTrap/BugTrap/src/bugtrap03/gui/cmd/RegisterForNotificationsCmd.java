@@ -8,7 +8,12 @@ import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.TreeSet;
 
 /**
  * @author Group 03
@@ -29,26 +34,30 @@ public class RegisterForNotificationsCmd implements Cmd<Mailbox> {
      * <br> 1. The issuer indicates that he wants to register for receiving notifications.
      * <br> 2. The system asks if he wants to register for a project, subsystem or bug report.
      * <br> 3. The issuer indicates he wants to register for a project.
+     * <br> 3.a The issuer indicates he wants to register for a subsystem.
+     * <br> 3.b The issuer indicates he wants to register for a bug report.
+     *
      * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
-     * @return
-     * @throws PermissionException
-     * @throws CancelException
-     * @throws IllegalArgumentException
+     *
+     * @return The mailbox of the user in which the new mailbox will be stored.
+     *
+     * @throws PermissionException If the user does not have enough permissions.
+     * @throws CancelException If the abort command has been given.
+     * @throws IllegalArgumentException If any of the arguments is null or invalid.
      */
     @Override
     public Mailbox exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
-        if (scan == null || model == null) {
+        if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
-        //precondition of issuer?
-
+        //precondition of issuer? Assignment talks of 'user'...
         scan.println("Select subject type.");
-        String subjectype = new GetObjectOfListCmd<>(PList.<String>empty().plusAll(this.cmdMapSubjectTypes.keySet()),
+        String subjectype = new GetObjectOfListCmd<>(PList.<String>empty().plusAll(new TreeSet<>(this.cmdMapSubjectTypes.keySet())),
                 u -> (u.toString()), ((u, input) -> ((u.equalsIgnoreCase(input))))).exec(scan, model, null);
-        this.cmdMapSubjectTypes.get(subjectype.toLowerCase()).exec(scan, model, user);
+        Mailbox newMailbox = (Mailbox) this.cmdMapSubjectTypes.get(subjectype.toLowerCase()).exec(scan, model, user);
         scan.println("Registration for notifications complete.");
-        return user.getMailbox();
+        return newMailbox;
     }
 }

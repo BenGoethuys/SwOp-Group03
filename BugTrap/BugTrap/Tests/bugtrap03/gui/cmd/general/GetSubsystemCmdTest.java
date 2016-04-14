@@ -59,6 +59,7 @@ public class GetSubsystemCmdTest {
         question.add("2. " + subsys2.getName());
         question.add("I choose: ");
         answer.add("1");
+        question.add("You selected: " + subsys11.getName());
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         Subsystem subsys = cmd.exec(scan, model, null);

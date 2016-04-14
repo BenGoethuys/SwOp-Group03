@@ -862,15 +862,18 @@ public class DataModel {
      * @param user the user that wishes to subscribe for notifications
      * @param subject the subject on which the user wishes to subscribe
      *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
      * @throws IllegalArgumentException If the subject is invalid (=null).
      * @throws IllegalStateException If the current state of the command is invalid.
      */
     @DomainAPI
-    public void registerForCommentNotifications(User user, Subject subject)
+    public Mailbox registerForCommentNotifications(User user, Subject subject)
             throws IllegalArgumentException, IllegalStateException{
         RegisterForCommentNotificationsModelCmd cmd = new RegisterForCommentNotificationsModelCmd(user, subject);
-        cmd.exec();
+        Mailbox newMailbox = cmd.exec();
         addToHistory(cmd);
+        return newMailbox;
     }
 
     /**
@@ -879,16 +882,19 @@ public class DataModel {
      * @param user the user that wishes to subscribe for notifications
      * @param abstractSystemSubject the abstract system subject on which the user wishes to subscribe
      *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
      * @throws IllegalArgumentException If the abstract system subject is invalid (=null).
      * @throws IllegalStateException If the current state of the command is invalid.
      */
     @DomainAPI
-    public void registerForCreationNotifications(User user, AbstractSystemSubject abstractSystemSubject)
+    public Mailbox registerForCreationNotifications(User user, AbstractSystemSubject abstractSystemSubject)
             throws IllegalArgumentException, IllegalStateException{
         RegisterForCreationNotificationsModelCmd cmd =
                 new RegisterForCreationNotificationsModelCmd(user, abstractSystemSubject);
-        cmd.exec();
+        Mailbox newMailbox = cmd.exec();
         addToHistory(cmd);
+        return newMailbox;
     }
 
     /**
@@ -898,15 +904,18 @@ public class DataModel {
      * @param subject the subject on which the user wishes to subscribe
      * @param enumSet the enumset of specific tags to which the user wishes to subscribe
      *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
      * @throws IllegalArgumentException If the subject is invalid (=null).
      * @throws IllegalStateException If the current state of the command is invalid.
      */
     @DomainAPI
-    public void registerForSpecificTagsNotifications(User user, Subject subject, EnumSet<Tag> enumSet)
+    public Mailbox registerForSpecificTagsNotifications(User user, Subject subject, EnumSet<Tag> enumSet)
             throws IllegalArgumentException, IllegalStateException {
         RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject, enumSet);
-        cmd.exec();
+        Mailbox newMailbox = cmd.exec();
         addToHistory(cmd);
+        return newMailbox;
     }
 
     /**
@@ -915,29 +924,36 @@ public class DataModel {
      * @param user the user that wishes to subscribe for notifications
      * @param subject the subject on which the user wishes to subscribe
      *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
      * @throws IllegalArgumentException If the subject is invalid (=null).
      * @throws IllegalStateException If the current state of the command is invalid.
      */
     @DomainAPI
-    public void registerForAllTagsNotifications(User user, Subject subject)
+    public Mailbox registerForAllTagsNotifications(User user, Subject subject)
             throws IllegalArgumentException, IllegalStateException {
         RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject);
-        cmd.exec();
+        Mailbox newMailbox = cmd.exec();
         addToHistory(cmd);
+        return newMailbox;
     }
 
     /**
      * This method lets a user unregister for notifications
      * @param user The user that wishes to unregister.
      * @param mailbox The mailbox that contains the notifications from which the user wishes to unregister.
+     *
+     * @return The mailbox that represents the registration for notifications.
+     *
      * @throws IllegalArgumentException If the mailbox is not found in
      * @throws IllegalStateException If the command has already been executed.
      */
     @DomainAPI
-    public void unregisterFromNotifications(User user, Mailbox mailbox) throws IllegalArgumentException, IllegalStateException{
+    public Mailbox unregisterFromNotifications(User user, Mailbox mailbox) throws IllegalArgumentException, IllegalStateException{
         UnregisterFromNotificationsModelCmd cmd = new UnregisterFromNotificationsModelCmd(user, mailbox);
         cmd.exec();
         addToHistory(cmd);
+        return  mailbox;
     }
 
     /**
