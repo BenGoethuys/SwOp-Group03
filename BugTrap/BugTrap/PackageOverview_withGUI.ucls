@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.9" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="bugtrap03.bugdomain" project="BugTrap" file="/BugTrap/src/bugtrap03/bugdomain" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="241" width="630" x="161" y="90"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="bugtrap03.bugdomain.bugreport" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/bugreport" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="320" y="285"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="bugtrap03.bugdomain.notification" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/notification" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="318" y="179"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="bugtrap03.bugdomain.permission" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/permission" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="635" y="286"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="bugtrap03.bugdomain.usersystem" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/usersystem" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="639" y="181"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="bugtrap03.gui.cmd" project="BugTrap" file="/BugTrap/src/bugtrap03/gui/cmd" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="63" width="229" x="164" y="367"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="bugtrap03.model" project="BugTrap" file="/BugTrap/src/bugtrap03/model" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="560" y="404"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <dependency id="8">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
