@@ -30,10 +30,10 @@ class CloneProjectModelCmd extends ModelCmd {
             throw new IllegalArgumentException("The model passed to CloneProjectModelCmd was a null reference.");
         }
 
-        if (cloneSource == null){
+        if (cloneSource == null) {
             throw new IllegalArgumentException("The given cloneSource is null");
         }
-        if (cloneSource.isTerminated()){
+        if (cloneSource.isTerminated()) {
             throw new IllegalArgumentException("The given cloneSource is terminated");
         }
 
@@ -51,9 +51,9 @@ class CloneProjectModelCmd extends ModelCmd {
     private final Developer lead;
     private final GregorianCalendar startDate;
     private final long budgetEstimate;
-    
+
     private boolean isExecuted = false;
-    
+
     private Project clone;
 
     /**
@@ -74,11 +74,9 @@ class CloneProjectModelCmd extends ModelCmd {
         if (cloneSource.isTerminated()) {
             throw new IllegalArgumentException("The given cloneSource is terminated.");
         }
-        
+
         clone = cloneSource.cloneProject(versionID, lead, startDate, budgetEstimate);
-        if (clone != null) {
-            model.addProject(clone);
-        }
+        model.addProject(clone);
         isExecuted = true;
         return clone;
     }
