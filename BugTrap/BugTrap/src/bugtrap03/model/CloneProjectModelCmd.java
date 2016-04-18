@@ -89,6 +89,7 @@ class CloneProjectModelCmd extends ModelCmd {
             return false;
         }
         model.deleteProject(clone);
+        clone.setTerminated(true);
         return true;
     }
 
