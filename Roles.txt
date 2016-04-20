@@ -11,3 +11,12 @@ Iteration 2
 * Testing Coordinator Ben
 * Design Coordinator Kwinten
 * Domain Coordinator Vincent
+
+Iteration 3
+
+( * Project Coordinator Vincent ) <- undefined.
+* Design Coordinator Ben
+* Domain Coordinator Kwinten
+* Test Coordinator Mathias
+
+
