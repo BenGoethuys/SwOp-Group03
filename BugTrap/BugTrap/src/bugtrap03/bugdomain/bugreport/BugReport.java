@@ -35,6 +35,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @param dependencies The depended bug reports of this bug report
      * @param subsystem The subsystem this bug report belongs to
      * @param milestone The milestone of the bug report
+     * @param impactFactor  the impact factor of this bug report
      * @param isPrivate The boolean that says if this bug report should be private or not
      * @param trigger A trigger used to trigger the bug
      * @param stacktrace The stacktrace got when the bug was triggered
@@ -48,6 +49,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws IllegalArgumentException If the given impactFactor is invalid
      * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
      *
      * <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
@@ -60,11 +62,12 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      * @see BugReport#isValidMilestone(Milestone)
+     * @see BugReport#isValidImpactFactor(double)
      */
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     public BugReport(User creator, String title, String description, GregorianCalendar creationDate,
-            PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone, boolean isPrivate,
-            String trigger, String stacktrace, String error)
+                     PList<BugReport> dependencies, Subsystem subsystem, Milestone milestone, double impactFactor,
+                     boolean isPrivate, String trigger, String stacktrace, String error)
             throws IllegalArgumentException, PermissionException {
         this.setCreator(creator);
         this.setUniqueID(BugReport.getNewUniqueID());
@@ -78,6 +81,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
 
         this.setSubsystem(subsystem);
         this.setMilestone(milestone);
+        this.setImpactFactor(impactFactor);
         this.isPrivate = isPrivate;
 
         this.trigger = trigger;
@@ -100,6 +104,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
 
     private Subsystem subsystem;
     private Milestone milestone;
+    private double impactFactor;
     private boolean isPrivate;
 
     private String trigger;
@@ -780,6 +785,47 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
+     * This method returns the impact factor of this bug report
+     *
+     * @return  The impact factor of this bug report
+     */
+    @DomainAPI
+    public double getImpactFactor(){
+        return this.impactFactor;
+    }
+
+    /**
+     * This method sets the impact factor of this bug report to the given impact factor
+     *
+     * @param impactFactor  The new impact factor of this bug report
+     *
+     * @throws IllegalArgumentException If the given impactFactor is invalid
+     *
+     * @see BugReport#isValidImpactFactor(double)
+     */
+    public void setImpactFactor(double impactFactor) throws IllegalArgumentException {
+        if (! BugReport.isValidImpactFactor(impactFactor)){
+            throw new IllegalArgumentException("The given impact factor is invalid for a bug report!");
+        }
+        this.impactFactor = impactFactor;
+    }
+
+    /**
+     * This method checks if the given double is a valid impact factor for a bug report
+     *
+     * @param impactFactor  The double to check
+     *
+     * @return  True if the given impact factor is a valid impact factor.
+     */
+    @DomainAPI
+    public static boolean isValidImpactFactor(double impactFactor){
+        if (impactFactor > 0 && impactFactor <= 10){
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * This method returns the private state of this bug report
      *
      * @return true if this bug report is considered private
@@ -1201,6 +1247,25 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     @DomainAPI
     public boolean isResolved() {
         return this.getInternState().isResolved();
+    }
+
+    /**
+     * This method returns the multiplier of this bugReport
+     *
+     * @return  The multiplier
+     */
+    public double getMultiplier(){
+        return this.getInternState().getMultiplier();
+    }
+
+    /**
+     * This method returns the bug impact of this bug report
+     *
+     * @return  a double representing the bug impact of the bug report
+     */
+    @DomainAPI
+    public double getBugImpact(){
+        return this.getMultiplier() * this.getImpactFactor();
     }
 
     /**

@@ -458,6 +458,24 @@ public class Project extends AbstractSystem {
     }
 
     /**
+     * This method returns the combined impact of all the bug reports associated with this Project
+     *
+     * @return The combined impact of all bug reports associated with this Project
+     */
+    @Override
+    @DomainAPI
+    public double getBugImpact() {
+        double impact = 0.0;
+
+        PList<Subsystem> subsystems = this.getSubsystems();
+        for (Subsystem subsystem : subsystems){
+            impact += subsystem.getBugImpact();
+        }
+
+        return impact;
+    }
+
+    /**
      * This method returns all the roles associated with the developers of this
      * project
      *

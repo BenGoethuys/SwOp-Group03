@@ -57,9 +57,9 @@ public class SubsystemTest {
         subSysTest = testProject.addSubsystem(subVersion, subName, subDescription);
         subSysTest2 = subSysTest.addSubsystem(subName2, subDescription2);
         emptyDep = PList.<BugReport>empty();
-        bugreport1 = subSysTest.addBugReport(testDev, "testBug3", "this is description of testbug 3", testStartDate, emptyDep, null, false, null, null, null);
+        bugreport1 = subSysTest.addBugReport(testDev, "testBug3", "this is description of testbug 3", testStartDate, emptyDep, null, 1, false, null, null, null);
         depToRep1 = PList.<BugReport>empty().plus(bugreport1);
-        bugreport2 = subSysTest.addBugReport(testDev, "otherBug4", "i like bananas", testStartDate, depToRep1, null, false, null, null, null);
+        bugreport2 = subSysTest.addBugReport(testDev, "otherBug4", "i like bananas", testStartDate, depToRep1, null, 1, false, null, null, null);
     }
 
     @Before
@@ -135,14 +135,14 @@ public class SubsystemTest {
 
     @Test
     public void testAddBugReport() throws IllegalArgumentException, PermissionException {
-        BugReport bugreport3 = subSysTest.addBugReport(testDev, "otherBug5", "i have a love/hate relation with testing", testStartDate, emptyDep, null, false, null, null, null);
+        BugReport bugreport3 = subSysTest.addBugReport(testDev, "otherBug5", "i have a love/hate relation with testing", testStartDate, emptyDep, null, 1, false, null, null, null);
         PList<BugReport> expectedRep1 = PList.<BugReport>empty().plus(bugreport1).plus(bugreport2);
         assertNotEquals(expectedRep1, subSysTest.getBugReportList());
         PList<BugReport> expectedRep2 = expectedRep1.plus(bugreport3);
         assertEquals(expectedRep2, subSysTest.getBugReportList());
 
         // alt method for adding BugReport
-        BugReport bugReport4 = subSysTest.addBugReport(testDev, "Best title ever", "Yes you did not write this", new GregorianCalendar(2016, 3, 4), emptyDep, null, false, null, null, null);
+        BugReport bugReport4 = subSysTest.addBugReport(testDev, "Best title ever", "Yes you did not write this", new GregorianCalendar(2016, 3, 4), emptyDep, null, 1, false, null, null, null);
         PList<BugReport> expectedRep3 = expectedRep2.plus(bugReport4);
         assertEquals(expectedRep3, subSysTest.getBugReportList());
     }
@@ -151,13 +151,13 @@ public class SubsystemTest {
     public void testAddInvalidPermissionBugReport() throws IllegalArgumentException, PermissionException {
         Administrator admin = new Administrator("uniqueAdminunique", "adje", "minnie");
         @SuppressWarnings("unused")
-        BugReport bugreport3 = subSysTest.addBugReport(admin, "otherBug5", "i have a love/hate relation with testing", testStartDate, emptyDep, null, false, null, null, null);
+        BugReport bugreport3 = subSysTest.addBugReport(admin, "otherBug5", "i have a love/hate relation with testing", testStartDate, emptyDep, null, 1, false, null, null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAddInvalidTitleBugReport() throws IllegalArgumentException, PermissionException {
         @SuppressWarnings("unused")
-        BugReport bugreport3 = subSysTest.addBugReport(testDev, null, "i have a love/hate relation with testing", testStartDate, emptyDep, null, false, null, null, null);
+        BugReport bugreport3 = subSysTest.addBugReport(testDev, null, "i have a love/hate relation with testing", testStartDate, emptyDep, null, 1, false, null, null, null);
     }
 
     @Test

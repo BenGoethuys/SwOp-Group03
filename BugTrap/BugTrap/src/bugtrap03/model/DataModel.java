@@ -535,6 +535,7 @@ public class DataModel {
     public BugReport createBugReport(Subsystem subsystem, User user, String title, String description, PList<BugReport> dependencies, Milestone milestone,
             boolean isPrivate)
             throws IllegalArgumentException, PermissionException {
+        // FIXME: impact factor !!
         CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description,
                 null, dependencies, milestone, isPrivate, null, null, null);
         BugReport bugReport = cmd.exec();
@@ -588,6 +589,7 @@ public class DataModel {
             GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
             boolean isPrivate, String trigger, String stacktrace, String error)
             throws IllegalArgumentException, PermissionException {
+        // FIXME: impact factor !!
         CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description,
                 creationDate, dependencies, milestone, isPrivate, trigger, stacktrace, error);
         BugReport bugReport = cmd.exec();

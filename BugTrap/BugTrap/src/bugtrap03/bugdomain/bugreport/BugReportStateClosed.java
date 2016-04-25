@@ -244,4 +244,14 @@ class BugReportStateClosed implements BugReportState {
         str.append("\n score: ").append(this.getScore());
         return str.toString();
     }
+
+    /**
+     * This method returns the multiplier of this state
+     *
+     * @return  The multiplier
+     */
+    @Override
+    public double getMultiplier() {
+        return 0;
+    }
 }
