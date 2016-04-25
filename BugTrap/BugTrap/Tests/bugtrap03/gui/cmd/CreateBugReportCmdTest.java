@@ -64,6 +64,7 @@ public class CreateBugReportCmdTest {
         CreateBugReportCmd cmd = new CreateBugReportCmd();
 
         // Setup scenario
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. ProjectA version: " + projectA.getVersionID());
         question.add("I choose: ");
@@ -170,6 +171,7 @@ public class CreateBugReportCmdTest {
         CreateBugReportCmd cmd = new CreateBugReportCmd();
 
         // Setup scenario
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. ProjectA version: " + projectA.getVersionID());
         question.add("I choose: ");

@@ -99,7 +99,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li><a href="../../../bugtrap03/bugdomain/notification/Subject.html" title="class in bugtrap03.bugdomain.notification">bugtrap03.bugdomain.notification.Subject</a></li>
+<li><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html" title="class in bugtrap03.bugdomain.bugReportNotification">bugtrap03.bugdomain.bugReportNotification.Subject</a></li>
 <li>
 <ul class="inheritance">
 <li>bugtrap03.bugdomain.bugreport.BugReport</li>
@@ -118,7 +118,7 @@ var activeTableTab = "activeTableTab";
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">BugReport</span>
-extends <a href="../../../bugtrap03/bugdomain/notification/Subject.html" title="class in bugtrap03.bugdomain.notification">Subject</a>
+extends <a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html" title="class in bugtrap03.bugdomain.bugReportNotification">Subject</a>
 implements java.lang.Comparable&lt;<a href="../../../bugtrap03/bugdomain/bugreport/BugReport.html" title="class in bugtrap03.bugdomain.bugreport">BugReport</a>&gt;</pre>
 <div class="block">This class represents a bug report</div>
 <dl>
@@ -588,11 +588,11 @@ implements java.lang.Comparable&lt;<a href="../../../bugtrap03/bugdomain/bugrepo
 </tr>
 </table>
 <ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.bugtrap03.bugdomain.notification.Subject">
+<li class="blockList"><a name="methods.inherited.from.class.bugtrap03.bugdomain.bugReportNotification.Subject">
 <!--   -->
 </a>
-<h3>Methods inherited from class&nbsp;bugtrap03.bugdomain.notification.<a href="../../../bugtrap03/bugdomain/notification/Subject.html" title="class in bugtrap03.bugdomain.notification">Subject</a></h3>
-<code><a href="../../../bugtrap03/bugdomain/notification/Subject.html#addCommentSub-bugtrap03.bugdomain.notification.CommentMailBox-">addCommentSub</a>, <a href="../../../bugtrap03/bugdomain/notification/Subject.html#addTagSub-bugtrap03.bugdomain.notification.TagMailBox-">addTagSub</a>, <a href="../../../bugtrap03/bugdomain/notification/Subject.html#isValidMb-bugtrap03.bugdomain.notification.Mailbox-">isValidMb</a>, <a href="../../../bugtrap03/bugdomain/notification/Subject.html#updateCommentSubs-bugtrap03.bugdomain.bugreport.BugReport-">updateCommentSubs</a>, <a href="../../../bugtrap03/bugdomain/notification/Subject.html#updateTagSubs-bugtrap03.bugdomain.bugreport.BugReport-">updateTagSubs</a></code></li>
+<h3>Methods inherited from class&nbsp;bugtrap03.bugdomain.bugReportNotification.<a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html" title="class in bugtrap03.bugdomain.bugReportNotification">Subject</a></h3>
+<code><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#addCommentSub-bugtrap03.bugdomain.bugReportNotification.CommentMailBox-">addCommentSub</a>, <a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#addTagSub-bugtrap03.bugdomain.bugReportNotification.TagMailBox-">addTagSub</a>, <a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#isValidMb-bugtrap03.bugdomain.bugReportNotification.Mailbox-">isValidMb</a>, <a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#updateCommentSubs-bugtrap03.bugdomain.bugreport.BugReport-">updateCommentSubs</a>, <a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#updateTagSubs-bugtrap03.bugdomain.bugreport.BugReport-">updateTagSubs</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -1719,7 +1719,7 @@ public&nbsp;BugReport(<a href="../../../bugtrap03/bugdomain/usersystem/User.html
 <div class="block">This method returns the string name representation of this subject</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../bugtrap03/bugdomain/notification/Subject.html#getSubjectName--">getSubjectName</a></code>&nbsp;in class&nbsp;<code><a href="../../../bugtrap03/bugdomain/notification/Subject.html" title="class in bugtrap03.bugdomain.notification">Subject</a></code></dd>
+<dd><code><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#getSubjectName--">getSubjectName</a></code>&nbsp;in class&nbsp;<code><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html" title="class in bugtrap03.bugdomain.bugReportNotification">Subject</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the string name representation of this subject</dd>
 </dl>
@@ -1736,7 +1736,7 @@ public&nbsp;BugReport(<a href="../../../bugtrap03/bugdomain/usersystem/User.html
  it's parent.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../bugtrap03/bugdomain/notification/Subject.html#notifyTagSubs-bugtrap03.bugdomain.bugreport.BugReport-">notifyTagSubs</a></code>&nbsp;in class&nbsp;<code><a href="../../../bugtrap03/bugdomain/notification/Subject.html" title="class in bugtrap03.bugdomain.notification">Subject</a></code></dd>
+<dd><code><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#notifyTagSubs-bugtrap03.bugdomain.bugreport.BugReport-">notifyTagSubs</a></code>&nbsp;in class&nbsp;<code><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html" title="class in bugtrap03.bugdomain.bugReportNotification">Subject</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>bugReport</code> - The bugreport of which an attribute has changed.</dd>
 </dl>
@@ -1753,7 +1753,7 @@ public&nbsp;BugReport(<a href="../../../bugtrap03/bugdomain/usersystem/User.html
  notify its parent.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../bugtrap03/bugdomain/notification/Subject.html#notifyCommentSubs-bugtrap03.bugdomain.bugreport.BugReport-">notifyCommentSubs</a></code>&nbsp;in class&nbsp;<code><a href="../../../bugtrap03/bugdomain/notification/Subject.html" title="class in bugtrap03.bugdomain.notification">Subject</a></code></dd>
+<dd><code><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#notifyCommentSubs-bugtrap03.bugdomain.bugreport.BugReport-">notifyCommentSubs</a></code>&nbsp;in class&nbsp;<code><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html" title="class in bugtrap03.bugdomain.bugReportNotification">Subject</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>bugReport</code> - The bugReport of which an attribute has changed.</dd>
 </dl>
@@ -1803,7 +1803,7 @@ public&nbsp;BugReport(<a href="../../../bugtrap03/bugdomain/usersystem/User.html
 <div class="block">This method returns whether or not the bug report is terminated</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../bugtrap03/bugdomain/notification/Subject.html#isTerminated--">isTerminated</a></code>&nbsp;in class&nbsp;<code><a href="../../../bugtrap03/bugdomain/notification/Subject.html" title="class in bugtrap03.bugdomain.notification">Subject</a></code></dd>
+<dd><code><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#isTerminated--">isTerminated</a></code>&nbsp;in class&nbsp;<code><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html" title="class in bugtrap03.bugdomain.bugReportNotification">Subject</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the isTerminateded boolean value of this bug report</dd>
 </dl>

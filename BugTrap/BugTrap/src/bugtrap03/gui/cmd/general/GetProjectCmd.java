@@ -76,6 +76,7 @@ public class GetProjectCmd implements Cmd {
             projectList = specificList;
         }
 
+        scan.println("Select a project.");
         // Select project of list
         Project proj = new GetObjectOfListCmd<>(projectList,
                 (u -> (u.getName() + " version: " + u.getVersionID().toString())),
