@@ -44,12 +44,12 @@ public class SetDuplicateBugReportModelCmdTest {
         dev = model.createDeveloper("DeveloperOverHere19" + counter, "first", "last");
         proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
-        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
-        duplicate = model.createBugReport(subsys, dev, "titleDuplicate", "descDuplicate", PList.<BugReport>empty(), null, false);
+        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, 1, false);
+        duplicate = model.createBugReport(subsys, dev, "titleDuplicate", "descDuplicate", PList.<BugReport>empty(), null, 1, false);
         
         proj2 = model.createProject("TestProject49", "fajfief", dev, 50, admin);
         Subsystem subsys2 = model.createSubsystem(admin, proj2, "azdazd", "ferfre");
-        duplicate2 = model.createBugReport(subsys2, dev, "titleDuplicate", "descDuplicate", PList.<BugReport>empty(), null, false);
+        duplicate2 = model.createBugReport(subsys2, dev, "titleDuplicate", "descDuplicate", PList.<BugReport>empty(), null, 1, false);
 
         model.assignToProject(proj, dev, dev, Role.TESTER);
         model.assignToProject(proj, dev, dev, Role.PROGRAMMER);

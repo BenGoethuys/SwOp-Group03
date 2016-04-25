@@ -1,7 +1,6 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.VersionID;
@@ -49,9 +48,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here",
-                "createComment has an output error", PList.<BugReport> empty(), null, false);
+                "createComment has an output error", PList.<BugReport> empty(), null, 1, false);
         BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository",
-                "title says it all.", PList.<BugReport> empty(), null, false);
+                "title says it all.", PList.<BugReport> empty(), null, 1, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -123,9 +122,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here",
-                "createComment has an output error", PList.<BugReport> empty(), null, false);
+                "createComment has an output error", PList.<BugReport> empty(), null, 1, false);
         BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository",
-                "title says it all.", PList.<BugReport> empty(), null, false);
+                "title says it all.", PList.<BugReport> empty(), null, 1, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -199,9 +198,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here",
-                "createComment has an output error", PList.<BugReport> empty(), null, false);
+                "createComment has an output error", PList.<BugReport> empty(), null, 1, false);
         BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository",
-                "title says it all.", PList.<BugReport> empty(), null, false);
+                "title says it all.", PList.<BugReport> empty(), null, 1, false);
         model.addUsersToBugReport(lead, bugRep2, PList.<Developer> empty().plus(lead));
         model.assignToProject(projectA, lead, lead, Role.TESTER);
         model.addTest(bugRep2, lead, "test here");
@@ -289,9 +288,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here",
-                "createComment has an output error", PList.<BugReport> empty(), null, false);
+                "createComment has an output error", PList.<BugReport> empty(), null, 1, false);
         BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository",
-                "title says it all.", PList.<BugReport> empty(), null, false);
+                "title says it all.", PList.<BugReport> empty(), null, 1, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -382,9 +381,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here",
-                "createComment has an output error", PList.<BugReport> empty(), null, false);
+                "createComment has an output error", PList.<BugReport> empty(), null, 1, false);
         BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository",
-                "title says it all.", PList.<BugReport> empty(), null, false);
+                "title says it all.", PList.<BugReport> empty(), null, 1, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -451,9 +450,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here",
-                "createComment has an output error", PList.<BugReport> empty(), null, false);
+                "createComment has an output error", PList.<BugReport> empty(), null, 1, false);
         BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository",
-                "title says it all.", PList.<BugReport> empty(), null, false);
+                "title says it all.", PList.<BugReport> empty(), null, 1, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -529,9 +528,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here",
-                "createComment has an output error", PList.<BugReport> empty(), null, false);
+                "createComment has an output error", PList.<BugReport> empty(), null, 1, false);
         BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository",
-                "title says it all.", PList.<BugReport> empty(), null, false);
+                "title says it all.", PList.<BugReport> empty(), null, 1, false);
         model.addUsersToBugReport(lead, bugRep2, PList.<Developer> empty().plus(lead));
         model.assignToProject(projectA, lead, lead, Role.TESTER);
         model.addTest(bugRep2, lead, "test here");
@@ -609,9 +608,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here",
-                "createComment has an output error", PList.<BugReport> empty(), null, false);
+                "createComment has an output error", PList.<BugReport> empty(), null, 1, false);
         BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository",
-                "title says it all.", PList.<BugReport> empty(), null, false);
+                "title says it all.", PList.<BugReport> empty(), null, 1, false);
         model.addUsersToBugReport(lead, bugRep2, PList.<Developer> empty().plus(lead));
         model.assignToProject(projectA, lead, lead, Role.TESTER);
         model.addTest(bugRep2, lead, "test here");
@@ -686,9 +685,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here",
-                "createComment has an output error", PList.<BugReport> empty(), null, false);
+                "createComment has an output error", PList.<BugReport> empty(), null, 1, false);
         BugReport bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository",
-                "title says it all.", PList.<BugReport> empty(), null, false);
+                "title says it all.", PList.<BugReport> empty(), null, 1, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -756,9 +755,9 @@ public class UpdateBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep over here",
-                "createComment has an output error", PList.<BugReport> empty(), null, false);
+                "createComment has an output error", PList.<BugReport> empty(), null, 1, false);
         BugReport bugRep2 = model.createBugReport(subsystemA3_1, lead, "Used library not in repository",
-                "title says it all.", PList.<BugReport> empty(), null, false);
+                "title says it all.", PList.<BugReport> empty(), null, 1, false);
         model.addUsersToBugReport(lead, bugRep2, PList.<Developer> empty().plus(lead));
         model.assignToProject(projectA, lead, lead, Role.TESTER);
         model.addTest(bugRep2, lead, "test here");

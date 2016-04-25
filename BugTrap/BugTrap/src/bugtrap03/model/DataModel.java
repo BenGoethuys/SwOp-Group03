@@ -508,8 +508,8 @@ public class DataModel {
      * @param description The description of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param milestone The milestone of the bug report
+     * @param impactFactor  The impact factor of the new bug report
      * @param isPrivate The boolean that says if this bug report should be private or not
-     *
      * @throws IllegalArgumentException if isValidCreator(user) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -535,12 +535,11 @@ public class DataModel {
      */
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     @DomainAPI
-    public BugReport createBugReport(Subsystem subsystem, User user, String title, String description, PList<BugReport> dependencies, Milestone milestone,
-            boolean isPrivate)
+    public BugReport createBugReport(Subsystem subsystem, User user, String title, String description,
+                                     PList<BugReport> dependencies, Milestone milestone, double impactFactor, boolean isPrivate)
             throws IllegalArgumentException, PermissionException {
-        // FIXME: impact factor !!
         CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description,
-                null, dependencies, milestone, isPrivate, null, null, null);
+                null, dependencies, milestone, impactFactor, isPrivate, null, null, null);
         BugReport bugReport = cmd.exec();
         addToHistory(cmd);
         return bugReport;
@@ -556,11 +555,11 @@ public class DataModel {
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param milestone The milestone of the bug report
+     * @param impactFactor  the impact factor of the new bug report
      * @param isPrivate The boolean that says if this bug report should be private or not
      * @param trigger A trigger used to trigger the bug. Can be NULL.
      * @param stacktrace The stacktrace got when the bug was triggered. Can be NULL.
      * @param error The error got when the bug was triggered. Can be NULL.
-     *
      * @throws IllegalArgumentException if isValidCreator(user) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -589,12 +588,11 @@ public class DataModel {
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     @DomainAPI
     public BugReport createBugReport(Subsystem subsystem, User user, String title, String description,
-            GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
-            boolean isPrivate, String trigger, String stacktrace, String error)
+                                     GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
+                                     double impactFactor, boolean isPrivate, String trigger, String stacktrace, String error)
             throws IllegalArgumentException, PermissionException {
-        // FIXME: impact factor !!
         CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description,
-                creationDate, dependencies, milestone, isPrivate, trigger, stacktrace, error);
+                creationDate, dependencies, milestone, impactFactor, isPrivate, trigger, stacktrace, error);
         BugReport bugReport = cmd.exec();
         addToHistory(cmd);
         return bugReport;
@@ -973,4 +971,28 @@ public class DataModel {
         cmd.exec();
         addToHistory(cmd);
     }
+    
+    /**
+     * Split the given subsystems into 2 subsystems.
+     * <br> Subsystem1 will have all the direct subsystems and bugReports of the given subsystem that are also contained in the list subsystems1 or bugReports1 respectively... The rest will go to subsystem2.
+     * @param subsystem The Subsystem to split.
+     * @param subsystem1Name The name for subsystem 1 resulting from the split.
+     * @param subsystem1Desc The description for subsystem 1 resulting from the split.
+     * @param subsystem2Name The name for subsystem 2 resulting from the split/
+     * @param subsystem2Desc The description for subsystem 2 resulting from the split.
+     * @param subsystems1  The list of subsystems for subsystem 1.
+     * @param bugReports1 The list of bugReporsts for subsystem 1.
+     * @param user The user who wants to split the given subsystem.
+     * @return The array containing the 2 subsystems that resulted from this split.
+     */
+    public Subsystem[] splitSubsystem(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) throws PermissionException {
+       //TODO: Vincent Make sure in the ModelCmd that only admin (perms) can split.
+       //TODO: Vincent Add all exception throwing stuff.
+       
+        SplitSubsystemModelCmd cmd = new SplitSubsystemModelCmd();
+        Subsystem[] result = cmd.exec();
+        addToHistory(cmd);
+        return result;
+    }
+    
 }

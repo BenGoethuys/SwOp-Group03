@@ -6,7 +6,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.Role;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -40,7 +40,7 @@ public class AddUsersToBugReportModelCmdTest {
         dev = model.createDeveloper("DeveloperOverHere1" + counter, "first", "last");
         proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
-        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
+        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, 1, false);
 
         dev2 = model.createDeveloper("Developer2OverHere1" + counter, "first", "last");
         dev3 = model.createDeveloper("Developer3OverHere1" + counter, "first", "last");

@@ -380,7 +380,7 @@ public class DataModelTest {
         project = model.createProject("name", "desc", dev, 50, admin);
         
         Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
-        BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, false);
+        BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
         
         model.getDetails(admin, bugRep);
     }
@@ -398,7 +398,7 @@ public class DataModelTest {
         project = model.createProject("name", "desc", dev, 50, admin);
         
         Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
-        BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, false);
+        BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
         model.assignToProject(project, dev, dev, Role.TESTER);
         model.assignToProject(project, dev, dev, Role.PROGRAMMER);
         model.addUsersToBugReport(dev, bugRep, (PList.<Developer>empty()).plus(dev));

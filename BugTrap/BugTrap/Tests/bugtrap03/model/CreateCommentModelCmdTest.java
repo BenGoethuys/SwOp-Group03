@@ -36,7 +36,7 @@ public class CreateCommentModelCmdTest {
         dev = model.createDeveloper("DeveloperOverHere5" + counter, "first", "last");
         proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
-        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
+        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, 1, false);
 
         counter++;
     }
@@ -78,7 +78,7 @@ public class CreateCommentModelCmdTest {
 
     /**
      * Test
-     * {@link CreateBugReportModelCmd#CreateBugReportModelCmd(bugtrap03.bugdomain.Subsystem, bugtrap03.bugdomain.usersystem.User, java.lang.String, java.lang.String, java.util.GregorianCalendar, purecollections.PList, bugtrap03.bugdomain.Milestone, boolean, java.lang.String, java.lang.String, java.lang.String)}
+     * {@link CreateBugReportModelCmd#CreateBugReportModelCmd(Subsystem, bugtrap03.bugdomain.usersystem.User, String, String, java.util.GregorianCalendar, PList, bugtrap03.bugdomain.Milestone, double, boolean, String, String, String)}
      * in a default scenario
      *
      * @throws PermissionException
