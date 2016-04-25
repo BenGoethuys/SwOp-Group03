@@ -165,6 +165,29 @@ public class Subsystem extends AbstractSystem {
     }
 
     /**
+     * This method returns the combined impact of all the bug reports associated with this Subsystem
+     *
+     * @return The combined impact of all bug reports associated with this Subsystem
+     */
+    @Override
+    @DomainAPI
+    public double getBugImpact() {
+        double impact = 0.0;
+
+        PList<BugReport> bugReports = this.getBugReportList();
+        for (BugReport bugReport : bugReports){
+            impact += bugReport.getBugImpact();
+        }
+
+        PList<Subsystem> subsystems = this.getSubsystems();
+        for (Subsystem subsystem : subsystems){
+            impact += subsystem.getBugImpact();
+        }
+
+        return impact;
+    }
+
+    /**
      * This method creates and adds a bug report to the list of associated
      * bugReports of this subsystem
      *
