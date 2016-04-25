@@ -18,6 +18,8 @@ import static org.junit.Assert.*;
 
 public class BugReportStateClosedTest {
 
+    private static final double EPSILON = 1e-15;
+
     // classes for testing
     static BugReport bugReport;
     static BugReport tempBugReport;
@@ -176,5 +178,10 @@ public class BugReportStateClosedTest {
 
         expected = "score: " + 5;
         assertTrue(response.contains(expected));
+    }
+
+    @Test
+    public void getMultiplier(){
+        assertEquals(0, bugReport.getMultiplier(), EPSILON);
     }
 }

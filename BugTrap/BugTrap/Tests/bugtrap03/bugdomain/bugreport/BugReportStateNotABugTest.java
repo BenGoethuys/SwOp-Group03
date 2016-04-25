@@ -16,6 +16,8 @@ import static org.junit.Assert.*;
 
 public class BugReportStateNotABugTest {
 
+    private static final double EPSILON = 1e-15;
+
     // classes for testing
     static BugReport bugReport;
     static BugReport duplicate;
@@ -139,5 +141,10 @@ public class BugReportStateNotABugTest {
 
         String expected = "tag: " + Tag.NOT_A_BUG.name();
         assertTrue(response.contains(expected));
+    }
+
+    @Test
+    public void getMultiplier(){
+        assertEquals(0, bugReport.getMultiplier(), EPSILON);
     }
 }
