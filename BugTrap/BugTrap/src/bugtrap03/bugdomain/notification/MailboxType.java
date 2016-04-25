@@ -26,7 +26,7 @@ public enum MailboxType {
         @Override
         @DomainAPI
         public String getMBTypeInfo(){
-            return "the update of the VersionID";
+            return "the update of VersionIDs";
         }
     };
 
