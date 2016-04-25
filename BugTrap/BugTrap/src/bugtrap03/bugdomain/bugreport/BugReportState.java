@@ -171,4 +171,11 @@ interface BugReportState {
      */
     String getDetails();
 
+    /**
+     * This method returns the multiplier of this state
+     *
+     * @return  The multiplier
+     */
+    double getMultiplier();
+
 }

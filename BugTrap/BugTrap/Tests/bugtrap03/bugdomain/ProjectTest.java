@@ -60,9 +60,9 @@ public class ProjectTest {
         project.setMilestone(projMil);
         Subsystem subsystem = project.addSubsystem("Subsys 1", "Description subsys 1");
         subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
-                emptyDep, null, false, null, null, null);
+                emptyDep, null, 1, false, null, null, null);
         subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
-                emptyDep, new Milestone(5,6), false, null, null, null);
+                emptyDep, new Milestone(5,6), 1, false, null, null, null);
 
         assertFalse(project.isValidMilestone(null));
         assertTrue(project.isValidMilestone(new Milestone(3)));
@@ -427,7 +427,7 @@ public class ProjectTest {
 
     @Test
     public void testGetAllBugReports() throws Exception {
-        BugReport bugrep = subSysTest.addBugReport(testDev, "something", "something else", testCreationDate, PList.<BugReport>empty(), null, false, null, null, null);
+        BugReport bugrep = subSysTest.addBugReport(testDev, "something", "something else", testCreationDate, PList.<BugReport>empty(), null, 1, false, null, null, null);
         assertEquals(PList.<BugReport>empty().plus(bugrep), testProject.getAllBugReports());
     }
 

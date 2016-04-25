@@ -512,6 +512,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     @DomainAPI
     public abstract String getDetails();
 
+    //TODO KWINTEN !!! ADD COMMENTARY
+
     @Override
     public void notifyTagSubs(BugReport br) {
         this.getParent().notifyTagSubs(br);
@@ -539,6 +541,4 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     public boolean isTerminated(){
         return this.getParent().isTerminated();
     }
-
-    //TODO ADD COMMENTARY
 }

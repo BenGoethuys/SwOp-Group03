@@ -233,4 +233,14 @@ class BugReportStateAssigned implements BugReportState {
     public String getDetails() {
         return "\n tag: " + this.getTag().name();
     }
+
+    /**
+     * This method returns the multiplier of this state
+     *
+     * @return  The multiplier
+     */
+    @Override
+    public double getMultiplier() {
+        return 2;
+    }
 }

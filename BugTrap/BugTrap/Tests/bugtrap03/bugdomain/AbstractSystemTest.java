@@ -3,7 +3,6 @@ package bugtrap03.bugdomain;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.gui.cmd.ProposeTestCmd;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -59,10 +58,10 @@ public class AbstractSystemTest {
         subSysTest = testProject.addSubsystem(subVersion, subName, subDescription);
         subSysTest2 = subSysTest.addSubsystem("mehAS", "moehAS");
         //bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", emptyDep);
-        bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(), emptyDep, null, false, null, null, null);
+        bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(), emptyDep, null, 1, false, null, null, null);
         depToRep1 = PList.<BugReport> empty().plus(bugreport1);
         //        bugreport2 = subSysTest2.addBugReport(testDev, "otherBug4AS", "i like bonobos", depToRep1);
-        bugreport2 = subSysTest2.addBugReport(testDev, "otherBug4AS", "i like bonobos", new GregorianCalendar(), depToRep1, null, false, null, null, null);
+        bugreport2 = subSysTest2.addBugReport(testDev, "otherBug4AS", "i like bonobos", new GregorianCalendar(), depToRep1, null, 1, false, null, null, null);
     }
 
     @Test
@@ -95,9 +94,9 @@ public class AbstractSystemTest {
         project.setMilestone(projMil);
         Subsystem subsystem = project.addSubsystem("Subsys 1", "Description subsys 1");
         subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
-                emptyDep, null, false, null, null, null);
+                emptyDep, null, 1, false, null, null, null);
         subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
-                emptyDep, new Milestone(5,6), false, null, null, null);
+                emptyDep, new Milestone(5,6), 1, false, null, null, null);
 
         assertFalse(subsystem.isValidMilestone(null));
         assertTrue(subsystem.isValidMilestone(new Milestone(3)));

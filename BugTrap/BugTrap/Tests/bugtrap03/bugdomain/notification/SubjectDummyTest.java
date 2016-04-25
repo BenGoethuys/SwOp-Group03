@@ -37,7 +37,7 @@ public class SubjectDummyTest {
         subjectDummyProject = new Project("sdp","sdp",subjectDummyDev,1000);
         subjectDummySubsystem = subjectDummyProject.addSubsystem("This seems","easy");
         subjectDummyBugreport = subjectDummySubsystem.addBugReport(subjectDummyDev, "", "", new GregorianCalendar(),
-                PList.<BugReport>empty(), new Milestone(1), false, "hi","ha","ho");
+                PList.<BugReport>empty(), new Milestone(1), 1, false, "hi","ha","ho");
     }
 
     @Before
