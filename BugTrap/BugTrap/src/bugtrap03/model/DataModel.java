@@ -973,4 +973,28 @@ public class DataModel {
         cmd.exec();
         addToHistory(cmd);
     }
+    
+    /**
+     * Split the given subsystems into 2 subsystems.
+     * <br> Subsystem1 will have all the direct subsystems and bugReports of the given subsystem that are also contained in the list subsystems1 or bugReports1 respectively... The rest will go to subsystem2.
+     * @param subsystem The Subsystem to split.
+     * @param subsystem1Name The name for subsystem 1 resulting from the split.
+     * @param subsystem1Desc The description for subsystem 1 resulting from the split.
+     * @param subsystem2Name The name for subsystem 2 resulting from the split/
+     * @param subsystem2Desc The description for subsystem 2 resulting from the split.
+     * @param subsystems1  The list of subsystems for subsystem 1.
+     * @param bugReports1 The list of bugReporsts for subsystem 1.
+     * @param user The user who wants to split the given subsystem.
+     * @return The array containing the 2 subsystems that resulted from this split.
+     */
+    public Subsystem[] splitSubsystem(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) throws PermissionException {
+       //TODO: Vincent Make sure in the ModelCmd that only admin (perms) can split.
+       //TODO: Vincent Add all exception throwing stuff.
+       
+        SplitSubsystemModelCmd cmd = new SplitSubsystemModelCmd();
+        Subsystem[] result = cmd.exec();
+        addToHistory(cmd);
+        return result;
+    }
+    
 }
