@@ -24,25 +24,25 @@ import static org.junit.Assert.*;
  * @author Group 03
  */
 public class RegisterForNotificationsCmdTest {
+
     @BeforeClass
-    public static void setUpBeforeClass(){
+    public static void setUpBeforeClass() {
         index = 0;
     }
 
-
     @Before
-    public void setup() throws Exception{
+    public void setup() throws Exception {
         index++;
         model = new DataModel();
         question = new ArrayDeque<>();
         answer = new ArrayDeque<>();
 
-        administratorRegisterCmd = model.createAdministrator("administratorRegisterCmd" + index,"first","last");
+        administratorRegisterCmd = model.createAdministrator("administratorRegisterCmd" + index, "first", "last");
         developerRegisterCmd = model.createDeveloper("developerRegisterCmd" + index, "firstname", "lastname");
-        projectRegisterCmd = model.createProject("projectRegisterCmd","testdescription", developerRegisterCmd, 1000, administratorRegisterCmd);
-        subsystemRegisterCmd = model.createSubsystem(administratorRegisterCmd, projectRegisterCmd, "subsystemRegisterCmd","testdescription");
+        projectRegisterCmd = model.createProject("projectRegisterCmd", "testdescription", developerRegisterCmd, 1000, administratorRegisterCmd);
+        subsystemRegisterCmd = model.createSubsystem(administratorRegisterCmd, projectRegisterCmd, "subsystemRegisterCmd", "testdescription");
         bugReportRegisterCmd = model.createBugReport(subsystemRegisterCmd, developerRegisterCmd, "", "",
-                PList.<BugReport>empty(), new Milestone(1,1,1), false);
+                PList.<BugReport>empty(), new Milestone(1, 1, 1), false);
 
         cmd = new RegisterForNotificationsCmd();
 
@@ -75,6 +75,7 @@ public class RegisterForNotificationsCmdTest {
         answer.add("1");
         //register from project
         //select project
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
         question.add("I choose: ");
@@ -113,6 +114,7 @@ public class RegisterForNotificationsCmdTest {
         answer.add("1");
         //register from project
         //select project
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
         question.add("I choose: ");
@@ -151,6 +153,7 @@ public class RegisterForNotificationsCmdTest {
         answer.add("1");
         //register from project
         //select project
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
         question.add("I choose: ");
@@ -189,6 +192,7 @@ public class RegisterForNotificationsCmdTest {
         answer.add("1");
         //register from project
         //select project
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
         question.add("I choose: ");
@@ -209,7 +213,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("Available options:");
         PList<Tag> taglist = model.getAllTags();
         int i = 0;
-        for(Tag tag: taglist){
+        for (Tag tag : taglist) {
             question.add(i + ". " + tag.name());
             i++;
         }
@@ -222,7 +226,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("Please select tag.");
         question.add("Available options:");
         i = 0;
-        for(Tag tag: taglist){
+        for (Tag tag : taglist) {
             question.add(i + ". " + tag.name());
             i++;
         }
@@ -235,7 +239,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("Please select tag.");
         question.add("Available options:");
         i = 0;
-        for(Tag tag: taglist){
+        for (Tag tag : taglist) {
             question.add(i + ". " + tag.name());
             i++;
         }
@@ -269,6 +273,7 @@ public class RegisterForNotificationsCmdTest {
         //register from subsystem
         //select subsystem cmd
         //select project
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
         question.add("I choose: ");
@@ -315,6 +320,7 @@ public class RegisterForNotificationsCmdTest {
         //register from subsystem
         //select subsystem cmd
         //select project
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
         question.add("I choose: ");
@@ -361,6 +367,7 @@ public class RegisterForNotificationsCmdTest {
         //register from subsystem
         //select subsystem cmd
         //select project
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
         question.add("I choose: ");
@@ -407,6 +414,7 @@ public class RegisterForNotificationsCmdTest {
         //register from subsystem
         //select subsystem cmd
         //select project
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
         question.add("I choose: ");
@@ -434,7 +442,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("Available options:");
         PList<Tag> taglist = model.getAllTags();
         int i = 0;
-        for(Tag tag: taglist){
+        for (Tag tag : taglist) {
             question.add(i + ". " + tag.name());
             i++;
         }
@@ -577,7 +585,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("Available options:");
         PList<Tag> taglist = model.getAllTags();
         int i = 0;
-        for(Tag tag: taglist){
+        for (Tag tag : taglist) {
             question.add(i + ". " + tag.name());
             i++;
         }
@@ -596,14 +604,14 @@ public class RegisterForNotificationsCmdTest {
         assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testScanNull() throws Exception {
         // Execute scenario
         Mailbox chosen = cmd.exec(null, model, developerRegisterCmd);
         // Test effects.
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testModelNull() throws Exception {
         //set up scenario
         answer.add("dummy");
@@ -614,7 +622,7 @@ public class RegisterForNotificationsCmdTest {
         // Test effects.
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testUserNull() throws Exception {
         //set up scenario
         answer.add("dummy");
@@ -626,8 +634,7 @@ public class RegisterForNotificationsCmdTest {
     }
 
     /**
-     * Add the searchMode options + first line to question. Please select a
-     * search mode.. <b> 0.. <b> 1.. <b> ..
+     * Add the searchMode options + first line to question. Please select a search mode.. <b> 0.. <b> 1.. <b> ..
      *
      * @param question
      */
@@ -639,6 +646,5 @@ public class RegisterForNotificationsCmdTest {
         question.add("3. assigned");
         question.add("4. uniqueId");
     }
-
 
 }
