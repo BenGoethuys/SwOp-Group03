@@ -42,8 +42,8 @@ public class GiveScoreToBugReportModelCmdTest {
         dev = model.createDeveloper("DeveloperOverHere3" + counter, "first", "last");
         proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
-        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
-        bugRepWrongState = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
+        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, 1, false);
+        bugRepWrongState = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, 1, false);
 
         dev2 = model.createDeveloper("Developer2OverHere3" + counter, "first", "last");
         dev3 = model.createDeveloper("Developer3OverHere3" + counter, "first", "last");

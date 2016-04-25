@@ -98,7 +98,7 @@ public class ProposePatchCmdTest {
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
         bugRep = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null, false);
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null, 1, false);
 
         model.addUsersToBugReport(lead, bugRep, PList.<Developer>empty().plus(dev2));
         model.addUsersToBugReport(lead, bugRep, PList.<Developer>empty().plus(dev3));

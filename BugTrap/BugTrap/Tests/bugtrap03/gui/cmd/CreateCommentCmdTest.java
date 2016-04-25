@@ -49,12 +49,12 @@ public class CreateCommentCmdTest {
                 "Description of susbsystem A3.2");
 
         BugReport bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
         BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                null, false);
+                null, 1, false);
         model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -133,12 +133,12 @@ public class CreateCommentCmdTest {
                 "Description of susbsystem A3.2");
 
         BugReport bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
         BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                null, false);
+                null, 1, false);
         model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         Comment comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         Comment comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");

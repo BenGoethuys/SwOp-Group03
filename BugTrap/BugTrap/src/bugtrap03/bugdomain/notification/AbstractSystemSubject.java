@@ -12,10 +12,10 @@ public abstract class AbstractSystemSubject extends Subject {
 
     public AbstractSystemSubject(){
         super();
-        this.CreationSubs = PList.<GeneralTypeMailbox>empty();
+        this.CreationSubs = PList.<CreationMailBox>empty();
     }
 
-    private PList<GeneralTypeMailbox> CreationSubs;
+    private PList<CreationMailBox> CreationSubs;
 
     /**
      * This method updates all the mailboxes subscribed on a comment creation on this subject.
@@ -24,7 +24,7 @@ public abstract class AbstractSystemSubject extends Subject {
      * @see CommentMailBox#update(BugReport)
      */
     protected void updateCreationSubs(BugReport br){
-        for (GeneralTypeMailbox cmb: this.CreationSubs){
+        for (CreationMailBox cmb: this.CreationSubs){
             cmb.update(br);
         }
     }
@@ -37,7 +37,7 @@ public abstract class AbstractSystemSubject extends Subject {
      * @throws IllegalArgumentException if the cmb is invalid
      * @see Subject#isValidMb(Mailbox)
      */
-    public void addCreationSub(GeneralTypeMailbox cmb) throws IllegalArgumentException{
+    public void addCreationSub(CreationMailBox cmb) throws IllegalArgumentException{
         if (isValidMb(cmb)){
             this.CreationSubs = this.CreationSubs.plus(cmb);
         } else {

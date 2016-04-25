@@ -508,8 +508,8 @@ public class DataModel {
      * @param description The description of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param milestone The milestone of the bug report
+     * @param impactFactor  The impact factor of the new bug report
      * @param isPrivate The boolean that says if this bug report should be private or not
-     *
      * @throws IllegalArgumentException if isValidCreator(user) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -535,12 +535,11 @@ public class DataModel {
      */
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     @DomainAPI
-    public BugReport createBugReport(Subsystem subsystem, User user, String title, String description, PList<BugReport> dependencies, Milestone milestone,
-            boolean isPrivate)
+    public BugReport createBugReport(Subsystem subsystem, User user, String title, String description,
+                                     PList<BugReport> dependencies, Milestone milestone, double impactFactor, boolean isPrivate)
             throws IllegalArgumentException, PermissionException {
-        // FIXME: impact factor !!
         CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description,
-                null, dependencies, milestone, isPrivate, null, null, null);
+                null, dependencies, milestone, impactFactor, isPrivate, null, null, null);
         BugReport bugReport = cmd.exec();
         addToHistory(cmd);
         return bugReport;
@@ -556,11 +555,11 @@ public class DataModel {
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param milestone The milestone of the bug report
+     * @param impactFactor  the impact factor of the new bug report
      * @param isPrivate The boolean that says if this bug report should be private or not
      * @param trigger A trigger used to trigger the bug. Can be NULL.
      * @param stacktrace The stacktrace got when the bug was triggered. Can be NULL.
      * @param error The error got when the bug was triggered. Can be NULL.
-     *
      * @throws IllegalArgumentException if isValidCreator(user) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -589,12 +588,11 @@ public class DataModel {
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     @DomainAPI
     public BugReport createBugReport(Subsystem subsystem, User user, String title, String description,
-            GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
-            boolean isPrivate, String trigger, String stacktrace, String error)
+                                     GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
+                                     double impactFactor, boolean isPrivate, String trigger, String stacktrace, String error)
             throws IllegalArgumentException, PermissionException {
-        // FIXME: impact factor !!
         CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description,
-                creationDate, dependencies, milestone, isPrivate, trigger, stacktrace, error);
+                creationDate, dependencies, milestone, impactFactor, isPrivate, trigger, stacktrace, error);
         BugReport bugReport = cmd.exec();
         addToHistory(cmd);
         return bugReport;
@@ -891,11 +889,11 @@ public class DataModel {
      * @throws IllegalStateException If the current state of the command is invalid.
      */
     @DomainAPI
-    public GeneralTypeMailbox registerForCreationNotifications(User user, AbstractSystemSubject abstractSystemSubject)
+    public CreationMailBox registerForCreationNotifications(User user, AbstractSystemSubject abstractSystemSubject)
             throws IllegalArgumentException, IllegalStateException{
         RegisterForCreationNotificationsModelCmd cmd =
                 new RegisterForCreationNotificationsModelCmd(user, abstractSystemSubject);
-        GeneralTypeMailbox newMailbox = cmd.exec();
+        CreationMailBox newMailbox = cmd.exec();
         addToHistory(cmd);
         return newMailbox;
     }

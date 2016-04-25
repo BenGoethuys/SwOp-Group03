@@ -40,7 +40,7 @@ public class SelectPatchFromBugReportModelCmdTest {
         dev = model.createDeveloper("DeveloperOverHere12" + counter, "first", "last");
         proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
-        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, false);
+        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, 1, false);
 
         model.assignToProject(proj, dev, dev, Role.TESTER);
         model.assignToProject(proj, dev, dev, Role.PROGRAMMER);

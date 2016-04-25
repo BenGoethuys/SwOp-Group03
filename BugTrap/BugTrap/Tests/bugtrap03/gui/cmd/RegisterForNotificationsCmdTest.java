@@ -42,7 +42,7 @@ public class RegisterForNotificationsCmdTest {
         projectRegisterCmd = model.createProject("projectRegisterCmd", "testdescription", developerRegisterCmd, 1000, administratorRegisterCmd);
         subsystemRegisterCmd = model.createSubsystem(administratorRegisterCmd, projectRegisterCmd, "subsystemRegisterCmd", "testdescription");
         bugReportRegisterCmd = model.createBugReport(subsystemRegisterCmd, developerRegisterCmd, "", "",
-                PList.<BugReport>empty(), new Milestone(1, 1, 1), false);
+                PList.<BugReport>empty(), new Milestone(1, 1, 1), 1, false);
 
         cmd = new RegisterForNotificationsCmd();
 

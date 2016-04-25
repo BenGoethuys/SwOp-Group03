@@ -42,7 +42,7 @@ public class CreateBugReportModelCmdTest {
 
     /**
      * Test
-     * {@link CreateBugReportModelCmd#CreateBugReportModelCmd(bugtrap03.bugdomain.Subsystem, bugtrap03.bugdomain.usersystem.User, java.lang.String, java.lang.String, java.util.GregorianCalendar, purecollections.PList, bugtrap03.bugdomain.Milestone, boolean)}
+     * {@link CreateBugReportModelCmd#CreateBugReportModelCmd(Subsystem, bugtrap03.bugdomain.usersystem.User, String, String, java.util.GregorianCalendar, PList, Milestone, double, boolean)}
      * in a default scenario.
      *
      * @throws PermissionException Never
@@ -50,7 +50,7 @@ public class CreateBugReportModelCmdTest {
     @Test
     public void testGoodScenarioCons1() throws PermissionException {
         // 1. Create
-        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), null, false);
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), null, 1, false);
 
         // test
         assertTrue(cmd.toString().contains("BugReport title"));
@@ -78,7 +78,7 @@ public class CreateBugReportModelCmdTest {
 
     /**
      * Test
-     * {@link CreateBugReportModelCmd#CreateBugReportModelCmd(bugtrap03.bugdomain.Subsystem, bugtrap03.bugdomain.usersystem.User, java.lang.String, java.lang.String, java.util.GregorianCalendar, purecollections.PList, bugtrap03.bugdomain.Milestone, boolean, java.lang.String, java.lang.String, java.lang.String)}
+     * {@link CreateBugReportModelCmd#CreateBugReportModelCmd(Subsystem, bugtrap03.bugdomain.usersystem.User, String, String, java.util.GregorianCalendar, PList, Milestone, double, boolean, String, String, String)}
      * in a default scenario
      *
      * @throws PermissionException
@@ -86,7 +86,7 @@ public class CreateBugReportModelCmdTest {
     @Test
     public void testGoodScenarioCons2() throws PermissionException {
         // 1. create
-        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), new Milestone(2, 0, 0), false, "trigger", "stackTrace", "error");
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), new Milestone(2, 0, 0), 1, false, "trigger", "stackTrace", "error");
 
         // test
         assertTrue(cmd.toString().contains("BugReport title"));
@@ -121,7 +121,7 @@ public class CreateBugReportModelCmdTest {
     @Test(expected = IllegalStateException.class)
     public void testIllegalExec() throws PermissionException {
         // 1. Create
-        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), null, false);
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), null, 1, false);
 
         // 2. Exec()
         BugReport bugReport = cmd.exec();
@@ -131,22 +131,22 @@ public class CreateBugReportModelCmdTest {
 
     /**
      * Test
-     * {@link CreateBugReportModelCmd#CreateBugReportModelCmd(bugtrap03.bugdomain.Subsystem, bugtrap03.bugdomain.usersystem.User, java.lang.String, java.lang.String, java.util.GregorianCalendar, purecollections.PList, bugtrap03.bugdomain.Milestone, boolean)}
+     * {@link CreateBugReportModelCmd#CreateBugReportModelCmd(Subsystem, bugtrap03.bugdomain.usersystem.User, String, String, java.util.GregorianCalendar, PList, Milestone, double, boolean)}
      * with subsystem == null
      */
     @Test(expected = IllegalArgumentException.class)
     public void testCons1_SubsystemNull() {
-        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(null, dev, "title", "desc", null, PList.<BugReport>empty(), null, false);
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(null, dev, "title", "desc", null, PList.<BugReport>empty(), null, 1, false);
     }
 
     /**
      * Test
-     * {@link CreateBugReportModelCmd#CreateBugReportModelCmd(bugtrap03.bugdomain.Subsystem, bugtrap03.bugdomain.usersystem.User, java.lang.String, java.lang.String, java.util.GregorianCalendar, purecollections.PList, bugtrap03.bugdomain.Milestone, boolean, java.lang.String, java.lang.String, java.lang.String)}
+     * {@link CreateBugReportModelCmd#CreateBugReportModelCmd(Subsystem, bugtrap03.bugdomain.usersystem.User, String, String, java.util.GregorianCalendar, PList, Milestone, double, boolean, String, String, String)}
      * with subsystem == null
      */
     @Test(expected = IllegalArgumentException.class)
     public void testCons2_SubsystemNull() {
-        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(null, dev, "title", "desc", null, PList.<BugReport>empty(), new Milestone(2, 0, 0), false, "trigger", "stackTrace", "error");
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(null, dev, "title", "desc", null, PList.<BugReport>empty(), new Milestone(2, 0, 0), 1, false, "trigger", "stackTrace", "error");
     }
 
     /**
@@ -156,7 +156,7 @@ public class CreateBugReportModelCmdTest {
      */
     @Test(expected = PermissionException.class)
     public void testNoPermissions() throws PermissionException {
-        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, admin, "title", "desc", null, PList.<BugReport>empty(), null, false);
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, admin, "title", "desc", null, PList.<BugReport>empty(), null, 1, false);
         cmd.exec();
     }
 
@@ -166,7 +166,7 @@ public class CreateBugReportModelCmdTest {
     @Test(expected = IllegalArgumentException.class)
     public void testCons1_ProjectTerminated() throws PermissionException {
         model.deleteProject(admin, proj);
-        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), null, false);
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), null, 1, false);
     }
 
     /**
@@ -174,7 +174,7 @@ public class CreateBugReportModelCmdTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testExec1_ProjectTerminated() throws PermissionException {
-        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), null, false);
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), null, 1, false);
         model.deleteProject(admin, proj);
         cmd.exec();
     }
@@ -185,7 +185,7 @@ public class CreateBugReportModelCmdTest {
     @Test(expected = IllegalArgumentException.class)
     public void testCons2_SubsystemTerminated() throws PermissionException {
         model.deleteProject(admin, proj);
-        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), new Milestone(2, 0, 0), false, "trigger", "stackTrace", "error");
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), new Milestone(2, 0, 0), 1, false, "trigger", "stackTrace", "error");
     }
 
     /**
@@ -193,7 +193,7 @@ public class CreateBugReportModelCmdTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testExec2_SubsystemTerminated() throws PermissionException {
-        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), new Milestone(2, 0, 0), false, "trigger", "stackTrace", "error");
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsys, dev, "title", "desc", null, PList.<BugReport>empty(), new Milestone(2, 0, 0), 1, false, "trigger", "stackTrace", "error");
         model.deleteProject(admin, proj);
         cmd.exec();
     }

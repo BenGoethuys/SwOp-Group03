@@ -52,12 +52,12 @@ public class CreateBugReportCmdTest {
         // make bug report 2
         BugReport bugRep2 = model.createBugReport(subsystemA3_1, charlie, "Crash while processing user input",
                 "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15),
-                PList.<BugReport>empty(), null, false, null, null, null);
+                PList.<BugReport>empty(), null, 1, false, null, null, null);
         model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(lead, maria)));
         // mak bug report 3
         BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "SubsystemA2 feezes",
                 "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4),
-                PList.<BugReport>empty(), null, false, null, null, null);
+                PList.<BugReport>empty(), null, 1, false, null, null, null);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -159,12 +159,12 @@ public class CreateBugReportCmdTest {
         // make bug report 2
         BugReport bugRep2 = model.createBugReport(subsystemA3_1, charlie, "Crash while processing user input",
                 "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15),
-                PList.<BugReport>empty(), null, false, null, null, null);
+                PList.<BugReport>empty(), null, 1, false, null, null, null);
         model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(lead, maria)));
         // mak bug report 3
         BugReport bugRep1 = model.createBugReport(subsystemA2, lead, "SubsystemA2 feezes",
                 "If the function process_dfe is invoked with ...", new GregorianCalendar(2016, 2, 4),
-                PList.<BugReport>empty(), null, false, null, null, null);
+                PList.<BugReport>empty(), null, 1, false, null, null, null);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();

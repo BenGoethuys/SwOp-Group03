@@ -25,17 +25,17 @@ class CreateBugReportModelCmd extends ModelCmd {
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param milestone The milestone of the bug report
+     * @param impactFactor  The impact factor of the new bug rpeort
      * @param isPrivate The boolean that says if this bug report should be private or not
      * @param trigger A trigger used to trigger the bug. Can be NULL.
      * @param stacktrace The stacktrace got when the bug was triggered. Can be NULL.
      * @param error The error got when the bug was triggered. Can be NULL.
-     *
      * @throws IllegalArgumentException When subsystem == null
      * @throws IllegalArgumentException When the given subsystem is terminated
      */
     CreateBugReportModelCmd(Subsystem subsystem, User user, String title, String description,
-            GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
-            boolean isPrivate, String trigger, String stacktrace, String error)
+                            GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
+                            double impactFactor, boolean isPrivate, String trigger, String stacktrace, String error)
             throws IllegalArgumentException {
         if (subsystem == null) {
             throw new IllegalArgumentException("The subsystem passed to CreateBugReportModelCmd was null.");
@@ -51,6 +51,7 @@ class CreateBugReportModelCmd extends ModelCmd {
         this.creationDate = creationDate;
         this.dependencies = dependencies;
         this.milestone = milestone;
+        this.impactFactor = impactFactor;
         this.isPrivate = isPrivate;
         this.trigger = trigger;
         this.stacktrace = stacktrace;
@@ -68,14 +69,14 @@ class CreateBugReportModelCmd extends ModelCmd {
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param milestone The milestone of the bug report
+     * @param impactFactor  The impact factor of the new bug report
      * @param isPrivate The boolean that says if this bug report should be private or not
-     *
      * @throws IllegalArgumentException When subsystem == null
      */
     CreateBugReportModelCmd(Subsystem subsystem, User user, String title, String description,
-            GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
-            boolean isPrivate) throws IllegalArgumentException {
-        this(subsystem, user, title, description, creationDate, dependencies, milestone, isPrivate, null, null, null);
+                            GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
+                            double impactFactor, boolean isPrivate) throws IllegalArgumentException {
+        this(subsystem, user, title, description, creationDate, dependencies, milestone, impactFactor, isPrivate, null, null, null);
     }
 
     private final Subsystem subsystem;
@@ -85,6 +86,7 @@ class CreateBugReportModelCmd extends ModelCmd {
     private final GregorianCalendar creationDate;
     private final PList<BugReport> dependencies;
     private final Milestone milestone;
+    private final double impactFactor;
     private final boolean isPrivate;
     private final String trigger;
     private final String stacktrace;

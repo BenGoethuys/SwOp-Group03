@@ -58,9 +58,9 @@ public class InspectBugReportCmdTest {
                 "Description of susbsystem A3.1");
 
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();

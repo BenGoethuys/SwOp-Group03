@@ -24,7 +24,7 @@ public class AbstractSystemSubjectDummyTest {
     private static Project assubjectDummyProject;
     private static Subsystem assubjectDummySubsystem;
     private static BugReport assubjectDummyBugreport;
-    private static GeneralTypeMailbox asssubjectDummyCrMB;
+    private static CreationMailBox asssubjectDummyCrMB;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -58,7 +58,7 @@ public class AbstractSystemSubjectDummyTest {
 
     @Test
     public void testAddCreationSub() throws Exception {
-        GeneralTypeMailbox extraCMrB = assubjectDummyDev.getMailbox().creationSubscribe(testDummy);
+        CreationMailBox extraCMrB = assubjectDummyDev.getMailbox().creationSubscribe(testDummy);
         assertTrue(extraCMrB.getAllNotifications().isEmpty());
         testDummy.updateCreationSubs(assubjectDummyBugreport);
         assertFalse(extraCMrB.getAllNotifications().isEmpty());

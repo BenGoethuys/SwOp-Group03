@@ -17,8 +17,6 @@ import testCollection.TerminalTestScanner;
 
 import java.util.ArrayDeque;
 
-import static org.junit.Assert.*;
-
 /**
  * @author Group 03
  */
@@ -42,7 +40,7 @@ public class UnregisterFromNotificationsCmdTest {
         projectRegisterCmd = model.createProject("projectRegisterCmd","testdescription", developerUnregisterCmd, 1000, administratorUnregisterCmd);
         subsystemRegisterCmd = model.createSubsystem(administratorUnregisterCmd, projectRegisterCmd, "subsystemRegisterCmd","testdescription");
         bugReportRegisterCmd = model.createBugReport(subsystemRegisterCmd, developerUnregisterCmd, "a", "b",
-                PList.<BugReport>empty(), new Milestone(1,1,1), false);
+                PList.<BugReport>empty(), new Milestone(1,1,1), 1, false);
 
         cmd = new UnregisterFromNotificationsCmd();
     }

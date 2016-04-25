@@ -64,12 +64,12 @@ public class SelectBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                null, false);
+                null, 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -146,12 +146,12 @@ public class SelectBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                null, false);
+                null, 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -238,12 +238,12 @@ public class SelectBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                null, false);
+                null, 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -317,12 +317,12 @@ public class SelectBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                null, false);
+                null, 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -397,12 +397,12 @@ public class SelectBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, lead, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                null, false);
+                null, 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -487,12 +487,12 @@ public class SelectBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                null, false);
+                null, 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -567,12 +567,12 @@ public class SelectBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                null, false);
+                null, 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -648,12 +648,12 @@ public class SelectBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                null, false);
+                null, 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         model.addUsersToBugReport(lead, bugRep3, PList.<Developer>empty().plus(lead));
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
@@ -723,12 +723,12 @@ public class SelectBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                null, false);
+                null, 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
