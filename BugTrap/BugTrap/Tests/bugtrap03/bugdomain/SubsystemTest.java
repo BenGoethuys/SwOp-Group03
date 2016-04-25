@@ -14,6 +14,9 @@ import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
 
 public class SubsystemTest {
+
+    private static final double EPSILON = 1e-15;
+
     static Developer testDev;
     static VersionID testVersion;
     static String testName;
@@ -35,6 +38,7 @@ public class SubsystemTest {
     static PList<BugReport> depToRep1;
     static BugReport bugreport1;
     static BugReport bugreport2;
+    static BugReport bugreport3;
 
 
     @BeforeClass
@@ -57,9 +61,11 @@ public class SubsystemTest {
         subSysTest = testProject.addSubsystem(subVersion, subName, subDescription);
         subSysTest2 = subSysTest.addSubsystem(subName2, subDescription2);
         emptyDep = PList.<BugReport>empty();
-        bugreport1 = subSysTest.addBugReport(testDev, "testBug3", "this is description of testbug 3", testStartDate, emptyDep, null, 1, false, null, null, null);
+        bugreport1 = subSysTest.addBugReport(testDev, "testBug3", "this is description of testbug 3", testStartDate, emptyDep, null, 5, false, null, null, null);
         depToRep1 = PList.<BugReport>empty().plus(bugreport1);
-        bugreport2 = subSysTest.addBugReport(testDev, "otherBug4", "i like bananas", testStartDate, depToRep1, null, 1, false, null, null, null);
+        bugreport2 = subSysTest.addBugReport(testDev, "otherBug4", "i like bananas", testStartDate, depToRep1, null, 2, false, null, null, null);
+        bugreport3 = subSysTest2.addBugReport(testDev, "otherBug5", "i like bananas", testStartDate, depToRep1, null, 3, false, null, null, null);
+        bugreport3.addUser(testDev, testDev);
     }
 
     @Before
@@ -76,12 +82,20 @@ public class SubsystemTest {
 
     @Test
     public void testGetAllBugReports() {
-        PList<BugReport> expectedRep = PList.<BugReport>empty().plus(bugreport1).plus(bugreport2);
+        PList<BugReport> expectedRep = PList.<BugReport>empty().plus(bugreport1).plus(bugreport2).plus(bugreport3);
+        PList<BugReport> expectedRep2 = PList.<BugReport>empty().plus(bugreport3);
         PList<BugReport> getRep1 = subSysTest.getAllBugReports();
         PList<BugReport> getRep2 = subSysTest2.getAllBugReports();
-        assertEquals(expectedRep, getRep1);
-        assertEquals(emptyDep, getRep2);
+        assertEquals(3, getRep1.size());
+        assertTrue(getRep1.containsAll(expectedRep));
+        assertEquals(1, getRep2.size());
+        assertTrue(getRep2.containsAll(expectedRep2));
 
+    }
+
+    @Test
+    public void testGetBugImpact() throws PermissionException {
+        assertEquals(27.0, subSysTest.getBugImpact(), EPSILON);
     }
 
     @Test
@@ -128,8 +142,11 @@ public class SubsystemTest {
     @Test
     public void testGetBugReportList() {
         PList<BugReport> expectedRep = PList.<BugReport>empty().plus(bugreport1).plus(bugreport2);
-        assertEquals(expectedRep, subSysTest.getBugReportList());
-        assertEquals(emptyDep, subSysTest2.getBugReportList());
+
+        assertEquals(2, subSysTest.getBugReportList().size());
+        assertTrue(subSysTest.getBugReportList().containsAll(expectedRep));
+        assertEquals(1, subSysTest2.getBugReportList().size());
+        assertTrue(subSysTest2.getBugReportList().contains(bugreport3));
     }
 
 
