@@ -1204,6 +1204,15 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
+     * This method returns the multiplier of this bugReport
+     *
+     * @return  The multiplier
+     */
+    public double getMultiplier(){
+        return this.getInternState().getMultiplier();
+    }
+
+    /**
      * This method returns the string name representation of this subject
      *
      * @return the string name representation of this subject
