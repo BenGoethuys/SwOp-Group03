@@ -15,6 +15,9 @@ import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
 
 public class ProjectTest {
+
+    private static final double EPSILON = 1e-15;
+
     static Developer testDev;
     static VersionID testVersion;
     static String testName;
@@ -423,6 +426,26 @@ public class ProjectTest {
     @Test
     public void testGetAllDev() throws Exception {
         assertEquals(PList.<Developer>empty().plus(testDev), testProject.getAllDev());
+    }
+
+    @Test
+    public void testGetBugImpact() throws PermissionException {
+        PList<BugReport> emptyDep = PList.empty();
+        Subsystem subsystem = testProject.addSubsystem("Subsys 1", "Description subsys 1");
+        subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
+                emptyDep, null, 2, false, null, null, null);
+        BugReport bugReport = subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
+                emptyDep, new Milestone(5,6), 5, false, null, null, null);
+        bugReport.addUser(testDev, testDev);
+
+        Subsystem subsystem2 = testProject.addSubsystem("Subsys 1", "Description subsys 1");
+        subsystem2.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
+                emptyDep, null, 1, false, null, null, null);
+        BugReport bugReport2 = subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
+                emptyDep, new Milestone(5,6), 4, false, null, null, null);
+        bugReport2.addUser(testDev, testDev);
+
+        assertEquals(27.0, testProject.getBugImpact(), EPSILON);
     }
 
     @Test
