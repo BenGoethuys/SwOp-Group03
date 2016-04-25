@@ -24,7 +24,7 @@ public class MailboxTest {
 
     private static Mailbox testMB;
     private static Mailbox testMB2;
-    private static CreationMailBox testCMB2;
+    private static GeneralTypeMailbox testCMB2;
     private static BugReportNotification bugReportNotification4MB2;
 
 
@@ -160,7 +160,7 @@ public class MailboxTest {
 
     @Test
     public void testCreationSubscribe() throws Exception {
-        CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
+        GeneralTypeMailbox cmb = testMB.creationSubscribe(subsystem4MB);
         assertTrue(testMB.getAllBoxes().contains(cmb));
     }
 
@@ -171,7 +171,7 @@ public class MailboxTest {
 
     @Test
     public void testUnsubscribe() throws Exception {
-        CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
+        GeneralTypeMailbox cmb = testMB.creationSubscribe(subsystem4MB);
         assertTrue(testMB.getAllBoxes().contains(cmb));
         CommentMailBox cmb2 = cmb.commentSubscribe(subsystem4MB);
         assertTrue(testMB.unsubscribe(cmb2));
@@ -184,7 +184,7 @@ public class MailboxTest {
 
     @Test
     public void testActivate() throws Exception {
-        CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
+        GeneralTypeMailbox cmb = testMB.creationSubscribe(subsystem4MB);
         testMB.unsubscribe(cmb);
         cmb.addNotification(bugReportNotification4MB2);
         assertFalse(cmb.getAllNotifications().contains(bugReportNotification4MB2));
