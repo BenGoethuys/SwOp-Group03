@@ -891,11 +891,11 @@ public class DataModel {
      * @throws IllegalStateException If the current state of the command is invalid.
      */
     @DomainAPI
-    public GeneralTypeMailbox registerForCreationNotifications(User user, AbstractSystemSubject abstractSystemSubject)
+    public CreationMailBox registerForCreationNotifications(User user, AbstractSystemSubject abstractSystemSubject)
             throws IllegalArgumentException, IllegalStateException{
         RegisterForCreationNotificationsModelCmd cmd =
                 new RegisterForCreationNotificationsModelCmd(user, abstractSystemSubject);
-        GeneralTypeMailbox newMailbox = cmd.exec();
+        CreationMailBox newMailbox = cmd.exec();
         addToHistory(cmd);
         return newMailbox;
     }
