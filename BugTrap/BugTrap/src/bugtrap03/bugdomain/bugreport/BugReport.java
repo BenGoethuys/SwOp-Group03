@@ -1259,6 +1259,16 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
+     * This method returns the bug impact of this bug report
+     *
+     * @return  a double representing the bug impact of the bug report
+     */
+    @DomainAPI
+    public double getBugImpact(){
+        return this.getMultiplier() * this.getImpactFactor();
+    }
+
+    /**
      * This method returns the string name representation of this subject
      *
      * @return the string name representation of this subject

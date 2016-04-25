@@ -81,6 +81,7 @@ public class AssignToProjectCmdTest {
     public void testNormalIntExec() throws PermissionException, CancelException {
         // Setup scenario
         question.add("Please select a project you lead.");
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. PowerRangerProject version: " + new VersionID().toString());
         question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
@@ -128,6 +129,7 @@ public class AssignToProjectCmdTest {
     public void testNormalStringWithSpaceExec() throws PermissionException, CancelException {
         // Setup scenario
         question.add("Please select a project you lead.");
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. PowerRangerProject version: " + new VersionID().toString());
         question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
@@ -175,6 +177,7 @@ public class AssignToProjectCmdTest {
     public void testNormalStringWithNoSpaceExec() throws PermissionException, CancelException {
         // Setup scenario
         question.add("Please select a project you lead.");
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. PowerRangerProject version: " + new VersionID().toString());
         question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
@@ -233,6 +236,7 @@ public class AssignToProjectCmdTest {
     public void testPermissionExcExec() throws PermissionException, CancelException {
         // Setup scenario
         question.add("Please select a project you lead.");
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. PowerRangerProject version: " + new VersionID().toString());
         question.add("1. PowerRangerProject2 version: " + new VersionID().toString());

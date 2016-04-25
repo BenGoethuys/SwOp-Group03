@@ -27,7 +27,7 @@ public class GetSubsystemCmd implements Cmd<Subsystem> {
     public Subsystem exec(TerminalScanner scan, DataModel model, User dummy1)
             throws CancelException, IllegalArgumentException {
         if (scan == null || model == null) {
-            throw new IllegalArgumentException("scan musn't be null.");
+            throw new IllegalArgumentException("scan and model musn't be null.");
         }
         
         Project selectedProj = new GetProjectCmd().exec(scan, model, null);

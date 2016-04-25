@@ -478,6 +478,14 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     }
 
     /**
+     * This method returns the combined impact of all the bug reports associated with this AbstractSystem
+     *
+     * @return  The combined impact of all bug reports associated with this AbstractSystem
+     */
+    @DomainAPI
+    public abstract double getBugImpact();
+
+    /**
      * This recursive method returns all the subsystems that are a child of this AbstractSystem
      *
      * @return the list of all Subsystems associated with this AbstractSystem.
