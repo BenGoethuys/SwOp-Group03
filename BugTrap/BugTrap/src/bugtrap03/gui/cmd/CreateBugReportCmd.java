@@ -50,8 +50,7 @@ public class CreateBugReportCmd implements Cmd<BugReport> {
      * @throws IllegalArgumentException When the user has selected a project where for there are no subsystems.
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
-     * @see DataModel#createBugReport(Subsystem, User, String, String, GregorianCalendar, PList, Milestone, boolean,
-     * String, String, String)
+     * @see DataModel#createBugReport(Subsystem, User, String, String, GregorianCalendar, PList, Milestone, double, boolean, String, String, String)
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user)
@@ -155,8 +154,9 @@ public class CreateBugReportCmd implements Cmd<BugReport> {
         } while (!done);
 
         // 14. The system creates the bug report.
+        // TODO : impactFactor (1 atm) -> ask user?
         BugReport bugreport = model.createBugReport(subsys, user, bugreportTitle, bugReportDesc, null,
-                PList.<BugReport>empty().plusAll(depList), null, isPrivate, trigger, stacktrace, error);
+                PList.<BugReport>empty().plusAll(depList), null, 1, isPrivate, trigger, stacktrace, error);
         scan.println("Created new bug report.");
         return bugreport;
     }

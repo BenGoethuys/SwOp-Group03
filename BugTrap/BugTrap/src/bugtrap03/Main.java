@@ -71,12 +71,12 @@ public class Main {
             // make bug report 2
             BugReport bugRep2 = model.createBugReport(subsystemA3_1, charlie, "Crash while processing user input",
                     "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15),
-                    PList.<BugReport>empty(), null, false, null, null, "Internal Error 45: The...");
+                    PList.<BugReport>empty(), null, 2.3, false, null, null, "Internal Error 45: The...");
             // add user -> assigned
             model.addUsersToBugReport(major, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(major, maria)));
             // make bug report 3
             model.createBugReport(subsystemA2, major, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...",
-                    new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), new Milestone(3, 2), true,
+                    new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), new Milestone(3, 2), 5.8, true,
                     "Launch with command line invocation:...", "Exception in thread \"main\" java.lang...", null);
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
@@ -98,7 +98,7 @@ public class Main {
             // make bug report 1
             BugReport bugRep1 = model.createBugReport(subsystemB1, doc, "The function parse_ewd returns unexpected results",
                     "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 1, 3),
-                    PList.<BugReport>empty(), new Milestone(1,1), false, null, null, null);
+                    PList.<BugReport>empty(), new Milestone(1,1), 7.1, false, null, null, null);
             // add user -> assigned
             model.addUsersToBugReport(maria, bugRep1, PList.<Developer>empty().plus(maria));
             // add tests -> assignedWithTest
@@ -121,9 +121,6 @@ public class Main {
             System.err.println(e.getMessage());
             // should be valid
         }
-        
-        //TODO: Demo Update Project & Subsystem Milestones.
-
     }
 
 }
