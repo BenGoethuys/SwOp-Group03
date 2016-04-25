@@ -29,4 +29,18 @@ public abstract class HealthAlgorithm {
 	public abstract boolean isStable(Subsystem subsystem);
 
 	public abstract boolean isSerious(Subsystem subsystem);
+
+	public boolean checkSubsystem(Subsystem subsystem, HealthIndicator hi, int number) {
+		for (Subsystem subs : subsystem.getAllSubsystems()) {
+			if (subs.getIndicator().getOrder() < hi.getOrder()) {
+				return false;
+			}
+		}
+
+		if (subsystem.getBugImpact() >= number) {
+			return false;
+		}
+
+		return true;
+	}
 }
