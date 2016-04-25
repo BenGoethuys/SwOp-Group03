@@ -49,8 +49,8 @@ public class CreationMailBox extends Mailbox {
      *
      * @return The added notification.
      */
-    public Notification update(BugReport bugReport){
-        Notification newNotif = new Notification("The following bugreport has been created: ", bugReport, this.subject);
+    public BugReportNotification update(BugReport bugReport){
+        BugReportNotification newNotif = new BugReportNotification("The following bugreport has been created: ", bugReport, this.subject);
         this.addNotification(newNotif);
         return newNotif;
     }

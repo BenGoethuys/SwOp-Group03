@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 public class TagMailBoxTest {
 
     private static TagMailBox testTMB;
-    private static Notification notification4MB2;
+    private static BugReportNotification bugReportNotification4MB2;
     private static EnumSet<Tag> tagsTMB;
 
 
@@ -38,7 +38,7 @@ public class TagMailBoxTest {
         bugreport4MB = subsystem4MB.addBugReport(dev4TMB, "bugreport4MB1", "A bugreport to test the mb",
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
                 1, false, "triggerhappy", "stacktacktack", "error404");
-        notification4MB2 = new Notification("this is a test notification for mb", bugreport4MB, project4MB);
+        bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
         tagsTMB = EnumSet.of(Tag.ASSIGNED, Tag.DUPLICATE);
         testTMB = new TagMailBox(project4MB, tagsTMB);
     }
@@ -46,9 +46,9 @@ public class TagMailBoxTest {
     @Test
     public void testUpdate() throws Exception {
         assertTrue(testTMB.getAllNotifications().isEmpty());
-        Notification notification = testTMB.update(bugreport4MB);
-        assertTrue(testTMB.getAllNotifications().contains(notification));
-        assertFalse(testTMB.getAllNotifications().contains(notification4MB2));
+        BugReportNotification bugReportNotification = testTMB.update(bugreport4MB);
+        assertTrue(testTMB.getAllNotifications().contains(bugReportNotification));
+        assertFalse(testTMB.getAllNotifications().contains(bugReportNotification4MB2));
     }
 
     @Test

@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  */
 public class CommentMailBoxTest {
     private static CommentMailBox testCMB;
-    private static Notification notification4MB2;
+    private static BugReportNotification bugReportNotification4MB2;
 
 
     private static Developer dev4CMB1;
@@ -34,16 +34,16 @@ public class CommentMailBoxTest {
         bugreport4MB = subsystem4MB.addBugReport(dev4CMB1, "bugreport4MB1", "A bugreport to test the mb",
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
                 1, false, "triggerhappy", "stacktacktack", "error404");
-        notification4MB2 = new Notification("this is a test notification for mb", bugreport4MB, project4MB);
+        bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
         testCMB = new CommentMailBox(project4MB);
     }
 
     @Test
     public void testUpdate() throws Exception {
         assertTrue(testCMB.getAllNotifications().isEmpty());
-        Notification notification = testCMB.update(bugreport4MB);
-        assertTrue(testCMB.getAllNotifications().contains(notification));
-        assertFalse(testCMB.getAllNotifications().contains(notification4MB2));
+        BugReportNotification bugReportNotification = testCMB.update(bugreport4MB);
+        assertTrue(testCMB.getAllNotifications().contains(bugReportNotification));
+        assertFalse(testCMB.getAllNotifications().contains(bugReportNotification4MB2));
     }
 
     @Test
