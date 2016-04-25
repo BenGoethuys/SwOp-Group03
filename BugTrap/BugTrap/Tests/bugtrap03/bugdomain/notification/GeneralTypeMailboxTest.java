@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
 /**
  * Created by Kwinten on 13/04/2016.
  */
-public class CreationMailBoxTest {
+public class GeneralTypeMailboxTest {
 
-    private static CreationMailBox testCMB;
+    private static GeneralTypeMailbox testCMB;
     private static BugReportNotification bugReportNotification4MB2;
 
 
@@ -36,7 +36,7 @@ public class CreationMailBoxTest {
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
                 1, false, "triggerhappy", "stacktacktack", "error404");
         bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
-        testCMB = new CreationMailBox(project4MB);
+        testCMB = new GeneralTypeMailbox(project4MB, MailboxType.CREATION_BUGREP);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class CreationMailBoxTest {
     public void testGetInfo() throws Exception {
         String info = testCMB.getInfo();
         assertTrue(info.contains(project4MB.getSubjectName()));
-        assertTrue(info.contains("You are subscribed to the creation of Bugreports on "));
+        assertTrue(info.contains("You are subscribed to the creation of bugreports on "));
         assertTrue(info.contains("and all it's subsystems."));
         assertNotEquals(null, info);
         assertNotEquals("", info);

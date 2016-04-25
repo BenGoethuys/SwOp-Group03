@@ -18,6 +18,9 @@ import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
 
 public class BugReportTest {
+
+    private static final double EPSILON = 1e-15;
+
     // classes for testing
     static BugReport bugReport1;
     static BugReport bugReport2;
@@ -66,7 +69,7 @@ public class BugReportTest {
         subsystem = project.addSubsystem("ANewSubSystem", "the decription of the subsystem");
         subsystem.setMilestone(dev, new Milestone(2,5));
 
-        bugReport1 = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, 1, false, "", "", "");
+        bugReport1 = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, 5, false, "", "", "");
         bugReport2 = new BugReport(issuer, "FoundBug", "", date, depList, subsystem, null, 1, true, trigger, stacktrace, error);
     }
 
@@ -884,6 +887,16 @@ public class BugReportTest {
     	assertTrue(tempBugReport.isValidDuplicate(bugReport1));
     	assertFalse(tempBugReport.isValidDuplicate(null));
     	assertFalse(tempBugReport.isValidDuplicate(tempBugReport));
+    }
+
+    @Test
+    public void testGetBugImpact() throws PermissionException {
+        assertEquals(15.0, bugReport1.getBugImpact(), EPSILON);
+        assertEquals(3.0, bugReport2.getBugImpact(), EPSILON);
+
+        // for not NEW bug report
+        tempBugReport.addUser(lead, dev);
+        assertEquals(2.0, tempBugReport.getBugImpact(), EPSILON);
     }
 
     @Test

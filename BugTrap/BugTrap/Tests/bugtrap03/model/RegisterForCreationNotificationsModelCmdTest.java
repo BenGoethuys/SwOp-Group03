@@ -71,7 +71,7 @@ public class RegisterForCreationNotificationsModelCmdTest {
         assertFalse(cmd.isExecuted());
         cmd.exec();
         assertTrue(cmd.isExecuted());
-        assertEquals("Created subscription: \nYou are subscribed to the creation of Bugreports on " 
+        assertEquals("Created subscription: \nYou are subscribed to the creation of bugreports on "
                 + project.getSubjectName() + " and all it's subsystems.", cmd.toString());
     }
 }
