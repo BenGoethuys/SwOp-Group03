@@ -90,12 +90,12 @@ public class TagMailBox extends Mailbox {
      *
      * @return The added notification.
      */
-    public Notification update(BugReport bugReport){
+    public BugReportNotification update(BugReport bugReport){
         StringBuilder message = new StringBuilder();
         message.append("The tag ");
         message.append(bugReport.getTag());
         message.append(" has been set on ");
-        Notification newNotif = new Notification(message.toString(), bugReport, this.subject);
+        BugReportNotification newNotif = new BugReportNotification(message.toString(), bugReport, this.subject);
         this.addNotification(newNotif);
         return newNotif;
     }

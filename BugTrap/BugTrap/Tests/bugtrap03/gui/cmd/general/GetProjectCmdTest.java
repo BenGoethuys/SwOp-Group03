@@ -28,6 +28,7 @@ public class GetProjectCmdTest {
     public static ArrayDeque<String> getDefaultQuestions(Project... projects) {
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
+        question.add("Select a project.");
         question.add("Available options:");
         for (int i = 0; i < projects.length; i++) {
             question.add(i + ". " + projects[i].getName() + " version: " + projects[i].getVersionID());
@@ -47,6 +48,7 @@ public class GetProjectCmdTest {
     public static ArrayDeque<String> getDefaultAnswers(Project... projects) {
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
+        question.add("Select a project.");
         question.add("Available options:");
         for (int i = 0; i < projects.length; i++) {
             question.add(i + ". " + projects[i].getName() + " version: " + projects[i].getVersionID());
@@ -80,6 +82,7 @@ public class GetProjectCmdTest {
         GetProjectCmd cmd = new GetProjectCmd();
 
         // Setup scenario
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
         question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());
@@ -128,6 +131,7 @@ public class GetProjectCmdTest {
         GetProjectCmd cmd = new GetProjectCmd();
 
         // Setup scenario
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. " + proj0.getName() + " version: " + proj0.getVersionID());
         question.add("1. " + proj1.getName() + " version: " + proj1.getVersionID());

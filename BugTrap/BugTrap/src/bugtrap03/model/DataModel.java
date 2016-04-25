@@ -413,11 +413,14 @@ public class DataModel {
      * This method returns all subsystems of a given project
      *
      * @param project The project to print the subsystems from
-     * @return a PList containing all subsystems of a project
+     * @return a PList containing all subsystems of a project. An empty list when project == null.
      * @see AbstractSystem#getAllSubsystems()
      */
     @DomainAPI
     public PList<Subsystem> getAllSubsystems(Project project) {
+        if(project == null) {
+            return PList.<Subsystem>empty();
+        }
         return project.getAllSubsystems();
     }
 

@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
 /**
  * @author Group 03
  */
-public class NotificationTest {
+public class BugReportNotificationTest {
 
-    private static Notification testNot;
+    private static BugReportNotification testNot;
     private static String message4Not;
 
     private static Developer dev4Not;
@@ -36,7 +36,7 @@ public class NotificationTest {
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
                 1, true, "triggerhappy", "stacktacktack", "error404");
         message4Not = "this is a test notification for mb";
-        testNot = new Notification(message4Not, bugreport4MB, project4MB);
+        testNot = new BugReportNotification(message4Not, bugreport4MB, project4MB);
     }
 
     @Test
@@ -76,14 +76,14 @@ public class NotificationTest {
     public void testEquals() throws Exception {
         assertFalse(testNot.equals(project4MB));
         assertFalse(testNot.equals(null));
-        Notification testNot1 = new Notification(message4Not, bugreport4MB, project4MB);
+        BugReportNotification testNot1 = new BugReportNotification(message4Not, bugreport4MB, project4MB);
         assertTrue(testNot.equals(testNot1));
-        Notification testNot2 = new Notification("something else", bugreport4MB, project4MB);
+        BugReportNotification testNot2 = new BugReportNotification("something else", bugreport4MB, project4MB);
         assertFalse(testNot.equals(testNot2));
-        Notification testNot3 = new Notification(message4Not, new BugReport(dev4Not, "a", "b", new GregorianCalendar(),
+        BugReportNotification testNot3 = new BugReportNotification(message4Not, new BugReport(dev4Not, "a", "b", new GregorianCalendar(),
                 PList.<BugReport>empty(), subsystem4MB, new Milestone(1,2,4), 1, false, "d","e","f"), project4MB);
         assertFalse(testNot.equals(testNot3));
-        Notification testNot4 = new Notification(message4Not, bugreport4MB, new Project("g","h",dev4Not,123));
+        BugReportNotification testNot4 = new BugReportNotification(message4Not, bugreport4MB, new Project("g","h",dev4Not,123));
         assertFalse(testNot.equals(testNot4));
     }
 
@@ -98,21 +98,21 @@ public class NotificationTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testNotificationNullDesc() throws Exception {
-        Notification notif = new Notification(null,bugreport4MB,project4MB);
+        BugReportNotification notif = new BugReportNotification(null,bugreport4MB,project4MB);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testNotificationEmptyDesc() throws Exception {
-        Notification notif = new Notification("",bugreport4MB,project4MB);
+        BugReportNotification notif = new BugReportNotification("",bugreport4MB,project4MB);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testNotificationNullBugRep() throws Exception {
-        Notification notif = new Notification("haha",null,project4MB);
+        BugReportNotification notif = new BugReportNotification("haha",null,project4MB);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testNotificationNullSubject() throws Exception {
-        Notification notif = new Notification("haha",bugreport4MB,null);
+        BugReportNotification notif = new BugReportNotification("haha",bugreport4MB,null);
     }
 }

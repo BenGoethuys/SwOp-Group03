@@ -48,11 +48,11 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../bugtrap03/bugdomain/notification/Notification.html" title="class in bugtrap03.bugdomain.notification"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../bugtrap03/bugdomain/notification/TagMailBox.html" title="class in bugtrap03.bugdomain.notification"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../bugtrap03/bugdomain/bugReportNotification/Notification.html" title="class in bugtrap03.bugdomain.bugReportNotification"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../bugtrap03/bugdomain/bugReportNotification/TagMailBox.html" title="class in bugtrap03.bugdomain.bugReportNotification"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?bugtrap03/bugdomain/notification/Subject.html" target="_top">Frames</a></li>
+<li><a href="../../../index.html?bugtrap03/bugdomain/bugReportNotification/Subject.html" target="_top">Frames</a></li>
 <li><a href="Subject.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_top">
@@ -91,7 +91,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">bugtrap03.bugdomain.notification</div>
+<div class="subTitle">bugtrap03.bugdomain.bugReportNotification</div>
 <h2 title="Class Subject" class="title">Class Subject</h2>
 </div>
 <div class="contentContainer">
@@ -99,7 +99,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>bugtrap03.bugdomain.notification.Subject</li>
+<li>bugtrap03.bugdomain.bugReportNotification.Subject</li>
 </ul>
 </li>
 </ul>
@@ -108,7 +108,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><a href="../../../bugtrap03/bugdomain/notification/AbstractSystemSubject.html" title="class in bugtrap03.bugdomain.notification">AbstractSystemSubject</a>, <a href="../../../bugtrap03/bugdomain/bugreport/BugReport.html" title="class in bugtrap03.bugdomain.bugreport">BugReport</a></dd>
+<dd><a href="../../../bugtrap03/bugdomain/bugReportNotification/AbstractSystemSubject.html" title="class in bugtrap03.bugdomain.bugReportNotification">AbstractSystemSubject</a>, <a href="../../../bugtrap03/bugdomain/bugreport/BugReport.html" title="class in bugtrap03.bugdomain.bugreport">BugReport</a></dd>
 </dl>
 <hr>
 <br>
@@ -137,7 +137,7 @@ extends java.lang.Object</pre>
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/notification/Subject.html#Subject--">Subject</a></span>()</code>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#Subject--">Subject</a></span>()</code>
 <div class="block">The abstract constructor for a subject, sets the subs to empty Plists.</div>
 </td>
 </tr>
@@ -158,55 +158,55 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/notification/Subject.html#addCommentSub-bugtrap03.bugdomain.notification.CommentMailBox-">addCommentSub</a></span>(<a href="../../../bugtrap03/bugdomain/notification/CommentMailBox.html" title="class in bugtrap03.bugdomain.notification">CommentMailBox</a>&nbsp;cmb)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#addCommentSub-bugtrap03.bugdomain.bugReportNotification.CommentMailBox-">addCommentSub</a></span>(<a href="../../../bugtrap03/bugdomain/bugReportNotification/CommentMailBox.html" title="class in bugtrap03.bugdomain.bugReportNotification">CommentMailBox</a>&nbsp;cmb)</code>
 <div class="block">This method adds a commentsubscriber to the subject.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/notification/Subject.html#addTagSub-bugtrap03.bugdomain.notification.TagMailBox-">addTagSub</a></span>(<a href="../../../bugtrap03/bugdomain/notification/TagMailBox.html" title="class in bugtrap03.bugdomain.notification">TagMailBox</a>&nbsp;tmb)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#addTagSub-bugtrap03.bugdomain.bugReportNotification.TagMailBox-">addTagSub</a></span>(<a href="../../../bugtrap03/bugdomain/bugReportNotification/TagMailBox.html" title="class in bugtrap03.bugdomain.bugReportNotification">TagMailBox</a>&nbsp;tmb)</code>
 <div class="block">This method adds a commentsubscriber to the subject.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>abstract java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/notification/Subject.html#getSubjectName--">getSubjectName</a></span>()</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#getSubjectName--">getSubjectName</a></span>()</code>
 <div class="block">This abstract method returns a string representation of the subject name and type.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>abstract boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/notification/Subject.html#isTerminated--">isTerminated</a></span>()</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#isTerminated--">isTerminated</a></span>()</code>
 <div class="block">This method returns whether or not this subject is terminated</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/notification/Subject.html#isValidMb-bugtrap03.bugdomain.notification.Mailbox-">isValidMb</a></span>(<a href="../../../bugtrap03/bugdomain/notification/Mailbox.html" title="class in bugtrap03.bugdomain.notification">Mailbox</a>&nbsp;mb)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#isValidMb-bugtrap03.bugdomain.bugReportNotification.Mailbox-">isValidMb</a></span>(<a href="../../../bugtrap03/bugdomain/bugReportNotification/Mailbox.html" title="class in bugtrap03.bugdomain.bugReportNotification">Mailbox</a>&nbsp;mb)</code>
 <div class="block">This method checks the validity of a given mailbox.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>abstract void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/notification/Subject.html#notifyCommentSubs-bugtrap03.bugdomain.bugreport.BugReport-">notifyCommentSubs</a></span>(<a href="../../../bugtrap03/bugdomain/bugreport/BugReport.html" title="class in bugtrap03.bugdomain.bugreport">BugReport</a>&nbsp;br)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#notifyCommentSubs-bugtrap03.bugdomain.bugreport.BugReport-">notifyCommentSubs</a></span>(<a href="../../../bugtrap03/bugdomain/bugreport/BugReport.html" title="class in bugtrap03.bugdomain.bugreport">BugReport</a>&nbsp;br)</code>
 <div class="block">This abstract method let's subjects notify subjects higher in the hierarchy.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>abstract void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/notification/Subject.html#notifyTagSubs-bugtrap03.bugdomain.bugreport.BugReport-">notifyTagSubs</a></span>(<a href="../../../bugtrap03/bugdomain/bugreport/BugReport.html" title="class in bugtrap03.bugdomain.bugreport">BugReport</a>&nbsp;br)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#notifyTagSubs-bugtrap03.bugdomain.bugreport.BugReport-">notifyTagSubs</a></span>(<a href="../../../bugtrap03/bugdomain/bugreport/BugReport.html" title="class in bugtrap03.bugdomain.bugreport">BugReport</a>&nbsp;br)</code>
 <div class="block">This abstract method let's subjects notify subjects higher in the hierarchy.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/notification/Subject.html#updateCommentSubs-bugtrap03.bugdomain.bugreport.BugReport-">updateCommentSubs</a></span>(<a href="../../../bugtrap03/bugdomain/bugreport/BugReport.html" title="class in bugtrap03.bugdomain.bugreport">BugReport</a>&nbsp;br)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#updateCommentSubs-bugtrap03.bugdomain.bugreport.BugReport-">updateCommentSubs</a></span>(<a href="../../../bugtrap03/bugdomain/bugreport/BugReport.html" title="class in bugtrap03.bugdomain.bugreport">BugReport</a>&nbsp;br)</code>
 <div class="block">This method updates all the mailboxes subscribed on a comment creation on this subject.</div>
 </td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/notification/Subject.html#updateTagSubs-bugtrap03.bugdomain.bugreport.BugReport-">updateTagSubs</a></span>(<a href="../../../bugtrap03/bugdomain/bugreport/BugReport.html" title="class in bugtrap03.bugdomain.bugreport">BugReport</a>&nbsp;br)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#updateTagSubs-bugtrap03.bugdomain.bugreport.BugReport-">updateTagSubs</a></span>(<a href="../../../bugtrap03/bugdomain/bugreport/BugReport.html" title="class in bugtrap03.bugdomain.bugreport">BugReport</a>&nbsp;br)</code>
 <div class="block">This method updates all the mailboxes subscribed on a tag change from this subject.</div>
 </td>
 </tr>
@@ -276,17 +276,17 @@ extends java.lang.Object</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>br</code> - The bugreport needed for the update</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../bugtrap03/bugdomain/notification/TagMailBox.html#update-bugtrap03.bugdomain.bugreport.BugReport-"><code>TagMailBox.update(BugReport)</code></a></dd>
+<dd><a href="../../../bugtrap03/bugdomain/bugReportNotification/TagMailBox.html#update-bugtrap03.bugdomain.bugreport.BugReport-"><code>TagMailBox.update(BugReport)</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="addTagSub-bugtrap03.bugdomain.notification.TagMailBox-">
+<a name="addTagSub-bugtrap03.bugdomain.bugReportNotification.TagMailBox-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>addTagSub</h4>
-<pre>public&nbsp;void&nbsp;addTagSub(<a href="../../../bugtrap03/bugdomain/notification/TagMailBox.html" title="class in bugtrap03.bugdomain.notification">TagMailBox</a>&nbsp;tmb)
+<pre>public&nbsp;void&nbsp;addTagSub(<a href="../../../bugtrap03/bugdomain/bugReportNotification/TagMailBox.html" title="class in bugtrap03.bugdomain.bugReportNotification">TagMailBox</a>&nbsp;tmb)
                throws java.lang.IllegalArgumentException</pre>
 <div class="block">This method adds a commentsubscriber to the subject.</div>
 <dl>
@@ -295,7 +295,7 @@ extends java.lang.Object</pre>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.IllegalArgumentException</code> - if the cmb is invalid</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../bugtrap03/bugdomain/notification/Subject.html#isValidMb-bugtrap03.bugdomain.notification.Mailbox-"><code>isValidMb(Mailbox)</code></a></dd>
+<dd><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#isValidMb-bugtrap03.bugdomain.bugReportNotification.Mailbox-"><code>isValidMb(Mailbox)</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -325,17 +325,17 @@ extends java.lang.Object</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>br</code> - The bugreport needed for the update</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../bugtrap03/bugdomain/notification/CommentMailBox.html#update-bugtrap03.bugdomain.bugreport.BugReport-"><code>CommentMailBox.update(BugReport)</code></a></dd>
+<dd><a href="../../../bugtrap03/bugdomain/bugReportNotification/CommentMailBox.html#update-bugtrap03.bugdomain.bugreport.BugReport-"><code>CommentMailBox.update(BugReport)</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="addCommentSub-bugtrap03.bugdomain.notification.CommentMailBox-">
+<a name="addCommentSub-bugtrap03.bugdomain.bugReportNotification.CommentMailBox-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>addCommentSub</h4>
-<pre>public&nbsp;void&nbsp;addCommentSub(<a href="../../../bugtrap03/bugdomain/notification/CommentMailBox.html" title="class in bugtrap03.bugdomain.notification">CommentMailBox</a>&nbsp;cmb)
+<pre>public&nbsp;void&nbsp;addCommentSub(<a href="../../../bugtrap03/bugdomain/bugReportNotification/CommentMailBox.html" title="class in bugtrap03.bugdomain.bugReportNotification">CommentMailBox</a>&nbsp;cmb)
                    throws java.lang.IllegalArgumentException</pre>
 <div class="block">This method adds a commentsubscriber to the subject.</div>
 <dl>
@@ -344,17 +344,17 @@ extends java.lang.Object</pre>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.IllegalArgumentException</code> - if the cmb is invalid</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../bugtrap03/bugdomain/notification/Subject.html#isValidMb-bugtrap03.bugdomain.notification.Mailbox-"><code>isValidMb(Mailbox)</code></a></dd>
+<dd><a href="../../../bugtrap03/bugdomain/bugReportNotification/Subject.html#isValidMb-bugtrap03.bugdomain.bugReportNotification.Mailbox-"><code>isValidMb(Mailbox)</code></a></dd>
 </dl>
 </li>
 </ul>
-<a name="isValidMb-bugtrap03.bugdomain.notification.Mailbox-">
+<a name="isValidMb-bugtrap03.bugdomain.bugReportNotification.Mailbox-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>isValidMb</h4>
-<pre>public&nbsp;boolean&nbsp;isValidMb(<a href="../../../bugtrap03/bugdomain/notification/Mailbox.html" title="class in bugtrap03.bugdomain.notification">Mailbox</a>&nbsp;mb)</pre>
+<pre>public&nbsp;boolean&nbsp;isValidMb(<a href="../../../bugtrap03/bugdomain/bugReportNotification/Mailbox.html" title="class in bugtrap03.bugdomain.bugReportNotification">Mailbox</a>&nbsp;mb)</pre>
 <div class="block">This method checks the validity of a given mailbox.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -419,11 +419,11 @@ extends java.lang.Object</pre>
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../bugtrap03/bugdomain/notification/Notification.html" title="class in bugtrap03.bugdomain.notification"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../bugtrap03/bugdomain/notification/TagMailBox.html" title="class in bugtrap03.bugdomain.notification"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../bugtrap03/bugdomain/bugReportNotification/Notification.html" title="class in bugtrap03.bugdomain.bugReportNotification"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../bugtrap03/bugdomain/bugReportNotification/TagMailBox.html" title="class in bugtrap03.bugdomain.bugReportNotification"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?bugtrap03/bugdomain/notification/Subject.html" target="_top">Frames</a></li>
+<li><a href="../../../index.html?bugtrap03/bugdomain/bugReportNotification/Subject.html" target="_top">Frames</a></li>
 <li><a href="Subject.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_bottom">

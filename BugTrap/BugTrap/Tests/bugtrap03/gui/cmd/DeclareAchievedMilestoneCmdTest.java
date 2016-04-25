@@ -54,7 +54,7 @@ public class DeclareAchievedMilestoneCmdTest {
      * Test method for
      * {@link bugtrap03.gui.cmd.DeclareAchievedMilestoneCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
+     *
      * @throws PermissionException
      * @throws IllegalArgumentException
      * @throws CancelException
@@ -83,12 +83,12 @@ public class DeclareAchievedMilestoneCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport> empty(), null, false);
+                PList.<BugReport>empty(), null, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(),
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
                 null, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport> empty(), null, false);
+                PList.<BugReport>empty(), null, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment");
         comment2 = model.createComment(issuer, comment1, "Inner commment");
@@ -99,6 +99,7 @@ public class DeclareAchievedMilestoneCmdTest {
         DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
 
         // Setup scenario
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. ProjectTest0 version: 0.0.1");
         question.add("1. ProjectTest1 version: 0.0.1");

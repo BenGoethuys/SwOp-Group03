@@ -25,7 +25,7 @@ public class MailboxTest {
     private static Mailbox testMB;
     private static Mailbox testMB2;
     private static CreationMailBox testCMB2;
-    private static Notification notification4MB2;
+    private static BugReportNotification bugReportNotification4MB2;
 
 
     private static Developer dev4MB;
@@ -45,10 +45,10 @@ public class MailboxTest {
                 1, false, "triggerhappy", "stacktacktack", "error404");
 
 
-        notification4MB2 = new Notification("this is a test notification for mb", bugreport4MB, project4MB);
+        bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
         testMB2 = new Mailbox();
         testCMB2= testMB2.creationSubscribe(project4MB);
-        testCMB2.addNotification(notification4MB2);
+        testCMB2.addNotification(bugReportNotification4MB2);
 
     }
 
@@ -60,14 +60,14 @@ public class MailboxTest {
     @Test
     public void testGetAllNotifications() throws Exception {
         assertTrue(testMB.getAllNotifications().isEmpty());
-        assertTrue(testMB2.getAllNotifications().contains(notification4MB2));
+        assertTrue(testMB2.getAllNotifications().contains(bugReportNotification4MB2));
     }
 
     @Test
     public void testAddNotification() throws Exception {
-        Notification notification4MB = new Notification("This is a notification.",bugreport4MB, project4MB);
-        testMB.addNotification(notification4MB);
-        assertTrue(testMB.getAllNotifications().contains(notification4MB));
+        BugReportNotification bugReportNotification4MB = new BugReportNotification("This is a notification.",bugreport4MB, project4MB);
+        testMB.addNotification(bugReportNotification4MB);
+        assertTrue(testMB.getAllNotifications().contains(bugReportNotification4MB));
     }
 
     @Test
@@ -186,10 +186,10 @@ public class MailboxTest {
     public void testActivate() throws Exception {
         CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
         testMB.unsubscribe(cmb);
-        cmb.addNotification(notification4MB2);
-        assertFalse(cmb.getAllNotifications().contains(notification4MB2));
+        cmb.addNotification(bugReportNotification4MB2);
+        assertFalse(cmb.getAllNotifications().contains(bugReportNotification4MB2));
         cmb.activate();
-        cmb.addNotification(notification4MB2);
-        assertTrue(cmb.getAllNotifications().contains(notification4MB2));
+        cmb.addNotification(bugReportNotification4MB2);
+        assertTrue(cmb.getAllNotifications().contains(bugReportNotification4MB2));
     }
 }

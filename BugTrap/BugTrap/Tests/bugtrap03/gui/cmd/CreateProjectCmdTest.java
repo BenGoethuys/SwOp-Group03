@@ -118,7 +118,7 @@ public class CreateProjectCmdTest {
 
         GregorianCalendar date = new GregorianCalendar();
         date.add(GregorianCalendar.MONTH, 1);
-        String dateStr = date.get(YEAR) + "-" + (date.get(MONTH) +1) + "-" + date.get(DATE);
+        String dateStr = date.get(YEAR) + "-" + (date.get(MONTH) + 1) + "-" + date.get(DATE);
         VersionID newVersionID = new VersionID(1, 2, 3);
         long budget = 50;
 
@@ -129,6 +129,7 @@ public class CreateProjectCmdTest {
         question.add("Invalid input. Use create or clone.");
         question.add("Create or clone: ");
         answer.add("clOne");
+        question.add("Select a project.");
         question.add("Available options:");
         question.add("0. " + proj.getName() + " version: " + proj.getVersionID());
         question.add("I choose: ");
