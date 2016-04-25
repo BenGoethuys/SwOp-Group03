@@ -24,9 +24,36 @@ public class CreationMailBox extends Mailbox {
     public CreationMailBox(AbstractSystemSubject subj, MailboxType mbType) throws IllegalArgumentException{
         super();
         this.setSubject(subj);
+        this.setType(mbType);
     }
 
     private AbstractSystemSubject subject;
+    private MailboxType type;
+
+    /**
+     * This method sets the mailbox type of this mailbox.
+     * @param mailboxType The type to set.
+     * @throws IllegalArgumentException if the given type is invalid
+     * @see #isValidMailboxType(MailboxType)
+     */
+    private void setType(MailboxType mailboxType) throws IllegalArgumentException{
+        if (! this.isValidMailboxType(mailboxType)){
+            throw new IllegalArgumentException("The given mailboxtype is invalid for this mailbox");
+        }
+        this.type = mailboxType;
+    }
+
+    /**
+     * This method checks the validity of a given mailbox type
+     * @param mailboxType The mailboxtype to check.
+     * @return True if the mailboxtype is not null.
+     */
+    public boolean isValidMailboxType(MailboxType mailboxType){
+        if (mailboxType == null){
+            return false;
+        }
+        return true;
+    }
 
     /**
      * This method sets the subject for this mailbox.
