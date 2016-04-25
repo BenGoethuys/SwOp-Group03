@@ -236,4 +236,14 @@ class BugReportStateNew implements BugReportState {
         str.append("\n tag: ").append(this.getTag().name());
         return str.toString();
     }
+
+    /**
+     * This method returns the multiplier of this state
+     *
+     * @return  The multiplier
+     */
+    @Override
+    public double getMultiplier() {
+        return 3;
+    }
 }

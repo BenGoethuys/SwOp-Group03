@@ -34,7 +34,7 @@ public class AbstractSystemSubjectDummyTest {
         assubjectDummyProject = new Project("sdp", "sdp", assubjectDummyDev, 1000);
         assubjectDummySubsystem = assubjectDummyProject.addSubsystem("This seems", "easy");
         assubjectDummyBugreport = assubjectDummySubsystem.addBugReport(assubjectDummyDev, "", "", new GregorianCalendar(),
-                PList.<BugReport>empty(), new Milestone(1), false, "hi", "ha", "ho");
+                PList.<BugReport>empty(), new Milestone(1), 1, false, "hi", "ha", "ho");
     }
 
     @Before

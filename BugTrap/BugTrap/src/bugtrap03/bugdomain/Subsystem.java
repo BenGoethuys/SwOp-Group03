@@ -174,13 +174,13 @@ public class Subsystem extends AbstractSystem {
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param milestone The milestone of the bug report
-     * @param isPrivate The boolean that says if this bug report should be
+     * @param impactFactor  The impact factor of the new bug rport
+     *@param isPrivate The boolean that says if this bug report should be
      *            private or not
      * @param trigger A trigger used to trigger the bug
      * @param stacktrace The stacktrace got when the bug was triggered
      * @param error The error got when the bug was triggered
-     *
-     * @throws IllegalArgumentException if isValidCreator(creator) fails
+*     @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
      * @throws IllegalArgumentException if isValidDescription(description) fails
@@ -190,6 +190,8 @@ public class Subsystem extends AbstractSystem {
      *             fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws IllegalArgumentException if the given impact factor is invalid
+     *
      * @throws PermissionException if the given creator doesn't have the needed
      *             permission to create a bug report
      *
@@ -210,18 +212,19 @@ public class Subsystem extends AbstractSystem {
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      * @see BugReport#isValidMilestone(Milestone)
+     * @see BugReport#isValidImpactFactor(double)
      */
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     public BugReport addBugReport(User creator, String title, String description, GregorianCalendar creationDate,
-            PList<BugReport> dependencies, Milestone milestone, boolean isPrivate, String trigger, String stacktrace,
-            String error) throws IllegalArgumentException, PermissionException {
+                                  PList<BugReport> dependencies, Milestone milestone, double impactFactor, boolean isPrivate, String trigger, String stacktrace,
+                                  String error) throws IllegalArgumentException, PermissionException {
         BugReport bugReport;
         if (creationDate == null) {
             bugReport = new BugReport(creator, title, description, new GregorianCalendar(), dependencies, this,
-                    milestone, isPrivate, trigger, stacktrace, error);
+                    milestone, impactFactor, isPrivate, trigger, stacktrace, error);
         } else {
             bugReport = new BugReport(creator, title, description, creationDate, dependencies, this, milestone,
-                    isPrivate, trigger, stacktrace, error);
+                    impactFactor, isPrivate, trigger, stacktrace, error);
         }
         this.bugReportList = this.getBugReportList().plus(bugReport);
         this.notifyCreationSubs(bugReport);

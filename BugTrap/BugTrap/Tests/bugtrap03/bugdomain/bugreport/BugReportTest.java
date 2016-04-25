@@ -66,13 +66,13 @@ public class BugReportTest {
         subsystem = project.addSubsystem("ANewSubSystem", "the decription of the subsystem");
         subsystem.setMilestone(dev, new Milestone(2,5));
 
-        bugReport1 = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, false, "", "", "");
-        bugReport2 = new BugReport(issuer, "FoundBug", "", date, depList, subsystem, null, true, trigger, stacktrace, error);
+        bugReport1 = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, 1, false, "", "", "");
+        bugReport2 = new BugReport(issuer, "FoundBug", "", date, depList, subsystem, null, 1, true, trigger, stacktrace, error);
     }
 
     @Before
     public void setUp() throws Exception {
-        tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
+        tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, 1, false, null, null, null);
     }
 
     @Test
@@ -90,7 +90,7 @@ public class BugReportTest {
         assertTrue(bugReport2.getUniqueID() != id);
 
         // use the id
-        new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
+        new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, 1, false, null, null, null);
 
         long id2 = BugReport.getNewUniqueID();
         assertNotEquals(id, id2);
@@ -173,7 +173,7 @@ public class BugReportTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testBugReportInvalidCreationDate() throws IllegalArgumentException, PermissionException {
-        new BugReport(issuer, "Bla", "boo", null, depList, subsystem, null, false, null, null, null);
+        new BugReport(issuer, "Bla", "boo", null, depList, subsystem, null, 1, false, null, null, null);
     }
 
     @Test
@@ -277,7 +277,7 @@ public class BugReportTest {
         tempBugReport.addComment(comment);
         assertTrue(tempBugReport.getCommentList().contains(comment));
 
-        tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
+        tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, 1, false, null, null, null);
         assertTrue(tempBugReport.getCommentList().isEmpty());
         Comment returnComment = tempBugReport.addComment(issuer, "Bla");
         assertFalse(tempBugReport.getCommentList().isEmpty());
@@ -333,7 +333,7 @@ public class BugReportTest {
 
     @Test
     public void testGetCreator() throws IllegalArgumentException, PermissionException {
-        BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
+        BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, 1, false, null, null, null);
         assertEquals(issuer, tempBugReport.getCreator());
     }
 
@@ -347,12 +347,12 @@ public class BugReportTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testBugReportInvalidCreator() throws IllegalArgumentException, PermissionException {
-        new BugReport(null, "Bla", "boo", date, depList, subsystem, null, false, null, null, null);
+        new BugReport(null, "Bla", "boo", date, depList, subsystem, null, 1, false, null, null, null);
     }
 
     @Test(expected = PermissionException.class)
     public void testBugReportCreatorNoPermission() throws IllegalArgumentException, PermissionException {
-        new BugReport(admin, "Bla", "boo", date, depList, subsystem, null, false, null, null, null);
+        new BugReport(admin, "Bla", "boo", date, depList, subsystem, null, 1, false, null, null, null);
     }
 
     @Test
@@ -413,12 +413,12 @@ public class BugReportTest {
         assertTrue(tempBugReport.getUserList().contains(temp));
         assertEquals(Tag.ASSIGNED, tempBugReport.getTag());
 
-        tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
+        tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, 1, false, null, null, null);
         assertFalse(tempBugReport.getUserList().contains(dev));
         tempBugReport.addUser(lead, dev);
         assertTrue(tempBugReport.getUserList().contains(dev));
 
-        tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
+        tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, 1, false, null, null, null);
         assertFalse(tempBugReport.getUserList().contains(dev));
         tempBugReport.addUser(tester, dev);
         assertTrue(tempBugReport.getUserList().contains(dev));
@@ -460,7 +460,7 @@ public class BugReportTest {
         assertTrue(tempBugReport.getDependencies().isEmpty());
 
         PList<BugReport> newDepList = depList.plus(bugReport1);
-        tempBugReport = new BugReport(issuer, "bla", "bla", date, newDepList, subsystem, null, false, null, null, null);
+        tempBugReport = new BugReport(issuer, "bla", "bla", date, newDepList, subsystem, null, 1, false, null, null, null);
         assertEquals(tempBugReport.getDependencies(), newDepList);
     }
 
@@ -475,7 +475,7 @@ public class BugReportTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testBugReportInValidDependencies() throws IllegalArgumentException, PermissionException {
-        new BugReport(issuer, "bla", "ho", date, null, subsystem, null, false, null, null, null);
+        new BugReport(issuer, "bla", "ho", date, null, subsystem, null, 1, false, null, null, null);
     }
     
     @Test
@@ -483,9 +483,9 @@ public class BugReportTest {
     	assertFalse(bugReport1.hasUnresolvedDependencies());
     	
     	// make bugReport with unresolved dependency
-    	BugReport tempBugReportDep = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, null, null, null);
+    	BugReport tempBugReportDep = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, 1, false, null, null, null);
     	PList<BugReport> newDepList = PList.<BugReport>empty().plus(tempBugReportDep);
-    	BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, newDepList, subsystem, null, false, null, null, null);
+    	BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, newDepList, subsystem, null, 1, false, null, null, null);
     	assertTrue(tempBugReport.hasUnresolvedDependencies());
     	
     	// resolve the dependency
@@ -510,7 +510,7 @@ public class BugReportTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testBugReportInValidSubsystem() throws IllegalArgumentException, PermissionException {
-        new BugReport(issuer, "Hello", "World", date, depList, null, null, false, null, null, null);
+        new BugReport(issuer, "Hello", "World", date, depList, null, null, 1, false, null, null, null);
     }
     
     @Test
@@ -569,7 +569,7 @@ public class BugReportTest {
     
     @Test
     public void testSetTrigger() throws IllegalArgumentException, PermissionException{
-    	BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, "", "", "");
+    	BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, 1, false, "", "", "");
     	assertEquals("", tempBugReport.getTrigger());
     	tempBugReport.setTrigger(issuer, trigger);
     	assertEquals(trigger, tempBugReport.getTrigger());
@@ -588,7 +588,7 @@ public class BugReportTest {
     
     @Test
     public void testSetStackTrace() throws IllegalArgumentException, PermissionException{
-    	BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, "", "", "");
+    	BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, 1, false, "", "", "");
     	assertEquals("", tempBugReport.getStacktrace());
     	tempBugReport.setStacktrace(issuer, stacktrace);
     	assertEquals(stacktrace, tempBugReport.getStacktrace());
@@ -607,7 +607,7 @@ public class BugReportTest {
     
     @Test
     public void testSetError() throws IllegalArgumentException, PermissionException{
-    	BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, "", "", "");
+    	BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, 1, false, "", "", "");
     	assertEquals("", tempBugReport.getError());
     	tempBugReport.setError(issuer, error);
     	assertEquals(error, tempBugReport.getError());
@@ -621,8 +621,8 @@ public class BugReportTest {
     @Test
     public void testCompareTo() throws PermissionException {
 
-        BugReport lowerId = new BugReport(issuer, "lowerId", "This has the lower id", date, depList, subsystem, null, false, null, null, null);
-        BugReport higherID = new BugReport(issuer, "higherId", "This has the higher id", date, depList, subsystem, null, false, null, null, null);
+        BugReport lowerId = new BugReport(issuer, "lowerId", "This has the lower id", date, depList, subsystem, null, 1, false, null, null, null);
+        BugReport higherID = new BugReport(issuer, "higherId", "This has the higher id", date, depList, subsystem, null, 1, false, null, null, null);
 
         assertTrue(lowerId.getUniqueID() < higherID.getUniqueID());
 
@@ -635,7 +635,7 @@ public class BugReportTest {
     public void testGetDetails() throws PermissionException {
         // For bugRep with empty depList
     	PList<BugReport> deps = PList.<BugReport>empty().plus(bugReport1);
-        BugReport bugRep = new BugReport(issuer, "This is a good title", "This is a good description", date, deps, subsystem, milestone, true, trigger, stacktrace, error);
+        BugReport bugRep = new BugReport(issuer, "This is a good title", "This is a good description", date, deps, subsystem, milestone, 1, true, trigger, stacktrace, error);
         bugRep.addComment(programer, "This is a comment");
         String details = bugRep.getDetails();
         
@@ -691,7 +691,7 @@ public class BugReportTest {
         expected = "error: " + error;
         assertTrue(details.contains(expected));
         
-        bugRep = new BugReport(issuer, "This is a good title", "This is a good description", date, deps, subsystem, null, true, null, null, null);
+        bugRep = new BugReport(issuer, "This is a good title", "This is a good description", date, deps, subsystem, null, 1, true, null, null, null);
         details = bugRep.getDetails();
         
         // for milestone:
@@ -702,7 +702,7 @@ public class BugReportTest {
     
     @Test (expected = IllegalArgumentException.class)
     public void testSetInternalState() throws IllegalArgumentException, PermissionException{
-    	BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, false, "", "", "");
+    	BugReport tempBugReport = new BugReport(issuer, "bla", "bla", date, depList, subsystem, null, 1, false, "", "", "");
     	tempBugReport.setInternState(null);
     }
     

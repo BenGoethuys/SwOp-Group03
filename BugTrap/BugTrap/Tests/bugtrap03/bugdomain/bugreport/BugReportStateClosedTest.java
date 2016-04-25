@@ -53,7 +53,7 @@ public class BugReportStateClosedTest {
         project.setRole(lead, tester, Role.TESTER);
         subsystem = project.addSubsystem("ANewSubSystem", "the decription of the subsystem");
 
-        bugReport = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, false, "", "", "");
+        bugReport = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, 1, false, "", "", "");
 
         depList2 = depList.plus(bugReport);
 
@@ -68,7 +68,7 @@ public class BugReportStateClosedTest {
 
     @Before
     public void setUp() throws Exception {
-        tempBugReport = new BugReport(issuer, "bla bla", "bla", new GregorianCalendar(), depList, subsystem, null, false, null, null, null);
+        tempBugReport = new BugReport(issuer, "bla bla", "bla", new GregorianCalendar(), depList, subsystem, null, 1, false, null, null, null);
         tempBugReport.addUser(lead, tester);
         tempBugReport.addUser(lead, programer);
         tempBugReport.addTest(tester, test);
