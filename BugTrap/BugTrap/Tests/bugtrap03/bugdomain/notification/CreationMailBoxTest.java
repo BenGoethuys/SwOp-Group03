@@ -51,7 +51,7 @@ public class CreationMailBoxTest {
     public void testGetInfo() throws Exception {
         String info = testCMB.getInfo();
         assertTrue(info.contains(project4MB.getSubjectName()));
-        assertTrue(info.contains("You are subscribed to the creation of Bugreports on "));
+        assertTrue(info.contains("You are subscribed to the creation of bugreports on "));
         assertTrue(info.contains("and all it's subsystems."));
         assertNotEquals(null, info);
         assertNotEquals("", info);

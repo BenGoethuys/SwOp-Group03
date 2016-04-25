@@ -95,7 +95,9 @@ public class CreationMailBox extends Mailbox {
     @DomainAPI
     public String getInfo(){
         StringBuilder message = new StringBuilder();
-        message.append("You are subscribed to the creation of Bugreports on ");
+        message.append("You are subscribed to ");
+        message.append(this.type.getMBTypeInfo());
+        message.append(" on ");
         message.append(this.subject.getSubjectName());
         message.append(" and all it's subsystems.");
         return message.toString();
