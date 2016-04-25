@@ -17,10 +17,11 @@ public class CreationMailBox extends Mailbox {
      *
      * @param subj The subject on which the mailbox subscribes.
      *
+     * @param mbType
      * @throws IllegalArgumentException if the subject is invalid
      * @see #setSubject(AbstractSystemSubject)
      */
-    public CreationMailBox(AbstractSystemSubject subj) throws IllegalArgumentException{
+    public CreationMailBox(AbstractSystemSubject subj, MailboxType mbType) throws IllegalArgumentException{
         super();
         this.setSubject(subj);
     }
