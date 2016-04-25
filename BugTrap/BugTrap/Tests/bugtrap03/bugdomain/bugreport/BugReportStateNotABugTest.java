@@ -42,9 +42,9 @@ public class BugReportStateNotABugTest {
         project = new Project("ANewProject", "the description of the project", lead, 0);
         subsystem = project.addSubsystem("ANewSubSystem", "the decription of the subsystem");
 
-        duplicate = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, false, "", "", "");
+        duplicate = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, 1, false, "", "", "");
 
-        bugReport = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, false, "", "", "");
+        bugReport = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, 1, false, "", "", "");
         bugReport.setTag(Tag.NOT_A_BUG, lead);
     }
 

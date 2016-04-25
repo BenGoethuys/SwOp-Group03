@@ -81,7 +81,7 @@ public class NotificationTest {
         Notification testNot2 = new Notification("something else", bugreport4MB, project4MB);
         assertFalse(testNot.equals(testNot2));
         Notification testNot3 = new Notification(message4Not, new BugReport(dev4Not, "a", "b", new GregorianCalendar(),
-                PList.<BugReport>empty(), subsystem4MB, new Milestone(1,2,4), false, "d","e","f"), project4MB);
+                PList.<BugReport>empty(), subsystem4MB, new Milestone(1,2,4), 1, false, "d","e","f"), project4MB);
         assertFalse(testNot.equals(testNot3));
         Notification testNot4 = new Notification(message4Not, bugreport4MB, new Project("g","h",dev4Not,123));
         assertFalse(testNot.equals(testNot4));

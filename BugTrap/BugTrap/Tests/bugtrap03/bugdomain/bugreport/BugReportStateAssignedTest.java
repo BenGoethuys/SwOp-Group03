@@ -54,10 +54,10 @@ public class BugReportStateAssignedTest {
         project.setRole(lead, tester, Role.TESTER);
         subsystem = project.addSubsystem("ANewSubSystem", "the decription of the subsystem");
 
-        bugReport = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, false, "", "", "");
+        bugReport = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, 1, false, "", "", "");
 
         depList2 = depList.plus(bugReport);
-        bugReportDep = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList2, subsystem, milestone, false, "", "", "");
+        bugReportDep = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList2, subsystem, milestone, 1, false, "", "", "");
 
         // give bug reports desired state:
         bugReport.addUser(lead, tester);
@@ -69,7 +69,7 @@ public class BugReportStateAssignedTest {
 
     @Before
     public void setUp() throws Exception {
-        tempBugReport = new BugReport(issuer, "bla bla", "bla", new GregorianCalendar(), depList, subsystem, null, false, null, null, null);
+        tempBugReport = new BugReport(issuer, "bla bla", "bla", new GregorianCalendar(), depList, subsystem, null, 1, false, null, null, null);
         tempBugReport.addUser(lead, tester);
         tempBugReport.addUser(lead, programer);
     }

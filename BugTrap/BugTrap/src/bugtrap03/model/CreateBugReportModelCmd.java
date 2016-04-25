@@ -123,9 +123,7 @@ class CreateBugReportModelCmd extends ModelCmd {
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      * @see BugReport#isValidMilestone(Milestone)
-     * @see BugReport#BugReport(bugtrap03.bugdomain.usersystem.User, java.lang.String, java.lang.String,
-     * java.util.GregorianCalendar, purecollections.PList, bugtrap03.bugdomain.Subsystem, bugtrap03.bugdomain.Milestone,
-     * boolean, java.lang.String, java.lang.String, java.lang.String)
+     * @see BugReport#BugReport(User, String, String, GregorianCalendar, PList, Subsystem, Milestone, double, boolean, String, String, String)
      *
      */
     @Override

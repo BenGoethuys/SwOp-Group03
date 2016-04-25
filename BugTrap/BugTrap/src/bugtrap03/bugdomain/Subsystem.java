@@ -218,10 +218,10 @@ public class Subsystem extends AbstractSystem {
         BugReport bugReport;
         if (creationDate == null) {
             bugReport = new BugReport(creator, title, description, new GregorianCalendar(), dependencies, this,
-                    milestone, isPrivate, trigger, stacktrace, error);
+                    milestone, 1, isPrivate, trigger, stacktrace, error);
         } else {
             bugReport = new BugReport(creator, title, description, creationDate, dependencies, this, milestone,
-                    isPrivate, trigger, stacktrace, error);
+                    1, isPrivate, trigger, stacktrace, error);
         }
         this.bugReportList = this.getBugReportList().plus(bugReport);
         this.notifyCreationSubs(bugReport);
