@@ -174,7 +174,7 @@ public class Subsystem extends AbstractSystem {
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param milestone The milestone of the bug report
-     * @param impactFactor
+     * @param impactFactor  The impact factor of the new bug rport
      *@param isPrivate The boolean that says if this bug report should be
      *            private or not
      * @param trigger A trigger used to trigger the bug
@@ -190,6 +190,8 @@ public class Subsystem extends AbstractSystem {
      *             fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
+     * @throws IllegalArgumentException if the given impact factor is invalid
+     *
      * @throws PermissionException if the given creator doesn't have the needed
      *             permission to create a bug report
      *
@@ -210,6 +212,7 @@ public class Subsystem extends AbstractSystem {
      * @see BugReport#isValidDependencies(PList)
      * @see BugReport#isValidSubsystem(Subsystem)
      * @see BugReport#isValidMilestone(Milestone)
+     * @see BugReport#isValidImpactFactor(double)
      */
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     public BugReport addBugReport(User creator, String title, String description, GregorianCalendar creationDate,
