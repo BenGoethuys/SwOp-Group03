@@ -1,0 +1,35 @@
+* BugReport -> voeg impactFactor toe (> 0, <= 10).	constructor + get
+
+
+* Notify change in project/subsystem version
+* Notify forked
+* Notify change in project/subsystem milestone
+* Notify change in project/subsystem milestone (specific milestone)
+
+
+* Health indicator (condition = enum + getCondition uses algorithm (ConditionAlgorithm interface) + BugReport getBugImpact() in de BRStates)
+
+
+* Performance metrics (V Developers - miss een apart object aan dev toevoegen zodat niet al die dingen in dev staan?)
+(En wanneer undo moet ook die telling ongedaan worden gemaakt.)
+Reporting
+- # duplicate submitted (stored in Dev?)
+- # NotABugReport submitted (stored in Dev?)
+- # bugReports submitted (stored in Dev?)
+Leadership
+- condition indicators van projects that dev lead. (dynamisch berekenen)
+Test
+- avg lines of code for each submitted test (stored total # lines in Dev and calculate average)
+- # tests submitted (stored in Dev?)
+Problem Solving
+- # Closed BR the dev is assigned to (dynamisch berekenen)
+- # Unfinished BR the dev is assigned to (dynamisch bereken)
+- # patches submitted. (stored in Dev?)
+- avg lines of code in patches (stored total # lines in Dev and calculate average)
+
+
+* Splitting & Merging subsystem (admin only - REVERTABLE)
+see use case.
+
+
+
