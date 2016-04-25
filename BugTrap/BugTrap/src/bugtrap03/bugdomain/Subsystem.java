@@ -320,6 +320,11 @@ public class Subsystem extends AbstractSystem {
         return ("Subsystem " + this.getName());
     }
 
+	public HealthIndicator getIndicator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
     /**
      * This function checks the validity of the given name, in combination with
      * its parent.
