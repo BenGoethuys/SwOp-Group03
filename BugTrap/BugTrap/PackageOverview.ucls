@@ -11,8 +11,8 @@
     <position height="-1" width="-1" x="389" y="248"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="3" language="java" name="bugtrap03.bugdomain.notification" project="BugTrap" 
-    file="/BugTrap/src/bugtrap03/bugdomain/notification" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="3" language="java" name="bugtrap03.bugdomain.bugReportNotification" project="BugTrap"
+    file="/BugTrap/src/bugtrap03/bugdomain/bugReportNotification" binary="false" corner="BOTTOM_RIGHT">
     <position height="-1" width="-1" x="393" y="154"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
