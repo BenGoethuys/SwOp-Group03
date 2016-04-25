@@ -37,7 +37,7 @@ public class TagMailBoxTest {
         subsystem4MB = project4MB.addSubsystem("subsystem4MB", "A susbsystem to test the mb");
         bugreport4MB = subsystem4MB.addBugReport(dev4TMB, "bugreport4MB1", "A bugreport to test the mb",
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
-                false, "triggerhappy", "stacktacktack", "error404");
+                1, false, "triggerhappy", "stacktacktack", "error404");
         notification4MB2 = new Notification("this is a test notification for mb", bugreport4MB, project4MB);
         tagsTMB = EnumSet.of(Tag.ASSIGNED, Tag.DUPLICATE);
         testTMB = new TagMailBox(project4MB, tagsTMB);

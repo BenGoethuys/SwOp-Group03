@@ -34,7 +34,7 @@ public class NotificationTest {
         subsystem4MB = project4MB.addSubsystem("subsystem4MB", "A susbsystem to test the mb");
         bugreport4MB = subsystem4MB.addBugReport(dev4Not, "bugreport4MB1", "A bugreport to test the mb",
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
-                true, "triggerhappy", "stacktacktack", "error404");
+                1, true, "triggerhappy", "stacktacktack", "error404");
         message4Not = "this is a test notification for mb";
         testNot = new Notification(message4Not, bugreport4MB, project4MB);
     }
