@@ -30,9 +30,9 @@ public abstract class HealthAlgorithm {
 
 	public abstract boolean isSerious(Subsystem subsystem);
 
-	public boolean checkSubsystem(Subsystem subsystem, HealthIndicator hi, int number) {
+	public boolean checkSubsystem(HealthAlgorithm ha, Subsystem subsystem, HealthIndicator hi, int number) {
 		for (Subsystem subs : subsystem.getAllSubsystems()) {
-			if (subs.getIndicator().getOrder() < hi.getOrder()) {
+			if (subs.getIndicator(ha).getRank() < hi.getRank()) {
 				return false;
 			}
 		}

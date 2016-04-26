@@ -16,22 +16,22 @@ public class HealthAlgorithm3 extends HealthAlgorithm {
 
 	@Override
 	public boolean isHealthy(Subsystem subsystem) {
-		return checkSubsystem(subsystem, HealthIndicator.HEALTY, HEALTH);
+		return checkSubsystem(this, subsystem, HealthIndicator.HEALTY, HEALTH);
 	}
 
 	@Override
 	public boolean isSatisfactory(Subsystem subsystem) {
-		return checkSubsystem(subsystem, HealthIndicator.STABLE, SATISFACTORY);
+		return checkSubsystem(this, subsystem, HealthIndicator.STABLE, SATISFACTORY);
 	}
 
 	@Override
 	public boolean isStable(Subsystem subsystem) {
-		return checkSubsystem(subsystem, HealthIndicator.STABLE, STABLE);
+		return checkSubsystem(this, subsystem, HealthIndicator.STABLE, STABLE);
 	}
 
 	@Override
 	public boolean isSerious(Subsystem subsystem) {
-		return checkSubsystem(subsystem, HealthIndicator.SERIOUS, SERIOUS);
+		return checkSubsystem(this, subsystem, HealthIndicator.SERIOUS, SERIOUS);
 	}
 
 }

@@ -320,9 +320,13 @@ public class Subsystem extends AbstractSystem {
         return ("Subsystem " + this.getName());
     }
 
-	public HealthIndicator getIndicator() {
-		//TODO 
-		return null;
+    /**
+     * TODO Mathias
+     * @param ha
+     * @return
+     */
+	public HealthIndicator getIndicator(HealthAlgorithm ha) {
+		return ha.getIndicator(this);
 	}
 
     /**
