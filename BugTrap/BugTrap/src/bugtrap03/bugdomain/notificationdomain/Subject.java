@@ -1,8 +1,11 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import java.util.Collection;
+
+import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
 import purecollections.PList;
 
 /**
@@ -121,7 +124,7 @@ public abstract class Subject {
      * @param cmb The comment mailbox to add
      *
      * @throws IllegalArgumentException if the cmb is invalid
-     * @see #isValidMb(Mailbox)
+     * @see #isValidMb
      */
     public void addCommentSub(CommentMailBox cmb) throws IllegalArgumentException{
         if (isValidMb(cmb)){
@@ -134,10 +137,10 @@ public abstract class Subject {
     /**
      * This method adds a collection of comment subscriber to the subject.
      *
-     * @param cmb The CommentMailBoxes to add
+     * @param cmbs The CommentMailBoxes to add
      *
      * @throws IllegalArgumentException if any of the the cmbs is invalid.
-     * @see #isValidMb(Mailbox)
+     * @see #isValidMb
      * @see #addCommentSub(CommentMailBox) 
      */
     public void addCommentSub(Collection<CommentMailBox> cmbs) throws IllegalArgumentException {
@@ -164,6 +167,31 @@ public abstract class Subject {
             return false;
         }
         return true;
+    }
+    
+    /**
+     * The method returns the memento for this Subject.
+     *
+     * @return The memento of this subject.
+     */
+    public SubjectMemento getMemento() {
+        return new SubjectMemento(this.tagSubs, this.commentSubs);
+    }
+    
+    /**
+     * Set the memento of this Subject.
+     *
+     * @param mem The Memento to use to set.
+     * @throws IllegalArgumentException When mem == null
+     * @throws IllegalArgumentException When any of the arguments stored in mem is invalid for the current state.
+     */
+    public void setMemento(SubjectMemento mem) {
+        if (mem == null) {
+            throw new IllegalArgumentException("The memento to set musn't be null.");
+        }
+        
+        this.tagSubs = mem.getTagSubs();
+        this.commentSubs = mem.getCommentSubs();
     }
 
     /**

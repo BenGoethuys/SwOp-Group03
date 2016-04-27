@@ -1,8 +1,11 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import java.util.Collection;
+
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import purecollections.PList;
 
 /**

@@ -1,7 +1,11 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.Subject;
+import bugtrap03.bugdomain.notificationdomain.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 import purecollections.PList;
 
 import java.util.ArrayList;
@@ -12,7 +16,7 @@ import java.util.EnumSet;
  * @author Group 03
  */
 @DomainAPI
-public class Mailbox extends AbstractMailbox<Subject, Notification>{
+public class Mailbox extends AbstractMailbox<Subject, Notification> {
 
     /**
      * The constructor for a general mailbox.
@@ -37,11 +41,11 @@ public class Mailbox extends AbstractMailbox<Subject, Notification>{
     public PList<Notification> getAllNotifications(){
         ArrayList<Notification> nfs = new ArrayList<>(this.getNotifications());
         for (AbstractMailbox mb: this.getBoxes()){
+            nfs.addAll(mb.getNotifications());
             if (mb instanceof Mailbox) {
                 Mailbox AMb = (Mailbox) mb;
                 nfs.addAll(AMb.getAllNotifications());
             }
-
         }
         return PList.<Notification>empty().plusAll(nfs);
     }

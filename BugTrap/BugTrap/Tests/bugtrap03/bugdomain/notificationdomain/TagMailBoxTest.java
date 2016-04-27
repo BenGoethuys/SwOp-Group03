@@ -1,10 +1,11 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain;
 
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class TagMailBoxTest {
         bugreport4MB = subsystem4MB.addBugReport(dev4TMB, "bugreport4MB1", "A bugreport to test the mb",
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
                 1, false, "triggerhappy", "stacktacktack", "error404");
-        bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
+        bugReportNotification4MB2 = new BugReportNotification("this is a test notificationdomain for mb", bugreport4MB, project4MB);
         tagsTMB = EnumSet.of(Tag.ASSIGNED, Tag.DUPLICATE);
         testTMB = new TagMailBox(project4MB, tagsTMB);
     }

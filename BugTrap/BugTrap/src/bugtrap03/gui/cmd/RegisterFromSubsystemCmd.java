@@ -1,11 +1,9 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.notification.AbstractMailbox;
-import bugtrap03.bugdomain.notification.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notification.Subject;
 import bugtrap03.gui.cmd.general.*;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;

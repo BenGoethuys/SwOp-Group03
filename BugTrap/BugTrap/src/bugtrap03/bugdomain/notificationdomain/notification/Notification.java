@@ -1,6 +1,7 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain.notification;
 
 import bugtrap03.bugdomain.DomainAPI;
+import bugtrap03.bugdomain.notificationdomain.Subject;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
@@ -19,7 +20,7 @@ public abstract class Notification {
 
 
     /**
-     * This method sets the message for this notification.
+     * This method sets the message for this notificationdomain.
      *
      * @param message The String message to set.
      *
@@ -52,7 +53,7 @@ public abstract class Notification {
     }
 
     /**
-     * This method sets the subject for this notification.
+     * This method sets the subject for this notificationdomain.
      *
      * @param subject The subject to set.
      *

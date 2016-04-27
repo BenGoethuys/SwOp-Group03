@@ -313,7 +313,7 @@ public class Subsystem extends AbstractSystem {
      */
     @Override
     public SubsystemMemento getMemento() {
-        return new SubsystemMemento(getVersionID(), getName(), getDescription(), this.getSubsystems(), this.getParent(), this.getMilestone(), this.bugReportList, this.isTerminated);
+        return new SubsystemMemento(getTagSubs(), getCommentSubs(), getVersionID(), getName(), getDescription(), this.getSubsystems(), this.getParent(), this.getMilestone(), this.bugReportList, this.isTerminated);
     }
     
     @Override
@@ -361,7 +361,7 @@ public class Subsystem extends AbstractSystem {
             throw new PermissionException("You do not have sufficient permissions to split a subsystem.");
         }
 
-        //TODO: Kwinten add the notification list to the other subsystem as well.
+        //TODO: Kwinten add the notificationdomain list to the other subsystem as well.
         //Set current subsystem
         this.setName(name1);
         this.setDescription(desc1);
@@ -384,7 +384,7 @@ public class Subsystem extends AbstractSystem {
         //Set BugReports of sub2 by removing every direct bugReport that is not in bugReports1.
         for (BugReport bugReport : this.getBugReportList()) {
             if (!bugReports1.contains(bugReport)) {
-                //If notification is required use a method and add notify.
+                //If notificationdomain is required use a method and add notify.
                 this.bugReportList = this.bugReportList.minus(bugReport);
                 bugReport.setSubsystem(resultSubsystem2);
                 resultSubsystem2.bugReportList = resultSubsystem2.bugReportList.plus(bugReport);
@@ -443,7 +443,12 @@ public class Subsystem extends AbstractSystem {
             this.addSubsystem(temp);
         }
 
-        //TODO: Kwinten add the notification list to the other subsystem as well.
+        // find lowest milestone and replace if necessary
+        if (subsystem.getMilestone().compareTo(this.getMilestone()) < 0) {
+            this.setMilestone(subsystem.getMilestone());
+        }
+
+        //TODO: possible merge subscribers?
 
         // terminate subsystem
         subsystem.setTerminated(true);

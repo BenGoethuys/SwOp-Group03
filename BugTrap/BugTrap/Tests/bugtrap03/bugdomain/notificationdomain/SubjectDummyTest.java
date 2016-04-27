@@ -1,10 +1,11 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain;
 
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -90,7 +91,8 @@ public class SubjectDummyTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testAddTagSubNull() throws Exception {
-        testDummy.addTagSub(null);
+        TagMailBox box = null;
+        testDummy.addTagSub(box);
     }
 
     @Test
@@ -110,7 +112,8 @@ public class SubjectDummyTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testAddCommentSubNull() throws Exception {
-        testDummy.addCommentSub(null);
+        CommentMailBox box = null;
+        testDummy.addCommentSub(box);
     }
 
     @Test

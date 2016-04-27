@@ -1,10 +1,14 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain;
 
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -45,7 +49,7 @@ public class MailboxTest {
                 1, false, "triggerhappy", "stacktacktack", "error404");
 
 
-        bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
+        bugReportNotification4MB2 = new BugReportNotification("this is a test notificationdomain for mb", bugreport4MB, project4MB);
         testMB2 = new Mailbox();
         testCMB2= testMB2.creationSubscribe(project4MB);
         testCMB2.addNotification(bugReportNotification4MB2);
@@ -65,7 +69,7 @@ public class MailboxTest {
 
     @Test
     public void testAddNotification() throws Exception {
-        BugReportNotification bugReportNotification4MB = new BugReportNotification("This is a notification.",bugreport4MB, project4MB);
+        BugReportNotification bugReportNotification4MB = new BugReportNotification("This is a notificationdomain.",bugreport4MB, project4MB);
         testMB.addNotification(bugReportNotification4MB);
         assertTrue(testMB.getAllNotifications().contains(bugReportNotification4MB));
     }

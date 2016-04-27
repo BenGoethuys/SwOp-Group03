@@ -1,24 +1,21 @@
 package bugtrap03.gui.cmd;
 
+import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notification.Mailbox;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.TreeSet;
 
 /**
  * @author Group 03
  */
-public class RegisterForNotificationsCmd implements Cmd<Mailbox> {
+public class RegisterForNotificationsCmd implements Cmd<AbstractMailbox> {
 
     public RegisterForNotificationsCmd(){
         this.cmdMapSubjectTypes = new HashMap<>();
@@ -48,7 +45,7 @@ public class RegisterForNotificationsCmd implements Cmd<Mailbox> {
      * @throws IllegalArgumentException If any of the arguments is null or invalid.
      */
     @Override
-    public Mailbox exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+    public AbstractMailbox exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
         if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
@@ -56,7 +53,7 @@ public class RegisterForNotificationsCmd implements Cmd<Mailbox> {
         scan.println("Select subject type.");
         String subjectype = new GetObjectOfListCmd<>(PList.<String>empty().plusAll(new TreeSet<>(this.cmdMapSubjectTypes.keySet())),
                 u -> (u.toString()), ((u, input) -> ((u.equalsIgnoreCase(input))))).exec(scan, model, null);
-        Mailbox newMailbox = (Mailbox) this.cmdMapSubjectTypes.get(subjectype.toLowerCase()).exec(scan, model, user);
+        AbstractMailbox newMailbox = (AbstractMailbox) this.cmdMapSubjectTypes.get(subjectype.toLowerCase()).exec(scan, model, user);
         scan.println("Registration for notifications complete.");
         return newMailbox;
     }

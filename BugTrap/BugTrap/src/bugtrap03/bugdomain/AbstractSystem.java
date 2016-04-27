@@ -5,7 +5,7 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.notification.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
 import bugtrap03.bugdomain.usersystem.User;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Invariant;
@@ -613,9 +613,9 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      *
      * @return The memento of this system.
      */
+    @Override
     public AbstractSystemMemento getMemento() {
-	return new AbstractSystemMemento(this.version, this.name, this.description, this.childs, this.parent,
-	        this.milestone, this.isTerminated);
+        return new AbstractSystemMemento(this.getTagSubs(), this.getCommentSubs(), this.version, this.name, this.description, this.childs, this.parent, this.milestone, this.isTerminated);
     }
 
     /**
@@ -627,19 +627,19 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      *             milestones due to constraints)
      */
     public void setMemento(AbstractSystemMemento mem) throws IllegalArgumentException {
-	if (mem == null) {
-	    throw new IllegalArgumentException(
-	            "The AbstractSystemMemento passed to BugReport#setMemento shouldn't be null.");
-	}
+        //TODO: Vincent, super(...)
+        if (mem == null) {
+            throw new IllegalArgumentException("The AbstractSystemMemento passed to AbstractSystem#setMemento shouldn't be null.");
+        }
 
-	this.setVersionID(mem.getVersionID());
-	this.setName(mem.getName());
-	this.setDescription(mem.getDescription());
-	this.setParent(mem.getParent());
-	this.setChilds(mem.getChildren());
+        this.version = mem.getVersionID();
+        this.name = mem.getName();
+        this.description = mem.getDescription();
+        this.isTerminated = mem.getIsTerminated();
+        this.parent = mem.getParent();
+        this.childs = mem.getChildren();
 	mem.restoreChildren();
-	this.setMilestone(mem.getMilestone());
-	this.setTerminated(mem.getIsTerminated());
+        this.milestone = mem.getMilestone();
     }
 
 }

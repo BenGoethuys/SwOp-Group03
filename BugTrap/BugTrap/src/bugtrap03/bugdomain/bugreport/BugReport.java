@@ -6,7 +6,8 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notification.Subject;
+import bugtrap03.bugdomain.notificationdomain.Subject;
+import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.misc.Tree;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
@@ -1332,7 +1333,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return The Memento of this current BugReport.
      */
     public BugReportMemento getMemento() {
-        return new BugReportMemento(this.title, this.description, this.creationDate, this.subsystem, this.commentList,
+        return new BugReportMemento(getTagSubs(), getCommentSubs(), this.title, this.description, this.creationDate, this.subsystem, this.commentList,
                 this.userList, this.dependencies, this.milestone, this.isPrivate, this.trigger, this.stacktrace,
                 this.error, this.getInternState());
     }
@@ -1346,33 +1347,36 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @throws IllegalArgumentException When any of the arguments stored in mem is invalid for the current state. (e.g
      * milestones due to constraints)
      */
-    public void setMemento(BugReportMemento mem) throws IllegalArgumentException {
-        if (mem == null) {
-            throw new IllegalArgumentException("The BugReportMemento passed to BugReport#setMemento shouldn't be null.");
+    @Override
+    public void setMemento(SubjectMemento mem) throws IllegalArgumentException {
+        super.setMemento(mem);
+
+        if (mem instanceof BugReportMemento) {
+
+            BugReportMemento bMem = (BugReportMemento) mem;
+            this.setTitle(bMem.getTitle());
+            this.setDescription(bMem.getDescription());
+            this.setCreationDate(bMem.getCreationDate());
+            this.setSubsystem(bMem.getSubsystem());
+            this.setCommentList(bMem.getComments());
+
+            this.setDependencies(bMem.getDependencies());
+            this.setUserList(bMem.getUserList());
+
+            this.setPrivate(bMem.isPrivate());
+            this.setMilestone(bMem.getMilestone()); //Can be Illegal due to constraints but is fine for undo.
+
+            try {
+                this.setTrigger(creator, bMem.getTrigger());
+                this.setStacktrace(creator, bMem.getStackTrace());
+                this.setError(creator, bMem.getError());
+            } catch (PermissionException ex) {
+                //never happens
+                Logger.getLogger(BugReport.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            this.setInternState(bMem.getSate());
         }
-        
-        this.setTitle(mem.getTitle());
-        this.setDescription(mem.getDescription());
-        this.setCreationDate(mem.getCreationDate());
-        this.setSubsystem(mem.getSubsystem());
-        this.setCommentList(mem.getComments());
-
-        this.setDependencies(mem.getDependencies());
-        this.setUserList(mem.getUserList());
-
-        this.setPrivate(mem.isPrivate());
-        this.setMilestone(mem.getMilestone()); //Can be Illegal due to constraints but is fine for undo.
-
-        try {
-            this.setTrigger(creator, mem.getTrigger());
-            this.setStacktrace(creator, mem.getStackTrace());
-            this.setError(creator, mem.getError());
-        } catch (PermissionException ex) {
-            //never happens
-            Logger.getLogger(BugReport.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        this.setInternState(mem.getSate());
     }
 
     /**

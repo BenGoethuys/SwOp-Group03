@@ -1,8 +1,6 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.Project;
-import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.notification.AbstractSystemSubject;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.gui.cmd.general.RegisterFromASCmd;

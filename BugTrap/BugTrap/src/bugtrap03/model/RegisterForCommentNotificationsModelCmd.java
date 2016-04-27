@@ -1,8 +1,9 @@
 package bugtrap03.model;
 
+import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notification.CommentMailBox;
-import bugtrap03.bugdomain.notification.Subject;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.Subject;
 
 /**
  * @author Group 03
@@ -38,7 +39,7 @@ class RegisterForCommentNotificationsModelCmd extends RegisterForNotificationsMo
      * @throws IllegalArgumentException if on of the arguments is invalid
      * @throws IllegalArgumentException If subject is terminated
      * @throws IllegalStateException if the state of this command is invalid
-     * @see bugtrap03.bugdomain.notification.Mailbox#commentSubscribe(Subject)
+     * @see Mailbox#commentSubscribe(Subject)
      * @see #setExecuted()
      */
     @Override
