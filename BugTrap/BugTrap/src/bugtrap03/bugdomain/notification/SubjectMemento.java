@@ -9,7 +9,7 @@ import purecollections.PList;
  */
 public class SubjectMemento {
     
-    SubjectMemento(PList<TagMailBox> tagSubs, PList<CommentMailBox> commentSubs) {
+    protected SubjectMemento(PList<TagMailBox> tagSubs, PList<CommentMailBox> commentSubs) {
         this.tagSubs = tagSubs;
         this.commentSubs = commentSubs;
     }
