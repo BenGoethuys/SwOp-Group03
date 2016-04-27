@@ -1363,6 +1363,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return  the isTerminateded boolean value of this bug report
      */
     @DomainAPI
+    @Override
     public boolean isTerminated(){
         return this.getSubsystem().isTerminated();
     }
