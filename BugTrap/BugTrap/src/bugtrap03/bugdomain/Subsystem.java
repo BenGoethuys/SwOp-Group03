@@ -2,6 +2,7 @@ package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
 import com.google.java.contract.Ensures;
 import purecollections.PList;
@@ -340,15 +341,22 @@ public class Subsystem extends AbstractSystem {
      * @param desc2 The description for the extra Subsystem.
      * @param subsystems1 The subsystems that will be part of this Subsystem if they are now also direct Subsystems.
      * @param bugReports1 The bugReports that will be part if this Subsystem if they are now also direct BugReports.
+     * @param user The user who wants to split the subsystem.
      * @return The extra created Subsystem.
      *
+     * @throws PermissionException When user does not have sufficient permissions.
      * @throws IllegalArgumentException When subsystems1 == null
      * @throws IllegalArgumentException When bugReports1 == null
      * @throws IllegalArgumentException When any of the arguments is invalid. (such as name and description).
      */
-    public Subsystem split(String name1, String desc1, String name2, String desc2, PList<Subsystem> subsystems1, PList<BugReport> bugReports1) throws IllegalArgumentException {
-        if (subsystems1 == null || bugReports1 == null) {
-            throw new IllegalArgumentException("Can't split a subsystem when subsystems1 or bugReports1 == null.");
+    public Subsystem split(String name1, String desc1, String name2, String desc2, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) throws PermissionException, IllegalArgumentException {
+        if (subsystems1 == null || bugReports1 == null || user == null) {
+            throw new IllegalArgumentException("Can't split a subsystem when subsystems1, bugReports1 or user == null.");
+        }
+
+        //Check perms
+        if (!user.hasPermission(UserPerm.SPLIT_SUBSYS)) {
+            throw new PermissionException("You do not have sufficient permissions to split a subsystem.");
         }
 
         //TODO: Kwinten add the notification list to the other subsystem as well.
