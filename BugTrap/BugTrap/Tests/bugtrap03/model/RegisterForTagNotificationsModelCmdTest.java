@@ -1,6 +1,7 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
@@ -12,7 +13,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
-import purecollections.PList;
 
 /**
  *
@@ -36,7 +36,7 @@ public class RegisterForTagNotificationsModelCmdTest {
         GregorianCalendar startDate = new GregorianCalendar();
         startDate.add(GregorianCalendar.DAY_OF_WEEK, 1);
 
-        project = model.createProject("projName", "projDesc", lead, 100, admin);
+        project = model.createProject(new VersionID(), "projName", "projDesc", lead, 100, admin);
         counter++;
     }
 

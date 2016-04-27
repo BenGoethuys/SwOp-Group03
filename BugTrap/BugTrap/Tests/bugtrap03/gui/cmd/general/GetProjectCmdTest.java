@@ -1,6 +1,7 @@
 package bugtrap03.gui.cmd.general;
 
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
@@ -74,8 +75,8 @@ public class GetProjectCmdTest {
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead15", "Luky", "Luke");
         User admin = model.createAdministrator("admin15", "adminT", "bie");
-        Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        Project proj0 = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project proj1 = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -123,8 +124,8 @@ public class GetProjectCmdTest {
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead", "Luky", "Luke");
         User admin = model.createAdministrator("adminB", "adminT", "bie");
-        Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        Project proj0 = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project proj1 = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
@@ -165,7 +166,7 @@ public class GetProjectCmdTest {
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead2", "Luky", "Luke");
         User admin = model.createAdministrator("adminB2", "adminT", "bie");
-        Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project proj0 = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         PList<Project> projectOptionList = PList.<Project>empty().plus(proj0);
 
         GetProjectCmd cmd = new GetProjectCmd(projectOptionList);
@@ -181,8 +182,8 @@ public class GetProjectCmdTest {
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead0000", "Luky", "Luke");
         User admin = model.createAdministrator("adminB0000", "adminT", "bie");
-        Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        Project proj0 = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project proj1 = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         PList<Project> projectOptionList = PList.<Project>empty().plus(proj0);
 
@@ -198,8 +199,8 @@ public class GetProjectCmdTest {
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead000", "Luky", "Luke");
         User admin = model.createAdministrator("adminB000", "adminT", "bie");
-        Project proj0 = model.createProject("ProjectTest000", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest100", "Project for testing 1", lead, 1000, admin);
+        Project proj0 = model.createProject(new VersionID(), "ProjectTest000", "Project for testing 0", lead, 500, admin);
+        Project proj1 = model.createProject(new VersionID(), "ProjectTest100", "Project for testing 1", lead, 1000, admin);
 
         PList<Project> projectOptionList = PList.<Project>empty().plus(proj0);
 

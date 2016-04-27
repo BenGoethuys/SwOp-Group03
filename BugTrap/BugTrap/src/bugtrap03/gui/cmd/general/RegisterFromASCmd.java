@@ -69,7 +69,7 @@ public class RegisterFromASCmd implements Cmd<Object> {
                 break;
             default:
                 throw new IllegalArgumentException("Something went wrong with selecting " +
-                        "the type of notificationdomain registration");
+                        "the type of notification registration");
         }
         return newMailbox;
     }

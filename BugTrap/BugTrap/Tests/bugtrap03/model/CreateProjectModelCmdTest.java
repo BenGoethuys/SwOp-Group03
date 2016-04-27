@@ -1,6 +1,7 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -29,14 +30,14 @@ public class CreateProjectModelCmdTest {
         model = new DataModel();
         admin = model.createAdministrator("BlubBlabBlob16" + counter, "first", "last");
         dev = model.createDeveloper("DeveloperOverHere16" + counter, "first", "last");
-        proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
+        proj = model.createProject(new VersionID(), "TestProject50", "Testing stuff over here", dev, 50, admin);
 
         counter++;
     }
 
     /**
      * Test
-     * {@link CreateProjectModelCmd#CreateProjectModelCmd(bugtrap03.model.DataModel, java.lang.String, java.lang.String, bugtrap03.bugdomain.usersystem.Developer, long, bugtrap03.bugdomain.usersystem.User)}
+     * {@link CreateProjectModelCmd#CreateProjectModelCmd(DataModel, VersionID, String, String, Developer, long, bugtrap03.bugdomain.usersystem.User)}
      * in a default scenario.
      *
      * @throws PermissionException Never
@@ -44,7 +45,7 @@ public class CreateProjectModelCmdTest {
     @Test
     public void testGoodScenarioCons1() throws PermissionException {
         // 1. Create
-        CreateProjectModelCmd cmd = new CreateProjectModelCmd(model, "TestProject50", "50 Project", dev, 100, admin);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(model, new VersionID(), "TestProject50", "50 Project", dev, 100, admin);
 
         // test
         assertTrue(cmd.toString().contains("Created Project"));
@@ -73,7 +74,7 @@ public class CreateProjectModelCmdTest {
 
     /**
      * Test
-     * {@link CreateProjectModelCmd#CreateProjectModelCmd(bugtrap03.model.DataModel, java.lang.String, java.lang.String, java.util.GregorianCalendar, bugtrap03.bugdomain.usersystem.Developer, long, bugtrap03.bugdomain.usersystem.User)}
+     * {@link CreateProjectModelCmd#CreateProjectModelCmd(DataModel, VersionID, String, String, GregorianCalendar, Developer, long, bugtrap03.bugdomain.usersystem.User)}
      * in a default scenario.
      *
      * @throws PermissionException Never
@@ -84,7 +85,7 @@ public class CreateProjectModelCmdTest {
         startDate.add(GregorianCalendar.DAY_OF_WEEK, 1);
 
         // 1. Create
-        CreateProjectModelCmd cmd = new CreateProjectModelCmd(model, "TestProject50", "50 Project", startDate, dev, 100, admin);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(model, new VersionID(), "TestProject50", "50 Project", startDate, dev, 100, admin);
 
         // test
         assertTrue(cmd.toString().contains("Created Project"));
@@ -120,7 +121,7 @@ public class CreateProjectModelCmdTest {
     @Test(expected = IllegalStateException.class)
     public void testIllegalExec() throws PermissionException {
         // 1. Create
-        CreateProjectModelCmd cmd = new CreateProjectModelCmd(model, "TestProject50", "50 Project", dev, 100, admin);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(model, new VersionID(), "TestProject50", "50 Project", dev, 100, admin);
 
         // 2. Exec()
         cmd.exec();
@@ -130,27 +131,27 @@ public class CreateProjectModelCmdTest {
 
     /**
      * Test
-     * {@link CreateProjectModelCmd#CreateProjectModelCmd(bugtrap03.model.DataModel, java.lang.String, java.lang.String, bugtrap03.bugdomain.usersystem.Developer, long, bugtrap03.bugdomain.usersystem.User)}
+     * {@link CreateProjectModelCmd#CreateProjectModelCmd(DataModel, VersionID, String, String, Developer, long, bugtrap03.bugdomain.usersystem.User)}
      * with model == null
      */
     @Test(expected = IllegalArgumentException.class)
     public void testCons1_ModelNull() {
-        CreateProjectModelCmd cmd = new CreateProjectModelCmd(null, "TestProject50", "50 Project", dev, 100, admin);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(null, new VersionID(), "TestProject50", "50 Project", dev, 100, admin);
     }
 
     /**
      * Test
-     * {@link CreateProjectModelCmd#CreateProjectModelCmd(bugtrap03.model.DataModel, java.lang.String, java.lang.String, bugtrap03.bugdomain.usersystem.Developer, long, bugtrap03.bugdomain.usersystem.User)}
+     * {@link CreateProjectModelCmd#CreateProjectModelCmd(DataModel, VersionID, String, String, Developer, long, bugtrap03.bugdomain.usersystem.User)}
      * with user == null
      */
     @Test(expected = IllegalArgumentException.class)
     public void testCons1_UserNull() {
-        CreateProjectModelCmd cmd = new CreateProjectModelCmd(model, "TestProject50", "50 Project", dev, 100, null);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(model, new VersionID(), "TestProject50", "50 Project", dev, 100, null);
     }
     
     /**
      * Test
-     * {@link CreateProjectModelCmd#CreateProjectModelCmd(bugtrap03.model.DataModel, java.lang.String, java.lang.String, java.util.GregorianCalendar, bugtrap03.bugdomain.usersystem.Developer, long, bugtrap03.bugdomain.usersystem.User)}
+     * {@link CreateProjectModelCmd#CreateProjectModelCmd(DataModel, VersionID, String, String, GregorianCalendar, Developer, long, bugtrap03.bugdomain.usersystem.User)}
      * with model == null
      */
     @Test(expected = IllegalArgumentException.class)
@@ -159,12 +160,12 @@ public class CreateProjectModelCmdTest {
         startDate.add(GregorianCalendar.DAY_OF_WEEK, 1);
 
         // 1. Create
-        CreateProjectModelCmd cmd = new CreateProjectModelCmd(null, "TestProject50", "50 Project", startDate, dev, 100, admin);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(null, new VersionID(), "TestProject50", "50 Project", startDate, dev, 100, admin);
     }
 
     /**
      * Test
-     * {@link CreateProjectModelCmd#CreateProjectModelCmd(bugtrap03.model.DataModel, java.lang.String, java.lang.String, java.util.GregorianCalendar, bugtrap03.bugdomain.usersystem.Developer, long, bugtrap03.bugdomain.usersystem.User)}
+     * {@link CreateProjectModelCmd#CreateProjectModelCmd(DataModel, VersionID, String, String, GregorianCalendar, Developer, long, bugtrap03.bugdomain.usersystem.User)}
      * with user == null
      */
     @Test(expected = IllegalArgumentException.class)
@@ -173,7 +174,7 @@ public class CreateProjectModelCmdTest {
         startDate.add(GregorianCalendar.DAY_OF_WEEK, 1);
 
         // 1. Create
-        CreateProjectModelCmd cmd = new CreateProjectModelCmd(model, "TestProject50", "50 Project", startDate, dev, 100, null);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(model, new VersionID(), "TestProject50", "50 Project", startDate, dev, 100, null);
     }
 
     /**
@@ -183,7 +184,7 @@ public class CreateProjectModelCmdTest {
      */
     @Test(expected = PermissionException.class)
     public void testNoPermissions() throws PermissionException {
-        CreateProjectModelCmd cmd = new CreateProjectModelCmd(model, "TestProject50", "50 Project", dev, 100, dev);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(model, new VersionID(), "TestProject50", "50 Project", dev, 100, dev);
         cmd.exec();
     }
 

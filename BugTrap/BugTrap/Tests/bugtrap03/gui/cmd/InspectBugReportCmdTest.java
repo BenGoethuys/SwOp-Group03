@@ -48,7 +48,7 @@ public class InspectBugReportCmdTest {
         issuer = model.createIssuer("Issuer007", "Issuer007", "Issuer007", "Issuer007");
         admin = model.createAdministrator("Admin007", "Admin007", "Admin007");
 
-        projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         // make subsystems
         subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");

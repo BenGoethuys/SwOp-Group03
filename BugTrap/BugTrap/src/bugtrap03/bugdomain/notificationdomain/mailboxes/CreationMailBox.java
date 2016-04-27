@@ -26,11 +26,11 @@ public class CreationMailBox extends ASTypeMailbox<BugReport, BugReportNotificat
     }
 
     /**
-     * This method updates the notifications list with a new notificationdomain if a bugreport has been created.
+     * This method updates the notifications list with a new notification if a bugreport has been created.
      *
      * @param bugReport The created bugreport.
      *
-     * @return The added notificationdomain.
+     * @return The added notification.
      */
     @Override
     public BugReportNotification update(BugReport bugReport){

@@ -3,6 +3,7 @@ package bugtrap03.gui.cmd;
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
 import bugtrap03.bugdomain.usersystem.Administrator;
@@ -37,7 +38,7 @@ public class UnregisterFromNotificationsCmdTest {
 
         administratorUnregisterCmd = model.createAdministrator("administratorUnregisterCmd" + index,"first","last");
         developerUnregisterCmd = model.createDeveloper("developerUnregisterCmd" + index, "firstname", "lastname");
-        projectRegisterCmd = model.createProject("projectRegisterCmd","testdescription", developerUnregisterCmd, 1000, administratorUnregisterCmd);
+        projectRegisterCmd = model.createProject(new VersionID(), "projectRegisterCmd","testdescription", developerUnregisterCmd, 1000, administratorUnregisterCmd);
         subsystemRegisterCmd = model.createSubsystem(administratorUnregisterCmd, projectRegisterCmd, "subsystemRegisterCmd","testdescription");
         bugReportRegisterCmd = model.createBugReport(subsystemRegisterCmd, developerUnregisterCmd, "a", "b",
                 PList.<BugReport>empty(), new Milestone(1,1,1), 1, false);

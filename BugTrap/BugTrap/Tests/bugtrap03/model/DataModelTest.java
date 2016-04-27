@@ -2,6 +2,7 @@ package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
@@ -144,14 +145,14 @@ public class DataModelTest {
     public void testCreateProjectExceptionA() throws IllegalArgumentException, PermissionException {
         model = new DataModel();
         Developer leadDev = new Developer("Haha1", "Ha", "Ha");
-        project = model.createProject("Test", "TestProject", new GregorianCalendar(), leadDev, 1000, leadDev);
+        project = model.createProject(new VersionID(), "Test", "TestProject", new GregorianCalendar(), leadDev, 1000, leadDev);
     }
 
     @Test(expected = PermissionException.class)
     public void testCreateProjectExceptionB() throws IllegalArgumentException, PermissionException {
         model = new DataModel();
         Developer leadDev = new Developer("Haha2", "Ha", "Ha");
-        project2 = model.createProject("Test2", "TestProject", leadDev, 1000, leadDev);
+        project2 = model.createProject(new VersionID(), "Test2", "TestProject", leadDev, 1000, leadDev);
     }
 
     @Test(expected = PermissionException.class)
@@ -159,7 +160,7 @@ public class DataModelTest {
         model = new DataModel();
         Developer leadDev = new Developer("Haha3", "Ha", "Ha");
         Issuer creator = new Issuer("Again", "New", "Issuer");
-        project = model.createProject("Test", "TestProject", new GregorianCalendar(), leadDev, 1000, creator);
+        project = model.createProject(new VersionID(), "Test", "TestProject", new GregorianCalendar(), leadDev, 1000, creator);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -167,7 +168,7 @@ public class DataModelTest {
         model = new DataModel();
         Developer leadDev = new Developer("Haha4", "Ha", "Ha");
         Issuer creator = new Issuer("Again", "New", "Issuer");
-        project2 = model.createProject("Test2", "TestProject", leadDev, 1000, creator);
+        project2 = model.createProject(new VersionID(), "Test2", "TestProject", leadDev, 1000, creator);
     }
 
     @Test
@@ -175,7 +176,7 @@ public class DataModelTest {
         model = new DataModel();
         Developer leadDev = new Developer("Haha5", "Ha", "Ha");
         Administrator creator = new Administrator("Again2", "New", "Admin");
-        project2 = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        project2 = model.createProject(new VersionID(), "Test", "TestProject", leadDev, 1000, creator);
     }
 
     @Test
@@ -183,7 +184,7 @@ public class DataModelTest {
         model = new DataModel();
         Developer leadDev = new Developer("Haha6", "Ha", "Ha");
         Administrator creator = new Administrator("Again3", "New", "Admin");
-        project = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        project = model.createProject(new VersionID(), "Test", "TestProject", leadDev, 1000, creator);
         model.updateProject(project, creator, "NewTest", "NewTestProject", new GregorianCalendar(), (long) 10);
 
         assertEquals(project.getName(), "NewTest");
@@ -195,7 +196,7 @@ public class DataModelTest {
     public void testUpdateProjectException1() throws IllegalArgumentException, PermissionException {
         model = new DataModel();
         Developer leadDev = new Developer("Haha7", "Ha", "Ha");
-        project = model.createProject("Test", "TestProject", leadDev, 1000, leadDev);
+        project = model.createProject(new VersionID(), "Test", "TestProject", leadDev, 1000, leadDev);
         model.updateProject(project, leadDev, "NewTest", "NewTestProject", new GregorianCalendar(), (long) 10);
     }
 
@@ -204,7 +205,7 @@ public class DataModelTest {
         model = new DataModel();
         Developer leadDev = new Developer("Haha8", "Ha", "Ha");
         Issuer creator = new Issuer("Again4", "New", "Admin");
-        project = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        project = model.createProject(new VersionID(), "Test", "TestProject", leadDev, 1000, creator);
         model.updateProject(project, creator, "NewTest", "NewTestProject", new GregorianCalendar(), (long) 10);
     }
 
@@ -214,7 +215,7 @@ public class DataModelTest {
         Developer leadDev = new Developer("Haha9", "Ha", "Ha");
         Administrator creator = new Administrator("Again9", "New", "Admin");
         issuer = new Issuer("Issuer9", "New", "Issuer");
-        project = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        project = model.createProject(new VersionID(), "Test", "TestProject", leadDev, 1000, creator);
         model.deleteProject(leadDev, project);
     }
 
@@ -224,7 +225,7 @@ public class DataModelTest {
         Developer leadDev = new Developer("Haha10", "Ha", "Ha");
         Administrator creator = new Administrator("Again10", "New", "Admin");
         issuer = new Issuer("Issuer10", "New", "Issuer");
-        project = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        project = model.createProject(new VersionID(), "Test", "TestProject", leadDev, 1000, creator);
         model.deleteProject(creator, project);
     }
 
@@ -234,7 +235,7 @@ public class DataModelTest {
         Developer leadDev = new Developer("Haha11", "Ha", "Ha");
         Administrator creator = new Administrator("Again11", "New", "Admin");
         issuer = new Issuer("Issuer11", "New", "Issuer");
-        project = model.createProject("Test", "TestProject", leadDev, 1000, creator);
+        project = model.createProject(new VersionID(), "Test", "TestProject", leadDev, 1000, creator);
         model.deleteProject(issuer, project);
     }
 
@@ -329,7 +330,7 @@ public class DataModelTest {
         model = new DataModel();
         admin = model.createAdministrator("BlubBlabBlob", "FirstName", "LastName");
         dev = model.createDeveloper("RikkyTheMan", "Bob", "DrivesHome");
-        model.createProject("ProjectName", "This is a test Project", dev, 50, admin);
+        model.createProject(new VersionID(), "ProjectName", "This is a test Project", dev, 50, admin);
 
         //Before
         assertEquals(3, model.getHistory(5).size());
@@ -377,7 +378,7 @@ public class DataModelTest {
         model = new DataModel();
         admin = model.createAdministrator("A2BCDEF0459", "first", "last");
         dev = model.createDeveloper("A2BCDEF460", "first", "last");
-        project = model.createProject("name", "desc", dev, 50, admin);
+        project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
         
         Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
         BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
@@ -395,7 +396,7 @@ public class DataModelTest {
         model = new DataModel();
         admin = model.createAdministrator("A3BCDEF0459", "first", "last");
         dev = model.createDeveloper("A3BCDEF460", "first", "last");
-        project = model.createProject("name", "desc", dev, 50, admin);
+        project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
         
         Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
         BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);

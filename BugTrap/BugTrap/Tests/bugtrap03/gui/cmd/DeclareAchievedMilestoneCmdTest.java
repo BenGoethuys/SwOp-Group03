@@ -65,8 +65,8 @@ public class DeclareAchievedMilestoneCmdTest {
         issuer = model.createIssuer("Issu", "er", "0071");
         admin = model.createAdministrator("Ad", "Mi", "Ne20224");
 
-        projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        projectB = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+        projectB = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
         subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",

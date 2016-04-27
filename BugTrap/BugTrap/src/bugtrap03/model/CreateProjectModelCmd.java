@@ -1,6 +1,7 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -26,7 +27,7 @@ class CreateProjectModelCmd extends ModelCmd {
      *
      * @throws IllegalArgumentException When model or creator is a null reference.
      */
-    CreateProjectModelCmd(DataModel model, String name, String desc, GregorianCalendar startDate, Developer lead, long budget, User creator) throws IllegalArgumentException {
+    CreateProjectModelCmd(DataModel model, VersionID versionID, String name, String desc, GregorianCalendar startDate, Developer lead, long budget, User creator) throws IllegalArgumentException {
         if (model == null) {
             throw new IllegalArgumentException("The DataModel passed to the CreateProjectModelCmd was a null reference.");
         }
@@ -35,6 +36,7 @@ class CreateProjectModelCmd extends ModelCmd {
         }
 
         this.model = model;
+        this.versionID = versionID;
         this.name = name;
         this.desc = desc;
         this.startDate = startDate;
@@ -58,25 +60,13 @@ class CreateProjectModelCmd extends ModelCmd {
      * @throws IllegalArgumentException if model or creator is null
      * @throws PermissionException If the given creator has insufficient permissions
      */
-    CreateProjectModelCmd(DataModel model, String name, String desc, Developer lead, long budget, User creator) {
-        if (model == null) {
-            throw new IllegalArgumentException("The DataModel passed to the CreateProjectModelCmd was a null reference.");
-        }
-        if (creator == null) {
-            throw new IllegalArgumentException("The creator passed to the CreateProjectModelCmd was a null reference.");
-        }
-
-        this.model = model;
-        this.name = name;
-        this.desc = desc;
-        this.startDate = null;
-        this.lead = lead;
-        this.budget = budget;
-        this.creator = creator;
+    CreateProjectModelCmd(DataModel model, VersionID versionID, String name, String desc, Developer lead, long budget, User creator) {
+        this(model, versionID, name, desc, null, lead, budget, creator);
     }
 
     private Project project;
 
+    private VersionID versionID;
     private DataModel model;
     private String name;
     private String desc;
@@ -109,9 +99,17 @@ class CreateProjectModelCmd extends ModelCmd {
             throw new PermissionException("The given user doesn't have the permission to create a project");
         }
         if (startDate == null) {
-            project = new Project(name, desc, lead, budget);
+            if (versionID == null) {
+                project = new Project(name, desc, lead, budget);
+            } else {
+                project = new Project(versionID, name, desc, lead, budget);
+            }
         } else {
-            project = new Project(name, desc, lead, startDate, budget);
+            if (versionID == null) {
+                project = new Project(name, desc, lead, startDate, budget);
+            } else {
+                project = new Project(versionID, name, desc, lead, startDate, budget);
+            }
         }
         model.addProject(project);
         isExecuted = true;

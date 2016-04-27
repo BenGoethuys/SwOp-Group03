@@ -3,6 +3,7 @@ package bugtrap03.gui.cmd;
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
@@ -39,7 +40,7 @@ public class RegisterForNotificationsCmdTest {
 
         administratorRegisterCmd = model.createAdministrator("administratorRegisterCmd" + index, "first", "last");
         developerRegisterCmd = model.createDeveloper("developerRegisterCmd" + index, "firstname", "lastname");
-        projectRegisterCmd = model.createProject("projectRegisterCmd", "testdescription", developerRegisterCmd, 1000, administratorRegisterCmd);
+        projectRegisterCmd = model.createProject(new VersionID(), "projectRegisterCmd", "testdescription", developerRegisterCmd, 1000, administratorRegisterCmd);
         subsystemRegisterCmd = model.createSubsystem(administratorRegisterCmd, projectRegisterCmd, "subsystemRegisterCmd", "testdescription");
         bugReportRegisterCmd = model.createBugReport(subsystemRegisterCmd, developerRegisterCmd, "", "",
                 PList.<BugReport>empty(), new Milestone(1, 1, 1), 1, false);

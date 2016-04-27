@@ -10,6 +10,7 @@ import bugtrap03.bugdomain.usersystem.User;
 import com.google.java.contract.Requires;
 import purecollections.PList;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
@@ -69,6 +70,25 @@ public class Project extends AbstractSystem {
     public Project(VersionID version, String name, String description, Developer lead, GregorianCalendar startDate,
             long budgetEstimate) throws IllegalArgumentException {
         this(version, name, description, new GregorianCalendar(), lead, startDate, budgetEstimate);
+    }
+
+    /**
+     * Creates a project with a given versionID, name, description, lead, startDate, budgetEstimate.
+     *
+     * @param version The versionID of this project.
+     * @param name The name of this project.
+     * @param description The description of this project.
+     * @param lead The lead developer of this project
+     * @param budgetEstimate The budget estimate of this project
+     * @throws IllegalArgumentException if any of the arguments is invalid
+     * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
+     * @see Project#isValidLead(Developer)
+     * @see Project#isValidStartDate(GregorianCalendar, GregorianCalendar)
+     * @see Project#isValidBudgetEstimate(long)
+     */
+    public Project(VersionID version, String name, String description, Developer lead,
+                   long budgetEstimate) throws IllegalArgumentException {
+        this(version, name, description, new GregorianCalendar(), lead, new GregorianCalendar(), budgetEstimate);
     }
 
     /**

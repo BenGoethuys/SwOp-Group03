@@ -3,6 +3,7 @@ package bugtrap03.gui.cmd;
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -36,7 +37,7 @@ public class ShowNotificationsCmdTest {
 
         administratorShowNotCmd = model.createAdministrator("administratorShowNotCmd" + index,"first","last");
         developerShowNotCmd = model.createDeveloper("developerShowNotCmd" + index, "firstname", "lastname");
-        projectRegisterCmd = model.createProject("projectRegisterCmd","testdescription", developerShowNotCmd, 1000, administratorShowNotCmd);
+        projectRegisterCmd = model.createProject(new VersionID(), "projectRegisterCmd","testdescription", developerShowNotCmd, 1000, administratorShowNotCmd);
         subsystemRegisterCmd = model.createSubsystem(administratorShowNotCmd, projectRegisterCmd, "subsystemRegisterCmd","testdescription");
         bugReportRegisterCmd = model.createBugReport(subsystemRegisterCmd, developerShowNotCmd, "a", "b",
                 PList.<BugReport>empty(), new Milestone(1,1,1), 1, false);
@@ -89,7 +90,7 @@ public class ShowNotificationsCmdTest {
         question.add("Your notifications, ordered by newest first:");
         //show notif list
         question.add("0. \tThe following bugreport has been commented upon: " + bugReportRegisterCmd.getTitle() + "\n" +
-                "\tThis notificationdomain originated from the subscription on: " + projectRegisterCmd.getSubjectName());
+                "\tThis notification originated from the subscription on: " + projectRegisterCmd.getSubjectName());
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
         cmd.exec(scan, model, developerShowNotCmd);

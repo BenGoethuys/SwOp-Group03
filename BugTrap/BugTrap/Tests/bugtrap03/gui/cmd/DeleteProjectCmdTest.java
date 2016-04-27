@@ -1,6 +1,7 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -33,8 +34,8 @@ public class DeleteProjectCmdTest {
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead08", "Luky", "Luke");
         Administrator admin = model.createAdministrator("admin08", "adminT", "bie");
-        Project proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        Project proj0 = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project proj1 = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
