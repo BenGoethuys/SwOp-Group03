@@ -76,7 +76,7 @@ class SplitSubsystemModelCmd extends ModelCmd {
      * @throws IllegalArgumentException When any of the arguments passed to the constructor is invalid.
      * @throws IllegalStateException When this ModelCmd was already executed.
      * 
-     * @see Subsystem#split(String, String, String, String, PList, PList User)
+     * @see Subsystem#split(String, String, String, String, PList, PList, User)
      * 
      */
     @Override
