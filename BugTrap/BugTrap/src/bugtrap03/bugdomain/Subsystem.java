@@ -334,6 +334,10 @@ public class Subsystem extends AbstractSystem {
      * This will split this Subsystem into this and another Subsystem.
      * <br>This Subsystem will keep all its direct Subsystems and BugReports that are also in subsystems1 and
      * bugReports1 respectively. The rest of the direct Subsystems and BugReports will go to the extra Subsystem.
+     * 
+     * <p>
+     * <b> Warning: A invalid argument may cause a partially executed split. e.g Invalid argument for the 2nd subsystem
+     * may still cause the name and description for subsystem 1 to be set before the error. </b>
      *
      * @param name1 The name for this Subsystem.
      * @param desc1 The description for this Subsystem.
