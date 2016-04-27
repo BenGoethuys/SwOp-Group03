@@ -59,7 +59,7 @@ public class SplitSubsystemCmd implements Cmd {
         Subsystem sub = cmd.exec(scan, model, null);
 
         if (sub == null) {
-            throw new IllegalArgumentException("No options, operation cancelled.");
+            throw new CancelException("No options, operation cancelled.");
         }
 
         //6. The system asks for a name and description for both new subsystems.

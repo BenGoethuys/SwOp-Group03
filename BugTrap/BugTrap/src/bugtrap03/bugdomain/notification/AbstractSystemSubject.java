@@ -2,6 +2,7 @@ package bugtrap03.bugdomain.notification;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
+import java.util.Collection;
 import purecollections.PList;
 
 /**
@@ -51,6 +52,27 @@ public abstract class AbstractSystemSubject extends Subject {
             this.creationSubs = this.creationSubs.plus(cmb);
         } else {
             throw new IllegalArgumentException("Invalid creationmailbox");
+        }
+    }
+    
+    /**
+     * This method adds a collection of creation subscriber to the subject.
+     *
+     * @param cmbs The CreationMailBoxes to add
+     *
+     * @throws IllegalArgumentException if the any of the cmbs is invalid
+     * @see Subject#isValidMb(Mailbox)
+     * @see #addCreationSub(CreationMailBox) 
+     */
+    public void addCreationSub(Collection<CreationMailBox> cmbs) {
+        for (CreationMailBox cmb : cmbs) {
+            if (!isValidMb(cmb)) {
+                throw new IllegalArgumentException("Incvalid CreationMailBox");
+            }
+        }
+
+        for (CreationMailBox cmb : cmbs) {
+            this.addCreationSub(cmb);
         }
     }
 

@@ -2,6 +2,7 @@ package bugtrap03.bugdomain.notification;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
+import java.util.Collection;
 import purecollections.PList;
 
 /**
@@ -61,9 +62,9 @@ public abstract class Subject {
     /**
      * This method adds a tag subscriber to the subject.
      *
-     * @param tmb The comment mailbox to add
+     * @param tmb The tag mailbox to add
      *
-     * @throws IllegalArgumentException if the cmb is invalid
+     * @throws IllegalArgumentException if the tmb is invalid
      * @see #isValidMb(Mailbox)
      */
     public void addTagSub(TagMailBox tmb)throws IllegalArgumentException{
@@ -73,9 +74,30 @@ public abstract class Subject {
             throw new IllegalArgumentException("Invalid tagmailbox");
         }
     }
+    
+    /**
+     * This method adds a collection of tag subscriber to the subject.
+     *
+     * @param tmbs The tag mailboxes to add
+     *
+     * @throws IllegalArgumentException if any of the tmbs is invalid. This is checked before adding is initiated.
+     * @see #isValidMb(Mailbox)
+     * @see #addTagSub(TagMailBox) 
+     */
+    public void addTagSub(Collection<TagMailBox> tmbs)throws IllegalArgumentException{
+        for(TagMailBox tmb : tmbs) {
+            if(!isValidMb(tmb)) {
+                throw new IllegalArgumentException("Incvalid tagMailBox");
+            }
+        }
+        
+        for(TagMailBox tmb : tmbs) {
+            this.addTagSub(tmb);
+        }
+    }
 
     /**
-     * This abstract method let's subjects notify subjects higher in the hierarchy.
+     * This abstract method lets subjects notify subjects higher in the hierarchy.
      *
      * @param br The bugreport of which an attribute has changed.
      */
@@ -94,7 +116,7 @@ public abstract class Subject {
     }
 
     /**
-     * This method adds a commentsubscriber to the subject.
+     * This method adds a comment subscriber to the subject.
      *
      * @param cmb The comment mailbox to add
      *
@@ -106,6 +128,27 @@ public abstract class Subject {
             this.commentSubs = this.commentSubs.plus(cmb);
         } else {
             throw new IllegalArgumentException("Invalid commentmailbox");
+        }
+    }
+
+    /**
+     * This method adds a collection of comment subscriber to the subject.
+     *
+     * @param cmb The CommentMailBoxes to add
+     *
+     * @throws IllegalArgumentException if any of the the cmbs is invalid.
+     * @see #isValidMb(Mailbox)
+     * @see #addCommentSub(CommentMailBox) 
+     */
+    public void addCommentSub(Collection<CommentMailBox> cmbs) throws IllegalArgumentException {
+        for(CommentMailBox cmb : cmbs) {
+            if(!isValidMb(cmb)) {
+                throw new IllegalArgumentException("Invalid commentMailBox");
+            }
+        }
+        
+        for(CommentMailBox cmb : cmbs) {
+            addCommentSub(cmb);
         }
     }
 
