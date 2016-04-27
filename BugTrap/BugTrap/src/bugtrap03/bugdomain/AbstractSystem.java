@@ -26,7 +26,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     /**
      * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
      *
-     * @param parent    The parent of this abstract system. (Can be null.)
+     * @param parent The parent of this abstract system. (Can be null.)
      * @param version The versionID (of that type) of this element.
      * @param name The string name for this element.
      * @param description The string description of this element.
@@ -47,12 +47,13 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         this.setChilds(PList.<Subsystem>empty());
         this.setParent(parent);
         this.setMilestone(milestone);
+        this.isTerminated = false;
     }
 
     /**
      * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
      *
-     * @param parent    The parent of this abstract system. (Can be null.)
+     * @param parent The parent of this abstract system. (Can be null.)
      * @param version The versionID (of that type) of this element.
      * @param name The string name for this element.
      * @param description The string description of this element.
@@ -70,7 +71,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     /**
      * This constructor is used for all elements of type AbstractSystem, although possibly indirect.
      *
-     * @param parent    The parent of this abstract system. (Can be null.)
+     * @param parent The parent of this abstract system. (Can be null.)
      * @param name The string name for this element.
      * @param description The string description of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
@@ -86,6 +87,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     private PList<Subsystem> childs;
     private Milestone milestone;
     private AbstractSystem parent;
+    protected boolean isTerminated;
 
     /**
      * This is a getter for the version variable.
@@ -136,8 +138,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     }
 
     /**
-     * Sets the Milestone of the project to the given Milestone.
-     * Children of this AbstractSystem will be recursively updated if required
+     * Sets the Milestone of the project to the given Milestone. Children of this AbstractSystem will be recursively
+     * updated if required
      *
      * @param milestone The milestone of the project.
      * @throws IllegalArgumentException When milestone is a invalid.
@@ -152,43 +154,43 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         //Fail = milestone = oldMilestone + quit
         //Succes = update Milestones Below if required (recursively)
         //required = if now higher than the highest subsystem.
-                
+
         if (!isValidMilestone(milestone)) {
             throw new IllegalArgumentException("The given Milestone is not valid for this abstractSystem");
         }
 
         this.milestone = milestone;
 
-        if (! this.constraintCheck()){
+        if (!this.constraintCheck()) {
             // update all children
-            for (Subsystem subsystem : this.getSubsystems()){
+            for (Subsystem subsystem : this.getSubsystems()) {
                 subsystem.setMilestone(milestone);
             }
         }
     }
 
     /**
-     * This method sets the Milestone of the project to the given Milestone.
-     * Children of this AbstractSystem will be recursively updated if required
+     * This method sets the Milestone of the project to the given Milestone. Children of this AbstractSystem will be
+     * recursively updated if required
      *
-     * @param user      The user that wants to change the milestone
+     * @param user The user that wants to change the milestone
      * @param milestone The new milestone
      *
-     * @throws PermissionException  If the given user doesn't have the needed permission
+     * @throws PermissionException If the given user doesn't have the needed permission
      * @throws IllegalArgumentException When milestone is a invalid.
      *
      * @see #isValidMilestone(Milestone)
      */
     public void setMilestone(User user, Milestone milestone) throws PermissionException {
-        if (! user.hasPermission(UserPerm.SET_MILESTONE)){
+        if (!user.hasPermission(UserPerm.SET_MILESTONE)) {
             throw new PermissionException("The given user doesn't have the needed permission to change the milestone");
         }
         this.setMilestone(milestone);
     }
 
     /**
-     * This method check if the given Milestone is a valid Milestone for an AbstractSystem
-     * Checks if the constraintCheck is still valid for the parent of this AbstractSystem
+     * This method check if the given Milestone is a valid Milestone for an AbstractSystem Checks if the constraintCheck
+     * is still valid for the parent of this AbstractSystem
      *
      * @param milestone the Milestone to check
      * @return true if the given Milestone is valid for an AbstractSystem.
@@ -201,8 +203,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
             return false;
         }
         for (BugReport bugreport : this.getAllBugReports()) {
-            if ((!bugreport.isResolved()) && (bugreport.getMilestone() != null) &&
-            (bugreport.getMilestone().compareTo(milestone) <= 0)) {
+            if ((!bugreport.isResolved()) && (bugreport.getMilestone() != null)
+                    && (bugreport.getMilestone().compareTo(milestone) <= 0)) {
                 return false;
             }
         }
@@ -222,13 +224,12 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     /**
      * This method checks the constraint for this AbstractSystem specified in the assignment:
      *
-     * A project’s or subsystem’s achieved milestone should at all times be less
-     * than or equal to the highest achieved milestone of all the subsystems it
-     * (recursively) contains.
+     * A project’s or subsystem’s achieved milestone should at all times be less than or equal to the highest achieved
+     * milestone of all the subsystems it (recursively) contains.
      *
      * @return if this state adheres to the constraint
      */
-    public boolean constraintCheck(){
+    public boolean constraintCheck() {
         if (this.getAllSubsystems().isEmpty()) {
             return true;
         }
@@ -248,16 +249,17 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     }
 
     /**
-     * This method sets the parent of this Abstract System to the given parent
+     * This method sets the parent of this Abstract System to the given parent.
+     * <br> Should be used with care as to maintain the bidirectional relation.
      *
-     * @param parent    The new parent of this Abstract System
+     * @param parent The new parent of this Abstract System
      *
      * @throws IllegalArgumentException If the given parent was invalid
      *
      * @see AbstractSystem#isValidParent(AbstractSystem)
      */
-    private void setParent(AbstractSystem parent) throws IllegalArgumentException {
-        if (! this.isValidParent(parent)){
+    protected void setParent(AbstractSystem parent) throws IllegalArgumentException {
+        if (!this.isValidParent(parent)) {
             throw new IllegalArgumentException("The given parent was invalid for this Abstract System");
         }
         this.parent = parent;
@@ -266,13 +268,13 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     /**
      * This method check if a given Abstract System is valid as a parent for this Abstract System.
      *
-     * @param parent    The parent to check
+     * @param parent The parent to check
      *
-     * @return  True if the given Abstract System is valid as a parent
+     * @return True if the given Abstract System is valid as a parent
      */
     @DomainAPI
-    public boolean isValidParent(AbstractSystem parent){
-        if (parent == null){
+    public boolean isValidParent(AbstractSystem parent) {
+        if (parent == null) {
             return false;
         }
         if (parent.isTerminated()) {
@@ -392,6 +394,29 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     }
 
     /**
+     * Add the given subsystem as a child.
+     * <br> Should be used with care as to maintain bidirectional relation.
+     *
+     * @param subsystem The subsystem to add as a child of this.
+     * @throws IllegalArgumentException When subsystem is already a subsystem in this project.
+     * @throws IllegalArgumentException When the parentProject does not match, <b> implies you have to set the parent
+     * first.</b>
+     * @throws IllegalArgumentException When subsystem == null
+     */
+    protected void addSubsystem(Subsystem subsystem) {
+        if (subsystem == null) {
+            throw new IllegalArgumentException("AbstractSystem cannot add a null Subsystem.");
+        }
+        if (this.getParentProject().getAllSubsystems().contains(subsystem)) {
+            throw new IllegalArgumentException("AbstractSystem cannot add a Subsystem which is already a child of it.");
+        }
+        if (this.getParentProject() != subsystem.getParentProject()) {
+            throw new IllegalArgumentException("AbstractSystem cannot add a Subsystem that belongs to a different project.");
+        }
+        this.addChild(subsystem);
+    }
+
+    /**
      * This method adds a subsystem to this AbstractSystem
      *
      * @param name The name of the new subsystem
@@ -415,7 +440,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     }
 
     /**
-     * This methods deletes the given child from the PList of childs.
+     * This methods deletes the given child from the PList of children.
+     * <br> Should be used with care as to maintain bidirectional relation.
      *
      * @param child The subsystem to delete.
      * @return Whether there was a change in the data.
@@ -431,7 +457,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      *
      * @return The parent of an element with type Subclass or the Project.
      */
-    protected AbstractSystem getParent(){
+    @DomainAPI
+    public AbstractSystem getParent() {
         return this.parent;
     }
 
@@ -480,7 +507,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     /**
      * This method returns the combined impact of all the bug reports associated with this AbstractSystem
      *
-     * @return  The combined impact of all bug reports associated with this AbstractSystem
+     * @return The combined impact of all bug reports associated with this AbstractSystem
      */
     @DomainAPI
     public abstract double getBugImpact();
@@ -521,7 +548,6 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     public abstract String getDetails();
 
     //TODO KWINTEN !!! ADD COMMENTARY
-
     @Override
     public void notifyTagSubs(BugReport br) {
         this.getParent().notifyTagSubs(br);
@@ -541,12 +567,59 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     }
 
     /**
+     * This method sets the isTerminated boolean of this object
+     *
+     * @param terminated the new value
+     */
+    public void setTerminated(boolean terminated) {
+        this.isTerminated = terminated;
+    }
+
+    /**
      * This method check whether or not the current AbstractSystem is terminated
      *
      * @return true if the object is terminated
      */
     @DomainAPI
-    public boolean isTerminated(){
-        return this.getParent().isTerminated();
+    @Override
+    public boolean isTerminated() {
+        if (this.isTerminated) {
+            return true;
+        } else {
+            return this.getParent().isTerminated();
+        }
     }
+
+    /**
+     * The method returns the memento for this AbstractSystem.
+     *
+     * @return The memento of this system.
+     */
+    public AbstractSystemMemento getMemento() {
+        return new AbstractSystemMemento(this.version, this.name, this.description, this.childs, this.parent, this.milestone, this.isTerminated);
+    }
+
+    /**
+     * Set the memento of this AbstractSystem.
+     *
+     * @param mem The Memento to use to set.
+     * @throws IllegalArgumentException When mem == null
+     * @throws IllegalArgumentException When any of the arguments stored in mem is invalid for the current state. (e.g
+     * milestones due to constraints)
+     */
+    public void setMemento(AbstractSystemMemento mem) throws IllegalArgumentException {
+        if (mem == null) {
+            throw new IllegalArgumentException("The AbstractSystemMemento passed to BugReport#setMemento shouldn't be null.");
+        }
+
+        this.setVersionID(mem.getVersionID());
+        this.setName(mem.getName());
+        this.setDescription(mem.getDescription());
+        this.setParent(mem.getParent());
+        this.setChilds(mem.getChildren());
+        mem.restoreChildren();
+        this.setMilestone(mem.getMilestone());
+        this.setTerminated(mem.getIsTerminated());
+    }
+
 }

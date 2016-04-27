@@ -973,24 +973,22 @@ public class DataModel {
     }
     
     /**
-     * Split the given subsystems into 2 subsystems.
-     * <br> Subsystem1 will have all the direct subsystems and bugReports of the given subsystem that are also contained in the list subsystems1 or bugReports1 respectively... The rest will go to subsystem2.
-     * @param subsystem The Subsystem to split.
-     * @param subsystem1Name The name for subsystem 1 resulting from the split.
-     * @param subsystem1Desc The description for subsystem 1 resulting from the split.
-     * @param subsystem2Name The name for subsystem 2 resulting from the split/
+     * Split the given subsystem into 2 subsystems, subsystem and a newly created one.
+     * <br> subsystem will keep all the direct subsystems and bugReports that are also contained in the list subsystems1 or bugReports1 respectively... The rest will go to subsystem2.
+     * @param subsystem The Subsystem to split into itself and another newly created Subsystem.
+     * @param subsystem1Name The new name for subsystem.
+     * @param subsystem1Desc The new description for subsystem.
+     * @param subsystem2Name The name for subsystem 2 resulting from the split.
      * @param subsystem2Desc The description for subsystem 2 resulting from the split.
-     * @param subsystems1  The list of subsystems for subsystem 1.
-     * @param bugReports1 The list of bugReporsts for subsystem 1.
+     * @param subsystems1 The list of subsystems to keep in subsystem.
+     * @param bugReports1 The list of bugReports to keep in subsystem.
      * @param user The user who wants to split the given subsystem.
-     * @return The array containing the 2 subsystems that resulted from this split.
+     * @return The extra newly created subsystem, subsystem 2. The other subsystem, subsystem 1 remains as subsystem.
      */
-    public Subsystem[] splitSubsystem(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) throws PermissionException {
-       //TODO: Vincent Make sure in the ModelCmd that only admin (perms) can split.
+    public Subsystem splitSubsystem(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) throws PermissionException, IllegalArgumentException {
        //TODO: Vincent Add all exception throwing stuff.
-       
-        SplitSubsystemModelCmd cmd = new SplitSubsystemModelCmd();
-        Subsystem[] result = cmd.exec();
+        SplitSubsystemModelCmd cmd = new SplitSubsystemModelCmd(subsystem, subsystem1Name, subsystem1Desc, subsystem2Name, subsystem2Desc, subsystems1, bugReports1, user);
+        Subsystem result = cmd.exec();
         addToHistory(cmd);
         return result;
     }

@@ -1,6 +1,7 @@
 package bugtrap03.bugdomain.bugreport;
 
 import bugtrap03.bugdomain.Milestone;
+import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.usersystem.Developer;
 import java.util.GregorianCalendar;
 import purecollections.PList;
@@ -20,10 +21,10 @@ import purecollections.PList;
  * @author Group 03
  */
 public class BugReportMemento {
-    
+
     /**
      * Create a Memento for BugReport.
-     * 
+     *
      * @param title The title of the BugReport during the snapshot
      * @param desc The description of the BugReport during the snapshot.
      * @param creationDate The creationDate of the BugReport during the snapshot.
@@ -37,12 +38,13 @@ public class BugReportMemento {
      * @param error The error of the BugReport during the snapshot.
      * @param state The state of the BugReport during the snapshot.
      */
-    BugReportMemento(String title, String desc, GregorianCalendar creationDate, PList<Comment> commentList, 
+    BugReportMemento(String title, String desc, GregorianCalendar creationDate, Subsystem subsystem, PList<Comment> commentList,
             PList<Developer> userList, PList<BugReport> dependencies, Milestone milestone, boolean isPrivate,
             String trigger, String stacktrace, String error, BugReportState state) {
         this.title = title;
         this.description = desc;
         this.creationDate = creationDate;
+        this.subsystem = subsystem;
         this.commentList = commentList;
         this.userList = userList;
         this.dependencies = dependencies;
@@ -64,11 +66,12 @@ public class BugReportMemento {
     private PList<Developer> userList; //Immutable PList + Internal state not cared about. np
     private PList<BugReport> dependencies; //Immutable PList + never changes anyway. np
 
+    private Subsystem subsystem;
+
     /**
      * Stays the same. The internal state of the subsystem can be changed but for undoing we'll be ignoring this; If we
      * later on don't want to ignore this an option is to recheck milestone constraint and throw Illegal if required.
      */
-    //private Subsystem subsystem; //Stays the same.
     private Milestone milestone; //Immutable. np
     private boolean isPrivate; //Immutable. np
 
@@ -118,9 +121,9 @@ public class BugReportMemento {
      *
      * @return The reference to the Subsystem that the BugReport had at the time of the creation of this Memento.
      */
-//    Subsystem getSubsystem() {
-//        return this.subsystem;
-//    }
+    Subsystem getSubsystem() {
+        return this.subsystem;
+    }
 
     Milestone getMilestone() {
         return this.milestone;
