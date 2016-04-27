@@ -76,7 +76,7 @@ class SplitSubsystemModelCmd extends ModelCmd {
      * @throws IllegalArgumentException When any of the arguments passed to the constructor is invalid.
      * @throws IllegalStateException When this ModelCmd was already executed.
      * 
-     * @see Subsystem#split(String, String, String, String, PList, PList User)
+     * @see Subsystem#split(String, String, String, String, PList, PList, User)
      * 
      */
     @Override
@@ -91,8 +91,8 @@ class SplitSubsystemModelCmd extends ModelCmd {
         //Execute
         try {
             subsystem2 = subsystem.split(subsystem1Name, subsystem1Desc, subsystem2Name, subsystem2Desc, subsystems1, bugReports1, user);
-        } catch(IllegalArgumentException ex) {
-            //A invalid argument happened, restore state.
+        } catch(Exception ex) {
+            //An invalid argument happened, restore state.
             subsystem.getParent().setMemento(parentMemento);
             throw ex;
         }
