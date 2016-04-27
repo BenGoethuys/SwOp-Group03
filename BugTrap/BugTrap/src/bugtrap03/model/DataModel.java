@@ -984,9 +984,13 @@ public class DataModel {
      * @param bugReports1 The list of bugReports to keep in subsystem.
      * @param user The user who wants to split the given subsystem.
      * @return The extra newly created subsystem, subsystem 2. The other subsystem, subsystem 1 remains as subsystem.
+     *
+     * @throws PermissionException When the user does not have sufficient permissions
+     * @throws IllegalArgumentException When subsystem == null
+     * @throws IllegalArgumentException When user == null
+     * @throws IllegalArgumentException When any of the arguments passed is invalid for a subsystem.
      */
     public Subsystem splitSubsystem(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) throws PermissionException, IllegalArgumentException {
-       //TODO: Vincent Add all exception throwing stuff.
         SplitSubsystemModelCmd cmd = new SplitSubsystemModelCmd(subsystem, subsystem1Name, subsystem1Desc, subsystem2Name, subsystem2Desc, subsystems1, bugReports1, user);
         Subsystem result = cmd.exec();
         addToHistory(cmd);
