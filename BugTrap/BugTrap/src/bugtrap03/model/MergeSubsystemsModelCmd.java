@@ -11,14 +11,26 @@ import bugtrap03.bugdomain.usersystem.User;
  */
 class MergeSubsystemsModelCmd extends ModelCmd {
 
+    /**
+     * The constructor of this model cmd
+     *
+     * @param user              The user that wants to merge the subsystems
+     * @param subsystem1        The first subsystem to merge
+     * @param subsystem2        The second subsystem to merge
+     * @param newName           The new name of the merged subsystem
+     * @param newDescription    The new description of the merged subsystem
+     */
     MergeSubsystemsModelCmd(User user, Subsystem subsystem1, Subsystem subsystem2, String newName, String newDescription){
+        // user null, newName null and newDescription null will be tested automatically
+        if (subsystem1 == null || subsystem2 == null){
+            throw new IllegalArgumentException("The given subsystem cannot be null");
+        }
+
         this.user = user;
         this.subsystem1 = subsystem1;
         this.subsystem2 = subsystem2;
         this.newName = newName;
         this.newDescription = newDescription;
-
-        //TODO: null refs
     }
 
     private final User user;
@@ -40,6 +52,7 @@ class MergeSubsystemsModelCmd extends ModelCmd {
      * @throws NullPointerException     When there is a null where it shouldn't. Read ModelCmd specific documentation.
      * @throws PermissionException      When the user does not have sufficient permissions
      * @throws IllegalStateException    When the command is already executed.
+     *
      * @returns This is ModelCommand-subclass specific. null when there is nothing to report.
      */
     @Override
