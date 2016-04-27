@@ -64,8 +64,6 @@ class SplitSubsystemModelCmd extends ModelCmd {
     private AbstractSystem parent;
     
     private boolean isExecuted = false;
-
-    //TODO: Check for null references.
     
     /**
      * 
@@ -74,7 +72,7 @@ class SplitSubsystemModelCmd extends ModelCmd {
      * @throws PermissionException
      * @throws IllegalStateException
      * 
-     * @see Subsystem#split(java.lang.String, java.lang.String, java.lang.String, java.lang.String, purecollections.PList, purecollections.PList)
+     * @see Subsystem#split(String, String, String, String, PList, PList)
      * 
      */
     @Override
@@ -82,17 +80,12 @@ class SplitSubsystemModelCmd extends ModelCmd {
         if (this.isExecuted()) {
             throw new IllegalStateException("The SplitSubsystemModelCmd was already executed.");
         }
-        
-        //Check perms
-        if(!user.hasPermission(UserPerm.SPLIT_SUBSYS)) {
-            throw new PermissionException("You do not have sufficient permissions to split a subsystem.");
-        }
 
         //Store mementoµ
         parentMemento = subsystem.getParent().getMemento();
         
         //Execute
-        subsystem2 = subsystem.split(subsystem1Name, subsystem1Desc, subsystem2Name, subsystem2Desc, subsystems1, bugReports1);
+        subsystem2 = subsystem.split(subsystem1Name, subsystem1Desc, subsystem2Name, subsystem2Desc, subsystems1, bugReports1, user);
         isExecuted = true;
         return subsystem2;
     }
