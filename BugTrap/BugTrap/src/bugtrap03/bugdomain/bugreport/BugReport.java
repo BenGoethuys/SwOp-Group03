@@ -712,15 +712,15 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
-     * This method sets the subsystem of this bug report
-     *
+     * This method sets the subsystem of this bug report.
+     * <br> <b> Do not use when you don't know what you're doing.</b> Should be used with care as to maintain the bidirectional relation.
      * @param subsystem the subsystem to set
      *
      * @throws IllegalArgumentException if isValidSubsystem(subsystem) fails
      *
      * @see BugReport#isValidSubsystem(Subsystem)
      */
-    private void setSubsystem(Subsystem subsystem) throws IllegalArgumentException {
+    public void setSubsystem(Subsystem subsystem) throws IllegalArgumentException {
         if (!BugReport.isValidSubsystem(subsystem)) {
             throw new IllegalArgumentException("The given subsystem is invalid for this bug report");
         }
@@ -1314,14 +1314,14 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return The Memento of this current BugReport.
      */
     public BugReportMemento getMemento() {
-        return new BugReportMemento(this.title, this.description, this.creationDate, this.commentList,
+        return new BugReportMemento(this.title, this.description, this.creationDate, this.subsystem, this.commentList,
                 this.userList, this.dependencies, this.milestone, this.isPrivate, this.trigger, this.stacktrace,
                 this.error, this.getInternState());
     }
 
     /**
      * Set the memento of this BugReport.
-     * <br> This does not change the UniqueID, Creator and subsystem.
+     * <br> This does not change the UniqueID and Creator..
      *
      * @param mem The Memento to use to set.
      * @throws IllegalArgumentException When mem == null
@@ -1332,9 +1332,11 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         if (mem == null) {
             throw new IllegalArgumentException("The BugReportMemento passed to BugReport#setMemento shouldn't be null.");
         }
+        
         this.setTitle(mem.getTitle());
         this.setDescription(mem.getDescription());
         this.setCreationDate(mem.getCreationDate());
+        this.setSubsystem(mem.getSubsystem());
         this.setCommentList(mem.getComments());
 
         this.setDependencies(mem.getDependencies());
