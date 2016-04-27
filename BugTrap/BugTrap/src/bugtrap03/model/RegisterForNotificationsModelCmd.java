@@ -54,7 +54,7 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      *
      * @param mb The new Mailbox
      * @throws IllegalArgumentException if the new mailbox is invalid
-     * @see #isValidNewMailBox(Mailbox)
+     * @see #isValidNewMailBox
      */
     protected void setNewMailbox(AbstractMailbox mb) throws IllegalArgumentException {
         if (this.isValidNewMailBox(mb)){
