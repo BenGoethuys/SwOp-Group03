@@ -1,6 +1,3 @@
-/**
- * 
- */
 package bugtrap03.bugdomain;
 
 import static org.junit.Assert.*;
@@ -37,7 +34,7 @@ public class HealthAlgorithmTest {
 	model = new DataModel();
 	Developer lead = model.createDeveloper("healthy13", "healthy1", "healthy1");
 	Developer dev = model.createDeveloper("healthy14", "healthy2", "healthy2");
-	issuer = model.createIssuer("healthy3", "healthy15", "healthy3");
+	issuer = model.createIssuer("healthy15", "healthy15", "healthy3");
 	Administrator admin = model.createAdministrator("healty16", "healty4", "healty4");
 
 	Project projectA = model.createProject("ProjectTest", "Project for testing", lead, 500, admin);
@@ -65,6 +62,8 @@ public class HealthAlgorithmTest {
 	assertFalse(ha.checkSubsystem(subsystemA, HealthIndicator.HEALTY, 50));
 	assertTrue(ha.checkSubsystem(subsystemA1, HealthIndicator.HEALTY, 50));
 	assertTrue(ha.checkSubsystem(subsystemA, HealthIndicator.SATISFACTORY, 100));
+	model.createBugReport(subsystemA1, issuer, "Third", "Third", PList.<BugReport> empty(), null, 10, false);
+	assertFalse(ha.checkSubsystem(subsystemA, HealthIndicator.HEALTY, 200));
     }
 
 }
