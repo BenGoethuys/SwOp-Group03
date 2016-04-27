@@ -99,8 +99,8 @@ public class DeclareAchievedMilestoneCmdTest {
         // Setup scenario
         question.add("Select a project.");
         question.add("Available options:");
-        question.add("0. ProjectTest0 version: 0.0.1");
-        question.add("1. ProjectTest1 version: 0.0.1");
+        question.add("0. ProjectTest0 version: 0");
+        question.add("1. ProjectTest1 version: 0");
         question.add("I choose: ");
         answer.add("0");
         question.add("You have chosen:");
