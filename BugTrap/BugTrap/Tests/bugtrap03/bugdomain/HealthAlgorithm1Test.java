@@ -59,56 +59,46 @@ public class HealthAlgorithm1Test {
     }
 
     @Test
-    public void testHealthIndicators() {
-	
-    }
-    
-    /**
-     * Test method for {@link bugtrap03.bugdomain.HealthAlgorithm1#isHealthy(bugtrap03.bugdomain.Subsystem)}.
-     * 
-     * @throws PermissionException
-     * @throws IllegalArgumentException
-     */
-    @Test
-    public void testIsHealthy() throws IllegalArgumentException, PermissionException {
+    public void testHealthIndicators() throws IllegalArgumentException, PermissionException {
+	// HEALTHY
 	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
 	System.out.println(subsystem.getBugImpact());
 	assertEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
-    }
 
-    /**
-     * Test method for {@link bugtrap03.bugdomain.HealthAlgorithm1#isSatisfactory(bugtrap03.bugdomain.Subsystem)}.
-     * 
-     * @throws PermissionException
-     * @throws IllegalArgumentException
-     */
-    @Test
-    public void testIsSatisfactory() throws IllegalArgumentException, PermissionException {
+	// SATISFACTORY
 	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
 	System.out.println(subsystem.getBugImpact());
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
 	assertEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
-    }
 
-    /**
-     * Test method for {@link bugtrap03.bugdomain.HealthAlgorithm1#isStable(bugtrap03.bugdomain.Subsystem)}.
-     * @throws PermissionException 
-     * @throws IllegalArgumentException 
-     */
-    @Test
-    public void testIsStable() throws IllegalArgumentException, PermissionException {
+	// STABLE
 	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
 	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
 	System.out.println(subsystem.getBugImpact());
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
-    }
+	assertEquals(subsystem.getIndicator(ha), HealthIndicator.STABLE);
 
-    /**
-     * Test method for {@link bugtrap03.bugdomain.HealthAlgorithm1#isSerious(bugtrap03.bugdomain.Subsystem)}.
-     */
-    @Test
-    public void testIsSerious() {
+	// SERIOUS
+	for (int i = 1; i < 14; i++) {
+	    model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
+	}
+	System.out.println(subsystem.getBugImpact());
+	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
+	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
+	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.STABLE);
+	assertEquals(subsystem.getIndicator(ha), HealthIndicator.SERIOUS);
+
+	// CRITICAL
+	for (int i = 1; i < 18; i++) {
+	    model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
+	}
+	System.out.println(subsystem.getBugImpact());
+	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
+	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
+	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.STABLE);
+	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.SERIOUS);
+	assertEquals(subsystem.getIndicator(ha), HealthIndicator.CRITICAL);
     }
 
 }
