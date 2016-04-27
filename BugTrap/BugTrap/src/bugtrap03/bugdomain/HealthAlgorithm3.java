@@ -9,14 +9,14 @@ package bugtrap03.bugdomain;
  */
 public class HealthAlgorithm3 extends HealthAlgorithm {
 
-	private final int HEALTH = 10;
+	private final int HEALTHY = 10;
 	private final int SATISFACTORY = 100;
 	private final int STABLE = 250;
 	private final int SERIOUS = 500;
 
 	@Override
 	public boolean isHealthy(Subsystem subsystem) {
-		return checkSubsystem(subsystem, HealthIndicator.HEALTHY, HEALTH);
+		return checkSubsystem(subsystem, HealthIndicator.HEALTHY, HEALTHY);
 	}
 
 	@Override
