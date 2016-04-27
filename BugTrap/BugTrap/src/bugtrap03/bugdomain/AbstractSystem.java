@@ -617,7 +617,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      */
     public void setMemento(AbstractSystemMemento mem) throws IllegalArgumentException {
         if (mem == null) {
-            throw new IllegalArgumentException("The AbstractSystemMemento passed to BugReport#setMemento shouldn't be null.");
+            throw new IllegalArgumentException("The AbstractSystemMemento passed to AbstractSystem#setMemento shouldn't be null.");
         }
 
         this.setVersionID(mem.getVersionID());
