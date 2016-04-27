@@ -51,12 +51,10 @@ public class HealthAlgorithm3Test {
     public void testHealthIndicators() throws IllegalArgumentException, PermissionException {
 	// HEALTHY
 	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 3, false);
-	System.out.println(subsystem.getBugImpact());
 	assertEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
 
 	// SATISFACTORY
 	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
-	System.out.println(subsystem.getBugImpact());
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
 	assertEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
 
@@ -64,7 +62,6 @@ public class HealthAlgorithm3Test {
 	for (int i = 1; i < 4; i++) {
 	    model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
 	}
-	System.out.println(subsystem.getBugImpact());
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
 	assertEquals(subsystem.getIndicator(ha), HealthIndicator.STABLE);
@@ -73,7 +70,6 @@ public class HealthAlgorithm3Test {
 	for (int i = 1; i < 13; i++) {
 	    model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
 	}
-	System.out.println(subsystem.getBugImpact());
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.STABLE);
@@ -83,7 +79,6 @@ public class HealthAlgorithm3Test {
 	for (int i = 1; i < 2; i++) {
 	    model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
 	}
-	System.out.println(subsystem.getBugImpact());
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.STABLE);

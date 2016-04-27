@@ -1,6 +1,3 @@
-/**
- * 
- */
 package bugtrap03.bugdomain;
 
 import static org.junit.Assert.*;
@@ -54,19 +51,16 @@ public class HealthAlgorithm2Test {
     public void testHealthIndicators() throws IllegalArgumentException, PermissionException {
 	// HEALTHY
 	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
-	System.out.println(subsystem.getBugImpact());
 	assertEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
 
 	// SATISFACTORY
 	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
-	System.out.println(subsystem.getBugImpact());
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
 	assertEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
 
 	// STABLE
 	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
 	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
-	System.out.println(subsystem.getBugImpact());
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
 	assertEquals(subsystem.getIndicator(ha), HealthIndicator.STABLE);
@@ -75,7 +69,6 @@ public class HealthAlgorithm2Test {
 	for (int i = 1; i < 14; i++) {
 	    model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
 	}
-	System.out.println(subsystem.getBugImpact());
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.STABLE);
@@ -85,7 +78,6 @@ public class HealthAlgorithm2Test {
 	for (int i = 1; i < 151; i++) {
 	    model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
 	}
-	System.out.println(subsystem.getBugImpact());
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.STABLE);
