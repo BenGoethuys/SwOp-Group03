@@ -632,14 +632,14 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
             throw new IllegalArgumentException("The AbstractSystemMemento passed to AbstractSystem#setMemento shouldn't be null.");
         }
 
-	this.setVersionID(mem.getVersionID());
-	this.setName(mem.getName());
-	this.setDescription(mem.getDescription());
-	this.setParent(mem.getParent());
-	this.setChilds(mem.getChildren());
+        this.version = mem.getVersionID();
+        this.name = mem.getName();
+        this.description = mem.getDescription();
+        this.isTerminated = mem.getIsTerminated();
+        this.parent = mem.getParent();
+        this.childs = mem.getChildren();
 	mem.restoreChildren();
-	this.setMilestone(mem.getMilestone());
-	this.setTerminated(mem.getIsTerminated());
+        this.milestone = mem.getMilestone();
     }
 
 }
