@@ -443,7 +443,12 @@ public class Subsystem extends AbstractSystem {
             this.addSubsystem(temp);
         }
 
-        //TODO: Kwinten add the notification list to the other subsystem as well.
+        // find lowest milestone and replace if necessary
+        if (subsystem.getMilestone().compareTo(this.getMilestone()) < 0) {
+            this.setMilestone(subsystem.getMilestone());
+        }
+
+        //TODO: possible merge subscribers?
 
         // terminate subsystem
         subsystem.setTerminated(true);

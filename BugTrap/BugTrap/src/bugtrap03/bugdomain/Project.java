@@ -632,7 +632,6 @@ public class Project extends AbstractSystem {
             this.startDate = pMem.getStartDate();
             this.projectParticipants = pMem.getProjectParticipants();
             this.budgetEstimate = pMem.getBudgetEstimate();
-            this.isTerminated = pMem.getIsTerminated();
         }
     }
 
