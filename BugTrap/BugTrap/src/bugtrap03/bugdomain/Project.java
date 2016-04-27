@@ -1,6 +1,7 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.notification.SubjectMemento;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -608,7 +609,7 @@ public class Project extends AbstractSystem {
      */
     @Override
     public ProjectMemento getMemento() {
-        return new ProjectMemento(getTagSubs(), getCommentSubs(), getVersionID(), getName(), getDescription(), getSubsystems(), getParent(), 
+        return new ProjectMemento(getTagSubs(), getCommentSubs(), getCreationSubs(), getVersionID(), getName(), getDescription(), getSubsystems(), getParent(), 
                 getMilestone(), getCreationDate(), getStartDate(), this.projectParticipants, this.budgetEstimate, 
                 this.isTerminated);
     }
@@ -622,7 +623,7 @@ public class Project extends AbstractSystem {
      * milestones due to constraints)
      */
     @Override
-    public void setMemento(AbstractSystemMemento mem) {
+    public void setMemento(SubjectMemento mem) {
         super.setMemento(mem);
         
         if(mem instanceof ProjectMemento) {
