@@ -105,7 +105,7 @@ class SplitSubsystemModelCmd extends ModelCmd {
         }
         
         parent.setMemento(parentMemento);
-        subsystem2.
+        subsystem2.setTerminated(true);
         return true;
     }
 
