@@ -41,7 +41,7 @@ public class TagMailBoxTest {
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
                 1, false, "triggerhappy", "stacktacktack", "error404");
         bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
-        tagsTMB = EnumSet.of(Tag.ASSIGNED, Tag.DUPLICATE);
+        tagsTMB = EnumSet.of(Tag.NEW, Tag.DUPLICATE);
         testTMB = new TagMailBox(project4MB, tagsTMB);
     }
 
@@ -51,6 +51,9 @@ public class TagMailBoxTest {
         BugReportNotification bugReportNotification = testTMB.update(bugreport4MB);
         assertTrue(testTMB.getNotifications().contains(bugReportNotification));
         assertFalse(testTMB.getNotifications().contains(bugReportNotification4MB2));
+        int size = testTMB.getNotifications().size();
+        bugreport4MB.addUser(dev4TMB, dev4TMB);
+        assertEquals(size,testTMB.getNotifications().size());
     }
 
     @Test
