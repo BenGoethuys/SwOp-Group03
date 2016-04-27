@@ -33,7 +33,7 @@ class SplitSubsystemModelCmd extends ModelCmd {
      * 
      * @see Subsystem#split(String, String, String, String, PList, PList, User)
      */
-    public SplitSubsystemModelCmd(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) {
+    SplitSubsystemModelCmd(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) {
         if(user == null || subsystem == null) {
             throw new IllegalArgumentException("SplitSubsystemModelCmd does not accept user or subsystem == null.");
         }
