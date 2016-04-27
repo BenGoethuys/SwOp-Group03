@@ -66,7 +66,8 @@ public class AbstractSystemSubjectDummyTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testAddCreationSubNull() throws Exception {
-        testDummy.addCreationSub(null);
+        CreationMailBox box = null;
+        testDummy.addCreationSub(box);
     }
 
     static class AbstractSystemSubjectDummy extends AbstractSystemSubject {

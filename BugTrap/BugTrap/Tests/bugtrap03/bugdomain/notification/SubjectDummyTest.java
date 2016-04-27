@@ -90,7 +90,8 @@ public class SubjectDummyTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testAddTagSubNull() throws Exception {
-        testDummy.addTagSub(null);
+        TagMailBox box = null;
+        testDummy.addTagSub(box);
     }
 
     @Test
@@ -110,7 +111,8 @@ public class SubjectDummyTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testAddCommentSubNull() throws Exception {
-        testDummy.addCommentSub(null);
+        CommentMailBox box = null;
+        testDummy.addCommentSub(box);
     }
 
     @Test
