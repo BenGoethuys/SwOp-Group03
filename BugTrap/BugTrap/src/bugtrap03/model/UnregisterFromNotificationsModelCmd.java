@@ -1,7 +1,6 @@
 package bugtrap03.model;
 
-import bugtrap03.bugdomain.notification.AbstractMailbox;
-import bugtrap03.bugdomain.notification.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 

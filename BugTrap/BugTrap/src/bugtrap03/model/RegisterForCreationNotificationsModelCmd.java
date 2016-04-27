@@ -1,8 +1,9 @@
 package bugtrap03.model;
 
+import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notification.AbstractSystemSubject;
-import bugtrap03.bugdomain.notification.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
 
 /**
  * @author Group 03
@@ -38,7 +39,7 @@ class RegisterForCreationNotificationsModelCmd extends RegisterForNotificationsM
      * @throws IllegalArgumentException if on of the arguments is invalid
      * @throws IllegalArgumentException If abstractSystemSubject is terminated
      * @throws IllegalStateException if the state of this command is invalid
-     * @see bugtrap03.bugdomain.notification.Mailbox#creationSubscribe(AbstractSystemSubject)
+     * @see Mailbox#creationSubscribe(AbstractSystemSubject)
      * @see #setExecuted()
      */
     @Override

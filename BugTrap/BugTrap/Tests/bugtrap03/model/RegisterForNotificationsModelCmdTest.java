@@ -1,6 +1,6 @@
 package bugtrap03.model;
 
-import bugtrap03.bugdomain.notification.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.User;

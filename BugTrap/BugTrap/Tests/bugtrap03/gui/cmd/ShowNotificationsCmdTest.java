@@ -89,7 +89,7 @@ public class ShowNotificationsCmdTest {
         question.add("Your notifications, ordered by newest first:");
         //show notif list
         question.add("0. \tThe following bugreport has been commented upon: " + bugReportRegisterCmd.getTitle() + "\n" +
-                "\tThis notification originated from the subscription on: " + projectRegisterCmd.getSubjectName());
+                "\tThis notificationdomain originated from the subscription on: " + projectRegisterCmd.getSubjectName());
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
         cmd.exec(scan, model, developerShowNotCmd);

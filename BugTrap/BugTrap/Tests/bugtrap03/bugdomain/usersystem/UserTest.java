@@ -1,7 +1,7 @@
 package bugtrap03.bugdomain.usersystem;
 
 import bugtrap03.bugdomain.permission.UserPerm;
-import bugtrap03.bugdomain.notification.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

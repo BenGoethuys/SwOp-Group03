@@ -1,8 +1,11 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.SubjAbstractMailbox;
+import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 
 import java.util.EnumSet;
 
@@ -68,11 +71,11 @@ public class TagMailBox extends SubjAbstractMailbox<BugReport,BugReportNotificat
     }
 
     /**
-     * This method updates the notifications list with a new notification if the tag on a begureport has been changed.
+     * This method updates the notifications list with a new notificationdomain if the tag on a begureport has been changed.
      *
      * @param bugReport The bugreport of which the tag is changed.
      *
-     * @return The added notification.
+     * @return The added notificationdomain.
      */
     public BugReportNotification update(BugReport bugReport){
         StringBuilder message = new StringBuilder();

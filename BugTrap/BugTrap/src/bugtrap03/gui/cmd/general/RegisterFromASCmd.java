@@ -1,10 +1,9 @@
 package bugtrap03.gui.cmd.general;
 
 import bugtrap03.bugdomain.bugreport.Tag;
-import bugtrap03.bugdomain.notification.AbstractMailbox;
-import bugtrap03.bugdomain.notification.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notification.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
 import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
@@ -70,7 +69,7 @@ public class RegisterFromASCmd implements Cmd<Object> {
                 break;
             default:
                 throw new IllegalArgumentException("Something went wrong with selecting " +
-                        "the type of notification registration");
+                        "the type of notificationdomain registration");
         }
         return newMailbox;
     }

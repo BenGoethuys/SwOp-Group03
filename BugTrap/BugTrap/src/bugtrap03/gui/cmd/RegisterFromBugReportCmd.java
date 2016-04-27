@@ -2,11 +2,9 @@ package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
-import bugtrap03.bugdomain.notification.AbstractMailbox;
-import bugtrap03.bugdomain.notification.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notification.Subject;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.gui.cmd.general.SelectTagsCmd;
@@ -76,7 +74,7 @@ public class RegisterFromBugReportCmd implements Cmd<AbstractMailbox>{
                 break;
             default:
                 throw new IllegalArgumentException("Something went wrong with selecting " +
-                        "the type of notification registration");
+                        "the type of notificationdomain registration");
         }
         return newMailbox;
     }

@@ -2,9 +2,9 @@ package bugtrap03.bugdomain.bugreport;
 
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.notification.CommentMailBox;
-import bugtrap03.bugdomain.notification.SubjectMemento;
-import bugtrap03.bugdomain.notification.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
+import bugtrap03.bugdomain.notificationdomain.TagMailBox;
 import bugtrap03.bugdomain.usersystem.Developer;
 import java.util.GregorianCalendar;
 import purecollections.PList;
