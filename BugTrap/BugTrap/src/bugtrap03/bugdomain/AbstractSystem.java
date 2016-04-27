@@ -590,6 +590,13 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
             return this.getParent().isTerminated();
         }
     }
+    
+    /**
+     * TODO 
+     * @param ha
+     * @return
+     */
+    public abstract HealthIndicator getIndicator(HealthAlgorithm ha);
 
     /**
      * The method returns the memento for this AbstractSystem.
