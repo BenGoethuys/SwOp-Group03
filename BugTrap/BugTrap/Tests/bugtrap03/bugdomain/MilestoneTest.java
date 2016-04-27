@@ -11,9 +11,11 @@ import org.junit.Test;
  */
 public class MilestoneTest {
 
+    private Milestone milestone0;
     private Milestone milestone1;
     private Milestone milestone2;
     private Milestone milestone3;
+    private String string0;
     private String string1;
     private String string2;
     private String string3;
@@ -23,9 +25,11 @@ public class MilestoneTest {
      */
     @Before
     public void setUp() throws Exception {
+	milestone0 = new Milestone();
         milestone1 = new Milestone(1);
         milestone2 = new Milestone(1, 2);
         milestone3 = new Milestone(1, 2, 3);
+        string0 = "M0";
         string1 = "M1";
         string2 = "M1.2";
         string3 = "M1.2.3";
@@ -36,6 +40,8 @@ public class MilestoneTest {
      */
     @Test
     public void testToString() {
+	assertEquals(string0, milestone0.toString());
+	
         assertEquals(string1, milestone1.toString());
         assertNotEquals("M1.0", milestone1.toString());
         assertNotEquals("M1.0.0", milestone1.toString());

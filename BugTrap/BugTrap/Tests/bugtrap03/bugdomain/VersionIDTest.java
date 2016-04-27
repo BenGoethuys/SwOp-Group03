@@ -33,19 +33,13 @@ public class VersionIDTest {
     }
 
 
-
-    /**
-     * Test method for {@link VersionID#toString()}.
-     */
     @Test
     public void testToString3() {
 	String test = "1.2.3";
 	assertEquals(versionID.toString(), test);
     }
 
-    /**
-     * Test method for {@link VersionID#toString()}.
-     */
+
     @Test
     public void testToString2() {
 	String test = "1.2";
@@ -53,9 +47,6 @@ public class VersionIDTest {
 	assertEquals(versionID.toString(), test);
     }
 
-    /**
-     * Test method for {@link VersionID#toString()}.
-     */
     @Test
     public void testToString1() {
 	String test = "1";
@@ -63,9 +54,6 @@ public class VersionIDTest {
 	assertEquals(versionID.toString(), test);
     }
 
-    /**
-     * Test method for {@link VersionID#compareTo(VersionID)}.
-     */
     @Test
     public void testCompareTo() {
 	VersionID versionIDcomp1 = new VersionID(2, 3, 4);
@@ -84,6 +72,21 @@ public class VersionIDTest {
 
 	assertEquals(versionID.compareTo(versionIDcomp4), 1);
 	assertEquals(versionID.compareTo(versionIDcomp5), -1);
+    }
+    @Test
+    public void testCompareTo2() {
+	VersionID versionIDcomp1 = new VersionID(1, 2, 3);
+	VersionID versionIDcomp2 = new VersionID(1, 2);
+	VersionID versionIDcomp3 = new VersionID(1, 3);
+
+	assertEquals(versionIDcomp1.compareTo(versionIDcomp2), 1);
+	assertEquals(versionIDcomp1.compareTo(versionIDcomp3), -1);
+
+	assertEquals(versionIDcomp2.compareTo(versionIDcomp1), -1);
+	assertEquals(versionIDcomp2.compareTo(versionIDcomp3), -1);
+
+	assertEquals(versionIDcomp3.compareTo(versionIDcomp1), 1);
+	assertEquals(versionIDcomp3.compareTo(versionIDcomp2), 1);
     }
 
     /**
