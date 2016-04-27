@@ -1332,7 +1332,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return The Memento of this current BugReport.
      */
     public BugReportMemento getMemento() {
-        return new BugReportMemento(this.title, this.description, this.creationDate, this.subsystem, this.commentList,
+        return new BugReportMemento(getTagSubs(), getCommentSubs(), this.title, this.description, this.creationDate, this.subsystem, this.commentList,
                 this.userList, this.dependencies, this.milestone, this.isPrivate, this.trigger, this.stacktrace,
                 this.error, this.getInternState());
     }
