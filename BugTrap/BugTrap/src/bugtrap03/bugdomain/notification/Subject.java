@@ -175,9 +175,16 @@ public abstract class Subject {
         return new SubjectMemento(this.tagSubs, this.commentSubs);
     }
     
+    /**
+     * Set the memento of this Subject.
+     *
+     * @param mem The Memento to use to set.
+     * @throws IllegalArgumentException When mem == null
+     * @throws IllegalArgumentException When any of the arguments stored in mem is invalid for the current state.
+     */
     public void setMemento(SubjectMemento mem) {
         if (mem == null) {
-            throw new IllegalArgumentException("The SubjectMemento passed to Subject#setMemento shouldn't be null.");
+            throw new IllegalArgumentException("The memento to set musn't be null.");
         }
         
         this.tagSubs = mem.getTagSubs();
