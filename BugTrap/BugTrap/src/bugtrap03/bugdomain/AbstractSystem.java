@@ -366,11 +366,12 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     }
 
     /**
-     * A getter for the PList of childs.
+     * A getter for the PList of children.
      *
-     * @return an PList of childs.
+     * @return an PList of children.
      */
-    protected PList<Subsystem> getSubsystems() {
+    @DomainAPI
+    public PList<Subsystem> getSubsystems() {
         return this.childs;
     }
 
