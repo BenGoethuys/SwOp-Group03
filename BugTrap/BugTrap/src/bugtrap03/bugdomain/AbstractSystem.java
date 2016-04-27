@@ -455,7 +455,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      *
      * @return The parent of an element with type Subclass or the Project.
      */
-    protected AbstractSystem getParent() {
+    @DomainAPI
+    public AbstractSystem getParent() {
         return this.parent;
     }
 

@@ -349,8 +349,9 @@ public class Project extends AbstractSystem {
      *
      * @return this;
      */
+    @DomainAPI
     @Override
-    protected Project getParent() {
+    public Project getParent() {
         return this;
     }
 
