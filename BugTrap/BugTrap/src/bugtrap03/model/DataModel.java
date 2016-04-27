@@ -901,9 +901,9 @@ public class DataModel {
     /**
      * This method lets a user register for notifications concerning a specific tag change on a subject.
      *
-     * @param user the user that wishes to subscribe for notifications
-     * @param subject the subject on which the user wishes to subscribe
-     * @param enumSet the enumset of specific tags to which the user wishes to subscribe
+     * @param user      the user that wishes to subscribe for notifications
+     * @param subject   the subject on which the user wishes to subscribe
+     * @param enumSet   the enumset of specific tags to which the user wishes to subscribe
      *
      * @return The newly created mailbox that represents the registration for notifications.
      *
@@ -922,8 +922,8 @@ public class DataModel {
     /**
      * This method lets a user register for notifications concerning a tag change on a subject.
      *
-     * @param user the user that wishes to subscribe for notifications
-     * @param subject the subject on which the user wishes to subscribe
+     * @param user      the user that wishes to subscribe for notifications
+     * @param subject   the subject on which the user wishes to subscribe
      *
      * @return The newly created mailbox that represents the registration for notifications.
      *
@@ -941,8 +941,9 @@ public class DataModel {
 
     /**
      * This method lets a user unregister for notifications
-     * @param user The user that wishes to unregister.
-     * @param mailbox The mailbox that contains the notifications from which the user wishes to unregister.
+     *
+     * @param user      The user that wishes to unregister.
+     * @param mailbox   The mailbox that contains the notifications from which the user wishes to unregister.
      *
      * @return The mailbox that represents the registration for notifications.
      *
@@ -963,7 +964,8 @@ public class DataModel {
      * @param user              The user that wants to change the milestone
      * @param abstractSystem    The abstractSystem that needs a milestone change
      * @param milestone         The new milestone
-     * @throws PermissionException
+     *
+     * @throws PermissionException  If the given user doesn't have the needed permission
      */
     @DomainAPI
     public void setMilestone(User user, AbstractSystem abstractSystem, Milestone milestone) throws PermissionException {
@@ -973,24 +975,54 @@ public class DataModel {
     }
     
     /**
-     * Split the given subsystems into 2 subsystems.
-     * <br> Subsystem1 will have all the direct subsystems and bugReports of the given subsystem that are also contained in the list subsystems1 or bugReports1 respectively... The rest will go to subsystem2.
-     * @param subsystem The Subsystem to split.
-     * @param subsystem1Name The name for subsystem 1 resulting from the split.
-     * @param subsystem1Desc The description for subsystem 1 resulting from the split.
-     * @param subsystem2Name The name for subsystem 2 resulting from the split/
-     * @param subsystem2Desc The description for subsystem 2 resulting from the split.
-     * @param subsystems1  The list of subsystems for subsystem 1.
-     * @param bugReports1 The list of bugReporsts for subsystem 1.
-     * @param user The user who wants to split the given subsystem.
-     * @return The array containing the 2 subsystems that resulted from this split.
+     * Split the given subsystem into 2 subsystems, subsystem and a newly created one.
+     * <br> subsystem will keep all the direct subsystems and bugReports that are also contained in the list subsystems1
+     * or bugReports1 respectively... The rest will go to subsystem2.
+     *
+     * @param subsystem         The Subsystem to split into itself and another newly created Subsystem.
+     * @param subsystem1Name    The new name for subsystem.
+     * @param subsystem1Desc    The new description for subsystem.
+     * @param subsystem2Name    The name for subsystem 2 resulting from the split.
+     * @param subsystem2Desc    The description for subsystem 2 resulting from the split.
+     * @param subsystems1       The list of subsystems to keep in subsystem.
+     * @param bugReports1       The list of bugReports to keep in subsystem.
+     * @param user              The user who wants to split the given subsystem.
+     *
+     * @return The extra newly created subsystem, subsystem 2. The other subsystem, subsystem 1 remains as subsystem.
+     *
+     * @throws PermissionException When the user does not have sufficient permissions
+     * @throws IllegalArgumentException When subsystem == null
+     * @throws IllegalArgumentException When user == null
+     * @throws IllegalArgumentException When any of the arguments passed is invalid for a subsystem.
      */
-    public Subsystem[] splitSubsystem(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) throws PermissionException {
-       //TODO: Vincent Make sure in the ModelCmd that only admin (perms) can split.
-       //TODO: Vincent Add all exception throwing stuff.
-       
-        SplitSubsystemModelCmd cmd = new SplitSubsystemModelCmd();
-        Subsystem[] result = cmd.exec();
+    @DomainAPI
+    public Subsystem splitSubsystem(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) throws PermissionException, IllegalArgumentException {
+        SplitSubsystemModelCmd cmd = new SplitSubsystemModelCmd(subsystem, subsystem1Name, subsystem1Desc, subsystem2Name, subsystem2Desc, subsystems1, bugReports1, user);
+        Subsystem result = cmd.exec();
+        addToHistory(cmd);
+        return result;
+    }
+
+    /**
+     * This method safely merges 2 subsystems together
+     *
+     * @param user              The user that wants to merge the subsystems
+     * @param subsystem1        The first subsystem to merge
+     * @param subsystem2        The second subsystem to merge
+     * @param newName           The new name of the merged subsystem
+     * @param newDescription    The new description of the merged subsystem
+     *
+     * @return  The merged subsystem
+     *
+     * @throws IllegalArgumentException When there is an illegal argument passed.
+     * @throws NullPointerException     When there is a null where it shouldn't. Read ModelCmd specific documentation.
+     * @throws PermissionException      When the user does not have sufficient permissions
+     */
+    @DomainAPI
+    public Subsystem mergeSubsystems(User user, Subsystem subsystem1, Subsystem subsystem2,
+                                     String newName, String newDescription) throws PermissionException {
+        MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(user, subsystem1, subsystem2, newName, newDescription);
+        Subsystem result = cmd.exec();
         addToHistory(cmd);
         return result;
     }

@@ -712,15 +712,15 @@ public class BugReport extends Subject implements Comparable<BugReport> {
     }
 
     /**
-     * This method sets the subsystem of this bug report
-     *
+     * This method sets the subsystem of this bug report.
+     * <br> <b> Do not use when you don't know what you're doing.</b> Should be used with care as to maintain the bidirectional relation.
      * @param subsystem the subsystem to set
      *
      * @throws IllegalArgumentException if isValidSubsystem(subsystem) fails
      *
      * @see BugReport#isValidSubsystem(Subsystem)
      */
-    private void setSubsystem(Subsystem subsystem) throws IllegalArgumentException {
+    public void setSubsystem(Subsystem subsystem) throws IllegalArgumentException {
         if (!BugReport.isValidSubsystem(subsystem)) {
             throw new IllegalArgumentException("The given subsystem is invalid for this bug report");
         }
@@ -803,11 +803,29 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      *
      * @see BugReport#isValidImpactFactor(double)
      */
-    public void setImpactFactor(double impactFactor) throws IllegalArgumentException {
+    protected void setImpactFactor(double impactFactor) throws IllegalArgumentException {
         if (! BugReport.isValidImpactFactor(impactFactor)){
             throw new IllegalArgumentException("The given impact factor is invalid for a bug report!");
         }
         this.impactFactor = impactFactor;
+    }
+
+    /**
+     * This method sets the impact factor of this bug report to the given impact factor
+     *
+     * @param user          The user that wants to change the impact factor of this bug report
+     * @param impactFactor  The new impact factor of this bug report
+     *
+     * @throws PermissionException      If the given user doesn't have the needed permission.
+     * @throws IllegalArgumentException If the given impactFactor is invalid
+     *
+     * @see BugReport#isValidImpactFactor(double)
+     */
+    public void setImpactFactor(User user, double impactFactor) throws PermissionException, IllegalArgumentException {
+        if (! this.getCreator().equals(user)){
+            throw new PermissionException("You don't have permission to set the impact factor of this bug rpeort");
+        }
+        this.setImpactFactor(impactFactor);
     }
 
     /**
@@ -1314,14 +1332,14 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return The Memento of this current BugReport.
      */
     public BugReportMemento getMemento() {
-        return new BugReportMemento(this.title, this.description, this.creationDate, this.commentList,
+        return new BugReportMemento(this.title, this.description, this.creationDate, this.subsystem, this.commentList,
                 this.userList, this.dependencies, this.milestone, this.isPrivate, this.trigger, this.stacktrace,
                 this.error, this.getInternState());
     }
 
     /**
      * Set the memento of this BugReport.
-     * <br> This does not change the UniqueID, Creator and subsystem.
+     * <br> This does not change the UniqueID and Creator..
      *
      * @param mem The Memento to use to set.
      * @throws IllegalArgumentException When mem == null
@@ -1332,9 +1350,11 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         if (mem == null) {
             throw new IllegalArgumentException("The BugReportMemento passed to BugReport#setMemento shouldn't be null.");
         }
+        
         this.setTitle(mem.getTitle());
         this.setDescription(mem.getDescription());
         this.setCreationDate(mem.getCreationDate());
+        this.setSubsystem(mem.getSubsystem());
         this.setCommentList(mem.getComments());
 
         this.setDependencies(mem.getDependencies());
@@ -1361,6 +1381,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      * @return  the isTerminateded boolean value of this bug report
      */
     @DomainAPI
+    @Override
     public boolean isTerminated(){
         return this.getSubsystem().isTerminated();
     }

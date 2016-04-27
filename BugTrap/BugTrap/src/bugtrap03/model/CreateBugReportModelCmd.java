@@ -138,7 +138,7 @@ class CreateBugReportModelCmd extends ModelCmd {
             throw new IllegalArgumentException("The given subsystem is terminated.");
         }
 
-        bugReport = subsystem.addBugReport(user, title, desc, creationDate, dependencies, milestone, 1, isPrivate,
+        bugReport = subsystem.addBugReport(user, title, desc, creationDate, dependencies, milestone, impactFactor, isPrivate,
                 trigger, stacktrace, error);
         isExecuted = true;
         return bugReport;

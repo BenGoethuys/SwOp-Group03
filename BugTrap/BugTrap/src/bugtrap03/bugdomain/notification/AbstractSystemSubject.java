@@ -2,6 +2,7 @@ package bugtrap03.bugdomain.notification;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
+import java.util.Collection;
 import purecollections.PList;
 
 /**
@@ -12,41 +13,71 @@ public abstract class AbstractSystemSubject extends Subject {
 
     public AbstractSystemSubject(){
         super();
-        this.CreationSubs = PList.<CreationMailBox>empty();
+        this.creationSubs = PList.<CreationMailBox>empty();
     }
 
-    private PList<CreationMailBox> CreationSubs;
+    private PList<CreationMailBox> creationSubs;
 
     /**
-     * This method updates all the mailboxes subscribed on a comment creation on this subject.
+     * This method updates all the mailboxes subscribed on a AbstractSystem creation on this subject.
      *
-     * @param br The bugreport needed for the update
-     * @see CommentMailBox#update(BugReport)
+     * @param br The bug report needed for the update
+     * @see CreationMailBox#update(BugReport)
      */
     protected void updateCreationSubs(BugReport br){
-        for (CreationMailBox cmb: this.CreationSubs){
+        for (CreationMailBox cmb: this.creationSubs){
             cmb.update(br);
         }
     }
+    
+    /**
+     * Get the subscribers of a creation event.
+     *
+     * @return The CreationMailBoxes that are subscribed on the creation of an AbstractSystem.
+     */
+    protected PList<CreationMailBox> getCreationSubs() {
+        return this.creationSubs;
+    }
 
     /**
-     * This method adds a commentsubscriber to the subject.
+     * This method adds a creation subscriber to the subject.
      *
-     * @param cmb The comment mailbox to add
+     * @param cmb The CreationMailBox to add
      *
      * @throws IllegalArgumentException if the cmb is invalid
      * @see Subject#isValidMb(Mailbox)
      */
     public void addCreationSub(CreationMailBox cmb) throws IllegalArgumentException{
         if (isValidMb(cmb)){
-            this.CreationSubs = this.CreationSubs.plus(cmb);
+            this.creationSubs = this.creationSubs.plus(cmb);
         } else {
             throw new IllegalArgumentException("Invalid creationmailbox");
         }
     }
+    
+    /**
+     * This method adds a collection of creation subscriber to the subject.
+     *
+     * @param cmbs The CreationMailBoxes to add
+     *
+     * @throws IllegalArgumentException if the any of the cmbs is invalid
+     * @see Subject#isValidMb(Mailbox)
+     * @see #addCreationSub(CreationMailBox) 
+     */
+    public void addCreationSub(Collection<CreationMailBox> cmbs) {
+        for (CreationMailBox cmb : cmbs) {
+            if (!isValidMb(cmb)) {
+                throw new IllegalArgumentException("Incvalid CreationMailBox");
+            }
+        }
+
+        for (CreationMailBox cmb : cmbs) {
+            this.addCreationSub(cmb);
+        }
+    }
 
     /**
-     * This abstract method let's subjects notify subjects higher in the hierarchy.
+     * This abstract method lets subjects notify subjects higher in the hierarchy.
      *
      * @param br The bugreport of which an attribute has changed.
      */
