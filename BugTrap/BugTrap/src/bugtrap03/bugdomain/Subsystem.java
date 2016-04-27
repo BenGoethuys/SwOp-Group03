@@ -443,7 +443,7 @@ public class Subsystem extends AbstractSystem {
             this.addSubsystem(temp);
         }
 
-        //TODO: Kwinten add the notification list to the other subsystem as well.
+        //TODO: possible merge subscribers?
 
         // terminate subsystem
         subsystem.setTerminated(true);
