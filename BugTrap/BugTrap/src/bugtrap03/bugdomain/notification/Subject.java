@@ -121,7 +121,7 @@ public abstract class Subject {
      * @param cmb The comment mailbox to add
      *
      * @throws IllegalArgumentException if the cmb is invalid
-     * @see #isValidMb(Mailbox)
+     * @see #isValidMb
      */
     public void addCommentSub(CommentMailBox cmb) throws IllegalArgumentException{
         if (isValidMb(cmb)){
@@ -134,10 +134,10 @@ public abstract class Subject {
     /**
      * This method adds a collection of comment subscriber to the subject.
      *
-     * @param cmb The CommentMailBoxes to add
+     * @param cmbs The CommentMailBoxes to add
      *
      * @throws IllegalArgumentException if any of the the cmbs is invalid.
-     * @see #isValidMb(Mailbox)
+     * @see #isValidMb
      * @see #addCommentSub(CommentMailBox) 
      */
     public void addCommentSub(Collection<CommentMailBox> cmbs) throws IllegalArgumentException {
