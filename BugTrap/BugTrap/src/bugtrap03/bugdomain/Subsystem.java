@@ -392,7 +392,12 @@ public class Subsystem extends AbstractSystem {
                 resultSubsystem2.bugReportList = resultSubsystem2.bugReportList.plus(bugReport);
             }
         }
-
+        
+        //Set subscribers
+        resultSubsystem2.addTagSub(this.getTagSubs());
+        resultSubsystem2.addCommentSub(this.getCommentSubs());
+        resultSubsystem2.addCreationSub(this.getCreationSubs());
+        
         return resultSubsystem2;
     }
 
