@@ -2,6 +2,7 @@ package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
@@ -42,12 +43,12 @@ public class SetDuplicateBugReportModelCmdTest {
         model = new DataModel();
         admin = model.createAdministrator("BlubBlabBlob19" + counter, "first", "last");
         dev = model.createDeveloper("DeveloperOverHere19" + counter, "first", "last");
-        proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
+        proj = model.createProject(new VersionID(), "TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
         bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, 1, false);
         duplicate = model.createBugReport(subsys, dev, "titleDuplicate", "descDuplicate", PList.<BugReport>empty(), null, 1, false);
         
-        proj2 = model.createProject("TestProject49", "fajfief", dev, 50, admin);
+        proj2 = model.createProject(new VersionID(), "TestProject49", "fajfief", dev, 50, admin);
         Subsystem subsys2 = model.createSubsystem(admin, proj2, "azdazd", "ferfre");
         duplicate2 = model.createBugReport(subsys2, dev, "titleDuplicate", "descDuplicate", PList.<BugReport>empty(), null, 1, false);
 

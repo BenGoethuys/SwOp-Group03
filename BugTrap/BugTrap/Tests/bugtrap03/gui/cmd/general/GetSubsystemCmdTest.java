@@ -2,6 +2,7 @@ package bugtrap03.gui.cmd.general;
 
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -35,8 +36,8 @@ public class GetSubsystemCmdTest {
         model = new DataModel();
         admin = model.createAdministrator("Jammer123" + counter, "first", "last");
         lead = model.createDeveloper("Jamme1r123" + counter, "first", "last");
-        project1 = model.createProject("Project1", "ProjDesc", lead, 100, admin);
-        project2 = model.createProject("Project2", "projDesc", lead, 100, admin);
+        project1 = model.createProject(new VersionID(), "Project1", "ProjDesc", lead, 100, admin);
+        project2 = model.createProject(new VersionID(), "Project2", "projDesc", lead, 100, admin);
         subsys1 = model.createSubsystem(admin, project1, "subsys1", "desc");
         subsys2 = model.createSubsystem(admin, project1, "subsys2", "desc");
         model.createSubsystem(admin, project2, "testExtra", "desc");

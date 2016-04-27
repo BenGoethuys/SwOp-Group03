@@ -38,7 +38,7 @@ public class UpdateBugReportCmdTest {
         Issuer issuer = model.createIssuer("Autonomous", "BMW", "looks", "nice");
         Administrator admin = model.createAdministrator("General", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
@@ -112,7 +112,7 @@ public class UpdateBugReportCmdTest {
         Issuer issuer = model.createIssuer("Autonomous0", "BMW", "looks", "nice");
         Administrator admin = model.createAdministrator("General0", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
@@ -188,7 +188,7 @@ public class UpdateBugReportCmdTest {
         Issuer issuer = model.createIssuer("Autonomous1", "BMW", "looks", "nice");
         Administrator admin = model.createAdministrator("General1", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
@@ -278,7 +278,7 @@ public class UpdateBugReportCmdTest {
         Issuer issuer = model.createIssuer("Autonomous2", "BMW", "looks", "nice");
         Administrator admin = model.createAdministrator("General2", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
@@ -371,7 +371,7 @@ public class UpdateBugReportCmdTest {
         Issuer issuer = model.createIssuer("Autonomous3", "BMW", "looks", "nice");
         Administrator admin = model.createAdministrator("General3", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
@@ -440,7 +440,7 @@ public class UpdateBugReportCmdTest {
         Issuer issuer = model.createIssuer("Autonomous4", "BMW", "looks", "nice");
         Administrator admin = model.createAdministrator("General4", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
@@ -517,7 +517,7 @@ public class UpdateBugReportCmdTest {
         Issuer issuer = model.createIssuer("Autonomous5", "BMW", "looks", "nice");
         Administrator admin = model.createAdministrator("General5", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         model.assignToProject(projectA, lead, lead, Role.PROGRAMMER);
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
@@ -597,7 +597,7 @@ public class UpdateBugReportCmdTest {
         Issuer issuer = model.createIssuer("Autonomous6", "BMW", "looks", "nice");
         Administrator admin = model.createAdministrator("General6", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         model.assignToProject(projectA, lead, lead, Role.PROGRAMMER);
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
@@ -675,7 +675,7 @@ public class UpdateBugReportCmdTest {
         Issuer issuer = model.createIssuer("Autonomous7", "BMW", "looks", "nice");
         Administrator admin = model.createAdministrator("General7", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
                 "Description of susbsystem A2");
@@ -744,7 +744,7 @@ public class UpdateBugReportCmdTest {
         Issuer issuer = model.createIssuer("Autonomous8", "BMW", "looks", "nice");
         Administrator admin = model.createAdministrator("General8", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         model.assignToProject(projectA, lead, lead, Role.PROGRAMMER);
         // make subsystems
         Subsystem subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",

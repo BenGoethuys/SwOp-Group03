@@ -2,6 +2,7 @@ package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
@@ -39,7 +40,7 @@ public class AddTestToBugReportModelCmdTest {
         model = new DataModel();
         admin = model.createAdministrator("BlubBlabBlob13" + counter, "first", "last");
         dev = model.createDeveloper("DeveloperOverHere13" + counter, "first", "last");
-        proj = model.createProject("TestProject50", "Testing stuff over here", dev, 50, admin);
+        proj = model.createProject(new VersionID(), "TestProject50", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
         bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, 1, false);
         bugRepWrongState = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, 1, false);
