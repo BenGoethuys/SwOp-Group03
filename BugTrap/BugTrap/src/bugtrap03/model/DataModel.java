@@ -995,6 +995,7 @@ public class DataModel {
      * @throws IllegalArgumentException When user == null
      * @throws IllegalArgumentException When any of the arguments passed is invalid for a subsystem.
      */
+    @DomainAPI
     public Subsystem splitSubsystem(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) throws PermissionException, IllegalArgumentException {
         SplitSubsystemModelCmd cmd = new SplitSubsystemModelCmd(subsystem, subsystem1Name, subsystem1Desc, subsystem2Name, subsystem2Desc, subsystems1, bugReports1, user);
         Subsystem result = cmd.exec();
@@ -1017,6 +1018,7 @@ public class DataModel {
      * @throws NullPointerException     When there is a null where it shouldn't. Read ModelCmd specific documentation.
      * @throws PermissionException      When the user does not have sufficient permissions
      */
+    @DomainAPI
     public Subsystem mergeSubsystems(User user, Subsystem subsystem1, Subsystem subsystem2,
                                      String newName, String newDescription) throws PermissionException {
         MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(user, subsystem1, subsystem2, newName, newDescription);
