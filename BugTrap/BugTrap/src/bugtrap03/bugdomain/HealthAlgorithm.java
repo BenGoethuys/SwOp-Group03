@@ -14,7 +14,7 @@ public abstract class HealthAlgorithm {
      */
     public HealthIndicator getIndicator(Subsystem subsystem) {
 	if (isHealthy(subsystem)) {
-	    return HealthIndicator.HEALTY;
+	    return HealthIndicator.HEALTHY;
 	}
 	if (isSatisfactory(subsystem)) {
 	    return HealthIndicator.SATISFACTORY;

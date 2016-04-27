@@ -59,11 +59,11 @@ public class HealthAlgorithmTest {
     public void testCheckSubsystem() throws IllegalArgumentException, PermissionException {
 	model.createBugReport(subsystemA, issuer, "First", "First", PList.<BugReport> empty(), null, 10, false);
 	model.createBugReport(subsystemA1, issuer, "Second", "Second", PList.<BugReport> empty(), null, 10, false);
-	assertFalse(ha.checkSubsystem(subsystemA, HealthIndicator.HEALTY, 50));
-	assertTrue(ha.checkSubsystem(subsystemA1, HealthIndicator.HEALTY, 50));
+	assertFalse(ha.checkSubsystem(subsystemA, HealthIndicator.HEALTHY, 50));
+	assertTrue(ha.checkSubsystem(subsystemA1, HealthIndicator.HEALTHY, 50));
 	assertTrue(ha.checkSubsystem(subsystemA, HealthIndicator.SATISFACTORY, 100));
 	model.createBugReport(subsystemA1, issuer, "Third", "Third", PList.<BugReport> empty(), null, 10, false);
-	assertFalse(ha.checkSubsystem(subsystemA, HealthIndicator.HEALTY, 200));
+	assertFalse(ha.checkSubsystem(subsystemA, HealthIndicator.HEALTHY, 200));
     }
 
 }

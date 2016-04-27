@@ -13,7 +13,7 @@ public class HealthAlgorithm1 extends HealthAlgorithm {
 
 	@Override
 	public boolean isHealthy(Subsystem subsystem) {
-		return checkSubsystem(subsystem, HealthIndicator.HEALTY, HEALTH);
+		return checkSubsystem(subsystem, HealthIndicator.HEALTHY, HEALTH);
 	}
 
 	@Override
