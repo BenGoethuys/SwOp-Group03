@@ -84,7 +84,7 @@ public class SubjectDummyTest {
 
     @Test
     public void testAddTagSub() throws Exception {
-        TagMailBox extraTMB = subjectDummyDev.getMailbox().tagSubscribe(testDummy, EnumSet.of(Tag.NOT_A_BUG));
+        TagMailBox extraTMB = subjectDummyDev.getMailbox().tagSubscribe(testDummy, EnumSet.of(Tag.NEW));
         assertTrue(extraTMB.getNotifications().isEmpty());
         testDummy.updateTagSubs(subjectDummyBugreport);
         assertFalse(extraTMB.getNotifications().isEmpty());
