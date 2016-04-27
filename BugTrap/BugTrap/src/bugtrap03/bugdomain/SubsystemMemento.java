@@ -3,7 +3,8 @@ package bugtrap03.bugdomain;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.BugReportMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
 import java.util.HashMap;
 import purecollections.PList;
 
@@ -17,8 +18,8 @@ import purecollections.PList;
  */
 public class SubsystemMemento extends AbstractSystemMemento {
 
-    SubsystemMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailBox> commentMailBoxes, VersionID versionID, String name, String description, PList<Subsystem> children, AbstractSystem parent, Milestone milestone, PList<BugReport> bugReports, boolean isTerminated) {
-        super(tagMailBoxes, commentMailBoxes, versionID, name, description, children, parent, milestone, isTerminated);
+    SubsystemMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailBox> commentMailBoxes, PList<CreationMailBox> creationMailBoxes, VersionID versionID, String name, String description, PList<Subsystem> children, AbstractSystem parent, Milestone milestone, PList<BugReport> bugReports, boolean isTerminated) {
+        super(tagMailBoxes, commentMailBoxes, creationMailBoxes, versionID, name, description, children, parent, milestone, isTerminated);
 
         this.bugReportList = bugReports;
 

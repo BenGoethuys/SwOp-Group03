@@ -47,7 +47,7 @@ public abstract class AbstractMailbox<P extends Subject, Q extends Notification>
      *
      * @param notif The notificationdomain to add.
      */
-    protected void addNotification(Notification notif) throws IllegalArgumentException{
+    public void addNotification(Notification notif) throws IllegalArgumentException{
         if (! this.isTerminated){
             this.notifications = this.getNotifications().plus(notif);
         }

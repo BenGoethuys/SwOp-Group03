@@ -78,6 +78,26 @@ public abstract class AbstractSystemSubject extends Subject {
             this.addCreationSub(cmb);
         }
     }
+    
+        /**
+     * The method returns the memento for this AbstractSystemSubject.
+     *
+     * @return The memento of this system subject.
+     */
+    @Override
+    public AbstractSystemSubjectMemento getMemento() {
+        return new AbstractSystemSubjectMemento(getTagSubs(), getCommentSubs(), creationSubs);
+    }
+    
+    @Override
+    public void setMemento(SubjectMemento mem) {
+        super.setMemento(mem);
+        
+        if(mem instanceof AbstractSystemSubjectMemento) {
+            AbstractSystemSubjectMemento aMem = (AbstractSystemSubjectMemento) mem;
+            this.creationSubs = aMem.getCreationSubs();
+        }
+    }
 
     /**
      * This abstract method lets subjects notify subjects higher in the hierarchy.

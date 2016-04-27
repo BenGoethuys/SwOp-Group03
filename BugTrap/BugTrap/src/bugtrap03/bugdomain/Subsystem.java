@@ -1,6 +1,7 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
@@ -313,11 +314,11 @@ public class Subsystem extends AbstractSystem {
      */
     @Override
     public SubsystemMemento getMemento() {
-        return new SubsystemMemento(getTagSubs(), getCommentSubs(), getVersionID(), getName(), getDescription(), this.getSubsystems(), this.getParent(), this.getMilestone(), this.bugReportList, this.isTerminated);
+        return new SubsystemMemento(getTagSubs(), getCommentSubs(), getCreationSubs(), getVersionID(), getName(), getDescription(), this.getSubsystems(), this.getParent(), this.getMilestone(), this.bugReportList, this.isTerminated);
     }
     
     @Override
-    public void setMemento(AbstractSystemMemento mem) {
+    public void setMemento(SubjectMemento mem) {
         super.setMemento(mem);
         
         if(mem instanceof SubsystemMemento) {
@@ -454,6 +455,22 @@ public class Subsystem extends AbstractSystem {
         subsystem.setTerminated(true);
 
         return this;
+    }
+
+    /**
+     * This method returns a list of compatible subsystems to merge with this subsystem
+     *
+     * @return a PList of compatible subsystems to merge with this subsystem
+     */
+    @DomainAPI
+    public PList<Subsystem> getCompatibleSubs() {
+        PList<Subsystem> compatList = PList.<Subsystem>empty();
+        for (Subsystem temp : this.getParentProject().getAllSubsystems()) {
+            if (this.isValidMergeSubsystem(temp)) {
+                compatList = compatList.plus(temp);
+            }
+        }
+        return compatList;
     }
 
     /**

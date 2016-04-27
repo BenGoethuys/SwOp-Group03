@@ -6,6 +6,7 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.usersystem.User;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Invariant;
@@ -615,7 +616,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      */
     @Override
     public AbstractSystemMemento getMemento() {
-        return new AbstractSystemMemento(this.getTagSubs(), this.getCommentSubs(), this.version, this.name, this.description, this.childs, this.parent, this.milestone, this.isTerminated);
+        return new AbstractSystemMemento(this.getTagSubs(), this.getCommentSubs(), this.getCreationSubs(), this.version, this.name, this.description, this.childs, this.parent, this.milestone, this.isTerminated);
     }
 
     /**
@@ -626,20 +627,22 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @throws IllegalArgumentException When any of the arguments stored in mem is invalid for the current state. (e.g
      *             milestones due to constraints)
      */
-    public void setMemento(AbstractSystemMemento mem) throws IllegalArgumentException {
-        //TODO: Vincent, super(...)
-        if (mem == null) {
-            throw new IllegalArgumentException("The AbstractSystemMemento passed to AbstractSystem#setMemento shouldn't be null.");
-        }
+    @Override
+    public void setMemento(SubjectMemento mem) throws IllegalArgumentException {
+        super.setMemento(mem);
 
-        this.version = mem.getVersionID();
-        this.name = mem.getName();
-        this.description = mem.getDescription();
-        this.isTerminated = mem.getIsTerminated();
-        this.parent = mem.getParent();
-        this.childs = mem.getChildren();
-	mem.restoreChildren();
-        this.milestone = mem.getMilestone();
+        if (mem instanceof AbstractSystemMemento) {
+            AbstractSystemMemento aMem = (AbstractSystemMemento) mem;
+
+            this.version = aMem.getVersionID();
+            this.name = aMem.getName();
+            this.description = aMem.getDescription();
+            this.isTerminated = aMem.getIsTerminated();
+            this.parent = aMem.getParent();
+            this.childs = aMem.getChildren();
+            aMem.restoreChildren();
+            this.milestone = aMem.getMilestone();
+        }
     }
 
 }

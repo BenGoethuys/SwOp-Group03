@@ -1,7 +1,8 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
 import java.util.GregorianCalendar;
@@ -17,10 +18,10 @@ import purecollections.PList;
  */
 public class ProjectMemento extends AbstractSystemMemento {
 
-    ProjectMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailBox> commentMailBoxes, VersionID versionID, String name, String description, PList<Subsystem> children, 
+    ProjectMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailBox> commentMailBoxes, PList<CreationMailBox> creationMailBoxes, VersionID versionID, String name, String description, PList<Subsystem> children, 
             AbstractSystem parent, Milestone milestone, GregorianCalendar creationDate, GregorianCalendar startDate,
             HashMap<Developer, PList<Role>> projectParticipants, long budgetEstimate, boolean isTerminated) {
-        super(tagMailBoxes, commentMailBoxes, versionID, name, description, children, parent, milestone, isTerminated);
+        super(tagMailBoxes, commentMailBoxes, creationMailBoxes, versionID, name, description, children, parent, milestone, isTerminated);
         
         this.creationDate = (GregorianCalendar) creationDate.clone();
         this.startDate = (GregorianCalendar) startDate.clone();
