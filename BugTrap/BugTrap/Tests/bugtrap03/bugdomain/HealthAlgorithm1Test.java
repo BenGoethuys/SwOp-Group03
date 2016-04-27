@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
@@ -24,17 +25,19 @@ import purecollections.PList;
 public class HealthAlgorithm1Test {
 
     static Subsystem subsystem;
-    static BugReport bugRep;
+    static DataModel model;
+    static Issuer issuer;
+    static HealthAlgorithm1 ha;
 
     /**
      * @throws java.lang.Exception
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-	DataModel model = new DataModel();
+	model = new DataModel();
 	Developer lead = model.createDeveloper("healthy1", "healthy1", "healthy1");
 	Developer dev = model.createDeveloper("healthy2", "healthy2", "healthy2");
-	Issuer issuer = model.createIssuer("healthy3", "healthy3", "healthy3");
+	issuer = model.createIssuer("healthy3", "healthy3", "healthy3");
 	Administrator admin = model.createAdministrator("healty4", "healty4", "healty4");
 
 	Project projectA = model.createProject("ProjectTest", "Project for testing", lead, 500, admin);
@@ -45,8 +48,7 @@ public class HealthAlgorithm1Test {
 	// make subsystems
 	subsystem = model.createSubsystem(admin, projectA, new VersionID(), "Subsystem", "Description of susbsystem");
 
-	bugRep = model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 5,
-	        false);
+	ha = new HealthAlgorithm1();
     }
 
     /**
@@ -56,33 +58,50 @@ public class HealthAlgorithm1Test {
     public void setUp() throws Exception {
     }
 
+    @Test
+    public void testHealthIndicators() {
+	
+    }
+    
     /**
      * Test method for {@link bugtrap03.bugdomain.HealthAlgorithm1#isHealthy(bugtrap03.bugdomain.Subsystem)}.
+     * 
+     * @throws PermissionException
+     * @throws IllegalArgumentException
      */
     @Test
-    public void testIsHealthy() {
-
-	HealthAlgorithm1 ha1 = new HealthAlgorithm1();
-	HealthAlgorithm2 ha2 = new HealthAlgorithm2();
-	HealthAlgorithm3 ha3 = new HealthAlgorithm3();
-	System.out.println(bugRep.getBugImpact());
-	System.out.println(subsystem.getIndicator(ha1));
-	System.out.println(subsystem.getIndicator(ha2));
-	System.out.println(subsystem.getIndicator(ha3));
+    public void testIsHealthy() throws IllegalArgumentException, PermissionException {
+	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
+	System.out.println(subsystem.getBugImpact());
+	assertEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
     }
 
     /**
      * Test method for {@link bugtrap03.bugdomain.HealthAlgorithm1#isSatisfactory(bugtrap03.bugdomain.Subsystem)}.
+     * 
+     * @throws PermissionException
+     * @throws IllegalArgumentException
      */
     @Test
-    public void testIsSatisfactory() {
+    public void testIsSatisfactory() throws IllegalArgumentException, PermissionException {
+	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
+	System.out.println(subsystem.getBugImpact());
+	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
+	assertEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
     }
 
     /**
      * Test method for {@link bugtrap03.bugdomain.HealthAlgorithm1#isStable(bugtrap03.bugdomain.Subsystem)}.
+     * @throws PermissionException 
+     * @throws IllegalArgumentException 
      */
     @Test
-    public void testIsStable() {
+    public void testIsStable() throws IllegalArgumentException, PermissionException {
+	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
+	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
+	System.out.println(subsystem.getBugImpact());
+	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTY);
+	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
     }
 
     /**
