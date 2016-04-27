@@ -992,5 +992,10 @@ public class DataModel {
         addToHistory(cmd);
         return result;
     }
+
+    public Subsystem mergeSubsystem(User user, Subsystem subsystem1, Subsystem subsystem2, String newName, String newDescription){
+        // TODO implement
+        return null;
+    }
     
 }
