@@ -74,12 +74,12 @@ public class SplitSubsystemCmd implements Cmd {
 
         //8. For each bug report and subsystem that is part of the original subsystem, the system asks to which new subsystem to migrate it to.
         //9. The administrator answers for each bug report and subsystem.
-        scan.println("Please chose which subsystems you wish to keep for subsystem 1.");
+        scan.println("Please choose which subsystems you wish to keep for subsystem 1.");
         PList<Subsystem> subs1 = getSubsystems(scan, sub);
-        scan.println("Please chose which bug reports you wish to keep for subsystem 1");
+        scan.println("Please choose which bug reports you wish to keep for subsystem 1");
         PList<BugReport> bugReports1 = getBugReports(scan, sub);
 
-        //10. The system creates two new subsystems with the same milestone as the original subsystem. The original subsystem is removed.
+        //10. The system creates two new subsystems with the same milestone as the original subsystem. (The original subsystem is removed.)
         //TODO: Kwinten/Vincent So does this mean the creation needs to be notified about?
         Subsystem sub2 = model.splitSubsystem(sub, name1, desc1, name2, desc2, subs1, bugReports1, user);
         return new Subsystem[] {sub, sub2}; 
