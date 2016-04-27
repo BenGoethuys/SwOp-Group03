@@ -12,17 +12,17 @@ public abstract class HealthAlgorithm {
      * @param subsystem The subsystem to calculate the health indicator.
      * @return The health indicator of the subsystem.
      */
-    public HealthIndicator getIndicator(Subsystem subsystem) {
-	if (isHealthy(subsystem)) {
+    public HealthIndicator getIndicator(AbstractSystem as) {
+	if (isHealthy(as)) {
 	    return HealthIndicator.HEALTHY;
 	}
-	if (isSatisfactory(subsystem)) {
+	if (isSatisfactory(as)) {
 	    return HealthIndicator.SATISFACTORY;
 	}
-	if (isStable(subsystem)) {
+	if (isStable(as)) {
 	    return HealthIndicator.STABLE;
 	}
-	if (isSerious(subsystem)) {
+	if (isSerious(as)) {
 	    return HealthIndicator.SERIOUS;
 	}
 	return HealthIndicator.CRITICAL;
@@ -34,7 +34,7 @@ public abstract class HealthAlgorithm {
      * @param subsystem The subsystem to check.
      * @return {@link HealthIndicator#HEALTY} if the subsystem is healthy.
      */
-    public abstract boolean isHealthy(Subsystem subsystem);
+    public abstract boolean isHealthy(AbstractSystem as);
 
     /**
      * Checks if the given subsystem is satisfactory.
@@ -42,7 +42,7 @@ public abstract class HealthAlgorithm {
      * @param subsystem The subsystem to check.
      * @return {@link HealthIndicator#SATISFACTORY} if the subsystem is satisfactory.
      */
-    public abstract boolean isSatisfactory(Subsystem subsystem);
+    public abstract boolean isSatisfactory(AbstractSystem as);
 
     /**
      * Checks if the given subsystem is stable.
@@ -50,7 +50,7 @@ public abstract class HealthAlgorithm {
      * @param subsystem The subsystem to check.
      * @return {@link HealthIndicator#STABLE} if the subsystem is stable.
      */
-    public abstract boolean isStable(Subsystem subsystem);
+    public abstract boolean isStable(AbstractSystem as);
 
     /**
      * Checks if the given subsystem is serious.
@@ -58,7 +58,7 @@ public abstract class HealthAlgorithm {
      * @param subsystem The subsystem to check.
      * @return {@link HealthIndicator#SERIOUS} if the subsystem is serious.
      */
-    public abstract boolean isSerious(Subsystem subsystem);
+    public abstract boolean isSerious(AbstractSystem as);
 
     /**
      * TODO
@@ -68,17 +68,27 @@ public abstract class HealthAlgorithm {
      * @param number
      * @return
      */
-    public boolean checkSubsystem(Subsystem subsystem, HealthIndicator hi, int number) {
-	for (Subsystem subs : subsystem.getAllSubsystems()) {
+    public boolean checkSubsystem(AbstractSystem as, HealthIndicator hi, int number) {
+	for (Subsystem subs : as.getAllSubsystems()) {
 	    if (subs.getIndicator(this).getRank() < hi.getRank()) {
 		return false;
 	    }
 	}
 
-	if (subsystem.getBugImpact() >= number) {
-	    return false;
+	if (as instanceof Subsystem) {
+	    if (as.getBugImpact() >= number) {
+		return false;
+	    }
 	}
-
+	if (as instanceof Project) {
+	    double total = 0;
+	    for (Subsystem subs : as.getAllSubsystems()) {
+		total += subs.getBugImpact();
+	    }
+	    if (total >= number) {
+		return false;
+	    }
+	}
 	return true;
     }
 }
