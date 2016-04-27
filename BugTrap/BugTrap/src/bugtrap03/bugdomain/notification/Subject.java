@@ -165,6 +165,24 @@ public abstract class Subject {
         }
         return true;
     }
+    
+    /**
+     * The method returns the memento for this Subject.
+     *
+     * @return The memento of this subject.
+     */
+    public SubjectMemento getMemento() {
+        return new SubjectMemento(this.tagSubs, this.commentSubs);
+    }
+    
+    public void setMemento(SubjectMemento mem) {
+        if (mem == null) {
+            throw new IllegalArgumentException("The SubjectMemento passed to Subject#setMemento shouldn't be null.");
+        }
+        
+        this.tagSubs = mem.getTagSubs();
+        this.commentSubs = mem.getCommentSubs();
+    }
 
     /**
      * This abstract method let's subjects notify subjects higher in the hierarchy.
