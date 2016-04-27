@@ -1,6 +1,8 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.DomainAPI;
+import bugtrap03.bugdomain.notificationdomain.notification.Notification;
+import bugtrap03.bugdomain.notificationdomain.Subject;
 import purecollections.PList;
 
 
@@ -41,11 +43,11 @@ public abstract class AbstractMailbox<P extends Subject, Q extends Notification>
     }
 
     /**
-     * This method adds a notification to this mailbox.
+     * This method adds a notificationdomain to this mailbox.
      *
-     * @param notif The notification to add.
+     * @param notif The notificationdomain to add.
      */
-    protected void addNotification(Notification notif) throws IllegalArgumentException{
+    public void addNotification(Notification notif) throws IllegalArgumentException{
         if (! this.isTerminated){
             this.notifications = this.getNotifications().plus(notif);
         }
@@ -60,11 +62,11 @@ public abstract class AbstractMailbox<P extends Subject, Q extends Notification>
     public abstract String getInfo();
 
     /**
-     * This abstract method updates the notifications list with a new notification.
+     * This abstract method updates the notifications list with a new notificationdomain.
      *
      * @param changedObject The object of interest that has been changed.
      *
-     * @return The added notification.
+     * @return The added notificationdomain.
      */
     @DomainAPI
     public abstract Q update(P changedObject);

@@ -1,7 +1,9 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 
 /**
  * This class represents the mailboxes dedicated to catching notifications from bug report creations.
@@ -24,11 +26,11 @@ public class CreationMailBox extends ASTypeMailbox<BugReport, BugReportNotificat
     }
 
     /**
-     * This method updates the notifications list with a new notification if a bugreport has been created.
+     * This method updates the notifications list with a new notificationdomain if a bugreport has been created.
      *
      * @param bugReport The created bugreport.
      *
-     * @return The added notification.
+     * @return The added notificationdomain.
      */
     @Override
     public BugReportNotification update(BugReport bugReport){

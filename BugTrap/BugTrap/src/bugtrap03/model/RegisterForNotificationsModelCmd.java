@@ -1,11 +1,11 @@
 package bugtrap03.model;
 
-import bugtrap03.bugdomain.notification.AbstractMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notification.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 
 /**
- * This class represents the 'action' of registering/subscribing for a certain notification and it holds the Mailbox associated with
+ * This class represents the 'action' of registering/subscribing for a certain notificationdomain and it holds the Mailbox associated with
  * this new registration.
  * 
  * @author Group 03
@@ -18,7 +18,7 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      */
     RegisterForNotificationsModelCmd(User user){
         if (! isValidUser(user)){
-            throw new IllegalArgumentException("The given user for notification registration is invalid!");
+            throw new IllegalArgumentException("The given user for notificationdomain registration is invalid!");
         }
         this.userMailbox = user.getMailbox();
         this.isExecuted = false;

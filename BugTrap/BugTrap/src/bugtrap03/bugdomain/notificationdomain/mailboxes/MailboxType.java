@@ -1,4 +1,4 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.DomainAPI;
 

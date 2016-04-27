@@ -1,8 +1,7 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.bugdomain.notification.AbstractMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notification.Mailbox;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetIntCmd;
 import bugtrap03.gui.terminal.TerminalScanner;

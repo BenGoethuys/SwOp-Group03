@@ -1,9 +1,9 @@
 package bugtrap03.bugdomain;
 
-import bugtrap03.bugdomain.notification.AbstractSystemSubjectMemento;
-import bugtrap03.bugdomain.notification.CommentMailBox;
-import bugtrap03.bugdomain.notification.CreationMailBox;
-import bugtrap03.bugdomain.notification.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubjectMemento;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
 import java.util.HashMap;
 import purecollections.PList;
 

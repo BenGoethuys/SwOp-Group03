@@ -1,5 +1,6 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain;
 
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
 import purecollections.PList;
 
 /**

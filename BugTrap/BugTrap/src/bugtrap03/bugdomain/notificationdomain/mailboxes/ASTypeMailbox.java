@@ -1,6 +1,9 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.DomainAPI;
+import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.notification.Notification;
+import bugtrap03.bugdomain.notificationdomain.Subject;
 
 /**
  * This class represents a mailbox with a Abstract system asSubject and a given type subscription

@@ -1,7 +1,9 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
+import bugtrap03.bugdomain.notificationdomain.Subject;
 
 /**
  * This class represents the mailboxes dedicated to catching notifications from comment changes.
@@ -23,11 +25,11 @@ public class CommentMailBox extends SubjAbstractMailbox<BugReport,BugReportNotif
     }
 
     /**
-     * This method updates the notifications list with a new notification if a comment on a bugreport has been created.
+     * This method updates the notifications list with a new notificationdomain if a comment on a bugreport has been created.
      *
      * @param bugReport The bugreport on which a comment has been created.
      *
-     * @return The added notification.
+     * @return The added notificationdomain.
      */
     @Override
     public BugReportNotification update(BugReport bugReport){

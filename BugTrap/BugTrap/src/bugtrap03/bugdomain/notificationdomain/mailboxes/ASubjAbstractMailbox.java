@@ -1,9 +1,13 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain.mailboxes;
+
+import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.notification.Notification;
+import bugtrap03.bugdomain.notificationdomain.Subject;
 
 /**
  * Created by Kwinten on 27/04/2016.
  */
-public abstract class ASubjAbstractMailbox<P extends Subject, Q extends Notification> extends AbstractMailbox<P,Q>{
+public abstract class ASubjAbstractMailbox<P extends Subject, Q extends Notification> extends AbstractMailbox<P,Q> {
 
     /**
      * The constructor for this abstract mailbox that contains a Abstract sytem subject

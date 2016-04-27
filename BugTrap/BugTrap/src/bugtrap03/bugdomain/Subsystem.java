@@ -1,7 +1,7 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.notification.SubjectMemento;
+import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
@@ -362,7 +362,7 @@ public class Subsystem extends AbstractSystem {
             throw new PermissionException("You do not have sufficient permissions to split a subsystem.");
         }
 
-        //TODO: Kwinten add the notification list to the other subsystem as well.
+        //TODO: Kwinten add the notificationdomain list to the other subsystem as well.
         //Set current subsystem
         this.setName(name1);
         this.setDescription(desc1);
@@ -385,7 +385,7 @@ public class Subsystem extends AbstractSystem {
         //Set BugReports of sub2 by removing every direct bugReport that is not in bugReports1.
         for (BugReport bugReport : this.getBugReportList()) {
             if (!bugReports1.contains(bugReport)) {
-                //If notification is required use a method and add notify.
+                //If notificationdomain is required use a method and add notify.
                 this.bugReportList = this.bugReportList.minus(bugReport);
                 bugReport.setSubsystem(resultSubsystem2);
                 resultSubsystem2.bugReportList = resultSubsystem2.bugReportList.plus(bugReport);

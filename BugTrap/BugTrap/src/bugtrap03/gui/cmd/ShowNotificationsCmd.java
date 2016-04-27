@@ -1,10 +1,9 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.bugdomain.notification.BugReportNotification;
-import bugtrap03.bugdomain.notification.Notification;
+import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notification.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetIntCmd;
 import bugtrap03.gui.terminal.TerminalScanner;

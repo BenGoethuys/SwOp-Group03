@@ -1,9 +1,10 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notification.Subject;
-import bugtrap03.bugdomain.notification.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.Subject;
+import bugtrap03.bugdomain.notificationdomain.TagMailBox;
 
 import java.util.EnumSet;
 
@@ -58,7 +59,7 @@ class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelC
      * @throws IllegalArgumentException if on of the arguments is invalid
      * @throws IllegalArgumentException If subject is terminated
      * @throws IllegalStateException if the state of this command is invalid
-     * @see bugtrap03.bugdomain.notification.Mailbox#tagSubscribe(Subject)
+     * @see Mailbox#tagSubscribe(Subject)
      * @see #setExecuted()
      */
     @Override

@@ -1,8 +1,11 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import java.util.Collection;
+
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import purecollections.PList;
 
 /**
@@ -76,7 +79,7 @@ public abstract class AbstractSystemSubject extends Subject {
         }
     }
     
-    /**
+        /**
      * The method returns the memento for this AbstractSystemSubject.
      *
      * @return The memento of this system subject.
@@ -99,7 +102,7 @@ public abstract class AbstractSystemSubject extends Subject {
     /**
      * This abstract method lets subjects notify subjects higher in the hierarchy.
      *
-     * @param br The bug report of which an attribute has changed.
+     * @param br The bugreport of which an attribute has changed.
      */
     public abstract void notifyCreationSubs(BugReport br);
 }

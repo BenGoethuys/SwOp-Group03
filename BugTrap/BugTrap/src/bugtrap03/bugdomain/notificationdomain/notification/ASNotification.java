@@ -1,7 +1,8 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain.notification;
 
 import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.DomainAPI;
+import bugtrap03.bugdomain.notificationdomain.Subject;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
@@ -10,8 +11,8 @@ import bugtrap03.bugdomain.usersystem.User;
 public class ASNotification extends Notification{
     /**
      * This is the constructor of notifications for a change on an abstract system
-     * @param message The message of this notification
-     * @param abstractSystem The AS with a change interesting for this notification
+     * @param message The message of this notificationdomain
+     * @param abstractSystem The AS with a change interesting for this notificationdomain
      * @param subject The subject from the original subscription
      * @throws IllegalArgumentException if one of the arguments is invalid
      * @see #isValidAS(AbstractSystem)
@@ -33,7 +34,7 @@ public class ASNotification extends Notification{
      */
     private void setAbstractSystem(AbstractSystem abstractSystem) throws IllegalArgumentException{
         if (!this.isValidAS(abstractSystem)){
-            throw new IllegalArgumentException("Invalid abstract system for this notification");
+            throw new IllegalArgumentException("Invalid abstract system for this notificationdomain");
         }
         this.abstractSystem = abstractSystem;
     }
@@ -51,16 +52,16 @@ public class ASNotification extends Notification{
     }
 
     /**
-     * This method opens the notification and returns a string representing the contents of this notification
-     * @param user The user that wishes to open the notification
-     * @return The string message of this notification
+     * This method opens the notificationdomain and returns a string representing the contents of this notificationdomain
+     * @param user The user that wishes to open the notificationdomain
+     * @return The string message of this notificationdomain
      */
     @Override
     @DomainAPI
     public String open(User user) {
         StringBuilder message = new StringBuilder("\t" + this.message);
         message.append(abstractSystem.getName());
-        message.append("\n\tThis notification originated from the subscription on: ");
+        message.append("\n\tThis notificationdomain originated from the subscription on: ");
         message.append(subject.getSubjectName());
         return message.toString();
     }
@@ -92,7 +93,7 @@ public class ASNotification extends Notification{
     }
 
     /**
-     * This method determines the has value of this notification.
+     * This method determines the has value of this notificationdomain.
      * @return An int hashvalue.
      */
     @Override

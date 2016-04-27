@@ -1,6 +1,8 @@
-package bugtrap03.bugdomain.notification;
+package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.AbstractSystem;
+import bugtrap03.bugdomain.notificationdomain.notification.ASNotification;
+import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
 
 /**
  * This class represents a subscription to the update of a versionID
