@@ -59,7 +59,7 @@ public class Main {
         //FIXME: update versionID's and Milestones !!
         try {
             // create projectA
-            Project projectA = model.createProject(new VersionID(), "ProjectA", "Description of projectA", major, 10000, admin);
+            Project projectA = model.createProject(new VersionID(5,0), "ProjectA", "Description of projectA", major, 10000, admin);
             // add asked roles
             model.assignToProject(projectA, major, major, Role.PROGRAMMER);
             model.assignToProject(projectA, major, maria, Role.TESTER);
@@ -95,7 +95,7 @@ public class Main {
         Project projectB;
         try {
             // create projectB
-            projectB = model.createProject(new VersionID(), "ProjectB", "Description of projectB", maria, 10000, admin);
+            projectB = model.createProject(new VersionID(0,4), "ProjectB", "Description of projectB", maria, 10000, admin);
             // add asked roles
             model.assignToProject(projectB, maria, major, Role.PROGRAMMER);
             // add tester to ProjectB -> is needed bug not in assignment
@@ -127,6 +127,8 @@ public class Main {
             model.giveScore(bugRep1, doc, 4);
 
             // set milestones
+            model.setMilestone(major, projectB, new Milestone(1,2));
+            model.setMilestone(major, subsystemB1, new Milestone(1,3));
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
             System.err.println(e.getMessage());
