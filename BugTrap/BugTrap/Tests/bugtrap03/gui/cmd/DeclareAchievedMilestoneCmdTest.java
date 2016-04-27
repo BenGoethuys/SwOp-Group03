@@ -124,7 +124,7 @@ public class DeclareAchievedMilestoneCmdTest {
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
         // Execute scenario
-        Project chosen = cmd.exec(scan, model, lead);
+        cmd.exec(scan, model, lead);
     }
 
     @Test(expected = IllegalArgumentException.class)
