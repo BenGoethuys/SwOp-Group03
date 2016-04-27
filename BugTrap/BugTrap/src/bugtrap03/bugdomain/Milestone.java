@@ -12,12 +12,9 @@ public class Milestone extends VersionID {
 
     /**
      * Creates a Milestone.
+     * @param nb The numbers of the milestone.
      * 
-     * @param first The first digit of the Milestone.
-     * @param second The second digit of the Milestone.
-     * @param third The third digit of the Milestone.
-     * 
-     * @see VersionID#VersionID(int, int, int)
+     * @see VersionID#VersionID(int...)
      */
     @DomainAPI
     public Milestone(int... nb) {

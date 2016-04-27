@@ -9,7 +9,7 @@ public abstract class HealthAlgorithm {
     /**
      * A method to calculate the {@link HealthIndicator} of the {@link Subsystem}.
      * 
-     * @param subsystem The subsystem to calculate the health indicator.
+     * @param as The AbstractSystem to calculate the health indicator.
      * @return The health indicator of the subsystem.
      */
     public HealthIndicator getIndicator(AbstractSystem as) {
@@ -31,15 +31,15 @@ public abstract class HealthAlgorithm {
     /**
      * Checks if the given subsystem is healthy.
      * 
-     * @param subsystem The subsystem to check.
-     * @return {@link HealthIndicator#HEALTY} if the subsystem is healthy.
+     * @param as The AbstractSystem to check.
+     * @return {@link HealthIndicator#HEALTHY} if the subsystem is healthy.
      */
     public abstract boolean isHealthy(AbstractSystem as);
 
     /**
      * Checks if the given subsystem is satisfactory.
      * 
-     * @param subsystem The subsystem to check.
+     * @param as The AbstractSystem to check.
      * @return {@link HealthIndicator#SATISFACTORY} if the subsystem is satisfactory.
      */
     public abstract boolean isSatisfactory(AbstractSystem as);
@@ -47,7 +47,7 @@ public abstract class HealthAlgorithm {
     /**
      * Checks if the given subsystem is stable.
      * 
-     * @param subsystem The subsystem to check.
+     * @param as The AbstractSystem to check.
      * @return {@link HealthIndicator#STABLE} if the subsystem is stable.
      */
     public abstract boolean isStable(AbstractSystem as);
@@ -55,22 +55,24 @@ public abstract class HealthAlgorithm {
     /**
      * Checks if the given subsystem is serious.
      * 
-     * @param subsystem The subsystem to check.
+     * @param as The AbstractSystem to check.
      * @return {@link HealthIndicator#SERIOUS} if the subsystem is serious.
      */
     public abstract boolean isSerious(AbstractSystem as);
 
     /**
-     * TODO
+     * Checks if the indicators of the subsystems of the given AbstractSystem are greater than the given HealthIndicator and if the BugImpact is smaller than
+     * the given number.
      * 
-     * @param subsystem
-     * @param hi
-     * @param number
-     * @return
+     * @param as The AbstractSystem to check.
+     * @param hi The minimum HealthIndicator of the subsystems
+     * @param number The maximum total BugImpact
+     * @return True if the conditions are satisfied
      */
     public boolean checkSubsystem(AbstractSystem as, HealthIndicator hi, int number) {
 	for (Subsystem subs : as.getAllSubsystems()) {
-	    if (subs.getIndicator(this).getRank() < hi.getRank()) {
+	    // if (subs.getIndicator(this).getRank() < hi.getRank()) {
+	    if (subs.getIndicator(this).ordinal() < hi.ordinal()) {
 		return false;
 	    }
 	}

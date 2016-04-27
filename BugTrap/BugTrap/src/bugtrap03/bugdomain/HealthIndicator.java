@@ -1,32 +1,16 @@
 package bugtrap03.bugdomain;
 
 /**
+ * An enumeration of health indicators. <br>
+ * Order them from most critical to healthy.
+ * 
  * @author Mathias
  *
  */
 public enum HealthIndicator {
-	HEALTHY(5),
-	SATISFACTORY(4),
-	STABLE(3),
-	SERIOUS(2),
-	CRITICAL(1);
-	
-	private int rank;
+    CRITICAL, SERIOUS, STABLE, SATISFACTORY, HEALTHY;
 
-	/**
-	 * 
-	 * @param order
-	 */
-	HealthIndicator(int rank) {
-		this.rank = rank;
-	}
+    HealthIndicator() {
+    }
 
-	/**
-	 * 
-	 * @return
-	 */
-	@DomainAPI
-	public int getRank() {
-		return this.rank;
-	}
 }
