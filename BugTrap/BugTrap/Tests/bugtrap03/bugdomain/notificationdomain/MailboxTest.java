@@ -50,7 +50,7 @@ public class MailboxTest {
                 1, false, "triggerhappy", "stacktacktack", "error404");
 
 
-        bugReportNotification4MB2 = new BugReportNotification("this is a test notificationdomain for mb", bugreport4MB, project4MB);
+        bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
         testMB2 = new Mailbox();
         testCMB2= testMB2.creationSubscribe(project4MB);
         testCMB2.addNotification(bugReportNotification4MB2);
@@ -70,7 +70,7 @@ public class MailboxTest {
 
     @Test
     public void testAddNotification() throws Exception {
-        BugReportNotification bugReportNotification4MB = new BugReportNotification("This is a notificationdomain.",bugreport4MB, project4MB);
+        BugReportNotification bugReportNotification4MB = new BugReportNotification("This is a notification.",bugreport4MB, project4MB);
         testMB.addNotification(bugReportNotification4MB);
         assertTrue(testMB.getAllNotifications().contains(bugReportNotification4MB));
     }

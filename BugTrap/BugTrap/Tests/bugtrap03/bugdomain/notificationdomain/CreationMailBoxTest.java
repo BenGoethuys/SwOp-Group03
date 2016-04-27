@@ -37,7 +37,7 @@ public class CreationMailBoxTest {
         bugreport4MB = subsystem4MB.addBugReport(dev4CMB, "bugreport4MB1", "A bugreport to test the mb",
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
                 1, false, "triggerhappy", "stacktacktack", "error404");
-        bugReportNotification4MB2 = new BugReportNotification("this is a test notificationdomain for mb", bugreport4MB, project4MB);
+        bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
         testCMB = new CreationMailBox(project4MB);
     }
 

@@ -6,18 +6,18 @@ import bugtrap03.bugdomain.notificationdomain.Subject;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
- * This class represents a notificationdomain.
+ * This class represents a notification.
  * @author group 03
  */
 public class BugReportNotification extends Notification {
 
     /**
-     * The constructor for a new notificationdomain with a given notificationdomain, a bugreport of which an attribute has changed,
-     * the subject for the subscription that created the notificationdomain.
+     * The constructor for a new notification with a given notification, a bugreport of which an attribute has changed,
+     * the subject for the subscription that created the notification.
      *
-     * @param notification The string message for this notificationdomain
+     * @param notification The string message for this notification
      * @param bugReport The bugreport of which an attribute has changed.
-     * @param subject The subject from the subscription that creates the notificationdomain.
+     * @param subject The subject from the subscription that creates the notification.
      * @throws IllegalArgumentException
      */
     public BugReportNotification(String notification, BugReport bugReport, Subject subject) throws IllegalArgumentException{
@@ -58,31 +58,31 @@ public class BugReportNotification extends Notification {
     }
 
     /**
-     * This method returns a string representation of this notificationdomain when 'opened'.
-     * It gives a standard textual denial if the notificationdomain is private for the given User.
+     * This method returns a string representation of this notification when 'opened'.
+     * It gives a standard textual denial if the notification is private for the given User.
      * If not, it returns a string containing the message, bugreport name and subject name.
      *
-     * @param user The user that wishes to open this notificationdomain.
+     * @param user The user that wishes to open this notification.
      *
-     * @return A string representation of the contents of this notificationdomain.
+     * @return A string representation of the contents of this notification.
      */
     @Override
     @DomainAPI
     public String open(User user){
         if (! bugReport.isVisibleTo(user)){
-            return " \tThis notificationdomain is closed for you at the moment.";
+            return " \tThis notification is closed for you at the moment.";
         }
         StringBuilder message = new StringBuilder("\t" + this.message);
         message.append(bugReport.getTitle());
-        message.append("\n\tThis notificationdomain originated from the subscription on: ");
+        message.append("\n\tThis notification originated from the subscription on: ");
         message.append(subject.getSubjectName());
         return message.toString();
     }
 
     /**
-     * This method determines if a given object is equal to this notificationdomain.
+     * This method determines if a given object is equal to this notification.
      * @param object The given object to compare
-     * @return true if the object is a notificationdomain with the same attributes as this notificationdomain.
+     * @return true if the object is a notification with the same attributes as this notification.
      */
     @Override
     public boolean equals(Object object){
@@ -106,7 +106,7 @@ public class BugReportNotification extends Notification {
     }
 
     /**
-     * This method determines the has value of this notificationdomain.
+     * This method determines the has value of this notification.
      * @return An int hashvalue.
      */
     @Override
