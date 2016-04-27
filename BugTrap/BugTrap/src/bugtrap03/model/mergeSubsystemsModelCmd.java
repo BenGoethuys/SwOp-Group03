@@ -1,12 +1,36 @@
 package bugtrap03.model;
 
+import bugtrap03.bugdomain.AbstractSystem;
+import bugtrap03.bugdomain.AbstractSystemMemento;
+import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.usersystem.User;
 
 /**
  * @author Group 03
  */
-class mergeSubsystemsModelCmd extends ModelCmd {
+class MergeSubsystemsModelCmd extends ModelCmd {
 
+    MergeSubsystemsModelCmd(User user, Subsystem subsystem1, Subsystem subsystem2, String newName, String newDescription){
+        this.user = user;
+        this.subsystem1 = subsystem1;
+        this.subsystem2 = subsystem2;
+        this.newName = newName;
+        this.newDescription = newDescription;
+
+        //TODO: null refs
+    }
+
+    private final User user;
+    private final Subsystem subsystem1;
+    private final Subsystem subsystem2;
+    private final String newName;
+    private final String newDescription;
+
+    private AbstractSystemMemento memento;
+    private AbstractSystem parent;
+
+    private boolean isExecuted = false;
 
 
     /**
@@ -19,8 +43,41 @@ class mergeSubsystemsModelCmd extends ModelCmd {
      * @returns This is ModelCommand-subclass specific. null when there is nothing to report.
      */
     @Override
-    Object exec() throws IllegalArgumentException, NullPointerException, PermissionException, IllegalStateException {
-        return null;
+    Subsystem exec() throws IllegalArgumentException, NullPointerException, PermissionException, IllegalStateException {
+
+        if (this.isExecuted()) {
+            throw new IllegalStateException("The SplitSubsystemModelCmd was already executed.");
+        }
+
+        // get highest parent of both
+        if (subsystem1.getParent() == subsystem2){
+            this.parent = subsystem2.getParent();
+        } else {
+            this.parent = subsystem1.getParent();
+        }
+
+        // make memento of parent
+        this.memento = this.parent.getMemento();
+
+        Subsystem subsystem;
+        try {
+            // call merge method
+            if (subsystem1.getParent() == subsystem2) {
+                subsystem = subsystem2.mergeWithSubsystem(user, subsystem1, newName, newDescription);
+            } else {
+                subsystem = subsystem1.mergeWithSubsystem(user, subsystem2, newName, newDescription);
+            }
+
+        } catch (Exception exc){
+            // something went wrong -> restore state
+            parent.setMemento(memento);
+
+            // throw error further
+            throw exc;
+        }
+
+        this.isExecuted = true;
+        return subsystem;
     }
 
     /**
@@ -30,7 +87,12 @@ class mergeSubsystemsModelCmd extends ModelCmd {
      */
     @Override
     boolean undo() {
-        return false;
+        if (!this.isExecuted()) {
+            return false;
+        }
+
+        parent.setMemento(memento);
+        return true;
     }
 
     /**
@@ -40,11 +102,12 @@ class mergeSubsystemsModelCmd extends ModelCmd {
      */
     @Override
     boolean isExecuted() {
-        return false;
+        return this.isExecuted;
     }
 
     @Override
     public String toString() {
-        return null;
+        return "Merge subsystem " + subsystem1.getName() + " with subsystem "
+                + subsystem2.getName() + " into: " + newName;
     }
 }
