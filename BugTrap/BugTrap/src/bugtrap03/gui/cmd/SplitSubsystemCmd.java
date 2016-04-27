@@ -78,7 +78,9 @@ public class SplitSubsystemCmd implements Cmd {
         PList<BugReport> bugReports1 = getBugReports(scan, model, sub);
 
         //10. The system creates two new subsystems with the same milestone as the original subsystem. The original subsystem is removed.
-        return model.splitSubsystem(sub, name1, desc1, name2, desc2, subs1, bugReports1, user);
+        //TODO: Kwinten/Vincent So does this mean the creation needs to be notified about?
+        Subsystem sub2 = model.splitSubsystem(sub, name1, desc1, name2, desc2, subs1, bugReports1, user);
+        return new Subsystem[] {sub, sub2}; 
     }
 
     /**
@@ -128,7 +130,7 @@ public class SplitSubsystemCmd implements Cmd {
      * @return The list of direct subsystems of the given sub that the user chose.
      */
     private PList<BugReport> getBugReports(TerminalScanner scan, DataModel model, Subsystem sub) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

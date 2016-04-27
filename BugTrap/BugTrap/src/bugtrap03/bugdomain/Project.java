@@ -14,8 +14,7 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 /**
- * This class extends AbstractSystem (versionID, name and description) and
- * extends it with dates.
+ * This class extends AbstractSystem (versionID, name and description) and extends it with dates.
  *
  * @author Kwinten Buytaert & Ben Goethuys
  */
@@ -23,8 +22,7 @@ import java.util.NoSuchElementException;
 public class Project extends AbstractSystem {
 
     /**
-     * Creates a project with a given versionID, name, description,
-     * creationDate, lead, startDate, budgetEstimate.
+     * Creates a project with a given versionID, name, description, creationDate, lead, startDate, budgetEstimate.
      *
      * @param version The versionID of this project.
      * @param name The name of this project.
@@ -53,8 +51,7 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * Creates a project with a given versionID, name, description, lead,
-     * startDate, budgetEstimate.
+     * Creates a project with a given versionID, name, description, lead, startDate, budgetEstimate.
      *
      * @param version The versionID of this project.
      * @param name The name of this project.
@@ -74,8 +71,7 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * Creates a project with a given versionID, name, description, lead,
-     * startDate, budgetEstimate.
+     * Creates a project with a given versionID, name, description, lead, startDate, budgetEstimate.
      *
      * @param name The name of this project.
      * @param description The description of this project.
@@ -96,13 +92,10 @@ public class Project extends AbstractSystem {
         this.setLead(lead);
         this.setStartDate(startDate);
         this.setBudgetEstimate(budgetEstimate);
-
-        this.isTerminated = false;
     }
 
     /**
-     * Creates a project with a given versionID, name, description, lead,
-     * startDate, budgetEstimate.
+     * Creates a project with a given versionID, name, description, lead, startDate, budgetEstimate.
      *
      * @param name The name of this project.
      * @param description The description of this project.
@@ -121,8 +114,6 @@ public class Project extends AbstractSystem {
         this.setLead(lead);
         this.setStartDate(new GregorianCalendar());
         this.setBudgetEstimate(budgetEstimate);
-
-        this.isTerminated = false;
     }
 
     private GregorianCalendar creationDate;
@@ -130,11 +121,9 @@ public class Project extends AbstractSystem {
     private HashMap<Developer, PList<Role>> projectParticipants;
     private long budgetEstimate;
 
-    private boolean isTerminated;
-
     /**
-     * This method check if the given Milestone is a valid Milestone for an AbstractSystem
-     * Checks if the constraintCheck is still valid for the parent of this AbstractSystem
+     * This method check if the given Milestone is a valid Milestone for an AbstractSystem Checks if the constraintCheck
+     * is still valid for the parent of this AbstractSystem
      *
      * @param milestone the Milestone to check
      *
@@ -147,8 +136,8 @@ public class Project extends AbstractSystem {
             return false;
         }
         for (BugReport bugreport : this.getAllBugReports()) {
-            if ((!bugreport.isResolved()) && (bugreport.getMilestone() != null) &&
-                    (bugreport.getMilestone().compareTo(milestone) <= 0)) {
+            if ((!bugreport.isResolved()) && (bugreport.getMilestone() != null)
+                    && (bugreport.getMilestone().compareTo(milestone) <= 0)) {
                 return false;
             }
         }
@@ -157,11 +146,12 @@ public class Project extends AbstractSystem {
 
     /**
      * This method checks if the given parent is a valid parent for this project
-     * @param parent    The parent to check
+     *
+     * @param parent The parent to check
      *
      * @return True if the given parent is a valid parent for this project.
      */
-    public boolean isValidParent(AbstractSystem parent){
+    public boolean isValidParent(AbstractSystem parent) {
         return parent == null;
     }
 
@@ -224,8 +214,7 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * Sets the start date of the project to the given date.
-     * A clone of this startDate will be stored.
+     * Sets the start date of the project to the given date. A clone of this startDate will be stored.
      *
      * @param startDate The start date of the project.
      * @throws IllegalArgumentException if the given date is invalid
@@ -298,8 +287,7 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * This method check if the given creation date is a valid date for this
-     * project
+     * This method check if the given creation date is a valid date for this project
      *
      * @param date the date to check
      * @return true if the given date is valid
@@ -323,8 +311,7 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * This method sets the Project's budget estimate to the given long, if
-     * valid.
+     * This method sets the Project's budget estimate to the given long, if valid.
      *
      * @param budgetEstimate to set, as a long
      * @throws IllegalArgumentException if the given budgetEstimate is invalid.
@@ -338,8 +325,7 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * Checks the validity of the given budgetEstimate. The value must be
-     * positive (or zero)
+     * Checks the validity of the given budgetEstimate. The value must be positive (or zero)
      *
      * @param budgetEstimate The budget estimate to check of type long
      * @return false if budgetEstimate is smaller than zero
@@ -353,13 +339,13 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * This is a getter for the parent. Since a Project doesn't have a parent,
-     * it returns itself.
+     * This is a getter for the parent. Since a Project doesn't have a parent, it returns itself.
      *
      * @return this;
      */
+    @DomainAPI
     @Override
-    protected Project getParent() {
+    public Project getParent() {
         return this;
     }
 
@@ -368,7 +354,7 @@ public class Project extends AbstractSystem {
      *
      * @param dev The developer to give a role
      * @param role The role the developer has in this project
-     * 
+     *
      * @return Whether the roles of the developer have changed
      * @throws IllegalArgumentException if the given role was invalid
      */
@@ -376,15 +362,13 @@ public class Project extends AbstractSystem {
     private boolean setRole(Developer dev, Role role) {
         PList<Role> roleList = this.projectParticipants.get(dev);
         if (roleList == null) {
-            this.projectParticipants.put(dev, PList.<Role> empty().plus(role));
+            this.projectParticipants.put(dev, PList.<Role>empty().plus(role));
+            return true;
+        } else if (!roleList.contains(role)) {
+            this.projectParticipants.put(dev, roleList.plus(role));
             return true;
         } else {
-            if (!roleList.contains(role)) {
-                this.projectParticipants.put(dev, roleList.plus(role));
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }
     }
 
@@ -394,7 +378,7 @@ public class Project extends AbstractSystem {
      * @param user The user that wants to set the given role to the given developer
      * @param dev The developer to give the new role to
      * @param role The role that will be assigned to the given developer
-     * 
+     *
      * @return Whether the roles of the developer have changed.
      * @throws PermissionException If the given user does not have sufficient permissions to assign the given role to
      * the given developer
@@ -411,12 +395,13 @@ public class Project extends AbstractSystem {
         }
         return this.setRole(dev, role);
     }
-    
+
     /**
      * Remove the role from the developer for this project.
      * <br><b> Caution: Only use when you can guarantee no constraints are effected.</b>
      * (e.g This does change anything about BugReports with the developer as 'assigned'.)
      * <br> This is used for undoing an 'assign role' directly after assigning that role.
+     *
      * @param dev The developer to delete the role off.
      * @param role The role to remove
      * @return Whether the roles of the developer have changed. False when dev == null || role == null.
@@ -435,10 +420,10 @@ public class Project extends AbstractSystem {
         //delete
         roles = roles.minus(role);
         //clean up
-        if(roles.isEmpty()) { //Change, empty now
+        if (roles.isEmpty()) { //Change, empty now
             this.projectParticipants.remove(dev);
             return true;
-        } else if(roles.size() == oldSize) { //no change
+        } else if (roles.size() == oldSize) { //no change
             return false;
         } else { //change
             this.projectParticipants.put(dev, roles);
@@ -454,7 +439,7 @@ public class Project extends AbstractSystem {
     @DomainAPI
     @Override
     public PList<Developer> getAllDev() {
-        return PList.<Developer> empty().plusAll(this.projectParticipants.keySet());
+        return PList.<Developer>empty().plusAll(this.projectParticipants.keySet());
     }
 
     /**
@@ -468,7 +453,7 @@ public class Project extends AbstractSystem {
         double impact = 0.0;
 
         PList<Subsystem> subsystems = this.getSubsystems();
-        for (Subsystem subsystem : subsystems){
+        for (Subsystem subsystem : subsystems) {
             impact += subsystem.getBugImpact();
         }
 
@@ -476,8 +461,7 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * This method returns all the roles associated with the developers of this
-     * project
+     * This method returns all the roles associated with the developers of this project
      *
      * @param dev The developer to get the roles for
      * @return The roles the developer has in this project
@@ -485,12 +469,11 @@ public class Project extends AbstractSystem {
     @DomainAPI
     public PList<Role> getAllRolesDev(Developer dev) {
         PList<Role> roles = this.projectParticipants.get(dev);
-        return (roles != null) ? roles : PList.<Role> empty();
+        return (roles != null) ? roles : PList.<Role>empty();
     }
 
     /**
-     * This method checks if the given developer has the requested permission
-     * for this subsystem
+     * This method checks if the given developer has the requested permission for this subsystem
      *
      * @param dev the developer to check
      * @param perm the requested permission
@@ -507,15 +490,14 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * Get the Project details in string format so it is nice to print out.
-     * (Includes Project name, description, version ID, budgetEstimate,
-     * startDate, Lead, creationDate)
+     * Get the Project details in string format so it is nice to print out. (Includes Project name, description, version
+     * ID, budgetEstimate, startDate, Lead, creationDate)
      *
-     * @return A string with on each line an attribute of the Project: name,
-     *         description, versionID, budget estimate, start date, lead
-     *         developer and creation date
+     * @return A string with on each line an attribute of the Project: name, description, versionID, budget estimate,
+     * start date, lead developer and creation date
      */
     @DomainAPI
+    @Override
     public String getDetails() {
         String details = "Project name:\t\t\t";
         details += this.getName();
@@ -573,8 +555,8 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * This method notifies the subsystem it belongs to,
-     * to update it's mailboxes for a tag subscription and to notify it's parent.
+     * This method notifies the subsystem it belongs to, to update it's mailboxes for a tag subscription and to notify
+     * its parent.
      *
      * @param br The bugreport of which an attribute has changed.
      */
@@ -584,8 +566,8 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * This method notifies the subsystem it belongs to,
-     * to update it's mailboxes for a comment subscription and to notify it's parent.
+     * This method notifies the subsystem it belongs to, to update it's mailboxes for a comment subscription and to
+     * notify its parent.
      *
      * @param br The bugreport of which an attribute has changed.
      */
@@ -594,10 +576,9 @@ public class Project extends AbstractSystem {
         this.updateCommentSubs(br);
     }
 
-
     /**
-     * This method notifies the subsystem it belongs to,
-     * to update it's mailboxes for a creation subscription and to notify it's parent.
+     * This method notifies the subsystem it belongs to, to update it's mailboxes for a creation subscription and to
+     * notify its parent.
      *
      * @param br The bugreport of which an attribute has changed.
      */
@@ -607,22 +588,48 @@ public class Project extends AbstractSystem {
     }
 
     /**
-     * This method sets the isTerminated boolean of this object
-     *
-     * @param terminated    the new value
-     */
-    public void setTerminated(boolean terminated){
-        this.isTerminated = terminated;
-    }
-
-    /**
      * This method check whether or not the current Project is terminated
      *
      * @return true if the object is terminated
      */
     @Override
     @DomainAPI
-    public boolean isTerminated(){
+    public boolean isTerminated() {
         return this.isTerminated;
+    }
+
+    /**
+     * The method returns a memento for this Project.
+     *
+     * @return The memento of this system.
+     */
+    @Override
+    public ProjectMemento getMemento() {
+        return new ProjectMemento(getVersionID(), getName(), getDescription(), getSubsystems(), getParent(), 
+                getMilestone(), getCreationDate(), getStartDate(), this.projectParticipants, this.budgetEstimate, 
+                this.isTerminated);
+    }
+
+    /**
+     * Set the memento of this Project.
+     *
+     * @param mem The Memento to use to set.
+     * @throws IllegalArgumentException When mem == null
+     * @throws IllegalArgumentException When any of the arguments stored in mem is invalid for the current state. (e.g
+     * milestones due to constraints)
+     */
+    @Override
+    public void setMemento(AbstractSystemMemento mem) {
+        super.setMemento(mem);
+        
+        if(mem instanceof ProjectMemento) {
+            ProjectMemento pMem = (ProjectMemento) mem;
+            
+            this.creationDate = pMem.getCreationDate();
+            this.startDate = pMem.getStartDate();
+            this.projectParticipants = pMem.getProjectParticipants();
+            this.budgetEstimate = pMem.getBudgetEstimate();
+            this.isTerminated = pMem.getIsTerminated();
+        }
     }
 }
