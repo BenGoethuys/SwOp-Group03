@@ -515,6 +515,9 @@ public class Project extends AbstractSystem {
         details += this.getLead().getUsername();
         details += "\nCreation date:\t\t\t";
         details += this.getCreationDate().getTime();
+        details += "\nHealth indicator algorithm 1: \t" + this.getIndicator(new HealthAlgorithm1());
+        details += "\nHealth indicator algorithm 2: \t" + this.getIndicator(new HealthAlgorithm2());
+        details += "\nHealth indicator algorithm 3: \t" + this.getIndicator(new HealthAlgorithm3());
         details += "\nSubsystems of this project: ";
         for (Subsystem subsys : this.getAllSubsystems()) {
             details += subsys.getDetails();
@@ -631,5 +634,10 @@ public class Project extends AbstractSystem {
             this.budgetEstimate = pMem.getBudgetEstimate();
             this.isTerminated = pMem.getIsTerminated();
         }
+    }
+
+    @Override
+    public HealthIndicator getIndicator(HealthAlgorithm ha) {
+	return ha.getIndicator(this);
     }
 }

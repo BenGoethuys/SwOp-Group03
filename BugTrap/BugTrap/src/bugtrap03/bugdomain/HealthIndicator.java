@@ -5,7 +5,7 @@ package bugtrap03.bugdomain;
  *
  */
 public enum HealthIndicator {
-	HEALTY(5),
+	HEALTHY(5),
 	SATISFACTORY(4),
 	STABLE(3),
 	SERIOUS(2),
