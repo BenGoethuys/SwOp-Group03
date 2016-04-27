@@ -11,14 +11,14 @@ public enum HealthIndicator {
 	SERIOUS(2),
 	CRITICAL(1);
 	
-	private int order;
+	private int rank;
 
 	/**
 	 * 
 	 * @param order
 	 */
-	HealthIndicator(int order) {
-		this.order = order;
+	HealthIndicator(int rank) {
+		this.rank = rank;
 	}
 
 	/**
@@ -26,7 +26,7 @@ public enum HealthIndicator {
 	 * @return
 	 */
 	@DomainAPI
-	public int getOrder() {
-		return this.order;
+	public int getRank() {
+		return this.rank;
 	}
 }

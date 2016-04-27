@@ -1,6 +1,3 @@
-/**
- * 
- */
 package bugtrap03.bugdomain;
 
 /**
@@ -16,62 +13,21 @@ public class HealthAlgorithm1 extends HealthAlgorithm {
 
 	@Override
 	public boolean isHealthy(Subsystem subsystem) {
-
-		for (Subsystem subs : subsystem.getAllSubsystems()) {
-			if (subs.getIndicator().getOrder() < HealthIndicator.HEALTY.getOrder()) {
-				return false;
-			}
-		}
-
-		if (subsystem.getBugImpact() >= HEALTH) {
-			return false;
-		}
-
-		return true;
+		return checkSubsystem(subsystem, HealthIndicator.HEALTY, HEALTH);
 	}
 
 	@Override
 	public boolean isSatisfactory(Subsystem subsystem) {
-		for (Subsystem subs : subsystem.getAllSubsystems()) {
-			if (subs.getIndicator().getOrder() < HealthIndicator.SATISFACTORY.getOrder()) {
-				return false;
-			}
-		}
-
-		if (subsystem.getBugImpact() >= SATISFACTORY) {
-			return false;
-		}
-
-		return true;
+		return checkSubsystem(subsystem, HealthIndicator.SATISFACTORY, SATISFACTORY);
 	}
 
 	@Override
 	public boolean isStable(Subsystem subsystem) {
-		for (Subsystem subs : subsystem.getAllSubsystems()) {
-			if (subs.getIndicator().getOrder() < HealthIndicator.STABLE.getOrder()) {
-				return false;
-			}
-		}
-
-		if (subsystem.getBugImpact() >= STABLE) {
-			return false;
-		}
-
-		return true;
+		return checkSubsystem(subsystem, HealthIndicator.STABLE, STABLE);
 	}
 
 	@Override
 	public boolean isSerious(Subsystem subsystem) {
-		for (Subsystem subs : subsystem.getAllSubsystems()) {
-			if (subs.getIndicator().getOrder() < HealthIndicator.SERIOUS.getOrder()) {
-				return false;
-			}
-		}
-
-		if (subsystem.getBugImpact() >= SERIOUS) {
-			return false;
-		}
-
-		return true;
+		return checkSubsystem(subsystem, HealthIndicator.SERIOUS, SERIOUS);
 	}
 }

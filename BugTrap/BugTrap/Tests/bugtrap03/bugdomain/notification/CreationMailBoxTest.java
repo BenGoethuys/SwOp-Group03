@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
 /**
  * Created by Kwinten on 13/04/2016.
  */
-public class GeneralTypeMailboxTest {
+public class CreationMailBoxTest {
 
-    private static GeneralTypeMailbox testCMB;
+    private static CreationMailBox testCMB;
     private static BugReportNotification bugReportNotification4MB2;
 
 
@@ -36,7 +36,7 @@ public class GeneralTypeMailboxTest {
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
                 1, false, "triggerhappy", "stacktacktack", "error404");
         bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
-        testCMB = new GeneralTypeMailbox(project4MB, MailboxType.CREATION_BUGREP);
+        testCMB = new CreationMailBox(project4MB, MailboxType.CREATION_BUGREP);
     }
 
     @Test

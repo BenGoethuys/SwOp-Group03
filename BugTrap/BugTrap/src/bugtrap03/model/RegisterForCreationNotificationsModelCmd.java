@@ -2,7 +2,7 @@ package bugtrap03.model;
 
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notification.AbstractSystemSubject;
-import bugtrap03.bugdomain.notification.GeneralTypeMailbox;
+import bugtrap03.bugdomain.notification.CreationMailBox;
 
 /**
  * @author Group 03
@@ -42,13 +42,13 @@ class RegisterForCreationNotificationsModelCmd extends RegisterForNotificationsM
      * @see #setExecuted()
      */
     @Override
-    GeneralTypeMailbox exec() throws IllegalArgumentException, IllegalStateException {
+    CreationMailBox exec() throws IllegalArgumentException, IllegalStateException {
         if (abstractSystemSubject.isTerminated()) {
             throw new IllegalArgumentException("The given abstractSystemSubject is terminated.");
         }
         
         this.setExecuted();
-        GeneralTypeMailbox cmb = this.getMailbox().creationSubscribe(this.abstractSystemSubject);
+        CreationMailBox cmb = this.getMailbox().creationSubscribe(this.abstractSystemSubject);
         this.setNewMailbox(cmb);
         return cmb;
     }

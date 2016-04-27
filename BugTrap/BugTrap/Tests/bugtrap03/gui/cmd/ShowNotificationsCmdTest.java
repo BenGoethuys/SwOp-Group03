@@ -4,7 +4,6 @@ import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.notification.Mailbox;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.model.DataModel;
@@ -16,8 +15,6 @@ import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
 import java.util.ArrayDeque;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Group 03
@@ -42,7 +39,7 @@ public class ShowNotificationsCmdTest {
         projectRegisterCmd = model.createProject("projectRegisterCmd","testdescription", developerShowNotCmd, 1000, administratorShowNotCmd);
         subsystemRegisterCmd = model.createSubsystem(administratorShowNotCmd, projectRegisterCmd, "subsystemRegisterCmd","testdescription");
         bugReportRegisterCmd = model.createBugReport(subsystemRegisterCmd, developerShowNotCmd, "a", "b",
-                PList.<BugReport>empty(), new Milestone(1,1,1), false);
+                PList.<BugReport>empty(), new Milestone(1,1,1), 1, false);
 
         cmd = new ShowNotificationsCmd();
     }

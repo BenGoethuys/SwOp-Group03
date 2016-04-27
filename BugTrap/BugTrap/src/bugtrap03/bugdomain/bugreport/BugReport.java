@@ -803,11 +803,29 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      *
      * @see BugReport#isValidImpactFactor(double)
      */
-    public void setImpactFactor(double impactFactor) throws IllegalArgumentException {
+    protected void setImpactFactor(double impactFactor) throws IllegalArgumentException {
         if (! BugReport.isValidImpactFactor(impactFactor)){
             throw new IllegalArgumentException("The given impact factor is invalid for a bug report!");
         }
         this.impactFactor = impactFactor;
+    }
+
+    /**
+     * This method sets the impact factor of this bug report to the given impact factor
+     *
+     * @param user          The user that wants to change the impact factor of this bug rpeort
+     * @param impactFactor  The new impact factor of this bug report
+     *
+     * @throws PermissionException      If the given user doesn't have the needed permission.
+     * @throws IllegalArgumentException If the given impactFactor is invalid
+     *
+     * @see BugReport#isValidImpactFactor(double)
+     */
+    public void setImpactFactor(User user, double impactFactor) throws PermissionException, IllegalArgumentException {
+        if (! this.getCreator().equals(user)){
+            throw new PermissionException("You don't have permission to set the impact factor of this bug rpeort");
+        }
+        this.setImpactFactor(impactFactor);
     }
 
     /**

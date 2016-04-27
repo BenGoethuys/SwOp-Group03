@@ -9,7 +9,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
  * @author Group 03
  */
 @DomainAPI
-public class GeneralTypeMailbox extends Mailbox {
+public class CreationMailBox extends Mailbox {
 
     /**
      * The constructor for a mailbox subscription to the
@@ -21,7 +21,7 @@ public class GeneralTypeMailbox extends Mailbox {
      * @throws IllegalArgumentException if the subject is invalid
      * @see #setSubject(AbstractSystemSubject)
      */
-    public GeneralTypeMailbox(AbstractSystemSubject subj, MailboxType mbType) throws IllegalArgumentException{
+    public CreationMailBox(AbstractSystemSubject subj, MailboxType mbType) throws IllegalArgumentException{
         super();
         this.setSubject(subj);
         this.setType(mbType);

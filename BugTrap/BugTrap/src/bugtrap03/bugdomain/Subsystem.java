@@ -31,8 +31,8 @@ public class Subsystem extends AbstractSystem {
      */
     protected Subsystem(VersionID version, String name, String description, AbstractSystem parent)
             throws IllegalArgumentException {
-        super(parent, version, name, description);
-        this.bugReportList = PList.<BugReport>empty();
+	super(parent, version, name, description);
+	this.bugReportList = PList.<BugReport> empty();
     }
 
     /**
@@ -53,8 +53,8 @@ public class Subsystem extends AbstractSystem {
      */
     protected Subsystem(VersionID version, String name, String description, AbstractSystem parent,
             Milestone milestone) {
-        super(parent, version, name, description, milestone);
-        this.bugReportList = PList.<BugReport>empty();
+	super(parent, version, name, description, milestone);
+	this.bugReportList = PList.<BugReport> empty();
     }
 
     /**
@@ -69,8 +69,8 @@ public class Subsystem extends AbstractSystem {
      * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
      */
     protected Subsystem(String name, String description, AbstractSystem parent) throws IllegalArgumentException {
-        super(parent, name, description);
-        this.bugReportList = PList.<BugReport>empty();
+	super(parent, name, description);
+	this.bugReportList = PList.<BugReport> empty();
     }
 
     private PList<BugReport> bugReportList;
@@ -130,7 +130,7 @@ public class Subsystem extends AbstractSystem {
      */
     @DomainAPI
     public PList<BugReport> getBugReportList() {
-        return this.bugReportList;
+	return this.bugReportList;
     }
 
     /**
@@ -141,12 +141,12 @@ public class Subsystem extends AbstractSystem {
     @Override
     @DomainAPI
     public PList<BugReport> getAllBugReports() {
-        PList<BugReport> list = super.getAllBugReports();
-        if (this.getBugReportList() != null) {
-            // will be null during initialisation !
-            list = list.plusAll(this.getBugReportList());
-        }
-        return list;
+	PList<BugReport> list = super.getAllBugReports();
+	if (this.getBugReportList() != null) {
+	    // will be null during initialisation !
+	    list = list.plusAll(this.getBugReportList());
+	}
+	return list;
     }
 
     /**
@@ -157,19 +157,19 @@ public class Subsystem extends AbstractSystem {
     @Override
     @DomainAPI
     public double getBugImpact() {
-        double impact = 0.0;
+	double impact = 0.0;
 
-        PList<BugReport> bugReports = this.getBugReportList();
-        for (BugReport bugReport : bugReports) {
-            impact += bugReport.getBugImpact();
-        }
+	PList<BugReport> bugReports = this.getBugReportList();
+	for (BugReport bugReport : bugReports) {
+	    impact += bugReport.getBugImpact();
+	}
 
-        PList<Subsystem> subsystems = this.getSubsystems();
-        for (Subsystem subsystem : subsystems) {
-            impact += subsystem.getBugImpact();
-        }
+	PList<Subsystem> subsystems = this.getSubsystems();
+	for (Subsystem subsystem : subsystems) {
+	    impact += subsystem.getBugImpact();
+	}
 
-        return impact;
+	return impact;
     }
 
     /**
@@ -182,7 +182,8 @@ public class Subsystem extends AbstractSystem {
      * @param dependencies The depended bug reports of this bug report
      * @param milestone The milestone of the bug report
      * @param impactFactor The impact factor of the new bug rport
-     * @param isPrivate The boolean that says if this bug report should be private or not
+     * @param isPrivate The boolean that says if this bug report should be
+     *            private or not
      * @param trigger A trigger used to trigger the bug
      * @param stacktrace The stacktrace got when the bug was triggered
      * @param error The error got when the bug was triggered
@@ -218,19 +219,19 @@ public class Subsystem extends AbstractSystem {
      */
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     public BugReport addBugReport(User creator, String title, String description, GregorianCalendar creationDate,
-            PList<BugReport> dependencies, Milestone milestone, double impactFactor, boolean isPrivate, String trigger, String stacktrace,
-            String error) throws IllegalArgumentException, PermissionException {
-        BugReport bugReport;
-        if (creationDate == null) {
-            bugReport = new BugReport(creator, title, description, new GregorianCalendar(), dependencies, this,
-                    milestone, impactFactor, isPrivate, trigger, stacktrace, error);
-        } else {
-            bugReport = new BugReport(creator, title, description, creationDate, dependencies, this, milestone,
-                    impactFactor, isPrivate, trigger, stacktrace, error);
-        }
-        this.bugReportList = this.getBugReportList().plus(bugReport);
-        this.notifyCreationSubs(bugReport);
-        return bugReport;
+            PList<BugReport> dependencies, Milestone milestone, double impactFactor, boolean isPrivate, String trigger,
+            String stacktrace, String error) throws IllegalArgumentException, PermissionException {
+	BugReport bugReport;
+	if (creationDate == null) {
+	    bugReport = new BugReport(creator, title, description, new GregorianCalendar(), dependencies, this,
+	            milestone, impactFactor, isPrivate, trigger, stacktrace, error);
+	} else {
+	    bugReport = new BugReport(creator, title, description, creationDate, dependencies, this, milestone,
+	            impactFactor, isPrivate, trigger, stacktrace, error);
+	}
+	this.bugReportList = this.getBugReportList().plus(bugReport);
+	this.notifyCreationSubs(bugReport);
+	return bugReport;
     }
 
     /**
@@ -240,7 +241,7 @@ public class Subsystem extends AbstractSystem {
      * @param bugReport The bugReport to delete.
      */
     public void deleteBugReport(BugReport bugReport) {
-        this.bugReportList = this.bugReportList.minus(bugReport);
+	this.bugReportList = this.bugReportList.minus(bugReport);
     }
 
     /**
@@ -254,11 +255,11 @@ public class Subsystem extends AbstractSystem {
      * @see Subsystem#Subsystem(VersionID, String, String, AbstractSystem)
      */
     public Subsystem cloneSubsystem(AbstractSystem parent) throws IllegalArgumentException {
-        Subsystem clone = parent.addSubsystem(this.getVersionID().clone(), this.getName(), this.getDescription());
-        for (Subsystem child : this.getSubsystems()) {
-            child.cloneSubsystem(clone);
-        }
-        return clone;
+	Subsystem clone = parent.addSubsystem(this.getVersionID().clone(), this.getName(), this.getDescription());
+	for (Subsystem child : this.getSubsystems()) {
+	    child.cloneSubsystem(clone);
+	}
+	return clone;
     }
 
     /**
@@ -270,19 +271,19 @@ public class Subsystem extends AbstractSystem {
     @DomainAPI
     @Override
     public String getDetails() {
-        String details = "\n\n\tSubsystem name:\t\t\t";
-        details += this.getName();
-        details += "\n\tSubsystem version:\t\t";
-        details += this.getVersionID().toString();
-        details += "\n\tAchieved milestone:\t\t";
-        details += this.getMilestone().toString();
-        details += "\n\tSubsystem description: \t\t";
-        details += this.getDescription();
-        details += "\n\tSubsystem parent: \t\t";
-        details += this.getParent().getName();
-        details += "\n\tSubsystem from project: \t";
-        details += this.getParentProject().getName();
-        return details;
+	String details = "\n\n\tSubsystem name:\t\t\t";
+	details += this.getName();
+	details += "\n\tSubsystem version:\t\t";
+	details += this.getVersionID().toString();
+	details += "\n\tAchieved milestone:\t\t";
+	details += this.getMilestone().toString();
+	details += "\n\tSubsystem description: \t\t";
+	details += this.getDescription();
+	details += "\n\tSubsystem parent: \t\t";
+	details += this.getParent().getName();
+	details += "\n\tSubsystem from project: \t";
+	details += this.getParentProject().getName();
+	return details;
     }
 
     /**
@@ -293,12 +294,17 @@ public class Subsystem extends AbstractSystem {
     @Override
     @DomainAPI
     public String getSubjectName() {
-        return ("Subsystem " + this.getName());
+	return ("Subsystem " + this.getName());
     }
 
-    public HealthIndicator getIndicator() {
-        // TODO Auto-generated method stub
-        return null;
+    /**
+     * TODO Mathias
+     * 
+     * @param ha
+     * @return
+     */
+    public HealthIndicator getIndicator(HealthAlgorithm ha) {
+	return ha.getIndicator(this);
     }
 
     /**
