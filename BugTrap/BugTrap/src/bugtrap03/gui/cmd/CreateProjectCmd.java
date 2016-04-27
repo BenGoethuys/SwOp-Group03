@@ -49,7 +49,7 @@ public class CreateProjectCmd implements Cmd<Project> {
      *                                  abort the cmd.
      * @throws IllegalArgumentException When scan, model or user is a null
      *                                  reference.
-     * @see DataModel#createProject(String, String, GregorianCalendar, Developer, long, User)
+     * @see DataModel#createProject(VersionID, String, String, GregorianCalendar, Developer, long, User)
      * @see DataModel#cloneProject(Project, VersionID, Developer, GregorianCalendar, long)
      * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
      */
@@ -96,7 +96,7 @@ public class CreateProjectCmd implements Cmd<Project> {
      * @throws CancelException          When the user has indicated to abort the cmd.
      * @throws PermissionException      When the user does not have sufficient permissions to create/clone a project.
      * @throws IllegalArgumentException When there is no option for a lead developer.
-     * @see DataModel#createProject(String, String, GregorianCalendar, Developer, long, User)
+     * @see DataModel#createProject(VersionID, String, String, GregorianCalendar, Developer, long, User)
      */
     private Project createProjectScenario(TerminalScanner scan, DataModel model, User user) throws CancelException, PermissionException, IllegalArgumentException {
         // Project name
@@ -144,7 +144,7 @@ public class CreateProjectCmd implements Cmd<Project> {
         }
 
         // Create Project
-        Project proj = model.createProject(projName, projDesc, projStartDate, lead, projBudgetEstimate, user);
+        Project proj = model.createProject(new VersionID(), projName, projDesc, projStartDate, lead, projBudgetEstimate, user);
 
         // Print created project details
         // a6. Show the user the details of the created project.

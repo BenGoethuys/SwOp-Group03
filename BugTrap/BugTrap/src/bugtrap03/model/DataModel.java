@@ -318,11 +318,13 @@ public class DataModel {
     /**
      * This method creates a new {@link Project} in the system
      *
+     *
+     * @param versionID
      * @param name The name of the project
      * @param description The description of the project
      * @param startDate The start date of the project
-     * @param budget The budget estimate for this project
      * @param lead The lead developer of this project
+     * @param budget The budget estimate for this project
      * @param creator The creator of this Project
      *
      * @return The created project
@@ -330,9 +332,9 @@ public class DataModel {
      * @throws PermissionException If the given creator has insufficient permissions
      */
     @DomainAPI
-    public Project createProject(String name, String description, GregorianCalendar startDate, Developer lead,
-            long budget, User creator) throws IllegalArgumentException, PermissionException {
-        CreateProjectModelCmd cmd = new CreateProjectModelCmd(this, name, description, startDate, lead, budget, creator);
+    public Project createProject(VersionID versionID, String name, String description, GregorianCalendar startDate, Developer lead,
+                                 long budget, User creator) throws IllegalArgumentException, PermissionException {
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(this, versionID, name, description, startDate, lead, budget, creator);
         Project project = cmd.exec();
         addToHistory(cmd);
         return project;
@@ -341,6 +343,8 @@ public class DataModel {
     /**
      * This method creates a new {@link Project} in the system
      *
+     *
+     * @param versionID
      * @param name The name of the project
      * @param description The description of the project
      * @param lead The lead developer of this project
@@ -352,9 +356,9 @@ public class DataModel {
      * @throws PermissionException If the given creator has insufficient permissions
      */
     @DomainAPI
-    public Project createProject(String name, String description, Developer lead, long budget, User creator)
+    public Project createProject(VersionID versionID, String name, String description, Developer lead, long budget, User creator)
             throws IllegalArgumentException, PermissionException {
-        CreateProjectModelCmd cmd = new CreateProjectModelCmd(this, name, description, lead, budget, creator);
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(this, versionID, name, description, lead, budget, creator);
         Project project = cmd.exec();
         addToHistory(cmd);
         return project;

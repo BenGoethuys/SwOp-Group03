@@ -1,6 +1,7 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -33,7 +34,7 @@ public class RegisterForCommentNotificationsModelCmdTest {
         GregorianCalendar startDate = new GregorianCalendar();
         startDate.add(GregorianCalendar.DAY_OF_WEEK, 1);
 
-        project = model.createProject("projName", "projDesc", lead, 100, admin);
+        project = model.createProject(new VersionID(), "projName", "projDesc", lead, 100, admin);
         counter++;
     }
 

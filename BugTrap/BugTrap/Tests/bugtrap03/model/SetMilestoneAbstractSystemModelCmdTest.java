@@ -3,13 +3,13 @@ package bugtrap03.model;
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.internal.ExactComparisonCriteria;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -36,7 +36,7 @@ public class SetMilestoneAbstractSystemModelCmdTest {
         model = new DataModel();
         admin = model.createAdministrator("WasHierBenAdmin" + counter, "first", "last");
         dev = model.createDeveloper("WasHierBenDev" + counter, "first", "last");
-        proj = model.createProject("WasHierBenProj", "Testing stuff over here", dev, 50, admin);
+        proj = model.createProject(new VersionID(), "WasHierBenProj", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
 
         model.assignToProject(proj, dev, dev, Role.TESTER);

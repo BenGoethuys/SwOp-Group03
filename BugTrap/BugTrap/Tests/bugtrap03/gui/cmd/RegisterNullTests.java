@@ -1,6 +1,7 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.gui.cmd.general.RegisterFromASCmd;
@@ -34,7 +35,7 @@ public class RegisterNullTests {
         answer = new ArrayDeque<>();
         developerRegisterCmd = model.createDeveloper("developerRegisterCmd" + index, "firstname", "lastname");
         adminRegisterCmd = model.createAdministrator("adminRegisterCmd"+ index, "firstname", "lastname");
-        project = model.createProject("title","desc", developerRegisterCmd, 1000, adminRegisterCmd);
+        project = model.createProject(new VersionID(), "title","desc", developerRegisterCmd, 1000, adminRegisterCmd);
 
     }
 

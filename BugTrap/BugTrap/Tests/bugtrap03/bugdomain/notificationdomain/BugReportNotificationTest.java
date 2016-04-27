@@ -36,7 +36,7 @@ public class BugReportNotificationTest {
         bugreport4MB = subsystem4MB.addBugReport(dev4Not, "bugreport4MB1", "A bugreport to test the mb",
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
                 1, true, "triggerhappy", "stacktacktack", "error404");
-        message4Not = "this is a test notificationdomain for mb";
+        message4Not = "this is a test notification for mb";
         testNot = new BugReportNotification(message4Not, bugreport4MB, project4MB);
     }
 
@@ -62,7 +62,7 @@ public class BugReportNotificationTest {
     @Test
     public void testOpen() throws Exception {
         String message = testNot.open(dev4Not);
-        assertTrue(message.contains("This notificationdomain originated from the subscription on: "));
+        assertTrue(message.contains("This notification originated from the subscription on: "));
         assertTrue(message.contains(message4Not));
         assertTrue(message.contains(project4MB.getSubjectName()));
         assertTrue(message.contains(bugreport4MB.getTitle()));
@@ -70,7 +70,7 @@ public class BugReportNotificationTest {
         assertNotEquals(null, message);
 
         Developer dev5Not = new Developer("dev5Not", "devviea", "mbTestera");
-        assertTrue(testNot.open(dev5Not).contains("This notificationdomain is closed for you at the moment."));
+        assertTrue(testNot.open(dev5Not).contains("This notification is closed for you at the moment."));
     }
 
     @Test

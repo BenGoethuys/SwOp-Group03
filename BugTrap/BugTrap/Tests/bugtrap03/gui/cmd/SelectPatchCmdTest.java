@@ -99,7 +99,7 @@ public class SelectPatchCmdTest {
         issuer = model.createIssuer("C0ws012-6" + counter, "Fly", "High");
         admin = model.createAdministrator("Adm1ral012-6" + counter, "Kwinten", "JK");
 
-        projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         model.assignToProject(projectA, lead, dev2, Role.PROGRAMMER);
         model.assignToProject(projectA, lead, dev3, Role.TESTER);
 

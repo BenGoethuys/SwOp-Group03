@@ -33,8 +33,8 @@ public class CreateCommentCmdTest {
         Issuer issuer = model.createIssuer("Cows", "Fly", "High");
         Administrator admin = model.createAdministrator("Admiral", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project proj1 = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
         Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
@@ -117,8 +117,8 @@ public class CreateCommentCmdTest {
         Issuer issuer = model.createIssuer("C0ws", "Fly", "High");
         Administrator admin = model.createAdministrator("Adm1ral", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        Project proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project proj1 = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
         Subsystem subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",

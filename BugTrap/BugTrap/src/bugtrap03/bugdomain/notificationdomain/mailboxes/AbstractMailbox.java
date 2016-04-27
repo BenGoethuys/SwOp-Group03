@@ -43,9 +43,9 @@ public abstract class AbstractMailbox<P extends Subject, Q extends Notification>
     }
 
     /**
-     * This method adds a notificationdomain to this mailbox.
+     * This method adds a notification to this mailbox.
      *
-     * @param notif The notificationdomain to add.
+     * @param notif The notification to add.
      */
     public void addNotification(Notification notif) throws IllegalArgumentException{
         if (! this.isTerminated){
@@ -62,11 +62,11 @@ public abstract class AbstractMailbox<P extends Subject, Q extends Notification>
     public abstract String getInfo();
 
     /**
-     * This abstract method updates the notifications list with a new notificationdomain.
+     * This abstract method updates the notifications list with a new notification.
      *
      * @param changedObject The object of interest that has been changed.
      *
-     * @return The added notificationdomain.
+     * @return The added notification.
      */
     @DomainAPI
     public abstract Q update(P changedObject);

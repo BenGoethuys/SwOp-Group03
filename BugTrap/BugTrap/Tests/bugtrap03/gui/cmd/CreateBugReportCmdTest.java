@@ -1,5 +1,6 @@
 package bugtrap03.gui.cmd;
 
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
@@ -38,7 +39,7 @@ public class CreateBugReportCmdTest {
         Issuer charlie = model.createIssuer("noDev125", "BadLuck", "Luke");
         Administrator admin = model.createAdministrator("admin125", "adminT", "bie");
         // create projectA
-        Project projectA = model.createProject("ProjectA", "Description of projectA", lead, 10000, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectA", "Description of projectA", lead, 10000, admin);
         // add asked roles
         model.assignToProject(projectA, lead, lead, Role.PROGRAMMER);
         model.assignToProject(projectA, lead, maria, Role.TESTER);
@@ -145,7 +146,7 @@ public class CreateBugReportCmdTest {
         Issuer charlie = model.createIssuer("noDev146", "BadLuck", "Luke");
         Administrator admin = model.createAdministrator("admin146", "adminT", "bie");
         // create projectA
-        Project projectA = model.createProject("ProjectA", "Description of projectA", lead, 10000, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectA", "Description of projectA", lead, 10000, admin);
         // add asked roles
         model.assignToProject(projectA, lead, lead, Role.PROGRAMMER);
         model.assignToProject(projectA, lead, maria, Role.TESTER);

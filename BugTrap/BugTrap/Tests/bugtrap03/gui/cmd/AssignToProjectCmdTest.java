@@ -50,12 +50,12 @@ public class AssignToProjectCmdTest {
         dev3 = model.createDeveloper("YellowPowerRanger", "Yellow", "Power Ranger");
         Administrator admin = model.createAdministrator("Adm1ral00-12", "Kwinten", "JK");
 
-        projectA = model.createProject("PowerRangerProject", "Project for testing with power rangers", dev1, 999,
+        projectA = model.createProject(new VersionID(), "PowerRangerProject", "Project for testing with power rangers", dev1, 999,
                 admin);
         model.assignToProject(projectA, dev1, dev3, Role.PROGRAMMER);
         model.assignToProject(projectA, dev1, dev3, Role.TESTER);
 
-        projectB = model.createProject("PowerRangerProject2", "Project for testing with power rangers2", dev1, 999,
+        projectB = model.createProject(new VersionID(), "PowerRangerProject2", "Project for testing with power rangers2", dev1, 999,
                 admin);
         model.assignToProject(projectB, dev1, dev2, Role.PROGRAMMER);
         model.assignToProject(projectB, dev1, dev3, Role.TESTER);
