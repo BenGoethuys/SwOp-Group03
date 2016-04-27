@@ -134,10 +134,10 @@ public class AssignToProjectCmdTest {
         question.add("0. PowerRangerProject version: " + new VersionID().toString());
         question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
         question.add("I choose: ");
-        answer.add("powpow 0.0.1");
+        answer.add("powpow 0");
         question.add("Invalid input.");
         question.add("I choose: ");
-        answer.add("PowerRangerProject2 0.0.1");
+        answer.add("PowerRangerProject2 0");
         question.add("You have chosen:");
         question.add(projectB.getDetails());
         question.add("Please select a developer to assign.");
@@ -182,10 +182,10 @@ public class AssignToProjectCmdTest {
         question.add("0. PowerRangerProject version: " + new VersionID().toString());
         question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
         question.add("I choose: ");
-        answer.add("powpow0.0.1");
+        answer.add("powpow0");
         question.add("Invalid input.");
         question.add("I choose: ");
-        answer.add("PowerRangerProject20.0.1");
+        answer.add("PowerRangerProject20");
         question.add("You have chosen:");
         question.add(projectB.getDetails());
         question.add("Please select a developer to assign.");
@@ -241,10 +241,10 @@ public class AssignToProjectCmdTest {
         question.add("0. PowerRangerProject version: " + new VersionID().toString());
         question.add("1. PowerRangerProject2 version: " + new VersionID().toString());
         question.add("I choose: ");
-        answer.add("powpow0.0.1");
+        answer.add("powpow0");
         question.add("Invalid input.");
         question.add("I choose: ");
-        answer.add("PowerRangerProject0.0.1");
+        answer.add("PowerRangerProject0");
         question.add("You have chosen:");
         question.add(projectA.getDetails());
         question.add("Please select a developer to assign.");
