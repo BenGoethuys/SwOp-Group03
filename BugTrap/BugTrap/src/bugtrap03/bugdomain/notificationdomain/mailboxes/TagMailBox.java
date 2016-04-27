@@ -1,8 +1,9 @@
-package bugtrap03.bugdomain.notificationdomain;
+package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notificationdomain.Subject;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.SubjAbstractMailbox;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;

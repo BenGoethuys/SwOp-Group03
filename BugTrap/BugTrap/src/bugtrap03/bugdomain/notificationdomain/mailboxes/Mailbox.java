@@ -4,7 +4,6 @@ import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
 import bugtrap03.bugdomain.notificationdomain.Subject;
-import bugtrap03.bugdomain.notificationdomain.TagMailBox;
 import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 import purecollections.PList;
 

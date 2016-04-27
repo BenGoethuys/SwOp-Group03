@@ -2,7 +2,7 @@ package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
-import bugtrap03.bugdomain.notificationdomain.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 import java.util.HashMap;
 import purecollections.PList;
 

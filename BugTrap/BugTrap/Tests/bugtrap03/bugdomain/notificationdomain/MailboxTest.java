@@ -8,6 +8,7 @@ import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;

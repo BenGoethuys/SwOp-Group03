@@ -4,7 +4,7 @@ import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notificationdomain.Subject;
-import bugtrap03.bugdomain.notificationdomain.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 
 import java.util.EnumSet;
 

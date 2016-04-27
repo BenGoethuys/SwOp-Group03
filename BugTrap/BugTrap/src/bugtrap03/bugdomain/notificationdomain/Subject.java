@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 import purecollections.PList;
 
 /**

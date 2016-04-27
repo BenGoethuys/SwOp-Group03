@@ -6,6 +6,7 @@ import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
 import org.junit.BeforeClass;

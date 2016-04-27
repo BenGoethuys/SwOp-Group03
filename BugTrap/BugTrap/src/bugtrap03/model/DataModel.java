@@ -8,6 +8,7 @@ import bugtrap03.bugdomain.notificationdomain.*;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.*;

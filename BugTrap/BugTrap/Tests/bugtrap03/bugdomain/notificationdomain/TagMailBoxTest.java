@@ -5,6 +5,7 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.BeforeClass;
