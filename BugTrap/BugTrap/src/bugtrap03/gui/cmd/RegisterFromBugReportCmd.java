@@ -2,6 +2,7 @@ package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notification.AbstractMailbox;
 import bugtrap03.bugdomain.notification.Mailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
@@ -18,7 +19,7 @@ import java.util.*;
 /**
  * @author Group 03
  */
-public class RegisterFromBugReportCmd implements Cmd<Mailbox>{
+public class RegisterFromBugReportCmd implements Cmd<AbstractMailbox>{
     public RegisterFromBugReportCmd(){
         this.subsriptionTypes = new HashMap<>();
         this.subsriptionTypes.put("newtag",1);
@@ -50,7 +51,7 @@ public class RegisterFromBugReportCmd implements Cmd<Mailbox>{
      * @throws IllegalArgumentException If any of the arguments is null or invalid.
      */
     @Override
-    public Mailbox exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
+    public AbstractMailbox exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
         if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
@@ -61,7 +62,7 @@ public class RegisterFromBugReportCmd implements Cmd<Mailbox>{
                 u -> (u.toString()), ((u, input) -> ((u.equalsIgnoreCase(input))))).exec(scan, model, null);
         subscriptionType = subscriptionType.toLowerCase();
         Integer index = this.subsriptionTypes.get(subscriptionType);
-        Mailbox newMailbox;
+        AbstractMailbox newMailbox;
         switch (index) {
             case 1:
                 newMailbox = model.registerForAllTagsNotifications(user, selectedBugRep);

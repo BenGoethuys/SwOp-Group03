@@ -65,7 +65,7 @@ public abstract class Subject {
      * @param tmb The tag mailbox to add
      *
      * @throws IllegalArgumentException if the tmb is invalid
-     * @see #isValidMb(Mailbox)
+     * @see #isValidMb
      */
     public void addTagSub(TagMailBox tmb)throws IllegalArgumentException{
         if (isValidMb(tmb)){
@@ -81,7 +81,7 @@ public abstract class Subject {
      * @param tmbs The tag mailboxes to add
      *
      * @throws IllegalArgumentException if any of the tmbs is invalid. This is checked before adding is initiated.
-     * @see #isValidMb(Mailbox)
+     * @see #isValidMb
      * @see #addTagSub(TagMailBox) 
      */
     public void addTagSub(Collection<TagMailBox> tmbs)throws IllegalArgumentException{
@@ -159,7 +159,7 @@ public abstract class Subject {
      *
      * @return true if the mailbox is not null
      */
-    public boolean isValidMb(Mailbox mb){
+    public boolean isValidMb(AbstractMailbox mb){
         if (mb == null){
             return false;
         }

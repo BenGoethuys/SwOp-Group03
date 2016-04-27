@@ -1,5 +1,6 @@
 package bugtrap03.model;
 
+import bugtrap03.bugdomain.notification.AbstractMailbox;
 import bugtrap03.bugdomain.notification.Mailbox;
 import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
@@ -9,7 +10,7 @@ import purecollections.PList;
  * @author Group 03
  */
 class UnregisterFromNotificationsModelCmd extends ModelCmd{
-    UnregisterFromNotificationsModelCmd(User user, Mailbox mailbox){
+    UnregisterFromNotificationsModelCmd(User user, AbstractMailbox mailbox){
         if (! isValidUser(user)){
             throw new IllegalArgumentException("Invalid User for unregistration from notifications.");
         }
@@ -22,7 +23,7 @@ class UnregisterFromNotificationsModelCmd extends ModelCmd{
     }
 
     private User unsubscriber;
-    private Mailbox mailbox;
+    private AbstractMailbox mailbox;
     private boolean isExecuted;
 
     /**
@@ -42,14 +43,14 @@ class UnregisterFromNotificationsModelCmd extends ModelCmd{
      * @param mailbox The user to check.
      * @return True if the user is not null or the given mailox cannot be found in the all the mailboxes from the user.
      */
-    boolean isValidMailbox(Mailbox mailbox, User user){
+    boolean isValidMailbox(AbstractMailbox mailbox, User user){
         if (mailbox == null){
             return false;
         }
         if (mailbox == user.getMailbox()) {
             return false;
         }
-        PList<Mailbox> allBoxes = user.getMailbox().getAllBoxes();
+        PList<AbstractMailbox> allBoxes = user.getMailbox().getAllBoxes();
         if (! allBoxes.contains(mailbox)){
             return false;
         }
@@ -63,7 +64,7 @@ class UnregisterFromNotificationsModelCmd extends ModelCmd{
      * @throws IllegalStateException If the mailbox of this command couold not be found in the list of mailboxes.
      */
     @Override
-    Mailbox exec() throws IllegalStateException {
+    AbstractMailbox exec() throws IllegalStateException {
         if (this.isExecuted()){
             throw new IllegalStateException("This unsubscribe command is already executed and cannot be executed again.");
         }

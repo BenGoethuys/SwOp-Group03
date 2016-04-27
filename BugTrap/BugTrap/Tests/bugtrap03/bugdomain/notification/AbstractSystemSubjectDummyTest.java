@@ -44,24 +44,24 @@ public class AbstractSystemSubjectDummyTest {
 
     @Test
     public void testNotifyCreationSubs() throws Exception {
-        assertTrue(asssubjectDummyCrMB.getAllNotifications().isEmpty());
+        assertTrue(asssubjectDummyCrMB.getNotifications().isEmpty());
         testDummy.notifyCreationSubs(assubjectDummyBugreport);
-        assertFalse(asssubjectDummyCrMB.getAllNotifications().isEmpty());
+        assertFalse(asssubjectDummyCrMB.getNotifications().isEmpty());
     }
 
     @Test
     public void testUpdateCreationSubs() throws Exception {
-        assertTrue(asssubjectDummyCrMB.getAllNotifications().isEmpty());
+        assertTrue(asssubjectDummyCrMB.getNotifications().isEmpty());
         testDummy.notifyCreationSubs(assubjectDummyBugreport);
-        assertFalse(asssubjectDummyCrMB.getAllNotifications().isEmpty());
+        assertFalse(asssubjectDummyCrMB.getNotifications().isEmpty());
     }
 
     @Test
     public void testAddCreationSub() throws Exception {
         CreationMailBox extraCMrB = assubjectDummyDev.getMailbox().creationSubscribe(testDummy);
-        assertTrue(extraCMrB.getAllNotifications().isEmpty());
+        assertTrue(extraCMrB.getNotifications().isEmpty());
         testDummy.updateCreationSubs(assubjectDummyBugreport);
-        assertFalse(extraCMrB.getAllNotifications().isEmpty());
+        assertFalse(extraCMrB.getNotifications().isEmpty());
     }
 
     @Test(expected = IllegalArgumentException.class)

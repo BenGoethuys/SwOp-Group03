@@ -1,10 +1,12 @@
 package bugtrap03.bugdomain.notification;
 
+import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
- * Created by Kwinten on 25/04/2016.
+ * @author Group 03
  */
+@DomainAPI
 public abstract class Notification {
 
     public Notification(String message, Subject subject){
@@ -72,6 +74,7 @@ public abstract class Notification {
      *
      * @return True if the given subject is not null.
      */
+    //TODO isvalid in domainapi?
     public boolean isValidSubject(Subject subject){
         if (subject == null){
             return false;
@@ -79,6 +82,7 @@ public abstract class Notification {
         return true;
     }
 
+    @DomainAPI
     public abstract String open(User user);
 
     @Override

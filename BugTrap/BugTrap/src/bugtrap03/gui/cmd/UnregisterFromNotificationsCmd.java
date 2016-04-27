@@ -1,5 +1,6 @@
 package bugtrap03.gui.cmd;
 
+import bugtrap03.bugdomain.notification.AbstractMailbox;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notification.Mailbox;
 import bugtrap03.gui.cmd.general.CancelException;
@@ -11,14 +12,14 @@ import purecollections.PList;
 /**
  * @author Group 03
  */
-public class UnregisterFromNotificationsCmd implements Cmd<Mailbox> {
+public class UnregisterFromNotificationsCmd implements Cmd<AbstractMailbox> {
 
     @Override
-    public Mailbox exec(TerminalScanner scan, DataModel model, User user) throws CancelException, IllegalArgumentException, IllegalStateException {
+    public AbstractMailbox exec(TerminalScanner scan, DataModel model, User user) throws CancelException, IllegalArgumentException, IllegalStateException {
         if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
-        PList<Mailbox> allBoxes = user.getMailbox().getAllBoxes();
+        PList<AbstractMailbox> allBoxes = user.getMailbox().getAllBoxes();
         int size = allBoxes.size();
         if (size < 1){
             scan.println("No subscriptions to show.");
@@ -38,7 +39,7 @@ public class UnregisterFromNotificationsCmd implements Cmd<Mailbox> {
                     scan.println("Invalid input, give new index.");
                 }
         }
-        Mailbox selectedMB = allBoxes.get(index);
+        AbstractMailbox selectedMB = allBoxes.get(index);
         scan.println("You selected: " + selectedMB.getInfo());
         model.unregisterFromNotifications(user, selectedMB);
         return selectedMB;

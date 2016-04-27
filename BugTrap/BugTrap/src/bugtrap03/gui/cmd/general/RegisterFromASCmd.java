@@ -1,6 +1,7 @@
 package bugtrap03.gui.cmd.general;
 
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notification.AbstractMailbox;
 import bugtrap03.bugdomain.notification.Mailbox;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notification.AbstractSystemSubject;
@@ -43,7 +44,7 @@ public class RegisterFromASCmd implements Cmd<Object> {
      * @throws IllegalArgumentException When the abstractSystemSubject == null
      */
     @Override
-    public Mailbox exec(TerminalScanner scan, DataModel model, User user) throws CancelException, IllegalArgumentException {
+    public AbstractMailbox exec(TerminalScanner scan, DataModel model, User user) throws CancelException, IllegalArgumentException {
         if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
@@ -52,7 +53,7 @@ public class RegisterFromASCmd implements Cmd<Object> {
                 u -> (u.toString()), ((u, input) -> ((u.equalsIgnoreCase(input))))).exec(scan, model, null);
         subscriptionType = subscriptionType.toLowerCase();
         Integer index = this.subsriptionTypes.get(subscriptionType);
-        Mailbox newMailbox;
+        AbstractMailbox newMailbox;
         switch (index) {
             case 1:
                 newMailbox = model.registerForAllTagsNotifications(user, abstractSystemSubject);
