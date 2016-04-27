@@ -5,6 +5,7 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notification.AbstractMailbox;
 import bugtrap03.bugdomain.notification.Mailbox;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -96,7 +97,7 @@ public class RegisterForNotificationsCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
         // Test effects.
         assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
     }
@@ -135,7 +136,7 @@ public class RegisterForNotificationsCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
         // Test effects.
         assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
     }
@@ -174,7 +175,7 @@ public class RegisterForNotificationsCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
         // Test effects.
         assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
     }
@@ -254,7 +255,7 @@ public class RegisterForNotificationsCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
         // Test effects.
         assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
     }
@@ -301,7 +302,7 @@ public class RegisterForNotificationsCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
         // Test effects.
         assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
     }
@@ -348,7 +349,7 @@ public class RegisterForNotificationsCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
         // Test effects.
         assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
     }
@@ -395,7 +396,7 @@ public class RegisterForNotificationsCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
         // Test effects.
         assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
     }
@@ -456,7 +457,7 @@ public class RegisterForNotificationsCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
         // Test effects.
         assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
     }
@@ -499,7 +500,7 @@ public class RegisterForNotificationsCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
         // Test effects.
         assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
     }
@@ -542,7 +543,7 @@ public class RegisterForNotificationsCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
         // Test effects.
         assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
     }
@@ -599,7 +600,7 @@ public class RegisterForNotificationsCmdTest {
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
         // Test effects.
         assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
     }
@@ -607,7 +608,7 @@ public class RegisterForNotificationsCmdTest {
     @Test(expected = IllegalArgumentException.class)
     public void testScanNull() throws Exception {
         // Execute scenario
-        Mailbox chosen = cmd.exec(null, model, developerRegisterCmd);
+        AbstractMailbox chosen = cmd.exec(null, model, developerRegisterCmd);
         // Test effects.
     }
 
@@ -618,7 +619,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("dummy");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox chosen = cmd.exec(scan, null, developerRegisterCmd);
+        AbstractMailbox chosen = cmd.exec(scan, null, developerRegisterCmd);
         // Test effects.
     }
 
@@ -629,7 +630,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("dummy");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
-        Mailbox chosen = cmd.exec(scan, model, null);
+        AbstractMailbox chosen = cmd.exec(scan, model, null);
         // Test effects.
     }
 
