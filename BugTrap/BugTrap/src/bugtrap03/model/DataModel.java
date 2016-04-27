@@ -997,9 +997,22 @@ public class DataModel {
         return result;
     }
 
-    public Subsystem mergeSubsystem(User user, Subsystem subsystem1, Subsystem subsystem2, String newName, String newDescription){
-        // TODO implement
-        return null;
+    /**
+     * //TODO
+     * @param user
+     * @param subsystem1
+     * @param subsystem2
+     * @param newName
+     * @param newDescription
+     * @return
+     * @throws PermissionException
+     */
+    public Subsystem mergeSubsystems(User user, Subsystem subsystem1, Subsystem subsystem2,
+                                     String newName, String newDescription) throws PermissionException {
+        MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(user, subsystem1, subsystem2, newName, newDescription);
+        Subsystem result = cmd.exec();
+        addToHistory(cmd);
+        return result;
     }
     
 }
