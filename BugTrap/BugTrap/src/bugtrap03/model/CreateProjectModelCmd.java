@@ -99,17 +99,9 @@ class CreateProjectModelCmd extends ModelCmd {
             throw new PermissionException("The given user doesn't have the permission to create a project");
         }
         if (startDate == null) {
-            if (versionID == null) {
-                project = new Project(name, desc, lead, budget);
-            } else {
-                project = new Project(versionID, name, desc, lead, budget);
-            }
+            project = new Project(versionID, name, desc, lead, budget);
         } else {
-            if (versionID == null) {
-                project = new Project(name, desc, lead, startDate, budget);
-            } else {
-                project = new Project(versionID, name, desc, lead, startDate, budget);
-            }
+            project = new Project(versionID, name, desc, lead, startDate, budget);
         }
         model.addProject(project);
         isExecuted = true;
