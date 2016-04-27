@@ -9,7 +9,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
  * @author Group 03
  */
 @DomainAPI
-public class CreationMailBox extends ASTypeMailbox<BugReport> {
+public class CreationMailBox extends ASTypeMailbox<BugReport, BugReportNotification> {
 
     /**
      * The constructor for a mailbox subscription to the
@@ -33,7 +33,7 @@ public class CreationMailBox extends ASTypeMailbox<BugReport> {
     @Override
     public BugReportNotification update(BugReport bugReport){
 
-        BugReportNotification newNotif = new BugReportNotification("The following bugreport has been created: ", bugReport, this.getAsSubject());
+        BugReportNotification newNotif = new BugReportNotification("The following bugreport has been created: ", bugReport, this.subject);
         this.addNotification(newNotif);
         return newNotif;
     }

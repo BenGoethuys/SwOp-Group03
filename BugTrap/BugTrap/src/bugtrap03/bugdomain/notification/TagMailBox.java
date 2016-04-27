@@ -12,7 +12,7 @@ import java.util.EnumSet;
  * @author Group 03
  */
 @DomainAPI
-public class TagMailBox extends AbstractMailbox<BugReport> {
+public class TagMailBox extends SubjAbstractMailbox<BugReport,BugReportNotification> {
 
     /**
      * The constructor for a new mailbox subscription to the change of tag to a given tag on the subject.

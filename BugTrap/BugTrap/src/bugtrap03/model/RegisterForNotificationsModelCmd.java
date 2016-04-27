@@ -1,5 +1,6 @@
 package bugtrap03.model;
 
+import bugtrap03.bugdomain.notification.AbstractMailbox;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notification.Mailbox;
 
@@ -25,7 +26,7 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
 
     private Mailbox userMailbox;
     private boolean isExecuted;
-    private Mailbox newMailbox;
+    private AbstractMailbox newMailbox;
 
     /**
      * This method checks the validity of a given user.
@@ -55,7 +56,7 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      * @throws IllegalArgumentException if the new mailbox is invalid
      * @see #isValidNewMailBox(Mailbox)
      */
-    protected void setNewMailbox(Mailbox mb) throws IllegalArgumentException {
+    protected void setNewMailbox(AbstractMailbox mb) throws IllegalArgumentException {
         if (this.isValidNewMailBox(mb)){
             this.newMailbox = mb;
         } else throw new IllegalArgumentException("Invalid mailbox");
@@ -67,7 +68,7 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      * @param mb the mailbox to check.
      * @return true if the given mailbox is not null
      */
-    private boolean isValidNewMailBox(Mailbox mb){
+    private boolean isValidNewMailBox(AbstractMailbox mb){
         if(mb == null){
             return false;
         }

@@ -12,18 +12,18 @@ import java.util.EnumSet;
  * @author Group 03
  */
 @DomainAPI
-public class Mailbox {
+public class Mailbox extends AbstractMailbox<Subject, Notification>{
 
     /**
      * The constructor for a general mailbox.
      */
     public Mailbox(){
-        this.boxes = PList.<Mailbox>empty();
+        this.boxes = PList.<AbstractMailbox>empty();
         this.notifications = PList.<Notification>empty();
         this.activate();
     }
 
-    private PList<Mailbox> boxes;
+    private PList<AbstractMailbox> boxes;
     private PList<Notification> notifications;
     private boolean isTerminated;
 
@@ -36,30 +36,14 @@ public class Mailbox {
     @DomainAPI
     public PList<Notification> getAllNotifications(){
         ArrayList<Notification> nfs = new ArrayList<>(this.getNotifications());
-        for (Mailbox mb: this.getBoxes()){
-            nfs.addAll(mb.getAllNotifications());
+        for (AbstractMailbox mb: this.getBoxes()){
+            if (mb instanceof Mailbox) {
+                Mailbox AMb = (Mailbox) mb;
+                nfs.addAll(AMb.getAllNotifications());
+            }
+
         }
         return PList.<Notification>empty().plusAll(nfs);
-    }
-
-    /**
-     * This method returns the specific notifications belonging to this mailbox.
-     *
-     * @return A PList of notifications belonging to this specific mailbox.
-     */
-    private PList<Notification> getNotifications(){
-        return this.notifications;
-    }
-
-    /**
-     * This method adds a notification to this mailbox.
-     *
-     * @param notif The notification to add.
-     */
-    protected void addNotification(Notification notif) throws IllegalArgumentException{
-        if (! this.isTerminated){
-            this.notifications = this.getNotifications().plus(notif);
-        }
     }
 
     /**
@@ -69,12 +53,15 @@ public class Mailbox {
      * @return A PList of mailboxes belonging to this mailbox.
      */
     @DomainAPI
-    public PList<Mailbox> getAllBoxes(){
-        ArrayList<Mailbox> allBoxes = new ArrayList<Mailbox>(this.getBoxes());
-        for (Mailbox mb: this.getBoxes()){
-            allBoxes.addAll(mb.getAllBoxes());
+    public PList<AbstractMailbox> getAllBoxes(){
+        ArrayList<AbstractMailbox> allBoxes = new ArrayList<AbstractMailbox>(this.getBoxes());
+        for (AbstractMailbox mb: this.getBoxes()){
+            if (mb instanceof Mailbox) {
+                Mailbox AMb = (Mailbox) mb;
+                allBoxes.addAll(AMb.getAllBoxes());
+            }
         }
-        return PList.<Mailbox>empty().plusAll(allBoxes);
+        return PList.<AbstractMailbox>empty().plusAll(allBoxes);
     }
 
     /**
@@ -82,7 +69,7 @@ public class Mailbox {
      *
      * @return A PList of mailboxes belonging to this mailbox.
      */
-    private PList<Mailbox> getBoxes(){
+    private PList<AbstractMailbox> getBoxes(){
         return this.boxes;
     }
 
@@ -93,7 +80,7 @@ public class Mailbox {
      * @throws IllegalArgumentException if the given mailbox is this mailbox
      * @throws IllegalArgumentException if the given mailbox already is in your (sub)list of mailboxes
      */
-    public void addBox(Mailbox mb)throws IllegalArgumentException{
+    public void addBox(AbstractMailbox mb)throws IllegalArgumentException{
         if (mb == this){
             throw new IllegalArgumentException("You cannot add yourself as a mailbox");
         }
@@ -104,27 +91,18 @@ public class Mailbox {
     }
 
     /**
-     * This method check if a given subject is valid or not.
-     *
-     * @param subj The subject to test it's validity.
-     *
-     * @return True if the subject is not null.
-     */
-    public boolean isValidSubject(Subject subj){
-        if (subj == null){
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * This method returns a string representing the information about this subscription.
      *
      * @return A string with information.
      */
     @DomainAPI
     public String getInfo(){
-        return ("This mailbox is doesn't have any info about itself");
+        return ("This is a composite mailbox with no subject.");
+    }
+
+    @Override
+    public Notification update(Subject changedObject) {
+        return null;
     }
 
     /**
@@ -187,15 +165,18 @@ public class Mailbox {
      *1
      * @param mb The mailbox representing the subscription.
      */
-    public boolean unsubscribe(Mailbox mb){
+    public boolean unsubscribe(AbstractMailbox mb){
         if (this.boxes.contains(mb)){
             this.boxes = this.getBoxes().minus(mb);
             mb.isTerminated = true;
             return true;
         } else{
             boolean value = false;
-            for (Mailbox mailbox: this.boxes){
-                value = (value || mailbox.unsubscribe(mb));
+            for (AbstractMailbox mailbox: this.boxes){
+                if (mailbox instanceof Mailbox){
+                    Mailbox AMb = (Mailbox) mailbox;
+                    value = (value || AMb.unsubscribe(mb));
+                }
             }
             return value;
         }

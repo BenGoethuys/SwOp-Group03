@@ -100,7 +100,7 @@ public abstract class Subject {
      *
      * @return true if the mailbox is not null
      */
-    public boolean isValidMb(Mailbox mb){
+    public boolean isValidMb(AbstractMailbox mb){
         if (mb == null){
             return false;
         }

@@ -41,10 +41,10 @@ public class CreationMailBoxTest {
 
     @Test
     public void testUpdate() throws Exception {
-        assertTrue(testCMB.getAllNotifications().isEmpty());
+        assertTrue(testCMB.getNotifications().isEmpty());
         BugReportNotification bugReportNotification = testCMB.update(bugreport4MB);
-        assertTrue(testCMB.getAllNotifications().contains(bugReportNotification));
-        assertFalse(testCMB.getAllNotifications().contains(bugReportNotification4MB2));
+        assertTrue(testCMB.getNotifications().contains(bugReportNotification));
+        assertFalse(testCMB.getNotifications().contains(bugReportNotification4MB2));
     }
 
     @Test

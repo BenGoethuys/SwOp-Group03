@@ -6,7 +6,7 @@ import bugtrap03.bugdomain.AbstractSystem;
  * This class represents a subscription to the update of a versionID
  * @author Group 03
  */
-public class VersionIDMailbox extends ASTypeMailbox<AbstractSystem> {
+public class VersionIDMailbox extends ASTypeMailbox<AbstractSystem, ASNotification> {
 
     /**
      * This is the constructor of a mailbox that represents the subscription
@@ -20,10 +20,10 @@ public class VersionIDMailbox extends ASTypeMailbox<AbstractSystem> {
     }
 
     @Override
-    public Notification update(AbstractSystem changedObject) {
+    public ASNotification update(AbstractSystem changedObject) {
         ASNotification newNotif = new ASNotification(
                 ("The VersionID " + changedObject.getVersionID().toString() + " has been set on: "),
-                changedObject, this.getAsSubject());
+                changedObject, this.subject);
         this.addNotification(newNotif);
         return newNotif;
     }

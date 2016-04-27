@@ -36,7 +36,7 @@ public abstract class AbstractMailbox<P extends Subject, Q extends Notification>
      *
      * @return A PList of notifications belonging to this specific mailbox.
      */
-    private PList<Notification> getNotifications(){
+    public PList<Notification> getNotifications(){
         return this.notifications;
     }
 

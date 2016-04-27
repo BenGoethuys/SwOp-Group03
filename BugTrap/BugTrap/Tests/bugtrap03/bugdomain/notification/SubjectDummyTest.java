@@ -56,16 +56,16 @@ public class SubjectDummyTest {
 
     @Test
     public void testNotifyTagSubs() throws Exception {
-        assertTrue(subjectDummyTMB.getAllNotifications().isEmpty());
+        assertTrue(subjectDummyTMB.getNotifications().isEmpty());
         testDummy.notifyTagSubs(subjectDummyBugreport);
-        assertFalse(subjectDummyTMB.getAllNotifications().isEmpty());
+        assertFalse(subjectDummyTMB.getNotifications().isEmpty());
     }
 
     @Test
     public void testNotifyCommentSubs() throws Exception {
-        assertTrue(subjectDummyCMB.getAllNotifications().isEmpty());
+        assertTrue(subjectDummyCMB.getNotifications().isEmpty());
         testDummy.notifyCommentSubs(subjectDummyBugreport);
-        assertFalse(subjectDummyCMB.getAllNotifications().isEmpty());
+        assertFalse(subjectDummyCMB.getNotifications().isEmpty());
     }
 
     @Test
@@ -75,17 +75,17 @@ public class SubjectDummyTest {
 
     @Test
     public void testUpdateTagSubs() throws Exception {
-        assertTrue(subjectDummyTMB.getAllNotifications().isEmpty());
+        assertTrue(subjectDummyTMB.getNotifications().isEmpty());
         testDummy.updateTagSubs(subjectDummyBugreport);
-        assertFalse(subjectDummyTMB.getAllNotifications().isEmpty());
+        assertFalse(subjectDummyTMB.getNotifications().isEmpty());
     }
 
     @Test
     public void testAddTagSub() throws Exception {
         TagMailBox extraTMB = subjectDummyDev.getMailbox().tagSubscribe(testDummy, EnumSet.of(Tag.NOT_A_BUG));
-        assertTrue(extraTMB.getAllNotifications().isEmpty());
+        assertTrue(extraTMB.getNotifications().isEmpty());
         testDummy.updateTagSubs(subjectDummyBugreport);
-        assertFalse(extraTMB.getAllNotifications().isEmpty());
+        assertFalse(extraTMB.getNotifications().isEmpty());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -95,17 +95,17 @@ public class SubjectDummyTest {
 
     @Test
     public void testUpdateCommentSubs() throws Exception {
-        assertTrue(subjectDummyCMB.getAllNotifications().isEmpty());
+        assertTrue(subjectDummyCMB.getNotifications().isEmpty());
         testDummy.updateCommentSubs(subjectDummyBugreport);
-        assertFalse(subjectDummyCMB.getAllNotifications().isEmpty());
+        assertFalse(subjectDummyCMB.getNotifications().isEmpty());
     }
 
     @Test
     public void testAddCommentSub() throws Exception {
         CommentMailBox extraCMB = subjectDummyDev.getMailbox().commentSubscribe(testDummy);
-        assertTrue(extraCMB.getAllNotifications().isEmpty());
+        assertTrue(extraCMB.getNotifications().isEmpty());
         testDummy.updateCommentSubs(subjectDummyBugreport);
-        assertFalse(extraCMB.getAllNotifications().isEmpty());
+        assertFalse(extraCMB.getNotifications().isEmpty());
     }
 
     @Test (expected = IllegalArgumentException.class)
