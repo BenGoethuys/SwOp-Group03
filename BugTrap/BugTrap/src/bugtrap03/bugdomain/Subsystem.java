@@ -384,6 +384,10 @@ public class Subsystem extends AbstractSystem {
         return resultSubsystem2;
     }
 
+    public Subsystem mergeWithSubsystem(User user, Subsystem subsystem, String name, String Description){
+        return null;
+    }
+
     /**
      * This function checks the validity of the given name, in combination with its parent.
      *
