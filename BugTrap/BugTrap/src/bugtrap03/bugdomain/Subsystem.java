@@ -458,6 +458,22 @@ public class Subsystem extends AbstractSystem {
     }
 
     /**
+     * This method returns a list of compatible subsystems to merge with this subsystem
+     *
+     * @return a PList of compatible subsystems to merge with this subsystem
+     */
+    @DomainAPI
+    public PList<Subsystem> getCompatibleSubs() {
+        PList<Subsystem> compatList = PList.<Subsystem>empty();
+        for (Subsystem temp : this.getParentProject().getAllSubsystems()) {
+            if (this.isValidMergeSubsystem(temp)) {
+                compatList = compatList.plus(temp);
+            }
+        }
+        return compatList;
+    }
+
+    /**
      * This methdo check whether or not the given subsystem can be merged with this subsystem
      *
      * @param subsystem The subsystem to merge
