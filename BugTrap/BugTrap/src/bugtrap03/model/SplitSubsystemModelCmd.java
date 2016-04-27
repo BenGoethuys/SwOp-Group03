@@ -33,7 +33,7 @@ class SplitSubsystemModelCmd extends ModelCmd {
      * 
      * @see Subsystem#split(String, String, String, String, PList, PList, User)
      */
-    public SplitSubsystemModelCmd(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) {
+    SplitSubsystemModelCmd(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) {
         if(user == null || subsystem == null) {
             throw new IllegalArgumentException("SplitSubsystemModelCmd does not accept user or subsystem == null.");
         }
@@ -89,7 +89,13 @@ class SplitSubsystemModelCmd extends ModelCmd {
         parentMemento = subsystem.getParent().getMemento();
         
         //Execute
-        subsystem2 = subsystem.split(subsystem1Name, subsystem1Desc, subsystem2Name, subsystem2Desc, subsystems1, bugReports1, user);
+        try {
+            subsystem2 = subsystem.split(subsystem1Name, subsystem1Desc, subsystem2Name, subsystem2Desc, subsystems1, bugReports1, user);
+        } catch(IllegalArgumentException ex) {
+            //A invalid argument happened, restore state.
+            subsystem.getParent().setMemento(parentMemento);
+            throw ex;
+        }
         isExecuted = true;
         return subsystem2;
     }
