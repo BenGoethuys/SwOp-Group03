@@ -1,6 +1,8 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
@@ -13,6 +15,7 @@ import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
 
 public class AbstractSystemTest {
+
     private static Developer testDev;
     private static VersionID testVersion;
     private static String testName;
@@ -47,7 +50,7 @@ public class AbstractSystemTest {
         subName = "testSubAS";
         subDescription = "This is a test description of a as subsystem";
 
-        emptyDep = PList.<BugReport> empty();
+        emptyDep = PList.<BugReport>empty();
 
     }
 
@@ -59,7 +62,7 @@ public class AbstractSystemTest {
         subSysTest2 = subSysTest.addSubsystem("mehAS", "moehAS");
         //bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", emptyDep);
         bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(), emptyDep, null, 1, false, null, null, null);
-        depToRep1 = PList.<BugReport> empty().plus(bugreport1);
+        depToRep1 = PList.<BugReport>empty().plus(bugreport1);
         //        bugreport2 = subSysTest2.addBugReport(testDev, "otherBug4AS", "i like bonobos", depToRep1);
         bugreport2 = subSysTest2.addBugReport(testDev, "otherBug4AS", "i like bonobos", new GregorianCalendar(), depToRep1, null, 1, false, null, null, null);
     }
@@ -90,13 +93,13 @@ public class AbstractSystemTest {
     public void isValidMilestone() throws PermissionException {
         Project project = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
                 testBudget);
-        Milestone projMil = new Milestone(2,4);
+        Milestone projMil = new Milestone(2, 4);
         project.setMilestone(projMil);
         Subsystem subsystem = project.addSubsystem("Subsys 1", "Description subsys 1");
         subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
                 emptyDep, null, 1, false, null, null, null);
         subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
-                emptyDep, new Milestone(5,6), 1, false, null, null, null);
+                emptyDep, new Milestone(5, 6), 1, false, null, null, null);
 
         assertFalse(subsystem.isValidMilestone(null));
         assertTrue(subsystem.isValidMilestone(new Milestone(3)));
@@ -105,7 +108,7 @@ public class AbstractSystemTest {
     }
 
     @Test
-    public void isValidParent(){
+    public void isValidParent() {
         Project project = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
                 testBudget);
         project.setTerminated(true);
@@ -135,7 +138,7 @@ public class AbstractSystemTest {
         assertTrue(AbstractSystem.isValidName(subName));
         assertTrue(AbstractSystem.isValidName(testName));
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testSetInvalidName() {
         testProject.setName("");
@@ -194,9 +197,9 @@ public class AbstractSystemTest {
 
     @Test
     public void testGetChilds() {
-        assertEquals(PList.<Subsystem> empty().plus(subSysTest), testProject.getSubsystems());
-        assertEquals(PList.<Subsystem> empty().plus(subSysTest2), subSysTest.getSubsystems());
-        assertEquals(PList.<Subsystem> empty(), subSysTest2.getSubsystems());
+        assertEquals(PList.<Subsystem>empty().plus(subSysTest), testProject.getSubsystems());
+        assertEquals(PList.<Subsystem>empty().plus(subSysTest2), subSysTest.getSubsystems());
+        assertEquals(PList.<Subsystem>empty(), subSysTest2.getSubsystems());
     }
 
     @Test
@@ -231,7 +234,7 @@ public class AbstractSystemTest {
 
     @Test
     public void testGetAllBugReports() {
-        PList<BugReport> buglist = PList.<BugReport> empty().plus(bugreport2);
+        PList<BugReport> buglist = PList.<BugReport>empty().plus(bugreport2);
         assertEquals(buglist, subSysTest2.getAllBugReports());
         buglist = buglist.plus(bugreport1);
         assertEquals(buglist, subSysTest.getAllBugReports());
@@ -240,11 +243,11 @@ public class AbstractSystemTest {
 
     @Test
     public void testGetAllSubsystems() {
-        PList<Subsystem> sublist = PList.<Subsystem> empty();
+        PList<Subsystem> sublist = PList.<Subsystem>empty();
         assertEquals(sublist, subSysTest2.getAllSubsystems());
         sublist = sublist.plus(subSysTest2);
         assertEquals(sublist, subSysTest.getAllSubsystems());
-        PList<Subsystem> sublist2 = PList.<Subsystem> empty().plus(subSysTest).plus(subSysTest2);
+        PList<Subsystem> sublist2 = PList.<Subsystem>empty().plus(subSysTest).plus(subSysTest2);
         assertEquals(sublist2, testProject.getAllSubsystems());
     }
 
@@ -260,16 +263,78 @@ public class AbstractSystemTest {
     }
 
     @Test
-    public void testSetMilestone(){
+    public void testSetMilestone() {
         testProject.addSubsystem("Another test subsystem", "the description");
 
-        Milestone newM = new Milestone(10,5,3);
+        Milestone newM = new Milestone(10, 5, 3);
         testProject.setMilestone(newM);
         assertEquals(newM, testProject.getMilestone());
 
-        for (Subsystem subsystem : testProject.getSubsystems()){
+        for (Subsystem subsystem : testProject.getSubsystems()) {
             assertEquals(newM, subsystem.getMilestone());
         }
+    }
+
+    @Test
+    public void testGetMemento() {
+        AbstractSystemMemento mem = testProject.getMemento();
+
+        assertEquals(testProject.getVersionID(), mem.getVersionID());
+        assertEquals(testProject.getName(), mem.getName());
+        assertEquals(testProject.getDescription(), mem.getDescription());
+        assertEquals(testProject.getSubsystems(), mem.getChildren());
+        assertEquals(testProject.getParent(), mem.getParent());
+        assertEquals(testProject.isTerminated(), mem.getIsTerminated());
+        assertEquals(testProject.getMilestone(), mem.getMilestone());
+    }
+
+    @Test
+    public void testSetMemento() {
+        //Store 
+        VersionID oldVersionID = testProject.getVersionID();
+        String oldName = testProject.getName();
+        String oldDesc = testProject.getDescription();
+        PList<Subsystem> oldChildren = testProject.getSubsystems();
+        AbstractSystem oldParent = testProject.getParent();
+        boolean oldIsTerminated = testProject.isTerminated();
+        Milestone oldMilestone = testProject.getMilestone();
+
+        String oldSubName = subSysTest.getName();
+
+        AbstractSystemMemento mem = testProject.getMemento();
+
+        // Change
+        testProject.setDescription("New description here");
+        testProject.setName("New name here");
+        testProject.addSubsystem("SubNew", "SubNewDesc");
+        testProject.setVersionID(new VersionID(5, 2, 1));
+        testProject.setMilestone(new Milestone(3, 2, 1));
+        subSysTest.setName("Blub new subsys name.");
+
+        //Revert
+        testProject.setMemento(mem);
+
+        assertEquals(oldVersionID, testProject.getVersionID());
+        assertEquals(oldName, testProject.getName());
+        assertEquals(oldDesc, testProject.getDescription());
+        assertEquals(oldChildren, testProject.getSubsystems());
+        assertEquals(oldParent, testProject.getParent());
+        assertEquals(oldIsTerminated, testProject.isTerminated());
+        assertEquals(oldMilestone, testProject.getMilestone());
+        assertEquals(oldSubName, subSysTest.getName());
+    }
+
+    @Test
+    public void testSetMemento_SubjectMemento() {
+        //Store 
+        SubjectMemento mem = subSysTest.getMemento();
+
+        // Change
+        testProject.addCommentSub(new CommentMailBox(testProject));
+
+        //Revert
+        testProject.setMemento(mem);
+        //TODO: Vincent Test the getCommentSubs;
     }
 
 }

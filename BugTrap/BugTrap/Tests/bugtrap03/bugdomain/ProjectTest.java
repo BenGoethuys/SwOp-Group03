@@ -1,6 +1,8 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -480,6 +482,76 @@ public class ProjectTest {
     public void testGetSubjectName(){
         String res = testProject.getSubjectName();
         assertTrue(res.contains("Project " + testProject.getName()));
+    }
+    
+    @Test
+    public void testGetMemento() {
+        ProjectMemento mem = testProject.getMemento();
+
+        assertEquals(testProject.getVersionID(), mem.getVersionID());
+        assertEquals(testProject.getName(), mem.getName());
+        assertEquals(testProject.getDescription(), mem.getDescription());
+        assertEquals(testProject.getSubsystems(), mem.getChildren());
+        assertEquals(testProject.getParent(), mem.getParent());
+        assertEquals(testProject.isTerminated(), mem.getIsTerminated());
+        assertEquals(testProject.getMilestone(), mem.getMilestone());
+        
+        assertEquals(testProject.getBudgetEstimate(), mem.getBudgetEstimate());
+        assertEquals(testProject.getCreationDate(), mem.getCreationDate());
+        assertEquals(testProject.getStartDate(), mem.getStartDate());
+        
+        for(Developer dev : testProject.getAllDev()) {
+           assertTrue(testProject.getAllRolesDev(dev).equals(mem.getProjectParticipants().get(dev)));
+        }
+        
+    }
+
+    @Test
+    public void testSetMemento() {
+        //Store 
+        VersionID oldVersionID = testProject.getVersionID();
+        String oldName = testProject.getName();
+        String oldDesc = testProject.getDescription();
+        PList<Subsystem> oldChildren = testProject.getSubsystems();
+        AbstractSystem oldParent = testProject.getParent();
+        boolean oldIsTerminated = testProject.isTerminated();
+        Milestone oldMilestone = testProject.getMilestone();
+
+        String oldSubName = subSysTest.getName();
+
+        AbstractSystemMemento mem = testProject.getMemento();
+
+        // Change
+        testProject.setDescription("New description here");
+        testProject.setName("New name here");
+        testProject.addSubsystem("SubNew", "SubNewDesc");
+        testProject.setVersionID(new VersionID(5, 2, 1));
+        testProject.setMilestone(new Milestone(3, 2, 1));
+        subSysTest.setName("Blub new subsys name.");
+
+        //Revert
+        testProject.setMemento(mem);
+
+        assertEquals(oldVersionID, testProject.getVersionID());
+        assertEquals(oldName, testProject.getName());
+        assertEquals(oldDesc, testProject.getDescription());
+        assertEquals(oldChildren, testProject.getSubsystems());
+        assertEquals(oldParent, testProject.getParent());
+        assertEquals(oldIsTerminated, testProject.isTerminated());
+        assertEquals(oldMilestone, testProject.getMilestone());
+        assertEquals(oldSubName, subSysTest.getName());
+    }
+
+    @Test
+    public void testSetMemento_SubjectMemento() {
+        //Store 
+        SubjectMemento mem = subSysTest.getMemento();
+
+        // Change
+        testProject.addCommentSub(new CommentMailBox(testProject));
+
+        //Revert
+        testProject.setMemento(mem);
     }
 
 
