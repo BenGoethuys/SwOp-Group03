@@ -74,8 +74,10 @@ public class SplitSubsystemCmd implements Cmd {
 
         //8. For each bug report and subsystem that is part of the original subsystem, the system asks to which new subsystem to migrate it to.
         //9. The administrator answers for each bug report and subsystem.
-        PList<Subsystem> subs1 = getSubsystems(scan, model, sub);
-        PList<BugReport> bugReports1 = getBugReports(scan, model, sub);
+        scan.println("Please chose which subsystems you wish to keep for subsystem 1.");
+        PList<Subsystem> subs1 = getSubsystems(scan, sub);
+        scan.println("Please chose which bug reports you wish to keep for subsystem 1");
+        PList<BugReport> bugReports1 = getBugReports(scan, sub);
 
         //10. The system creates two new subsystems with the same milestone as the original subsystem. The original subsystem is removed.
         //TODO: Kwinten/Vincent So does this mean the creation needs to be notified about?
@@ -113,24 +115,48 @@ public class SplitSubsystemCmd implements Cmd {
      * Get a list of direct subsystems of sub chosen by the user.
      *
      * @param scan The scanner used to interact with the user. Shouldn't be null.
-     * @param model //TODO Vincent add.
      * @param sub The Subsystem to get the direct subsystems from. Shouldn't be null.
      * @return The list of direct subsystems of the given sub that the user chose.
+     * 
+     * @throws CancelException When the user wants to abort the cmd.
      */
-    private PList<Subsystem> getSubsystems(TerminalScanner scan, DataModel model, Subsystem sub) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private PList<Subsystem> getSubsystems(TerminalScanner scan, Subsystem sub) throws CancelException {
+        PList<Subsystem> result = PList.<Subsystem>empty();
+        for(Subsystem subsystem : sub.getSubsystems()) {
+            
+            scan.println("Keep " + subsystem.getSubjectName() + " ?");
+            scan.print("Yes or No?");
+            String answer = scan.nextLine();
+            
+            if(answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
+                result = result.plus(subsystem);
+            }
+        }
+        return result;
     }
 
     /**
      * Get a list of direct bugReports of sub chosen by the user.
      *
      * @param scan The scanner used to interact with the user. Shouldn't be null.
-     * @param model //TODO Vincent add.
-     * @param sub The Subsystem to get the direct subsystems from. Shouldn't be null.
-     * @return The list of direct subsystems of the given sub that the user chose.
+     * @param sub The Subsystem to get the direct bugReports from. Shouldn't be null.
+     * @return The list of direct bugReports of the given sub that the user chose.
+     * 
+     * @throws CancelException When the user wants to abort the cmd.
      */
-    private PList<BugReport> getBugReports(TerminalScanner scan, DataModel model, Subsystem sub) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private PList<BugReport> getBugReports(TerminalScanner scan, Subsystem sub) throws CancelException {
+        PList<BugReport> result = PList.<BugReport>empty();
+        for(BugReport bugReport : sub.getBugReportList()) {
+            
+            scan.println("Keep " + bugReport.getSubjectName() + " ?");
+            scan.print("Yes or No?");
+            String answer = scan.nextLine();
+            
+            if(answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
+                result = result.plus(bugReport);
+            }
+        }
+        return result;
     }
 
 }

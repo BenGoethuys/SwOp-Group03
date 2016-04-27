@@ -89,7 +89,13 @@ class SplitSubsystemModelCmd extends ModelCmd {
         parentMemento = subsystem.getParent().getMemento();
         
         //Execute
-        subsystem2 = subsystem.split(subsystem1Name, subsystem1Desc, subsystem2Name, subsystem2Desc, subsystems1, bugReports1, user);
+        try {
+            subsystem2 = subsystem.split(subsystem1Name, subsystem1Desc, subsystem2Name, subsystem2Desc, subsystems1, bugReports1, user);
+        } catch(IllegalArgumentException ex) {
+            //A invalid argument happened, restore state.
+            subsystem.getParent().setMemento(parentMemento);
+            throw ex;
+        }
         isExecuted = true;
         return subsystem2;
     }
