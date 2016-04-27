@@ -78,6 +78,7 @@ class MergeSubsystemsModelCmd extends ModelCmd {
             if (subsystem1.getParent() == subsystem2) {
                 subsystem = subsystem2.mergeWithSubsystem(user, subsystem1, newName, newDescription);
             } else {
+                // subsystem one is parent or they are siblings ...
                 subsystem = subsystem1.mergeWithSubsystem(user, subsystem2, newName, newDescription);
             }
 
