@@ -37,11 +37,11 @@ public class Mailbox extends AbstractMailbox<Subject, Notification>{
     public PList<Notification> getAllNotifications(){
         ArrayList<Notification> nfs = new ArrayList<>(this.getNotifications());
         for (AbstractMailbox mb: this.getBoxes()){
+            nfs.addAll(mb.getNotifications());
             if (mb instanceof Mailbox) {
                 Mailbox AMb = (Mailbox) mb;
                 nfs.addAll(AMb.getAllNotifications());
             }
-
         }
         return PList.<Notification>empty().plusAll(nfs);
     }
