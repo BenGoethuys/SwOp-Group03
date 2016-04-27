@@ -393,6 +393,82 @@ public class Subsystem extends AbstractSystem {
     }
 
     /**
+     * WARNING: This method doesn't guarantee a consistent state of the subsystem if it fails!
+     *
+     * This method merges a given subsystem with this subsystem and renames this subsystem and redefines the description
+     *
+     * @param user          The user that wants to merge the subsystems
+     * @param subsystem     The subsystem to merge with
+     * @param name          The new name of this subsystem
+     * @param description   The new description of this subsystem
+     *
+     * @return  The merged subsystem
+     *
+     * @throws PermissionException      If the given user doesn't have the needed permission to merge subsystems
+     * @throws IllegalArgumentException If one of the given arguments is invalid
+     *
+     * @see AbstractSystem#isValidName(String)
+     * @see AbstractSystem#isValidDescription(String)
+     * @see #isValidMergeSubsystem(Subsystem)
+     */
+    public Subsystem mergeWithSubsystem(User user, Subsystem subsystem, String name, String description)
+            throws PermissionException, IllegalArgumentException {
+
+        if (user == null){
+            throw new IllegalArgumentException("The given arguments cannot be null");
+        }
+
+        if (! user.hasPermission(UserPerm.MERGE_SUBSYS)){
+            throw new PermissionException("The given user doesn't have the permission to merge subsystems");
+        }
+
+        if (! this.isValidMergeSubsystem(subsystem)){
+            throw new IllegalArgumentException("Cannot merge with the given subsystem");
+        }
+
+        // set params
+        this.setName(name);
+        this.setDescription(description);
+
+        // add childs to this subsystem
+        for (Subsystem temp : subsystem.getSubsystems()){
+            temp.setParent(this);
+            this.addSubsystem(temp);
+        }
+
+        //TODO: Kwinten add the notification list to the other subsystem as well.
+
+        // terminate subsystem
+        subsystem.setTerminated(true);
+
+        return this;
+    }
+
+    /**
+     * This methdo check whether or not the given subsystem can be merged with this subsystem
+     *
+     * @param subsystem The subsystem to merge
+     *
+     * @return  The given subsystem must be a sibling OR the parent of the given subsystem must be this
+     */
+    @DomainAPI
+    public boolean isValidMergeSubsystem(Subsystem subsystem){
+        if (subsystem == null){
+            return false;
+        }
+        if (subsystem == this){
+            return false;
+        }
+        if (subsystem.getParent() == this){
+            return true;
+        }
+        if (subsystem.getParent() == this.getParent()){
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * This function checks the validity of the given name, in combination with its parent.
      *
      * @param name The string argument to be used as name.
