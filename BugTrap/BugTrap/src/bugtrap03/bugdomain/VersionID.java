@@ -3,8 +3,7 @@ package bugtrap03.bugdomain;
 import java.util.Arrays;
 
 /**
- * TODO
- * This class represents a version id consisting out of 3 numbers, separated by
+ * This class represents a version id consisting out of 1 or more numbers, separated by
  * a dot. <br>
  * This is an Immutable class.
  * 
@@ -16,18 +15,19 @@ public class VersionID implements Comparable<VersionID> {
     private int[] numbers;
 
     /**
-     * TODO
      * Creates a versionID for a project.
      * 
-     * @param nb
+     * @param nb The numbers of the versionID.
      */
+    @DomainAPI
     public VersionID(int... nb) {
 	this.numbers = nb;
     }
 
     /**
-     * TODO
+     * Creates a default versionID for a project.
      */
+    @DomainAPI
     public VersionID() {
 	this(0);
     }
@@ -75,7 +75,6 @@ public class VersionID implements Comparable<VersionID> {
 	int lengthThis = numbersThis.length;
 	int lengthOther = numbersOther.length;
 	int min = Math.min(lengthThis, lengthOther);
-
 
 	for (int i = 0; i < min; i++) {
 	    if (numbersThis[i] < numbersOther[i]) {

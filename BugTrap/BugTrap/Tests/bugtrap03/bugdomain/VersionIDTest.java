@@ -32,13 +32,11 @@ public class VersionIDTest {
 	assertEquals(versionID.getNumbers().length, 1);
     }
 
-
     @Test
     public void testToString3() {
 	String test = "1.2.3";
 	assertEquals(versionID.toString(), test);
     }
-
 
     @Test
     public void testToString2() {
@@ -73,6 +71,7 @@ public class VersionIDTest {
 	assertEquals(versionID.compareTo(versionIDcomp4), 1);
 	assertEquals(versionID.compareTo(versionIDcomp5), -1);
     }
+
     @Test
     public void testCompareTo2() {
 	VersionID versionIDcomp1 = new VersionID(1, 2, 3);
@@ -89,9 +88,6 @@ public class VersionIDTest {
 	assertEquals(versionIDcomp3.compareTo(versionIDcomp2), 1);
     }
 
-    /**
-     * Test method for {@link java.lang.Object#equals(java.lang.Object)}.
-     */
     @Test
     public void testEquals() {
 	assertTrue(versionID.equals(versionID));
@@ -105,9 +101,6 @@ public class VersionIDTest {
 	assertFalse(versionID.equals(new Object()));
     }
 
-    /**
-     * Test method for {@link VersionID#clone()}.
-     */
     @Test
     public void testClone() {
 	VersionID cloneVersionID = versionID.clone();
@@ -124,8 +117,6 @@ public class VersionIDTest {
 	VersionID id2 = new VersionID(1, 1);
 
 	assertEquals(0, id1.compareTo(id2));
-	System.out.println(id1.hashCode());
-	System.out.println(id2.hashCode());
 	assertEquals(id1.hashCode(), id2.hashCode());
     }
 

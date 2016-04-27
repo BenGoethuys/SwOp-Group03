@@ -24,6 +24,10 @@ public class Milestone extends VersionID {
         super(nb);
     }
 
+    /**
+     * Creates a default Milestone.
+     */
+    @DomainAPI
     public Milestone() {
 	super();
     }
