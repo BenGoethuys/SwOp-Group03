@@ -18,12 +18,12 @@ import purecollections.PList;
  * @author Mathias
  *
  */
-public class HealthAlgorithm1Test {
+public class HealthAlgorithm3Test {
 
     static Subsystem subsystem;
     static DataModel model;
     static Issuer issuer;
-    static HealthAlgorithm1 ha;
+    static HealthAlgorithm3 ha;
 
     /**
      * @throws java.lang.Exception
@@ -31,10 +31,10 @@ public class HealthAlgorithm1Test {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
 	model = new DataModel();
-	Developer lead = model.createDeveloper("healthy1", "healthy1", "healthy1");
-	Developer dev = model.createDeveloper("healthy2", "healthy2", "healthy2");
-	issuer = model.createIssuer("healthy3", "healthy3", "healthy3");
-	Administrator admin = model.createAdministrator("healty4", "healty4", "healty4");
+	Developer lead = model.createDeveloper("healthy9", "healthy1", "healthy1");
+	Developer dev = model.createDeveloper("healthy10", "healthy2", "healthy2");
+	issuer = model.createIssuer("healthy11", "healthy3", "healthy3");
+	Administrator admin = model.createAdministrator("healty12", "healty4", "healty4");
 
 	Project projectA = model.createProject("ProjectTest", "Project for testing", lead, 500, admin);
 	model.assignToProject(projectA, lead, dev, Role.PROGRAMMER);
@@ -44,13 +44,13 @@ public class HealthAlgorithm1Test {
 	// make subsystems
 	subsystem = model.createSubsystem(admin, projectA, new VersionID(), "Subsystem", "Description of susbsystem");
 
-	ha = new HealthAlgorithm1();
+	ha = new HealthAlgorithm3();
     }
 
     @Test
     public void testHealthIndicators() throws IllegalArgumentException, PermissionException {
 	// HEALTHY
-	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
+	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 3, false);
 	assertEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTHY);
 
 	// SATISFACTORY
@@ -59,14 +59,15 @@ public class HealthAlgorithm1Test {
 	assertEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
 
 	// STABLE
-	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
-	model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
+	for (int i = 1; i < 4; i++) {
+	    model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
+	}
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTHY);
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.SATISFACTORY);
 	assertEquals(subsystem.getIndicator(ha), HealthIndicator.STABLE);
 
 	// SERIOUS
-	for (int i = 1; i < 14; i++) {
+	for (int i = 1; i < 13; i++) {
 	    model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
 	}
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTHY);
@@ -75,7 +76,7 @@ public class HealthAlgorithm1Test {
 	assertEquals(subsystem.getIndicator(ha), HealthIndicator.SERIOUS);
 
 	// CRITICAL
-	for (int i = 1; i < 18; i++) {
+	for (int i = 1; i < 2; i++) {
 	    model.createBugReport(subsystem, issuer, "bugrep", "descr", PList.<BugReport> empty(), null, 10, false);
 	}
 	assertNotEquals(subsystem.getIndicator(ha), HealthIndicator.HEALTHY);

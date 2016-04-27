@@ -41,9 +41,25 @@ public abstract class Subject {
             tmb.update(br);
         }
     }
-
+    
     /**
-     * This method adds a commentsubscriber to the subject.
+     * Get the subscribers of tag.
+     * @return The TagMailBoxes that are subscribed to the change of a tag.
+     */
+    protected PList<TagMailBox> getTagSubs() {
+        return this.tagSubs;
+    }
+    
+    /**
+     * Get the subscribers of comments.
+     * @return The CommentMailBoxes that are subscribed on the creation of a comments.
+     */
+    protected PList<CommentMailBox> getCommentSubs() {
+        return this.commentSubs;
+    }
+    
+    /**
+     * This method adds a tag subscriber to the subject.
      *
      * @param tmb The comment mailbox to add
      *
@@ -68,7 +84,7 @@ public abstract class Subject {
     /**
      * This method updates all the mailboxes subscribed on a comment creation on this subject.
      *
-     * @param br The bugreport needed for the update
+     * @param br The bug report needed for the update
      * @see CommentMailBox#update(BugReport)
      */
     protected void updateCommentSubs(BugReport br){
