@@ -91,6 +91,9 @@ public class MergeSubsystemsCmd implements Cmd {
         // two original subsystems are removed.
         Subsystem result = model.mergeSubsystems(user, sub1, sub2, name, description);
 
+        // print result
+        scan.println(result.getDetails());
+
         return result;
     }
 
