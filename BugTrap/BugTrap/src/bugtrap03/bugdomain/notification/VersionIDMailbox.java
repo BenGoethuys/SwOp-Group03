@@ -22,7 +22,7 @@ public class VersionIDMailbox extends ASTypeMailbox<AbstractSystem> {
 
     @Override
     public Notification update(AbstractSystem changedObject) {
-        VersionIDNotification newNotif = new VersionIDNotification(
+        ASNotification newNotif = new ASNotification(
                 ("The VersionID " + changedObject.getVersionID().toString() + " has been set on: "),
                 changedObject, this.getSubject());
         this.addNotification(newNotif);

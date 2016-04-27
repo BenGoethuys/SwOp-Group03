@@ -7,7 +7,7 @@ import bugtrap03.bugdomain.usersystem.User;
 /**
  * @author Group 03
  */
-public abstract class ASNotification extends Notification{
+public class ASNotification extends Notification{
     /**
      * This is the constructor of notifications for a change on an abstract system
      * @param message The message of this notification
