@@ -38,7 +38,7 @@ public abstract class AbstractSystemSubject extends Subject {
      *
      * @return The CreationMailBoxes that are subscribed on the creation of an AbstractSystem.
      */
-    protected PList<CreationMailBox> getCreationSubs() {
+    public PList<CreationMailBox> getCreationSubs() {
         return this.creationSubs;
     }
 
