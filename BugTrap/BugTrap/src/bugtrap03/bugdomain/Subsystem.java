@@ -284,6 +284,9 @@ public class Subsystem extends AbstractSystem {
 	details += this.getParent().getName();
 	details += "\n\tSubsystem from project: \t";
 	details += this.getParentProject().getName();
+	details += "\n\tHealth indicator Algorithm 1: \t" + this.getIndicator(new HealthAlgorithm1());
+	details += "\n\tHealth indicator Algorithm 2: \t" + this.getIndicator(new HealthAlgorithm2());
+	details += "\n\tHealth indicator Algorithm 3: \t" + this.getIndicator(new HealthAlgorithm3());
 	return details;
     }
 
@@ -298,12 +301,7 @@ public class Subsystem extends AbstractSystem {
 	return ("Subsystem " + this.getName());
     }
 
-    /**
-     * TODO Mathias
-     * 
-     * @param ha
-     * @return
-     */
+    @Override
     public HealthIndicator getIndicator(HealthAlgorithm ha) {
 	return ha.getIndicator(this);
     }
