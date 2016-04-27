@@ -35,6 +35,8 @@ public class BugReportTest {
     static Developer tester;
     static PList<BugReport> depList;
     static Milestone milestone;
+    static double impactFactor1 = 5;
+    static double impactFactor2 = 1;
     static String trigger;
     static String stacktrace;
     static String error;
@@ -69,8 +71,8 @@ public class BugReportTest {
         subsystem = project.addSubsystem("ANewSubSystem", "the decription of the subsystem");
         subsystem.setMilestone(dev, new Milestone(2,5));
 
-        bugReport1 = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, 5, false, "", "", "");
-        bugReport2 = new BugReport(issuer, "FoundBug", "", date, depList, subsystem, null, 1, true, trigger, stacktrace, error);
+        bugReport1 = new BugReport(issuer, "NastyBug", "bla bla", new GregorianCalendar(), depList, subsystem, milestone, impactFactor1, false, "", "", "");
+        bugReport2 = new BugReport(issuer, "FoundBug", "", date, depList, subsystem, null, impactFactor2, true, trigger, stacktrace, error);
     }
 
     @Before
@@ -549,6 +551,46 @@ public class BugReportTest {
         assertTrue(bugReport1.isValidMilestone(new Milestone(2, 5, 1)));
         // lower then subsytem
         assertFalse(bugReport1.isValidMilestone(new Milestone(2, 4)));
+    }
+
+    @Test
+    public void testGetImpactFactor(){
+        assertEquals(impactFactor1, bugReport1.getImpactFactor(), EPSILON);
+        assertEquals(impactFactor2, bugReport2.getImpactFactor(), EPSILON);
+    }
+
+    @Test
+    public void testSetImpactFactor() throws PermissionException {
+        assertEquals(1.0, tempBugReport.getImpactFactor(), EPSILON);
+        tempBugReport.setImpactFactor(5.0);
+        assertEquals(5.0, tempBugReport.getImpactFactor(), EPSILON);
+
+        tempBugReport.setImpactFactor(issuer, 6.0);
+        assertEquals(6.0, tempBugReport.getImpactFactor(), EPSILON);
+
+        // max
+        tempBugReport.setImpactFactor(issuer, 10.0);
+        assertEquals(10.0, tempBugReport.getImpactFactor(), EPSILON);
+    }
+
+    @Test (expected = PermissionException.class)
+    public void testSetImpactFactorNoPermission() throws PermissionException {
+        tempBugReport.setImpactFactor(admin, 2.0);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetInvalidImpactFactorNegative() throws PermissionException {
+        tempBugReport.setImpactFactor(issuer, -1.0);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetInvalidImpactFactorZero() throws PermissionException {
+        tempBugReport.setImpactFactor(issuer, 0.0);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetInvalidImpactFactorTooBig() throws PermissionException {
+        tempBugReport.setImpactFactor(issuer, 10.0001);
     }
     
     @Test
