@@ -5,13 +5,14 @@ import bugtrap03.bugdomain.AbstractSystemMemento;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
-import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
 /**
  *
- * @author Admin
+ * A {@link ModelCmd} that when executed will split a {@link Subsystem} into itself and another newly created subsystem.
+ * 
+ * @author Group 03
  */
 class SplitSubsystemModelCmd extends ModelCmd {
     
@@ -23,14 +24,14 @@ class SplitSubsystemModelCmd extends ModelCmd {
      * @param subsystem1Desc The new description for the first subsystem.
      * @param subsystem2Name The name for the newly created subsystem.
      * @param subsystem2Desc The description for the newly created subsystem.
-     * @param subsystems1 The list of subsystems that subsystem will hold when they are both in this list and a direct subsystem.
-     * @param bugReports1 The list of BugReports that subsystem will hold when they are both in this list and a direct bugReport.
+     * @param subsystems1 The list of subsystems that subsystem will hold when they are both in this list and a direct subsystem. null will be converted into an empty list.
+     * @param bugReports1 The list of BugReports that subsystem will hold when they are both in this list and a direct bugReport. null will be converted into an empty list.
      * @param user The user that wants to split subsystem.
      * 
      * @throws IllegalArgumentException When user == null
      * @throws IllegalArgumentException When subsystem == null
      * 
-     * @see Subsystem#split(java.lang.String, java.lang.String, java.lang.String, java.lang.String, purecollections.PList, purecollections.PList)
+     * @see Subsystem#split(String, String, String, String, PList, PList, User)
      */
     public SplitSubsystemModelCmd(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) {
         if(user == null || subsystem == null) {
@@ -67,12 +68,15 @@ class SplitSubsystemModelCmd extends ModelCmd {
     
     /**
      * 
-     * @return
-     * @throws IllegalArgumentException
-     * @throws PermissionException
-     * @throws IllegalStateException
+     * Split the given subsystem into itself and an extra newly created subsystem such as described in 
+     * {@link Subsystem#split(String, String, String, String, PList, PList, User)}.
+     * @return The extra newly created Subsystem.
      * 
-     * @see Subsystem#split(String, String, String, String, PList, PList)
+     * @throws PermissionException When the user does not have sufficient permissions.
+     * @throws IllegalArgumentException When any of the arguments passed to the constructor is invalid.
+     * @throws IllegalStateException When this ModelCmd was already executed.
+     * 
+     * @see Subsystem#split(String, String, String, String, PList, PList User)
      * 
      */
     @Override
@@ -81,7 +85,7 @@ class SplitSubsystemModelCmd extends ModelCmd {
             throw new IllegalStateException("The SplitSubsystemModelCmd was already executed.");
         }
 
-        //Store mementoµ
+        //Store memento
         parentMemento = subsystem.getParent().getMemento();
         
         //Execute
@@ -97,6 +101,7 @@ class SplitSubsystemModelCmd extends ModelCmd {
             return false;
         }
         
+        //restore hierarchy & remove newly created.
         parent.setMemento(parentMemento);
         subsystem2.setTerminated(true);
         return true;
@@ -109,7 +114,11 @@ class SplitSubsystemModelCmd extends ModelCmd {
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(subsystem2 == null) {
+            return "Split subsystem" + subsystem.getName();
+        } else {
+            return "Split subsystem into " + subsystem.getName() + " and " + subsystem2.getName();
+        }
     }
 
 }
