@@ -18,7 +18,7 @@ public class ProjectMemento extends AbstractSystemMemento {
     ProjectMemento(VersionID versionID, String name, String description, PList<Subsystem> children, 
             AbstractSystem parent, Milestone milestone, GregorianCalendar creationDate, GregorianCalendar startDate,
             HashMap<Developer, PList<Role>> projectParticipants, long budgetEstimate, boolean isTerminated) {
-        super(versionID, name, description, children, parent, milestone);
+        super(versionID, name, description, children, parent, milestone, isTerminated);
         
         this.creationDate = (GregorianCalendar) creationDate.clone();
         this.startDate = (GregorianCalendar) startDate.clone();
@@ -26,15 +26,12 @@ public class ProjectMemento extends AbstractSystemMemento {
         this.projectParticipants = (HashMap<Developer, PList<Role>>) projectParticipants.clone();
         
         this.budgetEstimate = budgetEstimate;
-        this.isTerminated = isTerminated;
     }
 
     private final GregorianCalendar creationDate;
     private final GregorianCalendar startDate;
     private final HashMap<Developer, PList<Role>> projectParticipants;
     private long budgetEstimate;
-
-    private boolean isTerminated;
     
     GregorianCalendar getCreationDate() {
         return this.creationDate;
@@ -52,8 +49,4 @@ public class ProjectMemento extends AbstractSystemMemento {
         return this.budgetEstimate;
     }
     
-    boolean getIsTerminated() {
-        return this.isTerminated;
-    }
-
 }

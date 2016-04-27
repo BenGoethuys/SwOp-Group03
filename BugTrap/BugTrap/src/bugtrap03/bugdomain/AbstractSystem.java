@@ -1,7 +1,6 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.bugreport.BugReportMemento;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
@@ -48,6 +47,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         this.setChilds(PList.<Subsystem>empty());
         this.setParent(parent);
         this.setMilestone(milestone);
+        this.isTerminated = false;
     }
 
     /**
@@ -87,6 +87,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     private PList<Subsystem> childs;
     private Milestone milestone;
     private AbstractSystem parent;
+    protected boolean isTerminated;
 
     /**
      * This is a getter for the version variable.
@@ -398,7 +399,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      *
      * @param subsystem The subsystem to add as a child of this.
      * @throws IllegalArgumentException When subsystem is already a subsystem in this project.
-     * @throws IllegalArgumentException When the parentProject does not match, <b> implies you have to set the parent first.</b>
+     * @throws IllegalArgumentException When the parentProject does not match, <b> implies you have to set the parent
+     * first.</b>
      * @throws IllegalArgumentException When subsystem == null
      */
     protected void addSubsystem(Subsystem subsystem) {
@@ -565,6 +567,15 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     }
 
     /**
+     * This method sets the isTerminated boolean of this object
+     *
+     * @param terminated the new value
+     */
+    public void setTerminated(boolean terminated) {
+        this.isTerminated = terminated;
+    }
+
+    /**
      * This method check whether or not the current AbstractSystem is terminated
      *
      * @return true if the object is terminated
@@ -572,7 +583,11 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     @DomainAPI
     @Override
     public boolean isTerminated() {
-        return this.getParent().isTerminated();
+        if (this.isTerminated) {
+            return true;
+        } else {
+            return this.getParent().isTerminated();
+        }
     }
 
     /**
@@ -581,7 +596,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @return The memento of this system.
      */
     public AbstractSystemMemento getMemento() {
-        return new AbstractSystemMemento(this.version, this.name, this.description, this.childs, this.parent, this.milestone);
+        return new AbstractSystemMemento(this.version, this.name, this.description, this.childs, this.parent, this.milestone, this.isTerminated);
     }
 
     /**
@@ -604,7 +619,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         this.setChilds(mem.getChildren());
         mem.restoreChildren();
         this.setMilestone(mem.getMilestone());
+        this.setTerminated(mem.getIsTerminated());
     }
-    
-    
+
 }

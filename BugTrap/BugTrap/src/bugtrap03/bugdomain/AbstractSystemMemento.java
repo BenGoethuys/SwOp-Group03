@@ -6,13 +6,13 @@ import purecollections.PList;
 /**
  * A (partial) memento of the abstractSystem.
  * <p>
- * <br> This stores the versionID, name, description, children (and their state), parent (excl state) and milestone.
+ * <br> This stores the versionID, name, description, children (and their state), parent (excl state), milestone and isTerminated
  *
  * @author Group 03
  */
 public class AbstractSystemMemento {
     
-    AbstractSystemMemento(VersionID versionID, String name, String description, PList<Subsystem> children, AbstractSystem parent, Milestone milestone) {
+    AbstractSystemMemento(VersionID versionID, String name, String description, PList<Subsystem> children, AbstractSystem parent, Milestone milestone, boolean isTerminated) {
         this.versionID = versionID;
         this.name = name;
         this.description = description;
@@ -25,6 +25,7 @@ public class AbstractSystemMemento {
         
         this.parent = parent;
         this.milestone = milestone;
+        this.isTerminated = isTerminated;
     }
 
     private final VersionID versionID;
@@ -36,6 +37,7 @@ public class AbstractSystemMemento {
 
     private final AbstractSystem parent;
     private final Milestone milestone;
+    private final boolean isTerminated;
 
     VersionID getVersionID() {
         return this.versionID;
@@ -72,6 +74,10 @@ public class AbstractSystemMemento {
 
     Milestone getMilestone() {
         return this.milestone;
+    }
+    
+    boolean getIsTerminated() {
+        return this.isTerminated;
     }
 
 }
