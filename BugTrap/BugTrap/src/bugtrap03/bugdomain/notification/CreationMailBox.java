@@ -33,7 +33,7 @@ public class CreationMailBox extends ASTypeMailbox<BugReport> {
     @Override
     public BugReportNotification update(BugReport bugReport){
 
-        BugReportNotification newNotif = new BugReportNotification("The following bugreport has been created: ", bugReport, this.getSubject());
+        BugReportNotification newNotif = new BugReportNotification("The following bugreport has been created: ", bugReport, this.getAsSubject());
         this.addNotification(newNotif);
         return newNotif;
     }

@@ -12,7 +12,7 @@ import java.util.EnumSet;
  * @author Group 03
  */
 @DomainAPI
-public class TagMailBox extends Mailbox {
+public class TagMailBox extends AbstractMailbox<BugReport> {
 
     /**
      * The constructor for a new mailbox subscription to the change of tag to a given tag on the subject.
@@ -29,27 +29,11 @@ public class TagMailBox extends Mailbox {
      */
 
     public TagMailBox(Subject subject, EnumSet<Tag> tags) throws IllegalArgumentException{
-        this.setSubject(subject);
+        super(subject);
         this.setTags(tags);
     }
 
-    private Subject subject;
     private EnumSet<Tag> tags;
-
-    /**
-     * This method sets the subject for this mailbox.
-     *
-     * @param subject The subject to subscribe on.
-     *
-     * @throws IllegalArgumentException If the given subject is invalid.
-     * @see #isValidSubject(Subject)
-     */
-    private void setSubject(Subject subject) throws IllegalArgumentException{
-        if (! this.isValidSubject(subject)){
-            throw new IllegalArgumentException("The given subject is not valid for this type of mailbox");
-        }
-        this.subject = subject;
-    }
 
     /**
      * This method sets the tags of this mailbox.
@@ -106,7 +90,6 @@ public class TagMailBox extends Mailbox {
      * @return A String containing the subject name to which this mailbox is subscribed
      * and a textual explanation of the subscription.
      */
-    @Override
     @DomainAPI
     public String getInfo(){
         StringBuilder message = new StringBuilder();
@@ -121,6 +104,7 @@ public class TagMailBox extends Mailbox {
      * This method returns a copy of the tags in which this subscription is interested.
      * @return An enumset of tags.
      */
+    @DomainAPI
     public EnumSet<Tag> getTagsOfInterest(){
         return EnumSet.copyOf(this.tags);
     }

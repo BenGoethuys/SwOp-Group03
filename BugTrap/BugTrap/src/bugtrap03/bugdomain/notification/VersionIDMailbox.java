@@ -1,7 +1,6 @@
 package bugtrap03.bugdomain.notification;
 
 import bugtrap03.bugdomain.AbstractSystem;
-import bugtrap03.bugdomain.VersionID;
 
 /**
  * This class represents a subscription to the update of a versionID
@@ -24,7 +23,7 @@ public class VersionIDMailbox extends ASTypeMailbox<AbstractSystem> {
     public Notification update(AbstractSystem changedObject) {
         ASNotification newNotif = new ASNotification(
                 ("The VersionID " + changedObject.getVersionID().toString() + " has been set on: "),
-                changedObject, this.getSubject());
+                changedObject, this.getAsSubject());
         this.addNotification(newNotif);
         return newNotif;
     }

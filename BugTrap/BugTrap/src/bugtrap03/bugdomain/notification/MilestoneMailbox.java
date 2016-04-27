@@ -5,6 +5,10 @@ import bugtrap03.bugdomain.AbstractSystem;
 /**
  * @author Group 03
  */
-public class MilestoneMailbox extends Mailbox {
+public class MilestoneMailbox extends AbstractMailbox {
 
+    @Override
+    public String getInfo() {
+        return null;
+    }
 }
