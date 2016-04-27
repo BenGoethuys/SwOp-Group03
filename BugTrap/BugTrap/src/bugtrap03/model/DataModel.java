@@ -951,7 +951,7 @@ public class DataModel {
      * @throws IllegalStateException If the command has already been executed.
      */
     @DomainAPI
-    public Mailbox unregisterFromNotifications(User user, Mailbox mailbox) throws IllegalArgumentException, IllegalStateException{
+    public AbstractMailbox unregisterFromNotifications(User user, AbstractMailbox mailbox) throws IllegalArgumentException, IllegalStateException{
         UnregisterFromNotificationsModelCmd cmd = new UnregisterFromNotificationsModelCmd(user, mailbox);
         cmd.exec();
         addToHistory(cmd);

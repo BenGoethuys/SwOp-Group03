@@ -9,7 +9,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
  * @author Group 03
  */
 @DomainAPI
-public class CommentMailBox extends Mailbox {
+public class CommentMailBox extends SubjAbstractMailbox<BugReport,BugReportNotification> {
 
     /**
      * The constructor for a new mailbox subscribed to the creation of comments on the subject.
@@ -19,25 +19,7 @@ public class CommentMailBox extends Mailbox {
      * @see #setSubject(Subject)
      */
     public CommentMailBox(Subject subject) throws IllegalArgumentException{
-        super();
-        this.setSubject(subject);
-    }
-
-    private Subject subject;
-
-    /**
-     * This method sets the subject for this mailbox.
-     *
-     * @param subject The subject to subscribe on.
-     *
-     * @throws IllegalArgumentException If the given subject is invalid.
-     * @see #isValidSubject(Subject)
-     */
-    private void setSubject(Subject subject) throws IllegalArgumentException{
-        if (! this.isValidSubject(subject)){
-            throw new IllegalArgumentException("The given subject is not valid for this type of mailbox");
-        }
-        this.subject = subject;
+        super(subject);
     }
 
     /**
@@ -47,6 +29,7 @@ public class CommentMailBox extends Mailbox {
      *
      * @return The added notification.
      */
+    @Override
     public BugReportNotification update(BugReport bugReport){
         BugReportNotification newNotif = new BugReportNotification("The following bugreport has been commented upon: ", bugReport, this.subject);
         this.addNotification(newNotif);
@@ -61,7 +44,6 @@ public class CommentMailBox extends Mailbox {
      * @return A String containing the subject name to which this mailbox is subscribed
      * and a textual explanation of the subscription.
      */
-    @Override
     @DomainAPI
     public String getInfo(){
         StringBuilder message = new StringBuilder();

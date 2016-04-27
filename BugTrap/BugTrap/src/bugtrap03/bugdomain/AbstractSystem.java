@@ -613,9 +613,9 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      *
      * @return The memento of this system.
      */
+    @Override
     public AbstractSystemMemento getMemento() {
-	return new AbstractSystemMemento(this.version, this.name, this.description, this.childs, this.parent,
-	        this.milestone, this.isTerminated);
+        return new AbstractSystemMemento(this.getTagSubs(), this.getCommentSubs(), this.version, this.name, this.description, this.childs, this.parent, this.milestone, this.isTerminated);
     }
 
     /**
@@ -627,10 +627,10 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      *             milestones due to constraints)
      */
     public void setMemento(AbstractSystemMemento mem) throws IllegalArgumentException {
-	if (mem == null) {
-	    throw new IllegalArgumentException(
-	            "The AbstractSystemMemento passed to BugReport#setMemento shouldn't be null.");
-	}
+        //TODO: Vincent, super(...)
+        if (mem == null) {
+            throw new IllegalArgumentException("The AbstractSystemMemento passed to AbstractSystem#setMemento shouldn't be null.");
+        }
 
 	this.setVersionID(mem.getVersionID());
 	this.setName(mem.getName());

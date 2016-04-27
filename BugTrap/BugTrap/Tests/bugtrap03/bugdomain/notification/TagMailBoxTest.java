@@ -45,10 +45,10 @@ public class TagMailBoxTest {
 
     @Test
     public void testUpdate() throws Exception {
-        assertTrue(testTMB.getAllNotifications().isEmpty());
+        assertTrue(testTMB.getNotifications().isEmpty());
         BugReportNotification bugReportNotification = testTMB.update(bugreport4MB);
-        assertTrue(testTMB.getAllNotifications().contains(bugReportNotification));
-        assertFalse(testTMB.getAllNotifications().contains(bugReportNotification4MB2));
+        assertTrue(testTMB.getNotifications().contains(bugReportNotification));
+        assertFalse(testTMB.getNotifications().contains(bugReportNotification4MB2));
     }
 
     @Test

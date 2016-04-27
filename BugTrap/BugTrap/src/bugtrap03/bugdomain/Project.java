@@ -608,7 +608,7 @@ public class Project extends AbstractSystem {
      */
     @Override
     public ProjectMemento getMemento() {
-        return new ProjectMemento(getVersionID(), getName(), getDescription(), getSubsystems(), getParent(), 
+        return new ProjectMemento(getTagSubs(), getCommentSubs(), getVersionID(), getName(), getDescription(), getSubsystems(), getParent(), 
                 getMilestone(), getCreationDate(), getStartDate(), this.projectParticipants, this.budgetEstimate, 
                 this.isTerminated);
     }
