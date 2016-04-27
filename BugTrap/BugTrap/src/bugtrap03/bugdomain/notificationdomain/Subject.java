@@ -51,7 +51,7 @@ public abstract class Subject {
      * Get the subscribers of tag.
      * @return The TagMailBoxes that are subscribed to the change of a tag.
      */
-    protected PList<TagMailBox> getTagSubs() {
+    public PList<TagMailBox> getTagSubs() {
         return this.tagSubs;
     }
     
@@ -59,7 +59,7 @@ public abstract class Subject {
      * Get the subscribers of comments.
      * @return The CommentMailBoxes that are subscribed on the creation of a comments.
      */
-    protected PList<CommentMailBox> getCommentSubs() {
+    public PList<CommentMailBox> getCommentSubs() {
         return this.commentSubs;
     }
     
