@@ -998,14 +998,19 @@ public class DataModel {
     }
 
     /**
-     * //TODO
-     * @param user
-     * @param subsystem1
-     * @param subsystem2
-     * @param newName
-     * @param newDescription
-     * @return
-     * @throws PermissionException
+     * This method safely merges 2 subsystems together
+     *
+     * @param user              The user that wants to merge the subsystems
+     * @param subsystem1        The first subsystem to merge
+     * @param subsystem2        The second subsystem to merge
+     * @param newName           The new name of the merged subsystem
+     * @param newDescription    The new description of the merged subsystem
+     *
+     * @return  The merged subsystem
+     *
+     * @throws IllegalArgumentException When there is an illegal argument passed.
+     * @throws NullPointerException     When there is a null where it shouldn't. Read ModelCmd specific documentation.
+     * @throws PermissionException      When the user does not have sufficient permissions
      */
     public Subsystem mergeSubsystems(User user, Subsystem subsystem1, Subsystem subsystem2,
                                      String newName, String newDescription) throws PermissionException {
