@@ -20,7 +20,7 @@ public abstract class Notification {
 
 
     /**
-     * This method sets the message for this notificationdomain.
+     * This method sets the message for this notification.
      *
      * @param message The String message to set.
      *
@@ -53,7 +53,7 @@ public abstract class Notification {
     }
 
     /**
-     * This method sets the subject for this notificationdomain.
+     * This method sets the subject for this notification.
      *
      * @param subject The subject to set.
      *

@@ -25,11 +25,11 @@ public class CommentMailBox extends SubjAbstractMailbox<BugReport,BugReportNotif
     }
 
     /**
-     * This method updates the notifications list with a new notificationdomain if a comment on a bugreport has been created.
+     * This method updates the notifications list with a new notification if a comment on a bugreport has been created.
      *
      * @param bugReport The bugreport on which a comment has been created.
      *
-     * @return The added notificationdomain.
+     * @return The added notification.
      */
     @Override
     public BugReportNotification update(BugReport bugReport){

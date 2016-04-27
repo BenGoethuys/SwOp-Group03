@@ -72,20 +72,24 @@ public class TagMailBox extends SubjAbstractMailbox<BugReport,BugReportNotificat
     }
 
     /**
-     * This method updates the notifications list with a new notificationdomain if the tag on a begureport has been changed.
+     * This method updates the notifications list with a new notification if the tag on a begureport has been changed.
      *
      * @param bugReport The bugreport of which the tag is changed.
      *
-     * @return The added notificationdomain.
+     * @return The added notification.
      */
     public BugReportNotification update(BugReport bugReport){
         StringBuilder message = new StringBuilder();
-        message.append("The tag ");
-        message.append(bugReport.getTag());
-        message.append(" has been set on ");
-        BugReportNotification newNotif = new BugReportNotification(message.toString(), bugReport, this.subject);
-        this.addNotification(newNotif);
-        return newNotif;
+        if (this.tags.contains(bugReport.getTag())) {
+            message.append("The tag ");
+            message.append(bugReport.getTag());
+            message.append(" has been set on ");
+            BugReportNotification newNotif = new BugReportNotification(message.toString(), bugReport, this.subject);
+            this.addNotification(newNotif);
+            return newNotif;
+        }else{
+            return null;
+        }
     }
 
     /**
