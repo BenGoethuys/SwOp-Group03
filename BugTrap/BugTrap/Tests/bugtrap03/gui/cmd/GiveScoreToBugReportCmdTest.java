@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayDeque;
 
+import bugtrap03.bugdomain.VersionID;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,7 +49,7 @@ public class GiveScoreToBugReportCmdTest {
         model = new DataModel();
         admin = model.createAdministrator("Ploperdeplop001" + counter, "first", "last");
         dev = model.createDeveloper("Ploperdeplop002" + counter, "first", "last");
-        proj = model.createProject("Ploperdeplop003", "Testing stuff over here", dev, 50, admin);
+        proj = model.createProject(new VersionID(), "Ploperdeplop003", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
         bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport> empty(), null, 1, false);
         bugRepWrongState = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport> empty(), null, 1, false);

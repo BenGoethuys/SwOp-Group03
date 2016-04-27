@@ -1,6 +1,7 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -36,8 +37,8 @@ public class UpdateProjectCmdTest {
         model = new DataModel();
         lead = model.createDeveloper("theLeader", "the", "Leader");
         admin = model.createAdministrator("theAdmin", "Ad", "Min");
-        proj0 = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        proj0 = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+        proj1 = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
     }
 
     /**

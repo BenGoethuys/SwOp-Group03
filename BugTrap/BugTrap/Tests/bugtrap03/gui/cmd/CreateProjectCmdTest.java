@@ -110,7 +110,7 @@ public class CreateProjectCmdTest {
         DataModel model = new DataModel();
         Developer lead = model.createDeveloper("meGoodLead2223", "Luky", "Luke");
         User admin = model.createAdministrator("admin2", "adminT", "bie");
-        Project proj = model.createProject("ProjectFT2", "desc here about test default.", lead, 1000, admin);
+        Project proj = model.createProject(new VersionID(), "ProjectFT2", "desc here about test default.", lead, 1000, admin);
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();

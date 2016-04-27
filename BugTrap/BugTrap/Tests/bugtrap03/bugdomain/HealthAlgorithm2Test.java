@@ -36,7 +36,7 @@ public class HealthAlgorithm2Test {
 	issuer = model.createIssuer("healthy7", "healthy3", "healthy3");
 	Administrator admin = model.createAdministrator("healty8", "healty4", "healty4");
 
-	Project projectA = model.createProject("ProjectTest", "Project for testing", lead, 500, admin);
+	Project projectA = model.createProject(new VersionID(), "ProjectTest", "Project for testing", lead, 500, admin);
 	model.assignToProject(projectA, lead, dev, Role.PROGRAMMER);
 	model.assignToProject(projectA, lead, dev, Role.TESTER);
 	model.assignToProject(projectA, lead, dev, Role.PROGRAMMER);

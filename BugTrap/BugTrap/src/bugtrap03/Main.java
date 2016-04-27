@@ -1,6 +1,7 @@
 package bugtrap03;
 
 import bugtrap03.bugdomain.Milestone;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
@@ -58,16 +59,16 @@ public class Main {
         //FIXME: update versionID's and Milestones !!
         try {
             // create projectA
-            Project projectA = model.createProject("ProjectA", "Description of projectA", major, 10000, admin);
+            Project projectA = model.createProject(new VersionID(), "ProjectA", "Description of projectA", major, 10000, admin);
             // add asked roles
             model.assignToProject(projectA, major, major, Role.PROGRAMMER);
             model.assignToProject(projectA, major, maria, Role.TESTER);
             // make subsystems
-            model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
+            Subsystem subsystemA1 = model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
             Subsystem subsystemA2 = model.createSubsystem(admin, projectA, "SubsystemA2", "Description of susbsystem A2");
             Subsystem subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
             Subsystem subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
-            model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
+            Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
             // make bug report 2
             BugReport bugRep2 = model.createBugReport(subsystemA3_1, charlie, "Crash while processing user input",
                     "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15),
@@ -78,6 +79,14 @@ public class Main {
             model.createBugReport(subsystemA2, major, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...",
                     new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), new Milestone(3, 2), 5.8, true,
                     "Launch with command line invocation:...", "Exception in thread \"main\" java.lang...", null);
+
+            // set milestones
+            model.setMilestone(major, projectA, new Milestone(2,5));
+            model.setMilestone(major, subsystemA1, new Milestone(2,5,1));
+            //model.setMilestone(major, subsystemA2, new Milestone(2,5));
+            model.setMilestone(major, subsystemA3, new Milestone(2,8,5));
+            model.setMilestone(major, subsystemA3_1, new Milestone(2,8,5,3));
+            model.setMilestone(major, subsystemA3_2, new Milestone(2,9));
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
             System.err.println(e.getMessage());
@@ -86,7 +95,7 @@ public class Main {
         Project projectB;
         try {
             // create projectB
-            projectB = model.createProject("ProjectB", "Description of projectB", maria, 10000, admin);
+            projectB = model.createProject(new VersionID(), "ProjectB", "Description of projectB", maria, 10000, admin);
             // add asked roles
             model.assignToProject(projectB, maria, major, Role.PROGRAMMER);
             // add tester to ProjectB -> is needed bug not in assignment
@@ -116,6 +125,8 @@ public class Main {
 
             // give score -> closed
             model.giveScore(bugRep1, doc, 4);
+
+            // set milestones
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
             System.err.println(e.getMessage());

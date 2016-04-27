@@ -44,7 +44,7 @@ public class AssignToBugReportCmdTest {
         Issuer issuer = model.createIssuer("C0ws00-6", "Fly", "High");
         Administrator admin = model.createAdministrator("Adm1ral00-6", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         model.assignToProject(projectA, lead, dev2, Role.PROGRAMMER);
         model.assignToProject(projectA, lead, dev3, Role.TESTER);
         model.assignToProject(projectA, lead, dev4, Role.PROGRAMMER);
@@ -125,7 +125,7 @@ public class AssignToBugReportCmdTest {
         Issuer issuer = model.createIssuer("C0ws00-9", "Fly", "High");
         Administrator admin = model.createAdministrator("Adm1ral00-9", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         model.assignToProject(projectA, lead, dev2, Role.PROGRAMMER);
 
         // make subsystems
@@ -188,7 +188,7 @@ public class AssignToBugReportCmdTest {
         Issuer issuer = model.createIssuer("C0ws00-10", "Fly", "High");
         Administrator admin = model.createAdministrator("Adm1ral00-10", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
         model.assignToProject(projectA, lead, dev2, Role.PROGRAMMER);
 
         // make subsystems

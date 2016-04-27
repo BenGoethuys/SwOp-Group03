@@ -64,8 +64,8 @@ public class SetDuplicateBugReportCmdTest {
         issuer = model.createIssuer("Ploperdeplop011", "Fly", "High");
         admin = model.createAdministrator("Ploperdeplop012", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+        proj1 = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
         subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
@@ -161,8 +161,8 @@ public class SetDuplicateBugReportCmdTest {
         issuer = model.createIssuer("Ploperdeplop014", "Fly", "High");
         admin = model.createAdministrator("Ploperdeplop015", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+        proj1 = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
         subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
@@ -260,8 +260,8 @@ public class SetDuplicateBugReportCmdTest {
         issuer = model.createIssuer("Ploperdeplop017", "Fly", "High");
         admin = model.createAdministrator("Ploperdeplop018", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+        proj1 = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
         subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
@@ -339,8 +339,8 @@ public class SetDuplicateBugReportCmdTest {
         issuer = model.createIssuer("Ploperdeplop020", "Fly", "High");
         admin = model.createAdministrator("Ploperdeplop021", "Kwinten", "JK");
 
-        Project projectA = model.createProject("ProjectTest0", "Project for testing 0", lead, 500, admin);
-        proj1 = model.createProject("ProjectTest1", "Project for testing 1", lead, 1000, admin);
+        Project projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+        proj1 = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
         // make subsystems
         subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
