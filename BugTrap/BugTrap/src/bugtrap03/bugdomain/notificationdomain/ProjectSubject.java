@@ -74,6 +74,27 @@ public abstract class ProjectSubject extends AbstractSystem {
     }
 
     /**
+     * The method returns the memento for this ProjectSubject.
+     *
+     * @return The memento of this project subject.
+     */
+    @Override
+    public ProjectSubjectMemento getMemento() {
+        return new ProjectSubjectMemento(this.getTagSubs(), this.getCommentSubs(), this.getCreationSubs(), this.getMilestoneSubs(),
+                this.getVersionIDSubs(), this.getVersionID(), this.getName(), this.getDescription(), getSubsystems(), getParent(),
+                getMilestone(), this.isTerminated(), this.forkSubs);
+    }
+
+    @Override
+    public void setMemento(SubjectMemento mem) {
+        super.setMemento(mem);
+        if(mem instanceof ProjectSubjectMemento) {
+            ProjectSubjectMemento aMem = (ProjectSubjectMemento) mem;
+            this.forkSubs = aMem.getForkSubs();
+        }
+    }
+
+    /**
      * This method notifies the fork sbs of this project method that a project has been forked.
      * @param project The newly forked project.
      */
