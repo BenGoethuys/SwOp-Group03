@@ -1,14 +1,19 @@
 package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.notificationdomain.Subject;
-import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 
 /**
- * Created by Kwinten on 28/04/2016.
+ * @author Group 03
  */
-public class SubjectMailbox<UpdatedObjectClass extends Subject, SubjectClass extends Subject> extends AbstractMailbox<UpdatedObjectClass> {
+public abstract class SubjectMailbox<UpdatedObjectClass extends Subject, SubjectClass extends Subject> extends AbstractMailbox<UpdatedObjectClass> {
 
-    public SubjectMailbox(SubjectClass subject){
+    /**
+     * This is a constructor for an abstract mailbox with a subject.
+     * @param subject The subject of this mailbox
+     * @throws IllegalArgumentException If the given subject is invalid
+     * @see #isValidSubject(Subject)
+     */
+    public SubjectMailbox(SubjectClass subject) throws IllegalArgumentException{
         super();
         this.setSubject(subject);
     }
@@ -42,15 +47,5 @@ public class SubjectMailbox<UpdatedObjectClass extends Subject, SubjectClass ext
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String getInfo() {
-        return null;
-    }
-
-    @Override
-    public Notification update(UpdatedObjectClass changedObject) {
-        return null;
     }
 }

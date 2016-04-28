@@ -11,7 +11,7 @@ import bugtrap03.bugdomain.notificationdomain.Subject;
  * @author Group 03
  */
 @DomainAPI
-public class CommentMailBox extends SubjectMailbox {
+public class CommentMailBox extends SubjectMailbox<BugReport, Subject> {
 
     /**
      * The constructor for a new mailbox subscribed to the creation of comments on the subject.

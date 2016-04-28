@@ -3,6 +3,7 @@ package bugtrap03.bugdomain.notificationdomain.mailboxes;
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.Subject;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 
 /**
@@ -11,7 +12,7 @@ import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification
  * @author Group 03
  */
 @DomainAPI
-public class CreationMailBox extends TypeMailbox<BugReport, BugReportNotification> {
+public class CreationMailBox extends SubjectMailbox<BugReport, AbstractSystemSubject> {
 
     /**
      * The constructor for a mailbox subscription to the
@@ -19,10 +20,22 @@ public class CreationMailBox extends TypeMailbox<BugReport, BugReportNotificatio
      *
      * @param subj The subject on which the mailbox subscribes.
      * @throws IllegalArgumentException if the subject is invalid
-     * @see TypeMailbox#ASTypeMailbox(AbstractSystemSubject, MailboxType)
+     * @see SubjectMailbox#isValidSubject(Subject)
      */
     public CreationMailBox(AbstractSystemSubject subj) throws IllegalArgumentException {
-        super(subj, MailboxType.CREATION_BUGREP);
+        super(subj);
+    }
+
+    /**
+     * This method returns the information of the subscription this mailbox represents.
+     * @return A string containing the info.
+     */
+    @Override
+    public String getInfo() {
+        StringBuilder info = new StringBuilder ("You are subscribed to the creation of bugreports on ");
+        info.append(this.subject.getSubjectName());
+        info.append(" and all it's subsystems.");
+        return info.toString();
     }
 
     /**
@@ -34,7 +47,6 @@ public class CreationMailBox extends TypeMailbox<BugReport, BugReportNotificatio
      */
     @Override
     public BugReportNotification update(BugReport bugReport){
-
         BugReportNotification newNotif = new BugReportNotification("The following bugreport has been created: ", bugReport, this.subject);
         this.addNotification(newNotif);
         return newNotif;
