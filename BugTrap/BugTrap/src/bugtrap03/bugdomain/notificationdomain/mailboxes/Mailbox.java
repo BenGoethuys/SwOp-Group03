@@ -1,6 +1,7 @@
 package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.DomainAPI;
+import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
 import bugtrap03.bugdomain.notificationdomain.Subject;
@@ -162,6 +163,29 @@ public class Mailbox extends AbstractMailbox<Subject> {
         this.addBox(cmb);
         return cmb;
     }
+
+    public MilestoneMailbox milestoneSubscribe(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
+        MilestoneMailbox mmb =  new MilestoneMailbox(abstractSystemSubject);
+        abstractSystemSubject.addMilestoneSub(mmb);
+        this.addBox(mmb);
+        return mmb;
+    }
+
+    public MilestoneMailbox milestoneSubscribe(AbstractSystemSubject abstractSystemSubject, Milestone  milestone) throws IllegalArgumentException{
+        MilestoneMailbox mmb = new MilestoneMailbox(milestone, abstractSystemSubject);
+        abstractSystemSubject.addMilestoneSub(mmb);
+        this.addBox(mmb);
+        return mmb;
+    }
+
+    public VersionIDMailbox versionIDSubscribe(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
+        VersionIDMailbox vimb = new VersionIDMailbox(abstractSystemSubject);
+        abstractSystemSubject.addVersionIdSub(vimb);
+        this.addBox(vimb);
+        return vimb;
+    }
+
+    //TODO add new boex + add them to the subject.
 
     /**
      * This method unsubscribes the mailbox by deleting the mailbox representing the subscription.
