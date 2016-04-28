@@ -22,6 +22,10 @@ public class VersionIDMailbox extends SubjectMailbox<AbstractSystem, AbstractSys
         super(abstractSystemSubject);
     }
 
+    /**
+     * This method returns the information about the subscription this mailbox represents.
+     * @return A string containing info.
+     */
     @Override
     public String getInfo() {
         StringBuilder info = new StringBuilder ("You are subscribed to the change of VersionIDs on ");
@@ -30,8 +34,18 @@ public class VersionIDMailbox extends SubjectMailbox<AbstractSystem, AbstractSys
         return info.toString();
     }
 
+    /**
+     * This method updates the mailbox with a new notification about the changed object.
+     * @param changedObject The object of interest that has been changed.
+     *
+     * @return The new notification.
+     * @throws IllegalArgumentException if the changed object is null.
+     */
     @Override
-    public Notification update(AbstractSystem changedObject) {
+    public Notification update(AbstractSystem changedObject) throws IllegalArgumentException {
+        if(changedObject == null){
+            throw new IllegalArgumentException("changed object cannot be null to update a mailbox");
+        }
         StringBuilder message = new StringBuilder("\tThe VersionID ");
         message.append(changedObject.getVersionID().toString());
         message.append(" has been set on: ");
