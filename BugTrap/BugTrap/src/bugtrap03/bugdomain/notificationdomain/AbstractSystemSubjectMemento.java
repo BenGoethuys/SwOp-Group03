@@ -1,6 +1,5 @@
 package bugtrap03.bugdomain.notificationdomain;
 
-import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
 import purecollections.PList;
 
