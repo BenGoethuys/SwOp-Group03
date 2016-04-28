@@ -114,6 +114,7 @@ public class Mailbox extends AbstractMailbox<Subject> {
      *
      * @param subject The subject for the subscription.
      * @param tags The tags for which the subscription is interested.
+     * @return The created mailbox
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see TagMailBox#TagMailBox(Subject, EnumSet)
      */
@@ -128,6 +129,7 @@ public class Mailbox extends AbstractMailbox<Subject> {
      * This method makes a subscription to a subject for all the tags on the bugreports related to that subject.
      *
      * @param subject The subject for the subscription.
+     * @return The created mailbox
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see #tagSubscribe(Subject, EnumSet)
      */
@@ -140,6 +142,7 @@ public class Mailbox extends AbstractMailbox<Subject> {
      * This method makes a subscription to a subject for the creation of a comment on that subject.
      *
      * @param subject The subject for the subscription.
+     * @return The created mailbox
      * @throws IllegalArgumentException if the subject is invalid
      * @see CommentMailBox#CommentMailBox(Subject)
      */
@@ -154,6 +157,7 @@ public class Mailbox extends AbstractMailbox<Subject> {
      * This method makes a subscription to a subject for the creation of bugreport on that subject.
      *
      * @param abstractSystemSubject The subject for the subscription
+     * @return The created mailbox
      * @throws IllegalArgumentException if the subject is invalid
      * @see CreationMailBox#CreationMailBox(AbstractSystemSubject)
      */
@@ -164,6 +168,13 @@ public class Mailbox extends AbstractMailbox<Subject> {
         return cmb;
     }
 
+    /**
+     * This method makes a sbuscription to a subject for the change of milestone on (a subsystem of) that subject.
+     * @param abstractSystemSubject The subject for the subscription
+     * @return The created mailbox
+     * @throws IllegalArgumentException if the subect is invalid
+     * @see MilestoneMailbox#MilestoneMailbox(AbstractSystemSubject)
+     */
     public MilestoneMailbox milestoneSubscribe(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
         MilestoneMailbox mmb =  new MilestoneMailbox(abstractSystemSubject);
         abstractSystemSubject.addMilestoneSub(mmb);
@@ -171,6 +182,14 @@ public class Mailbox extends AbstractMailbox<Subject> {
         return mmb;
     }
 
+    /**
+     * This method makes a sbuscription to a subject for the change of a specific milestone on (a subsystem of) that subject.
+     * @param abstractSystemSubject The subject for the subscription
+     * @param milestone The milestone to subscribe upon
+     * @return The created mailbox
+     * @throws IllegalArgumentException if the subect is invalid
+     * @see MilestoneMailbox#MilestoneMailbox(AbstractSystemSubject)
+     */
     public MilestoneMailbox milestoneSubscribe(AbstractSystemSubject abstractSystemSubject, Milestone  milestone) throws IllegalArgumentException{
         MilestoneMailbox mmb = new MilestoneMailbox(milestone, abstractSystemSubject);
         abstractSystemSubject.addMilestoneSub(mmb);
@@ -178,6 +197,13 @@ public class Mailbox extends AbstractMailbox<Subject> {
         return mmb;
     }
 
+    /**
+     * This method makes a sbuscription to a subject for the change of versionID on (a subsystem of) that subject.
+     * @param abstractSystemSubject The subject for the subscription
+     * @return The created mailbox
+     * @throws IllegalArgumentException if the subect is invalid
+     * @see VersionIDMailbox#VersionIDMailbox(AbstractSystemSubject)
+     */
     public VersionIDMailbox versionIDSubscribe(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
         VersionIDMailbox vimb = new VersionIDMailbox(abstractSystemSubject);
         abstractSystemSubject.addVersionIdSub(vimb);
