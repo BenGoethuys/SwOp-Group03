@@ -577,6 +577,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
 	this.updateCreationSubs(br);
     }
 
+	//TODO add notify milestone, version and fork subs in the right places!
+
     /**
      * This method sets the isTerminated boolean of this object
      *
