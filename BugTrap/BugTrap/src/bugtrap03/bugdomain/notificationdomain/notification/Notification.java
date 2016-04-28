@@ -8,7 +8,7 @@ import bugtrap03.bugdomain.usersystem.User;
  * @author Group 03
  */
 @DomainAPI
-public abstract class Notification {
+public class Notification {
 
     public Notification(String message, Subject subject) {
         this.setSubject(subject);
