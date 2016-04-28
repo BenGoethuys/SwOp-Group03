@@ -94,10 +94,7 @@ public abstract class Subject {
                 throw new IllegalArgumentException("Incvalid tagMailBox");
             }
         }
-        
-        for(TagMailBox tmb : tmbs) {
-            this.addTagSub(tmb);
-        }
+        this.tagSubs = this.tagSubs.plusAll(tmbs);
     }
 
     /**
@@ -150,10 +147,7 @@ public abstract class Subject {
                 throw new IllegalArgumentException("Invalid commentMailBox");
             }
         }
-        
-        for(CommentMailBox cmb : cmbs) {
-            addCommentSub(cmb);
-        }
+        this.commentSubs = this.commentSubs.plusAll(cmbs);
     }
 
     /**
