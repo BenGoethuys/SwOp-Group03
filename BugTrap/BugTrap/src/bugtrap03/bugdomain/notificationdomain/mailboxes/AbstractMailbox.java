@@ -9,7 +9,7 @@ import purecollections.PList;
 /**
  * @author Group 03
  */
-public abstract class AbstractMailbox<P extends Subject, Q extends Notification> {
+public abstract class AbstractMailbox<P extends Subject> {
 
     public AbstractMailbox() throws IllegalArgumentException{
         this.notifications = PList.<Notification>empty();
@@ -18,20 +18,6 @@ public abstract class AbstractMailbox<P extends Subject, Q extends Notification>
 
     private PList<Notification> notifications;
     protected boolean isTerminated;
-
-    /**
-     * This method check if a given subject is valid or not.
-     *
-     * @param subj The subject to test it's validity.
-     *
-     * @return True if the subject is not null.
-     */
-    public boolean isValidSubject(Subject subj){
-        if (subj == null){
-            return false;
-        }
-        return true;
-    }
 
     /**
      * This method returns the specific notifications belonging to this mailbox.
@@ -69,7 +55,7 @@ public abstract class AbstractMailbox<P extends Subject, Q extends Notification>
      * @return The added notification.
      */
     @DomainAPI
-    public abstract Q update(P changedObject);
+    public abstract Notification update(P changedObject);
 
     /**
      * This method sets the terminated status to false;

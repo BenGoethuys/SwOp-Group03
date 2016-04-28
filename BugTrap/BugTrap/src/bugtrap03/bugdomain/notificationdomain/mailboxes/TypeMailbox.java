@@ -10,7 +10,7 @@ import bugtrap03.bugdomain.notificationdomain.Subject;
  * (bugreport creation or version id adjustment)
  * @author Group 03
  */
-public abstract class ASTypeMailbox<P extends Subject, Q extends Notification> extends AsSubjAbstractMailbox<P,Q> {
+public abstract class TypeMailbox<P extends Subject, Q extends Notification> extends 9<P,Q> {
     /**
      * The constructor for a mailbox subscription of a given type to
      * a given abstract system asSubject.

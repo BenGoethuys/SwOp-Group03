@@ -11,7 +11,7 @@ import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification
  * @author Group 03
  */
 @DomainAPI
-public class CreationMailBox extends ASTypeMailbox<BugReport, BugReportNotification> {
+public class CreationMailBox extends TypeMailbox<BugReport, BugReportNotification> {
 
     /**
      * The constructor for a mailbox subscription to the
@@ -19,7 +19,7 @@ public class CreationMailBox extends ASTypeMailbox<BugReport, BugReportNotificat
      *
      * @param subj The subject on which the mailbox subscribes.
      * @throws IllegalArgumentException if the subject is invalid
-     * @see ASTypeMailbox#ASTypeMailbox(AbstractSystemSubject, MailboxType)
+     * @see TypeMailbox#ASTypeMailbox(AbstractSystemSubject, MailboxType)
      */
     public CreationMailBox(AbstractSystemSubject subj) throws IllegalArgumentException {
         super(subj, MailboxType.CREATION_BUGREP);
