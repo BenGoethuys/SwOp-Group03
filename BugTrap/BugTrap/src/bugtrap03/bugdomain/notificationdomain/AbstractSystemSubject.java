@@ -128,6 +128,12 @@ public abstract class AbstractSystemSubject extends Subject {
         }
     }
 
+    /**
+     * This method adds a versionID mailbox to the list of subscription on versionID changes of this subject.
+     * @param vimb The milestone mailbox to add.
+     * @throws IllegalArgumentException if the given mailbox is invalid
+     * @see #isValidMb(AbstractMailbox)
+     */
     public void addVersionIdSub(VersionIDMailbox vimb) throws IllegalArgumentException{
         if (! isValidMb(vimb)){
             throw new IllegalStateException("The given versionID mailbox is invalid");
@@ -135,6 +141,12 @@ public abstract class AbstractSystemSubject extends Subject {
         this.versionIdSubs = this.versionIdSubs.plus(vimb);
     }
 
+    /**
+     * This method adds a collection versionID mailboxes to the list of subscription on versionID changes of this subject.
+     * @param vimbs The collection of milestone mailboxes to add.
+     * @throws IllegalArgumentException if one of the given mailboxes is invalid
+     * @see #isValidMb(AbstractMailbox)
+     */
     public void addVersionIdSub(Collection<VersionIDMailbox> vimbs) throws IllegalArgumentException{
         for (VersionIDMailbox vimb:vimbs) {
             if (!isValidMb(vimb)) {
@@ -144,10 +156,18 @@ public abstract class AbstractSystemSubject extends Subject {
         this.versionIdSubs = this.versionIdSubs.plusAll(vimbs);
     }
 
+    /**
+     * This method returns the list versionID mailboxes for this abstract sytem subject
+     * @return The Plist of versionID mailboxes.
+     */
     public PList<VersionIDMailbox> getVersionIdSubs(){
         return this.versionIdSubs;
     }
 
+    /**
+     * This method updates all the versionID mailboxes.
+     * @param as The abstract system of which the versionId has changed
+     */
     public void updateVersionIdSubs(AbstractSystem as){
         for (VersionIDMailbox vimb: this.versionIdSubs){
             vimb.update(as);
