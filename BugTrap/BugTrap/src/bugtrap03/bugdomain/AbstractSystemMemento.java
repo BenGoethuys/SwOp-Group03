@@ -16,7 +16,7 @@ import purecollections.PList;
  */
 public class AbstractSystemMemento extends AbstractSystemSubjectMemento {
     
-    AbstractSystemMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailBox> commentMailBoxes,
+    public AbstractSystemMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailBox> commentMailBoxes,
                           PList<CreationMailBox> creationMailBoxes, PList<MilestoneMailbox> milestoneMailboxes,
                           PList<VersionIDMailbox> versionIDMailboxes, VersionID versionID, String name,
                           String description, PList<Subsystem> children, AbstractSystem parent,
