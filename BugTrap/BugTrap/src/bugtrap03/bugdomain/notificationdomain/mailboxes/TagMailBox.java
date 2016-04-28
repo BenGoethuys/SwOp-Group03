@@ -4,8 +4,6 @@ import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.Subject;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.SubjAbstractMailbox;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 
 import java.util.EnumSet;
@@ -16,7 +14,7 @@ import java.util.EnumSet;
  * @author Group 03
  */
 @DomainAPI
-public class TagMailBox extends SubjAbstractMailbox<BugReport,BugReportNotification> {
+public class TagMailBox extends SubjectMailbox<BugReport, Subject> {
 
     /**
      * The constructor for a new mailbox subscription to the change of tag to a given tag on the subject.
