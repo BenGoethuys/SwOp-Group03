@@ -80,7 +80,12 @@ public abstract class Notification {
     }
 
     @DomainAPI
-    public abstract String open(User user);
+    public String open(User user){
+        StringBuilder message = new StringBuilder(this.message);
+        message.append("\n\tThis notification originated from the subscription on: ");
+        message.append(subject.getSubjectName());
+        return message.toString();
+    }
 
     @Override
     public boolean equals(Object object){
