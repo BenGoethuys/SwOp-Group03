@@ -613,7 +613,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
 		this.getParent().notifyVersionIDsubs(as);
 	}
 
-	//TODO add notify milestone, version and fork subs in the right places!
+	//TODO call notify milestone, version and fork subs in the right places!
 
     /**
      * This method sets the isTerminated boolean of this object
