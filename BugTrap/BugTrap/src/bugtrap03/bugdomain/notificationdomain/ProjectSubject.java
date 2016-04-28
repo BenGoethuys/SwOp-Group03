@@ -6,7 +6,6 @@ import bugtrap03.bugdomain.notificationdomain.mailboxes.ForkMailbox;
 import purecollections.PList;
 
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  * @author Group 03
@@ -76,7 +75,7 @@ public abstract class ProjectSubject extends AbstractSystem {
 
     /**
      * This method notifies the fork sbs of this project method that a project has been forked.
-     * @param project
+     * @param project The newly forked project.
      */
     @DomainAPI
     public void notifyForkSubs(Project project){
