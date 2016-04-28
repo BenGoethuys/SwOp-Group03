@@ -72,7 +72,8 @@ public class BugReportNotification extends Notification {
         if (! bugReport.isVisibleTo(user)){
             return " \tThis notification is closed for you at the moment.";
         }
-        StringBuilder message = new StringBuilder(bugReport.getTitle());
+        StringBuilder message = new StringBuilder("\t");
+        message.append(bugReport.getSubjectName());
         message.append(super.open(user));
         return message.toString();
     }

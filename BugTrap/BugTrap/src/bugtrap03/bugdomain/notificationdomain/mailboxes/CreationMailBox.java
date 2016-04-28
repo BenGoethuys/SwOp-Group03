@@ -47,7 +47,7 @@ public class CreationMailBox extends SubjectMailbox<BugReport, AbstractSystemSub
      */
     @Override
     public BugReportNotification update(BugReport bugReport){
-        BugReportNotification newNotif = new BugReportNotification("\tThe following bugreport has been created: ", bugReport, this.subject);
+        BugReportNotification newNotif = new BugReportNotification(" has been created.", bugReport, this.subject);
         this.addNotification(newNotif);
         return newNotif;
     }

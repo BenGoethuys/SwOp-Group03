@@ -25,20 +25,6 @@ public class CommentMailBox extends SubjectMailbox<BugReport, Subject> {
     }
 
     /**
-     * This method updates the notifications list with a new notification if a comment on a bugreport has been created.
-     *
-     * @param bugReport The bugreport on which a comment has been created.
-     *
-     * @return The added notification.
-     */
-    @Override
-    public BugReportNotification update(BugReport bugReport){
-        BugReportNotification newNotif = new BugReportNotification("\tThe following bugreport has been commented upon: ", bugReport, this.subject);
-        this.addNotification(newNotif);
-        return newNotif;
-    }
-
-    /**
      * This method returns a String representation of the mailbox information.
      *
      * NOTE: This constructor should be only called by {@link Mailbox#commentSubscribe(Subject)} for correct coupling.
@@ -52,5 +38,19 @@ public class CommentMailBox extends SubjectMailbox<BugReport, Subject> {
         message.append("You are subscribed to the creation of comments on ");
         message.append(this.subject.getSubjectName());
         return message.toString();
+    }
+
+    /**
+     * This method updates the notifications list with a new notification if a comment on a bugreport has been created.
+     *
+     * @param bugReport The bugreport on which a comment has been created.
+     *
+     * @return The added notification.
+     */
+    @Override
+    public BugReportNotification update(BugReport bugReport){
+        BugReportNotification newNotif = new BugReportNotification(" has been commented upon: ", bugReport, this.subject);
+        this.addNotification(newNotif);
+        return newNotif;
     }
 }
