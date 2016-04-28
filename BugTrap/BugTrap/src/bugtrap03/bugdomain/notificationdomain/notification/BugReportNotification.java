@@ -18,7 +18,9 @@ public class BugReportNotification extends Notification {
      * @param notification The string message for this notification
      * @param bugReport The bugreport of which an attribute has changed.
      * @param subject The subject from the subscription that creates the notification.
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if one of the given parameters is invalid
+     * @see #isValidBugReport(BugReport)
+     * @see super#Notification(String, Subject)
      */
     public BugReportNotification(String notification, BugReport bugReport, Subject subject) throws IllegalArgumentException{
         super(notification, subject);
