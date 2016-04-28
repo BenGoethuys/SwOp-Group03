@@ -15,7 +15,7 @@ import java.util.EnumSet;
  * @author Group 03
  */
 @DomainAPI
-public class Mailbox extends AbstractMailbox<Subject, Notification> {
+public class Mailbox extends AbstractMailbox<Subject> {
 
     /**
      * The constructor for a general mailbox.
