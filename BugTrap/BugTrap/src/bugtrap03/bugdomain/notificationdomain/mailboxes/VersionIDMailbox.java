@@ -1,31 +1,40 @@
 package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.AbstractSystem;
+import bugtrap03.bugdomain.notificationdomain.Subject;
 import bugtrap03.bugdomain.notificationdomain.notification.ASNotification;
 import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 
 /**
  * This class represents a subscription to the update of a versionID
  * @author Group 03
  */
-public class VersionIDMailbox extends TypeMailbox<AbstractSystem, ASNotification> {
+public class VersionIDMailbox extends SubjectMailbox<AbstractSystem, AbstractSystemSubject>{
 
     /**
      * This is the constructor of a mailbox that represents the subscription
      * on the update of VersionID's under the given abstract system subject
      * @param abstractSystemSubject The subject of the subscriptionystem
-     * @throws IllegalArgumentException if the given absytractSubject is invalid
-     * @see TypeMailbox#ASTypeMailbox(AbstractSystemSubject, MailboxType)
+     * @throws IllegalArgumentException if the given abstractSubject is invalid
+     * @see #isValidSubject(Subject)
      */
     public VersionIDMailbox(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
-        super(abstractSystemSubject, MailboxType.VERSIONID_UPDATE);
+        super(abstractSystemSubject);
     }
 
     @Override
-    public ASNotification update(AbstractSystem changedObject) {
-        ASNotification newNotif = new ASNotification(
-                ("The VersionID " + changedObject.getVersionID().toString() + " has been set on: "),
-                changedObject, this.subject);
+    public String getInfo() {
+        return null;
+    }
+
+    @Override
+    public Notification update(AbstractSystem changedObject) {
+        StringBuilder message = new StringBuilder("\tThe VersionID ");
+        message.append(changedObject.getVersionID().toString());
+        message.append(" has been set on: ");
+        message.append(changedObject.getSubjectName());
+        Notification newNotif = new Notification(message.toString(), this.subject);
         this.addNotification(newNotif);
         return newNotif;
     }
