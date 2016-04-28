@@ -134,7 +134,7 @@ public abstract class AbstractSystemSubject extends Subject {
      * @throws IllegalArgumentException if the given mailbox is invalid
      * @see #isValidMb(AbstractMailbox)
      */
-    public void addVersionIdSub(VersionIDMailbox vimb) throws IllegalArgumentException{
+    public void addVersionIDSub(VersionIDMailbox vimb) throws IllegalArgumentException{
         if (! isValidMb(vimb)){
             throw new IllegalStateException("The given versionID mailbox is invalid");
         }
@@ -147,7 +147,7 @@ public abstract class AbstractSystemSubject extends Subject {
      * @throws IllegalArgumentException if one of the given mailboxes is invalid
      * @see #isValidMb(AbstractMailbox)
      */
-    public void addVersionIdSub(Collection<VersionIDMailbox> vimbs) throws IllegalArgumentException{
+    public void addVersionIDSub(Collection<VersionIDMailbox> vimbs) throws IllegalArgumentException{
         for (VersionIDMailbox vimb:vimbs) {
             if (!isValidMb(vimb)) {
                 throw new IllegalStateException("The given versionID mailbox is invalid");
@@ -160,7 +160,7 @@ public abstract class AbstractSystemSubject extends Subject {
      * This method returns the list versionID mailboxes for this abstract sytem subject
      * @return The Plist of versionID mailboxes.
      */
-    public PList<VersionIDMailbox> getVersionIdSubs(){
+    public PList<VersionIDMailbox> getVersionIDSubs(){
         return this.versionIdSubs;
     }
 
@@ -168,7 +168,7 @@ public abstract class AbstractSystemSubject extends Subject {
      * This method updates all the versionID mailboxes.
      * @param as The abstract system of which the versionId has changed
      */
-    public void updateVersionIdSubs(AbstractSystem as){
+    public void updateVersionIDSubs(AbstractSystem as){
         for (VersionIDMailbox vimb: this.versionIdSubs){
             vimb.update(as);
         }
@@ -209,4 +209,11 @@ public abstract class AbstractSystemSubject extends Subject {
      * @param as The abstract system of which the milestone has been updated.
      */
     public abstract void notifyMilestoneSubs(AbstractSystem as);
+
+    /**
+     * This abstract method lets subjects notify subjects higher in the hierarchy to update their versionIDsubs.
+     *
+     * @param as The abstract system of which the versionID has been updated.
+     */
+    public abstract void notifyVersionIDsubs(AbstractSystem as);
 }

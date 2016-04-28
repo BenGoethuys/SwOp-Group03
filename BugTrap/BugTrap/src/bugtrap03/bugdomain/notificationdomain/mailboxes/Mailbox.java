@@ -206,7 +206,7 @@ public class Mailbox extends AbstractMailbox<Subject> {
      */
     public VersionIDMailbox versionIDSubscribe(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
         VersionIDMailbox vimb = new VersionIDMailbox(abstractSystemSubject);
-        abstractSystemSubject.addVersionIdSub(vimb);
+        abstractSystemSubject.addVersionIDSub(vimb);
         this.addBox(vimb);
         return vimb;
     }
