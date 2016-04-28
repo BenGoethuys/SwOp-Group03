@@ -1,16 +1,20 @@
 package bugtrap03.bugdomain.notificationdomain;
 
+import bugtrap03.bugdomain.*;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
 import purecollections.PList;
 
 /**
  * @author Group 03
  */
-public class ProjectSubjectMemento extends AbstractSystemSubjectMemento {
-    protected ProjectSubjectMemento(PList<TagMailBox> tagSubs, PList<CommentMailBox> commentSubs,
+public class ProjectSubjectMemento extends AbstractSystemMemento {
+
+    public ProjectSubjectMemento(PList<TagMailBox> tagSubs, PList<CommentMailBox> commentSubs,
                                     PList<CreationMailBox> creationSubs, PList<MilestoneMailbox> milestoneSubs,
-                                    PList<VersionIDMailbox> versionIDSubs, PList<ForkMailbox> forkSubs) {
-        super(tagSubs, commentSubs, creationSubs, milestoneSubs, versionIDSubs);
+                                    PList<VersionIDMailbox> versionIDSubs, VersionID versionID, String name, String description, PList<Subsystem> children,
+                                    AbstractSystem parent, Milestone milestone, boolean isTerminated, PList<ForkMailbox> forkSubs) {
+        super(tagSubs, commentSubs, creationSubs, milestoneSubs, versionIDSubs, versionID, name,
+                description, children, parent, milestone, isTerminated);
         this.forkSubs = forkSubs;
     }
 
