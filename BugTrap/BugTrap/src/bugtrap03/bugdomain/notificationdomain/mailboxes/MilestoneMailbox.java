@@ -3,12 +3,12 @@ package bugtrap03.bugdomain.notificationdomain.mailboxes;
 import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
-import bugtrap03.bugdomain.notificationdomain.notification.ASNotification;
+import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 
 /**
  * @author Group 03
  */
-public class MilestoneMailbox extends AsSubjAbstractMailbox<AbstractSystem, ASNotification> {
+public class MilestoneMailbox extends SubjectMailbox<AbstractSystem, AbstractSystemSubject> {
 
     public MilestoneMailbox(Milestone milestone, AbstractSystemSubject abstractSystemSubject) {
         super(abstractSystemSubject);
@@ -37,19 +37,16 @@ public class MilestoneMailbox extends AsSubjAbstractMailbox<AbstractSystem, ASNo
     }
 
     @Override
-    public ASNotification update(AbstractSystem changedObject) throws IllegalArgumentException {
+    public Notification update(AbstractSystem changedObject) throws IllegalArgumentException {
         if(changedObject == null){
             throw new IllegalArgumentException("changed object cannot be null to update a mailbox");
         }
-        ASNotification asNotification;
+        Notification asNotification;
         if(this.milestone == null){
-            asNotification = new ASNotification(
-                    ("The milestone " + changedObject.getMilestone().toString() + " has been set on: "),
-                    changedObject, this.subject);
+            asNotification = new Notification(("The milestone " + changedObject.getMilestone().toString() + " has been set on: "), this.subject);
         } else{
             if (this.milestone == changedObject.getMilestone()){
-                asNotification = new ASNotification("The milestone " + this.milestone.toString() + " has been set on: ",
-                        changedObject, this.subject);
+                asNotification = new Notification("The milestone " + this.milestone.toString() + " has been set on: ", this.subject);
 
             } else{
                 asNotification = null;
