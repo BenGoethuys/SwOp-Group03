@@ -79,7 +79,7 @@ public class TagMailBox extends SubjectMailbox<BugReport, Subject> {
     public BugReportNotification update(BugReport bugReport){
         StringBuilder message = new StringBuilder();
         if (this.tags.contains(bugReport.getTag())) {
-            message.append("The tag ");
+            message.append("\tThe tag ");
             message.append(bugReport.getTag());
             message.append(" has been set on ");
             BugReportNotification newNotif = new BugReportNotification(message.toString(), bugReport, this.subject);
