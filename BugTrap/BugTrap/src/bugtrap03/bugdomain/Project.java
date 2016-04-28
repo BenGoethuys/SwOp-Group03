@@ -579,8 +579,7 @@ public class Project extends ProjectSubject {
     }
 
     /**
-     * This method notifies the subsystem it belongs to, to update it's mailboxes for a tag subscription and to notify
-     * its parent.
+     * This method notifies the project it belongs to, to update it's mailboxes for a tag subscription.
      *
      * @param br The bugreport of which an attribute has changed.
      */
@@ -590,8 +589,7 @@ public class Project extends ProjectSubject {
     }
 
     /**
-     * This method notifies the subsystem it belongs to, to update it's mailboxes for a comment subscription and to
-     * notify its parent.
+     * This method notifies the project it belongs to, to update it's mailboxes for a comment subscription.
      *
      * @param br The bugreport of which an attribute has changed.
      */
@@ -601,8 +599,7 @@ public class Project extends ProjectSubject {
     }
 
     /**
-     * This method notifies the subsystem it belongs to, to update it's mailboxes for a creation subscription and to
-     * notify its parent.
+     * This method notifies the project it belongs to, to update it's mailboxes for a creation subscription.
      *
      * @param br The bugreport of which an attribute has changed.
      */
@@ -610,6 +607,28 @@ public class Project extends ProjectSubject {
     public void notifyCreationSubs(BugReport br) {
         this.updateCreationSubs(br);
     }
+
+    /**
+     * This method notifies the project it belongs to, to update it's mailboxes for a milestone subscription.
+     *
+     * @param as The abstract system of which the milestone has been updated.
+     */
+    @Override
+    public void notifyMilestoneSubs(AbstractSystem as) {
+        this.updateMilestoneSubs(as);
+    }
+
+    /**
+     * This method notifies the project it belongs to, to update it's mailboxes for a versionID subscription.
+     *
+     * @param as The abstract system of which the milestone has been updated.
+     */
+    @Override
+    public void notifyVersionIDsubs(AbstractSystem as) {
+        this.updateVersionIDSubs(as);
+    }
+
+    //TODO add fork subs in the right places!
 
     /**
      * This method check whether or not the current Project is terminated
@@ -629,8 +648,8 @@ public class Project extends ProjectSubject {
      */
     @Override
     public ProjectMemento getMemento() {
-        return new ProjectMemento(getTagSubs(), getCommentSubs(), getCreationSubs(), getVersionID(), getName(), getDescription(), getSubsystems(), getParent(), 
-                getMilestone(), getCreationDate(), getStartDate(), this.projectParticipants, this.budgetEstimate, 
+        return new ProjectMemento(getTagSubs(), getCommentSubs(), getCreationSubs(), getMilestoneSubs(), getVersionIDSubs(), getVersionID(), getName(), getDescription(), getSubsystems(), getParent(),
+                getMilestone(), getForkSubs(), getCreationDate(), getStartDate(), this.projectParticipants, this.budgetEstimate,
                 this.isTerminated);
     }
 
