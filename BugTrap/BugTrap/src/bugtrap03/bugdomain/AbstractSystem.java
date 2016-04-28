@@ -616,7 +616,9 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      */
     @Override
     public AbstractSystemMemento getMemento() {
-        return new AbstractSystemMemento(this.getTagSubs(), this.getCommentSubs(), this.getCreationSubs(), this.version, this.name, this.description, this.childs, this.parent, this.milestone, this.isTerminated);
+        return new AbstractSystemMemento(this.getTagSubs(), this.getCommentSubs(), this.getCreationSubs(),
+				this.getMilestoneSubs(), this.getVersionIDSubs(), this.version, this.name, this.description,
+				this.childs, this.parent, this.milestone, this.isTerminated);
     }
 
     /**
