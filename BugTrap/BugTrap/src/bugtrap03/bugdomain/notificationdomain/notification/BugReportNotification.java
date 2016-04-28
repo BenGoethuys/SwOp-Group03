@@ -86,20 +86,14 @@ public class BugReportNotification extends Notification {
      */
     @Override
     public boolean equals(Object object){
-        if (object == null){
+        if (! super.equals(object)){
             return false;
         }
-        if (! (object instanceof BugReportNotification)){
+        if (!(object instanceof BugReportNotification)){
             return false;
         }
         BugReportNotification bugReportNotification = (BugReportNotification) object;
-        if (this.subject != bugReportNotification.subject){
-            return false;
-        }
         if (this.bugReport != bugReportNotification.bugReport){
-            return false;
-        }
-        if (! this.message.equals(bugReportNotification.message)){
             return false;
         }
         return true;
@@ -111,6 +105,6 @@ public class BugReportNotification extends Notification {
      */
     @Override
     public int hashCode() {
-        return ((((this.bugReport.hashCode() * 113) + this.subject.hashCode()) * 31) + this.message.hashCode());
+        return ((super.hashCode() * 31) + (this.bugReport.hashCode() * 113));
     }
 }
