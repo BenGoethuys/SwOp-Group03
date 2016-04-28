@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain.notificationdomain;
 
+import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import java.util.Collection;
@@ -18,10 +19,11 @@ public abstract class AbstractSystemSubject extends Subject {
     public AbstractSystemSubject(){
         super();
         this.creationSubs = PList.<CreationMailBox>empty();
+        this.milestoneSubs = PList.<MilestoneMailbox>empty();
     }
 
     private PList<CreationMailBox> creationSubs;
-    private PList<MilestoneMailbox> milestonSubs;
+    private PList<MilestoneMailbox> milestoneSubs;
 
     /**
      * This method updates all the mailboxes subscribed on a AbstractSystem creation on this subject.
@@ -78,6 +80,34 @@ public abstract class AbstractSystemSubject extends Subject {
         this.creationSubs = this.creationSubs.plusAll(cmbs);
     }
 
+    public void addMilestoneSub(MilestoneMailbox mmb){
+        if (! isValidMb(mmb)){
+            throw new IllegalArgumentException("The milestone mailbox is invalid");
+        }
+        this.milestoneSubs = this.milestoneSubs.plus(mmb);
+    }
+
+    public void addMilestoneSub(Collection<MilestoneMailbox> mmbs) throws IllegalArgumentException{
+            for (MilestoneMailbox mmb: mmbs) {
+                if (!isValidMb(mmb)) {
+                    throw new IllegalArgumentException("The milestone mailbox from the given collection is invalid");
+                }
+            }
+        this.milestoneSubs = this.milestoneSubs.plusAll(mmbs);
+    }
+
+    public PList<MilestoneMailbox> getMilestoneSubs(){
+        return this.milestoneSubs;
+    }
+
+    public void updateMilestoneSubs(AbstractSystem as){
+        for (MilestoneMailbox mmb: this.getMilestoneSubs()){
+            mmb.update(as);
+        }
+    }
+
+
+
         /**
      * The method returns the memento for this AbstractSystemSubject.
      *
@@ -99,9 +129,16 @@ public abstract class AbstractSystemSubject extends Subject {
     }
 
     /**
-     * This abstract method lets subjects notify subjects higher in the hierarchy.
+     * This abstract method lets subjects notify subjects higher in the hierarchy to update their creation subs;
      *
-     * @param br The bugreport of which an attribute has changed.
+     * @param br The bugreport that has been created.
      */
     public abstract void notifyCreationSubs(BugReport br);
+
+    /**
+     * This abstract method lets subjects notify subjects higher in the hierarchy to update their milestonsubs.
+     *
+     * @param as The abstract system of which the milestone has been updated.
+     */
+    public abstract void notifyMilestoneSubs(AbstractSystem as);
 }
