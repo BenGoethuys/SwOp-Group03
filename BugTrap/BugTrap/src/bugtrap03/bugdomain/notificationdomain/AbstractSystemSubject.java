@@ -5,6 +5,7 @@ import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import java.util.Collection;
 
+import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
@@ -80,13 +81,25 @@ public abstract class AbstractSystemSubject extends Subject {
         this.creationSubs = this.creationSubs.plusAll(cmbs);
     }
 
-    public void addMilestoneSub(MilestoneMailbox mmb){
+    /**
+     * This method adds a milestone mailbox to the list of subscription on milestone changes of this subject.
+     * @param mmb The milestone mailbox to add.
+     * @throws IllegalArgumentException if the given mailbox is invalid
+     * @see #isValidMb(AbstractMailbox)
+     */
+    public void addMilestoneSub(MilestoneMailbox mmb) throws IllegalArgumentException{
         if (! isValidMb(mmb)){
             throw new IllegalArgumentException("The milestone mailbox is invalid");
         }
         this.milestoneSubs = this.milestoneSubs.plus(mmb);
     }
 
+    /**
+     * this method adds a collection of milestone mailboxes to the subscribers list of this subject.
+     * @param mmbs The collection of milestone mailboxes.
+     * @throws IllegalArgumentException If one of the mailboxes is invalid.
+     * @see #isValidMb(AbstractMailbox)
+     */
     public void addMilestoneSub(Collection<MilestoneMailbox> mmbs) throws IllegalArgumentException{
             for (MilestoneMailbox mmb: mmbs) {
                 if (!isValidMb(mmb)) {
@@ -96,10 +109,18 @@ public abstract class AbstractSystemSubject extends Subject {
         this.milestoneSubs = this.milestoneSubs.plusAll(mmbs);
     }
 
+    /**
+     * This method returns the list of mailboxes representing subscriptions to milestone changes on this subject.
+     * @return A Plist of milestone mailboxes.
+     */
     public PList<MilestoneMailbox> getMilestoneSubs(){
         return this.milestoneSubs;
     }
 
+    /**
+     * This method updates the milestone mailboxes.
+     * @param as The abstract system of which the milestone has been changed.
+     */
     public void updateMilestoneSubs(AbstractSystem as){
         for (MilestoneMailbox mmb: this.getMilestoneSubs()){
             mmb.update(as);
