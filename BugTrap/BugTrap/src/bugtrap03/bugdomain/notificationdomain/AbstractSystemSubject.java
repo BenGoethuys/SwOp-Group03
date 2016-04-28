@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
 import purecollections.PList;
 
 /**
@@ -20,6 +21,7 @@ public abstract class AbstractSystemSubject extends Subject {
     }
 
     private PList<CreationMailBox> creationSubs;
+    private PList<MilestoneMailbox> milestonSubs;
 
     /**
      * This method updates all the mailboxes subscribed on a AbstractSystem creation on this subject.
@@ -70,15 +72,12 @@ public abstract class AbstractSystemSubject extends Subject {
     public void addCreationSub(Collection<CreationMailBox> cmbs) {
         for (CreationMailBox cmb : cmbs) {
             if (!isValidMb(cmb)) {
-                throw new IllegalArgumentException("Incvalid CreationMailBox");
+                throw new IllegalArgumentException("Creationmailbox from collection to add to abstract system subject is invalid");
             }
         }
-
-        for (CreationMailBox cmb : cmbs) {
-            this.addCreationSub(cmb);
-        }
+        this.creationSubs = this.creationSubs.plusAll(cmbs);
     }
-    
+
         /**
      * The method returns the memento for this AbstractSystemSubject.
      *
