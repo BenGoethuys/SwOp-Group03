@@ -1,8 +1,7 @@
 package bugtrap03.bugdomain;
 
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.ProjectSubjectMemento;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
 import java.util.GregorianCalendar;
@@ -16,12 +15,16 @@ import purecollections.PList;
  *
  * @author Group 03
  */
-public class ProjectMemento extends AbstractSystemMemento {
+public class ProjectMemento extends ProjectSubjectMemento {
 
-    ProjectMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailBox> commentMailBoxes, PList<CreationMailBox> creationMailBoxes, VersionID versionID, String name, String description, PList<Subsystem> children,
-                   AbstractSystem parent, Milestone milestone, GregorianCalendar creationDate, GregorianCalendar startDate,
+    ProjectMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailBox> commentMailBoxes, PList<CreationMailBox> creationMailBoxes, PList<MilestoneMailbox> milestoneMailboxes,
+                   PList<VersionIDMailbox> versionIDMailboxes, VersionID versionID, String name, String description, PList<Subsystem> children,
+                   AbstractSystem parent, Milestone milestone, PList<ForkMailbox> forkSubs, GregorianCalendar creationDate, GregorianCalendar startDate,
                    HashMap<Developer, PList<Role>> projectParticipants, long budgetEstimate, boolean isTerminated) {
-        super(tagMailBoxes, commentMailBoxes, creationMailBoxes, versionID, name, description, children, parent, milestone, isTerminated);
+        super(tagMailBoxes, commentMailBoxes, creationMailBoxes, milestoneMailboxes, versionIDMailboxes, versionID, name,
+                description, children, parent, milestone, isTerminated, forkSubs);
+
+
         
         this.creationDate = (GregorianCalendar) creationDate.clone();
         this.startDate = (GregorianCalendar) startDate.clone();
