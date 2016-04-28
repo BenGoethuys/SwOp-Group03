@@ -2,7 +2,6 @@ package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.notificationdomain.Subject;
-import bugtrap03.bugdomain.notificationdomain.notification.ASNotification;
 import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
 import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 
@@ -25,7 +24,10 @@ public class VersionIDMailbox extends SubjectMailbox<AbstractSystem, AbstractSys
 
     @Override
     public String getInfo() {
-        return null;
+        StringBuilder info = new StringBuilder ("You are subscribed to the change of VersionIDs on ");
+        info.append(this.subject.getSubjectName());
+        info.append(" and all it's subsystems.");
+        return info.toString();
     }
 
     @Override
