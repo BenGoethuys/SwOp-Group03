@@ -183,7 +183,7 @@ public abstract class AbstractSystemSubject extends Subject {
      */
     @Override
     public AbstractSystemSubjectMemento getMemento() {
-        return new AbstractSystemSubjectMemento(getTagSubs(), getCommentSubs(), creationSubs);
+        return new AbstractSystemSubjectMemento(getTagSubs(), getCommentSubs(), creationSubs, milestoneSubs, versionIdSubs);
     }
     
     @Override
@@ -193,6 +193,8 @@ public abstract class AbstractSystemSubject extends Subject {
         if(mem instanceof AbstractSystemSubjectMemento) {
             AbstractSystemSubjectMemento aMem = (AbstractSystemSubjectMemento) mem;
             this.creationSubs = aMem.getCreationSubs();
+            this.milestoneSubs = aMem.getMilestoneSubs();
+            this.versionIdSubs = aMem.getVersionIDSubs();
         }
     }
 
