@@ -24,7 +24,7 @@ public class AbstractSystemSubjectMemento extends SubjectMemento {
     private final PList<VersionIDMailbox> versionIDSubs;
 
     /**
-     * This method returns the static list of creationsubs.
+     * This method returns the final list of creationsubs.
      * @return A Plist of creation mailboxes.
      */
     PList<CreationMailBox> getCreationSubs() {
@@ -32,13 +32,13 @@ public class AbstractSystemSubjectMemento extends SubjectMemento {
     }
 
     /**
-     * This method returns the static list of milestonesubs.
+     * This method returns the final list of milestonesubs.
      * @return A Plist of mileston mailboxes.
      */
     PList<MilestoneMailbox> getMilestoneSubs() { return this.milestoneSubs;}
 
     /**
-     * This method returns the static list of versionIDsubs.
+     * This method returns the final list of versionIDsubs.
      * @return A Plist of versionID mailboxes.
      */
     PList<VersionIDMailbox> getVersionIDSubs(){ return this.versionIDSubs;}
