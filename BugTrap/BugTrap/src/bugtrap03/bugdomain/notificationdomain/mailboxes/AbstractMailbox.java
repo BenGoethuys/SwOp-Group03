@@ -9,7 +9,7 @@ import purecollections.PList;
 /**
  * @author Group 03
  */
-public abstract class AbstractMailbox<P extends Subject> {
+public abstract class AbstractMailbox<UpdatedObjectClass extends Subject> {
 
     public AbstractMailbox() throws IllegalArgumentException{
         this.notifications = PList.<Notification>empty();
@@ -55,7 +55,7 @@ public abstract class AbstractMailbox<P extends Subject> {
      * @return The added notification.
      */
     @DomainAPI
-    public abstract Notification update(P changedObject);
+    public abstract Notification update(UpdatedObjectClass changedObject);
 
     /**
      * This method sets the terminated status to false;

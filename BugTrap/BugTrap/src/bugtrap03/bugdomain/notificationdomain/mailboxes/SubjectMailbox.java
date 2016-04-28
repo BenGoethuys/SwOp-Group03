@@ -1,20 +1,19 @@
 package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
-import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
 import bugtrap03.bugdomain.notificationdomain.Subject;
 import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 
 /**
  * Created by Kwinten on 28/04/2016.
  */
-public class SubjectMailbox<P extends Subject, Q extends Subject> extends AbstractMailbox<P> {
+public class SubjectMailbox<UpdatedObjectClass extends Subject, SubjectClass extends Subject> extends AbstractMailbox<UpdatedObjectClass> {
 
-    public SubjectMailbox(Q subject){
+    public SubjectMailbox(SubjectClass subject){
         super();
         this.setSubject(subject);
     }
 
-    protected Q subject;
+    protected SubjectClass subject;
 
     /**
      * This method sets the subject for this mailbox.
@@ -24,7 +23,7 @@ public class SubjectMailbox<P extends Subject, Q extends Subject> extends Abstra
      * @throws IllegalArgumentException If the given subject is invalid.
      * @see #isValidSubject(Subject)
      */
-    private void setSubject(Q subject) throws IllegalArgumentException{
+    private void setSubject(SubjectClass subject) throws IllegalArgumentException{
         if (! this.isValidSubject(subject)){
             throw new IllegalArgumentException("The given subject is not valid for this type of mailbox");
         }
@@ -51,7 +50,7 @@ public class SubjectMailbox<P extends Subject, Q extends Subject> extends Abstra
     }
 
     @Override
-    public Notification update(P changedObject) {
+    public Notification update(UpdatedObjectClass changedObject) {
         return null;
     }
 }
