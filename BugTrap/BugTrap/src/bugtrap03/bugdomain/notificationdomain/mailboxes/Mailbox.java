@@ -4,6 +4,7 @@ import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.ProjectSubject;
 import bugtrap03.bugdomain.notificationdomain.Subject;
 import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 import purecollections.PList;
@@ -169,10 +170,10 @@ public class Mailbox extends AbstractMailbox<Subject> {
     }
 
     /**
-     * This method makes a sbuscription to a subject for the change of milestone on (a subsystem of) that subject.
+     * This method makes a subscription to a subject for the change of milestone on (a subsystem of) that subject.
      * @param abstractSystemSubject The subject for the subscription
      * @return The created mailbox
-     * @throws IllegalArgumentException if the subect is invalid
+     * @throws IllegalArgumentException if the subject is invalid
      * @see MilestoneMailbox#MilestoneMailbox(AbstractSystemSubject)
      */
     public MilestoneMailbox milestoneSubscribe(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
@@ -183,11 +184,11 @@ public class Mailbox extends AbstractMailbox<Subject> {
     }
 
     /**
-     * This method makes a sbuscription to a subject for the change of a specific milestone on (a subsystem of) that subject.
+     * This method makes a subscription to a subject for the change of a specific milestone on (a subsystem of) that subject.
      * @param abstractSystemSubject The subject for the subscription
      * @param milestone The milestone to subscribe upon
      * @return The created mailbox
-     * @throws IllegalArgumentException if the subect is invalid
+     * @throws IllegalArgumentException if the subject is invalid
      * @see MilestoneMailbox#MilestoneMailbox(AbstractSystemSubject)
      */
     public MilestoneMailbox milestoneSubscribe(AbstractSystemSubject abstractSystemSubject, Milestone  milestone) throws IllegalArgumentException{
@@ -198,10 +199,10 @@ public class Mailbox extends AbstractMailbox<Subject> {
     }
 
     /**
-     * This method makes a sbuscription to a subject for the change of versionID on (a subsystem of) that subject.
+     * This method makes a subscription to a subject for the change of versionID on (a subsystem of) that subject.
      * @param abstractSystemSubject The subject for the subscription
      * @return The created mailbox
-     * @throws IllegalArgumentException if the subect is invalid
+     * @throws IllegalArgumentException if the subject is invalid
      * @see VersionIDMailbox#VersionIDMailbox(AbstractSystemSubject)
      */
     public VersionIDMailbox versionIDSubscribe(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
@@ -211,7 +212,19 @@ public class Mailbox extends AbstractMailbox<Subject> {
         return vimb;
     }
 
-    //TODO add new boex + add them to the subject.
+    /**
+     * This method makes a subscription to a subject for the forking of a project on (a subsystem of) that subject.
+     * @param projectSubject The subject for the subscription
+     * @return The created mailbox
+     * @throws IllegalArgumentException if the subject is invalid
+     * @see VersionIDMailbox#VersionIDMailbox(AbstractSystemSubject)
+     */
+    public ForkMailbox forkSubscribe(ProjectSubject projectSubject) throws IllegalArgumentException{
+        ForkMailbox fmb = new ForkMailbox(projectSubject);
+        projectSubject.addForkSub(fmb);
+        this.addBox(fmb);
+        return fmb;
+    }
 
     /**
      * This method unsubscribes the mailbox by deleting the mailbox representing the subscription.
@@ -233,7 +246,6 @@ public class Mailbox extends AbstractMailbox<Subject> {
             }
             return value;
         }
-
     }
 
     /**
