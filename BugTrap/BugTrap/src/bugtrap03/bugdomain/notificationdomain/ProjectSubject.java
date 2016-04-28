@@ -1,6 +1,7 @@
 package bugtrap03.bugdomain.notificationdomain;
 
 import bugtrap03.bugdomain.*;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.ForkMailbox;
 import purecollections.PList;
 
@@ -61,8 +62,15 @@ public abstract class ProjectSubject extends AbstractSystem {
      * This method adds a collection of fork mailboxes, subscribers on the forking oof this project subject,
      * to the list of subscribers
      * @param forkMailboxes The collection of fork mailboxes to add.
+     * @throws IllegalArgumentException if one of the forkmailboxes in the collection is invalid
+     * @see #isValidMb(AbstractMailbox)
      */
-    public void addForkSub(Collection<ForkMailbox> forkMailboxes){
+    public void addForkSub(Collection<ForkMailbox> forkMailboxes) throws IllegalArgumentException{
+        for (ForkMailbox fmb: forkMailboxes){
+            if (! isValidMb(fmb)){
+                throw new IllegalArgumentException("Collection of forkmailboxes to add cantains invalid value");
+            }
+        }
         this.forkSubs = this.forkSubs.plusAll(forkMailboxes);
     }
 
