@@ -2,13 +2,12 @@ package bugtrap03.bugdomain.notificationdomain;
 
 import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.DomainAPI;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import java.util.Collection;
 
-import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
+import jdk.nashorn.internal.runtime.Version;
 import purecollections.PList;
 
 /**
@@ -21,10 +20,12 @@ public abstract class AbstractSystemSubject extends Subject {
         super();
         this.creationSubs = PList.<CreationMailBox>empty();
         this.milestoneSubs = PList.<MilestoneMailbox>empty();
+        this.versionIdSubs = PList.<VersionIDMailbox>empty();
     }
 
     private PList<CreationMailBox> creationSubs;
     private PList<MilestoneMailbox> milestoneSubs;
+    private PList<VersionIDMailbox> versionIdSubs;
 
     /**
      * This method updates all the mailboxes subscribed on a AbstractSystem creation on this subject.
@@ -124,6 +125,32 @@ public abstract class AbstractSystemSubject extends Subject {
     public void updateMilestoneSubs(AbstractSystem as){
         for (MilestoneMailbox mmb: this.getMilestoneSubs()){
             mmb.update(as);
+        }
+    }
+
+    public void addVersionIdSub(VersionIDMailbox vimb) throws IllegalArgumentException{
+        if (! isValidMb(vimb)){
+            throw new IllegalStateException("The given versionID mailbox is invalid");
+        }
+        this.versionIdSubs = this.versionIdSubs.plus(vimb);
+    }
+
+    public void addVersionIdSub(Collection<VersionIDMailbox> vimbs) throws IllegalArgumentException{
+        for (VersionIDMailbox vimb:vimbs) {
+            if (!isValidMb(vimb)) {
+                throw new IllegalStateException("The given versionID mailbox is invalid");
+            }
+        }
+        this.versionIdSubs = this.versionIdSubs.plusAll(vimbs);
+    }
+
+    public PList<VersionIDMailbox> getVersionIdSubs(){
+        return this.versionIdSubs;
+    }
+
+    public void updateVersionIdSubs(AbstractSystem as){
+        for (VersionIDMailbox vimb: this.versionIdSubs){
+            vimb.update(as);
         }
     }
 
