@@ -1,6 +1,7 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.notificationdomain.ProjectSubject;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
@@ -20,7 +21,7 @@ import java.util.NoSuchElementException;
  * @author Kwinten Buytaert & Ben Goethuys
  */
 @DomainAPI
-public class Project extends AbstractSystem {
+public class Project extends ProjectSubject {
 
     /**
      * Creates a project with a given versionID, name, description, creationDate, lead, startDate, budgetEstimate.

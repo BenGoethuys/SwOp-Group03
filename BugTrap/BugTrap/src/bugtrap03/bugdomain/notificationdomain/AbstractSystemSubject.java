@@ -48,7 +48,7 @@ public abstract class AbstractSystemSubject extends Subject {
      * @param cmb The CreationMailBox to add
      *
      * @throws IllegalArgumentException if the cmb is invalid
-     * @see Subject#isValidMb(Mailbox)
+     * @see Subject#isValidMb
      */
     public void addCreationSub(CreationMailBox cmb) throws IllegalArgumentException{
         if (isValidMb(cmb)){
@@ -64,7 +64,7 @@ public abstract class AbstractSystemSubject extends Subject {
      * @param cmbs The CreationMailBoxes to add
      *
      * @throws IllegalArgumentException if the any of the cmbs is invalid
-     * @see Subject#isValidMb(Mailbox)
+     * @see Subject#isValidMb
      * @see #addCreationSub(CreationMailBox) 
      */
     public void addCreationSub(Collection<CreationMailBox> cmbs) {
