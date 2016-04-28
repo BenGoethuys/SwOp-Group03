@@ -558,24 +558,60 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
     @DomainAPI
     public abstract String getDetails();
 
-    // TODO KWINTEN !!! ADD COMMENTARY
+	/**
+	 * his method notifies the project it belongs toand all it's parents, to update it's mailboxes for a tag subscription.
+	 *
+	 * @param br The bugreport that has undergone a tag change.
+	 */
     @Override
     public void notifyTagSubs(BugReport br) {
-	this.getParent().notifyTagSubs(br);
-	this.updateTagSubs(br);
+		this.updateTagSubs(br);
+		this.getParent().notifyTagSubs(br);
     }
 
+	/**
+	 * his method notifies the project it belongs toand all it's parents, to update it's mailboxes for a comment subscription.
+	 *
+	 * @param br The bugreport that has been commented upon.
+	 */
     @Override
     public void notifyCommentSubs(BugReport br) {
-	this.getParent().notifyCommentSubs(br);
-	this.updateCommentSubs(br);
+		this.updateCommentSubs(br);
+		this.getParent().notifyCommentSubs(br);
     }
 
+	/**
+	 * his method notifies the project it belongs toand all it's parents, to update it's mailboxes for a creation subscription.
+	 *
+	 * @param br The bugreport that has been created.
+     */
     @Override
     public void notifyCreationSubs(BugReport br) {
-	this.getParent().notifyCreationSubs(br);
-	this.updateCreationSubs(br);
+		this.updateCreationSubs(br);
+		this.getParent().notifyCreationSubs(br);
     }
+
+	/**
+	 * This method notifies the project it belongs to and all it's parents, to update it's mailboxes for a milestone subscription.
+	 *
+	 * @param as The abstract system of which the milestone has been updated.
+	 */
+	@Override
+	public void notifyMilestoneSubs(AbstractSystem as) {
+		this.updateMilestoneSubs(as);
+		this.getParent().notifyMilestoneSubs(as);
+	}
+
+	/**
+	 * This method notifies the project it belongs to and all it's parents, to update it's mailboxes for a versionID subscription.
+	 *
+	 * @param as The abstract system of which the milestone has been updated.
+	 */
+	@Override
+	public void notifyVersionIDsubs(AbstractSystem as) {
+		this.updateVersionIDSubs(as);
+		this.getParent().notifyVersionIDsubs(as);
+	}
 
 	//TODO add notify milestone, version and fork subs in the right places!
 
