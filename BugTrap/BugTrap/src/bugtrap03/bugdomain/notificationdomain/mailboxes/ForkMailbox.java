@@ -1,15 +1,13 @@
 package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.Project;
-import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
 import bugtrap03.bugdomain.notificationdomain.ProjectSubject;
-import bugtrap03.bugdomain.notificationdomain.Subject;
-import bugtrap03.bugdomain.notificationdomain.notification.ProjectNotification;
+import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 
 /**
- * Created by Kwinten on 28/04/2016.
+ * @author Group 03
  */
-public class ForkMailbox extends ProjectAbstractMailbox<Project, ProjectNotification> {
+public class ForkMailbox extends SubjectMailbox<Project, ProjectSubject> {
 
     public ForkMailbox(ProjectSubject projectSubject) {
         super(projectSubject);
@@ -17,11 +15,18 @@ public class ForkMailbox extends ProjectAbstractMailbox<Project, ProjectNotifica
 
     @Override
     public String getInfo() {
-        return null;
+        return ("You are subscribed to the forking of " + this.subject.getSubjectName());
     }
 
     @Override
-    public ProjectNotification update(Project changedObject) {
-        return null;
+    public Notification update(Project changedObject) {
+        if (changedObject == null){
+            throw new IllegalArgumentException("Changed object for a forking notification cannot be null");
+        }
+        StringBuilder message = new StringBuilder("\t"+this.subject.getSubjectName());
+        message.append(" has forked into ");
+        message.append(changedObject.getSubjectName());
+        message.append(".");
+        return new Notification(message.toString(), subject);
     }
 }
