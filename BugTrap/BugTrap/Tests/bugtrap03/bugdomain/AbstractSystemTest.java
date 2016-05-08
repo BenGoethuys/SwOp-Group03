@@ -326,6 +326,7 @@ public class AbstractSystemTest {
 
     @Test
     public void testSetMemento_SubjectMemento() {
+        PList<CommentMailBox> oldCSubs = subSysTest.getCommentSubs();
         //Store 
         SubjectMemento mem = subSysTest.getMemento();
 
@@ -334,7 +335,9 @@ public class AbstractSystemTest {
 
         //Revert
         testProject.setMemento(mem);
+        
         //TODO: Vincent Test the getCommentSubs;
+        //assertEquals()
     }
 
 }
