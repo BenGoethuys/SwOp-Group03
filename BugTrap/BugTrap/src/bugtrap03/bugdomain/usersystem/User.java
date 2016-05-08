@@ -17,7 +17,7 @@ import java.util.Objects;
  * @version 1.1
  */
 @DomainAPI
-public abstract class User {
+public abstract class User extends hasStatisticsDummy {
 
     /**
      * Create a {@link User} with a username, a firstName, middelName and
