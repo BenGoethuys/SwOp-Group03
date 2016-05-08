@@ -314,7 +314,7 @@ public class Subsystem extends AbstractSystem {
      */
     @Override
     public SubsystemMemento getMemento() {
-        return new SubsystemMemento(getTagSubs(), getCommentSubs(), getCreationSubs(), getVersionID(), getName(), getDescription(), this.getSubsystems(), this.getParent(), this.getMilestone(), this.bugReportList, this.isTerminated);
+        return new SubsystemMemento(getTagSubs(), getCommentSubs(), getCreationSubs(), getMilestoneSubs(), getVersionIDSubs(), getVersionID(), getName(), getDescription(), this.getSubsystems(), this.getParent(), this.getMilestone(), this.bugReportList, this.isTerminated);
     }
     
     @Override

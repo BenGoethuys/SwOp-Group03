@@ -2,12 +2,10 @@ package bugtrap03.bugdomain.notificationdomain;
 
 import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.DomainAPI;
-import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import java.util.Collection;
 
 import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
-import jdk.nashorn.internal.runtime.Version;
 import purecollections.PList;
 
 /**
@@ -112,7 +110,7 @@ public abstract class AbstractSystemSubject extends Subject {
 
     /**
      * This method returns the list of mailboxes representing subscriptions to milestone changes on this subject.
-     * @return A Plist of milestone mailboxes.
+     * @return A PList of milestone mailboxes.
      */
     public PList<MilestoneMailbox> getMilestoneSubs(){
         return this.milestoneSubs;
@@ -157,7 +155,7 @@ public abstract class AbstractSystemSubject extends Subject {
     }
 
     /**
-     * This method returns the list versionID mailboxes for this abstract sytem subject
+     * This method returns the list versionID mailboxes for this abstract system subject
      * @return The Plist of versionID mailboxes.
      */
     public PList<VersionIDMailbox> getVersionIDSubs(){
@@ -197,7 +195,7 @@ public abstract class AbstractSystemSubject extends Subject {
             this.versionIdSubs = aMem.getVersionIDSubs();
         }
     }
-
+    
     /**
      * This abstract method lets subjects notify subjects higher in the hierarchy to update their creation subs;
      *
