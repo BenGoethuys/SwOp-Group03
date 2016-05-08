@@ -33,33 +33,33 @@ Problem Solving
     
     
      */
-    /**
-     * Get the amount of duplicate bug reports submitted.
-     *
-     * @return The amount of duplicate bug reports submitted.
-     */
-    public long getNbDuplicateSubmitted();
-
-    /**
-     * Get the amount of NotABugReport bug reports submitted.
-     *
-     * @return The amount of NotABugReport bug reports submitted.
-     */
-    public long getNbNotABugReportSubmitted();
-
-    /**
-     * Get the amount of bug reports submitted.
-     *
-     * @return The amount of bug reports submitted.
-     */
-    public long getNbBugReportsSubmitted();
-
-    /**
-     * Get the health indicators of all projects involved.
-     *
-     * @return The health indicators of all projects involved.
-     */
-    public PList<HealthIndicator> getConditionIndicators();
+//    /**
+//     * Get the amount of duplicate bug reports submitted.
+//     *
+//     * @return The amount of duplicate bug reports submitted.
+//     */
+//    public long getNbDuplicateSubmitted();
+//
+//    /**
+//     * Get the amount of NotABugReport bug reports submitted.
+//     *
+//     * @return The amount of NotABugReport bug reports submitted.
+//     */
+//    public long getNbNotABugReportSubmitted();
+//
+//    /**
+//     * Get the amount of bug reports submitted.
+//     *
+//     * @return The amount of bug reports submitted.
+//     */
+//    public long getNbBugReportsSubmitted();
+//
+//    /**
+//     * Get the health indicators of all projects involved.
+//     *
+//     * @return The health indicators of all projects involved.
+//     */
+//    public PList<HealthIndicator> getConditionIndicators();
 
     //TODO: Ben & Vincent undo-able ! don't forget.
     /**
@@ -90,19 +90,19 @@ Problem Solving
      */
     public void addTestsSubmitted(long nb);
 
-    /**
-     * Get the amount of closed bug reports to which 'you' are assigned.
-     *
-     * @return The amount of closed bug reports to which 'you' are assigned.
-     */
-    public long getNbAssignedToClosed();
-
-    /**
-     * Get the amount of unfinished bug reports to which 'you' are assigned.
-     *
-     * @return The amount of unfinished bug reports to which 'you' are assigned.
-     */
-    public long getNbAssignedToUnfinished();
+//    /**
+//     * Get the amount of closed bug reports to which 'you' are assigned.
+//     *
+//     * @return The amount of closed bug reports to which 'you' are assigned.
+//     */
+//    public long getNbAssignedToClosed();
+//
+//    /**
+//     * Get the amount of unfinished bug reports to which 'you' are assigned.
+//     *
+//     * @return The amount of unfinished bug reports to which 'you' are assigned.
+//     */
+//    public long getNbAssignedToUnfinished();
 
     /**
      * Get the amount of patches submitted.
