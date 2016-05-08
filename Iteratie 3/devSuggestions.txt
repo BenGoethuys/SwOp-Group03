@@ -1,0 +1,20 @@
+// In Developer, get...(PList<BugReport>)
+
+- 
+ 
+//In Model de dynamische + developer = statistics
+//+ info expert
+//+ low coupling
+
+
+Aparte klasse Statistics (in dev enkel getStatistics of meerdere die dan vragen aan Statistics.)
+- High coupling
++ High cohesion
++ Gemakkelijk voor memento (Immutable)
+
+
+
+
+Combo
+* Model voor dynamische
+* In Developer een object stats (Immutable)
