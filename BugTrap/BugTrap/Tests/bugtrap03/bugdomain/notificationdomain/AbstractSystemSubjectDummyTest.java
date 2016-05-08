@@ -1,5 +1,6 @@
 package bugtrap03.bugdomain.notificationdomain;
 
+import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
@@ -96,6 +97,16 @@ public class AbstractSystemSubjectDummyTest {
         @Override
         public boolean isTerminated() {
             return false;
+        }
+
+        @Override
+        public void notifyMilestoneSubs(AbstractSystem as) {
+            this.updateMilestoneSubs(as);
+        }
+
+        @Override
+        public void notifyVersionIDsubs(AbstractSystem as) {
+            this.updateVersionIDSubs(as);
         }
     }
 }

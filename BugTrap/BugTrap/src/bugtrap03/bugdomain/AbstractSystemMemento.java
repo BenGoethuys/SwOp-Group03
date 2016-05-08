@@ -48,19 +48,19 @@ public class AbstractSystemMemento extends AbstractSystemSubjectMemento {
     private final Milestone milestone;
     private final boolean isTerminated;
 
-    VersionID getVersionID() {
+    public VersionID getVersionID() {
         return this.versionID;
     }
 
-    String getName() {
+    public String getName() {
         return this.name;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
-    PList<Subsystem> getChildren() {
+    public PList<Subsystem> getChildren() {
         return this.children;
     }
 
@@ -77,15 +77,15 @@ public class AbstractSystemMemento extends AbstractSystemSubjectMemento {
         }
     }
 
-    AbstractSystem getParent() {
+    public AbstractSystem getParent() {
         return this.parent;
     }
 
-    Milestone getMilestone() {
+    public Milestone getMilestone() {
         return this.milestone;
     }
     
-    boolean getIsTerminated() {
+    public boolean getIsTerminated() {
         return this.isTerminated;
     }
 
