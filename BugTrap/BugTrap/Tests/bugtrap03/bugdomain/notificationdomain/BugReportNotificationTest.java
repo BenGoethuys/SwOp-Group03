@@ -88,14 +88,13 @@ public class BugReportNotificationTest {
         assertFalse(testNot.equals(testNot4));
     }
 
-    //FIXME Kwinten Ask Ben.
     @Test
     public void testHashCode() throws Exception {
         int value = testNot.hashCode();
-        int exepected = ((((bugreport4MB.hashCode() * 113) + project4MB.hashCode()) * 31) + message4Not.hashCode());
-        assertEquals(exepected,value);
+        int expected = new BugReportNotification(message4Not, bugreport4MB, project4MB).hashCode();
         assertNotEquals(0,value);
         assertNotEquals(null, value);
+        assertEquals(expected,value);
     }
 
     @Test (expected = IllegalArgumentException.class)
