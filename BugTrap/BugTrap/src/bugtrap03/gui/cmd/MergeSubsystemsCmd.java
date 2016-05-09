@@ -64,19 +64,11 @@ public class MergeSubsystemsCmd implements Cmd<Subsystem> {
         GetSubsystemCmd cmd = new GetSubsystemCmd();
         Subsystem sub1 = cmd.exec(scan, model, null);
 
-        if (sub1 == null) {
-            throw new IllegalArgumentException("No options, operation cancelled.");
-        }
-
         // 6. The system shows a list of subsystems compatible with the first one.
         // A compatible subsystem is a child, a parent or a sibling of the first
         // selected subsystem in the tree of subsystems of the selected project.
         // 7. The administrator selects a second subsystem.
         Subsystem sub2 = this.getCompatibleMergeCandidate(sub1, scan, model);
-
-        if (sub2 == null) {
-            throw new IllegalArgumentException("No options, operation cancelled.");
-        }
 
         // 8. The system asks for a name and description for the new subsystem.
         // 9. The administrator enters a name and description.

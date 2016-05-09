@@ -32,6 +32,7 @@ public class MergeSubsystemsCmdTest {
 
     static Administrator admin;
     static DataModel model;
+    static Developer lead;
     static Project projectA;
     static Project projectB;
     static Subsystem subsystemA1;
@@ -48,7 +49,7 @@ public class MergeSubsystemsCmdTest {
     public static void setUpBeforeClass() throws Exception {
 	// Setup variables.
 	model = new DataModel();
-	Developer lead = model.createDeveloper("SplitSub4", "Luky", "Luke");
+	lead = model.createDeveloper("SplitSub4", "Luky", "Luke");
 	admin = model.createAdministrator("SplitSub5", "adminT", "bie");
 	Issuer issuer = model.createIssuer("SplitSub6", "BMW", "looks", "nice");
 	projectA = model.createProject(new VersionID(), "SplitSub6", "Project for testing 0", lead, 500, admin);
@@ -117,7 +118,7 @@ public class MergeSubsystemsCmdTest {
 
 	// Test effects.
     }
-
+    
     @Test(expected = IllegalArgumentException.class)
     public void testException() throws IllegalArgumentException, CancelException, PermissionException {
 	MergeSubsystemsCmd cmd = new MergeSubsystemsCmd();
