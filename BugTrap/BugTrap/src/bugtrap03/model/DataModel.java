@@ -944,6 +944,17 @@ public class DataModel {
         return newMailbox;
     }
 
+    /**
+     * This method lets a user register for notifications concerning a forking on a subject.
+     *
+     * @param user      the user that wishes to subscribe for notifications
+     * @param projectSubject   the subject on which the user wishes to subscribe
+     *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
     @DomainAPI
     public ForkMailbox registerForForkNotifactions(User user, ProjectSubject projectSubject)
             throws IllegalArgumentException, IllegalStateException {
@@ -953,6 +964,18 @@ public class DataModel {
         return newMailbox;
     }
 
+    /**
+     * This method lets a user register for notifications concerning a specific milestone change on a subject.
+     *
+     * @param user      the user that wishes to subscribe for notifications
+     * @param asSubject   the subject on which the user wishes to subscribe
+     * @param milestone     the milestone for which the user wishes to receive notifications
+     *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
     @DomainAPI
     public MilestoneMailbox registerForMilestoneNotifactions(User user, AbstractSystemSubject asSubject, Milestone milestone)
             throws IllegalArgumentException, IllegalStateException {
@@ -962,6 +985,17 @@ public class DataModel {
         return newMailbox;
     }
 
+    /**
+     * This method lets a user register for notifications concerning a milestone change on a subject.
+     *
+     * @param user      the user that wishes to subscribe for notifications
+     * @param asSubject   the subject on which the user wishes to subscribe
+     *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
     @DomainAPI
     public MilestoneMailbox registerForAllMilestoneNotifactions(User user, AbstractSystemSubject asSubject)
             throws IllegalArgumentException, IllegalStateException {
@@ -971,6 +1005,17 @@ public class DataModel {
         return newMailbox;
     }
 
+    /**
+     * This method lets a user register for notifications concerning a versionID change on a subject.
+     *
+     * @param user      the user that wishes to subscribe for notifications
+     * @param abstractSystemSubject   the subject on which the user wishes to subscribe
+     *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
     @DomainAPI
     public VersionIDMailbox registerForVersionNotifications(User user, AbstractSystemSubject abstractSystemSubject)
             throws IllegalArgumentException, IllegalStateException{
@@ -980,9 +1025,6 @@ public class DataModel {
         addToHistory(cmd);
         return newMailbox;
     }
-
-
-
 
 
     /**
