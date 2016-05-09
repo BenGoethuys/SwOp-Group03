@@ -15,6 +15,11 @@ public enum HealthIndicator {
     HealthIndicator() {
     }
 
+    /**
+     * 
+     * @param projects
+     * @return
+     */
     public String getAllHealthIndicators(PList<Project> projects) {
 	String str = "";
 	HealthAlgorithm1 ha1 = new HealthAlgorithm1();
