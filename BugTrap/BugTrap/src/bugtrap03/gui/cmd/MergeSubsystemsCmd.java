@@ -103,7 +103,7 @@ public class MergeSubsystemsCmd implements Cmd<Subsystem> {
      * @param subsystem The first selected subsystem
      * @param scanner   The scanner of this cmd
      *
-     * @return  The selected campatible subsystem
+     * @return  The selected compatible subsystem
      */
     private Subsystem getCompatibleMergeCandidate(Subsystem subsystem, TerminalScanner scanner, DataModel model)
             throws CancelException {
