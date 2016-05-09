@@ -1060,8 +1060,29 @@ public class DataModel {
         this.getAllBugReports(user);
     }*/
 
+    /**
+     * This method returns the number of Closed bug reports where the given user is assigned to
+     *
+     * @param user  The user that needs to be assigned to the bug report
+     *
+     * @return  The number of Closed bug reports where the given user is assigned to
+     */
+    @DomainAPI
+    public long getNbClosedBRForDev(User user){
+        PList<BugReport> bugList = this.getAllBugReports();
+        return bugList.parallelStream().
+                filter(u -> (u.getUserList().contains(user) && u.getTag() == Tag.CLOSED)).count();
+    }
 
-    public int getNbClosedBRForDev(User user){
-        return 0;
+    /**
+     * This method returns the number of unfinished bug reports the given user is assigned to
+     * @param user  The user that needs to be assigned to the bug report
+     * @return  The number of unfinished bug reports the given user is assigned to
+     */
+    @DomainAPI
+    public long getNbUnfinishedBRForDev(User user){
+        PList<BugReport> bugList = this.getAllBugReports();
+        return bugList.parallelStream().
+                filter(u -> (u.getUserList().contains(user) && ! u.isResolved())).count();
     }
 }
