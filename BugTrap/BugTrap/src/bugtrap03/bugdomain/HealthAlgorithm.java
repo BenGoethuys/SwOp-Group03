@@ -4,6 +4,7 @@ package bugtrap03.bugdomain;
  * @author Mathias
  *
  */
+@DomainAPI
 public abstract class HealthAlgorithm {
 
     /**
@@ -12,6 +13,7 @@ public abstract class HealthAlgorithm {
      * @param as The AbstractSystem to calculate the health indicator.
      * @return The health indicator of the subsystem.
      */
+    @DomainAPI
     public HealthIndicator getIndicator(AbstractSystem as) {
 	if (isHealthy(as)) {
 	    return HealthIndicator.HEALTHY;
@@ -93,4 +95,7 @@ public abstract class HealthAlgorithm {
 	}
 	return true;
     }
+    
+    @Override
+    public abstract String toString();
 }

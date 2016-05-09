@@ -4,6 +4,7 @@ package bugtrap03.bugdomain;
  * @author Mathias
  *
  */
+@DomainAPI
 public class HealthAlgorithm1 extends HealthAlgorithm {
 
 	private final int HEALTHY = 50;
@@ -30,4 +31,9 @@ public class HealthAlgorithm1 extends HealthAlgorithm {
 	public boolean isSerious(AbstractSystem as) {
 		return checkSubsystem(as, HealthIndicator.SERIOUS, SERIOUS);
 	}
+        
+        @Override
+        public String toString() {
+            return "Algorithm 1";
+        }
 }
