@@ -954,22 +954,36 @@ public class DataModel {
     }
 
     @DomainAPI
-    public MilestoneMailbox registerForMilestoneNotifactions(User user, ProjectSubject projectSubject, Milestone milestone)
+    public MilestoneMailbox registerForMilestoneNotifactions(User user, AbstractSystemSubject asSubject, Milestone milestone)
             throws IllegalArgumentException, IllegalStateException {
-        RegisterForMilestoneNotificationsModelCmd cmd = new RegisterForMilestoneNotificationsModelCmd(user, projectSubject, milestone);
+        RegisterForMilestoneNotificationsModelCmd cmd = new RegisterForMilestoneNotificationsModelCmd(user, asSubject, milestone);
         MilestoneMailbox newMailbox = cmd.exec();
         addToHistory(cmd);
         return newMailbox;
     }
 
     @DomainAPI
-    public MilestoneMailbox registerForAllMilestoneNotifactions(User user, ProjectSubject projectSubject)
+    public MilestoneMailbox registerForAllMilestoneNotifactions(User user, AbstractSystemSubject asSubject)
             throws IllegalArgumentException, IllegalStateException {
-        RegisterForMilestoneNotificationsModelCmd cmd = new RegisterForMilestoneNotificationsModelCmd(user, projectSubject);
+        RegisterForMilestoneNotificationsModelCmd cmd = new RegisterForMilestoneNotificationsModelCmd(user, asSubject);
         MilestoneMailbox newMailbox = cmd.exec();
         addToHistory(cmd);
         return newMailbox;
     }
+
+    @DomainAPI
+    public VersionIDMailbox registerForVersionNotifications(User user, AbstractSystemSubject abstractSystemSubject)
+            throws IllegalArgumentException, IllegalStateException{
+        RegisterForVersionNotificationsModelCmd cmd =
+                new RegisterForVersionNotificationsModelCmd(user, abstractSystemSubject);
+        VersionIDMailbox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
+    }
+
+
+
+
 
     /**
      * This method lets a user unregister for notifications
