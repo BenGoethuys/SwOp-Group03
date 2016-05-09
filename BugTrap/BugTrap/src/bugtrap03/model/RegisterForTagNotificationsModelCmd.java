@@ -23,7 +23,7 @@ class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelC
      * @throws IllegalArgumentException When the given subject is null
      * @throws IllegalArgumentException When the given subject is Terminated
      */
-    RegisterForTagNotificationsModelCmd(User user, Subject subject, EnumSet<Tag> tags){
+    RegisterForTagNotificationsModelCmd(User user, Subject subject, EnumSet<Tag> tags) throws IllegalArgumentException{
         super(user);
 
         if (subject == null) {
