@@ -381,17 +381,33 @@ public class DataModel {
      * report is visible to everyone.
      * @return a list of all bug reports in the system that are visible for the user.
      *
-     * @see BugReport#isVisibleTo(bugtrap03.bugdomain.usersystem.User) 
+     * @see BugReport#isVisibleTo(bugtrap03.bugdomain.usersystem.User)
      */
     @DomainAPI
     public PList<BugReport> getAllBugReports(User user) {
+        ArrayList<BugReport> list = new ArrayList();
+        PList<BugReport> BugReportList = getAllBugReports();
+
+        for (BugReport bugReport : BugReportList) {
+            if (bugReport.isVisibleTo(user)) {
+                list.add(bugReport);
+            }
+        }
+
+        return PList.<BugReport>empty().plusAll(list);
+    }
+
+    /**
+     * This method gets all bug reports in the system.
+     *
+     * @return a list of all bug reports in the system.
+     */
+    private PList<BugReport> getAllBugReports() {
         ArrayList<BugReport> list = new ArrayList<>();
         for (Project project : this.projectList) {
             PList<BugReport> bugReports = project.getAllBugReports();
-            for(BugReport bugReport : bugReports) {
-                if(bugReport.isVisibleTo(user)) {
-                    list.add(bugReport);
-                }
+            for (BugReport bugReport : bugReports) {
+                list.add(bugReport);
             }
         }
         return PList.<BugReport>empty().plusAll(list);
@@ -1034,6 +1050,16 @@ public class DataModel {
         addToHistory(cmd);
         return result;
     }
+
+    /**
+     * Get the amount of bug reports that the given user has submitted and is marked as a duplicate.
+     * @return The amount of duplicate bug reports this user has submitted.
+     */
+   /* @DomainAPI
+    public long getNbDuplicateBRsSubmitted(User user) {
+        this.getAllBugReports(user);
+    }*/
+
 
     public int getNbClosedBRForDev(User user){
         return 0;
