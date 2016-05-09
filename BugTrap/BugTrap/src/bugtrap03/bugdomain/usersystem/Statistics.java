@@ -24,7 +24,7 @@ public class Statistics {
      */
     @DomainAPI
     public double getAvgLinesOfTestsSubmitted() {
-        return testLines / testAmount;
+        return (testAmount != 0) ? testLines / testAmount : 0;
     }
 
     /**
@@ -93,7 +93,7 @@ public class Statistics {
      */
     @DomainAPI
     public double getAvgLinesOfPatchesSubmitted() {
-        return patchLines / patchAmount;
+        return (patchAmount != 0) ? patchLines / patchAmount : 0;
     }
 
     /**
