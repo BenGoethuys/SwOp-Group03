@@ -420,12 +420,12 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
 	if (subsystem == null) {
 	    throw new IllegalArgumentException("AbstractSystem cannot add a null Subsystem.");
 	}
+	if (this.getParentProject() != subsystem.getParentProject()) {
+		throw new IllegalArgumentException(
+				"AbstractSystem cannot add a Subsystem that belongs to a different project.");
+	}
 	if (this.getParentProject().getAllSubsystems().contains(subsystem)) {
 	    throw new IllegalArgumentException("AbstractSystem cannot add a Subsystem which is already a child of it.");
-	}
-	if (this.getParentProject() != subsystem.getParentProject()) {
-	    throw new IllegalArgumentException(
-	            "AbstractSystem cannot add a Subsystem that belongs to a different project.");
 	}
 	this.addChild(subsystem);
     }
@@ -551,7 +551,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      */
     @DomainAPI
     public boolean hasPermission(Developer dev, RolePerm perm) {
-	return this.getParentProject().hasPermission(dev, perm);
+		return this.getParentProject().hasPermission(dev, perm);
     }
 
     /**
