@@ -6,7 +6,7 @@ import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
- * Created by Kwinten on 09/05/2016.
+ * @author Group 03
  */
 public class RegisterForMilestoneNotificationsModelCmd extends RegisterForNotificationsModelCmd {
 
