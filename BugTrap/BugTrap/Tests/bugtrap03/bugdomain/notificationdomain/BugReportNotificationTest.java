@@ -88,6 +88,7 @@ public class BugReportNotificationTest {
         assertFalse(testNot.equals(testNot4));
     }
 
+    //FIXME Kwinten Ask Ben.
     @Test
     public void testHashCode() throws Exception {
         int value = testNot.hashCode();
