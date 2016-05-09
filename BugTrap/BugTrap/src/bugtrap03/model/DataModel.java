@@ -1078,19 +1078,21 @@ public class DataModel {
     }
     
     /**
-     * Get the amount of bug reports that the given user has submitted and is marked as closed.
+     * Get the amount of bug reports that the given user has submitted and is marked as duplicate.
      *
      * @param user The user who has submitted the bug reports.
-     * @return The amount of closed bug reports this user has submitted.
+     * @return The amount of duplicate bug reports this user has submitted.
      */
     @DomainAPI
-    public long getNbClosedBRsSubmitted(User user) {
+    public long getNbDuplicateBRsSubmitted(User user) {
         PList<BugReport> list = getAllBugReports();
 
         return list.stream().
-                filter(u -> u.getCreator() == user && u.getTag() == Tag.CLOSED).
+                filter(u -> u.getCreator() == user && u.getTag() == Tag.DUPLICATE).
                 count();
     }
+    
+    
     
     /**
      * Get the amount of bug reports that the given user has submitted and is marked as not a bug.
