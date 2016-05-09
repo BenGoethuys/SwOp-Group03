@@ -1034,5 +1034,8 @@ public class DataModel {
         addToHistory(cmd);
         return result;
     }
-    
+
+    public int getNbClosedBRForDev(User user){
+        return 0;
+    }
 }
