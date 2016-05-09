@@ -1,5 +1,7 @@
 package bugtrap03.bugdomain;
 
+import bugtrap03.bugdomain.usersystem.User;
+
 /**
  * An enumeration of health indicators. <br>
  * Order them from most critical to healthy.
@@ -13,4 +15,8 @@ public enum HealthIndicator {
     HealthIndicator() {
     }
 
+    public HealthIndicator[] getAllHealthIndicators(User user) {
+	
+	return null;
+    }
 }
