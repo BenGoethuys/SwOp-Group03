@@ -1,6 +1,5 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.HealthAlgorithm;
 import bugtrap03.bugdomain.HealthAlgorithm1;
 import bugtrap03.bugdomain.HealthAlgorithm2;
