@@ -5,10 +5,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.*;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.*;
@@ -943,6 +940,33 @@ public class DataModel {
             throws IllegalArgumentException, IllegalStateException {
         RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject);
         TagMailBox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
+    }
+
+    @DomainAPI
+    public ForkMailbox registerForForkNotifactions(User user, ProjectSubject projectSubject)
+            throws IllegalArgumentException, IllegalStateException {
+        RegisterForForkNotificationsModelCmd cmd = new RegisterForForkNotificationsModelCmd(user, projectSubject);
+        ForkMailbox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
+    }
+
+    @DomainAPI
+    public MilestoneMailbox registerForMilestoneNotifactions(User user, ProjectSubject projectSubject, Milestone milestone)
+            throws IllegalArgumentException, IllegalStateException {
+        RegisterForMilestoneNotificationsModelCmd cmd = new RegisterForMilestoneNotificationsModelCmd(user, projectSubject, milestone);
+        MilestoneMailbox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
+    }
+
+    @DomainAPI
+    public MilestoneMailbox registerForAllMilestoneNotifactions(User user, ProjectSubject projectSubject)
+            throws IllegalArgumentException, IllegalStateException {
+        RegisterForMilestoneNotificationsModelCmd cmd = new RegisterForMilestoneNotificationsModelCmd(user, projectSubject);
+        MilestoneMailbox newMailbox = cmd.exec();
         addToHistory(cmd);
         return newMailbox;
     }
