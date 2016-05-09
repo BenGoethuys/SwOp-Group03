@@ -1052,15 +1052,6 @@ public class DataModel {
     }
 
     /**
-     * Get the amount of bug reports that the given user has submitted and is marked as a duplicate.
-     * @return The amount of duplicate bug reports this user has submitted.
-     */
-   /* @DomainAPI
-    public long getNbDuplicateBRsSubmitted(User user) {
-        this.getAllBugReports(user);
-    }*/
-
-    /**
      * This method returns the number of Closed bug reports where the given user is assigned to
      *
      * @param user  The user that needs to be assigned to the bug report
@@ -1085,4 +1076,50 @@ public class DataModel {
         return bugList.parallelStream().
                 filter(u -> (u.getUserList().contains(user) && ! u.isResolved())).count();
     }
+    
+    /**
+     * Get the amount of bug reports that the given user has submitted and is marked as closed.
+     *
+     * @param user The user who has submitted the bug reports.
+     * @return The amount of closed bug reports this user has submitted.
+     */
+    @DomainAPI
+    public long getNbClosedBRsSubmitted(User user) {
+        PList<BugReport> list = getAllBugReports();
+
+        return list.stream().
+                filter(u -> u.getCreator() == user && u.getTag() == Tag.CLOSED).
+                count();
+    }
+    
+    /**
+     * Get the amount of bug reports that the given user has submitted and is marked as not a bug.
+     *
+     * @param user The user who has submitted the bug reports.
+     * @return The amount of notABugReport bug reports this user has submitted.
+     */
+    @DomainAPI
+    public long getNbNotABugReportBRsSubmitted(User user) {
+        PList<BugReport> list = getAllBugReports();
+
+        return list.stream().
+                filter(u -> u.getCreator() == user && u.getTag() == Tag.NOT_A_BUG).
+                count();
+    }
+
+    /**
+     * Get the amount of bug reports that the given user has submitted.
+     *
+     * @param user The user who has submitted the bug reports.
+     * @return The amount of bug reports this user has submitted.
+     */
+    @DomainAPI
+    public long getNbBRSubmitted(User user) {
+        PList<BugReport> list = getAllBugReports();
+
+        return list.stream().
+                filter(u -> u.getCreator() == user).
+                count();
+    }
+    
 }
