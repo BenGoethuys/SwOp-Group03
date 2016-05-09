@@ -135,7 +135,15 @@ public class Project extends ProjectSubject {
      */
     public Project(String name, String description, Developer lead, long budgetEstimate)
             throws IllegalArgumentException {
-        this(name, description, lead, new GregorianCalendar(), budgetEstimate);
+        super(null, name, description);
+        this.setCreationDate(new GregorianCalendar());
+        if (! Project.isValidLead(lead)){
+            throw new IllegalArgumentException("The given lead is not a valid lead!");
+        }
+        this.projectParticipants = new HashMap<>();
+        this.setRole(lead, Role.LEAD);
+        this.setStartDate(new GregorianCalendar());
+        this.setBudgetEstimate(budgetEstimate);
     }
 
     private GregorianCalendar creationDate;
