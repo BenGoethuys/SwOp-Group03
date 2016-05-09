@@ -13,11 +13,14 @@ import org.junit.Test;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.VersionID;
+import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
+import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
@@ -36,6 +39,7 @@ public class SplitSubsystemCmdTest {
     static Subsystem subsystemA3;
     static Subsystem subsystemA3_1;
     static Subsystem subsystemA3_2;
+    static BugReport bugRep1;
 
     /**
      * @throws java.lang.Exception
@@ -46,6 +50,7 @@ public class SplitSubsystemCmdTest {
 	model = new DataModel();
 	Developer lead = model.createDeveloper("SplitSub1", "Luky", "Luke");
 	admin = model.createAdministrator("SplitSub2", "adminT", "bie");
+	Issuer issuer = model.createIssuer("SplitSub3", "BMW", "looks", "nice");
 	projectA = model.createProject(new VersionID(), "SplitSub3", "Project for testing 0", lead, 500, admin);
 	projectB = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
@@ -55,6 +60,9 @@ public class SplitSubsystemCmdTest {
 	subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
 	subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
 	subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
+
+	bugRep1 = model.createBugReport(subsystemA3, issuer, "Used library not in repository", "title says it all.",
+	        PList.<BugReport> empty(), null, 1, false);
     }
 
     /**
@@ -89,8 +97,8 @@ public class SplitSubsystemCmdTest {
 	question.add("3. " + subsystemA3_1.getName());
 	question.add("4. " + subsystemA3_2.getName());
 	question.add("I choose: ");
-	answer.add("0");
-	question.add("You selected: " + subsystemA1.getName());
+	answer.add("2");
+	question.add("You selected: " + subsystemA3.getName());
 	question.add("Please enter information for subsytem 1.");
 	question.add("Please enter a name:");
 	answer.add("NEW1");
@@ -101,6 +109,17 @@ public class SplitSubsystemCmdTest {
 	answer.add("NEW2");
 	question.add("Please enter a description:");
 	answer.add("DescriptionNew2");
+	question.add("Please choose which subsystems you wish to keep for subsystem 1.");
+	question.add("Keep Subsystem " + subsystemA3_1.getName() + " ?");
+	question.add("Yes or No?");
+	answer.add("Yes");
+	question.add("Keep Subsystem " + subsystemA3_2.getName() + " ?");
+	question.add("Yes or No?");
+	answer.add("No");
+	question.add("Please choose which bug reports you wish to keep for subsystem 1.");
+	question.add("Keep " + bugRep1.getSubjectName() + " ?");
+	question.add("Yes or No?");
+	answer.add("Yes");
 
 	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
