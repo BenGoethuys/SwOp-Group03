@@ -1,6 +1,7 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.SubjectMailbox;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 
@@ -10,7 +11,7 @@ import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
  * 
  * @author Group 03
  */
-abstract class RegisterForNotificationsModelCmd extends ModelCmd {
+abstract class RegisterForNotificationsModelCmd<M extends SubjectMailbox> extends ModelCmd {
 
     /**
      * Create an abstract {@link ModelCmd}
@@ -126,4 +127,7 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
         }
         return ("Created subscription: \n" + this.newMailbox.getInfo());
     }
+
+    @Override
+    abstract M exec();
 }
