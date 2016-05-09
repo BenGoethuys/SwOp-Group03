@@ -268,6 +268,9 @@ public class UserTest {
         assertEquals(newStats, user.getStats());
     }
     
+    /**
+     * Test setStats with null value.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testSetStatistics() {
         user.setStats(null);
