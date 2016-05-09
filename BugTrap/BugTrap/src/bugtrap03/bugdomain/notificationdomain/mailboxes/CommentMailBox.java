@@ -49,7 +49,7 @@ public class CommentMailBox extends SubjectMailbox<BugReport, Subject> {
      */
     @Override
     public BugReportNotification update(BugReport bugReport){
-        BugReportNotification newNotif = new BugReportNotification(" has been commented upon: ", bugReport, this.subject);
+        BugReportNotification newNotif = new BugReportNotification(" has been commented upon.", bugReport, this.subject);
         this.addNotification(newNotif);
         return newNotif;
     }
