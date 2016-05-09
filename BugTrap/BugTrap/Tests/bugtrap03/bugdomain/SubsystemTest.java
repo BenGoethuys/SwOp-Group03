@@ -17,28 +17,29 @@ public class SubsystemTest {
 
     private static final double EPSILON = 1e-15;
 
-    static Developer testDev;
-    static VersionID testVersion;
-    static String testName;
-    static String testDescription;
-    static GregorianCalendar testStartDate;
-    static GregorianCalendar testCreationDate;
-    static long testBudget;
-    static Project testProject;
+    private static Developer testDev;
+    private static VersionID testVersion;
+    private static String testName;
+    private static String testDescription;
+    private static GregorianCalendar testStartDate;
+    private static GregorianCalendar testCreationDate;
+    private static long testBudget;
+    private static Project testProject;
 
-    static VersionID subVersion;
-    static String subName;
-    static String subDescription;
-    static String subName2;
-    static String subDescription2;
-    static Subsystem subSysTest;
-    static Subsystem subSysTest2;
+    private static VersionID subVersion;
+    private static String subName;
+    private static String subDescription;
+    private static String subName2;
+    private static String subDescription2;
+    private static Subsystem subSysTest;
+    private static Subsystem subSysTest2;
+    private static Subsystem subSysTest_2;
 
-    static PList<BugReport> emptyDep;
-    static PList<BugReport> depToRep1;
-    static BugReport bugreport1;
-    static BugReport bugreport2;
-    static BugReport bugreport3;
+    private static PList<BugReport> emptyDep;
+    private static PList<BugReport> depToRep1;
+    private static BugReport bugreport1;
+    private static BugReport bugreport2;
+    private static BugReport bugreport3;
 
 
     @BeforeClass
@@ -60,6 +61,7 @@ public class SubsystemTest {
 
         subSysTest = testProject.addSubsystem(subVersion, subName, subDescription);
         subSysTest2 = subSysTest.addSubsystem(subName2, subDescription2);
+        subSysTest_2 = testProject.addSubsystem(subVersion, subName + "_2", subDescription + "_2");
         emptyDep = PList.<BugReport>empty();
         bugreport1 = subSysTest.addBugReport(testDev, "testBug3", "this is description of testbug 3", testStartDate, emptyDep, null, 5, false, null, null, null);
         depToRep1 = PList.<BugReport>empty().plus(bugreport1);
@@ -312,5 +314,23 @@ public class SubsystemTest {
     public void testGetSubjectName(){
         String res = subSysTest.getSubjectName();
         assertTrue(res.contains("Subsystem " + subSysTest.getName()));
+    }
+    
+    @Test
+    public void testIsValidMergeSubsystem() {
+        assertFalse(subSysTest.isValidMergeSubsystem(null));
+        assertFalse(subSysTest.isValidMergeSubsystem(subSysTest));
+        assertFalse(subSysTest_2.isValidMergeSubsystem(subSysTest2));
+        assertFalse(subSysTest2.isValidMergeSubsystem(subSysTest_2));
+        
+        assertTrue(subSysTest.isValidMergeSubsystem(subSysTest2));
+        assertFalse(subSysTest2.isValidMergeSubsystem(subSysTest));
+        
+        subSysTest.setTerminated(true);
+        
+        assertFalse(subSysTest.isValidMergeSubsystem(subSysTest2));
+        assertFalse(subSysTest2.isValidMergeSubsystem(subSysTest));
+        
+        subSysTest.setTerminated(false);
     }
 }

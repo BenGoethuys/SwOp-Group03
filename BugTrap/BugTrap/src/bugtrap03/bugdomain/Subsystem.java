@@ -474,23 +474,34 @@ public class Subsystem extends AbstractSystem {
     }
 
     /**
-     * This methdo check whether or not the given subsystem can be merged with this subsystem
+     * This method checks whether or not the given subsystem can be merged with this subsystem
      *
-     * @param subsystem The subsystem to merge
+     * @param subsystem The child or sibling subsystem to merge
      *
-     * @return  The given subsystem must be a sibling OR the parent of the given subsystem must be this
+     * @return  The given subsystem must be a sibling OR the parent of the given subsystem must be this. Both this and the subsystem must not be terminated.
      */
     @DomainAPI
     public boolean isValidMergeSubsystem(Subsystem subsystem){
+        if (this.isTerminated()){
+            return false;
+        }
+
         if (subsystem == null){
             return false;
         }
+        
         if (subsystem == this){
             return false;
         }
+        
+        if (subsystem.isTerminated()){
+            return false;
+        }
+        
         if (subsystem.getParent() == this){
             return true;
         }
+        
         if (subsystem.getParent() == this.getParent()){
             return true;
         }
