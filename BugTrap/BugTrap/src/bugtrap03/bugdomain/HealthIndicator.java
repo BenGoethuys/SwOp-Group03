@@ -1,6 +1,6 @@
 package bugtrap03.bugdomain;
 
-import bugtrap03.bugdomain.usersystem.User;
+import purecollections.PList;
 
 /**
  * An enumeration of health indicators. <br>
@@ -15,8 +15,20 @@ public enum HealthIndicator {
     HealthIndicator() {
     }
 
-    public HealthIndicator[] getAllHealthIndicators(User user) {
-	
-	return null;
+    public String getAllHealthIndicators(PList<Project> projects) {
+	String str = "";
+	HealthAlgorithm1 ha1 = new HealthAlgorithm1();
+	HealthAlgorithm2 ha2 = new HealthAlgorithm2();
+	HealthAlgorithm3 ha3 = new HealthAlgorithm3();
+
+	for (Project proj : projects) {
+	    str += (proj.getName() + ":\n");
+	    str += ("\tAlgorithm 1: " + proj.getIndicator(ha1) + "\n");
+	    str += ("\tAlgorithm 2: " + proj.getIndicator(ha2) + "\n");
+	    str += ("\tAlgorithm 3: " + proj.getIndicator(ha3) + "\n");
+	}
+
+	return str;
     }
+
 }
