@@ -343,7 +343,7 @@ public abstract class User {
      * @throws IllegalArgumentException When stats == null
      */
     public void setStats(Statistics stats) throws IllegalArgumentException {
-        if(stats != null) {
+        if(stats == null) {
             throw new IllegalArgumentException("The given statistics must not be null.");
         }
         
