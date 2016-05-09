@@ -17,7 +17,7 @@ import java.util.Objects;
  * @version 1.1
  */
 @DomainAPI
-public abstract class User extends hasStatisticsDummy {
+public abstract class User {
 
     /**
      * Create a {@link User} with a username, a firstName, middelName and
@@ -40,6 +40,7 @@ public abstract class User extends hasStatisticsDummy {
         setMiddleName(middleName);
         setLastName(lastName);
         setMailbox(new Mailbox());
+        stats = new Statistics();
     }
 
     /**
@@ -62,6 +63,8 @@ public abstract class User extends hasStatisticsDummy {
     private String middleName;
     private String lastName;
     private Mailbox mailbox;
+    
+    private Statistics stats;
 
     private static HashSet<String> takenUsernames = new HashSet<String>();
 
@@ -322,5 +325,28 @@ public abstract class User extends hasStatisticsDummy {
     @DomainAPI
     public boolean hasRolePermission(RolePerm perm, Project project) {
         return false;
+    }
+    
+    /**
+     * Get the object that holds the statistics for this user.
+     * @return The {@link Statistics} that hold the current stats of this user. (Never null)
+     */
+    @DomainAPI
+    public Statistics getStats() {
+        return stats;
+    }
+    
+    /**
+     * Set the current statistics to the given statistics.
+     * 
+     * @param stats The statistics to set.
+     * @throws IllegalArgumentException When stats == null
+     */
+    public void setStats(Statistics stats) throws IllegalArgumentException {
+        if(stats != null) {
+            throw new IllegalArgumentException("The given statistics must not be null.");
+        }
+        
+        this.stats = stats;
     }
 }
