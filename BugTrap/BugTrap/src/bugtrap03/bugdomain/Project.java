@@ -668,6 +668,12 @@ public class Project extends ProjectSubject {
         }
     }
 
+    /**
+     * Get the {@link HealthIndicator} computed by using the given {@link HealthAlgorithm} on this project.
+     * @param ha The HealthAlgorithm to use.
+     * @return The HealthIndicator of this project based on the given HealthAlgorithm.
+     */
+    @DomainAPI
     @Override
     public HealthIndicator getIndicator(HealthAlgorithm ha) {
 	return ha.getIndicator(this);
