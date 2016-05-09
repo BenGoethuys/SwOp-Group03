@@ -44,8 +44,11 @@ public class Project extends ProjectSubject {
             GregorianCalendar startDate, long budgetEstimate) throws IllegalArgumentException {
         super(null, version, name, description);
         this.setCreationDate(creationDate);
+        if (! Project.isValidLead(lead)){
+            throw new IllegalArgumentException("The given lead is not a valid lead!");
+        }
         this.projectParticipants = new HashMap<>();
-        this.setLead(lead);
+        this.setRole(lead, Role.LEAD);
         this.setStartDate(startDate);
         this.setBudgetEstimate(budgetEstimate);
 
@@ -109,8 +112,11 @@ public class Project extends ProjectSubject {
             throws IllegalArgumentException {
         super(null, name, description);
         this.setCreationDate(new GregorianCalendar());
+        if (! Project.isValidLead(lead)){
+            throw new IllegalArgumentException("The given lead is not a valid lead!");
+        }
         this.projectParticipants = new HashMap<>();
-        this.setLead(lead);
+        this.setRole(lead, Role.LEAD);
         this.setStartDate(startDate);
         this.setBudgetEstimate(budgetEstimate);
     }
@@ -131,8 +137,11 @@ public class Project extends ProjectSubject {
             throws IllegalArgumentException {
         super(null, name, description);
         this.setCreationDate(new GregorianCalendar());
+        if (! Project.isValidLead(lead)){
+            throw new IllegalArgumentException("The given lead is not a valid lead!");
+        }
         this.projectParticipants = new HashMap<>();
-        this.setLead(lead);
+        this.setRole(lead, Role.LEAD);
         this.setStartDate(new GregorianCalendar());
         this.setBudgetEstimate(budgetEstimate);
     }
@@ -191,23 +200,6 @@ public class Project extends ProjectSubject {
             // no lead -> return null;
         }
         return lead;
-    }
-
-    /**
-     * This method sets the lead of this project
-     *
-     * @param lead The new lead of this project
-     * @throws IllegalArgumentException if isValidLead(lead) fails
-     * @Ensures if the lead was already set, the lead will not change
-     * @see Project#isValidLead(Developer)
-     */
-    private void setLead(Developer lead) throws IllegalArgumentException {
-        if (!Project.isValidLead(lead)) {
-            throw new IllegalArgumentException("The given developer is invalid as lead for this project");
-        }
-        if (this.getLead() == null) {
-            this.setRole(lead, Role.LEAD);
-        }
     }
 
     /**
