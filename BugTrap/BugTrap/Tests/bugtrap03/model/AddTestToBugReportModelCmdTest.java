@@ -8,6 +8,7 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -86,9 +87,13 @@ public class AddTestToBugReportModelCmdTest {
         assertTrue(cmd.toString().contains("Added a test for"));
         assertTrue(cmd.toString().contains(bugRep.getTitle()));
         assertTrue(cmd.isExecuted());
+        assertEquals(1, dev.getStats().getNbTestsSubmitted());
+        assertEquals(1, dev.getStats().getAvgLinesOfTestsSubmitted(), 1e-5);
 
         // 3. undo()
         assertTrue(cmd.undo());
+        assertEquals(0, dev.getStats().getNbTestsSubmitted());
+        assertEquals(0, dev.getStats().getAvgLinesOfTestsSubmitted(), 1e-5);
 
         // test
         assertFalse(bugRep.getTests().contains("test here"));
@@ -109,6 +114,8 @@ public class AddTestToBugReportModelCmdTest {
 
         // 2. Exec()
         cmd.exec();
+        assertEquals(0, dev.getStats().getNbTestsSubmitted());
+        assertEquals(0, dev.getStats().getAvgLinesOfTestsSubmitted(), 1e-5);
     }
 
     /**
@@ -123,8 +130,12 @@ public class AddTestToBugReportModelCmdTest {
 
         // 2. Exec()
         cmd.exec();
+        assertEquals(1, dev.getStats().getNbTestsSubmitted());
+        assertEquals(1, dev.getStats().getAvgLinesOfTestsSubmitted(), 1e-5);
 
         cmd.exec(); // <-- error.
+        assertEquals(1, dev.getStats().getNbTestsSubmitted());
+        assertEquals(1, dev.getStats().getAvgLinesOfTestsSubmitted(), 1e-5);
     }
 
     /**
@@ -146,6 +157,8 @@ public class AddTestToBugReportModelCmdTest {
     public void testNoPermissions() throws PermissionException {
         AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRep, admin, "test here");
         cmd.exec();
+        assertEquals(0, admin.getStats().getNbTestsSubmitted());
+        assertEquals(0, admin.getStats().getAvgLinesOfTestsSubmitted(), 1e-5);
     }
 
     /**
@@ -165,5 +178,7 @@ public class AddTestToBugReportModelCmdTest {
         AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugRep, dev, "test here");
         model.deleteProject(admin, proj);
         cmd.exec();
+        assertEquals(0, dev.getStats().getNbTestsSubmitted());
+        assertEquals(0, dev.getStats().getAvgLinesOfTestsSubmitted(), 1e-5);
     }
 }
