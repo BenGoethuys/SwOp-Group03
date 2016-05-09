@@ -1,0 +1,5 @@
+16/20
+no problems in presentation and settings.
+minor comment: prefer to have all of the classes for test in only one package. Not distributed over different packages. 
+Invariant that checks every project has only one leader. Think of a better solution. Currents i good, maybe you can improve it. 
+
