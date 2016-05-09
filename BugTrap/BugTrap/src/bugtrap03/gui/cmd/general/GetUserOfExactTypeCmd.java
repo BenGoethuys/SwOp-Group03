@@ -13,7 +13,7 @@ import java.util.Scanner;
  *
  * @author Group 03
  */
-public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
+public class GetUserOfExactTypeCmd<U extends User> implements Cmd {
 
     /**
      * Create a 'choose user' scenario wherein the person can choose a certain user from a list of users from a specific
@@ -22,7 +22,7 @@ public class GetUserOfExcactTypeCmd<U extends User> implements Cmd {
      * @param classType The type of the users to choose from. (exclude subclasses).
      * @throws IllegalArgumentException When a non-null reference was given.
      */
-    public GetUserOfExcactTypeCmd(Class<U> classType) throws IllegalArgumentException {
+    public GetUserOfExactTypeCmd(Class<U> classType) throws IllegalArgumentException {
         if (classType == null) {
             throw new IllegalArgumentException("GetUserOfExactTypeCmd requires a non-null reference as classType.");
         }

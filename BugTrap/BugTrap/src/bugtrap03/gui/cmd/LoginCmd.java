@@ -5,7 +5,7 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
-import bugtrap03.gui.cmd.general.GetUserOfExcactTypeCmd;
+import bugtrap03.gui.cmd.general.GetUserOfExactTypeCmd;
 import bugtrap03.gui.terminal.Terminal;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
@@ -71,7 +71,7 @@ public class LoginCmd implements Cmd<User> {
 
             //2. Show the person all users of that type
             //3. Ask the person which user to login as.
-            user = (new GetUserOfExcactTypeCmd<>(classType)).exec(scan, model, null);
+            user = (new GetUserOfExactTypeCmd<>(classType)).exec(scan, model, null);
         } while (user == null);
 
         terminal.setUser(user);

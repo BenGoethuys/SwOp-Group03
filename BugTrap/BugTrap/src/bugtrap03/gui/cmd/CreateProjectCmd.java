@@ -7,7 +7,7 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetProjectCmd;
-import bugtrap03.gui.cmd.general.GetUserOfExcactTypeCmd;
+import bugtrap03.gui.cmd.general.GetUserOfExactTypeCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 
@@ -137,7 +137,7 @@ public class CreateProjectCmd implements Cmd<Project> {
         // Project lead developer
         // a5. Ask user the lead developer by providing a list of possibilities.
         scan.println("choose a lead developer.");
-        Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
+        Developer lead = (new GetUserOfExactTypeCmd<>(Developer.class)).exec(scan, model, user);
 
         if (lead == null) {
             throw new IllegalArgumentException("Cancelled cmd.");
@@ -227,7 +227,7 @@ public class CreateProjectCmd implements Cmd<Project> {
         // b5. Go to step a5
         // a5.
         scan.println("choose a lead developer.");
-        Developer lead = (new GetUserOfExcactTypeCmd<>(Developer.class)).exec(scan, model, user);
+        Developer lead = (new GetUserOfExactTypeCmd<>(Developer.class)).exec(scan, model, user);
 
         // Clone Project
         Project newProject = model.cloneProject(project, versionID, lead, startDate, budgetEstimate);
