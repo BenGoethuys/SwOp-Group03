@@ -35,6 +35,8 @@ public class RegisterForForkNotificationsModelCmd extends RegisterForNotificatio
      * @return The created forkmailbox that represents the subscription
      * @throws IllegalArgumentException If subject of this cmd is terminated
      * @throws IllegalStateException If the state of this cmd is invalid
+     * @see bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox#forkSubscribe(ProjectSubject)
+     * @see #setExecuted()
      */
     @Override
     ForkMailbox exec() throws IllegalArgumentException, IllegalStateException {
