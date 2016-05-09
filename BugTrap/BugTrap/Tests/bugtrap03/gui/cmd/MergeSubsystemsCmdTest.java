@@ -48,10 +48,10 @@ public class MergeSubsystemsCmdTest {
     public static void setUpBeforeClass() throws Exception {
 	// Setup variables.
 	model = new DataModel();
-	Developer lead = model.createDeveloper("SplitSub1", "Luky", "Luke");
-	admin = model.createAdministrator("SplitSub2", "adminT", "bie");
-	Issuer issuer = model.createIssuer("SplitSub3", "BMW", "looks", "nice");
-	projectA = model.createProject(new VersionID(), "SplitSub3", "Project for testing 0", lead, 500, admin);
+	Developer lead = model.createDeveloper("SplitSub4", "Luky", "Luke");
+	admin = model.createAdministrator("SplitSub5", "adminT", "bie");
+	Issuer issuer = model.createIssuer("SplitSub6", "BMW", "looks", "nice");
+	projectA = model.createProject(new VersionID(), "SplitSub6", "Project for testing 0", lead, 500, admin);
 	projectB = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
 	// make subsystems
@@ -77,10 +77,10 @@ public class MergeSubsystemsCmdTest {
     public void testExec() throws IllegalArgumentException, PermissionException, CancelException {
 	ArrayDeque<String> question = new ArrayDeque<>();
 	ArrayDeque<String> answer = new ArrayDeque<>();
-	SplitSubsystemCmd cmd = new SplitSubsystemCmd();
+	MergeSubsystemsCmd cmd = new MergeSubsystemsCmd();
 
 	// Setup scenario
-	question.add("Splitting subsystems.");
+	question.add("Merging subsystems.");
 	question.add("Select a project.");
 	question.add("Available options:");
 	question.add("0. " + projectA.getName() + " version: " + projectA.getVersionID());
@@ -97,55 +97,43 @@ public class MergeSubsystemsCmdTest {
 	question.add("3. " + subsystemA3_1.getName());
 	question.add("4. " + subsystemA3_2.getName());
 	question.add("I choose: ");
-	answer.add("2");
-	question.add("You selected: " + subsystemA3.getName());
-	question.add("Please enter information for subsytem 1.");
-	question.add("Please enter a name:");
+	answer.add("0");
+	question.add("You selected: " + subsystemA1.getName());
+	question.add("Please select a subsystem to merge with the first");
+	question.add("Available options:");
+	question.add("0. " + subsystemA2.getName());
+	question.add("1. " + subsystemA3.getName());
+	question.add("I choose: ");
+	answer.add("0");
+	question.add("Please enter the new name:");
 	answer.add("NEW1");
-	question.add("Please enter a description:");
+	question.add("Please enter the new description:");
 	answer.add("DescriptionNew1");
-	question.add("Please enter information for subsytem 2.");
-	question.add("Please enter a name:");
-	answer.add("NEW2");
-	question.add("Please enter a description:");
-	answer.add("DescriptionNew2");
-	question.add("Please choose which subsystems you wish to keep for subsystem 1.");
-	question.add("Keep Subsystem " + subsystemA3_1.getName() + " ?");
-	question.add("Yes or No?");
-	answer.add("Yes");
-	question.add("Keep Subsystem " + subsystemA3_2.getName() + " ?");
-	question.add("Yes or No?");
-	answer.add("No");
-	question.add("Please choose which bug reports you wish to keep for subsystem 1.");
-	question.add("Keep " + bugRep1.getSubjectName() + " ?");
-	question.add("Yes or No?");
-	answer.add("Yes");
 
 	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
 	// Execute scenario
-	Subsystem[] chosen = cmd.exec(scan, model, admin);
+	Subsystem chosen = cmd.exec(scan, model, admin);
 
 	// Test effects.
-	assertEquals(chosen.length, 2);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException() throws IllegalArgumentException, CancelException, PermissionException {
-	SplitSubsystemCmd cmd = new SplitSubsystemCmd();
+	MergeSubsystemsCmd cmd = new MergeSubsystemsCmd();
 	cmd.exec(null, null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
-	SplitSubsystemCmd cmd = new SplitSubsystemCmd();
+	MergeSubsystemsCmd cmd = new MergeSubsystemsCmd();
 	DataModel model1 = new DataModel();
 	cmd.exec(null, model1, admin);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
-	SplitSubsystemCmd cmd = new SplitSubsystemCmd();
+	MergeSubsystemsCmd cmd = new MergeSubsystemsCmd();
 	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
 	        new ArrayDeque<>());
 	cmd.exec(scan, null, admin);
@@ -153,7 +141,7 @@ public class MergeSubsystemsCmdTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
-	SplitSubsystemCmd cmd = new SplitSubsystemCmd();
+	MergeSubsystemsCmd cmd = new MergeSubsystemsCmd();
 	DataModel model2 = new DataModel();
 	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
 	        new ArrayDeque<>());

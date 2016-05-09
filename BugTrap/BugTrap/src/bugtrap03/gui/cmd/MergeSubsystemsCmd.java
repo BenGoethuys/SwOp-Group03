@@ -13,7 +13,7 @@ import purecollections.PList;
 /**
  * @author Group 03
  */
-public class MergeSubsystemsCmd implements Cmd {
+public class MergeSubsystemsCmd implements Cmd<Subsystem> {
 
     /**
      * Execute use case 4.8, merge Subsystem and return the result.
