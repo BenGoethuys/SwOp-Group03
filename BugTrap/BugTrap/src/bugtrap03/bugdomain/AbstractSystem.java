@@ -110,10 +110,13 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @see #isValidVersionId(VersionID)
      */
     public void setVersionID(VersionID version) throws NullPointerException {
-	if (!isValidVersionId(version)) {
-	    throw new IllegalArgumentException("The given versionId is not valid for this abstractSystem");
-	}
-	this.version = version;
+        if (!isValidVersionId(version)) {
+            throw new IllegalArgumentException("The given versionId is not valid for this abstractSystem");
+        }
+        if (this.version != null){
+            notifyVersionIDsubs(this);
+        }
+	    this.version = version;
     }
 
     /**
@@ -185,10 +188,11 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @see #isValidMilestone(Milestone)
      */
     public void setMilestone(User user, Milestone milestone) throws PermissionException {
-	if (!user.hasPermission(UserPerm.SET_MILESTONE)) {
-	    throw new PermissionException("The given user doesn't have the needed permission to change the milestone");
-	}
-	this.setMilestone(milestone);
+        if (!user.hasPermission(UserPerm.SET_MILESTONE)) {
+            throw new PermissionException("The given user doesn't have the needed permission to change the milestone");
+            }
+        notifyMilestoneSubs(this);
+        this.setMilestone(milestone);
     }
 
     /**
@@ -612,8 +616,6 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
 		this.updateVersionIDSubs(as);
 		this.getParent().notifyVersionIDsubs(as);
 	}
-
-	//TODO call notify milestone, version and fork subs in the right places!
 
     /**
      * This method sets the isTerminated boolean of this object

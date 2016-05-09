@@ -71,7 +71,7 @@ public class Notification {
      * @param subject The subject to check.
      * @return True if the given subject is not null.
      */
-    //TODO isvalid in domainapi?
+    @DomainAPI
     public boolean isValidSubject(Subject subject) {
         if (subject == null) {
             return false;

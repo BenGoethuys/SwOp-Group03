@@ -555,6 +555,7 @@ public class Project extends ProjectSubject {
         for (Subsystem subsystemChild : this.getSubsystems()) {
             subsystemChild.cloneSubsystem(cloneProject);
         }
+        notifyForkSubs(cloneProject);
         return cloneProject;
 
     }
