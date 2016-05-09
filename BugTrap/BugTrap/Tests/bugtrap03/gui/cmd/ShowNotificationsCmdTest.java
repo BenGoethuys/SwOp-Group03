@@ -89,8 +89,8 @@ public class ShowNotificationsCmdTest {
         answer.add("555");
         question.add("Your notifications, ordered by newest first:");
         //show notif list
-        question.add("0. \tThe following bugreport has been commented upon: " + bugReportRegisterCmd.getTitle() + "\n" +
-                "\tThis notification originated from the subscription on: " + projectRegisterCmd.getSubjectName());
+        question.add("0.\tBugreport " + bugReportRegisterCmd.getTitle() + ", with uniqueID: " + bugReportRegisterCmd.getUniqueID() +
+                " has been commented upon.");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
         cmd.exec(scan, model, developerShowNotCmd);
