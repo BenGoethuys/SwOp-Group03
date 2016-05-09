@@ -185,10 +185,11 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @see #isValidMilestone(Milestone)
      */
     public void setMilestone(User user, Milestone milestone) throws PermissionException {
-	if (!user.hasPermission(UserPerm.SET_MILESTONE)) {
-	    throw new PermissionException("The given user doesn't have the needed permission to change the milestone");
-	}
-	this.setMilestone(milestone);
+        if (!user.hasPermission(UserPerm.SET_MILESTONE)) {
+            throw new PermissionException("The given user doesn't have the needed permission to change the milestone");
+            }
+        notifyMilestoneSubs(this);
+        this.setMilestone(milestone);
     }
 
     /**
@@ -613,7 +614,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
 		this.getParent().notifyVersionIDsubs(as);
 	}
 
-	//TODO call notify milestone, version and fork subs in the right places!
+	//TODO call notify milestone, version subs in the right places!
 
     /**
      * This method sets the isTerminated boolean of this object
