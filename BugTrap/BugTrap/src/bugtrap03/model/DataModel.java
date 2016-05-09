@@ -13,8 +13,6 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.*;
 import com.google.java.contract.Ensures;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParameterList;
-
 import purecollections.PList;
 
 import java.util.*;
@@ -33,9 +31,9 @@ public class DataModel {
      */
     @DomainAPI
     public DataModel() {
-	this.userList = PList.<User> empty();
-	this.projectList = PList.<Project> empty();
-	this.history = new Stack<>();
+        this.userList = PList.<User>empty();
+        this.projectList = PList.<Project>empty();
+        this.history = new Stack<>();
     }
 
     private PList<User> userList;
@@ -44,8 +42,7 @@ public class DataModel {
 
     /**
      * Add the cmd to the cmd history.
-     * <br>
-     * This will only be added when the cmd has been executed.
+     * <br> This will only be added when the cmd has been executed.
      *
      * @param cmd The {@link ModelCmd} to add to the history.
      *
@@ -53,11 +50,11 @@ public class DataModel {
      * @see ModelCmd#isExecuted()
      */
     private void addToHistory(ModelCmd cmd) throws IllegalStateException {
-	if (cmd == null || !cmd.isExecuted()) {
-	    throw new IllegalStateException("Tried to add a ModelCmd that hasn't been executed to the history.");
-	}
+        if (cmd == null || !cmd.isExecuted()) {
+            throw new IllegalStateException("Tried to add a ModelCmd that hasn't been executed to the history.");
+        }
 
-	history.push(cmd);
+        history.push(cmd);
     }
 
     /**
@@ -70,21 +67,21 @@ public class DataModel {
      */
     @DomainAPI
     public PList<ModelCmd> getHistory(int x) {
-	if (x <= 0) {
-	    return PList.<ModelCmd> empty();
-	}
+        if (x <= 0) {
+            return PList.<ModelCmd>empty();
+        }
 
-	x = Math.min(x, history.size());
+        x = Math.min(x, history.size());
 
-	Stack<ModelCmd> temp = (Stack<ModelCmd>) history.clone();
-	PList<ModelCmd> result = PList.<ModelCmd> empty();
+        Stack<ModelCmd> temp = (Stack<ModelCmd>) history.clone();
+        PList<ModelCmd> result = PList.<ModelCmd>empty();
 
-	for (int i = 0; i < x; i++) {
-	    ModelCmd cmd = temp.pop();
-	    result = result.plus(cmd);
-	}
+        for (int i = 0; i < x; i++) {
+            ModelCmd cmd = temp.pop();
+            result = result.plus(cmd);
+        }
 
-	return result;
+        return result;
     }
 
     /**
@@ -93,20 +90,18 @@ public class DataModel {
      * @return Whether the undoing was successful. When there was no ModelCmd true will be returned.
      */
     private boolean undoLastModelCmd() {
-	if (this.history.empty()) {
-	    return true;
-	}
+        if (this.history.empty()) {
+            return true;
+        }
 
-	ModelCmd cmd = this.history.pop();
-	return cmd.undo();
+        ModelCmd cmd = this.history.pop();
+        return cmd.undo();
     }
 
     /**
      * Undo the last x possible model changes.
-     * <br>
-     * When there are only y changes to undo (y &lt x) only y will be undone.
-     * <br>
-     * As soon as the undoing of an action fails the undoing is stopped and false is returned.
+     * <br> When there are only y changes to undo (y &lt x) only y will be undone.
+     * <br> As soon as the undoing of an action fails the undoing is stopped and false is returned.
      *
      * @param x The amount of changes to undo.
      *
@@ -115,20 +110,20 @@ public class DataModel {
      */
     @DomainAPI
     public boolean undoLastChanges(User user, int x) throws PermissionException {
-	if (user == null || !user.hasPermission(UserPerm.UNDO_COMMANDS)) {
-	    throw new PermissionException("You do not have sufficient permissions to undo.");
-	}
+        if (user == null || !user.hasPermission(UserPerm.UNDO_COMMANDS)) {
+            throw new PermissionException("You do not have sufficient permissions to undo.");
+        }
 
-	if (x <= 0) {
-	    return true;
-	}
+        if (x <= 0) {
+            return true;
+        }
 
-	for (int i = x; i > 0; i--) {
-	    if (!undoLastModelCmd()) {
-		return false;
-	    }
-	}
-	return true;
+        for (int i = x; i > 0; i--) {
+            if (!undoLastModelCmd()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -138,7 +133,7 @@ public class DataModel {
      */
     @DomainAPI
     public PList<User> getUserList() {
-	return userList;
+        return userList;
     }
 
     /**
@@ -148,7 +143,7 @@ public class DataModel {
      * @throws NullPointerException If user is null.
      */
     void addUser(User user) throws NullPointerException {
-	this.userList = userList.plus(user);
+        this.userList = userList.plus(user);
     }
 
     /**
@@ -158,7 +153,7 @@ public class DataModel {
      * @throws NullPointerException If project is null.
      */
     void addProject(Project project) throws NullPointerException {
-	this.projectList = projectList.plus(project);
+        this.projectList = projectList.plus(project);
     }
 
     /**
@@ -167,7 +162,7 @@ public class DataModel {
      * @param project The project to delete.
      */
     void deleteProject(Project project) {
-	this.projectList = projectList.minus(project);
+        this.projectList = projectList.minus(project);
     }
 
     /**
@@ -176,7 +171,7 @@ public class DataModel {
      * @param user The user to delete.
      */
     void deleteUser(User user) {
-	this.userList = userList.minus(user);
+        this.userList = userList.minus(user);
     }
 
     /**
@@ -188,13 +183,13 @@ public class DataModel {
      */
     @DomainAPI
     public <U extends User> PList<U> getUserListOfExactType(Class<U> userType) {
-	PList<U> result = PList.<U> empty();
-	for (User user : userList) {
-	    if (user.getClass().equals(userType)) {
-		result = result.plus((U) user);
-	    }
-	}
-	return result;
+        PList<U> result = PList.<U>empty();
+        for (User user : userList) {
+            if (user.getClass().equals(userType)) {
+                result = result.plus((U) user);
+            }
+        }
+        return result;
     }
 
     /**
@@ -206,13 +201,13 @@ public class DataModel {
      */
     @DomainAPI
     public <U extends User> PList<U> getUserListOfType(Class<U> userType) {
-	PList<U> result = PList.<U> empty();
-	for (User user : userList) {
-	    if (userType.isInstance(user)) {
-		result = result.plus((U) user);
-	    }
-	}
-	return result;
+        PList<U> result = PList.<U>empty();
+        for (User user : userList) {
+            if (userType.isInstance(user)) {
+                result = result.plus((U) user);
+            }
+        }
+        return result;
     }
 
     /**
@@ -226,12 +221,11 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
-    public Issuer createIssuer(String username, String firstName, String middleName, String lastName)
-            throws IllegalArgumentException {
-	CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(this, username, firstName, middleName, lastName);
-	Issuer issuer = cmd.exec();
-	this.addToHistory(cmd);
-	return issuer;
+    public Issuer createIssuer(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
+        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(this, username, firstName, middleName, lastName);
+        Issuer issuer = cmd.exec();
+        this.addToHistory(cmd);
+        return issuer;
     }
 
     /**
@@ -245,10 +239,10 @@ public class DataModel {
      */
     @DomainAPI
     public Issuer createIssuer(String username, String firstName, String lastName) throws IllegalArgumentException {
-	CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(this, username, firstName, lastName);
-	Issuer issuer = cmd.exec();
-	this.addToHistory(cmd);
-	return issuer;
+        CreateIssuerModelCmd cmd = new CreateIssuerModelCmd(this, username, firstName, lastName);
+        Issuer issuer = cmd.exec();
+        this.addToHistory(cmd);
+        return issuer;
     }
 
     /**
@@ -262,12 +256,11 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
-    public Developer createDeveloper(String username, String firstName, String middleName, String lastName)
-            throws IllegalArgumentException {
-	CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(this, username, firstName, middleName, lastName);
-	Developer dev = cmd.exec();
-	this.addToHistory(cmd);
-	return dev;
+    public Developer createDeveloper(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
+        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(this, username, firstName, middleName, lastName);
+        Developer dev = cmd.exec();
+        this.addToHistory(cmd);
+        return dev;
     }
 
     /**
@@ -280,12 +273,11 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
-    public Developer createDeveloper(String username, String firstName, String lastName)
-            throws IllegalArgumentException {
-	CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(this, username, firstName, lastName);
-	Developer dev = cmd.exec();
-	this.addToHistory(cmd);
-	return dev;
+    public Developer createDeveloper(String username, String firstName, String lastName) throws IllegalArgumentException {
+        CreateDeveloperModelCmd cmd = new CreateDeveloperModelCmd(this, username, firstName, lastName);
+        Developer dev = cmd.exec();
+        this.addToHistory(cmd);
+        return dev;
     }
 
     /**
@@ -299,12 +291,11 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
-    public Administrator createAdministrator(String username, String firstName, String middleName, String lastName)
-            throws IllegalArgumentException {
-	CreateAdminModelCmd cmd = new CreateAdminModelCmd(this, username, firstName, middleName, lastName);
-	Administrator admin = cmd.exec();
-	this.addToHistory(cmd);
-	return admin;
+    public Administrator createAdministrator(String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
+        CreateAdminModelCmd cmd = new CreateAdminModelCmd(this, username, firstName, middleName, lastName);
+        Administrator admin = cmd.exec();
+        this.addToHistory(cmd);
+        return admin;
     }
 
     /**
@@ -317,12 +308,11 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
-    public Administrator createAdministrator(String username, String firstName, String lastName)
-            throws IllegalArgumentException {
-	CreateAdminModelCmd cmd = new CreateAdminModelCmd(this, username, firstName, lastName);
-	Administrator admin = cmd.exec();
-	this.addToHistory(cmd);
-	return admin;
+    public Administrator createAdministrator(String username, String firstName, String lastName) throws IllegalArgumentException {
+        CreateAdminModelCmd cmd = new CreateAdminModelCmd(this, username, firstName, lastName);
+        Administrator admin = cmd.exec();
+        this.addToHistory(cmd);
+        return admin;
     }
 
     /**
@@ -342,13 +332,12 @@ public class DataModel {
      * @throws PermissionException If the given creator has insufficient permissions
      */
     @DomainAPI
-    public Project createProject(VersionID versionID, String name, String description, GregorianCalendar startDate,
-            Developer lead, long budget, User creator) throws IllegalArgumentException, PermissionException {
-	CreateProjectModelCmd cmd = new CreateProjectModelCmd(this, versionID, name, description, startDate, lead,
-	        budget, creator);
-	Project project = cmd.exec();
-	addToHistory(cmd);
-	return project;
+    public Project createProject(VersionID versionID, String name, String description, GregorianCalendar startDate, Developer lead,
+                                 long budget, User creator) throws IllegalArgumentException, PermissionException {
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(this, versionID, name, description, startDate, lead, budget, creator);
+        Project project = cmd.exec();
+        addToHistory(cmd);
+        return project;
     }
 
     /**
@@ -367,13 +356,12 @@ public class DataModel {
      * @throws PermissionException If the given creator has insufficient permissions
      */
     @DomainAPI
-    public Project createProject(VersionID versionID, String name, String description, Developer lead, long budget,
-            User creator) throws IllegalArgumentException, PermissionException {
-	CreateProjectModelCmd cmd = new CreateProjectModelCmd(this, versionID, name, description, lead, budget,
-	        creator);
-	Project project = cmd.exec();
-	addToHistory(cmd);
-	return project;
+    public Project createProject(VersionID versionID, String name, String description, Developer lead, long budget, User creator)
+            throws IllegalArgumentException, PermissionException {
+        CreateProjectModelCmd cmd = new CreateProjectModelCmd(this, versionID, name, description, lead, budget, creator);
+        Project project = cmd.exec();
+        addToHistory(cmd);
+        return project;
     }
 
     /**
@@ -383,30 +371,30 @@ public class DataModel {
      */
     @DomainAPI
     public PList<Project> getProjectList() {
-	return this.projectList;
+        return this.projectList;
     }
 
     /**
      * This method gets all bug reports in the system that are visible to the given user.
      *
      * @param user The user to get all bug reports for. All bug reports will be visible for him. null would mean the bug
-     *            report is visible to everyone.
+     * report is visible to everyone.
      * @return a list of all bug reports in the system that are visible for the user.
      *
      * @see BugReport#isVisibleTo(bugtrap03.bugdomain.usersystem.User)
      */
     @DomainAPI
     public PList<BugReport> getAllBugReports(User user) {
-	ArrayList<BugReport> list = new ArrayList<>();
-	PList<BugReport> BugReportList = getAllBugReports();
+        ArrayList<BugReport> list = new ArrayList();
+        PList<BugReport> BugReportList = getAllBugReports();
 
-	for (BugReport bugReport : BugReportList) {
-	    if (bugReport.isVisibleTo(user)) {
-		list.add(bugReport);
-	    }
-	}
+        for (BugReport bugReport : BugReportList) {
+            if (bugReport.isVisibleTo(user)) {
+                list.add(bugReport);
+            }
+        }
 
-	return PList.<BugReport> empty().plusAll(list);
+        return PList.<BugReport>empty().plusAll(list);
     }
 
     /**
@@ -415,14 +403,14 @@ public class DataModel {
      * @return a list of all bug reports in the system.
      */
     private PList<BugReport> getAllBugReports() {
-	ArrayList<BugReport> list = new ArrayList<>();
-	for (Project project : this.projectList) {
-	    PList<BugReport> bugReports = project.getAllBugReports();
-	    for (BugReport bugReport : bugReports) {
-		list.add(bugReport);
-	    }
-	}
-	return PList.<BugReport> empty().plusAll(list);
+        ArrayList<BugReport> list = new ArrayList<>();
+        for (Project project : this.projectList) {
+            PList<BugReport> bugReports = project.getAllBugReports();
+            for (BugReport bugReport : bugReports) {
+                list.add(bugReport);
+            }
+        }
+        return PList.<BugReport>empty().plusAll(list);
     }
 
     /**
@@ -434,17 +422,15 @@ public class DataModel {
      * @param budgetEstimate The new budget estimate of the given project
      * @throws PermissionException if the given user doesn't have the needed permission to update a project.
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     *             <br>
-     *             <dt><b>Postconditions:</b>
-     *             <dd>The attributes of the given project will not be updated if an error was thrown
+     * <br><dt><b>Postconditions:</b><dd> The attributes of the given project will not be updated if an error was thrown
      */
     @DomainAPI
     public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate,
             Long budgetEstimate) throws IllegalArgumentException, PermissionException {
-	UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(proj, user, name, description, startDate, budgetEstimate);
-	Project project = cmd.exec();
-	addToHistory(cmd);
-	return project;
+        UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(proj, user, name, description, startDate, budgetEstimate);
+        Project project = cmd.exec();
+        addToHistory(cmd);
+        return project;
     }
 
     /**
@@ -456,10 +442,10 @@ public class DataModel {
      */
     @DomainAPI
     public PList<Subsystem> getAllSubsystems(Project project) {
-	if (project == null) {
-	    return PList.<Subsystem> empty();
-	}
-	return project.getAllSubsystems();
+        if(project == null) {
+            return PList.<Subsystem>empty();
+        }
+        return project.getAllSubsystems();
     }
 
     /**
@@ -469,12 +455,12 @@ public class DataModel {
      */
     @DomainAPI
     public PList<AbstractSystem> getAllProjectsAndSubsystems() {
-	PList<AbstractSystem> list = PList.<AbstractSystem> empty();
-	for (Project proj : this.projectList) {
-	    list = list.plus(proj);
-	    list = list.plusAll(new ArrayList<>(proj.getAllSubsystems()));
-	}
-	return list;
+        PList<AbstractSystem> list = PList.<AbstractSystem>empty();
+        for (Project proj : this.projectList) {
+            list = list.plus(proj);
+            list = list.plusAll(new ArrayList<>(proj.getAllSubsystems()));
+        }
+        return list;
     }
 
     /**
@@ -488,10 +474,10 @@ public class DataModel {
      */
     @DomainAPI
     public Project deleteProject(User user, Project project) throws PermissionException, IllegalArgumentException {
-	DeleteProjectModelCmd cmd = new DeleteProjectModelCmd(this, user, project);
-	Project proj = cmd.exec();
-	addToHistory(cmd);
-	return proj;
+        DeleteProjectModelCmd cmd = new DeleteProjectModelCmd(this, user, project);
+        Project proj = cmd.exec();
+        addToHistory(cmd);
+        return proj;
     }
 
     /**
@@ -509,10 +495,10 @@ public class DataModel {
     @DomainAPI
     public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, String name, String description)
             throws PermissionException, IllegalArgumentException {
-	CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(user, abstractSystem, name, description);
-	Subsystem sub = cmd.exec();
-	addToHistory(cmd);
-	return sub;
+        CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(user, abstractSystem, name, description);
+        Subsystem sub = cmd.exec();
+        addToHistory(cmd);
+        return sub;
     }
 
     /**
@@ -531,10 +517,10 @@ public class DataModel {
     @DomainAPI
     public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, VersionID versionID, String name,
             String description) throws PermissionException, IllegalArgumentException {
-	CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(user, abstractSystem, versionID, name, description);
-	Subsystem sub = cmd.exec();
-	addToHistory(cmd);
-	return sub;
+        CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(user, abstractSystem, versionID, name, description);
+        Subsystem sub = cmd.exec();
+        addToHistory(cmd);
+        return sub;
     }
 
     /**
@@ -546,7 +532,7 @@ public class DataModel {
      * @param description The description of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param milestone The milestone of the bug report
-     * @param impactFactor The impact factor of the new bug report
+     * @param impactFactor  The impact factor of the new bug report
      * @param isPrivate The boolean that says if this bug report should be private or not
      * @throws IllegalArgumentException if isValidCreator(user) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
@@ -559,12 +545,8 @@ public class DataModel {
      *
      * @return The create bug report
      *
-     *         <br>
-     *         <dt><b>Postconditions:</b>
-     *         <dd>result.getDate() == current date at the moment of initialization
-     *         <br>
-     *         <dt><b>Postconditions:</b>
-     *         <dd>result.getUniqueID() is an unique ID for this bug report
+     * <br><dt><b>Postconditions:</b><dd> result.getDate() == current date at the moment of initialization
+     * <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
      *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
@@ -578,13 +560,13 @@ public class DataModel {
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     @DomainAPI
     public BugReport createBugReport(Subsystem subsystem, User user, String title, String description,
-            PList<BugReport> dependencies, Milestone milestone, double impactFactor, boolean isPrivate)
+                                     PList<BugReport> dependencies, Milestone milestone, double impactFactor, boolean isPrivate)
             throws IllegalArgumentException, PermissionException {
-	CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description, null,
-	        dependencies, milestone, impactFactor, isPrivate, null, null, null);
-	BugReport bugReport = cmd.exec();
-	addToHistory(cmd);
-	return bugReport;
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description,
+                null, dependencies, milestone, impactFactor, isPrivate, null, null, null);
+        BugReport bugReport = cmd.exec();
+        addToHistory(cmd);
+        return bugReport;
     }
 
     /**
@@ -597,7 +579,7 @@ public class DataModel {
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
      * @param milestone The milestone of the bug report
-     * @param impactFactor the impact factor of the new bug report
+     * @param impactFactor  the impact factor of the new bug report
      * @param isPrivate The boolean that says if this bug report should be private or not
      * @param trigger A trigger used to trigger the bug. Can be NULL.
      * @param stacktrace The stacktrace got when the bug was triggered. Can be NULL.
@@ -614,13 +596,9 @@ public class DataModel {
      *
      * @return The create bug report
      *
-     *         <br>
-     *         <dt><b>Postconditions:</b>
-     *         <dd>if creationDate == null: result.getDate() == current date at the moment of
-     *         initialization
-     *         <br>
-     *         <dt><b>Postconditions:</b>
-     *         <dd>result.getUniqueID() is an unique ID for this bug report
+     * <br><dt><b>Postconditions:</b><dd> if creationDate == null: result.getDate() == current date at the moment of
+     * initialization
+     * <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
      *
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
@@ -634,14 +612,14 @@ public class DataModel {
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     @DomainAPI
     public BugReport createBugReport(Subsystem subsystem, User user, String title, String description,
-            GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone, double impactFactor,
-            boolean isPrivate, String trigger, String stacktrace, String error)
+                                     GregorianCalendar creationDate, PList<BugReport> dependencies, Milestone milestone,
+                                     double impactFactor, boolean isPrivate, String trigger, String stacktrace, String error)
             throws IllegalArgumentException, PermissionException {
-	CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description, creationDate,
-	        dependencies, milestone, impactFactor, isPrivate, trigger, stacktrace, error);
-	BugReport bugReport = cmd.exec();
-	addToHistory(cmd);
-	return bugReport;
+        CreateBugReportModelCmd cmd = new CreateBugReportModelCmd(subsystem, user, title, description,
+                creationDate, dependencies, milestone, impactFactor, isPrivate, trigger, stacktrace, error);
+        BugReport bugReport = cmd.exec();
+        addToHistory(cmd);
+        return bugReport;
     }
 
     /**
@@ -657,12 +635,11 @@ public class DataModel {
      * @see BugReport#isValidComment(Comment)
      */
     @DomainAPI
-    public Comment createComment(User user, BugReport bugReport, String text)
-            throws PermissionException, IllegalArgumentException {
-	CreateCommentModelCmd cmd = new CreateCommentModelCmd(user, bugReport, text);
-	Comment comment = cmd.exec();
-	addToHistory(cmd);
-	return comment;
+    public Comment createComment(User user, BugReport bugReport, String text) throws PermissionException, IllegalArgumentException {
+        CreateCommentModelCmd cmd = new CreateCommentModelCmd(user, bugReport, text);
+        Comment comment = cmd.exec();
+        addToHistory(cmd);
+        return comment;
     }
 
     /**
@@ -678,12 +655,11 @@ public class DataModel {
      * @see Comment#isValidSubComment(Comment)
      */
     @DomainAPI
-    public Comment createComment(User user, Comment parentComment, String text)
-            throws PermissionException, IllegalArgumentException {
-	CreateCommentModelCmd cmd = new CreateCommentModelCmd(user, parentComment, text);
-	Comment comment = cmd.exec();
-	addToHistory(cmd);
-	return comment;
+    public Comment createComment(User user, Comment parentComment, String text) throws PermissionException, IllegalArgumentException {
+        CreateCommentModelCmd cmd = new CreateCommentModelCmd(user, parentComment, text);
+        Comment comment = cmd.exec();
+        addToHistory(cmd);
+        return comment;
     }
 
     /**
@@ -701,11 +677,10 @@ public class DataModel {
     @DomainAPI
     public Project cloneProject(Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate,
             long budgetEstimate) throws IllegalArgumentException {
-	CloneProjectModelCmd cmd = new CloneProjectModelCmd(this, cloneSource, versionID, lead, startDate,
-	        budgetEstimate);
-	Project proj = cmd.exec();
-	addToHistory(cmd);
-	return proj;
+        CloneProjectModelCmd cmd = new CloneProjectModelCmd(this, cloneSource, versionID, lead, startDate, budgetEstimate);
+        Project proj = cmd.exec();
+        addToHistory(cmd);
+        return proj;
     }
 
     /**
@@ -718,7 +693,7 @@ public class DataModel {
      */
     @DomainAPI
     public PList<Developer> getDeveloperInProject(BugReport bugRep) {
-	return bugRep.getSubsystem().getAllDev();
+        return bugRep.getSubsystem().getAllDev();
     }
 
     /**
@@ -728,7 +703,7 @@ public class DataModel {
      * @param bugRep The bug report to add all the developers to
      * @param devList The developers to add to the bug report
      * @throws PermissionException If the given user doesn't have the needed permission to add users to the given bug
-     *             report
+     * report
      * @throws IllegalArgumentException When user == null
      * @throws IllegalArgumentException When bugRep == null
      * @throws IllegalArgumentException If the given developer was not valid for this bug report
@@ -736,9 +711,9 @@ public class DataModel {
     @DomainAPI
     public void addUsersToBugReport(User user, BugReport bugRep, PList<Developer> devList)
             throws PermissionException, IllegalArgumentException {
-	AddUsersToBugReportModelCmd cmd = new AddUsersToBugReportModelCmd(user, bugRep, devList);
-	cmd.exec();
-	addToHistory(cmd);
+        AddUsersToBugReportModelCmd cmd = new AddUsersToBugReportModelCmd(user, bugRep, devList);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
@@ -748,7 +723,7 @@ public class DataModel {
      */
     @DomainAPI
     public PList<Tag> getAllTags() {
-	return PList.<Tag> empty().plusAll(Arrays.asList(Tag.values()));
+        return PList.<Tag>empty().plusAll(Arrays.asList(Tag.values()));
     }
 
     /**
@@ -762,9 +737,9 @@ public class DataModel {
      */
     @DomainAPI
     public void setTag(BugReport bugrep, Tag tag, User user) throws PermissionException, IllegalArgumentException {
-	SetTagForBugReportModelCmd cmd = new SetTagForBugReportModelCmd(bugrep, tag, user);
-	cmd.exec();
-	addToHistory(cmd);
+        SetTagForBugReportModelCmd cmd = new SetTagForBugReportModelCmd(bugrep, tag, user);
+        cmd.exec();
+        addToHistory(cmd); 
     }
 
     /**
@@ -777,10 +752,10 @@ public class DataModel {
      */
     @DomainAPI
     public String getDetails(User user, BugReport bugRep) throws PermissionException {
-	if (!user.hasPermission(UserPerm.INSPECT_BUGREPORT)) {
-	    throw new PermissionException("the given user doesn't have the needed permission!");
-	}
-	return bugRep.getDetails();
+        if (!user.hasPermission(UserPerm.INSPECT_BUGREPORT)) {
+            throw new PermissionException("the given user doesn't have the needed permission!");
+        }
+        return bugRep.getDetails();
     }
 
     /**
@@ -790,24 +765,7 @@ public class DataModel {
      */
     @DomainAPI
     public PList<Role> getAllRoles() {
-	return PList.<Role> empty().plusAll(Arrays.asList(Role.values()));
-    }
-
-    /**
-     * This method returns a list of all project of a lead developer.
-     * 
-     * @param user The lead developer
-     * @return a PList of all projects.
-     */
-    @DomainAPI
-    public PList<Project> getAllProjectsOfLead(User user) {
-	PList<Project> allProjectsUser = PList.<Project> empty();
-	for (Project proj : projectList) {
-	    if (proj.getLead() == user) {
-		allProjectsUser.plus(proj);
-	    }
-	}
-	return allProjectsUser;
+        return PList.<Role>empty().plusAll(Arrays.asList(Role.values()));
     }
 
     /**
@@ -822,11 +780,10 @@ public class DataModel {
      * @throws IllegalArgumentException When role == null || user == null || project == null || developer == null
      */
     @DomainAPI
-    public void assignToProject(Project project, User user, Developer developer, Role role)
-            throws PermissionException, IllegalArgumentException {
-	AssignToProjectModelCmd cmd = new AssignToProjectModelCmd(project, user, developer, role);
-	cmd.exec();
-	addToHistory(cmd);
+    public void assignToProject(Project project, User user, Developer developer, Role role) throws PermissionException, IllegalArgumentException {
+        AssignToProjectModelCmd cmd = new AssignToProjectModelCmd(project, user, developer, role);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
@@ -843,11 +800,10 @@ public class DataModel {
      * @see BugReport#isValidTest(String)
      */
     @DomainAPI
-    public void addTest(BugReport bugReport, User user, String test)
-            throws PermissionException, IllegalStateException, IllegalArgumentException {
-	AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugReport, user, test);
-	cmd.exec();
-	addToHistory(cmd);
+    public void addTest(BugReport bugReport, User user, String test) throws PermissionException, IllegalStateException, IllegalArgumentException {
+        AddTestToBugReportModelCmd cmd = new AddTestToBugReportModelCmd(bugReport, user, test);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
@@ -863,11 +819,10 @@ public class DataModel {
      * @throws IllegalArgumentException When bugReport == null
      */
     @DomainAPI
-    public void addPatch(BugReport bugReport, User user, String patch)
-            throws PermissionException, IllegalStateException, IllegalArgumentException {
-	AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugReport, user, patch);
-	cmd.exec();
-	addToHistory(cmd);
+    public void addPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException {
+        AddPatchToBugReportModelCmd cmd = new AddPatchToBugReportModelCmd(bugReport, user, patch);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
@@ -878,17 +833,16 @@ public class DataModel {
      * @param patch The patch that the user wants to select
      *
      * @throws PermissionException If the given user doesn't have the permission to select a patch for this bug report
-     *             state
+     * state
      * @throws IllegalStateException If the current state doesn't allow the selecting of a patch
      * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
      * @throws IllegalArgumentException When bugReport == null
      */
     @DomainAPI
-    public void selectPatch(BugReport bugReport, User user, String patch)
-            throws PermissionException, IllegalStateException, IllegalArgumentException {
-	SelectPatchFromBugReportModelCmd cmd = new SelectPatchFromBugReportModelCmd(bugReport, user, patch);
-	cmd.exec();
-	addToHistory(cmd);
+    public void selectPatch(BugReport bugReport, User user, String patch) throws PermissionException, IllegalStateException, IllegalArgumentException {
+        SelectPatchFromBugReportModelCmd cmd = new SelectPatchFromBugReportModelCmd(bugReport, user, patch);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
@@ -903,30 +857,28 @@ public class DataModel {
      * @throws IllegalArgumentException When bugReport == null
      */
     @DomainAPI
-    public void giveScore(BugReport bugReport, User user, int score)
-            throws IllegalStateException, IllegalArgumentException, PermissionException {
-	GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugReport, user, score);
-	cmd.exec();
-	addToHistory(cmd);
+    public void giveScore(BugReport bugReport, User user, int score) throws IllegalStateException, IllegalArgumentException, PermissionException {
+        GiveScoreToBugReportModelCmd cmd = new GiveScoreToBugReportModelCmd(bugReport, user, score);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
      * This method sets the duplicate of the given bug report to the given duplicate
-     * 
-     * @param user The user that wants to set the duplicate of the bug report
+     * @param user      The user that wants to set the duplicate of the bug report
      * @param bugReport The bug report that will be assigned the duplicate
      * @param duplicate The duplicate of the given bug report
      *
-     * @throws IllegalStateException If the bugReport doesn't allow a duplicate to be set
+     * @throws IllegalStateException    If the bugReport doesn't allow a duplicate to be set
      * @throws IllegalArgumentException If the given bugReport/duplicate is invalid
-     * @throws PermissionException If the user doesn't have the needed permission to set the duplicate
+     * @throws PermissionException      If the user doesn't have the needed permission to set the duplicate
      */
     @DomainAPI
     public void setDuplicate(User user, BugReport bugReport, BugReport duplicate)
             throws IllegalStateException, IllegalArgumentException, PermissionException {
-	SetDuplicateBugReportModelCmd cmd = new SetDuplicateBugReportModelCmd(bugReport, duplicate, user);
-	cmd.exec();
-	addToHistory(cmd);
+        SetDuplicateBugReportModelCmd cmd = new SetDuplicateBugReportModelCmd(bugReport, duplicate, user);
+        cmd.exec();
+        addToHistory(cmd);
     }
 
     /**
@@ -942,11 +894,11 @@ public class DataModel {
      */
     @DomainAPI
     public CommentMailBox registerForCommentNotifications(User user, Subject subject)
-            throws IllegalArgumentException, IllegalStateException {
-	RegisterForCommentNotificationsModelCmd cmd = new RegisterForCommentNotificationsModelCmd(user, subject);
-	CommentMailBox newMailbox = cmd.exec();
-	addToHistory(cmd);
-	return newMailbox;
+            throws IllegalArgumentException, IllegalStateException{
+        RegisterForCommentNotificationsModelCmd cmd = new RegisterForCommentNotificationsModelCmd(user, subject);
+        CommentMailBox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
     }
 
     /**
@@ -962,20 +914,20 @@ public class DataModel {
      */
     @DomainAPI
     public CreationMailBox registerForCreationNotifications(User user, AbstractSystemSubject abstractSystemSubject)
-            throws IllegalArgumentException, IllegalStateException {
-	RegisterForCreationNotificationsModelCmd cmd = new RegisterForCreationNotificationsModelCmd(user,
-	        abstractSystemSubject);
-	CreationMailBox newMailbox = cmd.exec();
-	addToHistory(cmd);
-	return newMailbox;
+            throws IllegalArgumentException, IllegalStateException{
+        RegisterForCreationNotificationsModelCmd cmd =
+                new RegisterForCreationNotificationsModelCmd(user, abstractSystemSubject);
+        CreationMailBox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
     }
 
     /**
      * This method lets a user register for notifications concerning a specific tag change on a subject.
      *
-     * @param user the user that wishes to subscribe for notifications
-     * @param subject the subject on which the user wishes to subscribe
-     * @param enumSet the enumset of specific tags to which the user wishes to subscribe
+     * @param user      the user that wishes to subscribe for notifications
+     * @param subject   the subject on which the user wishes to subscribe
+     * @param enumSet   the enumset of specific tags to which the user wishes to subscribe
      *
      * @return The newly created mailbox that represents the registration for notifications.
      *
@@ -985,17 +937,17 @@ public class DataModel {
     @DomainAPI
     public TagMailBox registerForSpecificTagsNotifications(User user, Subject subject, EnumSet<Tag> enumSet)
             throws IllegalArgumentException, IllegalStateException {
-	RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject, enumSet);
-	TagMailBox newMailbox = cmd.exec();
-	addToHistory(cmd);
-	return newMailbox;
+        RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject, enumSet);
+        TagMailBox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
     }
 
     /**
      * This method lets a user register for notifications concerning a tag change on a subject.
      *
-     * @param user the user that wishes to subscribe for notifications
-     * @param subject the subject on which the user wishes to subscribe
+     * @param user      the user that wishes to subscribe for notifications
+     * @param subject   the subject on which the user wishes to subscribe
      *
      * @return The newly created mailbox that represents the registration for notifications.
      *
@@ -1005,17 +957,17 @@ public class DataModel {
     @DomainAPI
     public TagMailBox registerForAllTagsNotifications(User user, Subject subject)
             throws IllegalArgumentException, IllegalStateException {
-	RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject);
-	TagMailBox newMailbox = cmd.exec();
-	addToHistory(cmd);
-	return newMailbox;
+        RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject);
+        TagMailBox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
     }
 
     /**
      * This method lets a user unregister for notifications
      *
-     * @param user The user that wishes to unregister.
-     * @param mailbox The mailbox that contains the notifications from which the user wishes to unregister.
+     * @param user      The user that wishes to unregister.
+     * @param mailbox   The mailbox that contains the notifications from which the user wishes to unregister.
      *
      * @return The mailbox that represents the registration for notifications.
      *
@@ -1023,45 +975,42 @@ public class DataModel {
      * @throws IllegalStateException If the command has already been executed.
      */
     @DomainAPI
-    public AbstractMailbox unregisterFromNotifications(User user, AbstractMailbox mailbox)
-            throws IllegalArgumentException, IllegalStateException {
-	UnregisterFromNotificationsModelCmd cmd = new UnregisterFromNotificationsModelCmd(user, mailbox);
-	cmd.exec();
-	addToHistory(cmd);
-	return mailbox;
+    public AbstractMailbox unregisterFromNotifications(User user, AbstractMailbox mailbox) throws IllegalArgumentException, IllegalStateException{
+        UnregisterFromNotificationsModelCmd cmd = new UnregisterFromNotificationsModelCmd(user, mailbox);
+        cmd.exec();
+        addToHistory(cmd);
+        return  mailbox;
     }
 
     /**
      * This method lets the given user change the milestone of the given abstractSystem to the given milestone
      *
-     * @param user The user that wants to change the milestone
-     * @param abstractSystem The abstractSystem that needs a milestone change
-     * @param milestone The new milestone
+     * @param user              The user that wants to change the milestone
+     * @param abstractSystem    The abstractSystem that needs a milestone change
+     * @param milestone         The new milestone
      *
-     * @throws PermissionException If the given user doesn't have the needed permission
+     * @throws PermissionException  If the given user doesn't have the needed permission
      */
     @DomainAPI
     public void setMilestone(User user, AbstractSystem abstractSystem, Milestone milestone) throws PermissionException {
-	SetMilestoneAbstractSystemModelCmd cmd = new SetMilestoneAbstractSystemModelCmd(user, abstractSystem,
-	        milestone);
-	cmd.exec();
-	addToHistory(cmd);
+        SetMilestoneAbstractSystemModelCmd cmd = new SetMilestoneAbstractSystemModelCmd(user, abstractSystem, milestone);
+        cmd.exec();
+        addToHistory(cmd);
     }
-
+    
     /**
      * Split the given subsystem into 2 subsystems, subsystem and a newly created one.
-     * <br>
-     * subsystem will keep all the direct subsystems and bugReports that are also contained in the list subsystems1
+     * <br> subsystem will keep all the direct subsystems and bugReports that are also contained in the list subsystems1
      * or bugReports1 respectively... The rest will go to subsystem2.
      *
-     * @param subsystem The Subsystem to split into itself and another newly created Subsystem.
-     * @param subsystem1Name The new name for subsystem.
-     * @param subsystem1Desc The new description for subsystem.
-     * @param subsystem2Name The name for subsystem 2 resulting from the split.
-     * @param subsystem2Desc The description for subsystem 2 resulting from the split.
-     * @param subsystems1 The list of subsystems to keep in subsystem.
-     * @param bugReports1 The list of bugReports to keep in subsystem.
-     * @param user The user who wants to split the given subsystem.
+     * @param subsystem         The Subsystem to split into itself and another newly created Subsystem.
+     * @param subsystem1Name    The new name for subsystem.
+     * @param subsystem1Desc    The new description for subsystem.
+     * @param subsystem2Name    The name for subsystem 2 resulting from the split.
+     * @param subsystem2Desc    The description for subsystem 2 resulting from the split.
+     * @param subsystems1       The list of subsystems to keep in subsystem.
+     * @param bugReports1       The list of bugReports to keep in subsystem.
+     * @param user              The user who wants to split the given subsystem.
      *
      * @return The extra newly created subsystem, subsystem 2. The other subsystem, subsystem 1 remains as subsystem.
      *
@@ -1071,54 +1020,69 @@ public class DataModel {
      * @throws IllegalArgumentException When any of the arguments passed is invalid for a subsystem.
      */
     @DomainAPI
-    public Subsystem splitSubsystem(Subsystem subsystem, String subsystem1Name, String subsystem1Desc,
-            String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1,
-            User user) throws PermissionException, IllegalArgumentException {
-	SplitSubsystemModelCmd cmd = new SplitSubsystemModelCmd(subsystem, subsystem1Name, subsystem1Desc,
-	        subsystem2Name, subsystem2Desc, subsystems1, bugReports1, user);
-	Subsystem result = cmd.exec();
-	addToHistory(cmd);
-	return result;
+    public Subsystem splitSubsystem(Subsystem subsystem, String subsystem1Name, String subsystem1Desc, String subsystem2Name, String subsystem2Desc, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) throws PermissionException, IllegalArgumentException {
+        SplitSubsystemModelCmd cmd = new SplitSubsystemModelCmd(subsystem, subsystem1Name, subsystem1Desc, subsystem2Name, subsystem2Desc, subsystems1, bugReports1, user);
+        Subsystem result = cmd.exec();
+        addToHistory(cmd);
+        return result;
     }
 
     /**
      * This method safely merges 2 subsystems together
      *
-     * @param user The user that wants to merge the subsystems
-     * @param subsystem1 The first subsystem to merge
-     * @param subsystem2 The second subsystem to merge
-     * @param newName The new name of the merged subsystem
-     * @param newDescription The new description of the merged subsystem
+     * @param user              The user that wants to merge the subsystems
+     * @param subsystem1        The first subsystem to merge
+     * @param subsystem2        The second subsystem to merge
+     * @param newName           The new name of the merged subsystem
+     * @param newDescription    The new description of the merged subsystem
      *
-     * @return The merged subsystem
+     * @return  The merged subsystem
      *
      * @throws IllegalArgumentException When there is an illegal argument passed.
-     * @throws NullPointerException When there is a null where it shouldn't. Read ModelCmd specific documentation.
-     * @throws PermissionException When the user does not have sufficient permissions
+     * @throws NullPointerException     When there is a null where it shouldn't. Read ModelCmd specific documentation.
+     * @throws PermissionException      When the user does not have sufficient permissions
      */
     @DomainAPI
-    public Subsystem mergeSubsystems(User user, Subsystem subsystem1, Subsystem subsystem2, String newName,
-            String newDescription) throws PermissionException {
-	MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(user, subsystem1, subsystem2, newName,
-	        newDescription);
-	Subsystem result = cmd.exec();
-	addToHistory(cmd);
-	return result;
+    public Subsystem mergeSubsystems(User user, Subsystem subsystem1, Subsystem subsystem2,
+                                     String newName, String newDescription) throws PermissionException {
+        MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(user, subsystem1, subsystem2, newName, newDescription);
+        Subsystem result = cmd.exec();
+        addToHistory(cmd);
+        return result;
     }
 
     /**
      * Get the amount of bug reports that the given user has submitted and is marked as a duplicate.
-     * 
      * @return The amount of duplicate bug reports this user has submitted.
      */
-    /*
-     * @DomainAPI
-     * public long getNbDuplicateBRsSubmitted(User user) {
-     * this.getAllBugReports(user);
-     * }
-     */
+   /* @DomainAPI
+    public long getNbDuplicateBRsSubmitted(User user) {
+        this.getAllBugReports(user);
+    }*/
 
-    public int getNbClosedBRForDev(User user) {
-	return 0;
+    /**
+     * This method returns the number of Closed bug reports where the given user is assigned to
+     *
+     * @param user  The user that needs to be assigned to the bug report
+     *
+     * @return  The number of Closed bug reports where the given user is assigned to
+     */
+    @DomainAPI
+    public long getNbClosedBRForDev(User user){
+        PList<BugReport> bugList = this.getAllBugReports();
+        return bugList.parallelStream().
+                filter(u -> (u.getUserList().contains(user) && u.getTag() == Tag.CLOSED)).count();
+    }
+
+    /**
+     * This method returns the number of unfinished bug reports the given user is assigned to
+     * @param user  The user that needs to be assigned to the bug report
+     * @return  The number of unfinished bug reports the given user is assigned to
+     */
+    @DomainAPI
+    public long getNbUnfinishedBRForDev(User user){
+        PList<BugReport> bugList = this.getAllBugReports();
+        return bugList.parallelStream().
+                filter(u -> (u.getUserList().contains(user) && ! u.isResolved())).count();
     }
 }

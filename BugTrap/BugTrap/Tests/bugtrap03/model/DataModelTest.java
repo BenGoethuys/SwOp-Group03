@@ -410,7 +410,78 @@ public class DataModelTest {
         model.giveScore(bugRep, dev, 3);
         assertEquals(3, bugRep.getScore());
     }
-    
-    
+
+    @Test
+    public void testGetNbClosedBRForDev() throws PermissionException {
+        model = new DataModel();
+        admin = model.createAdministrator("ThisIsAnotherAdmin", "first", "last");
+        dev = model.createDeveloper("ThisIsAnotherDeveloper", "first", "last");
+        Developer other = model.createDeveloper("ThisIsAnotherDeveloper2", "first", "last");
+        project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+        Project project1 = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+
+        model.assignToProject(project, dev, dev, Role.TESTER);
+        model.assignToProject(project, dev, dev, Role.PROGRAMMER);
+
+        model.assignToProject(project1, dev, dev, Role.TESTER);
+        model.assignToProject(project1, dev, dev, Role.PROGRAMMER);
+
+        Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
+        Subsystem subsys1 = model.createSubsystem(admin, project1, "subName", "subDesc");
+
+        BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+        BugReport bugRep1 = model.createBugReport(subsys, other, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+        BugReport bugRep2 = model.createBugReport(subsys1, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+
+        model.addUsersToBugReport(dev, bugRep2, (PList.<Developer>empty()).plus(dev));
+        model.addUsersToBugReport(dev, bugRep1, (PList.<Developer>empty()).plus(other));
+        model.addUsersToBugReport(dev, bugRep, (PList.<Developer>empty()).plus(dev));
+
+        model.addTest(bugRep, dev, "test");
+        model.addPatch(bugRep, dev, "patch");
+        model.selectPatch(bugRep, dev, "patch");
+        model.giveScore(bugRep, dev, 4);
+
+        model.addTest(bugRep1, dev, "test");
+        model.addPatch(bugRep1, dev, "patch");
+        model.selectPatch(bugRep1, dev, "patch");
+        model.giveScore(bugRep1, other, 4);
+
+        assertEquals(1, model.getNbClosedBRForDev(dev));
+    }
+
+    @Test
+    public void testNbUnfinishedBRForDev() throws PermissionException {
+        model = new DataModel();
+        admin = model.createAdministrator("ThisIsAnotherAdmin", "first", "last");
+        dev = model.createDeveloper("ThisIsAnotherDeveloper", "first", "last");
+        Developer other = model.createDeveloper("ThisIsAnotherDeveloper2", "first", "last");
+        project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+        Project project1 = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+
+        model.assignToProject(project, dev, dev, Role.TESTER);
+        model.assignToProject(project, dev, dev, Role.PROGRAMMER);
+
+        model.assignToProject(project1, dev, dev, Role.TESTER);
+        model.assignToProject(project1, dev, dev, Role.PROGRAMMER);
+
+        Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
+        Subsystem subsys1 = model.createSubsystem(admin, project1, "subName", "subDesc");
+
+        BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+        BugReport bugRep1 = model.createBugReport(subsys, other, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+        BugReport bugRep2 = model.createBugReport(subsys1, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+
+        model.addUsersToBugReport(dev, bugRep2, (PList.<Developer>empty()).plus(dev));
+        model.addUsersToBugReport(dev, bugRep1, (PList.<Developer>empty()).plus(other));
+        model.addUsersToBugReport(dev, bugRep, (PList.<Developer>empty()).plus(dev));
+
+        model.addTest(bugRep, dev, "test");
+        model.addPatch(bugRep, dev, "patch");
+        model.selectPatch(bugRep, dev, "patch");
+        model.giveScore(bugRep, dev, 4);
+
+        assertEquals(1, model.getNbClosedBRForDev(dev));
+    }
 
 }
