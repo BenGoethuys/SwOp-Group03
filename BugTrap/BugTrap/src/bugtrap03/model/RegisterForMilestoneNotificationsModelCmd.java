@@ -1,12 +1,9 @@
 package bugtrap03.model;
 
-import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
-import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.gui.cmd.RegisterForNotificationsCmd;
 
 /**
  * Created by Kwinten on 09/05/2016.
