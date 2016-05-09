@@ -5,10 +5,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.*;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.*;
@@ -962,6 +959,89 @@ public class DataModel {
         addToHistory(cmd);
         return newMailbox;
     }
+
+    /**
+     * This method lets a user register for notifications concerning a forking on a subject.
+     *
+     * @param user      the user that wishes to subscribe for notifications
+     * @param projectSubject   the subject on which the user wishes to subscribe
+     *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
+    @DomainAPI
+    public ForkMailbox registerForForkNotifactions(User user, ProjectSubject projectSubject)
+            throws IllegalArgumentException, IllegalStateException {
+        RegisterForForkNotificationsModelCmd cmd = new RegisterForForkNotificationsModelCmd(user, projectSubject);
+        ForkMailbox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
+    }
+
+    /**
+     * This method lets a user register for notifications concerning a specific milestone change on a subject.
+     *
+     * @param user      the user that wishes to subscribe for notifications
+     * @param asSubject   the subject on which the user wishes to subscribe
+     * @param milestone     the milestone for which the user wishes to receive notifications
+     *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
+    @DomainAPI
+    public MilestoneMailbox registerForMilestoneNotifactions(User user, AbstractSystemSubject asSubject, Milestone milestone)
+            throws IllegalArgumentException, IllegalStateException {
+        RegisterForMilestoneNotificationsModelCmd cmd = new RegisterForMilestoneNotificationsModelCmd(user, asSubject, milestone);
+        MilestoneMailbox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
+    }
+
+    /**
+     * This method lets a user register for notifications concerning a milestone change on a subject.
+     *
+     * @param user      the user that wishes to subscribe for notifications
+     * @param asSubject   the subject on which the user wishes to subscribe
+     *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
+    @DomainAPI
+    public MilestoneMailbox registerForAllMilestoneNotifactions(User user, AbstractSystemSubject asSubject)
+            throws IllegalArgumentException, IllegalStateException {
+        RegisterForMilestoneNotificationsModelCmd cmd = new RegisterForMilestoneNotificationsModelCmd(user, asSubject);
+        MilestoneMailbox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
+    }
+
+    /**
+     * This method lets a user register for notifications concerning a versionID change on a subject.
+     *
+     * @param user      the user that wishes to subscribe for notifications
+     * @param abstractSystemSubject   the subject on which the user wishes to subscribe
+     *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
+    @DomainAPI
+    public VersionIDMailbox registerForVersionNotifications(User user, AbstractSystemSubject abstractSystemSubject)
+            throws IllegalArgumentException, IllegalStateException{
+        RegisterForVersionNotificationsModelCmd cmd =
+                new RegisterForVersionNotificationsModelCmd(user, abstractSystemSubject);
+        VersionIDMailbox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
+    }
+
 
     /**
      * This method lets a user unregister for notifications
