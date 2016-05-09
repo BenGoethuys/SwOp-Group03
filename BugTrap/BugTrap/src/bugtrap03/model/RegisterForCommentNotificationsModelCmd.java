@@ -8,7 +8,7 @@ import bugtrap03.bugdomain.notificationdomain.Subject;
 /**
  * @author Group 03
  */
-class RegisterForCommentNotificationsModelCmd extends RegisterForNotificationsModelCmd {
+class RegisterForCommentNotificationsModelCmd<CommentMailbox> extends RegisterForNotificationsModelCmd {
 
     /**
      * Create a {@link ModelCmd} that subscribes to the given subject

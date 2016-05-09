@@ -1,6 +1,7 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.ForkMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notificationdomain.Subject;
@@ -11,7 +12,7 @@ import java.util.EnumSet;
 /**
  * @author Group 03
  */
-class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelCmd {
+class RegisterForTagNotificationsModelCmd<TagMailbox> extends RegisterForNotificationsModelCmd {
 
     /**
      * Create a {@link ModelCmd} that subscribes to the given subject
