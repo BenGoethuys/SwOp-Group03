@@ -41,7 +41,6 @@ public class SubsystemTest {
     private static BugReport bugreport2;
     private static BugReport bugreport3;
 
-
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         testDev = new Developer("subsysTester321", "Kwinten", "Buytaert");
@@ -51,27 +50,26 @@ public class SubsystemTest {
         testStartDate = new GregorianCalendar(3016, 1, 1);
         testCreationDate = new GregorianCalendar(2000, 12, 25);
         testBudget = 1000;
-        testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate, testBudget);
 
         subVersion = new VersionID(9, 8, 7);
         subName = "testSub";
         subDescription = "This is a test description of a subsystem";
         subName2 = "meh";
         subDescription2 = "moeh";
+        emptyDep = PList.<BugReport>empty();
+    }
 
+    @Before
+    public void setUp() throws Exception {
+        testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate, testBudget);
         subSysTest = testProject.addSubsystem(subVersion, subName, subDescription);
         subSysTest2 = subSysTest.addSubsystem(subName2, subDescription2);
         subSysTest_2 = testProject.addSubsystem(subVersion, subName + "_2", subDescription + "_2");
-        emptyDep = PList.<BugReport>empty();
         bugreport1 = subSysTest.addBugReport(testDev, "testBug3", "this is description of testbug 3", testStartDate, emptyDep, null, 5, false, null, null, null);
         depToRep1 = PList.<BugReport>empty().plus(bugreport1);
         bugreport2 = subSysTest.addBugReport(testDev, "otherBug4", "i like bananas", testStartDate, depToRep1, null, 2, false, null, null, null);
         bugreport3 = subSysTest2.addBugReport(testDev, "otherBug5", "i like bananas", testStartDate, depToRep1, null, 3, false, null, null, null);
         bugreport3.addUser(testDev, testDev);
-    }
-
-    @Before
-    public void setUp() throws Exception {
     }
 
     @Test
@@ -140,7 +138,6 @@ public class SubsystemTest {
 //        assertFalse(subSysTest.isValidParent(subSysTest2));
 //        assertTrue(subSysTest2.isValidParent(subSysTest));
 //    }
-
     @Test
     public void testGetBugReportList() {
         PList<BugReport> expectedRep = PList.<BugReport>empty().plus(bugreport1).plus(bugreport2);
@@ -150,7 +147,6 @@ public class SubsystemTest {
         assertEquals(1, subSysTest2.getBugReportList().size());
         assertTrue(subSysTest2.getBugReportList().contains(bugreport3));
     }
-
 
     @Test
     public void testAddBugReport() throws IllegalArgumentException, PermissionException {
@@ -294,7 +290,6 @@ public class SubsystemTest {
         assertTrue(subSysTest2.getAllSubsystems().contains(ss3));
     }
 
-
     @Test(expected = IllegalArgumentException.class)
     public void testSetInvalidSubsDescription() {
         subSysTest.setDescription("");
@@ -311,26 +306,41 @@ public class SubsystemTest {
     }
 
     @Test
-    public void testGetSubjectName(){
+    public void testGetSubjectName() {
         String res = subSysTest.getSubjectName();
         assertTrue(res.contains("Subsystem " + subSysTest.getName()));
     }
-    
+
     @Test
     public void testIsValidMergeSubsystem() {
         assertFalse(subSysTest.isValidMergeSubsystem(null));
         assertFalse(subSysTest.isValidMergeSubsystem(subSysTest));
         assertFalse(subSysTest_2.isValidMergeSubsystem(subSysTest2));
         assertFalse(subSysTest2.isValidMergeSubsystem(subSysTest_2));
-        
+
         assertTrue(subSysTest.isValidMergeSubsystem(subSysTest2));
         assertFalse(subSysTest2.isValidMergeSubsystem(subSysTest));
-        
+
         subSysTest.setTerminated(true);
-        
+
         assertFalse(subSysTest.isValidMergeSubsystem(subSysTest2));
         assertFalse(subSysTest2.isValidMergeSubsystem(subSysTest));
-        
+
         subSysTest.setTerminated(false);
+    }
+
+    @Test
+    public void testGetCompatibleSubs() {
+        PList<Subsystem> list = subSysTest.getCompatibleSubs();
+        assertEquals(2, list.size());
+        assertTrue(list.contains(subSysTest2));
+        assertTrue(list.contains(subSysTest_2));
+
+        list = subSysTest2.getCompatibleSubs();
+        assertEquals(0, list.size());
+
+        list = subSysTest_2.getCompatibleSubs();
+        assertEquals(1, list.size());
+        assertTrue(list.contains(subSysTest));
     }
 }
