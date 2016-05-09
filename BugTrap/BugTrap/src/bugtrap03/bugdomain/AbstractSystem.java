@@ -110,10 +110,13 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @see #isValidVersionId(VersionID)
      */
     public void setVersionID(VersionID version) throws NullPointerException {
-	if (!isValidVersionId(version)) {
-	    throw new IllegalArgumentException("The given versionId is not valid for this abstractSystem");
-	}
-	this.version = version;
+        if (!isValidVersionId(version)) {
+            throw new IllegalArgumentException("The given versionId is not valid for this abstractSystem");
+        }
+        if (this.version != null){
+            notifyVersionIDsubs(this);
+        }
+	    this.version = version;
     }
 
     /**
@@ -614,7 +617,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
 		this.getParent().notifyVersionIDsubs(as);
 	}
 
-	//TODO call notify milestone, version subs in the right places!
+	//TODO call notify version subs in the right places!
 
     /**
      * This method sets the isTerminated boolean of this object
