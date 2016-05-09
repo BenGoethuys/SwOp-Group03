@@ -126,6 +126,9 @@ public class CreateBugReportCmdTest {
         question.add("I choose: (leave blank if done)");
         answer.add("");
         question.add("Ended selection.");
+        question.add("Give the impact factor I of the bug report: (0 < I <= 10)");
+        question.add("Give number: ");
+        answer.add("3");
 
         // answer.add(leadName);
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
@@ -233,6 +236,15 @@ public class CreateBugReportCmdTest {
         question.add("I choose: (leave blank if done)");
         answer.add("");
         question.add("Ended selection.");
+        question.add("Give the impact factor I of the bug report: (0 < I <= 10)");
+        question.add("Give number: ");
+        answer.add("0");
+        question.add("Give the impact factor I of the bug report: (0 < I <= 10)");
+        question.add("Give number: ");
+        answer.add("11");
+        question.add("Give the impact factor I of the bug report: (0 < I <= 10)");
+        question.add("Give number: ");
+        answer.add("3");
 
         // answer.add(leadName);
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);

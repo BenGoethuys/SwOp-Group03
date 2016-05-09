@@ -14,7 +14,7 @@ import purecollections.PList;
  *
  * @author Admin
  */
-public class SplitSubsystemCmd implements Cmd {
+public class SplitSubsystemCmd implements Cmd<Subsystem[]> {
 
     /**
      * Execute use case 4.7, split Subsystem and return both resulting Subsystems.

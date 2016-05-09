@@ -3,6 +3,7 @@ package bugtrap03.model;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.BugReportMemento;
 import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.usersystem.Statistics;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
@@ -38,6 +39,7 @@ class AddTestToBugReportModelCmd extends ModelCmd {
     private final User user;
     private final String test;
 
+    private Statistics oldStats;
     private BugReportMemento oldMem;
 
     private boolean isExecuted = false;
@@ -65,6 +67,7 @@ class AddTestToBugReportModelCmd extends ModelCmd {
             throw new IllegalArgumentException("The given bugReport is terminated.");
         }
 
+        oldStats = user.getStats();
         oldMem = bugReport.getMemento();
         bugReport.addTest(user, test);
         isExecuted = true;
@@ -82,7 +85,8 @@ class AddTestToBugReportModelCmd extends ModelCmd {
         } catch (IllegalArgumentException ex) {
             return false;
         }
-
+        
+        user.setStats(oldStats);
         return true;
     }
 

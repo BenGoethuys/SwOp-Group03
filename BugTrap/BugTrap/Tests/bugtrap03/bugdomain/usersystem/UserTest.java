@@ -252,5 +252,27 @@ public class UserTest {
         assertFalse(user.equals(null));
         int getal = 0;
         assertFalse(user.equals(getal));
+        assertTrue(user.equals(user));
+    }
+    
+    @Test
+    public void testStatistics() {
+        Statistics stats = user.getStats();
+        assertEquals(0, stats.getNbPatchesSubmitted());
+        assertEquals(0, stats.getNbTestsSubmitted());
+        assertEquals(0, stats.getAvgLinesOfPatchesSubmitted(), 1e-15);
+        assertEquals(0, stats.getAvgLinesOfTestsSubmitted(), 1e-15);
+        
+        Statistics newStats = stats.addLinesOfTest(3);
+        user.setStats(newStats);
+        assertEquals(newStats, user.getStats());
+    }
+    
+    /**
+     * Test setStats with null value.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetStatistics() {
+        user.setStats(null);
     }
 }

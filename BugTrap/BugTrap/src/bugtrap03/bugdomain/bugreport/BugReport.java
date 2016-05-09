@@ -1070,7 +1070,10 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         if (user == null || !user.hasRolePermission(RolePerm.ADD_TEST, this.getSubsystem().getParentProject())) {
             throw new PermissionException("The given user doesn't have the permission to add a test");
         }
+        
         this.getInternState().addTest(this, test);
+        user.setStats(user.getStats().addTestsSubmitted(1));
+        user.setStats(user.getStats().addLinesOfTest(test.split("\n").length));
     }
 
     /**
@@ -1120,6 +1123,8 @@ public class BugReport extends Subject implements Comparable<BugReport> {
             throw new PermissionException("The given user doesn't have the permission to add a patch");
         }
         this.getInternState().addPatch(this, patch);
+        user.setStats(user.getStats().addPatchessSubmitted(1));
+        user.setStats(user.getStats().addLinesOfPatches(patch.split("\n").length));
     }
 
     /**

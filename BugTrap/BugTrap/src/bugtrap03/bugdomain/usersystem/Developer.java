@@ -1,13 +1,11 @@
 package bugtrap03.bugdomain.usersystem;
 
 import bugtrap03.bugdomain.DomainAPI;
-import bugtrap03.bugdomain.HealthIndicator;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
 
 import java.util.Arrays;
-import purecollections.PList;
 
 /**
  * This class represents a developer in th system
@@ -78,137 +76,6 @@ public class Developer extends Issuer {
     @DomainAPI
     public boolean hasRolePermission(RolePerm perm, Project project) {
         return project.hasPermission(this, perm);
-    }
-    
-    /** Statistics **/
-    
-//    /**
-//     *
-//     * @return Nothing.
-//     * @throws UnsupportedOperationException Always
-//     */
-//    @Override
-//    public long getNbDuplicateSubmitted() {
-//        throw new UnsupportedOperationException("Not supported yet.");
-//    }
-//
-//    /**
-//     *
-//     * @return Nothing.
-//     * @throws UnsupportedOperationException Always
-//     */
-//    @Override
-//    public long getNbNotABugReportSubmitted() {
-//        throw new UnsupportedOperationException("Not supported yet.");
-//    }
-//
-//    /**
-//     *
-//     * @return Nothing.
-//     * @throws UnsupportedOperationException Always
-//     */
-//    @Override
-//    public long getNbBugReportsSubmitted() {
-//        throw new UnsupportedOperationException("Not supported yet.");
-//    }
-//
-//    /**
-//     *
-//     * @return Nothing.
-//     * @throws UnsupportedOperationException Always
-//     */
-//    @Override
-//    public PList<HealthIndicator> getConditionIndicators() {
-//        throw new UnsupportedOperationException("Not supported yet.");
-//    }
-
-    /**
-     *
-     * @return Nothing.
-     * @throws UnsupportedOperationException Always
-     */
-    @Override
-    public double getAvgLinesOfTestsSubmitted() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * Nothing.
-     */
-    @Override
-    public void addLinesOfTest(long nb) {
-
-    }
-
-    /**
-     *
-     * @return Nothing.
-     * @throws UnsupportedOperationException Always
-     */
-    @Override
-    public long getNbTestsSubmitted() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * Nothing.
-     */
-    @Override
-    public void addTestsSubmitted(long nb) {
-    }
-
-//    /**
-//     *
-//     * @return Nothing.
-//     * @throws UnsupportedOperationException Always
-//     */
-//    @Override
-//    public long getNbAssignedToClosed() {
-//        throw new UnsupportedOperationException("Not supported yet.");
-//    }
-//
-//    /**
-//     *
-//     * @return Nothing.
-//     * @throws UnsupportedOperationException Always
-//     */
-//    @Override
-//    public long getNbAssignedToUnfinished() {
-//        throw new UnsupportedOperationException("Not supported yet.");
-//    }
-
-    /**
-     *
-     * @return Nothing.
-     * @throws UnsupportedOperationException Always
-     */
-    @Override
-    public long getNbPatchesSubmitted() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * Nothing.
-     */
-    @Override
-    public void addPatchessSubmitted(long nb) {
-    }
-
-    /**
-     *
-     * @return Nothing.
-     * @throws UnsupportedOperationException Always
-     */
-    @Override
-    public double getAvgLinesOfPatchesSubmitted() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * Nothing.
-     */
-    @Override
-    public void addLinesOfPatches(long nb) {
     }
 
 }

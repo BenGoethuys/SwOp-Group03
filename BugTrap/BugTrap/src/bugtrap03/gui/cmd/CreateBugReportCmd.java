@@ -7,6 +7,7 @@ import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.cmd.general.GetIntCmd;
 import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.gui.cmd.general.GetProjectCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
@@ -153,10 +154,16 @@ public class CreateBugReportCmd implements Cmd<BugReport> {
             }
         } while (!done);
 
+        int impactfactor = -1;
+        do {
+            scan.println("Give the impact factor I of the bug report: (0 < I <= 10)");
+            impactfactor = new GetIntCmd().exec(scan, model, user);
+        } while (! BugReport.isValidImpactFactor(impactfactor));
+
         // 14. The system creates the bug report.
         // TODO : impactFactor (1 atm) -> ask user?
         BugReport bugreport = model.createBugReport(subsys, user, bugreportTitle, bugReportDesc, null,
-                PList.<BugReport>empty().plusAll(depList), null, 1, isPrivate, trigger, stacktrace, error);
+                PList.<BugReport>empty().plusAll(depList), null, impactfactor, isPrivate, trigger, stacktrace, error);
         scan.println("Created new bug report.");
         return bugreport;
     }
