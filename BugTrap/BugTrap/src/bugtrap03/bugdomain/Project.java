@@ -194,23 +194,6 @@ public class Project extends ProjectSubject {
         return lead;
     }
 
-//    /**
-//     * This method sets the lead of this project
-//     *
-//     * @param lead The new lead of this project
-//     * @throws IllegalArgumentException if isValidLead(lead) fails
-//     * @Ensures if the lead was already set, the lead will not change
-//     * @see Project#isValidLead(Developer)
-//     */
-//    private void setLead(Developer lead) throws IllegalArgumentException {
-//        if (!Project.isValidLead(lead)) {
-//            throw new IllegalArgumentException("The given developer is invalid as lead for this project");
-//        }
-//        if (this.getLead() == null) {
-//            this.setRole(lead, Role.LEAD);
-//        }
-//    }
-
     /**
      * This method checks if a given lead is a valid lead for the given project
      *
