@@ -56,7 +56,6 @@ public class Main {
         Issuer charlie = model.createIssuer("charlie", "Charles", "Arnold", "Berg");
         Developer major = model.createDeveloper("major", "Joseph", "Mays");
         Developer maria = model.createDeveloper("maria", "Maria", "Carney");
-        //FIXME: update versionID's and Milestones !!
         try {
             // create projectA
             Project projectA = model.createProject(new VersionID(5,0), "ProjectA", "Description of projectA", major, 10000, admin);
