@@ -12,7 +12,7 @@ import java.util.EnumSet;
 /**
  * @author Group 03
  */
-class RegisterForTagNotificationsModelCmd<TagMailbox> extends RegisterForNotificationsModelCmd {
+class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelCmd {
 
     /**
      * Create a {@link ModelCmd} that subscribes to the given subject

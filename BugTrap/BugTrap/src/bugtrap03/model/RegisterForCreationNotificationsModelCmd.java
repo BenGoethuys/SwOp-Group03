@@ -8,7 +8,7 @@ import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
 /**
  * @author Group 03
  */
-class RegisterForCreationNotificationsModelCmd<CreationMailbox> extends RegisterForNotificationsModelCmd {
+class RegisterForCreationNotificationsModelCmd extends RegisterForNotificationsModelCmd {
 
     /**
      * Create a {@link ModelCmd} that subscribes to the given subject for the creation of bugreports when executed
