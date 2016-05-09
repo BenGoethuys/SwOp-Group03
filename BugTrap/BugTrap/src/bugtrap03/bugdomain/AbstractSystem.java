@@ -547,7 +547,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      */
     @DomainAPI
     public boolean hasPermission(Developer dev, RolePerm perm) {
-	return this.getParentProject().hasPermission(dev, perm);
+		return this.getParentProject().hasPermission(dev, perm);
     }
 
     /**
