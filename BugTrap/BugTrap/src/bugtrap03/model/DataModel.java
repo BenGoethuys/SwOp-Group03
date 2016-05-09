@@ -397,28 +397,16 @@ public class DataModel {
      */
     @DomainAPI
     public PList<BugReport> getAllBugReports(User user) {
-<<<<<<< HEAD
 	ArrayList<BugReport> list = new ArrayList<>();
-	for (Project project : this.projectList) {
-	    PList<BugReport> bugReports = project.getAllBugReports();
-	    for (BugReport bugReport : bugReports) {
-		if (bugReport.isVisibleTo(user)) {
-		    list.add(bugReport);
-		}
+	PList<BugReport> BugReportList = getAllBugReports();
+
+	for (BugReport bugReport : BugReportList) {
+	    if (bugReport.isVisibleTo(user)) {
+		list.add(bugReport);
 	    }
 	}
+
 	return PList.<BugReport> empty().plusAll(list);
-=======
-        ArrayList<BugReport> list = new ArrayList();
-        PList<BugReport> BugReportList = getAllBugReports();
-
-        for (BugReport bugReport : BugReportList) {
-            if (bugReport.isVisibleTo(user)) {
-                list.add(bugReport);
-            }
-        }
-
-        return PList.<BugReport>empty().plusAll(list);
     }
 
     /**
@@ -427,15 +415,14 @@ public class DataModel {
      * @return a list of all bug reports in the system.
      */
     private PList<BugReport> getAllBugReports() {
-        ArrayList<BugReport> list = new ArrayList<>();
-        for (Project project : this.projectList) {
-            PList<BugReport> bugReports = project.getAllBugReports();
-            for (BugReport bugReport : bugReports) {
-                list.add(bugReport);
-            }
-        }
-        return PList.<BugReport>empty().plusAll(list);
->>>>>>> 772c55a42a905d2963583d16f44e73a40b84d29a
+	ArrayList<BugReport> list = new ArrayList<>();
+	for (Project project : this.projectList) {
+	    PList<BugReport> bugReports = project.getAllBugReports();
+	    for (BugReport bugReport : bugReports) {
+		list.add(bugReport);
+	    }
+	}
+	return PList.<BugReport> empty().plusAll(list);
     }
 
     /**
@@ -1119,20 +1106,19 @@ public class DataModel {
 	return result;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Get the amount of bug reports that the given user has submitted and is marked as a duplicate.
+     * 
      * @return The amount of duplicate bug reports this user has submitted.
      */
-   /* @DomainAPI
-    public long getNbDuplicateBRsSubmitted(User user) {
-        this.getAllBugReports(user);
-    }*/
+    /*
+     * @DomainAPI
+     * public long getNbDuplicateBRsSubmitted(User user) {
+     * this.getAllBugReports(user);
+     * }
+     */
 
-
-    public int getNbClosedBRForDev(User user){
-        return 0;
+    public int getNbClosedBRForDev(User user) {
+	return 0;
     }
->>>>>>> 772c55a42a905d2963583d16f44e73a40b84d29a
 }
