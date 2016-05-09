@@ -18,7 +18,7 @@ class RegisterForCreationNotificationsModelCmd extends RegisterForNotificationsM
      * @throws IllegalArgumentException When the given abstractSystemSubject is null
      * @throws IllegalArgumentException When the given abstractSystemSubject is Terminated
      */
-    RegisterForCreationNotificationsModelCmd(User user, AbstractSystemSubject abstractSystemSubject){
+    RegisterForCreationNotificationsModelCmd(User user, AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
         super(user);
 
         if (abstractSystemSubject == null) {
