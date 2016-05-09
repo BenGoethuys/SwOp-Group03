@@ -1204,4 +1204,20 @@ public class DataModel {
                 count();
     }
     
+    /**
+     * This method returns a list of all project of a lead developer.
+     *
+     * @param lead The lead developer
+     * @return a PList of all projects that the user is a lead of.
+     */
+    @DomainAPI
+    public PList<Project> getAllProjectsOfLead(Developer lead) {
+        PList<Project> allProjectsUser = PList.<Project>empty();
+        for (Project proj : projectList) {
+            if (proj.getLead() == lead) {
+                allProjectsUser = allProjectsUser.plus(proj);
+            }
+        }
+        return allProjectsUser;
+    }
 }
