@@ -1,32 +1,27 @@
 package bugtrap03.model;
 
-import bugtrap03.bugdomain.bugreport.Tag;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.ForkMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
+import bugtrap03.bugdomain.Milestone;
+import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notificationdomain.Subject;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
-
-import java.util.EnumSet;
 
 /**
  * @author Group 03
  */
-class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelCmd {
+public class RegisterForMilestoneNotificationsModelCmd extends RegisterForNotificationsModelCmd {
 
     /**
      * Create a {@link ModelCmd} that subscribes to the given subject
-     * for the change of tags on bugreports when executed
+     * for the change of milestone on abstract systems
      * @param user The user that wishes to subscribe
      * @param subject The subject on which the user wishes to subscribe
-     * @param tags The tags on for which the user wishes to subscribe
+     * @param milestone The milestone on for which the user wishes to subscribe
      *
      * @throws IllegalArgumentException When the given subject is null
      * @throws IllegalArgumentException When the given subject is Terminated
      */
-    RegisterForTagNotificationsModelCmd(User user, Subject subject, EnumSet<Tag> tags) throws IllegalArgumentException{
+    RegisterForMilestoneNotificationsModelCmd(User user, AbstractSystemSubject subject, Milestone milestone) throws IllegalArgumentException {
         super(user);
-
         if (subject == null) {
             throw new IllegalArgumentException("The given subject is null");
         }
@@ -34,50 +29,45 @@ class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelC
             throw new IllegalArgumentException("The given subject is terminated");
         }
         this.subject = subject;
-
-        this.tags = tags;
+        this.milestone = milestone;
     }
 
     /**
      * Create a {@link ModelCmd} that subscribes to the given subject
-     * for the change of all tags on bugreports when executed
+     * for the change of milestone on abstract systems
      * @param user The user that wishes to subscribe
      * @param subject The subject on which the user wishes to subscribe
-     * 
-     * @see RegisterForTagNotificationsModelCmd#RegisterForTagNotificationsModelCmd(User, Subject, EnumSet)
+     * @throws IllegalArgumentException if the given subject is invalid
+     * @see #RegisterForMilestoneNotificationsModelCmd(User, AbstractSystemSubject, Milestone);
      */
-    RegisterForTagNotificationsModelCmd(User user, Subject subject) {
+    RegisterForMilestoneNotificationsModelCmd(User user, AbstractSystemSubject subject) throws IllegalArgumentException {
         this(user,subject,null);
     }
 
-    private Subject subject;
-    private EnumSet<Tag> tags;
-
+    private AbstractSystemSubject subject;
+    private Milestone milestone;
 
     /**
      * This method executes this model command.
      * @return The created TagMailBox representing the subscription that contains the notifications
-     * @throws IllegalArgumentException if on of the arguments is invalid
      * @throws IllegalArgumentException If subject is terminated
      * @throws IllegalStateException if the state of this command is invalid
-     * @see Mailbox#tagSubscribe(Subject)
+     * @see bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox#milestoneSubscribe(AbstractSystemSubject)
      * @see #setExecuted()
      */
     @Override
-    TagMailBox exec() throws IllegalArgumentException, IllegalStateException {
+    MilestoneMailbox exec() throws IllegalArgumentException, IllegalStateException {
         if (subject.isTerminated()) {
             throw new IllegalArgumentException("The given subject is terminated.");
         }
-        
         this.setExecuted();
-        TagMailBox tmb;
-        if (this.tags == null){
-            tmb = this.getMailbox().tagSubscribe(this.subject);
+        MilestoneMailbox mmb;
+        if (this.milestone == null){
+            mmb = this.getMailbox().milestoneSubscribe(this.subject);
         } else {
-            tmb = this.getMailbox().tagSubscribe(this.subject, this.tags);
+            mmb = this.getMailbox().milestoneSubscribe(this.subject, this.milestone);
         }
-        this.setNewMailbox(tmb);
-        return tmb;
+        this.setNewMailbox(mmb);
+        return mmb;
     }
-
 }

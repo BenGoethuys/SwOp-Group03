@@ -21,7 +21,7 @@ public class GetUserOfExactTypeCmdTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testNullCons() {
-        new GetUserOfExcactTypeCmd<>(null);
+        new GetUserOfExactTypeCmd<>(null);
     }
 
     /**
@@ -38,7 +38,7 @@ public class GetUserOfExactTypeCmdTest {
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        GetUserOfExcactTypeCmd<Developer> cmd = new GetUserOfExcactTypeCmd<>(Developer.class);
+        GetUserOfExactTypeCmd<Developer> cmd = new GetUserOfExactTypeCmd<>(Developer.class);
 
         // Setup scenario
         question.add("Available options:");
@@ -78,7 +78,7 @@ public class GetUserOfExactTypeCmdTest {
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        GetUserOfExcactTypeCmd<Developer> cmd = new GetUserOfExcactTypeCmd<>(Developer.class);
+        GetUserOfExactTypeCmd<Developer> cmd = new GetUserOfExactTypeCmd<>(Developer.class);
 
         // Setup scenario
         question.add("Available options:");
@@ -118,7 +118,7 @@ public class GetUserOfExactTypeCmdTest {
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        GetUserOfExcactTypeCmd<Developer> cmd = new GetUserOfExcactTypeCmd<>(Developer.class);
+        GetUserOfExactTypeCmd<Developer> cmd = new GetUserOfExactTypeCmd<>(Developer.class);
 
         // Setup scenario
         question.add("Available options:");
@@ -146,7 +146,7 @@ public class GetUserOfExactTypeCmdTest {
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        GetUserOfExcactTypeCmd<Developer> cmd = new GetUserOfExcactTypeCmd<>(Developer.class);
+        GetUserOfExactTypeCmd<Developer> cmd = new GetUserOfExactTypeCmd<>(Developer.class);
 
         // Setup scenario
         question.add("Available options:");

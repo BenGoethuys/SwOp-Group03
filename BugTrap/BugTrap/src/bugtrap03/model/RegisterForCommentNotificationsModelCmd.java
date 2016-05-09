@@ -19,7 +19,7 @@ class RegisterForCommentNotificationsModelCmd extends RegisterForNotificationsMo
      * @throws IllegalArgumentException When the given subject is null
      * @throws IllegalArgumentException When the given subject is Terminated
      */
-    RegisterForCommentNotificationsModelCmd(User user, Subject subject){
+    RegisterForCommentNotificationsModelCmd(User user, Subject subject) throws IllegalArgumentException{
         super(user);
 
         if (subject == null) {

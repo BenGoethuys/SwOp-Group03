@@ -12,7 +12,7 @@ import purecollections.PList;
 
 /**
  *
- * @author Admin
+ * @author Group 03
  */
 public class SplitSubsystemCmd implements Cmd<Subsystem[]> {
 

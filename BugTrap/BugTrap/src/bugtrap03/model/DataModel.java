@@ -5,10 +5,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.*;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.*;
@@ -964,6 +961,89 @@ public class DataModel {
     }
 
     /**
+     * This method lets a user register for notifications concerning a forking on a subject.
+     *
+     * @param user      the user that wishes to subscribe for notifications
+     * @param projectSubject   the subject on which the user wishes to subscribe
+     *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
+    @DomainAPI
+    public ForkMailbox registerForForkNotifactions(User user, ProjectSubject projectSubject)
+            throws IllegalArgumentException, IllegalStateException {
+        RegisterForForkNotificationsModelCmd cmd = new RegisterForForkNotificationsModelCmd(user, projectSubject);
+        ForkMailbox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
+    }
+
+    /**
+     * This method lets a user register for notifications concerning a specific milestone change on a subject.
+     *
+     * @param user      the user that wishes to subscribe for notifications
+     * @param asSubject   the subject on which the user wishes to subscribe
+     * @param milestone     the milestone for which the user wishes to receive notifications
+     *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
+    @DomainAPI
+    public MilestoneMailbox registerForMilestoneNotifactions(User user, AbstractSystemSubject asSubject, Milestone milestone)
+            throws IllegalArgumentException, IllegalStateException {
+        RegisterForMilestoneNotificationsModelCmd cmd = new RegisterForMilestoneNotificationsModelCmd(user, asSubject, milestone);
+        MilestoneMailbox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
+    }
+
+    /**
+     * This method lets a user register for notifications concerning a milestone change on a subject.
+     *
+     * @param user      the user that wishes to subscribe for notifications
+     * @param asSubject   the subject on which the user wishes to subscribe
+     *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
+    @DomainAPI
+    public MilestoneMailbox registerForAllMilestoneNotifactions(User user, AbstractSystemSubject asSubject)
+            throws IllegalArgumentException, IllegalStateException {
+        RegisterForMilestoneNotificationsModelCmd cmd = new RegisterForMilestoneNotificationsModelCmd(user, asSubject);
+        MilestoneMailbox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
+    }
+
+    /**
+     * This method lets a user register for notifications concerning a versionID change on a subject.
+     *
+     * @param user      the user that wishes to subscribe for notifications
+     * @param abstractSystemSubject   the subject on which the user wishes to subscribe
+     *
+     * @return The newly created mailbox that represents the registration for notifications.
+     *
+     * @throws IllegalArgumentException If the subject is invalid (=null).
+     * @throws IllegalStateException If the current state of the command is invalid.
+     */
+    @DomainAPI
+    public VersionIDMailbox registerForVersionNotifications(User user, AbstractSystemSubject abstractSystemSubject)
+            throws IllegalArgumentException, IllegalStateException{
+        RegisterForVersionNotificationsModelCmd cmd =
+                new RegisterForVersionNotificationsModelCmd(user, abstractSystemSubject);
+        VersionIDMailbox newMailbox = cmd.exec();
+        addToHistory(cmd);
+        return newMailbox;
+    }
+
+
+    /**
      * This method lets a user unregister for notifications
      *
      * @param user      The user that wishes to unregister.
@@ -1052,15 +1132,6 @@ public class DataModel {
     }
 
     /**
-     * Get the amount of bug reports that the given user has submitted and is marked as a duplicate.
-     * @return The amount of duplicate bug reports this user has submitted.
-     */
-   /* @DomainAPI
-    public long getNbDuplicateBRsSubmitted(User user) {
-        this.getAllBugReports(user);
-    }*/
-
-    /**
      * This method returns the number of Closed bug reports where the given user is assigned to
      *
      * @param user  The user that needs to be assigned to the bug report
@@ -1085,4 +1156,52 @@ public class DataModel {
         return bugList.parallelStream().
                 filter(u -> (u.getUserList().contains(user) && ! u.isResolved())).count();
     }
+    
+    /**
+     * Get the amount of bug reports that the given user has submitted and is marked as duplicate.
+     *
+     * @param user The user who has submitted the bug reports.
+     * @return The amount of duplicate bug reports this user has submitted.
+     */
+    @DomainAPI
+    public long getNbDuplicateBRsSubmitted(User user) {
+        PList<BugReport> list = getAllBugReports();
+
+        return list.stream().
+                filter(u -> u.getCreator() == user && u.getTag() == Tag.DUPLICATE).
+                count();
+    }
+    
+    
+    
+    /**
+     * Get the amount of bug reports that the given user has submitted and is marked as not a bug.
+     *
+     * @param user The user who has submitted the bug reports.
+     * @return The amount of notABugReport bug reports this user has submitted.
+     */
+    @DomainAPI
+    public long getNbNotABugReportBRsSubmitted(User user) {
+        PList<BugReport> list = getAllBugReports();
+
+        return list.stream().
+                filter(u -> u.getCreator() == user && u.getTag() == Tag.NOT_A_BUG).
+                count();
+    }
+
+    /**
+     * Get the amount of bug reports that the given user has submitted.
+     *
+     * @param user The user who has submitted the bug reports.
+     * @return The amount of bug reports this user has submitted.
+     */
+    @DomainAPI
+    public long getNbBRSubmitted(User user) {
+        PList<BugReport> list = getAllBugReports();
+
+        return list.stream().
+                filter(u -> u.getCreator() == user).
+                count();
+    }
+    
 }
