@@ -24,7 +24,7 @@ public class Statistics {
      */
     @DomainAPI
     public double getAvgLinesOfTestsSubmitted() {
-        return (testAmount != 0) ? testLines / testAmount : 0;
+        return (testAmount != 0) ? testLines / (double) testAmount : 0;
     }
 
     /**
@@ -59,7 +59,7 @@ public class Statistics {
      */
     public Statistics addTestsSubmitted(long nb) {
         Statistics stats = this.clone();
-        stats.testAmount = Math.max(stats.testAmount, 0);
+        stats.testAmount = Math.max(stats.testAmount + nb, 0);
         return stats;
     }
 
@@ -93,7 +93,7 @@ public class Statistics {
      */
     @DomainAPI
     public double getAvgLinesOfPatchesSubmitted() {
-        return (patchAmount != 0) ? patchLines / patchAmount : 0;
+        return (patchAmount != 0) ? patchLines / (double) patchAmount : 0;
     }
 
     /**
