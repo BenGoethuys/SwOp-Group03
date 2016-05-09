@@ -66,6 +66,7 @@ public class CmdParser {
         cmdList.add(new SimpleEntry<>("setduplicatebugreport", new SetDuplicateBugReportCmd()));
         cmdList.add(new SimpleEntry<>("splitsubsystem", new SplitSubsystemCmd()));
         cmdList.add(new SimpleEntry<>("mergesubsystem", new MergeSubsystemsCmd()));
+        cmdList.add(new SimpleEntry<>("showperformancemetrics", new ShowPerformanceMetricsCmd()));
 
         cmdMap = new HashMap<>();
         for (int i = 0; i < cmdList.size(); i++) {
@@ -103,7 +104,10 @@ public class CmdParser {
         cmdListExtra.add(new SimpleEntry<>("splitsubs", new SplitSubsystemCmd()));
         cmdListExtra.add(new SimpleEntry<>("merge", new MergeSubsystemsCmd()));
         cmdListExtra.add(new SimpleEntry<>("mergesubs", new MergeSubsystemsCmd()));
-
+        cmdListExtra.add(new SimpleEntry<>("showperformance", new ShowPerformanceMetricsCmd()));
+        cmdListExtra.add(new SimpleEntry<>("showmetrics", new ShowPerformanceMetricsCmd()));
+        cmdListExtra.add(new SimpleEntry<>("performance", new ShowPerformanceMetricsCmd()));        
+        
         for (int i = 0; i < cmdListExtra.size(); i++) {
             cmdMap.put(cmdListExtra.get(i).getKey(), cmdListExtra.get(i).getValue());
         }
