@@ -118,8 +118,7 @@ public class SubsystemTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testSubsystemVersionIDStringStringNullAbstractSystem() {
-        @SuppressWarnings("unused")
-        Subsystem tempSub = new Subsystem(testVersion, subName, testDescription, null);
+        new Subsystem(testVersion, subName, testDescription, null);
     }
 
     @Test
@@ -330,16 +329,16 @@ public class SubsystemTest {
     }
 
     @Test
-    public void testGetCompatibleSubs() {
-        PList<Subsystem> list = subSysTest.getCompatibleSubs();
+    public void testGetCompatibleMergeSubs() {
+        PList<Subsystem> list = subSysTest.getCompatibleMergeSubs();
         assertEquals(2, list.size());
         assertTrue(list.contains(subSysTest2));
         assertTrue(list.contains(subSysTest_2));
 
-        list = subSysTest2.getCompatibleSubs();
+        list = subSysTest2.getCompatibleMergeSubs();
         assertEquals(0, list.size());
 
-        list = subSysTest_2.getCompatibleSubs();
+        list = subSysTest_2.getCompatibleMergeSubs();
         assertEquals(1, list.size());
         assertTrue(list.contains(subSysTest));
     }

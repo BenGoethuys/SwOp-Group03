@@ -107,7 +107,7 @@ public class MergeSubsystemsCmd implements Cmd {
      */
     private Subsystem getCompatibleMergeCandidate(Subsystem subsystem, TerminalScanner scanner, DataModel model)
             throws CancelException {
-        PList<Subsystem> compatList = subsystem.getCompatibleSubs();
+        PList<Subsystem> compatList = subsystem.getCompatibleMergeSubs();
         scanner.println("Please select a subsystem to merge with the first");
         return new GetObjectOfListCmd<>(compatList, (u -> u.getName()),
                 ((u, input) -> u.getName().equalsIgnoreCase(input))).exec(scanner, model, null);

@@ -463,7 +463,7 @@ public class Subsystem extends AbstractSystem {
      * @return a PList of compatible subsystems to merge with this subsystem
      */
     @DomainAPI
-    public PList<Subsystem> getCompatibleSubs() {
+    public PList<Subsystem> getCompatibleMergeSubs() {
         PList<Subsystem> compatList = PList.<Subsystem>empty();
         for (Subsystem temp : this.getParentProject().getAllSubsystems()) {
             if (this.isValidMergeSubsystem(temp)) {
