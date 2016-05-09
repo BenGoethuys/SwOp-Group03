@@ -32,6 +32,18 @@ public class RegisterForMilestoneNotificationsModelCmd extends RegisterForNotifi
         this.milestone = milestone;
     }
 
+    /**
+     * Create a {@link ModelCmd} that subscribes to the given subject
+     * for the change of milestone on abstract systems
+     * @param user The user that wishes to subscribe
+     * @param subject The subject on which the user wishes to subscribe
+     * @throws IllegalArgumentException if the given subject is invalid
+     * @see #RegisterForMilestoneNotificationsModelCmd(User, AbstractSystemSubject, Milestone);
+     */
+    RegisterForMilestoneNotificationsModelCmd(User user, AbstractSystemSubject subject) throws IllegalArgumentException {
+        this(user,subject,null);
+    }
+
     private AbstractSystemSubject subject;
     private Milestone milestone;
 
