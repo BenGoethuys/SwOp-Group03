@@ -2,7 +2,7 @@ package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -548,7 +548,7 @@ public class ProjectTest {
         SubjectMemento mem = subSysTest.getMemento();
 
         // Change
-        testProject.addCommentSub(new CommentMailBox(testProject));
+        testProject.addCommentSub(new CommentMailbox(testProject));
 
         //Revert
         testProject.setMemento(mem);

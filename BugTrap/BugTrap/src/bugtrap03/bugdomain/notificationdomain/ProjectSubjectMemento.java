@@ -9,7 +9,7 @@ import purecollections.PList;
  */
 public class ProjectSubjectMemento extends AbstractSystemMemento {
 
-    protected ProjectSubjectMemento(PList<TagMailBox> tagSubs, PList<CommentMailBox> commentSubs,
+    protected ProjectSubjectMemento(PList<TagMailBox> tagSubs, PList<CommentMailbox> commentSubs,
                                     PList<CreationMailBox> creationSubs, PList<MilestoneMailbox> milestoneSubs,
                                     PList<VersionIDMailbox> versionIDSubs, VersionID versionID, String name, String description, PList<Subsystem> children,
                                     AbstractSystem parent, Milestone milestone, boolean isTerminated, PList<ForkMailbox> forkSubs) {

@@ -1,6 +1,6 @@
 package bugtrap03.bugdomain.notificationdomain;
 
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 import purecollections.PList;
 
@@ -11,19 +11,19 @@ import purecollections.PList;
  */
 public class SubjectMemento {
     
-    protected SubjectMemento(PList<TagMailBox> tagSubs, PList<CommentMailBox> commentSubs) {
+    protected SubjectMemento(PList<TagMailBox> tagSubs, PList<CommentMailbox> commentSubs) {
         this.tagSubs = tagSubs;
         this.commentSubs = commentSubs;
     }
     
     private final PList<TagMailBox> tagSubs;
-    private final PList<CommentMailBox> commentSubs;
+    private final PList<CommentMailbox> commentSubs;
     
     public PList<TagMailBox> getTagSubs() {
         return this.tagSubs;
     }
     
-    public PList<CommentMailBox> getCommentSubs() {
+    public PList<CommentMailbox> getCommentSubs() {
         return this.commentSubs;
     }
     

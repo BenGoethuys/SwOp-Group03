@@ -1,8 +1,8 @@
 package bugtrap03.model;
 
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
 import bugtrap03.bugdomain.notificationdomain.Subject;
 
 /**
@@ -43,13 +43,13 @@ class RegisterForCommentNotificationsModelCmd extends RegisterForNotificationsMo
      * @see #setExecuted()
      */
     @Override
-    CommentMailBox exec() throws IllegalArgumentException, IllegalStateException {
+    CommentMailbox exec() throws IllegalArgumentException, IllegalStateException {
         if (subject.isTerminated()) {
             throw new IllegalArgumentException("The given subject is terminated.");
         }
         
         this.setExecuted();
-        CommentMailBox cmb = this.getMailbox().commentSubscribe(this.subject);
+        CommentMailbox cmb = this.getMailbox().commentSubscribe(this.subject);
         this.setNewMailbox(cmb);
         return cmb;
     }

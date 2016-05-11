@@ -890,10 +890,10 @@ public class DataModel {
      * @throws IllegalStateException If the current state of the command is invalid.
      */
     @DomainAPI
-    public CommentMailBox registerForCommentNotifications(User user, Subject subject)
+    public CommentMailbox registerForCommentNotifications(User user, Subject subject)
             throws IllegalArgumentException, IllegalStateException{
         RegisterForCommentNotificationsModelCmd cmd = new RegisterForCommentNotificationsModelCmd(user, subject);
-        CommentMailBox newMailbox = cmd.exec();
+        CommentMailbox newMailbox = cmd.exec();
         addToHistory(cmd);
         return newMailbox;
     }

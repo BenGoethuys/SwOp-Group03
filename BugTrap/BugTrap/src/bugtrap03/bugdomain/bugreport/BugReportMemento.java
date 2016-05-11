@@ -2,7 +2,7 @@ package bugtrap03.bugdomain.bugreport;
 
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -41,10 +41,10 @@ public class BugReportMemento extends SubjectMemento {
      * @param error The error of the BugReport during the snapshot.
      * @param state The state of the BugReport during the snapshot.
      */
-    BugReportMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailBox> commentMailBoxes, String title, String desc, GregorianCalendar creationDate, Subsystem subsystem, PList<Comment> commentList,
-            PList<Developer> userList, PList<BugReport> dependencies, Milestone milestone, boolean isPrivate,
-            String trigger, String stacktrace, String error, BugReportState state) {
-        super(tagMailBoxes, commentMailBoxes);
+    BugReportMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailbox> commentMailboxes, String title, String desc, GregorianCalendar creationDate, Subsystem subsystem, PList<Comment> commentList,
+                     PList<Developer> userList, PList<BugReport> dependencies, Milestone milestone, boolean isPrivate,
+                     String trigger, String stacktrace, String error, BugReportState state) {
+        super(tagMailBoxes, commentMailboxes);
         
         this.title = title;
         this.description = desc;

@@ -145,10 +145,10 @@ public class Mailbox extends AbstractMailbox<Subject> {
      * @param subject The subject for the subscription.
      * @return The created mailbox
      * @throws IllegalArgumentException if the subject is invalid
-     * @see CommentMailBox#CommentMailBox(Subject)
+     * @see CommentMailbox#CommentMailbox(Subject)
      */
-    public CommentMailBox commentSubscribe(Subject subject) throws IllegalArgumentException{
-        CommentMailBox cmb = new CommentMailBox(subject);
+    public CommentMailbox commentSubscribe(Subject subject) throws IllegalArgumentException{
+        CommentMailbox cmb = new CommentMailbox(subject);
         subject.addCommentSub(cmb);
         this.addBox(cmb);
         return cmb;

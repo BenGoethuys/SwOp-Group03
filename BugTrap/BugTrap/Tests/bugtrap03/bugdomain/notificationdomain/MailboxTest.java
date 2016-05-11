@@ -5,7 +5,7 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
@@ -154,7 +154,7 @@ public class MailboxTest {
 
     @Test
     public void testCommentSubscribe() throws Exception {
-        CommentMailBox cmb = testMB.commentSubscribe(subsystem4MB);
+        CommentMailbox cmb = testMB.commentSubscribe(subsystem4MB);
         assertTrue(testMB.getAllBoxes().contains(cmb));
     }
 
@@ -179,7 +179,7 @@ public class MailboxTest {
     public void testUnsubscribe() throws Exception {
         CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
         assertTrue(testMB.getAllBoxes().contains(cmb));
-        CommentMailBox cmb2 = cmb.commentSubscribe(subsystem4MB);
+        CommentMailbox cmb2 = cmb.commentSubscribe(subsystem4MB);
         assertTrue(testMB.unsubscribe(cmb2));
         assertFalse(testMB.getAllBoxes().contains(cmb2));
         assertFalse(testMB2.getAllBoxes().contains(cmb2));
