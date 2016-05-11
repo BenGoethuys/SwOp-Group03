@@ -431,11 +431,44 @@ public class AbstractSystemTest {
         subSysTest.addSubsystem(subSysTestB);
     }
     
-    
     @Test(expected = IllegalArgumentException.class)
     public void testAddSubsystem_AlreadyIn() {
         Subsystem subSysTestB = testProject.addSubsystem(subVersion, subName, subDescription);
         subSysTest.addSubsystem(subSysTestB);
+    }
+    
+    @Test
+    public void testGetMemento_Abstract() {
+        AbstractSystemDummy dummy = new AbstractSystemDummy(testProject, "Blab", "OKe");
+        AbstractSystemMemento mem = dummy.getMemento();
+    }
+    
+    class AbstractSystemDummy extends AbstractSystem {
+
+        public AbstractSystemDummy(AbstractSystem parent, String name, String description) throws IllegalArgumentException {
+            super(parent, name, description);
+        }
+
+        @Override
+        public double getBugImpact() {
+            return 0;
+        }
+
+        @Override
+        public String getDetails() {
+            return "Blub";
+        }
+
+        @Override
+        public HealthIndicator getIndicator(HealthAlgorithm ha) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public String getSubjectName() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+    
     }
 
 }
