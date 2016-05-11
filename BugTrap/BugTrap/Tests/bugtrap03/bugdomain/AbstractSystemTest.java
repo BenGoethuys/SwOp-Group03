@@ -5,6 +5,8 @@ import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.Issuer;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -17,6 +19,7 @@ import static org.junit.Assert.*;
 public class AbstractSystemTest {
 
     private static Developer testDev;
+    private static Issuer testIss;
     private static VersionID testVersion;
     private static String testName;
     private static String testDescription;
@@ -39,6 +42,7 @@ public class AbstractSystemTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         testDev = new Developer("subsysTester3210", "KwintenAS", "BuytaertAS");
+        testIss = new Issuer("subsysTester3211", "KwintenAS", "BuytaertAS");
         testVersion = new VersionID(1, 2, 4);
         testName = "testProjAS";
         testDescription = "This is an description of an AS project";
@@ -338,6 +342,11 @@ public class AbstractSystemTest {
         
         //TODO: Vincent Test the getCommentSubs;
         //assertEquals()
+    }
+    
+    @Test(expected=PermissionException.class)
+    public void testSetMilestoneNoPermission() throws PermissionException {
+	testProject.setMilestone(testIss, new Milestone(0));
     }
 
 }
