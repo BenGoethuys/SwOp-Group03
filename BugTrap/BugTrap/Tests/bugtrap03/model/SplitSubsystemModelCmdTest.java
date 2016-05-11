@@ -128,7 +128,7 @@ public class SplitSubsystemModelCmdTest {
 
         assertTrue(subR.isTerminated());
         assertTrue(subsystemA3.getName().equals("SubsystemA3"));
-        assertTrue(subsystemA3.getDescription().equals("Description of susbsystem A3"));
+        assertTrue(subsystemA3.getDescription().equals("Description of subsystem A3"));
         assertTrue(subsystemA3.getAllSubsystems().contains(subsystemA3_1));
         assertTrue(subsystemA3.getAllSubsystems().contains(subsystemA3_2));
         assertTrue(subsystemA3.getAllBugReports().contains(bugRep1));
@@ -275,7 +275,7 @@ public class SplitSubsystemModelCmdTest {
         assertTrue(happened);
 
         assertTrue(subsystemA3.getName().equals("SubsystemA3"));
-        assertTrue(subsystemA3.getDescription().equals("Description of susbsystem A3"));
+        assertTrue(subsystemA3.getDescription().equals("Description of subsystem A3"));
         assertTrue(subsystemA3.getAllSubsystems().contains(subsystemA3_1));
         assertTrue(subsystemA3.getAllSubsystems().contains(subsystemA3_2));
         assertTrue(subsystemA3.getAllBugReports().contains(bugRep1));
