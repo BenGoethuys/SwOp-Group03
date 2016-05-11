@@ -4,7 +4,7 @@
  
 //In Model de dynamische + developer = statistics
 //+ info expert
-//+ low coupling
+//+ low coupling                                                                                              
 
 
 Aparte klasse Statistics (in dev enkel getStatistics of meerdere die dan vragen aan Statistics.)
