@@ -1,5 +1,7 @@
 package bugtrap03.gui.cmd.general;
 
+import bugtrap03.bugdomain.Milestone;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.usersystem.User;
@@ -9,12 +11,13 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
  * @author Group 03
  */
-public class RegisterFromASCmd implements Cmd<Object> {
+public class RegisterFromASCmd implements Cmd<AbstractMailbox> {
     
     /**
      * Create a cmd which can be used to execute the scenario to register for a certain change on the abstractSystemSubject
@@ -27,6 +30,9 @@ public class RegisterFromASCmd implements Cmd<Object> {
         this.subsriptionTypes.put("specifictags", 2);
         this.subsriptionTypes.put("comment", 3);
         this.subsriptionTypes.put("creation", 4);
+        this.subsriptionTypes.put("newmilestone", 5);
+        this.subsriptionTypes.put("specificmilestone", 6);
+        this.subsriptionTypes.put("version", 7);
     }
 
     private HashMap<String, Integer> subsriptionTypes;
@@ -67,11 +73,57 @@ public class RegisterFromASCmd implements Cmd<Object> {
             case 4:
                 newMailbox = model.registerForCreationNotifications(user, abstractSystemSubject);
                 break;
+            case 5:
+                newMailbox = model.registerForAllMilestoneNotifactions(user, abstractSystemSubject);
+                break;
+            case 6:
+                Milestone bugReportMilestone = null;
+                scan.print("Enter a new milestone: (format a.b.c) ");
+                do {
+                    String input = scan.nextLine();
+                    String[] milestoneStr = input.split("\\.");
+
+                    int nb1, nb2, nb3;
+                    try {
+                        nb1 = Integer.parseInt(milestoneStr[0]);
+                        nb2 = Integer.parseInt(milestoneStr[1]);
+                        nb3 = Integer.parseInt(milestoneStr[2]);
+
+                        bugReportMilestone = new Milestone(nb1, nb2, nb3);
+                    } catch (IndexOutOfBoundsException | NumberFormatException ex) {
+                        scan.println("Invalid input. Please try again using format: a.b.c");
+                    }
+                } while (bugReportMilestone == null);
+                newMailbox = model.registerForMilestoneNotifactions(user, abstractSystemSubject, bugReportMilestone);
+                break;
+            case 7:
+                newMailbox = model.registerForVersionNotifications(user, abstractSystemSubject);
+                break;
             default:
                 throw new IllegalArgumentException("Something went wrong with selecting " +
                         "the type of notification registration");
         }
         return newMailbox;
+    }
+
+    private ArrayList<Integer> select3int(TerminalScanner scan) throws CancelException{
+        ArrayList<Integer> selection = new ArrayList<Integer>();
+        do {
+            String input = scan.nextLine();
+            String[] milestoneStr = input.split("\\.");
+            int nb1, nb2, nb3;
+            try {
+                nb1 = Integer.parseInt(milestoneStr[0]);
+                nb2 = Integer.parseInt(milestoneStr[1]);
+                nb3 = Integer.parseInt(milestoneStr[2]);
+                selection.add(nb1);
+                selection.add(nb2);
+                selection.add(nb3);
+            } catch (IndexOutOfBoundsException | NumberFormatException ex) {
+                scan.println("Invalid input. Please try again using format: a.b.c");
+            }
+        } while (selection.size() == 0);
+        return selection;
     }
 }
 
