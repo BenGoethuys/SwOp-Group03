@@ -777,7 +777,7 @@ public class BugReport extends Subject implements Comparable<BugReport> {
      */
     public boolean isValidMilestone(Milestone milestone) {
         if (milestone == null) {
-            return true; //It's possible a bugreport has not a milestone.
+            return true; //It's possible a bug report has no milestone.
         } else if (milestone.compareTo(this.getSubsystem().getMilestone()) == 1) {
             return true;
         } else {
