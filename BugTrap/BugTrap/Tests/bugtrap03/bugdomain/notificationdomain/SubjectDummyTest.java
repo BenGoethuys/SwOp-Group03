@@ -20,7 +20,7 @@ import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
 
 /**
- * @author Groupt 03
+ * @author Group 03
  */
 public class SubjectDummyTest {
 
