@@ -88,8 +88,12 @@ public class RegisterForNotificationsCmdTest {
         question.add("Available options:");
         question.add("0. comment");
         question.add("1. creation");
-        question.add("2. newtag");
-        question.add("3. specifictags");
+        question.add("2. fork");
+        question.add("3. newmilestone");
+        question.add("4. newtag");
+        question.add("5. specificmilestone");
+        question.add("6. specifictags");
+        question.add("7. version");
         question.add("I choose: ");
         answer.add("1");
         // end register for notifications
@@ -127,8 +131,12 @@ public class RegisterForNotificationsCmdTest {
         question.add("Available options:");
         question.add("0. comment");
         question.add("1. creation");
-        question.add("2. newtag");
-        question.add("3. specifictags");
+        question.add("2. fork");
+        question.add("3. newmilestone");
+        question.add("4. newtag");
+        question.add("5. specificmilestone");
+        question.add("6. specifictags");
+        question.add("7. version");
         question.add("I choose: ");
         answer.add("0");
         // end register for notifications
@@ -166,10 +174,14 @@ public class RegisterForNotificationsCmdTest {
         question.add("Available options:");
         question.add("0. comment");
         question.add("1. creation");
-        question.add("2. newtag");
-        question.add("3. specifictags");
+        question.add("2. fork");
+        question.add("3. newmilestone");
+        question.add("4. newtag");
+        question.add("5. specificmilestone");
+        question.add("6. specifictags");
+        question.add("7. version");
         question.add("I choose: ");
-        answer.add("2");
+        answer.add("4");
         // end register for notifications
         question.add("Registration for notifications complete.");
 
@@ -205,10 +217,14 @@ public class RegisterForNotificationsCmdTest {
         question.add("Available options:");
         question.add("0. comment");
         question.add("1. creation");
-        question.add("2. newtag");
-        question.add("3. specifictags");
+        question.add("2. fork");
+        question.add("3. newmilestone");
+        question.add("4. newtag");
+        question.add("5. specificmilestone");
+        question.add("6. specifictags");
+        question.add("7. version");
         question.add("I choose: ");
-        answer.add("3");
+        answer.add("6");
         // select tags
         question.add("Please select tag.");
         question.add("Available options:");
@@ -293,8 +309,11 @@ public class RegisterForNotificationsCmdTest {
         question.add("Available options:");
         question.add("0. comment");
         question.add("1. creation");
-        question.add("2. newtag");
-        question.add("3. specifictags");
+        question.add("2. newmilestone");
+        question.add("3. newtag");
+        question.add("4. specificmilestone");
+        question.add("5. specifictags");
+        question.add("6. version");
         question.add("I choose: ");
         answer.add("1");
         // end register for notifications
@@ -340,8 +359,11 @@ public class RegisterForNotificationsCmdTest {
         question.add("Available options:");
         question.add("0. comment");
         question.add("1. creation");
-        question.add("2. newtag");
-        question.add("3. specifictags");
+        question.add("2. newmilestone");
+        question.add("3. newtag");
+        question.add("4. specificmilestone");
+        question.add("5. specifictags");
+        question.add("6. version");
         question.add("I choose: ");
         answer.add("0");
         // end register for notifications
@@ -387,10 +409,13 @@ public class RegisterForNotificationsCmdTest {
         question.add("Available options:");
         question.add("0. comment");
         question.add("1. creation");
-        question.add("2. newtag");
-        question.add("3. specifictags");
+        question.add("2. newmilestone");
+        question.add("3. newtag");
+        question.add("4. specificmilestone");
+        question.add("5. specifictags");
+        question.add("6. version");
         question.add("I choose: ");
-        answer.add("2");
+        answer.add("3");
         // end register for notifications
         question.add("Registration for notifications complete.");
 
@@ -434,10 +459,13 @@ public class RegisterForNotificationsCmdTest {
         question.add("Available options:");
         question.add("0. comment");
         question.add("1. creation");
-        question.add("2. newtag");
-        question.add("3. specifictags");
+        question.add("2. newmilestone");
+        question.add("3. newtag");
+        question.add("4. specificmilestone");
+        question.add("5. specifictags");
+        question.add("6. version");
         question.add("I choose: ");
-        answer.add("3");
+        answer.add("5");
         // select tags
         question.add("Please select tag.");
         question.add("Available options:");
