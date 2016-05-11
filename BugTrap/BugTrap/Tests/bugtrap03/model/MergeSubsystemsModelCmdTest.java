@@ -1,9 +1,11 @@
 package bugtrap03.model;
 
+import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
@@ -56,6 +58,10 @@ public class MergeSubsystemsModelCmdTest {
         bugRep2 = model.createBugReport(subsystemA3_1, issuer, "Second bug report", "title says it all.",
                 PList.<BugReport>empty(), null, 1, false);
 
+        model.setMilestone(lead, subsystemA3_1, new Milestone(5,3));
+        model.setMilestone(lead, subsystemA3, new Milestone(5,0));
+        model.setMilestone(lead, subsystemA3_2, new Milestone(5,2));
+
         counter++;
     }
 
@@ -63,9 +69,14 @@ public class MergeSubsystemsModelCmdTest {
     public void testExec() throws Exception {
         String newName = "The new name";
         String newDesc = "The new description";
-        MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(admin, subsystemA3_1, subsystemA3,
-               newName , newDesc);
+        MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(admin, subsystemA3_1, subsystemA3, newName , newDesc);
 
+        // test
+        assertTrue(cmd.toString().contains("Merge subsystem"));
+        assertFalse(cmd.undo()); //can't undo yet.
+        assertFalse(cmd.isExecuted());
+
+        // 2. Execute
         Subsystem result = cmd.exec();
 
         assertTrue(cmd.isExecuted());
@@ -79,6 +90,20 @@ public class MergeSubsystemsModelCmdTest {
 
         assertTrue(result.getAllSubsystems().contains(subsystemA3_1_1));
         assertTrue(result.getAllSubsystems().contains(subsystemA3_2));
+
+        assertEquals(new Milestone(5,0), result.getMilestone());
+
+        // 3. Undo
+        assertTrue(cmd.undo());
+
+        assertEquals("SubsystemA3", subsystemA3.getName());
+        assertFalse(subsystemA3_1.isTerminated());
+
+        assertTrue(subsystemA3.getBugReportList().contains(bugRep1));
+        assertFalse(subsystemA3_1.getBugReportList().contains(bugRep1));
+        assertFalse(subsystemA3.getBugReportList().contains(bugRep2));
+        assertTrue(subsystemA3_1.getBugReportList().contains(bugRep2));
+
     }
 
     @Test
@@ -104,20 +129,72 @@ public class MergeSubsystemsModelCmdTest {
     }
 
     @Test
-    public void testUndo() throws Exception {
+    public void testExecSibling() throws Exception {
         String newName = "The new name";
         String newDesc = "The new description";
-        MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(admin, subsystemA3_1, subsystemA3,
-                newName , newDesc);
+        MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(admin, subsystemA3_1, subsystemA3_2, newName , newDesc);
 
+        // test
+        assertTrue(cmd.toString().contains("Merge subsystem"));
+        assertFalse(cmd.undo()); //can't undo yet.
+        assertFalse(cmd.isExecuted());
+
+        // 2. Execute
         Subsystem result = cmd.exec();
 
         assertTrue(cmd.isExecuted());
+        assertTrue(subsystemA3_2.isTerminated());
+
+        assertEquals(newName, result.getName());
+        assertEquals(newDesc, result.getDescription());
+
+        assertEquals(new Milestone(5,2), result.getMilestone());
     }
 
-    @Test
-    public void testToString() throws Exception {
-
+    @Test (expected = IllegalStateException.class)
+    public void testExecuteTwice() throws PermissionException {
+        String newName = "The new name";
+        String newDesc = "The new description";
+        MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(admin, subsystemA3_1, subsystemA3_2, newName , newDesc);
+        cmd.exec();
+        cmd.exec();
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testNullSubsystem1(){
+        String newName = "The new name";
+        String newDesc = "The new description";
+        new MergeSubsystemsModelCmd(lead, null, subsystemA3_2, newName , newDesc);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testNullSubsystem2(){
+        String newName = "The new name";
+        String newDesc = "The new description";
+        new MergeSubsystemsModelCmd(lead, subsystemA3, null, newName , newDesc);
+    }
+
+    @Test (expected = PermissionException.class)
+    public void testInvalidPermission() throws PermissionException {
+        String newName = "The new name";
+        String newDesc = "The new description";
+        MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(lead, subsystemA3_1, subsystemA3_2, newName , newDesc);
+        cmd.exec();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testUserNull() throws PermissionException {
+        String newName = "The new name";
+        String newDesc = "The new description";
+        MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(null, subsystemA3_1, subsystemA3_2, newName , newDesc);
+        cmd.exec();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testInvalidSubsystem() throws PermissionException {
+        String newName = "The new name";
+        String newDesc = "The new description";
+        MergeSubsystemsModelCmd cmd = new MergeSubsystemsModelCmd(admin, subsystemA1, subsystemA3_2, newName , newDesc);
+        cmd.exec();
+    }
 }
