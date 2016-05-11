@@ -14,7 +14,7 @@ public class SelectMilestoneCmd implements Cmd<Milestone> {
     @Override
     public Milestone exec(TerminalScanner scan, DataModel modelDummy, User userDummy) throws CancelException {
 	if (scan == null) {
-	    throw new IllegalArgumentException("scan and model musn't be null.");
+	    throw new IllegalArgumentException("scan musn't be null.");
 	}
 
 	Milestone bugReportMilestone = null;
