@@ -1,6 +1,7 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
@@ -12,6 +13,8 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
+import java.util.Arrays;
+import java.util.EnumSet;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -315,6 +318,7 @@ public class AbstractSystemTest {
         AbstractSystem oldParent = testProject.getParent();
         boolean oldIsTerminated = testProject.isTerminated();
         Milestone oldMilestone = testProject.getMilestone();
+        
         PList<CommentMailbox> oldCommentSubs = testProject.getCommentSubs();
         PList<CreationMailbox> oldCreationSubs = testProject.getCreationSubs();
         PList<TagMailbox> oldTagSubs = testProject.getTagSubs();
@@ -322,10 +326,12 @@ public class AbstractSystemTest {
         PList<MilestoneMailbox> oldMilestoneSubs = testProject.getMilestoneSubs();
         
         String oldSubName = subSysTest.getName();
+        PList<CommentMailbox> oldSubCommentSubs = subSysTest.getCommentSubs();
+        PList<CreationMailbox> oldSubCreationSubs = subSysTest.getCreationSubs();
+        PList<TagMailbox> oldSubTagSubs = subSysTest.getTagSubs();
+        PList<VersionIDMailbox> oldSubVersionIDSubs = subSysTest.getVersionIDSubs();
+        PList<MilestoneMailbox> oldSubMilestoneSubs = subSysTest.getMilestoneSubs();
         
-        
-        
-
         AbstractSystemMemento mem = testProject.getMemento();
 
         // Change
@@ -334,7 +340,19 @@ public class AbstractSystemTest {
         testProject.addSubsystem("SubNew", "SubNewDesc");
         testProject.setVersionID(new VersionID(5, 2, 1));
         testProject.setMilestone(new Milestone(3, 2, 1));
+        testProject.addCommentSub(new CommentMailbox(testProject));
+        testProject.addCreationSub(new CreationMailbox(testProject));
+        testProject.addTagSub(new TagMailbox(testProject, EnumSet.allOf(Tag.class)));
+        testProject.addMilestoneSub(new MilestoneMailbox(testProject));
+        testProject.addVersionIDSub(new VersionIDMailbox(testProject));
+        
         subSysTest.setName("Blub new subsys name.");
+        subSysTest.addCommentSub(new CommentMailbox(testProject));
+        subSysTest.addCreationSub(new CreationMailbox(testProject));
+        subSysTest.addTagSub(new TagMailbox(testProject, EnumSet.allOf(Tag.class)));
+        subSysTest.addMilestoneSub(new MilestoneMailbox(testProject));
+        subSysTest.addVersionIDSub(new VersionIDMailbox(testProject));
+        
 
         //Revert
         testProject.setMemento(mem);
@@ -346,7 +364,19 @@ public class AbstractSystemTest {
         assertEquals(oldParent, testProject.getParent());
         assertEquals(oldIsTerminated, testProject.isTerminated());
         assertEquals(oldMilestone, testProject.getMilestone());
+        assertTrue(oldCommentSubs.equals(testProject.getCommentSubs()));
+        assertTrue(oldCreationSubs.equals(testProject.getCreationSubs()));
+        assertTrue(oldTagSubs.equals(testProject.getTagSubs()));
+        assertTrue(oldVersionIDSubs.equals(testProject.getVersionIDSubs()));
+        assertTrue(oldMilestoneSubs.equals(testProject.getMilestoneSubs()));
+        
         assertEquals(oldSubName, subSysTest.getName());
+        assertTrue(oldSubCommentSubs.equals(subSysTest.getCommentSubs()));
+        assertTrue(oldSubCreationSubs.equals(subSysTest.getCreationSubs()));
+        assertTrue(oldSubTagSubs.equals(subSysTest.getTagSubs()));
+        assertTrue(oldSubVersionIDSubs.equals(subSysTest.getVersionIDSubs()));
+        assertTrue(oldSubMilestoneSubs.equals(subSysTest.getMilestoneSubs()));
+        
     }
 
     @Test
