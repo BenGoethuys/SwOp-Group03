@@ -12,6 +12,7 @@ import purecollections.PList;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * @author Group 03
@@ -24,8 +25,14 @@ public class ShowNotificationsCmd implements Cmd<Mailbox> {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
         ArrayList<Notification> notificationsAL = new ArrayList<Notification>(user.getMailbox().getAllNotifications());
+//        Collections.sort(notificationsAL, new Comparator<Notification>() {
+//            @Override
+//            public int compare(Notification o1, Notification o2) {
+//                return o1.getDate().compareTo(o2.getDate());
+//            }
+//        });
+        notificationsAL.sort(Comparator.comparing(Notification::getDate));
         PList<Notification> notifications = PList.<Notification>empty().plusAll(notificationsAL);
-        Collections.reverse(notifications);
         int size = notifications.size();
         if (size < 1){
             scan.println("No notifications in mailbox.");

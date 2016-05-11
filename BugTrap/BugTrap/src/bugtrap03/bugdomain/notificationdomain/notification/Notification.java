@@ -4,6 +4,8 @@ import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.notificationdomain.Subject;
 import bugtrap03.bugdomain.usersystem.User;
 
+import java.util.GregorianCalendar;
+
 /**
  * @author Group 03
  */
@@ -13,11 +15,20 @@ public class Notification {
     public Notification(String message, Subject subject) {
         this.setSubject(subject);
         this.setMessage(message);
+        this.date = new GregorianCalendar();
     }
 
     protected Subject subject;
     protected String message;
+    private final GregorianCalendar date;
 
+    /**
+     * This method returns the date of this notificataion
+     * @return The final date of the notification
+     */
+    public GregorianCalendar getDate(){
+        return this.date;
+    }
 
     /**
      * This method sets the message for this notification.
