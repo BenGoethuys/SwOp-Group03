@@ -116,9 +116,6 @@ public class DeclareAchievedMilestoneCmdTest {
 	question.add("The currently achieved milestone: M0");
 	question.add("Enter a new milestone: (format a.b.c) ");
 	answer.add("1.2");
-	// question.add("Invalid input. Please try again using format: a.b.c");
-	// question.add("Enter a new milestone: (format a.b.c) ");
-	// answer.add("1.2.3");
 	question.add("The milestone is declared.");
 
 	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
