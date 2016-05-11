@@ -10,17 +10,30 @@ import bugtrap03.bugdomain.notificationdomain.notification.Notification;
  */
 public class MilestoneMailbox extends SubjectMailbox<AbstractSystem, AbstractSystemSubject> {
 
+    /**
+     * The constructor for a mailbox representing the subscription on the change of specific milestones.
+     * @param milestone The specified milestone of interest for this subscription. Can be null if all milestones are of interest.
+     * @param abstractSystemSubject The object from which the subscription originates.
+     */
     public MilestoneMailbox(Milestone milestone, AbstractSystemSubject abstractSystemSubject) {
         super(abstractSystemSubject);
         this.milestone = milestone;
     }
 
+    /**
+     * A constructor without for a mailbox interested in all milestones.
+     * @param abstractSystemSubject The object from which the subscription originates.
+     */
     public MilestoneMailbox(AbstractSystemSubject abstractSystemSubject){
         this(null, abstractSystemSubject);
     }
 
     private Milestone milestone;
 
+    /**
+     * Tyis method returns the information about the subscription this mailbox represents.
+     * @return A string containing info.
+     */
     @Override
     public String getInfo(){
         StringBuilder message = new StringBuilder();
@@ -36,6 +49,14 @@ public class MilestoneMailbox extends SubjectMailbox<AbstractSystem, AbstractSys
         return message.toString();
     }
 
+    /**
+     * This method updated the notificationslist of this mailbox with a new notification about the interesting change
+     * in the given object.
+     * @param changedObject The object of interest that has been changed.
+     *
+     * @return The new notification
+     * @throws IllegalArgumentException if the given changed object is null.
+     */
     @Override
     public Notification update(AbstractSystem changedObject) throws IllegalArgumentException {
         if(changedObject == null){
