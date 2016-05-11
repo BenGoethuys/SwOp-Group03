@@ -92,7 +92,7 @@ public class Notification {
         if (object == null){
             return false;
         }
-        if (! (object instanceof BugReportNotification)){
+        if (! (object instanceof Notification)){
             return false;
         }
         Notification notification = (Notification) object;
