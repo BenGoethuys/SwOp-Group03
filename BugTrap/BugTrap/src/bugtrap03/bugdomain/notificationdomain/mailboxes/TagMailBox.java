@@ -14,7 +14,7 @@ import java.util.EnumSet;
  * @author Group 03
  */
 @DomainAPI
-public class TagMailBox extends SubjectMailbox<BugReport, Subject> {
+public class TagMailbox extends SubjectMailbox<BugReport, Subject> {
 
     /**
      * The constructor for a new mailbox subscription to the change of tag to a given tag on the subject.
@@ -30,7 +30,7 @@ public class TagMailBox extends SubjectMailbox<BugReport, Subject> {
      * @see #setTags(EnumSet)
      */
 
-    public TagMailBox(Subject subject, EnumSet<Tag> tags) throws IllegalArgumentException{
+    public TagMailbox(Subject subject, EnumSet<Tag> tags) throws IllegalArgumentException{
         super(subject);
         this.setTags(tags);
     }
