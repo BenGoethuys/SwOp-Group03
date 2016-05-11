@@ -452,6 +452,9 @@ public class Subsystem extends AbstractSystem {
         if (! this.isValidMergeSubsystem(subsystem)){
             throw new IllegalArgumentException("Cannot merge with the given subsystem");
         }
+        // terminate subsystem
+        subsystem.getParent().deleteChild(subsystem);
+        subsystem.setTerminated(true);
 
         // set params
         this.setName(name);
@@ -477,9 +480,6 @@ public class Subsystem extends AbstractSystem {
         }
 
         //TODO: possible merge subscribers?
-
-        // terminate subsystem
-        subsystem.setTerminated(true);
 
         return this;
     }
