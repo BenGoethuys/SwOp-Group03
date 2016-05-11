@@ -412,6 +412,8 @@ public class Subsystem extends AbstractSystem {
         }
         
         //Set subscribers
+        resultSubsystem2.addMilestoneSub(this.getMilestoneSubs());
+        resultSubsystem2.addVersionIDSub(this.getVersionIDSubs());
         resultSubsystem2.addTagSub(this.getTagSubs());
         resultSubsystem2.addCommentSub(this.getCommentSubs());
         resultSubsystem2.addCreationSub(this.getCreationSubs());

@@ -2,13 +2,12 @@ package bugtrap03.model;
 
 import bugtrap03.bugdomain.notificationdomain.ProjectSubject;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.ForkMailbox;
-import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
  * @author Group 03
  */
-public class RegisterForForkNotificationsModelCmd extends RegisterForNotificationsModelCmd {
+class RegisterForForkNotificationsModelCmd extends RegisterForNotificationsModelCmd {
 
     /**
      * This is the constructor for the command to subscribe for the forking of a project.
