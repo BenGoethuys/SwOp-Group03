@@ -425,7 +425,10 @@ public class AbstractSystemTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void testAddSubsystem_NoEqualParent() {
-        subSysTest.addSubsystem(subSysTest2);
+        Project testProjectB = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
+                testBudget);
+        Subsystem subSysTestB = testProjectB.addSubsystem(subVersion, subName, subDescription);
+        subSysTest.addSubsystem(subSysTestB);
     }
     
     
