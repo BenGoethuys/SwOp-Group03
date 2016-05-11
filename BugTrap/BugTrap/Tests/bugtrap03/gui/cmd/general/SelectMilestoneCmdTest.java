@@ -1,9 +1,4 @@
-/**
- * 
- */
 package bugtrap03.gui.cmd.general;
-
-import static org.junit.Assert.*;
 
 import java.util.ArrayDeque;
 
@@ -19,7 +14,6 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
-import bugtrap03.gui.cmd.DeclareAchievedMilestoneCmd;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
@@ -97,9 +91,10 @@ public class SelectMilestoneCmdTest {
      * Test method for
      * {@link bugtrap03.gui.cmd.general.SelectMilestoneCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * @throws CancelException 
-     * @throws PermissionException 
-     * @throws IllegalArgumentException 
+     * 
+     * @throws CancelException
+     * @throws PermissionException
+     * @throws IllegalArgumentException
      */
     @Test
     public void testExec() throws IllegalArgumentException, PermissionException, CancelException {
