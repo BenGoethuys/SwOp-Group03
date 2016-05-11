@@ -112,7 +112,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
             throw new IllegalArgumentException("The given versionId is not valid for this abstractSystem");
         }
         if (this.version != null) {
-            notifyVersionIDsubs(this);
+            notifyVersionIDSubs(this);
         }
         this.version = version;
     }
@@ -602,9 +602,9 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      * @param as The abstract system of which the milestone has been updated.
      */
     @Override
-    public void notifyVersionIDsubs(AbstractSystem as) {
+    public void notifyVersionIDSubs(AbstractSystem as) {
         this.updateVersionIDSubs(as);
-        this.getParent().notifyVersionIDsubs(as);
+        this.getParent().notifyVersionIDSubs(as);
     }
 
     /**

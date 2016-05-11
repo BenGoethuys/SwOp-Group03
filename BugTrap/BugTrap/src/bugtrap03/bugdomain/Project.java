@@ -617,7 +617,7 @@ public class Project extends ProjectSubject {
      * @param as The abstract system of which the milestone has been updated.
      */
     @Override
-    public void notifyVersionIDsubs(AbstractSystem as) {
+    public void notifyVersionIDSubs(AbstractSystem as) {
         this.updateVersionIDSubs(as);
     }
 

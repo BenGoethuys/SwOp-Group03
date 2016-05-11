@@ -376,23 +376,35 @@ public class AbstractSystemTest {
         assertTrue(oldSubTagSubs.equals(subSysTest.getTagSubs()));
         assertTrue(oldSubVersionIDSubs.equals(subSysTest.getVersionIDSubs()));
         assertTrue(oldSubMilestoneSubs.equals(subSysTest.getMilestoneSubs()));
-        
     }
 
     @Test
     public void testSetMemento_SubjectMemento() {
         PList<CommentMailbox> oldCSubs = subSysTest.getCommentSubs();
+        PList<CreationMailbox> oldSubCreationSubs = subSysTest.getCreationSubs();
+        PList<TagMailbox> oldSubTagSubs = subSysTest.getTagSubs();
+        PList<VersionIDMailbox> oldSubVersionIDSubs = subSysTest.getVersionIDSubs();
+        PList<MilestoneMailbox> oldSubMilestoneSubs = subSysTest.getMilestoneSubs();
+        
         //Store 
         SubjectMemento mem = subSysTest.getMemento();
 
         // Change
         testProject.addCommentSub(new CommentMailbox(testProject));
+        testProject.addCreationSub(new CreationMailbox(testProject));
+        testProject.addTagSub(new TagMailbox(testProject, EnumSet.allOf(Tag.class)));
+        testProject.addMilestoneSub(new MilestoneMailbox(testProject));
+        testProject.addVersionIDSub(new VersionIDMailbox(testProject));
 
         //Revert
         testProject.setMemento(mem);
         
-        //TODO: Vincent Test the getCommentSubs;
-        //assertEquals()
+        // Test
+        assertTrue(oldCSubs.equals(testProject.getCommentSubs()));
+        assertTrue(oldSubCreationSubs.equals(testProject.getCreationSubs()));
+        assertTrue(oldSubTagSubs.equals(testProject.getTagSubs()));
+        assertTrue(oldSubVersionIDSubs.equals(testProject.getVersionIDSubs()));
+        assertTrue(oldSubMilestoneSubs.equals(testProject.getMilestoneSubs()));
     }
     
     @Test(expected=PermissionException.class)

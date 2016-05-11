@@ -99,13 +99,6 @@ public class SubsystemTest {
     }
 
     @Test
-    public void testHasPermission() {
-        //FIXME:
-//        // this doesn't do anything! ASSIGN_DEV_PROJECT is never used ...
-//        assertTrue(subSysTest.hasPermission(testDev, RolePerm.ASSIGN_LEAD_ROLE));
-    }
-
-    @Test
     public void testSubsystemVersionIDStringStringAbstractSystem() {
         Subsystem tempSub = new Subsystem(testVersion, subName, testDescription, testProject);
         assertEquals(testVersion, tempSub.getVersionID());

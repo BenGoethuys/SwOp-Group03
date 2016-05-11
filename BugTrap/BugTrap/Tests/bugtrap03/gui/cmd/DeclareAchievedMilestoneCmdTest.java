@@ -59,101 +59,98 @@ public class DeclareAchievedMilestoneCmdTest {
      */
     @Test
     public void testExec() throws IllegalArgumentException, PermissionException, CancelException {
-        // Setup variables.
-        model = new DataModel();
-        lead = model.createDeveloper("Folow", "The", "Leader");
-        issuer = model.createIssuer("Issu", "er", "0071");
-        admin = model.createAdministrator("Ad", "Mi", "Ne20224");
+	// Setup variables.
+	model = new DataModel();
+	lead = model.createDeveloper("Folow", "The", "Leader");
+	issuer = model.createIssuer("Issu", "er", "0071");
+	admin = model.createAdministrator("Ad", "Mi", "Ne20224");
 
-        projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
-        projectB = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
+	projectA = model.createProject(new VersionID(), "ProjectTest0", "Project for testing 0", lead, 500, admin);
+	projectB = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
-        // make subsystems
-        subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
-                "Description of susbsystem A1");
-        subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
-                "Description of susbsystem A2");
-        subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
-                "Description of susbsystem A3");
-        subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
-                "Description of susbsystem A3.1");
-        subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
-                "Description of susbsystem A3.2");
+	// make subsystems
+	subsystemA1 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA1",
+	        "Description of susbsystem A1");
+	subsystemA2 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA2",
+	        "Description of susbsystem A2");
+	subsystemA3 = model.createSubsystem(admin, projectA, new VersionID(), "SubsystemA3",
+	        "Description of susbsystem A3");
+	subsystemA3_1 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.1",
+	        "Description of susbsystem A3.1");
+	subsystemA3_2 = model.createSubsystem(admin, subsystemA3, new VersionID(), "SubsystemA3.2",
+	        "Description of susbsystem A3.2");
 
-        bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport>empty(), null, 1, false);
-        bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(),
-                null, 1, false);
-        bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport>empty(), null, 1, false);
+	bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
+	        PList.<BugReport> empty(), null, 1, false);
+	bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
+	        "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(), null, 1,
+	        false);
+	bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
+	        PList.<BugReport> empty(), null, 1, false);
 
-        comment1 = model.createComment(issuer, bugRep1, "First comment");
-        comment2 = model.createComment(issuer, comment1, "Inner commment");
-        comment3 = model.createComment(issuer, bugRep1, "Second");
+	comment1 = model.createComment(issuer, bugRep1, "First comment");
+	comment2 = model.createComment(issuer, comment1, "Inner commment");
+	comment3 = model.createComment(issuer, bugRep1, "Second");
 
-        ArrayDeque<String> question = new ArrayDeque<>();
-        ArrayDeque<String> answer = new ArrayDeque<>();
-        DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
+	ArrayDeque<String> question = new ArrayDeque<>();
+	ArrayDeque<String> answer = new ArrayDeque<>();
+	DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
 
-        // Setup scenario
-        question.add("Select a project.");
-        question.add("Available options:");
-        question.add("0. ProjectTest0 version: 0");
-        question.add("1. ProjectTest1 version: 0");
-        question.add("I choose: ");
-        answer.add("0");
-        question.add("You have chosen:");
-        question.add(projectA.getDetails());
-        question.add("Available options:");
-        question.add("0. SubsystemA1");
-        question.add("1. SubsystemA2");
-        question.add("2. SubsystemA3");
-        question.add("3. SubsystemA3.1");
-        question.add("4. SubsystemA3.2");
-        question.add("I choose: ");
-        answer.add("0");
-        question.add("The currently achieved milestone: M0");
-        question.add("Enter a new milestone: (format a.b.c) ");
-        answer.add("1.2");
-        question.add("Invalid input. Please try again using format: a.b.c");
-        question.add("Enter a new milestone: (format a.b.c) ");
-        answer.add("1.2.3");
-        question.add("The milestone is declared.");
+	// Setup scenario
+	question.add("Select a project.");
+	question.add("Available options:");
+	question.add("0. ProjectTest0 version: 0");
+	question.add("1. ProjectTest1 version: 0");
+	question.add("I choose: ");
+	answer.add("0");
+	question.add("You have chosen:");
+	question.add(projectA.getDetails());
+	question.add("Available options:");
+	question.add("0. SubsystemA1");
+	question.add("1. SubsystemA2");
+	question.add("2. SubsystemA3");
+	question.add("3. SubsystemA3.1");
+	question.add("4. SubsystemA3.2");
+	question.add("I choose: ");
+	answer.add("0");
+	question.add("The currently achieved milestone: M0");
+	question.add("Enter a new milestone: (format a.b.c...) ");
+	answer.add("1.2");
+	question.add("The milestone is declared.");
 
-        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        // Execute scenario
-        cmd.exec(scan, model, lead);
+	// Execute scenario
+	cmd.exec(scan, model, lead);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException() throws IllegalArgumentException, CancelException, PermissionException {
-        DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
-        chosen = cmd.exec(null, null, null);
+	DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
+	chosen = cmd.exec(null, null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
-        DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
-        DataModel model = new DataModel();
-        chosen = cmd.exec(null, model, lead);
+	DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
+	DataModel model = new DataModel();
+	chosen = cmd.exec(null, model, lead);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
-        DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
-        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
-                new ArrayDeque<>());
-        chosen = cmd.exec(scan, null, lead);
+	DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
+	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+	        new ArrayDeque<>());
+	chosen = cmd.exec(scan, null, lead);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
-        DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
-        DataModel model = new DataModel();
-        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
-                new ArrayDeque<>());
-        chosen = cmd.exec(scan, model, null);
+	DeclareAchievedMilestoneCmd cmd = new DeclareAchievedMilestoneCmd();
+	DataModel model = new DataModel();
+	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+	        new ArrayDeque<>());
+	chosen = cmd.exec(scan, model, null);
     }
 }

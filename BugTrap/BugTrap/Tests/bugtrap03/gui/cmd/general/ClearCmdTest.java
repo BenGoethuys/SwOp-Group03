@@ -10,7 +10,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class ClearCmdTest {
 
-    // TODO: Manually rerun clearCmd in a terminal on windows, linux and mac.
     @Test
     public void testExecNullReturn() {
         ClearCmd cmd = new ClearCmd();
