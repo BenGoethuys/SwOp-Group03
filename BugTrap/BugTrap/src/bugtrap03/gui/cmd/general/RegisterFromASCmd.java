@@ -105,25 +105,5 @@ public class RegisterFromASCmd implements Cmd<AbstractMailbox> {
         }
         return newMailbox;
     }
-
-    private ArrayList<Integer> select3int(TerminalScanner scan) throws CancelException{
-        ArrayList<Integer> selection = new ArrayList<Integer>();
-        do {
-            String input = scan.nextLine();
-            String[] milestoneStr = input.split("\\.");
-            int nb1, nb2, nb3;
-            try {
-                nb1 = Integer.parseInt(milestoneStr[0]);
-                nb2 = Integer.parseInt(milestoneStr[1]);
-                nb3 = Integer.parseInt(milestoneStr[2]);
-                selection.add(nb1);
-                selection.add(nb2);
-                selection.add(nb3);
-            } catch (IndexOutOfBoundsException | NumberFormatException ex) {
-                scan.println("Invalid input. Please try again using format: a.b.c");
-            }
-        } while (selection.size() == 0);
-        return selection;
-    }
 }
 
