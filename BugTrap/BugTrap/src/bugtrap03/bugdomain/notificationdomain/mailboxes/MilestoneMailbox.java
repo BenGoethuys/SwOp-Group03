@@ -52,6 +52,7 @@ public class MilestoneMailbox extends SubjectMailbox<AbstractSystem, AbstractSys
                 asNotification = null;
             }
         }
+        this.addNotification(asNotification);
         return asNotification;
     }
 }
