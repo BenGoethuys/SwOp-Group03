@@ -30,7 +30,7 @@ public class ShowNotificationsCmd implements Cmd<Mailbox> {
 //                return o1.getDate().compareTo(o2.getDate());
 //            }
 //        });
-        notificationsAL.sort(Comparator.comparing(Notification::getDate));
+        notificationsAL.sort(Comparator.comparing(Notification::getDate).reversed());
         PList<Notification> notifications = PList.<Notification>empty().plusAll(notificationsAL);
         int size = notifications.size();
         if (size < 1){
