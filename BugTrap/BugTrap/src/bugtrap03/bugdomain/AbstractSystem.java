@@ -111,10 +111,14 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         if (!isValidVersionId(version)) {
             throw new IllegalArgumentException("The given versionId is not valid for this abstractSystem");
         }
+        boolean notNullVersion = false;
         if (this.version != null) {
-            notifyVersionIDSubs(this);
+            notNullVersion = true;
         }
         this.version = version;
+        if (notNullVersion){
+            notifyVersionIDSubs(this);
+        }
     }
 
     /**
