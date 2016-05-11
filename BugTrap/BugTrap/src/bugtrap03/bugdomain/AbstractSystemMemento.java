@@ -17,11 +17,11 @@ import purecollections.PList;
 public class AbstractSystemMemento extends AbstractSystemSubjectMemento {
     
     public AbstractSystemMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailbox> commentMailboxes,
-                          PList<CreationMailBox> creationMailBoxes, PList<MilestoneMailbox> milestoneMailboxes,
-                          PList<VersionIDMailbox> versionIDMailboxes, VersionID versionID, String name,
-                          String description, PList<Subsystem> children, AbstractSystem parent,
-                          Milestone milestone, boolean isTerminated) {
-        super(tagMailBoxes, commentMailboxes, creationMailBoxes, milestoneMailboxes, versionIDMailboxes);
+                                 PList<CreationMailbox> creationMailboxes, PList<MilestoneMailbox> milestoneMailboxes,
+                                 PList<VersionIDMailbox> versionIDMailboxes, VersionID versionID, String name,
+                                 String description, PList<Subsystem> children, AbstractSystem parent,
+                                 Milestone milestone, boolean isTerminated) {
+        super(tagMailBoxes, commentMailboxes, creationMailboxes, milestoneMailboxes, versionIDMailboxes);
         this.versionID = versionID;
         this.name = name;
         this.description = description;

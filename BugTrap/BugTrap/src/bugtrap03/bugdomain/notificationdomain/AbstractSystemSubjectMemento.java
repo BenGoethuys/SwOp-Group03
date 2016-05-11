@@ -9,7 +9,7 @@ import purecollections.PList;
  */
 public class AbstractSystemSubjectMemento extends SubjectMemento {
     
-    protected AbstractSystemSubjectMemento(PList<TagMailBox> tagSubs, PList<CommentMailbox> commentSubs, PList<CreationMailBox> creationSubs,
+    protected AbstractSystemSubjectMemento(PList<TagMailBox> tagSubs, PList<CommentMailbox> commentSubs, PList<CreationMailbox> creationSubs,
                                            PList<MilestoneMailbox> milestoneSubs, PList<VersionIDMailbox> versionIDSubs) {
         super(tagSubs, commentSubs);
         
@@ -18,7 +18,7 @@ public class AbstractSystemSubjectMemento extends SubjectMemento {
         this.versionIDSubs = versionIDSubs;
     }
     
-    private final PList<CreationMailBox> creationSubs;
+    private final PList<CreationMailbox> creationSubs;
     private final PList<MilestoneMailbox> milestoneSubs;
     private final PList<VersionIDMailbox> versionIDSubs;
 
@@ -26,7 +26,7 @@ public class AbstractSystemSubjectMemento extends SubjectMemento {
      * This method returns the final list of creationsubs.
      * @return A Plist of creation mailboxes.
      */
-    public PList<CreationMailBox> getCreationSubs() {
+    public PList<CreationMailbox> getCreationSubs() {
         return this.creationSubs;
     }
 

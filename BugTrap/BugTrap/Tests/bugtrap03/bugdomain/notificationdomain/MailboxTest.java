@@ -6,7 +6,7 @@ import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
@@ -29,7 +29,7 @@ public class MailboxTest {
 
     private static Mailbox testMB;
     private static Mailbox testMB2;
-    private static CreationMailBox testCMB2;
+    private static CreationMailbox testCMB2;
     private static BugReportNotification bugReportNotification4MB2;
 
 
@@ -165,7 +165,7 @@ public class MailboxTest {
 
     @Test
     public void testCreationSubscribe() throws Exception {
-        CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
+        CreationMailbox cmb = testMB.creationSubscribe(subsystem4MB);
         assertTrue(testMB.getAllBoxes().contains(cmb));
     }
 
@@ -177,7 +177,7 @@ public class MailboxTest {
     //TODO update test method
     /*@Test
     public void testUnsubscribe() throws Exception {
-        CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
+        CreationMailbox cmb = testMB.creationSubscribe(subsystem4MB);
         assertTrue(testMB.getAllBoxes().contains(cmb));
         CommentMailbox cmb2 = cmb.commentSubscribe(subsystem4MB);
         assertTrue(testMB.unsubscribe(cmb2));
@@ -190,7 +190,7 @@ public class MailboxTest {
 
     @Test
     public void testActivate() throws Exception {
-        CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
+        CreationMailbox cmb = testMB.creationSubscribe(subsystem4MB);
         testMB.unsubscribe(cmb);
         cmb.addNotification(bugReportNotification4MB2);
         assertFalse(cmb.getNotifications().contains(bugReportNotification4MB2));

@@ -160,10 +160,10 @@ public class Mailbox extends AbstractMailbox<Subject> {
      * @param abstractSystemSubject The subject for the subscription
      * @return The created mailbox
      * @throws IllegalArgumentException if the subject is invalid
-     * @see CreationMailBox#CreationMailBox(AbstractSystemSubject)
+     * @see CreationMailbox#CreationMailbox(AbstractSystemSubject)
      */
-    public CreationMailBox creationSubscribe(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
-        CreationMailBox cmb = new CreationMailBox(abstractSystemSubject);
+    public CreationMailbox creationSubscribe(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
+        CreationMailbox cmb = new CreationMailbox(abstractSystemSubject);
         abstractSystemSubject.addCreationSub(cmb);
         this.addBox(cmb);
         return cmb;

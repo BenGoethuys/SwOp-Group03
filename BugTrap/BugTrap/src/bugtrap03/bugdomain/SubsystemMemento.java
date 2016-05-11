@@ -19,8 +19,8 @@ import purecollections.PList;
  */
 public class SubsystemMemento extends AbstractSystemMemento {
 
-    SubsystemMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailbox> commentMailboxes, PList<CreationMailBox> creationMailBoxes, PList<MilestoneMailbox> milestoneMailboxes, PList<VersionIDMailbox> versionIDMailboxes, VersionID versionID, String name, String description, PList<Subsystem> children, AbstractSystem parent, Milestone milestone, PList<BugReport> bugReports, boolean isTerminated) {
-        super(tagMailBoxes, commentMailboxes, creationMailBoxes, milestoneMailboxes, versionIDMailboxes, versionID, name, description, children, parent, milestone, isTerminated);
+    SubsystemMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailbox> commentMailboxes, PList<CreationMailbox> creationMailboxes, PList<MilestoneMailbox> milestoneMailboxes, PList<VersionIDMailbox> versionIDMailboxes, VersionID versionID, String name, String description, PList<Subsystem> children, AbstractSystem parent, Milestone milestone, PList<BugReport> bugReports, boolean isTerminated) {
+        super(tagMailBoxes, commentMailboxes, creationMailboxes, milestoneMailboxes, versionIDMailboxes, versionID, name, description, children, parent, milestone, isTerminated);
 
         this.bugReportList = bugReports;
 

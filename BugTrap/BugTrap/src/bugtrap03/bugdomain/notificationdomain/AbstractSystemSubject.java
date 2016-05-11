@@ -16,12 +16,12 @@ public abstract class AbstractSystemSubject extends Subject {
 
     public AbstractSystemSubject(){
         super();
-        this.creationSubs = PList.<CreationMailBox>empty();
+        this.creationSubs = PList.<CreationMailbox>empty();
         this.milestoneSubs = PList.<MilestoneMailbox>empty();
         this.versionIdSubs = PList.<VersionIDMailbox>empty();
     }
 
-    private PList<CreationMailBox> creationSubs;
+    private PList<CreationMailbox> creationSubs;
     private PList<MilestoneMailbox> milestoneSubs;
     private PList<VersionIDMailbox> versionIdSubs;
 
@@ -29,10 +29,10 @@ public abstract class AbstractSystemSubject extends Subject {
      * This method updates all the mailboxes subscribed on a AbstractSystem creation on this subject.
      *
      * @param br The bug report needed for the update
-     * @see CreationMailBox#update(BugReport)
+     * @see CreationMailbox#update(BugReport)
      */
     protected void updateCreationSubs(BugReport br){
-        for (CreationMailBox cmb: this.creationSubs){
+        for (CreationMailbox cmb: this.creationSubs){
             cmb.update(br);
         }
     }
@@ -42,19 +42,19 @@ public abstract class AbstractSystemSubject extends Subject {
      *
      * @return The CreationMailBoxes that are subscribed on the creation of an AbstractSystem.
      */
-    public PList<CreationMailBox> getCreationSubs() {
+    public PList<CreationMailbox> getCreationSubs() {
         return this.creationSubs;
     }
 
     /**
      * This method adds a creation subscriber to the subject.
      *
-     * @param cmb The CreationMailBox to add
+     * @param cmb The CreationMailbox to add
      *
      * @throws IllegalArgumentException if the cmb is invalid
      * @see Subject#isValidMb
      */
-    public void addCreationSub(CreationMailBox cmb) throws IllegalArgumentException{
+    public void addCreationSub(CreationMailbox cmb) throws IllegalArgumentException{
         if (isValidMb(cmb)){
             this.creationSubs = this.creationSubs.plus(cmb);
         } else {
@@ -69,10 +69,10 @@ public abstract class AbstractSystemSubject extends Subject {
      *
      * @throws IllegalArgumentException if the any of the cmbs is invalid
      * @see Subject#isValidMb
-     * @see #addCreationSub(CreationMailBox) 
+     * @see #addCreationSub(CreationMailbox)
      */
-    public void addCreationSub(Collection<CreationMailBox> cmbs) {
-        for (CreationMailBox cmb : cmbs) {
+    public void addCreationSub(Collection<CreationMailbox> cmbs) {
+        for (CreationMailbox cmb : cmbs) {
             if (!isValidMb(cmb)) {
                 throw new IllegalArgumentException("Creationmailbox from collection to add to abstract system subject is invalid");
             }

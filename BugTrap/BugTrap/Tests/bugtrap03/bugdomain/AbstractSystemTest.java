@@ -3,7 +3,7 @@ package bugtrap03.bugdomain;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.VersionIDMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
@@ -315,7 +315,7 @@ public class AbstractSystemTest {
         boolean oldIsTerminated = testProject.isTerminated();
         Milestone oldMilestone = testProject.getMilestone();
         PList<CommentMailbox> oldCommentSubs = testProject.getCommentSubs();
-        PList<CreationMailBox> oldCreationSubs = testProject.getCreationSubs();
+        PList<CreationMailbox> oldCreationSubs = testProject.getCreationSubs();
         PList<TagMailBox> oldTagSubs = testProject.getTagSubs();
         PList<VersionIDMailbox> oldVersionIDSubs = testProject.getVersionIDSubs();
         testProject.getMilestoneSubs();
