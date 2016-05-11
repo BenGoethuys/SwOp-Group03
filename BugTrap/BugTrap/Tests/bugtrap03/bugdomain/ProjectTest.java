@@ -553,6 +553,22 @@ public class ProjectTest {
         //Revert
         testProject.setMemento(mem);
     }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testInvalidLead1() {
+	new Project("Test", "Test", null, testCreationDate, 0);
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testInvalidLead2() {
+	new Project("Test", "Test", null, 0);
+    }
+    
+    @Test
+    public void testIsValidParent() {
+	assertTrue(testProject.isValidParent(null));
+	assertFalse(testProject.isValidParent(testProject));
+    }
 
 
 }
