@@ -77,6 +77,9 @@ public class TagMailbox extends SubjectMailbox<BugReport, Subject> {
      * @return The added notification.
      */
     public BugReportNotification update(BugReport bugReport){
+        if (bugReport == null){
+            throw new IllegalArgumentException("updated bugreport cannot be null");
+        }
         StringBuilder message = new StringBuilder();
         if (this.tags.contains(bugReport.getTag())) {
             message.append(" has been updated with a new tag: ");
