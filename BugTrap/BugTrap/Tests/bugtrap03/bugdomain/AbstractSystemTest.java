@@ -3,6 +3,9 @@ package bugtrap03.bugdomain;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.VersionIDMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
@@ -286,6 +289,13 @@ public class AbstractSystemTest {
         assertEquals(testProject.getParent(), mem.getParent());
         assertEquals(testProject.isTerminated(), mem.getIsTerminated());
         assertEquals(testProject.getMilestone(), mem.getMilestone());
+        
+        //subs
+        assertEquals(testProject.getCommentSubs(), mem.getCommentSubs());
+        assertEquals(testProject.getCreationSubs(), mem.getCreationSubs());
+        assertEquals(testProject.getTagSubs(), mem.getTagSubs());
+        assertEquals(testProject.getVersionIDSubs(), mem.getVersionIDSubs());
+        assertEquals(testProject.getMilestoneSubs(), mem.getMilestoneSubs());
     }
 
     @Test
@@ -298,8 +308,16 @@ public class AbstractSystemTest {
         AbstractSystem oldParent = testProject.getParent();
         boolean oldIsTerminated = testProject.isTerminated();
         Milestone oldMilestone = testProject.getMilestone();
-
+        PList<CommentMailBox> oldCommentSubs = testProject.getCommentSubs();
+        PList<CreationMailBox> oldCreationSubs = testProject.getCreationSubs();
+        PList<TagMailBox> oldTagSubs = testProject.getTagSubs();
+        PList<VersionIDMailbox> oldVersionIDSubs = testProject.getVersionIDSubs();
+        testProject.getMilestoneSubs();
+        
         String oldSubName = subSysTest.getName();
+        
+        
+        
 
         AbstractSystemMemento mem = testProject.getMemento();
 
