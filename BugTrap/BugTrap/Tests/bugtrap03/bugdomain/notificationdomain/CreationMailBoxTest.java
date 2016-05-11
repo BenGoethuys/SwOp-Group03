@@ -4,7 +4,7 @@ import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.BeforeClass;
@@ -18,9 +18,9 @@ import static org.junit.Assert.*;
 /**
  * @author Group03
  */
-public class CreationMailBoxTest {
+public class CreationMailboxTest {
 
-    private static CreationMailBox testCMB;
+    private static CreationMailbox testCMB;
     private static BugReportNotification bugReportNotification4MB2;
 
 
@@ -38,7 +38,7 @@ public class CreationMailBoxTest {
                 new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
                 1, false, "triggerhappy", "stacktacktack", "error404");
         bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
-        testCMB = new CreationMailBox(project4MB);
+        testCMB = new CreationMailbox(project4MB);
     }
 
     @Test

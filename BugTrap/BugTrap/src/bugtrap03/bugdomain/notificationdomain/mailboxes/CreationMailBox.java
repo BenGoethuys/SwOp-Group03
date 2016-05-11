@@ -12,7 +12,7 @@ import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification
  * @author Group 03
  */
 @DomainAPI
-public class CreationMailBox extends SubjectMailbox<BugReport, AbstractSystemSubject> {
+public class CreationMailbox extends SubjectMailbox<BugReport, AbstractSystemSubject> {
 
     /**
      * The constructor for a mailbox subscription to the
@@ -22,7 +22,7 @@ public class CreationMailBox extends SubjectMailbox<BugReport, AbstractSystemSub
      * @throws IllegalArgumentException if the subject is invalid
      * @see SubjectMailbox#isValidSubject(Subject)
      */
-    public CreationMailBox(AbstractSystemSubject subj) throws IllegalArgumentException {
+    public CreationMailbox(AbstractSystemSubject subj) throws IllegalArgumentException {
         super(subj);
     }
 

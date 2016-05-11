@@ -2,7 +2,10 @@ package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.VersionIDMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -292,6 +295,13 @@ public class AbstractSystemTest {
         assertEquals(testProject.getParent(), mem.getParent());
         assertEquals(testProject.isTerminated(), mem.getIsTerminated());
         assertEquals(testProject.getMilestone(), mem.getMilestone());
+        
+        //subs
+        assertEquals(testProject.getCommentSubs(), mem.getCommentSubs());
+        assertEquals(testProject.getCreationSubs(), mem.getCreationSubs());
+        assertEquals(testProject.getTagSubs(), mem.getTagSubs());
+        assertEquals(testProject.getVersionIDSubs(), mem.getVersionIDSubs());
+        assertEquals(testProject.getMilestoneSubs(), mem.getMilestoneSubs());
     }
 
     @Test
@@ -304,8 +314,16 @@ public class AbstractSystemTest {
         AbstractSystem oldParent = testProject.getParent();
         boolean oldIsTerminated = testProject.isTerminated();
         Milestone oldMilestone = testProject.getMilestone();
-
+        PList<CommentMailbox> oldCommentSubs = testProject.getCommentSubs();
+        PList<CreationMailbox> oldCreationSubs = testProject.getCreationSubs();
+        PList<TagMailbox> oldTagSubs = testProject.getTagSubs();
+        PList<VersionIDMailbox> oldVersionIDSubs = testProject.getVersionIDSubs();
+        testProject.getMilestoneSubs();
+        
         String oldSubName = subSysTest.getName();
+        
+        
+        
 
         AbstractSystemMemento mem = testProject.getMemento();
 
@@ -332,12 +350,12 @@ public class AbstractSystemTest {
 
     @Test
     public void testSetMemento_SubjectMemento() {
-        PList<CommentMailBox> oldCSubs = subSysTest.getCommentSubs();
+        PList<CommentMailbox> oldCSubs = subSysTest.getCommentSubs();
         //Store 
         SubjectMemento mem = subSysTest.getMemento();
 
         // Change
-        testProject.addCommentSub(new CommentMailBox(testProject));
+        testProject.addCommentSub(new CommentMailbox(testProject));
 
         //Revert
         testProject.setMemento(mem);

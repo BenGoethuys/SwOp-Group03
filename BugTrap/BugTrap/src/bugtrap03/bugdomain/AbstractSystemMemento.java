@@ -16,12 +16,12 @@ import purecollections.PList;
  */
 public class AbstractSystemMemento extends AbstractSystemSubjectMemento {
     
-    public AbstractSystemMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailBox> commentMailBoxes,
-                          PList<CreationMailBox> creationMailBoxes, PList<MilestoneMailbox> milestoneMailboxes,
-                          PList<VersionIDMailbox> versionIDMailboxes, VersionID versionID, String name,
-                          String description, PList<Subsystem> children, AbstractSystem parent,
-                          Milestone milestone, boolean isTerminated) {
-        super(tagMailBoxes, commentMailBoxes, creationMailBoxes, milestoneMailboxes, versionIDMailboxes);
+    public AbstractSystemMemento(PList<TagMailbox> tagMailboxes, PList<CommentMailbox> commentMailboxes,
+                                 PList<CreationMailbox> creationMailboxes, PList<MilestoneMailbox> milestoneMailboxes,
+                                 PList<VersionIDMailbox> versionIDMailboxes, VersionID versionID, String name,
+                                 String description, PList<Subsystem> children, AbstractSystem parent,
+                                 Milestone milestone, boolean isTerminated) {
+        super(tagMailboxes, commentMailboxes, creationMailboxes, milestoneMailboxes, versionIDMailboxes);
         this.versionID = versionID;
         this.name = name;
         this.description = description;
@@ -67,7 +67,7 @@ public class AbstractSystemMemento extends AbstractSystemSubjectMemento {
     /**
      * Restore the state of the children by restoring their memento.
      */
-    void restoreChildren() {
+    protected void restoreChildren() {
         for (Subsystem subsys : children) {
             SubsystemMemento mem = childrenMementos.get(subsys);
 
@@ -77,7 +77,7 @@ public class AbstractSystemMemento extends AbstractSystemSubjectMemento {
         }
     }
 
-    public AbstractSystem getParent() {
+    protected AbstractSystem getParent() {
         return this.parent;
     }
 

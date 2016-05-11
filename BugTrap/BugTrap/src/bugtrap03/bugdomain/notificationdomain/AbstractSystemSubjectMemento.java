@@ -9,7 +9,7 @@ import purecollections.PList;
  */
 public class AbstractSystemSubjectMemento extends SubjectMemento {
     
-    protected AbstractSystemSubjectMemento(PList<TagMailBox> tagSubs, PList<CommentMailBox> commentSubs, PList<CreationMailBox> creationSubs,
+    protected AbstractSystemSubjectMemento(PList<TagMailbox> tagSubs, PList<CommentMailbox> commentSubs, PList<CreationMailbox> creationSubs,
                                            PList<MilestoneMailbox> milestoneSubs, PList<VersionIDMailbox> versionIDSubs) {
         super(tagSubs, commentSubs);
         
@@ -18,7 +18,7 @@ public class AbstractSystemSubjectMemento extends SubjectMemento {
         this.versionIDSubs = versionIDSubs;
     }
     
-    private final PList<CreationMailBox> creationSubs;
+    private final PList<CreationMailbox> creationSubs;
     private final PList<MilestoneMailbox> milestoneSubs;
     private final PList<VersionIDMailbox> versionIDSubs;
 
@@ -26,7 +26,7 @@ public class AbstractSystemSubjectMemento extends SubjectMemento {
      * This method returns the final list of creationsubs.
      * @return A Plist of creation mailboxes.
      */
-    PList<CreationMailBox> getCreationSubs() {
+    public PList<CreationMailbox> getCreationSubs() {
         return this.creationSubs;
     }
 
@@ -34,12 +34,12 @@ public class AbstractSystemSubjectMemento extends SubjectMemento {
      * This method returns the final list of milestonesubs.
      * @return A Plist of mileston mailboxes.
      */
-    PList<MilestoneMailbox> getMilestoneSubs() { return this.milestoneSubs;}
+    public PList<MilestoneMailbox> getMilestoneSubs() { return this.milestoneSubs;}
 
     /**
      * This method returns the final list of versionIDsubs.
      * @return A Plist of versionID mailboxes.
      */
-    PList<VersionIDMailbox> getVersionIDSubs(){ return this.versionIDSubs;}
+    public PList<VersionIDMailbox> getVersionIDSubs(){ return this.versionIDSubs;}
     
 }

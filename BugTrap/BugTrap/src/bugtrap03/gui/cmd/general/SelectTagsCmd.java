@@ -19,7 +19,7 @@ public class SelectTagsCmd implements Cmd<EnumSet<Tag>> {
      * Execute the command and get a set of tags chosen by the user trough interaction.
      * @param scan The scanner used to interact with the user
      * @param model The model used to access the system data.
-     * @param user dummy
+     * @param dummy Of the user
      * @return The chosen set of tags.
      * @throws CancelException When the user aborted the cmd
      * @throws IllegalArgumentException When scan or model == null

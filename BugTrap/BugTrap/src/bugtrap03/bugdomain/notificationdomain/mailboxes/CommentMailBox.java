@@ -11,7 +11,7 @@ import bugtrap03.bugdomain.notificationdomain.Subject;
  * @author Group 03
  */
 @DomainAPI
-public class CommentMailBox extends SubjectMailbox<BugReport, Subject> {
+public class CommentMailbox extends SubjectMailbox<BugReport, Subject> {
 
     /**
      * The constructor for a new mailbox subscribed to the creation of comments on the subject.
@@ -20,7 +20,7 @@ public class CommentMailBox extends SubjectMailbox<BugReport, Subject> {
      * @throws IllegalArgumentException if the subject is invalid.
      * @see #setSubject(Subject)
      */
-    public CommentMailBox(Subject subject) throws IllegalArgumentException{
+    public CommentMailbox(Subject subject) throws IllegalArgumentException{
         super(subject);
     }
 
