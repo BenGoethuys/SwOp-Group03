@@ -67,7 +67,7 @@ public class AbstractSystemMemento extends AbstractSystemSubjectMemento {
     /**
      * Restore the state of the children by restoring their memento.
      */
-    void restoreChildren() {
+    protected void restoreChildren() {
         for (Subsystem subsys : children) {
             SubsystemMemento mem = childrenMementos.get(subsys);
 
@@ -77,7 +77,7 @@ public class AbstractSystemMemento extends AbstractSystemSubjectMemento {
         }
     }
 
-    public AbstractSystem getParent() {
+    protected AbstractSystem getParent() {
         return this.parent;
     }
 

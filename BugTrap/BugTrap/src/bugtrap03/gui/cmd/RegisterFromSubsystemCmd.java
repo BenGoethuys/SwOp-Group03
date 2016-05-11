@@ -53,7 +53,7 @@ public class RegisterFromSubsystemCmd implements Cmd<AbstractMailbox> {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
         Subsystem selectedSubsys = new GetSubsystemCmd().exec(scan, model, user);
-        AbstractMailbox newMailbox = new RegisterFromASCmd(selectedSubsys).exec(scan, model, user);
+        AbstractMailbox newMailbox = new RegisterFromASSubjCmd(selectedSubsys).exec(scan, model, user);
         return newMailbox;
     }
 }

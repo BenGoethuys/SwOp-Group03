@@ -19,11 +19,11 @@ public class SubjectMemento {
     private final PList<TagMailBox> tagSubs;
     private final PList<CommentMailBox> commentSubs;
     
-    PList<TagMailBox> getTagSubs() {
+    public PList<TagMailBox> getTagSubs() {
         return this.tagSubs;
     }
     
-    PList<CommentMailBox> getCommentSubs() {
+    public PList<CommentMailBox> getCommentSubs() {
         return this.commentSubs;
     }
     

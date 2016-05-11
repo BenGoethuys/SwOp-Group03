@@ -3,8 +3,15 @@ package bugtrap03.bugdomain;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.VersionIDMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.bugdomain.usersystem.Issuer;
+import bugtrap03.bugdomain.usersystem.Role;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -17,6 +24,7 @@ import static org.junit.Assert.*;
 public class AbstractSystemTest {
 
     private static Developer testDev;
+    private static Issuer testIss;
     private static VersionID testVersion;
     private static String testName;
     private static String testDescription;
@@ -39,6 +47,7 @@ public class AbstractSystemTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         testDev = new Developer("subsysTester3210", "KwintenAS", "BuytaertAS");
+        testIss = new Issuer("subsysTester3211", "KwintenAS", "BuytaertAS");
         testVersion = new VersionID(1, 2, 4);
         testName = "testProjAS";
         testDescription = "This is an description of an AS project";
@@ -286,6 +295,13 @@ public class AbstractSystemTest {
         assertEquals(testProject.getParent(), mem.getParent());
         assertEquals(testProject.isTerminated(), mem.getIsTerminated());
         assertEquals(testProject.getMilestone(), mem.getMilestone());
+        
+        //subs
+        assertEquals(testProject.getCommentSubs(), mem.getCommentSubs());
+        assertEquals(testProject.getCreationSubs(), mem.getCreationSubs());
+        assertEquals(testProject.getTagSubs(), mem.getTagSubs());
+        assertEquals(testProject.getVersionIDSubs(), mem.getVersionIDSubs());
+        assertEquals(testProject.getMilestoneSubs(), mem.getMilestoneSubs());
     }
 
     @Test
@@ -298,8 +314,16 @@ public class AbstractSystemTest {
         AbstractSystem oldParent = testProject.getParent();
         boolean oldIsTerminated = testProject.isTerminated();
         Milestone oldMilestone = testProject.getMilestone();
-
+        PList<CommentMailBox> oldCommentSubs = testProject.getCommentSubs();
+        PList<CreationMailBox> oldCreationSubs = testProject.getCreationSubs();
+        PList<TagMailBox> oldTagSubs = testProject.getTagSubs();
+        PList<VersionIDMailbox> oldVersionIDSubs = testProject.getVersionIDSubs();
+        testProject.getMilestoneSubs();
+        
         String oldSubName = subSysTest.getName();
+        
+        
+        
 
         AbstractSystemMemento mem = testProject.getMemento();
 
@@ -338,6 +362,18 @@ public class AbstractSystemTest {
         
         //TODO: Vincent Test the getCommentSubs;
         //assertEquals()
+    }
+    
+    @Test(expected=PermissionException.class)
+    public void testSetMilestoneNoPermission() throws PermissionException {
+	testProject.setMilestone(testIss, new Milestone(0));
+    }
+    
+    @Test
+    public void testHasPermission() throws IllegalArgumentException, PermissionException {
+	testProject.setRole(testDev, testDev, Role.TESTER);
+	assertFalse(subSysTest.hasPermission(testDev, RolePerm.SPECIAL));
+	assertTrue(subSysTest.hasPermission(testDev, RolePerm.ADD_TEST));
     }
 
 }
