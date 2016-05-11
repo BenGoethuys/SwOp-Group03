@@ -16,6 +16,8 @@ import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayDeque;
 
 /**
@@ -262,9 +264,6 @@ public class UpdateBugReportCmdTest {
         // Test effects.
     }
 
-    // TODO: Test the Cmd to not only assign duplicate but the pointer to the
-    // duplicate BR as well.
-
     /**
      * Test method for
      * {@link UpdateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)}
@@ -356,6 +355,7 @@ public class UpdateBugReportCmdTest {
         // Execute scenario
         BugReport updatedBR = cmd.exec(scan, model, lead);
         // Test effects.
+        assertEquals(bugRep1, updatedBR.getDuplicate());
     }
 
     /**
