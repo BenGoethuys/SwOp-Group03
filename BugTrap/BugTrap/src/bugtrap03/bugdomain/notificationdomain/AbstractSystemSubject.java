@@ -134,7 +134,7 @@ public abstract class AbstractSystemSubject extends Subject {
      */
     public void addVersionIDSub(VersionIDMailbox vimb) throws IllegalArgumentException{
         if (! isValidMb(vimb)){
-            throw new IllegalStateException("The given versionID mailbox is invalid");
+            throw new IllegalArgumentException("The given versionID mailbox is invalid");
         }
         this.versionIdSubs = this.versionIdSubs.plus(vimb);
     }
@@ -148,7 +148,7 @@ public abstract class AbstractSystemSubject extends Subject {
     public void addVersionIDSub(Collection<VersionIDMailbox> vimbs) throws IllegalArgumentException{
         for (VersionIDMailbox vimb:vimbs) {
             if (!isValidMb(vimb)) {
-                throw new IllegalStateException("The given versionID mailbox is invalid");
+                throw new IllegalArgumentException("The given versionID mailbox is invalid");
             }
         }
         this.versionIdSubs = this.versionIdSubs.plusAll(vimbs);
@@ -215,5 +215,5 @@ public abstract class AbstractSystemSubject extends Subject {
      *
      * @param as The abstract system of which the versionID has been updated.
      */
-    public abstract void notifyVersionIDsubs(AbstractSystem as);
+    public abstract void notifyVersionIDSubs(AbstractSystem as);
 }
