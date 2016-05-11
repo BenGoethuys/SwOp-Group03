@@ -23,14 +23,11 @@ public class Mailbox extends AbstractMailbox<Subject> {
      * The constructor for a general mailbox.
      */
     public Mailbox(){
+        super();
         this.boxes = PList.<AbstractMailbox>empty();
-        this.notifications = PList.<Notification>empty();
-        this.activate();
     }
 
     private PList<AbstractMailbox> boxes;
-    private PList<Notification> notifications;
-    private boolean isTerminated;
 
     /**
      * This method returns all the notifications belonging to this mailbox.
@@ -59,7 +56,7 @@ public class Mailbox extends AbstractMailbox<Subject> {
      */
     @DomainAPI
     public PList<AbstractMailbox> getAllBoxes(){
-        ArrayList<AbstractMailbox> allBoxes = new ArrayList<AbstractMailbox>(this.getBoxes());
+        ArrayList<AbstractMailbox> allBoxes = new ArrayList<>(this.getBoxes());
         for (AbstractMailbox mb: this.getBoxes()){
             if (mb instanceof Mailbox) {
                 Mailbox AMb = (Mailbox) mb;
@@ -101,6 +98,7 @@ public class Mailbox extends AbstractMailbox<Subject> {
      * @return A string with information.
      */
     @DomainAPI
+    @Override
     public String getInfo(){
         return ("This is a composite mailbox with no subject.");
     }
@@ -246,13 +244,6 @@ public class Mailbox extends AbstractMailbox<Subject> {
             }
             return value;
         }
-    }
-
-    /**
-     * This method sets the terminated status to false;
-     */
-    public void activate(){
-        this.isTerminated = false;
     }
 
 }
