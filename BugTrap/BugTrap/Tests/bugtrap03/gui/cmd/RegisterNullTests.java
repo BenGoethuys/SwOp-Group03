@@ -166,6 +166,21 @@ public class RegisterNullTests {
 
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testScanNull8() throws Exception {
+        generalNullScan(new RegisterFromProjSubjectCmd(project));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testModelNull8() throws Exception {
+        generalNullMode(new RegisterFromProjSubjectCmd(project));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testUserNull8() throws Exception {
+        generalNullUser(new RegisterFromProjSubjectCmd(project));
+    }
+
     private static void generalNullUser(Cmd cmd) throws Exception {
         //set up scenario
         answer.add("dummy");
