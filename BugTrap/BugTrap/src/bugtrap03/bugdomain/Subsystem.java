@@ -348,11 +348,12 @@ public class Subsystem extends AbstractSystem {
      * @return The extra created Subsystem.
      *
      * @throws PermissionException When user does not have sufficient permissions.
+     * @throws IllegalStateException When this is terminated.
      * @throws IllegalArgumentException When subsystems1 == null
      * @throws IllegalArgumentException When bugReports1 == null
      * @throws IllegalArgumentException When any of the arguments is invalid. (such as name and description).
      */
-    public Subsystem split(String name1, String desc1, String name2, String desc2, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) throws PermissionException, IllegalArgumentException {
+    public Subsystem split(String name1, String desc1, String name2, String desc2, PList<Subsystem> subsystems1, PList<BugReport> bugReports1, User user) throws PermissionException, IllegalArgumentException, IllegalStateException {
         if (subsystems1 == null || bugReports1 == null || user == null) {
             throw new IllegalArgumentException("Can't split a subsystem when subsystems1, bugReports1 or user == null.");
         }
@@ -360,6 +361,10 @@ public class Subsystem extends AbstractSystem {
         //Check perms
         if (!user.hasPermission(UserPerm.SPLIT_SUBSYS)) {
             throw new PermissionException("You do not have sufficient permissions to split a subsystem.");
+        }
+        
+        if(this.isTerminated()) {
+            throw new IllegalStateException("The subsystem cannot be split when terminated.");
         }
 
         //TODO: Kwinten add the notification list to the other subsystem as well.
