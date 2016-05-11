@@ -26,7 +26,7 @@ public class AbstractSystemSubjectMemento extends SubjectMemento {
      * This method returns the final list of creationsubs.
      * @return A Plist of creation mailboxes.
      */
-    PList<CreationMailBox> getCreationSubs() {
+    public PList<CreationMailBox> getCreationSubs() {
         return this.creationSubs;
     }
 
@@ -34,12 +34,12 @@ public class AbstractSystemSubjectMemento extends SubjectMemento {
      * This method returns the final list of milestonesubs.
      * @return A Plist of mileston mailboxes.
      */
-    PList<MilestoneMailbox> getMilestoneSubs() { return this.milestoneSubs;}
+    public PList<MilestoneMailbox> getMilestoneSubs() { return this.milestoneSubs;}
 
     /**
      * This method returns the final list of versionIDsubs.
      * @return A Plist of versionID mailboxes.
      */
-    PList<VersionIDMailbox> getVersionIDSubs(){ return this.versionIDSubs;}
+    public PList<VersionIDMailbox> getVersionIDSubs(){ return this.versionIDSubs;}
     
 }

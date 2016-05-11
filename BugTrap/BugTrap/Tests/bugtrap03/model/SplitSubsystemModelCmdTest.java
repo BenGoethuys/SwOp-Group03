@@ -8,11 +8,11 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
+import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import purecollections.PList;
 
@@ -78,11 +78,23 @@ public class SplitSubsystemModelCmdTest {
 
         SplitSubsystemModelCmd cmd = new SplitSubsystemModelCmd(subsystemA3, newName1, newDesc1, newName2, newDesc2, keepSubs, keepBR, admin);
 
-        Subsystem subR = cmd.exec();
+        // test
+        assertTrue(cmd.toString().contains("Split subsystem"));
+        assertTrue(cmd.toString().contains(subsystemA3.getName()));
+        assertFalse(cmd.undo()); //can't undo yet.
+        assertFalse(cmd.isExecuted());
 
+        // 2. Exec()
+        Subsystem subR = cmd.exec();
         Subsystem[] result = new Subsystem[]{subsystemA3, subR};
         int index1 = 0;
         int index2 = 1;
+
+        // test
+        assertTrue(cmd.toString().contains("Split subsystem"));
+        assertTrue(cmd.toString().contains(subsystemA3.getName()));
+        assertTrue(cmd.toString().contains(subR.getName()));
+        assertTrue(cmd.isExecuted());
 
         assertTrue(result[index1].getName().equals("NEW1"));
         assertTrue(result[index2].getName().equals("NEW2"));
@@ -94,6 +106,33 @@ public class SplitSubsystemModelCmdTest {
         assertFalse(result[index2].getAllSubsystems().contains(subsystemA3_1));
         assertTrue(result[index1].getAllBugReports().contains(bugRep1));
         assertFalse(result[index2].getAllBugReports().contains(bugRep1));
+
+        //Test subs
+        result[index1].getCommentSubs().equals(subsystemA3.getCommentSubs());
+        result[index2].getCommentSubs().equals(subsystemA3.getCommentSubs());
+
+        result[index1].getCreationSubs().equals(subsystemA3.getCreationSubs());
+        result[index2].getCreationSubs().equals(subsystemA3.getCreationSubs());
+
+        result[index1].getMilestoneSubs().equals(subsystemA3.getMilestoneSubs());
+        result[index2].getMilestoneSubs().equals(subsystemA3.getMilestoneSubs());
+
+        result[index1].getTagSubs().equals(subsystemA3.getTagSubs());
+        result[index2].getTagSubs().equals(subsystemA3.getTagSubs());
+
+        result[index1].getVersionIDSubs().equals(subsystemA3.getVersionIDSubs());
+        result[index2].getVersionIDSubs().equals(subsystemA3.getVersionIDSubs());
+
+        // 3. undo()
+        assertTrue(cmd.undo());
+
+        assertTrue(subR.isTerminated());
+        assertTrue(subsystemA3.getName().equals("SubsystemA3"));
+        assertTrue(subsystemA3.getDescription().equals("Description of susbsystem A3"));
+        assertTrue(subsystemA3.getAllSubsystems().contains(subsystemA3_1));
+        assertTrue(subsystemA3.getAllSubsystems().contains(subsystemA3_2));
+        assertTrue(subsystemA3.getAllBugReports().contains(bugRep1));
+
     }
 
     /**
@@ -129,6 +168,22 @@ public class SplitSubsystemModelCmdTest {
         assertTrue(result[index2].getAllSubsystems().contains(subsystemA3_1));
         assertFalse(result[index1].getAllBugReports().contains(bugRep1));
         assertTrue(result[index2].getAllBugReports().contains(bugRep1));
+
+        //Test subs
+        result[index1].getCommentSubs().equals(subsystemA3.getCommentSubs());
+        result[index2].getCommentSubs().equals(subsystemA3.getCommentSubs());
+
+        result[index1].getCreationSubs().equals(subsystemA3.getCreationSubs());
+        result[index2].getCreationSubs().equals(subsystemA3.getCreationSubs());
+
+        result[index1].getMilestoneSubs().equals(subsystemA3.getMilestoneSubs());
+        result[index2].getMilestoneSubs().equals(subsystemA3.getMilestoneSubs());
+
+        result[index1].getTagSubs().equals(subsystemA3.getTagSubs());
+        result[index2].getTagSubs().equals(subsystemA3.getTagSubs());
+
+        result[index1].getVersionIDSubs().equals(subsystemA3.getVersionIDSubs());
+        result[index2].getVersionIDSubs().equals(subsystemA3.getVersionIDSubs());
     }
 
     @Test(expected = PermissionException.class)

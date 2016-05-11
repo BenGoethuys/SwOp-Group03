@@ -17,7 +17,7 @@ import purecollections.PList;
  *
  * @author Group 03
  */
-public class ShowPerformanceMetricsCmd implements Cmd {
+public class ShowPerformanceMetricsCmd implements Cmd<Object> {
 
     /**
      * Execute use case 4.20, choose a Developer and show performance metrics.

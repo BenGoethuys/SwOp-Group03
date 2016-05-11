@@ -342,4 +342,19 @@ public class SubsystemTest {
         assertEquals(1, list.size());
         assertTrue(list.contains(subSysTest));
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testSplit_SubsystemNull() throws PermissionException {
+        subSysTest.split("T", "T", "T", "T", null, PList.<BugReport>empty(), testDev);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSplit_BugReportNull() throws PermissionException {
+        subSysTest.split("T", "T", "T", "T", PList.<Subsystem>empty(), null, testDev);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSplit_UserNull() throws PermissionException {
+        subSysTest.split("T", "T", "T", "T", PList.<Subsystem>empty(), PList.<BugReport>empty(), null);
+    }
 }
