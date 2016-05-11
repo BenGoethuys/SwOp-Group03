@@ -33,179 +33,180 @@ public class CreateProjectCmdTest {
      */
     @Test
     public void testCreateExec() throws PermissionException, CancelException {
-        // Setup variables.
-        DataModel model = new DataModel();
-        User lead = model.createDeveloper("meGoodLead14", "Luky", "Luke");
-        User admin = model.createAdministrator("admIn14", "adminT", "bie");
+	// Setup variables.
+	DataModel model = new DataModel();
+	User lead = model.createDeveloper("meGoodLead14", "Luky", "Luke");
+	User admin = model.createAdministrator("admIn14", "adminT", "bie");
 
-        ArrayDeque<String> question = new ArrayDeque<>();
-        ArrayDeque<String> answer = new ArrayDeque<>();
-        CreateProjectCmd cmd = new CreateProjectCmd();
+	ArrayDeque<String> question = new ArrayDeque<>();
+	ArrayDeque<String> answer = new ArrayDeque<>();
+	CreateProjectCmd cmd = new CreateProjectCmd();
 
-        String projName = "test projectName";
-        String projDesc = " ";
-        GregorianCalendar date = new GregorianCalendar();
-        date.add(GregorianCalendar.MONTH, 1);
-        String projDate = date.get(GregorianCalendar.YEAR) + "-" + (date.get(GregorianCalendar.MONTH) + 1) + "-"
-                + date.get(GregorianCalendar.DATE);
-        String projBudget = "50";
-        String leadName = lead.getUsername();
+	String projName = "test projectName";
+	String projDesc = " ";
+	GregorianCalendar date = new GregorianCalendar();
+	date.add(GregorianCalendar.MONTH, 1);
+	String projDate = date.get(GregorianCalendar.YEAR) + "-" + (date.get(GregorianCalendar.MONTH) + 1) + "-"
+	        + date.get(GregorianCalendar.DATE);
+	String projBudget = "50";
+	String leadName = lead.getUsername();
 
-        // Setup scenario
-        question.add("Create or clone a new project?");
-        question.add("Create or clone: ");
-        answer.add("expect wrong input");
-        question.add("Invalid input. Use create or clone.");
-        question.add("Create or clone: ");
-        answer.add("cReate");
-        question.add("Project name:");
-        answer.add(projName);
-        question.add("Project description:");
-        answer.add(projDesc);
-        question.add("Project starting date (YYYY-MM-DD):");
-        answer.add("2015:10:10");
-        question.add("Invalid input.");
-        question.add("Project starting date (YYYY-MM-DD):");
-        answer.add(projDate);
-        question.add("Project budget estimate:");
-        answer.add("lol");
-        question.add("Invalid input.");
-        question.add("Project budget estimate:");
-        answer.add(projBudget);
-        question.add("choose a lead developer.");
-        question.add("Available options:");
-        question.add("0. " + lead.getUsername());
-        question.add("I choose: ");
-        answer.add("25");
-        question.add("Invalid input.");
-        question.add("I choose: ");
-        answer.add("-1");
-        question.add("Invalid input.");
-        question.add("I choose: ");
-        answer.add("test");
-        question.add("Invalid input.");
-        question.add("I choose: ");
-        answer.add(leadName);
+	// Setup scenario
+	question.add("Create or clone a new project?");
+	question.add("Create or clone: ");
+	answer.add("expect wrong input");
+	question.add("Invalid input. Use create or clone.");
+	question.add("Create or clone: ");
+	answer.add("cReate");
+	question.add("Project name:");
+	answer.add(projName);
+	question.add("Project description:");
+	answer.add(projDesc);
+	question.add("Project starting date (YYYY-MM-DD):");
+	answer.add("2015:10:10");
+	question.add("Invalid input.");
+	question.add("Project starting date (YYYY-MM-DD):");
+	answer.add(projDate);
+	question.add("Project budget estimate:");
+	answer.add("lol");
+	question.add("Invalid input.");
+	question.add("Project budget estimate:");
+	answer.add(projBudget);
+	question.add("choose a lead developer.");
+	question.add("Available options:");
+	question.add("0. " + lead.getUsername());
+	question.add("I choose: ");
+	answer.add("25");
+	question.add("Invalid input.");
+	question.add("I choose: ");
+	answer.add("-1");
+	question.add("Invalid input.");
+	question.add("I choose: ");
+	answer.add("test");
+	question.add("Invalid input.");
+	question.add("I choose: ");
+	answer.add(leadName);
 
-        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        // Execute scenario
-        Project project = cmd.exec(scan, model, admin);
+	// Execute scenario
+	Project project = cmd.exec(scan, model, admin);
 
-        // Test effects.
-        assertEquals(model.getProjectList().size(), 1);
-        assertTrue(model.getProjectList().contains(project));
-        assertEquals(leadName, project.getLead().getUsername());
-        assertEquals(projName, project.getName());
-        assertEquals(projDesc, project.getDescription());
-        assertEquals(date.get(GregorianCalendar.YEAR), project.getStartDate().get(GregorianCalendar.YEAR));
-        assertEquals(date.get(GregorianCalendar.MONTH), project.getStartDate().get(GregorianCalendar.MONTH));
-        assertEquals(date.get(GregorianCalendar.DATE), project.getStartDate().get(GregorianCalendar.DATE));
-        assertEquals(projBudget, Long.toString(project.getBudgetEstimate()));
+	// Test effects.
+	assertEquals(model.getProjectList().size(), 1);
+	assertTrue(model.getProjectList().contains(project));
+	assertEquals(leadName, project.getLead().getUsername());
+	assertEquals(projName, project.getName());
+	assertEquals(projDesc, project.getDescription());
+	assertEquals(date.get(GregorianCalendar.YEAR), project.getStartDate().get(GregorianCalendar.YEAR));
+	assertEquals(date.get(GregorianCalendar.MONTH), project.getStartDate().get(GregorianCalendar.MONTH));
+	assertEquals(date.get(GregorianCalendar.DATE), project.getStartDate().get(GregorianCalendar.DATE));
+	assertEquals(projBudget, Long.toString(project.getBudgetEstimate()));
     }
 
     @Test
     public void testCloneExec() throws PermissionException, CancelException {
-        // Setup variables.
-        DataModel model = new DataModel();
-        Developer lead = model.createDeveloper("meGoodLead2223", "Luky", "Luke");
-        User admin = model.createAdministrator("admin2", "adminT", "bie");
-        Project proj = model.createProject(new VersionID(), "ProjectFT2", "desc here about test default.", lead, 1000, admin);
+	// Setup variables.
+	DataModel model = new DataModel();
+	Developer lead = model.createDeveloper("meGoodLead2223", "Luky", "Luke");
+	User admin = model.createAdministrator("admin2", "adminT", "bie");
+	Project proj = model.createProject(new VersionID(), "ProjectFT2", "desc here about test default.", lead, 1000,
+	        admin);
 
-        ArrayDeque<String> question = new ArrayDeque<>();
-        ArrayDeque<String> answer = new ArrayDeque<>();
-        CreateProjectCmd cmd = new CreateProjectCmd();
+	ArrayDeque<String> question = new ArrayDeque<>();
+	ArrayDeque<String> answer = new ArrayDeque<>();
+	CreateProjectCmd cmd = new CreateProjectCmd();
 
-        GregorianCalendar date = new GregorianCalendar();
-        date.add(GregorianCalendar.MONTH, 1);
-        String dateStr = date.get(YEAR) + "-" + (date.get(MONTH) + 1) + "-" + date.get(DATE);
-        VersionID newVersionID = new VersionID(1, 2, 3);
-        long budget = 50;
+	GregorianCalendar date = new GregorianCalendar();
+	date.add(GregorianCalendar.MONTH, 1);
+	String dateStr = date.get(YEAR) + "-" + (date.get(MONTH) + 1) + "-" + date.get(DATE);
+	VersionID newVersionID = new VersionID(1, 2, 3);
+	long budget = 50;
 
-        // Setup scenario
-        question.add("Create or clone a new project?");
-        question.add("Create or clone: ");
-        answer.add("expect wrong input");
-        question.add("Invalid input. Use create or clone.");
-        question.add("Create or clone: ");
-        answer.add("clOne");
-        question.add("Select a project.");
-        question.add("Available options:");
-        question.add("0. " + proj.getName() + " version: " + proj.getVersionID());
-        question.add("I choose: ");
-        answer.add("lol");
-        question.add("Invalid input.");
-        question.add("I choose: ");
-        answer.add("0");
-        question.add("You have chosen:");
-        question.add("" + proj.getDetails());
-        question.add("new VersionID (format=a.b.c):");
-        answer.add("lol");
-        question.add("Invalid input. Please try again using format: a.b.c");
-        question.add("new VersionID (format=a.b.c):");
-        answer.add(newVersionID.toString());
-        question.add("New starting date (format=YYYY-MM-DD):");
-        answer.add("55");
-        question.add("Invalid input. Please try again using format YYYY-MM-DD");
-        question.add("New starting date (format=YYYY-MM-DD):");
-        answer.add(dateStr);
-        question.add("New budget Estimate:");
-        answer.add("lol");
-        question.add("Invalid input. Please try again.");
-        question.add("New budget Estimate:");
-        answer.add(Long.toString(budget));
-        question.add("choose a lead developer.");
-        question.add("Available options:");
-        question.add("0. " + lead.getUsername());
-        answer.add(lead.getUsername());
+	// Setup scenario
+	question.add("Create or clone a new project?");
+	question.add("Create or clone: ");
+	answer.add("expect wrong input");
+	question.add("Invalid input. Use create or clone.");
+	question.add("Create or clone: ");
+	answer.add("clOne");
+	question.add("Select a project.");
+	question.add("Available options:");
+	question.add("0. " + proj.getName() + " version: " + proj.getVersionID());
+	question.add("I choose: ");
+	answer.add("lol");
+	question.add("Invalid input.");
+	question.add("I choose: ");
+	answer.add("0");
+	question.add("You have chosen:");
+	question.add("" + proj.getDetails());
+	question.add("new VersionID (format=a.b.c...):");
+	answer.add("lol");
+	question.add("Invalid input. Please try again using format: a.b.c...");
+	question.add("new VersionID (format=a.b.c...):");
+	answer.add(newVersionID.toString());
+	question.add("New starting date (format=YYYY-MM-DD):");
+	answer.add("55");
+	question.add("Invalid input. Please try again using format YYYY-MM-DD");
+	question.add("New starting date (format=YYYY-MM-DD):");
+	answer.add(dateStr);
+	question.add("New budget Estimate:");
+	answer.add("lol");
+	question.add("Invalid input. Please try again.");
+	question.add("New budget Estimate:");
+	answer.add(Long.toString(budget));
+	question.add("choose a lead developer.");
+	question.add("Available options:");
+	question.add("0. " + lead.getUsername());
+	answer.add(lead.getUsername());
 
-        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
-        // Execute scenario
-        Project project = cmd.exec(scan, model, admin);
+	// Execute scenario
+	Project project = cmd.exec(scan, model, admin);
 
-        // Test effects.
-        assertEquals(model.getProjectList().size(), 2);
-        assertTrue(model.getProjectList().contains(project));
-        assertEquals(lead.getUsername(), project.getLead().getUsername());
-        assertEquals(project.getVersionID(), newVersionID);
-        assertEquals(date.get(GregorianCalendar.YEAR), project.getStartDate().get(GregorianCalendar.YEAR));
-        assertEquals(date.get(GregorianCalendar.MONTH), project.getStartDate().get(GregorianCalendar.MONTH));
-        assertEquals(date.get(GregorianCalendar.DATE), project.getStartDate().get(GregorianCalendar.DATE));
-        assertEquals(budget, project.getBudgetEstimate());
+	// Test effects.
+	assertEquals(model.getProjectList().size(), 2);
+	assertTrue(model.getProjectList().contains(project));
+	assertEquals(lead.getUsername(), project.getLead().getUsername());
+	assertEquals(project.getVersionID(), new VersionID(3, 0, 0));
+	assertEquals(date.get(GregorianCalendar.YEAR), project.getStartDate().get(GregorianCalendar.YEAR));
+	assertEquals(date.get(GregorianCalendar.MONTH), project.getStartDate().get(GregorianCalendar.MONTH));
+	assertEquals(date.get(GregorianCalendar.DATE), project.getStartDate().get(GregorianCalendar.DATE));
+	assertEquals(budget, project.getBudgetEstimate());
 
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException() throws IllegalArgumentException, CancelException, PermissionException {
-        CreateProjectCmd cmd = new CreateProjectCmd();
-        chosen = cmd.exec(null, null, null);
+	CreateProjectCmd cmd = new CreateProjectCmd();
+	chosen = cmd.exec(null, null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
-        CreateProjectCmd cmd = new CreateProjectCmd();
-        DataModel model = new DataModel();
-        Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
-        chosen = cmd.exec(null, model, admin);
+	CreateProjectCmd cmd = new CreateProjectCmd();
+	DataModel model = new DataModel();
+	Administrator admin = model.createAdministrator("adminneke", "admin", "admin");
+	chosen = cmd.exec(null, model, admin);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
-        CreateProjectCmd cmd = new CreateProjectCmd();
-        DataModel model = new DataModel();
-        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
-                new ArrayDeque<>());
-        Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
-        chosen = cmd.exec(scan, null, admin);
+	CreateProjectCmd cmd = new CreateProjectCmd();
+	DataModel model = new DataModel();
+	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+	        new ArrayDeque<>());
+	Administrator admin = model.createAdministrator("adminneke2", "admin", "admin");
+	chosen = cmd.exec(scan, null, admin);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
-        CreateProjectCmd cmd = new CreateProjectCmd();
-        DataModel model = new DataModel();
-        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
-                new ArrayDeque<>());
-        chosen = cmd.exec(scan, model, null);
+	CreateProjectCmd cmd = new CreateProjectCmd();
+	DataModel model = new DataModel();
+	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+	        new ArrayDeque<>());
+	chosen = cmd.exec(scan, model, null);
     }
 }
