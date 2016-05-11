@@ -3,105 +3,94 @@
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
   <package id="1" language="java" name="bugtrap03.bugdomain" project="BugTrap" file="/BugTrap/src/bugtrap03/bugdomain" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="230" width="603" x="254" y="63"/>    
+    <position height="444" width="870" x="291" y="36"/>    
     <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="2" language="java" name="bugtrap03.bugdomain.bugreport" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/bugreport" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="389" y="248"/>    
+    <position height="-1" width="-1" x="432" y="353"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="3" language="java" name="bugtrap03.bugdomain.bugReportNotification" project="BugTrap"
-    file="/BugTrap/src/bugtrap03/bugdomain/bugReportNotification" binary="false" corner="BOTTOM_RIGHT">
-    <position height="-1" width="-1" x="393" y="154"/>    
+  <package id="3" language="java" name="bugtrap03.bugdomain.notificationdomain" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/notificationdomain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="211" width="452" x="518" y="91"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="bugtrap03.bugdomain.notificationdomain.mailboxes" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/notificationdomain/mailboxes" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="756" y="170"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="4" language="java" name="bugtrap03.bugdomain.permission" project="BugTrap" 
+  <package id="5" language="java" name="bugtrap03.bugdomain.notificationdomain.notification" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/bugdomain/notificationdomain/notification" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="751" y="246"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="bugtrap03.bugdomain.permission" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/permission" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="711" y="248"/>    
+    <position height="-1" width="-1" x="712" y="439"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="5" language="java" name="bugtrap03.bugdomain.usersystem" project="BugTrap" 
+  <package id="7" language="java" name="bugtrap03.bugdomain.usersystem" project="BugTrap" 
     file="/BugTrap/src/bugtrap03/bugdomain/usersystem" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="713" y="155"/>    
+    <position height="-1" width="-1" x="1014" y="357"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="6" language="java" name="bugtrap03.model" project="BugTrap" file="/BugTrap/src/bugtrap03/model" 
+  <package id="8" language="java" name="bugtrap03.gui.cmd" project="BugTrap" file="/BugTrap/src/bugtrap03/gui/cmd" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="554" y="356"/>    
+    <position height="120" width="350" x="322" y="540"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="9" language="java" name="bugtrap03.gui.cmd.general" project="BugTrap" 
+    file="/BugTrap/src/bugtrap03/gui/cmd/general" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="490" y="622"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <dependency id="7">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="8">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="9">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <dependency id="10">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
+  <package id="10" language="java" name="bugtrap03.model" project="BugTrap" file="/BugTrap/src/bugtrap03/model" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="76" width="188" x="820" y="564"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
   <dependency id="11">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="7"/>  
   </dependency>  
   <dependency id="12">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
   </dependency>  
   <dependency id="13">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="1"/>  
   </dependency>  
   <dependency id="14">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
   </dependency>  
   <dependency id="15">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="3"/>  
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
   </dependency>  
   <dependency id="16">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="17">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="18">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="19">    
-    <end type="SOURCE" refId="2"/>    
+    <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="5"/>  
   </dependency>  
-  <dependency id="20">    
-    <end type="SOURCE" refId="5"/>    
+  <dependency id="17">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <dependency id="21">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <dependency id="22">    
-    <end type="SOURCE" refId="2"/>    
+  <dependency id="19">    
+    <bendpoint x="1014" y="178"/>    
+    <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <dependency id="23">    
+  <dependency id="20">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <dependency id="24">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="3"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
