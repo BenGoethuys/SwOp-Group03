@@ -8,7 +8,7 @@ import bugtrap03.bugdomain.usersystem.User;
 /**
  * @author Group 03
  */
-public class RegisterForMilestoneNotificationsModelCmd extends RegisterForNotificationsModelCmd {
+class RegisterForMilestoneNotificationsModelCmd extends RegisterForNotificationsModelCmd {
 
     /**
      * Create a {@link ModelCmd} that subscribes to the given subject
