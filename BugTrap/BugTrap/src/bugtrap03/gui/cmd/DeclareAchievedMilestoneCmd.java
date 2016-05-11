@@ -81,7 +81,7 @@ public class DeclareAchievedMilestoneCmd implements Cmd<Project> {
 	    int[] milestoneInt = new int[milestoneStr.length];
 	    try {
 		for (int i = 0; i < milestoneStr.length; i++) {
-		    milestoneInt[0] = Integer.parseInt(milestoneStr[i]);
+		    milestoneInt[i] = Integer.parseInt(milestoneStr[i]);
 		}
 		bugReportMilestone = new Milestone(milestoneInt);
 		try {

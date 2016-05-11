@@ -220,7 +220,7 @@ public class CreateProjectCmd implements Cmd<Project> {
 	    int[] versionIDInt = new int[versionIDStr.length];
 	    try {
 		for (int i = 0; i < versionIDStr.length; i++) {
-		    versionIDInt[0] = Integer.parseInt(versionIDStr[i]);
+		    versionIDInt[i] = Integer.parseInt(versionIDStr[i]);
 		}
 		versionID = new VersionID(versionIDInt);
 	    } catch (IndexOutOfBoundsException | NumberFormatException ex) {

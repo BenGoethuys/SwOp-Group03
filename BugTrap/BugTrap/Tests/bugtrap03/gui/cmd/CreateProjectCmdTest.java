@@ -169,7 +169,7 @@ public class CreateProjectCmdTest {
 	assertEquals(model.getProjectList().size(), 2);
 	assertTrue(model.getProjectList().contains(project));
 	assertEquals(lead.getUsername(), project.getLead().getUsername());
-	assertEquals(project.getVersionID(), new VersionID(3, 0, 0));
+	assertEquals(project.getVersionID(), newVersionID);
 	assertEquals(date.get(GregorianCalendar.YEAR), project.getStartDate().get(GregorianCalendar.YEAR));
 	assertEquals(date.get(GregorianCalendar.MONTH), project.getStartDate().get(GregorianCalendar.MONTH));
 	assertEquals(date.get(GregorianCalendar.DATE), project.getStartDate().get(GregorianCalendar.DATE));
