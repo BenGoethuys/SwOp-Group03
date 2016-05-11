@@ -5,7 +5,7 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.BeforeClass;
@@ -20,9 +20,9 @@ import static org.junit.Assert.*;
 /**
  * @author Grout 03;
  */
-public class TagMailBoxTest {
+public class TagMailboxTest {
 
-    private static TagMailBox testTMB;
+    private static TagMailbox testTMB;
     private static BugReportNotification bugReportNotification4MB2;
     private static EnumSet<Tag> tagsTMB;
 
@@ -42,7 +42,7 @@ public class TagMailBoxTest {
                 1, false, "triggerhappy", "stacktacktack", "error404");
         bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
         tagsTMB = EnumSet.of(Tag.NEW, Tag.DUPLICATE);
-        testTMB = new TagMailBox(project4MB, tagsTMB);
+        testTMB = new TagMailbox(project4MB, tagsTMB);
     }
 
     @Test

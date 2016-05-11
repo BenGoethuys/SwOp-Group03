@@ -3,9 +3,8 @@ package bugtrap03.bugdomain;
 /**
  * An enumeration of health indicators. <br>
  * Order them from most critical to healthy.
- * 
- * @author Mathias
  *
+ * @author Mathias
  */
 @DomainAPI
 public enum HealthIndicator {
