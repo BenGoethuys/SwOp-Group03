@@ -74,7 +74,7 @@ public class DeclareAchievedMilestoneCmd implements Cmd<Project> {
 	// achieved milestone of all the subsystems that the component contains.
 	Milestone bugReportMilestone = null;
 	do {
-	    scan.print("Enter a new milestone: (format a.b.c) ");
+	    scan.print("Enter a new milestone: (format a.b.c...) ");
 	    String input = scan.nextLine();
 	    String[] milestoneStr = input.split("\\.");
 
