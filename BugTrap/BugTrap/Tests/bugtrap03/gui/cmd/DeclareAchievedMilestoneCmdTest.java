@@ -115,6 +115,9 @@ public class DeclareAchievedMilestoneCmdTest {
 	answer.add("0");
 	question.add("The currently achieved milestone: M0");
 	question.add("Enter a new milestone: (format a.b.c...) ");
+	answer.add("a.b.c...");
+	question.add("Invalid input. Please try again using format: a.b.c...");
+	question.add("Enter a new milestone: (format a.b.c...) ");
 	answer.add("1.2");
 	question.add("The milestone is declared.");
 

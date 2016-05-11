@@ -1,7 +1,6 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.Project;
-import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
@@ -23,9 +22,7 @@ public class CloneProjectModelCmdTest {
     private DataModel model;
     private Administrator admin;
     private Project proj;
-    private Subsystem subsys;
     private Developer dev;
-    private Developer dev2;
 
     @Before
     public void setUp() throws PermissionException {
@@ -33,9 +30,6 @@ public class CloneProjectModelCmdTest {
         admin = model.createAdministrator("BlubBlabBlob8" + counter, "first", "last");
         dev = model.createDeveloper("DeveloperOverHere8" + counter, "first", "last");
         proj = model.createProject(new VersionID(), "TestProject50", "Testing stuff over here", dev, 50, admin);
-        subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
-
-        dev2 = model.createDeveloper("Developer2OverHere8" + counter, "first", "last");
 
         counter++;
     }

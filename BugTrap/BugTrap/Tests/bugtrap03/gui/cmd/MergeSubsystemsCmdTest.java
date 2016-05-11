@@ -3,8 +3,6 @@
  */
 package bugtrap03.gui.cmd;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayDeque;
 
 import org.junit.BeforeClass;
@@ -41,6 +39,7 @@ public class MergeSubsystemsCmdTest {
     static Subsystem subsystemA3_1;
     static Subsystem subsystemA3_2;
     static BugReport bugRep1;
+    static Subsystem chosen;
 
     /**
      * @throws java.lang.Exception
@@ -114,7 +113,7 @@ public class MergeSubsystemsCmdTest {
 	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
 
 	// Execute scenario
-	Subsystem chosen = cmd.exec(scan, model, admin);
+	chosen = cmd.exec(scan, model, admin);
 
 	// Test effects.
     }

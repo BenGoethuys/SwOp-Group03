@@ -7,8 +7,10 @@ import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
+import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
+import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -1011,6 +1013,36 @@ public class RegisterForNotificationsCmdTest {
         question.add("2. creator");
         question.add("3. assigned");
         question.add("4. uniqueId");
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testException() throws IllegalArgumentException, CancelException, PermissionException {
+	RegisterForNotificationsCmd cmd = new RegisterForNotificationsCmd();
+	cmd.exec(null, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
+	RegisterForNotificationsCmd cmd = new RegisterForNotificationsCmd();
+	DataModel model1 = new DataModel();
+	cmd.exec(null, model1, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
+	RegisterForNotificationsCmd cmd = new RegisterForNotificationsCmd();
+	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+	        new ArrayDeque<>());
+	cmd.exec(scan, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
+	RegisterForNotificationsCmd cmd = new RegisterForNotificationsCmd();
+	DataModel model2 = new DataModel();
+	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+	        new ArrayDeque<>());
+	cmd.exec(scan, model2, null);
     }
 
 }

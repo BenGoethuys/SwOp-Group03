@@ -417,5 +417,58 @@ public class AbstractSystemTest {
 	assertFalse(subSysTest.hasPermission(testDev, RolePerm.SPECIAL));
 	assertTrue(subSysTest.hasPermission(testDev, RolePerm.ADD_TEST));
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubsystem_Null() {
+        subSysTest.addSubsystem(null);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubsystem_NoEqualParent() {
+        Project testProjectB = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
+                testBudget);
+        Subsystem subSysTestB = testProjectB.addSubsystem(subVersion, subName, subDescription);
+        subSysTest.addSubsystem(subSysTestB);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubsystem_AlreadyIn() {
+        Subsystem subSysTestB = testProject.addSubsystem(subVersion, subName, subDescription);
+        subSysTest.addSubsystem(subSysTestB);
+    }
+    
+    @Test
+    public void testGetMemento_Abstract() {
+        AbstractSystemDummy dummy = new AbstractSystemDummy(testProject, "Blab", "OKe");
+        AbstractSystemMemento mem = dummy.getMemento();
+    }
+    
+    class AbstractSystemDummy extends AbstractSystem {
+
+        public AbstractSystemDummy(AbstractSystem parent, String name, String description) throws IllegalArgumentException {
+            super(parent, name, description);
+        }
+
+        @Override
+        public double getBugImpact() {
+            return 0;
+        }
+
+        @Override
+        public String getDetails() {
+            return "Blub";
+        }
+
+        @Override
+        public HealthIndicator getIndicator(HealthAlgorithm ha) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public String getSubjectName() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+    
+    }
 
 }

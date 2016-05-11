@@ -8,6 +8,7 @@ import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.usersystem.Developer;
+import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -89,6 +90,18 @@ public class SubjectDummyTest {
         testDummy.updateTagSubs(subjectDummyBugreport);
         assertFalse(extraTMB.getNotifications().isEmpty());
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testTagSubs_Null() {
+        TagMailbox cmb1 = new TagMailbox(subjectDummySubsystem, EnumSet.allOf(Tag.class));
+        TagMailbox cmb2 = null;
+        
+        ArrayList<TagMailbox> list = new ArrayList<>();
+        list.add(cmb1);
+        list.add(cmb2);
+        
+        testDummy.addTagSub(list);
+    }
 
     @Test (expected = IllegalArgumentException.class)
     public void testAddTagSubNull() throws Exception {
@@ -104,11 +117,23 @@ public class SubjectDummyTest {
     }
 
     @Test
-    public void testAddCommentSub() throws Exception {
+    public void testAddCommentSub() {
         CommentMailbox extraCMB = subjectDummyDev.getMailbox().commentSubscribe(testDummy);
         assertTrue(extraCMB.getNotifications().isEmpty());
         testDummy.updateCommentSubs(subjectDummyBugreport);
         assertFalse(extraCMB.getNotifications().isEmpty());
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddCommentSubs_Null() {
+        CommentMailbox cmb1 = new CommentMailbox(subjectDummySubsystem);
+        CommentMailbox cmb2 = null;
+        
+        ArrayList<CommentMailbox> list = new ArrayList<>();
+        list.add(cmb1);
+        list.add(cmb2);
+        
+        testDummy.addCommentSub(list);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -122,6 +147,19 @@ public class SubjectDummyTest {
         assertFalse(testDummy.isValidMb(null));
         assertTrue(testDummy.isValidMb(subjectDummyTMB));
         assertTrue(testDummy.isValidMb(subjectDummyCMB));
+    }
 
+    @Test
+    public void testGetMemento() {
+        SubjectMemento mem = testDummy.getMemento();
+        
+        assertTrue(testDummy.getCommentSubs().equals(mem.getCommentSubs()));
+        assertTrue(testDummy.getTagSubs().equals(mem.getTagSubs()));
+        
+        testDummy.addCommentSub(new CommentMailbox(subjectDummyProject));
+        testDummy.addTagSub(new TagMailbox(subjectDummyProject, EnumSet.allOf(Tag.class)));
+        
+        assertFalse(testDummy.getCommentSubs().equals(mem.getCommentSubs()));
+        assertFalse(testDummy.getTagSubs().equals(mem.getTagSubs()));        
     }
 }

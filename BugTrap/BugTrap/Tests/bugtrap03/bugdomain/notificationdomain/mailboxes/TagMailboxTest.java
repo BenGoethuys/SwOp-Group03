@@ -1,4 +1,4 @@
-package bugtrap03.bugdomain.notificationdomain;
+package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
