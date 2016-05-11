@@ -53,7 +53,7 @@ public class AbstractSystemSubjectDummyTest {
         asssubjectDummyVerMB = assubjectDummyDev.getMailbox().versionIDSubscribe(testDummy);
     }
 
-        @Test
+    @Test
     public void testNotifyVersionIDSubs() {
         assertTrue(asssubjectDummyVerMB.getNotifications().isEmpty());
         testDummy.notifyVersionIDSubs(assubjectDummyProject);
@@ -73,6 +73,12 @@ public class AbstractSystemSubjectDummyTest {
         assertTrue(extraCMrB.getNotifications().isEmpty());
         testDummy.updateVersionIDSubs(assubjectDummySubsystem);
         assertFalse(extraCMrB.getNotifications().isEmpty());
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddVersionIDSubNull() throws Exception {
+        VersionIDMailbox box = null;
+        testDummy.addVersionIDSub(box);
     }
     
     @Test(expected = IllegalArgumentException.class)
@@ -119,6 +125,12 @@ public class AbstractSystemSubjectDummyTest {
         list.add(box2);
 
         testDummy.addMilestoneSub(list);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddMilestoneSubNull() throws Exception {
+        MilestoneMailbox box = null;
+        testDummy.addMilestoneSub(box);
     }
 
     @Test
