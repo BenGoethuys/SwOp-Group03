@@ -14,6 +14,7 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
+import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
@@ -93,14 +94,9 @@ public class ShowPerformanceMetricsCmdTest {
 	question.add("NotABug bug reports submitted: 0");
 	question.add("Bug reports submitted: 0");
 	question.add("- Leadership -");
-	question.add("ShowPerform3:\n"
-		+ "\tAlgorithm 1: HEALTHY\n"
-		+ "\tAlgorithm 2: HEALTHY\n"
-		+ "\tAlgorithm 3: HEALTHY\n"
-		+ "ProjectTest1:\n"
-		+ "\tAlgorithm 1: HEALTHY\n"
-		+ "\tAlgorithm 2: HEALTHY\n"
-		+ "\tAlgorithm 3: HEALTHY\n");
+	question.add("ShowPerform3:\n" + "\tAlgorithm 1: HEALTHY\n" + "\tAlgorithm 2: HEALTHY\n"
+	        + "\tAlgorithm 3: HEALTHY\n" + "ProjectTest1:\n" + "\tAlgorithm 1: HEALTHY\n"
+	        + "\tAlgorithm 2: HEALTHY\n" + "\tAlgorithm 3: HEALTHY\n");
 	question.add("- Test Skills -");
 	question.add("Average lines each test: 0.0");
 	question.add("Tests submitted: 0");
@@ -116,6 +112,36 @@ public class ShowPerformanceMetricsCmdTest {
 	Object chosen = cmd.exec(scan, model, admin);
 
 	// Test effects.
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException() throws IllegalArgumentException, CancelException, PermissionException {
+	ShowPerformanceMetricsCmd cmd = new ShowPerformanceMetricsCmd();
+	cmd.exec(null, null, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
+	ShowPerformanceMetricsCmd cmd = new ShowPerformanceMetricsCmd();
+	DataModel model1 = new DataModel();
+	cmd.exec(null, model1, admin);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
+	ShowPerformanceMetricsCmd cmd = new ShowPerformanceMetricsCmd();
+	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+	        new ArrayDeque<>());
+	cmd.exec(scan, null, admin);
+    }
+
+    @Test(expected = CancelException.class)
+    public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
+	ShowPerformanceMetricsCmd cmd = new ShowPerformanceMetricsCmd();
+	DataModel model2 = new DataModel();
+	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+	        new ArrayDeque<>());
+	cmd.exec(scan, model2, null);
     }
 
 }
