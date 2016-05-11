@@ -56,7 +56,6 @@ public abstract class AbstractMailbox<UpdatedObjectClass extends Subject> {
      *
      * @return The added notification.
      */
-    //TODO maybe move to subjectmailbox?
     @DomainAPI
     public abstract Notification update(UpdatedObjectClass changedObject);
 

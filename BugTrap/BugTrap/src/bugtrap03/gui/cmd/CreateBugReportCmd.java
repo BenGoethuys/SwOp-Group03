@@ -161,7 +161,6 @@ public class CreateBugReportCmd implements Cmd<BugReport> {
         } while (! BugReport.isValidImpactFactor(impactfactor));
 
         // 14. The system creates the bug report.
-        // TODO : impactFactor (1 atm) -> ask user?
         BugReport bugreport = model.createBugReport(subsys, user, bugreportTitle, bugReportDesc, null,
                 PList.<BugReport>empty().plusAll(depList), null, impactfactor, isPrivate, trigger, stacktrace, error);
         scan.println("Created new bug report.");

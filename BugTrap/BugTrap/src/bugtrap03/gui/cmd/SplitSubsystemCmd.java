@@ -80,7 +80,6 @@ public class SplitSubsystemCmd implements Cmd<Subsystem[]> {
         PList<BugReport> bugReports1 = getBugReports(scan, sub);
 
         //10. The system creates two new subsystems with the same milestone as the original subsystem. (The original subsystem is removed.)
-        //TODO: Kwinten/Vincent So does this mean the creation needs to be notified about?
         Subsystem sub2 = model.splitSubsystem(sub, name1, desc1, name2, desc2, subs1, bugReports1, user);
         scan.println("Successfully split the subsystem.");
         return new Subsystem[] {sub, sub2}; 

@@ -950,8 +950,6 @@ public class BugReportTest {
         assertTrue(result.contains(id));
     }
 
-    //TODO test notify methods
-
     @Test (expected = IllegalArgumentException.class)
     public void testSetMementoNull(){
         bugReport1.setMemento(null);
