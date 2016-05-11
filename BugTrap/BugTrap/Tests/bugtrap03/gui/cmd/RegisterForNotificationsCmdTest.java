@@ -92,7 +92,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("3. newmilestone");
         question.add("4. newtag");
         question.add("5. specificmilestone");
-        question.add("6. specfictags");
+        question.add("6. specifictags");
         question.add("7. version");
         question.add("I choose: ");
         answer.add("1");
@@ -135,7 +135,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("3. newmilestone");
         question.add("4. newtag");
         question.add("5. specificmilestone");
-        question.add("6. specfictags");
+        question.add("6. specifictags");
         question.add("7. version");
         question.add("I choose: ");
         answer.add("0");
@@ -178,7 +178,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("3. newmilestone");
         question.add("4. newtag");
         question.add("5. specificmilestone");
-        question.add("6. specfictags");
+        question.add("6. specifictags");
         question.add("7. version");
         question.add("I choose: ");
         answer.add("4");
@@ -221,7 +221,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("3. newmilestone");
         question.add("4. newtag");
         question.add("5. specificmilestone");
-        question.add("6. specfictags");
+        question.add("6. specifictags");
         question.add("7. version");
         question.add("I choose: ");
         answer.add("6");
@@ -312,7 +312,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("2. newmilestone");
         question.add("3. newtag");
         question.add("4. specificmilestone");
-        question.add("5. specfictags");
+        question.add("5. specifictags");
         question.add("6. version");
         question.add("I choose: ");
         answer.add("1");
@@ -362,7 +362,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("2. newmilestone");
         question.add("3. newtag");
         question.add("4. specificmilestone");
-        question.add("5. specfictags");
+        question.add("5. specifictags");
         question.add("6. version");
         question.add("I choose: ");
         answer.add("0");
@@ -412,7 +412,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("2. newmilestone");
         question.add("3. newtag");
         question.add("4. specificmilestone");
-        question.add("5. specfictags");
+        question.add("5. specifictags");
         question.add("6. version");
         question.add("I choose: ");
         answer.add("3");
@@ -462,7 +462,7 @@ public class RegisterForNotificationsCmdTest {
         question.add("2. newmilestone");
         question.add("3. newtag");
         question.add("4. specificmilestone");
-        question.add("5. specfictags");
+        question.add("5. specifictags");
         question.add("6. version");
         question.add("I choose: ");
         answer.add("5");
