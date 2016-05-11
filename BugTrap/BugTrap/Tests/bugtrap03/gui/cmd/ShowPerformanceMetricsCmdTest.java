@@ -7,20 +7,14 @@ import java.util.ArrayDeque;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import bugtrap03.bugdomain.HealthAlgorithm1;
-import bugtrap03.bugdomain.HealthAlgorithm2;
-import bugtrap03.bugdomain.HealthAlgorithm3;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.VersionID;
-import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
-import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
@@ -40,7 +34,6 @@ public class ShowPerformanceMetricsCmdTest {
     static Subsystem subsystemA3;
     static Subsystem subsystemA3_1;
     static Subsystem subsystemA3_2;
-    // static BugReport bugRep1;
 
     /**
      * @throws java.lang.Exception
@@ -51,7 +44,6 @@ public class ShowPerformanceMetricsCmdTest {
 	model = new DataModel();
 	lead = model.createDeveloper("ShowPerform1", "Luky", "Luke");
 	admin = model.createAdministrator("ShowPerform2", "adminT", "bie");
-	// Issuer issuer = model.createIssuer("SplitSub6", "BMW", "looks", "nice");
 	projectA = model.createProject(new VersionID(), "ShowPerform3", "Project for testing 0", lead, 500, admin);
 	projectB = model.createProject(new VersionID(), "ProjectTest1", "Project for testing 1", lead, 1000, admin);
 
@@ -61,9 +53,6 @@ public class ShowPerformanceMetricsCmdTest {
 	subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
 	subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
 	subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
-
-	// bugRep1 = model.createBugReport(subsystemA3, issuer, "Used library not in repository", "title says it all.",
-	// PList.<BugReport> empty(), null, 1, false);
     }
 
     /**
@@ -112,6 +101,7 @@ public class ShowPerformanceMetricsCmdTest {
 	Object chosen = cmd.exec(scan, model, admin);
 
 	// Test effects.
+	assertEquals(chosen, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
