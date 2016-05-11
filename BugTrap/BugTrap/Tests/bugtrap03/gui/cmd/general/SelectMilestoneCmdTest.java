@@ -127,12 +127,4 @@ public class SelectMilestoneCmdTest {
 	cmd.exec(null, model, lead);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
-	SelectMilestoneCmd cmd = new SelectMilestoneCmd();
-	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
-	        new ArrayDeque<>());
-	cmd.exec(scan, null, lead);
-    }
-
 }

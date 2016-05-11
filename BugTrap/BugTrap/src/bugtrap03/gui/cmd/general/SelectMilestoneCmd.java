@@ -12,8 +12,8 @@ import bugtrap03.model.DataModel;
 public class SelectMilestoneCmd implements Cmd<Milestone> {
 
     @Override
-    public Milestone exec(TerminalScanner scan, DataModel model, User userDummy) throws CancelException {
-	if (scan == null || model == null) {
+    public Milestone exec(TerminalScanner scan, DataModel modelDummy, User userDummy) throws CancelException {
+	if (scan == null) {
 	    throw new IllegalArgumentException("scan and model musn't be null.");
 	}
 
