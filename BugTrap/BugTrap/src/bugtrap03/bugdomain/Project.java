@@ -568,7 +568,7 @@ public class Project extends ProjectSubject {
     @Override
     @DomainAPI
     public String getSubjectName() {
-        return ("Project " + this.getName());
+        return ("Project " + this.getName() + " " + getVersionID());
     }
 
     /**
