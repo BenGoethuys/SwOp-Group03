@@ -12,7 +12,11 @@ import bugtrap03.model.DataModel;
 public class SelectMilestoneCmd implements Cmd<Milestone> {
 
     @Override
-    public Milestone exec(TerminalScanner scan, DataModel modelDummy, User userDummy) throws CancelException {
+    public Milestone exec(TerminalScanner scan, DataModel model, User userDummy) throws CancelException {
+	if (scan == null || model == null) {
+	    throw new IllegalArgumentException("scan and model musn't be null.");
+	}
+
 	Milestone bugReportMilestone = null;
 	scan.print("Enter a new milestone: (format a.b.c...) ");
 	do {
