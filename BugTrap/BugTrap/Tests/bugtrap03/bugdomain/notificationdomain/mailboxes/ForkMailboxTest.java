@@ -51,6 +51,11 @@ public class ForkMailboxTest {
         assertFalse(testTMB.getNotifications().contains(bugReportNotification4MB2));
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void testNullUpdate() throws Exception {
+        testTMB.update(null);
+    }
+
     @Test
     public void testGetInfo() throws Exception {
         String info = testTMB.getInfo();

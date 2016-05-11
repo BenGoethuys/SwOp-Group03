@@ -58,4 +58,9 @@ public class CreationMailboxTest {
         assertNotEquals(null, info);
         assertNotEquals("", info);
     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testNullUpdate() throws Exception {
+        testCMB.update(null);
+    }
 }

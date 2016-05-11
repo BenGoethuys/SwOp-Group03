@@ -74,4 +74,9 @@ public class TagMailboxTest {
         assertEquals(tagsTMB, testTMB.getTagsOfInterest());
         assertFalse(testTMB.getTagsOfInterest().contains(Tag.RESOLVED));
     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testNullUpdate() throws Exception {
+        testTMB.update(null);
+    }
 }
