@@ -417,5 +417,25 @@ public class AbstractSystemTest {
 	assertFalse(subSysTest.hasPermission(testDev, RolePerm.SPECIAL));
 	assertTrue(subSysTest.hasPermission(testDev, RolePerm.ADD_TEST));
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubsystem_Null() {
+        subSysTest.addSubsystem(null);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubsystem_NoEqualParent() {
+        Project testProjectB = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
+                testBudget);
+        Subsystem subSysTestB = testProjectB.addSubsystem(subVersion, subName, subDescription);
+        subSysTest.addSubsystem(subSysTestB);
+    }
+    
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubsystem_AlreadyIn() {
+        Subsystem subSysTestB = testProject.addSubsystem(subVersion, subName, subDescription);
+        subSysTest.addSubsystem(subSysTestB);
+    }
 
 }
