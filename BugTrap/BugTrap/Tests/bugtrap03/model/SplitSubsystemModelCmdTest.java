@@ -49,11 +49,11 @@ public class SplitSubsystemModelCmdTest {
         projectA = model.createProject(new VersionID(), "SplitSub3", "Project for testing 0", lead, 500, admin);
 
         // make subsystems
-        subsystemA1 = model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
-        subsystemA2 = model.createSubsystem(admin, projectA, "SubsystemA2", "Description of susbsystem A2");
-        subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of susbsystem A3");
-        subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of susbsystem A3.1");
-        subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
+        subsystemA1 = model.createSubsystem(admin, projectA, "SubsystemA1", "Description of subsystem A1");
+        subsystemA2 = model.createSubsystem(admin, projectA, "SubsystemA2", "Description of subsystem A2");
+        subsystemA3 = model.createSubsystem(admin, projectA, "SubsystemA3", "Description of subsystem A3");
+        subsystemA3_1 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.1", "Description of subsystem A3.1");
+        subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of subsystem A3.2");
 
         bugRep1 = model.createBugReport(subsystemA3, issuer, "Used library not in repository", "title says it all.",
                 PList.<BugReport>empty(), null, 1, false);
