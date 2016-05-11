@@ -50,7 +50,7 @@ public class Main {
         model.createIssuer(username3, firstName, lastName);
     }*/
 
-    public static void initDemoSystem(DataModel model) {
+    private static void initDemoSystem(DataModel model) {
         Administrator admin = model.createAdministrator("curt", "Frederick", "Sam", "Curtis");
         Issuer doc = model.createIssuer("doc", "John", "Doctor");
         Issuer charlie = model.createIssuer("charlie", "Charles", "Arnold", "Berg");

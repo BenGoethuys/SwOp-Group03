@@ -20,7 +20,7 @@ import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
 
 /**
- * @author Groupt 03
+ * @author Group 03
  */
 public class SubjectDummyTest {
 
@@ -35,7 +35,7 @@ public class SubjectDummyTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         testDummy = new SubjectDummy();
-        subjectDummyDev = new Developer("subjectDummyDev", "first", "last");
+        subjectDummyDev = new Developer("subjectDummyDev505", "first", "last");
 
         subjectDummyProject = new Project("sdp","sdp",subjectDummyDev,1000);
         subjectDummySubsystem = subjectDummyProject.addSubsystem("This seems","easy");
