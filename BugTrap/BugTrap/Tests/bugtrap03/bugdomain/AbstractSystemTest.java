@@ -13,7 +13,6 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
-import java.util.Arrays;
 import java.util.EnumSet;
 
 import org.junit.Before;

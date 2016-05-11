@@ -14,8 +14,6 @@ import testCollection.TerminalTestScanner;
 
 import java.util.ArrayDeque;
 
-import static org.junit.Assert.assertTrue;
-
 /**
  * @author Group 03
  */
@@ -47,8 +45,6 @@ public class RegisterNullTests {
     private static Project project;
     private static Developer developerRegisterCmd;
     private static Administrator adminRegisterCmd;
-
-    private static Cmd cmd;
 
     @Test(expected = IllegalArgumentException.class)
     public void testScanNull1() throws Exception {
@@ -166,7 +162,7 @@ public class RegisterNullTests {
 
     }
 
-    private static void generalNullUser(Cmd cmd) throws Exception {
+    private static void generalNullUser(Cmd<?> cmd) throws Exception {
         //set up scenario
         answer.add("dummy");
         question.add("dummy");
@@ -176,7 +172,7 @@ public class RegisterNullTests {
         // Test effects.
     }
 
-    private static void generalNullMode(Cmd cmd) throws Exception {
+    private static void generalNullMode(Cmd<?> cmd) throws Exception {
         //set up scenario
         answer.add("dummy");
         question.add("dummy");
@@ -186,7 +182,7 @@ public class RegisterNullTests {
         // Test effects.
     }
 
-    private static void generalNullScan(Cmd cmd) throws Exception {
+    private static void generalNullScan(Cmd<?> cmd) throws Exception {
         // Execute scenario
         cmd.exec(null, model, developerRegisterCmd);
         // Test effects.
