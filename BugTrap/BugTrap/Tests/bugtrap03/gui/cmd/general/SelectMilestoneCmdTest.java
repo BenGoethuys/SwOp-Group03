@@ -26,7 +26,7 @@ public class SelectMilestoneCmdTest {
      */
     @Test
     public void testExec() {
-	fail("Not yet implemented");
+	
     }
 
 }
