@@ -187,8 +187,8 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
         if (!user.hasPermission(UserPerm.SET_MILESTONE)) {
             throw new PermissionException("The given user doesn't have the needed permission to change the milestone");
         }
-        notifyMilestoneSubs(this);
         this.setMilestone(milestone);
+        notifyMilestoneSubs(this);
     }
 
     /**
