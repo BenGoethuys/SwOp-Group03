@@ -13,7 +13,6 @@ import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
-import java.util.Arrays;
 import java.util.EnumSet;
 
 import org.junit.Before;
@@ -417,6 +416,24 @@ public class AbstractSystemTest {
 	testProject.setRole(testDev, testDev, Role.TESTER);
 	assertFalse(subSysTest.hasPermission(testDev, RolePerm.SPECIAL));
 	assertTrue(subSysTest.hasPermission(testDev, RolePerm.ADD_TEST));
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubsystem_Null() {
+        subSysTest.addSubsystem(null);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubsystem_NoEqualParent() {
+        subSysTest.addSubsystem(subSysTest2);
+    }
+    
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddSubsystem_AlreadyIn() {
+        Subsystem subSysTestB = testProject.addSubsystem(subVersion, subName, subDescription);
+        
+        subSysTest.addSubsystem(subSysTestB);
     }
 
 }
