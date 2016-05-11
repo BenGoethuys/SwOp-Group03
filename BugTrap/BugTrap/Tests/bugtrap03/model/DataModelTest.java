@@ -481,7 +481,7 @@ public class DataModelTest {
         model.selectPatch(bugRep, dev, "patch");
         model.giveScore(bugRep, dev, 4);
 
-        assertEquals(1, model.getNbClosedBRForDev(dev));
+        assertEquals(1, model.getNbUnfinishedBRForDev(dev));
     }
     
     @Test
