@@ -75,6 +75,7 @@ class SplitSubsystemModelCmd extends ModelCmd {
      * @throws PermissionException When the user does not have sufficient permissions.
      * @throws IllegalArgumentException When any of the arguments passed to the constructor is invalid.
      * @throws IllegalStateException When this ModelCmd was already executed.
+     * @throws IllegalStateException When the given subsytem was already terminated.
      * 
      * @see Subsystem#split(String, String, String, String, PList, PList, User)
      * 

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package bugtrap03.gui.cmd;
 
 import static org.junit.Assert.*;
@@ -25,7 +22,7 @@ import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
 /**
- * @author Mathias
+ * @author Group 03
  *
  */
 public class SplitSubsystemCmdTest {
@@ -128,6 +125,27 @@ public class SplitSubsystemCmdTest {
 
 	// Test effects.
 	assertEquals(chosen.length, 2);
+        int index1;
+        int index2;
+        
+        if(chosen[0].getName().equals("NEW1")) {
+            index1 = 0;
+            index2 = 1;
+        } else {
+            index1 = 1;
+            index2 = 0;
+        }
+        
+        assertTrue(chosen[index1].getName().equals("NEW1"));
+        assertTrue(chosen[index2].getName().equals("NEW2"));
+        assertTrue(chosen[index1].getDescription().equals("DescriptionNew1"));
+        assertTrue(chosen[index2].getDescription().equals("DescriptionNew2"));
+        assertTrue(chosen[index1].getAllSubsystems().contains(subsystemA3_1));
+        assertFalse(chosen[index1].getAllSubsystems().contains(subsystemA3_2));
+        assertTrue(chosen[index2].getAllSubsystems().contains(subsystemA3_2));
+        assertFalse(chosen[index2].getAllSubsystems().contains(subsystemA3_1));
+        assertTrue(chosen[index1].getAllBugReports().contains(bugRep1));
+        assertFalse(chosen[index2].getAllBugReports().contains(bugRep1));
     }
 
     @Test(expected = IllegalArgumentException.class)
