@@ -41,7 +41,7 @@ public class RegisterFromProjectCmd implements Cmd<AbstractMailbox>{
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
         Project selectedProject = new GetProjectCmd().exec(scan, model, user);
-        AbstractMailbox newMailbox = new RegisterFromASSubjCmd(selectedProject).exec(scan, model, user);
+        AbstractMailbox newMailbox = new RegisterFromProjSubjectCmd(selectedProject).exec(scan, model, user);
         return newMailbox;
     }
 

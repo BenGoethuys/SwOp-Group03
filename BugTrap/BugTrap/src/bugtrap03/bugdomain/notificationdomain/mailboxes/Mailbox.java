@@ -117,10 +117,10 @@ public class Mailbox extends AbstractMailbox<Subject> {
      * @param tags The tags for which the subscription is interested.
      * @return The created mailbox
      * @throws IllegalArgumentException if any of the arguments is invalid
-     * @see TagMailBox#TagMailBox(Subject, EnumSet)
+     * @see TagMailbox#TagMailbox(Subject, EnumSet)
      */
-    public TagMailBox tagSubscribe(Subject subject, EnumSet<Tag> tags) throws IllegalArgumentException{
-        TagMailBox tmb = new TagMailBox(subject, tags);
+    public TagMailbox tagSubscribe(Subject subject, EnumSet<Tag> tags) throws IllegalArgumentException{
+        TagMailbox tmb = new TagMailbox(subject, tags);
         subject.addTagSub(tmb);
         this.addBox(tmb);
         return tmb;
@@ -134,7 +134,7 @@ public class Mailbox extends AbstractMailbox<Subject> {
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see #tagSubscribe(Subject, EnumSet)
      */
-    public TagMailBox tagSubscribe(Subject subject) throws IllegalArgumentException{
+    public TagMailbox tagSubscribe(Subject subject) throws IllegalArgumentException{
         EnumSet<Tag> tags = EnumSet.allOf(Tag.class);
         return this.tagSubscribe(subject, tags);
     }
@@ -145,10 +145,10 @@ public class Mailbox extends AbstractMailbox<Subject> {
      * @param subject The subject for the subscription.
      * @return The created mailbox
      * @throws IllegalArgumentException if the subject is invalid
-     * @see CommentMailBox#CommentMailBox(Subject)
+     * @see CommentMailbox#CommentMailbox(Subject)
      */
-    public CommentMailBox commentSubscribe(Subject subject) throws IllegalArgumentException{
-        CommentMailBox cmb = new CommentMailBox(subject);
+    public CommentMailbox commentSubscribe(Subject subject) throws IllegalArgumentException{
+        CommentMailbox cmb = new CommentMailbox(subject);
         subject.addCommentSub(cmb);
         this.addBox(cmb);
         return cmb;
@@ -160,10 +160,10 @@ public class Mailbox extends AbstractMailbox<Subject> {
      * @param abstractSystemSubject The subject for the subscription
      * @return The created mailbox
      * @throws IllegalArgumentException if the subject is invalid
-     * @see CreationMailBox#CreationMailBox(AbstractSystemSubject)
+     * @see CreationMailbox#CreationMailbox(AbstractSystemSubject)
      */
-    public CreationMailBox creationSubscribe(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
-        CreationMailBox cmb = new CreationMailBox(abstractSystemSubject);
+    public CreationMailbox creationSubscribe(AbstractSystemSubject abstractSystemSubject) throws IllegalArgumentException{
+        CreationMailbox cmb = new CreationMailbox(abstractSystemSubject);
         abstractSystemSubject.addCreationSub(cmb);
         this.addBox(cmb);
         return cmb;

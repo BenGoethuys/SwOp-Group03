@@ -5,7 +5,7 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.model.DataModel;
@@ -72,7 +72,7 @@ public class UnregisterFromNotificationsCmdTest {
     @Test
     public void testUnregisterCommentProject()throws Exception{
         //setup
-        CommentMailBox cmb = model.registerForCommentNotifications(developerUnregisterCmd, projectRegisterCmd);
+        CommentMailbox cmb = model.registerForCommentNotifications(developerUnregisterCmd, projectRegisterCmd);
         //write scenario
         question.add("Please select a subscription from list. (use index)");
         question.add("0. " + cmb.getInfo());

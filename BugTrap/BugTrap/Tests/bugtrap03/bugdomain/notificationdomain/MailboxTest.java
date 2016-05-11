@@ -5,10 +5,10 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
@@ -29,7 +29,7 @@ public class MailboxTest {
 
     private static Mailbox testMB;
     private static Mailbox testMB2;
-    private static CreationMailBox testCMB2;
+    private static CreationMailbox testCMB2;
     private static BugReportNotification bugReportNotification4MB2;
 
 
@@ -118,7 +118,7 @@ public class MailboxTest {
     @Test
     public void testTagSubscribe() throws Exception {
         EnumSet<Tag> tags = EnumSet.of(Tag.ASSIGNED, Tag.UNDER_REVIEW);
-        TagMailBox tmb = testMB.tagSubscribe(project4MB, tags);
+        TagMailbox tmb = testMB.tagSubscribe(project4MB, tags);
         assertTrue(testMB.getAllBoxes().contains(tmb));
         assertEquals(tags, tmb.getTagsOfInterest());
     }
@@ -147,14 +147,14 @@ public class MailboxTest {
     @Test
     public void testTagSubscribe1() throws Exception {
         EnumSet<Tag> tags = EnumSet.allOf(Tag.class);
-        TagMailBox tmb = testMB.tagSubscribe(project4MB);
+        TagMailbox tmb = testMB.tagSubscribe(project4MB);
         assertTrue(testMB.getAllBoxes().contains(tmb));
         assertEquals(tags, tmb.getTagsOfInterest());
     }
 
     @Test
     public void testCommentSubscribe() throws Exception {
-        CommentMailBox cmb = testMB.commentSubscribe(subsystem4MB);
+        CommentMailbox cmb = testMB.commentSubscribe(subsystem4MB);
         assertTrue(testMB.getAllBoxes().contains(cmb));
     }
 
@@ -165,7 +165,7 @@ public class MailboxTest {
 
     @Test
     public void testCreationSubscribe() throws Exception {
-        CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
+        CreationMailbox cmb = testMB.creationSubscribe(subsystem4MB);
         assertTrue(testMB.getAllBoxes().contains(cmb));
     }
 
@@ -177,9 +177,9 @@ public class MailboxTest {
     //TODO update test method
     /*@Test
     public void testUnsubscribe() throws Exception {
-        CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
+        CreationMailbox cmb = testMB.creationSubscribe(subsystem4MB);
         assertTrue(testMB.getAllBoxes().contains(cmb));
-        CommentMailBox cmb2 = cmb.commentSubscribe(subsystem4MB);
+        CommentMailbox cmb2 = cmb.commentSubscribe(subsystem4MB);
         assertTrue(testMB.unsubscribe(cmb2));
         assertFalse(testMB.getAllBoxes().contains(cmb2));
         assertFalse(testMB2.getAllBoxes().contains(cmb2));
@@ -190,7 +190,7 @@ public class MailboxTest {
 
     @Test
     public void testActivate() throws Exception {
-        CreationMailBox cmb = testMB.creationSubscribe(subsystem4MB);
+        CreationMailbox cmb = testMB.creationSubscribe(subsystem4MB);
         testMB.unsubscribe(cmb);
         cmb.addNotification(bugReportNotification4MB2);
         assertFalse(cmb.getNotifications().contains(bugReportNotification4MB2));

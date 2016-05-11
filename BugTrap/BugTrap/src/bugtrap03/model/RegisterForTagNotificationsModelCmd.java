@@ -1,11 +1,10 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.bugreport.Tag;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.ForkMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notificationdomain.Subject;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 
 import java.util.EnumSet;
 
@@ -56,7 +55,7 @@ class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelC
 
     /**
      * This method executes this model command.
-     * @return The created TagMailBox representing the subscription that contains the notifications
+     * @return The created TagMailbox representing the subscription that contains the notifications
      * @throws IllegalArgumentException if on of the arguments is invalid
      * @throws IllegalArgumentException If subject is terminated
      * @throws IllegalStateException if the state of this command is invalid
@@ -64,13 +63,13 @@ class RegisterForTagNotificationsModelCmd extends RegisterForNotificationsModelC
      * @see #setExecuted()
      */
     @Override
-    TagMailBox exec() throws IllegalArgumentException, IllegalStateException {
+    TagMailbox exec() throws IllegalArgumentException, IllegalStateException {
         if (subject.isTerminated()) {
             throw new IllegalArgumentException("The given subject is terminated.");
         }
         
         this.setExecuted();
-        TagMailBox tmb;
+        TagMailbox tmb;
         if (this.tags == null){
             tmb = this.getMailbox().tagSubscribe(this.subject);
         } else {
