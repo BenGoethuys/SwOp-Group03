@@ -4,6 +4,7 @@ import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.VersionIDMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
@@ -318,7 +319,7 @@ public class AbstractSystemTest {
         PList<CreationMailbox> oldCreationSubs = testProject.getCreationSubs();
         PList<TagMailbox> oldTagSubs = testProject.getTagSubs();
         PList<VersionIDMailbox> oldVersionIDSubs = testProject.getVersionIDSubs();
-        testProject.getMilestoneSubs();
+        PList<MilestoneMailbox> oldMilestoneSubs = testProject.getMilestoneSubs();
         
         String oldSubName = subSysTest.getName();
         
