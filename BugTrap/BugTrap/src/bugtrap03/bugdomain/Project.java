@@ -621,8 +621,6 @@ public class Project extends ProjectSubject {
         this.updateVersionIDSubs(as);
     }
 
-    //TODO add fork subs in the right places!
-
     /**
      * This method check whether or not the current Project is terminated
      *

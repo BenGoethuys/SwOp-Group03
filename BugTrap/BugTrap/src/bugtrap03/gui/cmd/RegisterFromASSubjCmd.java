@@ -1,7 +1,6 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.Milestone;
-import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.usersystem.User;
@@ -15,7 +14,6 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**

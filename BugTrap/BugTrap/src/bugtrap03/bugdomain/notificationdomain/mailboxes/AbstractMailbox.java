@@ -5,8 +5,6 @@ import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 import bugtrap03.bugdomain.notificationdomain.Subject;
 import purecollections.PList;
 
-import java.util.GregorianCalendar;
-
 
 /**
  * @author Group 03
@@ -56,7 +54,6 @@ public abstract class AbstractMailbox<UpdatedObjectClass extends Subject> {
      *
      * @return The added notification.
      */
-    //TODO maybe move to subjectmailbox?
     @DomainAPI
     public abstract Notification update(UpdatedObjectClass changedObject);
 
