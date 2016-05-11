@@ -3,27 +3,16 @@ package bugtrap03.bugdomain.notificationdomain;
 import bugtrap03.bugdomain.AbstractSystem;
 import bugtrap03.bugdomain.HealthAlgorithm;
 import bugtrap03.bugdomain.HealthIndicator;
-import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
-import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.VersionID;
-import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.ForkMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.bugdomain.usersystem.Issuer;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import purecollections.PList;
 
 /**
  *
@@ -35,7 +24,6 @@ public class ProjectSubjectTest {
     private static Developer subjectDummyDev;
     private static ForkMailbox subjectDummyFMB;
     private static Project subjectDummyProject;
-    private static Subsystem subjectDummySubsystem;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -43,66 +31,12 @@ public class ProjectSubjectTest {
         testDummy = new Project("sdp", "sdp", subjectDummyDev, 1000);
 
         subjectDummyProject = new Project("sdp","sdp",subjectDummyDev,1000);
-        subjectDummySubsystem = subjectDummyProject.addSubsystem("This seems","easy");
     }
 
     @Before
     public void setUp() throws Exception{
         subjectDummyFMB = subjectDummyDev.getMailbox().forkSubscribe(testDummy);
     }
-
-//    private static Developer testDev;
-//    private static Issuer testIss;
-//    private static VersionID testVersion;
-//    private static String testName;
-//    private static String testDescription;
-//    private static GregorianCalendar testStartDate;
-//    private static GregorianCalendar testCreationDate;
-//    private static long testBudget;
-//    private static Project testProject;
-//
-//    private static VersionID subVersion;
-//    private static String subName;
-//    private static String subDescription;
-//    private static Subsystem subSysTest;
-//    private static Subsystem subSysTest2;
-//
-//    private static PList<BugReport> emptyDep;
-//    private static PList<BugReport> depToRep1;
-//    private static BugReport bugreport1;
-//    private static BugReport bugreport2;
-//
-//    @BeforeClass
-//    public static void setUpBeforeClass() throws Exception {
-//        testDev = new Developer("subsysTester3210", "KwintenAS", "BuytaertAS");
-//        testIss = new Issuer("subsysTester3211", "KwintenAS", "BuytaertAS");
-//        testVersion = new VersionID(1, 2, 4);
-//        testName = "testProjAS";
-//        testDescription = "This is an description of an AS project";
-//        testStartDate = new GregorianCalendar(3016, 1, 1);
-//        testCreationDate = new GregorianCalendar(2000, 12, 25);
-//        testBudget = 1000;
-//
-//        subVersion = new VersionID(9, 8, 5);
-//        subName = "testSubAS";
-//        subDescription = "This is a test description of a as subsystem";
-//
-//        emptyDep = PList.<BugReport>empty();
-//
-//    }
-//
-//    @Before
-//    public void setUp() throws Exception {
-//        testProject = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
-//                testBudget);
-//        subSysTest = testProject.addSubsystem(subVersion, subName, subDescription);
-//        subSysTest2 = subSysTest.addSubsystem("mehAS", "moehAS");
-//        //bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", emptyDep);
-//        bugreport1 = subSysTest.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(), emptyDep, null, 1, false, null, null, null);
-//        depToRep1 = PList.<BugReport>empty().plus(bugreport1);
-//        //        bugreport2 = subSysTest2.addBugReport(testDev, "otherBug4AS", "i like bonobos", depToRep1);
-//        bugreport2 = subSysTest2.addBugReport(testDev, "otherBug4AS", "i like bonobos", new GregorianCalendar(), depToRep1, null, 1, false, null, null, null);
-//    }
     
     @Test
     public void testNotifyForkSubs() throws Exception {
