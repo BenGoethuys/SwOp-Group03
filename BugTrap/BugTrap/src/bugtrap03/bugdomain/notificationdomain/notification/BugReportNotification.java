@@ -90,9 +90,6 @@ public class BugReportNotification extends Notification {
         if (! super.equals(object)){
             return false;
         }
-        if (!(object instanceof BugReportNotification)){
-            return false;
-        }
         BugReportNotification bugReportNotification = (BugReportNotification) object;
         if (this.bugReport != bugReportNotification.bugReport){
             return false;
