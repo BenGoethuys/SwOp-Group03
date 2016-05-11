@@ -414,9 +414,9 @@ public class DataModelTest {
     @Test
     public void testGetNbClosedBRForDev() throws PermissionException {
         model = new DataModel();
-        admin = model.createAdministrator("ThisIsAnotherAdmin", "first", "last");
-        dev = model.createDeveloper("ThisIsAnotherDeveloper", "first", "last");
-        Developer other = model.createDeveloper("ThisIsAnotherDeveloper2", "first", "last");
+        admin = model.createAdministrator("ThisIsAnotherAdmin2", "first", "last");
+        dev = model.createDeveloper("ThisIsAnotherDeveloper2", "first", "last");
+        Developer other = model.createDeveloper("ThisIsAnotherDeveloper2_1", "first", "last");
         project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
         Project project1 = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
 
@@ -453,9 +453,9 @@ public class DataModelTest {
     @Test
     public void testNbUnfinishedBRForDev() throws PermissionException {
         model = new DataModel();
-        admin = model.createAdministrator("ThisIsAnotherAdmin", "first", "last");
-        dev = model.createDeveloper("ThisIsAnotherDeveloper", "first", "last");
-        Developer other = model.createDeveloper("ThisIsAnotherDeveloper2", "first", "last");
+        admin = model.createAdministrator("ThisIsAnotherAdmin1", "first", "last");
+        dev = model.createDeveloper("ThisIsAnotherDeveloper1", "first", "last");
+        Developer other = model.createDeveloper("ThisIsAnotherDeveloper1_1", "first", "last");
         project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
         Project project1 = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
 
@@ -483,5 +483,200 @@ public class DataModelTest {
 
         assertEquals(1, model.getNbClosedBRForDev(dev));
     }
+    
+    @Test
+    public void testgetNbDuplicateBRsSubmitted() throws PermissionException {
+        model = new DataModel();
+        admin = model.createAdministrator("ThisIsAnotherAdmin3", "first", "last");
+        dev = model.createDeveloper("ThisIsAnotherDeveloper3", "first", "last");
+        Developer other = model.createDeveloper("ThisIsAnotherDeveloper3_1", "first", "last");
+        project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+        Project project1 = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+
+        model.assignToProject(project, dev, dev, Role.TESTER);
+        model.assignToProject(project, dev, dev, Role.PROGRAMMER);
+
+        model.assignToProject(project1, dev, dev, Role.TESTER);
+        model.assignToProject(project1, dev, dev, Role.PROGRAMMER);
+
+        Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
+        Subsystem subsys1 = model.createSubsystem(admin, project1, "subName", "subDesc");
+
+        BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+        BugReport bugRep1 = model.createBugReport(subsys, other, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+        BugReport bugRep2 = model.createBugReport(subsys1, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+
+        model.addUsersToBugReport(dev, bugRep2, (PList.<Developer>empty()).plus(dev));
+        model.addUsersToBugReport(dev, bugRep1, (PList.<Developer>empty()).plus(other));
+        model.addUsersToBugReport(dev, bugRep, (PList.<Developer>empty()).plus(dev));
+
+        model.addTest(bugRep, dev, "test");
+        model.addPatch(bugRep, dev, "patch");
+        
+        assertEquals(0, model.getNbDuplicateBRsSubmitted(dev));
+        assertEquals(0, model.getNbDuplicateBRsSubmitted(other));
+        
+        model.setDuplicate(dev, bugRep, bugRep2);
+        
+        assertEquals(1, model.getNbDuplicateBRsSubmitted(dev));
+        assertEquals(0, model.getNbDuplicateBRsSubmitted(other));
+        
+        model.setDuplicate(dev, bugRep1, bugRep);
+        
+        assertEquals(1, model.getNbDuplicateBRsSubmitted(dev));
+        assertEquals(1, model.getNbDuplicateBRsSubmitted(other));        
+                
+    }
+    
+    @Test
+    public void testgetNbNotABugReportBRsSubmitted() throws PermissionException {
+        model = new DataModel();
+        admin = model.createAdministrator("ThisIsAnotherAdmin4", "first", "last");
+        dev = model.createDeveloper("ThisIsAnotherDeveloper4", "first", "last");
+        Developer other = model.createDeveloper("ThisIsAnotherDeveloper4_1", "first", "last");
+        project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+        Project project1 = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+
+        model.assignToProject(project, dev, dev, Role.TESTER);
+        model.assignToProject(project, dev, dev, Role.PROGRAMMER);
+
+        model.assignToProject(project1, dev, dev, Role.TESTER);
+        model.assignToProject(project1, dev, dev, Role.PROGRAMMER);
+
+        Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
+        Subsystem subsys1 = model.createSubsystem(admin, project1, "subName", "subDesc");
+
+        BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+        BugReport bugRep1 = model.createBugReport(subsys, other, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+        BugReport bugRep2 = model.createBugReport(subsys1, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+
+        model.addUsersToBugReport(dev, bugRep2, (PList.<Developer>empty()).plus(dev));
+        model.addUsersToBugReport(dev, bugRep1, (PList.<Developer>empty()).plus(other));
+        model.addUsersToBugReport(dev, bugRep, (PList.<Developer>empty()).plus(dev));
+
+        model.addTest(bugRep, dev, "test");
+        model.addPatch(bugRep, dev, "patch");
+        
+        //Test both 0
+        assertEquals(0, model.getNbNotABugReportBRsSubmitted(dev));
+        assertEquals(0, model.getNbNotABugReportBRsSubmitted(other));
+        
+        model.setTag(bugRep2, Tag.NOT_A_BUG, dev);
+        
+        //Test 1 became 1
+        assertEquals(1, model.getNbNotABugReportBRsSubmitted(dev));
+        assertEquals(0, model.getNbNotABugReportBRsSubmitted(other));
+        
+        model.setTag(bugRep1, Tag.NOT_A_BUG, dev);
+
+        //Test both 1.
+        assertEquals(1, model.getNbNotABugReportBRsSubmitted(dev));
+        assertEquals(1, model.getNbNotABugReportBRsSubmitted(other));
+    }
+    
+    @Test
+    public void testgetNbBRSubmitted() throws PermissionException {
+        model = new DataModel();
+        admin = model.createAdministrator("ThisIsAnotherAdmin5", "first", "last");
+        dev = model.createDeveloper("ThisIsAnotherDeveloper5", "first", "last");
+        Developer other = model.createDeveloper("ThisIsAnotherDeveloper5_1", "first", "last");
+        project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+        Project project1 = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+
+        model.assignToProject(project, dev, dev, Role.TESTER);
+        model.assignToProject(project, dev, dev, Role.PROGRAMMER);
+
+        model.assignToProject(project1, dev, dev, Role.TESTER);
+        model.assignToProject(project1, dev, dev, Role.PROGRAMMER);
+
+        Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
+        Subsystem subsys1 = model.createSubsystem(admin, project1, "subName", "subDesc");
+
+
+        assertEquals(0, model.getNbBRSubmitted(dev));
+        assertEquals(0, model.getNbBRSubmitted(other));
+
+        BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+
+        assertEquals(1, model.getNbBRSubmitted(dev));
+        assertEquals(0, model.getNbBRSubmitted(other));
+
+        model.addUsersToBugReport(dev, bugRep, (PList.<Developer>empty()).plus(dev));
+        BugReport bugRep1 = model.createBugReport(subsys, other, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+        BugReport bugRep2 = model.createBugReport(subsys1, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
+
+        assertEquals(2, model.getNbBRSubmitted(dev));
+        assertEquals(1, model.getNbBRSubmitted(other));
+
+        model.addUsersToBugReport(dev, bugRep2, (PList.<Developer>empty()).plus(dev));
+        model.addUsersToBugReport(dev, bugRep1, (PList.<Developer>empty()).plus(other));
+
+        model.addTest(bugRep, dev, "test");
+        model.addPatch(bugRep, dev, "patch");
+        
+        assertEquals(2, model.getNbBRSubmitted(dev));
+        assertEquals(1, model.getNbBRSubmitted(other));
+        
+        //undo to creation of only 1 for each.
+        model.undoLastChanges(admin, 5);
+        
+        assertEquals(1, model.getNbBRSubmitted(dev));
+        assertEquals(1, model.getNbBRSubmitted(other));
+    }
+    
+    
+    @Test
+    public void testgetAllProjectsOfLead() throws PermissionException {
+        model = new DataModel();
+        admin = model.createAdministrator("ThisIsAnotherAdmin6", "first", "last");
+        dev = model.createDeveloper("ThisIsAnotherDeveloper6", "first", "last");
+        Developer other = model.createDeveloper("ThisIsAnotherDeveloper6_1", "first", "last");
+        
+        assertEquals(0, model.getAllProjectsOfLead(dev).size());
+        project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+
+        assertEquals(1, model.getAllProjectsOfLead(dev).size());
+        assertTrue(model.getAllProjectsOfLead(dev).contains(project));
+        
+        Project project1 = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+        Project project2 = model.createProject(new VersionID(), "name", "description", other, 1050, admin);
+        
+        assertEquals(2, model.getAllProjectsOfLead(dev).size());
+        assertTrue(model.getAllProjectsOfLead(dev).contains(project));
+        assertTrue(model.getAllProjectsOfLead(dev).contains(project1));
+        
+        model.assignToProject(project1, dev, dev, Role.TESTER);
+        
+        assertEquals(2, model.getAllProjectsOfLead(dev).size());
+        assertTrue(model.getAllProjectsOfLead(dev).contains(project));
+        assertTrue(model.getAllProjectsOfLead(dev).contains(project1));
+        assertEquals(1, model.getAllProjectsOfLead(other).size());
+        assertTrue(model.getAllProjectsOfLead(other).contains(project2));
+    }
+    
+    @Test
+    public void testGetAllSubsystems() throws PermissionException {
+        model = new DataModel();
+        admin = model.createAdministrator("ThisIsAnotherAdmin7", "first", "last");
+        dev = model.createDeveloper("ThisIsAnotherDeveloper7", "first", "last");
+        project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+        Project project1 = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
+
+        Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
+        Subsystem subsys_2 = model.createSubsystem(admin, subsys, "name", "desc");
+        Subsystem subsys_1 = model.createSubsystem(admin, subsys, "name", "desc");        
+        Subsystem subsys1 = model.createSubsystem(admin, project1, "subName", "subDesc");
+        
+        assertEquals(0, model.getAllSubsystems(null).size());
+        assertEquals(1, model.getAllSubsystems(project1).size());
+        PList<Subsystem> result = model.getAllSubsystems(project);
+        assertEquals(3, result.size());
+        assertTrue(result.contains(subsys));
+        assertTrue(result.contains(subsys_2));
+        assertTrue(result.contains(subsys_1));
+        assertFalse(result.contains(subsys1));
+    }
+    
+    
 
 }
