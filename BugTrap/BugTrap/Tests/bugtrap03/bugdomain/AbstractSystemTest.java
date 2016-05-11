@@ -4,7 +4,10 @@ import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
+<<<<<<< HEAD
 import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
+=======
+>>>>>>> f7643ab60fbd61d60833f666f880db5c54e2396b
 import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.VersionIDMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;

@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 /**
  * @author Grout 03;
  */
-public class TagMailBoxTest {
+public class TagMailboxTest {
 
     private static TagMailbox testTMB;
     private static BugReportNotification bugReportNotification4MB2;
