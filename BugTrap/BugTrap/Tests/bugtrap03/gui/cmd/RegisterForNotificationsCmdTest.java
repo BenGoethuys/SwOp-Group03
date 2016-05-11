@@ -107,6 +107,185 @@ public class RegisterForNotificationsCmdTest {
     }
 
     @Test
+    public void testProjectFork() throws Exception {
+        //set up scenario
+        //register for notifications cmd
+        question.add("Select subject type.");
+        question.add("Available options:");
+        question.add("0. bugreport");
+        question.add("1. project");
+        question.add("2. subsystem");
+        question.add("I choose: ");
+        answer.add("1");
+        //register from project
+        //select project
+        question.add("Select a project.");
+        question.add("Available options:");
+        question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have chosen:");
+        question.add(projectRegisterCmd.getDetails());
+        //register from as
+        question.add("Select subscription type.");
+        question.add("Available options:");
+        question.add("0. comment");
+        question.add("1. creation");
+        question.add("2. fork");
+        question.add("3. newmilestone");
+        question.add("4. newtag");
+        question.add("5. specificmilestone");
+        question.add("6. specifictags");
+        question.add("7. version");
+        question.add("I choose: ");
+        answer.add("2");
+        // end register for notifications
+        question.add("Registration for notifications complete.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        // Execute scenario
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        // Test effects.
+        assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
+    }
+
+    @Test
+    public void testProjectNewMilestone() throws Exception {
+        //set up scenario
+        //register for notifications cmd
+        question.add("Select subject type.");
+        question.add("Available options:");
+        question.add("0. bugreport");
+        question.add("1. project");
+        question.add("2. subsystem");
+        question.add("I choose: ");
+        answer.add("1");
+        //register from project
+        //select project
+        question.add("Select a project.");
+        question.add("Available options:");
+        question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have chosen:");
+        question.add(projectRegisterCmd.getDetails());
+        //register from as
+        question.add("Select subscription type.");
+        question.add("Available options:");
+        question.add("0. comment");
+        question.add("1. creation");
+        question.add("2. fork");
+        question.add("3. newmilestone");
+        question.add("4. newtag");
+        question.add("5. specificmilestone");
+        question.add("6. specifictags");
+        question.add("7. version");
+        question.add("I choose: ");
+        answer.add("3");
+        // end register for notifications
+        question.add("Registration for notifications complete.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        // Execute scenario
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        // Test effects.
+        assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
+    }
+
+    @Test
+    public void testProjectSpecificMilestone() throws Exception {
+        //set up scenario
+        //register for notifications cmd
+        question.add("Select subject type.");
+        question.add("Available options:");
+        question.add("0. bugreport");
+        question.add("1. project");
+        question.add("2. subsystem");
+        question.add("I choose: ");
+        answer.add("1");
+        //register from project
+        //select project
+        question.add("Select a project.");
+        question.add("Available options:");
+        question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have chosen:");
+        question.add(projectRegisterCmd.getDetails());
+        //register from as
+        question.add("Select subscription type.");
+        question.add("Available options:");
+        question.add("0. comment");
+        question.add("1. creation");
+        question.add("2. fork");
+        question.add("3. newmilestone");
+        question.add("4. newtag");
+        question.add("5. specificmilestone");
+        question.add("6. specifictags");
+        question.add("7. version");
+        question.add("I choose: ");
+        answer.add("5");
+        //select milestone
+        question.add("Enter a new milestone: (format a.b.c...) ");
+        answer.add("5;5.5");
+        question.add("Invalid input. Please try again using format: a.b.c...");
+        answer.add("a.5.5");
+        question.add("Invalid input. Please try again using format: a.b.c...");
+        answer.add("5.5.5");
+        // end register for notifications
+        question.add("Registration for notifications complete.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        // Execute scenario
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        // Test effects.
+        assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
+    }
+
+    @Test
+    public void testProjectVersion() throws Exception {
+        //set up scenario
+        //register for notifications cmd
+        question.add("Select subject type.");
+        question.add("Available options:");
+        question.add("0. bugreport");
+        question.add("1. project");
+        question.add("2. subsystem");
+        question.add("I choose: ");
+        answer.add("1");
+        //register from project
+        //select project
+        question.add("Select a project.");
+        question.add("Available options:");
+        question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have chosen:");
+        question.add(projectRegisterCmd.getDetails());
+        //register from as
+        question.add("Select subscription type.");
+        question.add("Available options:");
+        question.add("0. comment");
+        question.add("1. creation");
+        question.add("2. fork");
+        question.add("3. newmilestone");
+        question.add("4. newtag");
+        question.add("5. specificmilestone");
+        question.add("6. specifictags");
+        question.add("7. version");
+        question.add("I choose: ");
+        answer.add("7");
+        // end register for notifications
+        question.add("Registration for notifications complete.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        // Execute scenario
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        // Test effects.
+        assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
+    }
+
+    @Test
     public void testProjectComment() throws Exception {
         //set up scenario
         //register for notifications cmd
@@ -316,6 +495,164 @@ public class RegisterForNotificationsCmdTest {
         question.add("6. version");
         question.add("I choose: ");
         answer.add("1");
+        // end register for notifications
+        question.add("Registration for notifications complete.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        // Execute scenario
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        // Test effects.
+        assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
+    }
+
+    @Test
+    public void testSubsystemVersion() throws Exception {
+        //set up scenario
+        //register for notifications cmd
+        question.add("Select subject type.");
+        question.add("Available options:");
+        question.add("0. bugreport");
+        question.add("1. project");
+        question.add("2. subsystem");
+        question.add("I choose: ");
+        answer.add("2");
+        //register from subsystem
+        //select subsystem cmd
+        //select project
+        question.add("Select a project.");
+        question.add("Available options:");
+        question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have chosen:");
+        question.add(projectRegisterCmd.getDetails());
+        //select subsystem itself
+        question.add("Select subsystem.");
+        question.add("Available options:");
+        question.add("0. " + subsystemRegisterCmd.getName());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You selected: " + subsystemRegisterCmd.getName());
+        //register from as
+        question.add("Select subscription type.");
+        question.add("Available options:");
+        question.add("0. comment");
+        question.add("1. creation");
+        question.add("2. newmilestone");
+        question.add("3. newtag");
+        question.add("4. specificmilestone");
+        question.add("5. specifictags");
+        question.add("6. version");
+        question.add("I choose: ");
+        answer.add("6");
+        // end register for notifications
+        question.add("Registration for notifications complete.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        // Execute scenario
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        // Test effects.
+        assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
+    }
+
+    @Test
+    public void testSubsystemNewMilestone() throws Exception {
+        //set up scenario
+        //register for notifications cmd
+        question.add("Select subject type.");
+        question.add("Available options:");
+        question.add("0. bugreport");
+        question.add("1. project");
+        question.add("2. subsystem");
+        question.add("I choose: ");
+        answer.add("2");
+        //register from subsystem
+        //select subsystem cmd
+        //select project
+        question.add("Select a project.");
+        question.add("Available options:");
+        question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have chosen:");
+        question.add(projectRegisterCmd.getDetails());
+        //select subsystem itself
+        question.add("Select subsystem.");
+        question.add("Available options:");
+        question.add("0. " + subsystemRegisterCmd.getName());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You selected: " + subsystemRegisterCmd.getName());
+        //register from as
+        question.add("Select subscription type.");
+        question.add("Available options:");
+        question.add("0. comment");
+        question.add("1. creation");
+        question.add("2. newmilestone");
+        question.add("3. newtag");
+        question.add("4. specificmilestone");
+        question.add("5. specifictags");
+        question.add("6. version");
+        question.add("I choose: ");
+        answer.add("2");
+        // end register for notifications
+        question.add("Registration for notifications complete.");
+
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
+        // Execute scenario
+        AbstractMailbox newMB = cmd.exec(scan, model, developerRegisterCmd);
+        // Test effects.
+        assertTrue(developerRegisterCmd.getMailbox().getAllBoxes().contains(newMB));
+    }
+
+    @Test
+    public void testSubsystemSpecificMilestone() throws Exception {
+        //set up scenario
+        //register for notifications cmd
+        question.add("Select subject type.");
+        question.add("Available options:");
+        question.add("0. bugreport");
+        question.add("1. project");
+        question.add("2. subsystem");
+        question.add("I choose: ");
+        answer.add("2");
+        //register from subsystem
+        //select subsystem cmd
+        //select project
+        question.add("Select a project.");
+        question.add("Available options:");
+        question.add("0. " + projectRegisterCmd.getName() + " version: " + projectRegisterCmd.getVersionID().toString());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You have chosen:");
+        question.add(projectRegisterCmd.getDetails());
+        //select subsystem itself
+        question.add("Select subsystem.");
+        question.add("Available options:");
+        question.add("0. " + subsystemRegisterCmd.getName());
+        question.add("I choose: ");
+        answer.add("0");
+        question.add("You selected: " + subsystemRegisterCmd.getName());
+        //register from as
+        question.add("Select subscription type.");
+        question.add("Available options:");
+        question.add("0. comment");
+        question.add("1. creation");
+        question.add("2. newmilestone");
+        question.add("3. newtag");
+        question.add("4. specificmilestone");
+        question.add("5. specifictags");
+        question.add("6. version");
+        question.add("I choose: ");
+        answer.add("4");
+        //select milestone
+        //select milestone
+        question.add("Enter a new milestone: (format a.b.c...) ");
+        answer.add("5;5.5");
+        question.add("Invalid input. Please try again using format: a.b.c...");
+        answer.add("a.5.5");
+        question.add("Invalid input. Please try again using format: a.b.c...");
+        answer.add("5.5.5");
         // end register for notifications
         question.add("Registration for notifications complete.");
 
