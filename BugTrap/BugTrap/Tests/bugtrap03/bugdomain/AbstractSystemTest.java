@@ -4,8 +4,10 @@ import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
 import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
+import bugtrap03.bugdomain.usersystem.Role;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -347,6 +349,13 @@ public class AbstractSystemTest {
     @Test(expected=PermissionException.class)
     public void testSetMilestoneNoPermission() throws PermissionException {
 	testProject.setMilestone(testIss, new Milestone(0));
+    }
+    
+    @Test
+    public void testHasPermission() throws IllegalArgumentException, PermissionException {
+	testProject.setRole(testDev, testDev, Role.TESTER);
+	assertFalse(subSysTest.hasPermission(testDev, RolePerm.SPECIAL));
+	assertTrue(subSysTest.hasPermission(testDev, RolePerm.ADD_TEST));
     }
 
 }
