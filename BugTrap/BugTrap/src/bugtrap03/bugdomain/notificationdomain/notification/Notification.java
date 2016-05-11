@@ -90,6 +90,11 @@ public class Notification {
         return true;
     }
 
+    /**
+     * This method opens this notification.
+     * @param user The user that wishes to open this notification
+     * @return A string of the message.
+     */
     @DomainAPI
     public String open(User user){
         StringBuilder message = new StringBuilder(this.message);
@@ -98,6 +103,11 @@ public class Notification {
         return message.toString();
     }
 
+    /**
+     * This nethod tells if this notification is equal to a given object.
+     * @param object The object to compare
+     * @return true if the given object is a notification with the same subject and message.
+     */
     @Override
     public boolean equals(Object object){
         if (object == null){
@@ -116,6 +126,10 @@ public class Notification {
         return true;
     };
 
+    /**
+     * this method calculates a hash value for this notification based upon the hashvalue of the subject and message.
+     * @return An int hash value.
+     */
     @Override
     public int hashCode(){
     return((113*this.subject.hashCode())*this.message.hashCode());
