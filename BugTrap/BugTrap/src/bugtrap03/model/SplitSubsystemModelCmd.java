@@ -87,7 +87,8 @@ class SplitSubsystemModelCmd extends ModelCmd {
         }
 
         //Store memento
-        parentMemento = subsystem.getParent().getMemento();
+        parent = subsystem.getParent();
+        parentMemento = parent.getMemento();
         
         //Execute
         try {
