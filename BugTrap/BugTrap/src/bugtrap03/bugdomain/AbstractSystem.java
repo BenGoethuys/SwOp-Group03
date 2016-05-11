@@ -479,14 +479,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
      */
     @DomainAPI
     public Project getParentProject() {
-        AbstractSystem localParent = this.getParent();
-        AbstractSystem localGrandParent = localParent.getParent();
-        while (localParent != localGrandParent) {
-            localParent = localGrandParent;
-            localGrandParent = localParent.getParent();
-        }
-        // only an element of type project has itself as parent value
-        return (Project) localParent;
+        return this.getParent().getParentProject();
     }
 
     /**

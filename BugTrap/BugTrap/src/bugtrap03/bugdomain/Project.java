@@ -363,6 +363,17 @@ public class Project extends ProjectSubject {
     }
 
     /**
+     * This method returns the head of the subsystem tree structure. This is an element from the type Project and can be
+     * recognized by his self reference in getParent().
+     *
+     * @return the Project to which all the subsystems are linked.
+     */
+    @DomainAPI
+    public Project getParentProject() {
+        return this;
+    }
+
+    /**
      * This method sets the role for a given developer
      *
      * @param dev The developer to give a role
