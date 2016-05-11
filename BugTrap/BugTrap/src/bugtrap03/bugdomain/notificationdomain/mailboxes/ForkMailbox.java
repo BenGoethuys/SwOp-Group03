@@ -27,6 +27,8 @@ public class ForkMailbox extends SubjectMailbox<Project, ProjectSubject> {
         message.append(" has forked into ");
         message.append(changedObject.getSubjectName());
         message.append(".");
-        return new Notification(message.toString(), subject);
+        Notification notification = new Notification(message.toString(), subject);
+        this.addNotification(notification);
+        return notification;
     }
 }
