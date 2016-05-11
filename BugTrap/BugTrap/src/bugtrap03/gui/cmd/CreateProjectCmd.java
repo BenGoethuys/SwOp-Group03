@@ -184,6 +184,8 @@ public class CreateProjectCmd implements Cmd<Project> {
             String input = scan.nextLine();
             String[] versionIDStr = input.split("\\.");
 
+            //FIXME: Mathias .... versionID from user
+
             int nb1, nb2, nb3;
             try {
                 nb1 = Integer.parseInt(versionIDStr[0]);
