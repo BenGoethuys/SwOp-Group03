@@ -237,6 +237,20 @@ public class Subsystem extends AbstractSystem {
     }
 
     /**
+     * This is a private method to add an existing bug report to this subsystem
+     *
+     * @param bugReport The bug report to add to this subsystem
+     *
+     * @throws IllegalArgumentException If the given bug report is null or does not belong to this subsystem
+     */
+    private void addBugReport(BugReport bugReport) throws IllegalArgumentException {
+        if (bugReport ==  null || bugReport.getSubsystem() != this){
+            throw new IllegalArgumentException("The given bug report is not valid for this subsystem");
+        }
+        this.bugReportList = this.getBugReportList().plus(bugReport);
+    }
+
+    /**
      * Remove the given bugReport from the list of bugReports. <br>
      * <b>Only use with Caution</b>: No other changes will be made. (e.g no dependencies or milestones will be changed.)
      *
@@ -452,6 +466,14 @@ public class Subsystem extends AbstractSystem {
         // find lowest milestone and replace if necessary
         if (subsystem.getMilestone().compareTo(this.getMilestone()) < 0) {
             this.setMilestone(subsystem.getMilestone());
+        }
+
+        // move bug reports for given subsystem
+        PList<BugReport> list = subsystem.getBugReportList();
+        // set new parent + add
+        for (BugReport bugReport : list){
+            bugReport.setSubsystem(this);
+            this.addBugReport(bugReport);
         }
 
         //TODO: possible merge subscribers?
