@@ -8,7 +8,7 @@ import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
@@ -118,7 +118,7 @@ public class MailboxTest {
     @Test
     public void testTagSubscribe() throws Exception {
         EnumSet<Tag> tags = EnumSet.of(Tag.ASSIGNED, Tag.UNDER_REVIEW);
-        TagMailBox tmb = testMB.tagSubscribe(project4MB, tags);
+        TagMailbox tmb = testMB.tagSubscribe(project4MB, tags);
         assertTrue(testMB.getAllBoxes().contains(tmb));
         assertEquals(tags, tmb.getTagsOfInterest());
     }
@@ -147,7 +147,7 @@ public class MailboxTest {
     @Test
     public void testTagSubscribe1() throws Exception {
         EnumSet<Tag> tags = EnumSet.allOf(Tag.class);
-        TagMailBox tmb = testMB.tagSubscribe(project4MB);
+        TagMailbox tmb = testMB.tagSubscribe(project4MB);
         assertTrue(testMB.getAllBoxes().contains(tmb));
         assertEquals(tags, tmb.getTagsOfInterest());
     }

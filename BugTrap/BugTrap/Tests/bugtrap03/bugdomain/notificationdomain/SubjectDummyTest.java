@@ -6,7 +6,7 @@ import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -25,7 +25,7 @@ public class SubjectDummyTest {
 
     private static SubjectDummy testDummy;
     private static Developer subjectDummyDev;
-    private static TagMailBox subjectDummyTMB;
+    private static TagMailbox subjectDummyTMB;
     private static CommentMailbox subjectDummyCMB;
     private static Project subjectDummyProject;
     private static Subsystem subjectDummySubsystem;
@@ -84,7 +84,7 @@ public class SubjectDummyTest {
 
     @Test
     public void testAddTagSub() throws Exception {
-        TagMailBox extraTMB = subjectDummyDev.getMailbox().tagSubscribe(testDummy, EnumSet.of(Tag.NEW));
+        TagMailbox extraTMB = subjectDummyDev.getMailbox().tagSubscribe(testDummy, EnumSet.of(Tag.NEW));
         assertTrue(extraTMB.getNotifications().isEmpty());
         testDummy.updateTagSubs(subjectDummyBugreport);
         assertFalse(extraTMB.getNotifications().isEmpty());
@@ -92,7 +92,7 @@ public class SubjectDummyTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testAddTagSubNull() throws Exception {
-        TagMailBox box = null;
+        TagMailbox box = null;
         testDummy.addTagSub(box);
     }
 

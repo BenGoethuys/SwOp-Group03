@@ -4,7 +4,7 @@ import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.usersystem.Developer;
 import java.util.GregorianCalendar;
 import purecollections.PList;
@@ -41,10 +41,10 @@ public class BugReportMemento extends SubjectMemento {
      * @param error The error of the BugReport during the snapshot.
      * @param state The state of the BugReport during the snapshot.
      */
-    BugReportMemento(PList<TagMailBox> tagMailBoxes, PList<CommentMailbox> commentMailboxes, String title, String desc, GregorianCalendar creationDate, Subsystem subsystem, PList<Comment> commentList,
+    BugReportMemento(PList<TagMailbox> tagMailboxes, PList<CommentMailbox> commentMailboxes, String title, String desc, GregorianCalendar creationDate, Subsystem subsystem, PList<Comment> commentList,
                      PList<Developer> userList, PList<BugReport> dependencies, Milestone milestone, boolean isPrivate,
                      String trigger, String stacktrace, String error, BugReportState state) {
-        super(tagMailBoxes, commentMailboxes);
+        super(tagMailboxes, commentMailboxes);
         
         this.title = title;
         this.description = desc;

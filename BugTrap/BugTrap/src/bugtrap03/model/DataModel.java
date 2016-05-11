@@ -932,10 +932,10 @@ public class DataModel {
      * @throws IllegalStateException If the current state of the command is invalid.
      */
     @DomainAPI
-    public TagMailBox registerForSpecificTagsNotifications(User user, Subject subject, EnumSet<Tag> enumSet)
+    public TagMailbox registerForSpecificTagsNotifications(User user, Subject subject, EnumSet<Tag> enumSet)
             throws IllegalArgumentException, IllegalStateException {
         RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject, enumSet);
-        TagMailBox newMailbox = cmd.exec();
+        TagMailbox newMailbox = cmd.exec();
         addToHistory(cmd);
         return newMailbox;
     }
@@ -952,10 +952,10 @@ public class DataModel {
      * @throws IllegalStateException If the current state of the command is invalid.
      */
     @DomainAPI
-    public TagMailBox registerForAllTagsNotifications(User user, Subject subject)
+    public TagMailbox registerForAllTagsNotifications(User user, Subject subject)
             throws IllegalArgumentException, IllegalStateException {
         RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(user, subject);
-        TagMailBox newMailbox = cmd.exec();
+        TagMailbox newMailbox = cmd.exec();
         addToHistory(cmd);
         return newMailbox;
     }
