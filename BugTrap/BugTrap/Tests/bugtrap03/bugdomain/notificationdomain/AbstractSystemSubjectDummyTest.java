@@ -166,6 +166,18 @@ public class AbstractSystemSubjectDummyTest {
 
         testDummy.addCreationSub(list);
     }
+    
+    @Test
+    public void testGetMemento() {
+        AbstractSystemSubjectMemento mem = testDummy.getMemento();
+        
+        assertTrue(testDummy.getVersionIDSubs().equals(mem.getVersionIDSubs()));
+        assertTrue(testDummy.getTagSubs().equals(mem.getTagSubs()));
+        assertTrue(testDummy.getMilestoneSubs().equals(mem.getMilestoneSubs()));
+        assertTrue(testDummy.getCreationSubs().equals(mem.getCreationSubs()));
+        assertTrue(testDummy.getCommentSubs().equals(mem.getCommentSubs()));
+        
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testAddCreationSubNull() throws Exception {
