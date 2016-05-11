@@ -1,36 +1,48 @@
-package bugtrap03.gui.cmd.general;
+package bugtrap03.gui.cmd;
 
+import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.bugreport.Tag;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
-import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
-import bugtrap03.gui.cmd.Cmd;
+import bugtrap03.bugdomain.notificationdomain.ProjectSubject;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.SubjectMailbox;
+import bugtrap03.bugdomain.permission.PermissionException;
+import bugtrap03.bugdomain.usersystem.User;
+import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
+import bugtrap03.gui.cmd.general.SelectMilestoneCmd;
+import bugtrap03.gui.cmd.general.SelectTagsCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 /**
- * @author Group 03
+ * Created by Kwinten on 11/05/2016.
  */
-public class RegisterFromASCmd implements Cmd<Object> {
-    
+public class RegisterFromProjSubjectCmd implements Cmd<AbstractMailbox> {
     /**
      * Create a cmd which can be used to execute the scenario to register for a certain change on the abstractSystemSubject
-     * @param abstractSystemSubject The AbstractSystemSubject to register on.
+     * @param projectSubject The AbstractSystemSubject to register on.
      */
-    public RegisterFromASCmd(AbstractSystemSubject abstractSystemSubject) {
-        this.abstractSystemSubject = abstractSystemSubject;
+    public RegisterFromProjSubjectCmd(ProjectSubject projectSubject) {
+        this.projectSubject = projectSubject;
         this.subsriptionTypes = new HashMap<>();
         this.subsriptionTypes.put("newtag", 1);
         this.subsriptionTypes.put("specifictags", 2);
         this.subsriptionTypes.put("comment", 3);
         this.subsriptionTypes.put("creation", 4);
+        this.subsriptionTypes.put("newmilestone", 5);
+        this.subsriptionTypes.put("specificmilestone", 6);
+        this.subsriptionTypes.put("version", 7);
+        this.subsriptionTypes.put("fork", 8);
     }
 
     private HashMap<String, Integer> subsriptionTypes;
-    private AbstractSystemSubject abstractSystemSubject;
+    private ProjectSubject projectSubject;
 
     /**
      * Execute the command and register for a certain change.
@@ -55,17 +67,30 @@ public class RegisterFromASCmd implements Cmd<Object> {
         AbstractMailbox newMailbox;
         switch (index) {
             case 1:
-                newMailbox = model.registerForAllTagsNotifications(user, abstractSystemSubject);
+                newMailbox = model.registerForAllTagsNotifications(user, projectSubject);
                 break;
             case 2:
                 EnumSet<Tag> selectedTags = new SelectTagsCmd().exec(scan, model, user);
-                newMailbox = model.registerForSpecificTagsNotifications(user, abstractSystemSubject, selectedTags);
+                newMailbox = model.registerForSpecificTagsNotifications(user, projectSubject, selectedTags);
                 break;
             case 3:
-                newMailbox = model.registerForCommentNotifications(user, abstractSystemSubject);
+                newMailbox = model.registerForCommentNotifications(user, projectSubject);
                 break;
             case 4:
-                newMailbox = model.registerForCreationNotifications(user, abstractSystemSubject);
+                newMailbox = model.registerForCreationNotifications(user, projectSubject);
+                break;
+            case 5:
+                newMailbox = model.registerForAllMilestoneNotifactions(user, projectSubject);
+                break;
+            case 6:
+                Milestone milestone = new SelectMilestoneCmd().exec(scan, null, null);
+                newMailbox = model.registerForMilestoneNotifactions(user, projectSubject, milestone);
+                break;
+            case 7:
+                newMailbox = model.registerForVersionNotifications(user, projectSubject);
+                break;
+            case 8:
+                newMailbox = model.registerForForkNotifactions(user, projectSubject);
                 break;
             default:
                 throw new IllegalArgumentException("Something went wrong with selecting " +
@@ -74,4 +99,3 @@ public class RegisterFromASCmd implements Cmd<Object> {
         return newMailbox;
     }
 }
-

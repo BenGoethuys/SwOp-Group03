@@ -2,10 +2,9 @@ package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailBox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailBox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.VersionIDMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
@@ -315,9 +314,8 @@ public class AbstractSystemTest {
         AbstractSystem oldParent = testProject.getParent();
         boolean oldIsTerminated = testProject.isTerminated();
         Milestone oldMilestone = testProject.getMilestone();
-        
-        PList<CommentMailBox> oldCommentSubs = testProject.getCommentSubs();
-        PList<CreationMailBox> oldCreationSubs = testProject.getCreationSubs();
+        PList<CommentMailbox> oldCommentSubs = testProject.getCommentSubs();
+        PList<CreationMailbox> oldCreationSubs = testProject.getCreationSubs();
         PList<TagMailBox> oldTagSubs = testProject.getTagSubs();
         PList<VersionIDMailbox> oldVersionIDSubs = testProject.getVersionIDSubs();
         PList<MilestoneMailbox> oldMilestoneSubs = testProject.getMilestoneSubs();
@@ -352,12 +350,12 @@ public class AbstractSystemTest {
 
     @Test
     public void testSetMemento_SubjectMemento() {
-        PList<CommentMailBox> oldCSubs = subSysTest.getCommentSubs();
+        PList<CommentMailbox> oldCSubs = subSysTest.getCommentSubs();
         //Store 
         SubjectMemento mem = subSysTest.getMemento();
 
         // Change
-        testProject.addCommentSub(new CommentMailBox(testProject));
+        testProject.addCommentSub(new CommentMailbox(testProject));
 
         //Revert
         testProject.setMemento(mem);

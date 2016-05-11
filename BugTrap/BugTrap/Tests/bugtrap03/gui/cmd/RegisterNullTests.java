@@ -4,7 +4,6 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
-import bugtrap03.gui.cmd.general.RegisterFromASCmd;
 import bugtrap03.gui.cmd.general.SelectTagsCmd;
 import bugtrap03.model.DataModel;
 import org.junit.Before;
@@ -106,17 +105,17 @@ public class RegisterNullTests {
 
     @Test(expected = IllegalArgumentException.class)
     public void testScanNull4() throws Exception {
-        generalNullScan(new RegisterFromASCmd(project));
+        generalNullScan(new RegisterFromASSubjCmd(project));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testModelNull4() throws Exception {
-        generalNullMode(new RegisterFromASCmd(project));
+        generalNullMode(new RegisterFromASSubjCmd(project));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testUserNull4() throws Exception {
-        generalNullUser(new RegisterFromASCmd(project));
+        generalNullUser(new RegisterFromASSubjCmd(project));
     }
 
     @Test(expected = IllegalArgumentException.class)

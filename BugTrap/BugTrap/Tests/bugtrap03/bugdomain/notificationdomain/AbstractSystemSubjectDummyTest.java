@@ -5,7 +5,7 @@ import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailBox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -26,7 +26,7 @@ public class AbstractSystemSubjectDummyTest {
     private static Project assubjectDummyProject;
     private static Subsystem assubjectDummySubsystem;
     private static BugReport assubjectDummyBugreport;
-    private static CreationMailBox asssubjectDummyCrMB;
+    private static CreationMailbox asssubjectDummyCrMB;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -60,7 +60,7 @@ public class AbstractSystemSubjectDummyTest {
 
     @Test
     public void testAddCreationSub() throws Exception {
-        CreationMailBox extraCMrB = assubjectDummyDev.getMailbox().creationSubscribe(testDummy);
+        CreationMailbox extraCMrB = assubjectDummyDev.getMailbox().creationSubscribe(testDummy);
         assertTrue(extraCMrB.getNotifications().isEmpty());
         testDummy.updateCreationSubs(assubjectDummyBugreport);
         assertFalse(extraCMrB.getNotifications().isEmpty());
@@ -68,7 +68,7 @@ public class AbstractSystemSubjectDummyTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testAddCreationSubNull() throws Exception {
-        CreationMailBox box = null;
+        CreationMailbox box = null;
         testDummy.addCreationSub(box);
     }
 

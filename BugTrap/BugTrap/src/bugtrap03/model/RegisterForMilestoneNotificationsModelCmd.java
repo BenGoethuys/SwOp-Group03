@@ -49,7 +49,7 @@ class RegisterForMilestoneNotificationsModelCmd extends RegisterForNotifications
 
     /**
      * This method executes this model command.
-     * @return The created TagMailBox representing the subscription that contains the notifications
+     * @return The created TagMailbox representing the subscription that contains the notifications
      * @throws IllegalArgumentException If subject is terminated
      * @throws IllegalStateException if the state of this command is invalid
      * @see bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox#milestoneSubscribe(AbstractSystemSubject)
