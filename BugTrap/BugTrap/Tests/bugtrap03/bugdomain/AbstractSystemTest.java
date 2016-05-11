@@ -435,7 +435,6 @@ public class AbstractSystemTest {
     @Test(expected = IllegalArgumentException.class)
     public void testAddSubsystem_AlreadyIn() {
         Subsystem subSysTestB = testProject.addSubsystem(subVersion, subName, subDescription);
-        
         subSysTest.addSubsystem(subSysTestB);
     }
 
