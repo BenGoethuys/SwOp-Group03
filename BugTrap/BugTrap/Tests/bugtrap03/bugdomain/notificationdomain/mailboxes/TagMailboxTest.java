@@ -53,6 +53,8 @@ public class TagMailboxTest {
         assertFalse(testTMB.getNotifications().contains(bugReportNotification4MB2));
         int size = testTMB.getNotifications().size();
         bugreport4MB.addUser(dev4TMB, dev4TMB);
+        BugReportNotification bugReportNotification2 = testTMB.update(bugreport4MB);
+        assertEquals(null, bugReportNotification2);
         assertEquals(size,testTMB.getNotifications().size());
     }
 
