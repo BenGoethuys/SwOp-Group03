@@ -8,6 +8,8 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 
 /**
+ * This command represents the use case for giving the Tag Duplicate to a bug report
+ *
  * @author Group 03
  */
 public class SetDuplicateBugReportCmd implements Cmd<BugReport> {

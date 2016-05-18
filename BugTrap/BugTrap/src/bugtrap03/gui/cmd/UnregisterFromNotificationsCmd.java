@@ -9,6 +9,8 @@ import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
+ * This command represents the use case to unregister the logged in user for a notification
+ *
  * @author Group 03
  */
 public class UnregisterFromNotificationsCmd implements Cmd<AbstractMailbox> {

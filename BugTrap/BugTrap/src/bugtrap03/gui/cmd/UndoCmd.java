@@ -10,8 +10,9 @@ import bugtrap03.model.ModelCmd;
 import purecollections.PList;
 
 /**
+ * This command represents the use case for undoing one or several executed commands
  *
- * @author Admin
+ * @author Group 03
  */
 public class UndoCmd implements Cmd<Boolean> {
 
