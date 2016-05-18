@@ -3,7 +3,6 @@ package bugtrap03.bugdomain.usersystem;
 import bugtrap03.bugdomain.DomainAPI;
 
 /**
- *
  * An Immutable class that holds several statistics.
  *
  * @author Group 03

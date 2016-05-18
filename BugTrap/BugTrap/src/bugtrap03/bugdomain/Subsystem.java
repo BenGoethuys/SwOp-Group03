@@ -22,10 +22,10 @@ public class Subsystem extends AbstractSystem {
     /**
      * This constructor makes an element of the class subsystem, using it's superclass, AbstractSystem, constructor.
      *
-     * @param version The versionID (of that type) of this element.
-     * @param name The string name for this element.
+     * @param version     The versionID (of that type) of this element.
+     * @param name        The string name for this element.
      * @param description The string description of this element.
-     * @param parent The parent (a Project or Subsystem) of this element.
+     * @param parent      The parent (a Project or Subsystem) of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if the version id is invalid.
      * @throws IllegalArgumentException if the parent is invalid for this subsystem
@@ -33,46 +33,44 @@ public class Subsystem extends AbstractSystem {
      */
     protected Subsystem(VersionID version, String name, String description, AbstractSystem parent)
             throws IllegalArgumentException {
-	super(parent, version, name, description);
-	this.bugReportList = PList.<BugReport> empty();
+        super(parent, version, name, description);
+        this.bugReportList = PList.<BugReport>empty();
     }
 
     /**
      * This constructor makes an element of the class subsystem, using it's superclass, AbstractSystem, constructor.
      *
-     * @param version The versionID (of that type) of this element.
-     * @param name The string name for this element.
+     * @param version     The versionID (of that type) of this element.
+     * @param name        The string name for this element.
      * @param description The string description of this element.
-     * @param parent The parent (a Project or Subsystem) of this element.
-     * @param milestone The milestone of this element.
-     *
+     * @param parent      The parent (a Project or Subsystem) of this element.
+     * @param milestone   The milestone of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if the version id is invalid.
      * @throws IllegalArgumentException if the parent is invalid for this subsystem
      * @throws IllegalArgumentException If the milestone is invalid
-     *
      * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String, Milestone)
      */
     protected Subsystem(VersionID version, String name, String description, AbstractSystem parent,
-            Milestone milestone) {
-	super(parent, version, name, description, milestone);
-	this.bugReportList = PList.<BugReport> empty();
+                        Milestone milestone) {
+        super(parent, version, name, description, milestone);
+        this.bugReportList = PList.<BugReport>empty();
     }
 
     /**
      * This constructor makes an element of the class subsystem, using it's superclass, AbstractSystem, constructor.
      *
-     * @param name The string name for this element.
+     * @param name        The string name for this element.
      * @param description The string description of this element.
-     * @param parent The parent (a Project or Subsystem) of this element.
+     * @param parent      The parent (a Project or Subsystem) of this element.
      * @throws IllegalArgumentException if one of the String arguments is invalid.
      * @throws IllegalArgumentException if the version id is invalid.
      * @throws IllegalArgumentException if the parent is invalid for this subsystem
      * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
      */
     protected Subsystem(String name, String description, AbstractSystem parent) throws IllegalArgumentException {
-	super(parent, name, description);
-	this.bugReportList = PList.<BugReport> empty();
+        super(parent, name, description);
+        this.bugReportList = PList.<BugReport>empty();
     }
 
     private PList<BugReport> bugReportList;
@@ -125,6 +123,7 @@ public class Subsystem extends AbstractSystem {
     // protected AbstractSystem getParent() {
     // return this.parent;
     // }
+
     /**
      * This method returns the list of bug reports of this subsystem
      *
@@ -132,7 +131,7 @@ public class Subsystem extends AbstractSystem {
      */
     @DomainAPI
     public PList<BugReport> getBugReportList() {
-	return this.bugReportList;
+        return this.bugReportList;
     }
 
     /**
@@ -143,12 +142,12 @@ public class Subsystem extends AbstractSystem {
     @Override
     @DomainAPI
     public PList<BugReport> getAllBugReports() {
-	PList<BugReport> list = super.getAllBugReports();
-	if (this.getBugReportList() != null) {
-	    // will be null during initialisation !
-	    list = list.plusAll(this.getBugReportList());
-	}
-	return list;
+        PList<BugReport> list = super.getAllBugReports();
+        if (this.getBugReportList() != null) {
+            // will be null during initialisation !
+            list = list.plusAll(this.getBugReportList());
+        }
+        return list;
     }
 
     /**
@@ -159,36 +158,43 @@ public class Subsystem extends AbstractSystem {
     @Override
     @DomainAPI
     public double getBugImpact() {
-	double impact = 0.0;
+        double impact = 0.0;
 
-	PList<BugReport> bugReports = this.getBugReportList();
-	for (BugReport bugReport : bugReports) {
-	    impact += bugReport.getBugImpact();
-	}
+        PList<BugReport> bugReports = this.getBugReportList();
+        for (BugReport bugReport : bugReports) {
+            impact += bugReport.getBugImpact();
+        }
 
-	PList<Subsystem> subsystems = this.getSubsystems();
-	for (Subsystem subsystem : subsystems) {
-	    impact += subsystem.getBugImpact();
-	}
+        PList<Subsystem> subsystems = this.getSubsystems();
+        for (Subsystem subsystem : subsystems) {
+            impact += subsystem.getBugImpact();
+        }
 
-	return impact;
+        return impact;
     }
 
     /**
      * This method creates and adds a bug report to the list of associated bugReports of this subsystem
      *
-     * @param creator The User that wants to create this bug report
-     * @param title The title of the bugReport
-     * @param description The description of the bugReport
+     * @param creator      The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param milestone The milestone of the bug report
+     * @param milestone    The milestone of the bug report
      * @param impactFactor The impact factor of the new bug rport
-     * @param isPrivate The boolean that says if this bug report should be
-     *            private or not
-     * @param trigger A trigger used to trigger the bug
-     * @param stacktrace The stacktrace got when the bug was triggered
-     * @param error The error got when the bug was triggered
+     * @param isPrivate    The boolean that says if this bug report should be
+     *                     private or not
+     * @param trigger      A trigger used to trigger the bug
+     * @param stacktrace   The stacktrace got when the bug was triggered
+     * @param error        The error got when the bug was triggered
+     * @return The create bug report
+     * <p>
+     * <br>
+     * <dt><b>Postconditions:</b>
+     * <dd>if creationDate == null: result.getDate() == current date at the moment of initialization <br>
+     * <dt><b>Postconditions:</b>
+     * <dd>result.getUniqueID() is an unique ID for this bug report
      * @throws IllegalArgumentException if isValidCreator(creator) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -198,17 +204,7 @@ public class Subsystem extends AbstractSystem {
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
      * @throws IllegalArgumentException if the given impact factor is invalid
-     *
-     * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
-     *
-     * @return The create bug report
-     *
-     * <br>
-     * <dt><b>Postconditions:</b>
-     * <dd>if creationDate == null: result.getDate() == current date at the moment of initialization <br>
-     * <dt><b>Postconditions:</b>
-     * <dd>result.getUniqueID() is an unique ID for this bug report
-     *
+     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -221,30 +217,29 @@ public class Subsystem extends AbstractSystem {
      */
     @Ensures("result.getTag() == Tag.New && result.getUniqueID() != null")
     public BugReport addBugReport(User creator, String title, String description, GregorianCalendar creationDate,
-            PList<BugReport> dependencies, Milestone milestone, double impactFactor, boolean isPrivate, String trigger,
-            String stacktrace, String error) throws IllegalArgumentException, PermissionException {
-	BugReport bugReport;
-	if (creationDate == null) {
-	    bugReport = new BugReport(creator, title, description, new GregorianCalendar(), dependencies, this,
-	            milestone, impactFactor, isPrivate, trigger, stacktrace, error);
-	} else {
-	    bugReport = new BugReport(creator, title, description, creationDate, dependencies, this, milestone,
-	            impactFactor, isPrivate, trigger, stacktrace, error);
-	}
-	this.bugReportList = this.getBugReportList().plus(bugReport);
-	this.notifyCreationSubs(bugReport);
-	return bugReport;
+                                  PList<BugReport> dependencies, Milestone milestone, double impactFactor, boolean isPrivate, String trigger,
+                                  String stacktrace, String error) throws IllegalArgumentException, PermissionException {
+        BugReport bugReport;
+        if (creationDate == null) {
+            bugReport = new BugReport(creator, title, description, new GregorianCalendar(), dependencies, this,
+                    milestone, impactFactor, isPrivate, trigger, stacktrace, error);
+        } else {
+            bugReport = new BugReport(creator, title, description, creationDate, dependencies, this, milestone,
+                    impactFactor, isPrivate, trigger, stacktrace, error);
+        }
+        this.bugReportList = this.getBugReportList().plus(bugReport);
+        this.notifyCreationSubs(bugReport);
+        return bugReport;
     }
 
     /**
      * This is a private method to add an existing bug report to this subsystem
      *
      * @param bugReport The bug report to add to this subsystem
-     *
      * @throws IllegalArgumentException If the given bug report is null or does not belong to this subsystem
      */
     private void addBugReport(BugReport bugReport) throws IllegalArgumentException {
-        if (bugReport ==  null || bugReport.getSubsystem() != this){
+        if (bugReport == null || bugReport.getSubsystem() != this) {
             throw new IllegalArgumentException("The given bug report is not valid for this subsystem");
         }
         this.bugReportList = this.getBugReportList().plus(bugReport);
@@ -257,7 +252,7 @@ public class Subsystem extends AbstractSystem {
      * @param bugReport The bugReport to delete.
      */
     public void deleteBugReport(BugReport bugReport) {
-	this.bugReportList = this.bugReportList.minus(bugReport);
+        this.bugReportList = this.bugReportList.minus(bugReport);
     }
 
     /**
@@ -271,11 +266,11 @@ public class Subsystem extends AbstractSystem {
      * @see Subsystem#Subsystem(VersionID, String, String, AbstractSystem)
      */
     public Subsystem cloneSubsystem(AbstractSystem parent) throws IllegalArgumentException {
-	Subsystem clone = parent.addSubsystem(this.getVersionID().clone(), this.getName(), this.getDescription());
-	for (Subsystem child : this.getSubsystems()) {
-	    child.cloneSubsystem(clone);
-	}
-	return clone;
+        Subsystem clone = parent.addSubsystem(this.getVersionID().clone(), this.getName(), this.getDescription());
+        for (Subsystem child : this.getSubsystems()) {
+            child.cloneSubsystem(clone);
+        }
+        return clone;
     }
 
     /**
@@ -287,22 +282,22 @@ public class Subsystem extends AbstractSystem {
     @DomainAPI
     @Override
     public String getDetails() {
-	String details = "\n\n\tSubsystem name:\t\t\t";
-	details += this.getName();
-	details += "\n\tSubsystem version:\t\t";
-	details += this.getVersionID().toString();
-	details += "\n\tAchieved milestone:\t\t";
-	details += this.getMilestone().toString();
-	details += "\n\tSubsystem description: \t\t";
-	details += this.getDescription();
-	details += "\n\tSubsystem parent: \t\t";
-	details += this.getParent().getName();
-	details += "\n\tSubsystem from project: \t";
-	details += this.getParentProject().getName();
-	details += "\n\tHealth indicator Algorithm 1: \t" + this.getIndicator(new HealthAlgorithm1());
-	details += "\n\tHealth indicator Algorithm 2: \t" + this.getIndicator(new HealthAlgorithm2());
-	details += "\n\tHealth indicator Algorithm 3: \t" + this.getIndicator(new HealthAlgorithm3());
-	return details;
+        String details = "\n\n\tSubsystem name:\t\t\t";
+        details += this.getName();
+        details += "\n\tSubsystem version:\t\t";
+        details += this.getVersionID().toString();
+        details += "\n\tAchieved milestone:\t\t";
+        details += this.getMilestone().toString();
+        details += "\n\tSubsystem description: \t\t";
+        details += this.getDescription();
+        details += "\n\tSubsystem parent: \t\t";
+        details += this.getParent().getName();
+        details += "\n\tSubsystem from project: \t";
+        details += this.getParentProject().getName();
+        details += "\n\tHealth indicator Algorithm 1: \t" + this.getIndicator(new HealthAlgorithm1());
+        details += "\n\tHealth indicator Algorithm 2: \t" + this.getIndicator(new HealthAlgorithm2());
+        details += "\n\tHealth indicator Algorithm 3: \t" + this.getIndicator(new HealthAlgorithm3());
+        return details;
     }
 
     /**
@@ -313,12 +308,12 @@ public class Subsystem extends AbstractSystem {
     @Override
     @DomainAPI
     public String getSubjectName() {
-	return ("Subsystem " + this.getName());
+        return ("Subsystem " + this.getName());
     }
 
     @Override
     public HealthIndicator getIndicator(HealthAlgorithm ha) {
-	return ha.getIndicator(this);
+        return ha.getIndicator(this);
     }
 
     /**
@@ -330,14 +325,14 @@ public class Subsystem extends AbstractSystem {
     public SubsystemMemento getMemento() {
         return new SubsystemMemento(getTagSubs(), getCommentSubs(), getCreationSubs(), getMilestoneSubs(), getVersionIDSubs(), getVersionID(), getName(), getDescription(), this.getSubsystems(), this.getParent(), this.getMilestone(), this.bugReportList, this.isTerminated);
     }
-    
+
     @Override
     public void setMemento(SubjectMemento mem) {
         super.setMemento(mem);
-        
-        if(mem instanceof SubsystemMemento) {
+
+        if (mem instanceof SubsystemMemento) {
             SubsystemMemento sMem = (SubsystemMemento) mem;
-    
+
             this.bugReportList = sMem.getBugReportList();
             sMem.restoreBugReports();
         }
@@ -347,22 +342,21 @@ public class Subsystem extends AbstractSystem {
      * This will split this Subsystem into this and another Subsystem.
      * <br>This Subsystem will keep all its direct Subsystems and BugReports that are also in subsystems1 and
      * bugReports1 respectively. The rest of the direct Subsystems and BugReports will go to the extra Subsystem.
-     * 
+     * <p>
      * <p>
      * <b> Warning: A invalid argument may cause a partially executed split. e.g Invalid argument for the 2nd subsystem
      * may still cause the name and description for subsystem 1 to be set before the error. </b>
      *
-     * @param name1 The name for this Subsystem.
-     * @param desc1 The description for this Subsystem.
-     * @param name2 The name for the extra Subsystem.
-     * @param desc2 The description for the extra Subsystem.
+     * @param name1       The name for this Subsystem.
+     * @param desc1       The description for this Subsystem.
+     * @param name2       The name for the extra Subsystem.
+     * @param desc2       The description for the extra Subsystem.
      * @param subsystems1 The subsystems that will be part of this Subsystem if they are now also direct Subsystems.
      * @param bugReports1 The bugReports that will be part if this Subsystem if they are now also direct BugReports.
-     * @param user The user who wants to split the subsystem.
+     * @param user        The user who wants to split the subsystem.
      * @return The extra created Subsystem.
-     *
-     * @throws PermissionException When user does not have sufficient permissions.
-     * @throws IllegalStateException When this is terminated.
+     * @throws PermissionException      When user does not have sufficient permissions.
+     * @throws IllegalStateException    When this is terminated.
      * @throws IllegalArgumentException When subsystems1 == null
      * @throws IllegalArgumentException When bugReports1 == null
      * @throws IllegalArgumentException When any of the arguments is invalid. (such as name and description).
@@ -376,11 +370,11 @@ public class Subsystem extends AbstractSystem {
         if (!user.hasPermission(UserPerm.SPLIT_SUBSYS)) {
             throw new PermissionException("You do not have sufficient permissions to split a subsystem.");
         }
-        
-        if(this.isTerminated()) {
+
+        if (this.isTerminated()) {
             throw new IllegalStateException("The subsystem cannot be split when terminated.");
         }
-        
+
         //Set current subsystem
         this.setName(name1);
         this.setDescription(desc1);
@@ -409,32 +403,29 @@ public class Subsystem extends AbstractSystem {
                 resultSubsystem2.bugReportList = resultSubsystem2.bugReportList.plus(bugReport);
             }
         }
-        
+
         //Set subscribers
         resultSubsystem2.addMilestoneSub(this.getMilestoneSubs());
         resultSubsystem2.addVersionIDSub(this.getVersionIDSubs());
         resultSubsystem2.addTagSub(this.getTagSubs());
         resultSubsystem2.addCommentSub(this.getCommentSubs());
         resultSubsystem2.addCreationSub(this.getCreationSubs());
-        
+
         return resultSubsystem2;
     }
 
     /**
      * WARNING: This method doesn't guarantee a consistent state of the subsystem if it fails!
-     *
+     * <p>
      * This method merges a given subsystem with this subsystem and renames this subsystem and redefines the description
      *
-     * @param user          The user that wants to merge the subsystems
-     * @param subsystem     The subsystem to merge with
-     * @param name          The new name of this subsystem
-     * @param description   The new description of this subsystem
-     *
-     * @return  The merged subsystem
-     *
+     * @param user        The user that wants to merge the subsystems
+     * @param subsystem   The subsystem to merge with
+     * @param name        The new name of this subsystem
+     * @param description The new description of this subsystem
+     * @return The merged subsystem
      * @throws PermissionException      If the given user doesn't have the needed permission to merge subsystems
      * @throws IllegalArgumentException If one of the given arguments is invalid
-     *
      * @see AbstractSystem#isValidName(String)
      * @see AbstractSystem#isValidDescription(String)
      * @see #isValidMergeSubsystem(Subsystem)
@@ -442,15 +433,15 @@ public class Subsystem extends AbstractSystem {
     public Subsystem mergeWithSubsystem(User user, Subsystem subsystem, String name, String description)
             throws PermissionException, IllegalArgumentException {
 
-        if (user == null){
+        if (user == null) {
             throw new IllegalArgumentException("The given arguments cannot be null");
         }
 
-        if (! user.hasPermission(UserPerm.MERGE_SUBSYS)){
+        if (!user.hasPermission(UserPerm.MERGE_SUBSYS)) {
             throw new PermissionException("The given user doesn't have the permission to merge subsystems");
         }
 
-        if (! this.isValidMergeSubsystem(subsystem)){
+        if (!this.isValidMergeSubsystem(subsystem)) {
             throw new IllegalArgumentException("Cannot merge with the given subsystem");
         }
         // terminate subsystem
@@ -462,7 +453,7 @@ public class Subsystem extends AbstractSystem {
         this.setDescription(description);
 
         // add childs to this subsystem
-        for (Subsystem temp : subsystem.getSubsystems()){
+        for (Subsystem temp : subsystem.getSubsystems()) {
             temp.setParent(this);
             this.addSubsystem(temp);
         }
@@ -475,7 +466,7 @@ public class Subsystem extends AbstractSystem {
         // move bug reports for given subsystem
         PList<BugReport> list = subsystem.getBugReportList();
         // set new parent + add
-        for (BugReport bugReport : list){
+        for (BugReport bugReport : list) {
             bugReport.setSubsystem(this);
             this.addBugReport(bugReport);
         }
@@ -503,32 +494,31 @@ public class Subsystem extends AbstractSystem {
      * This method checks whether or not the given subsystem can be merged with this subsystem
      *
      * @param subsystem The child or sibling subsystem to merge
-     *
-     * @return  The given subsystem must be a sibling OR the parent of the given subsystem must be this. Both this and the subsystem must not be terminated.
+     * @return The given subsystem must be a sibling OR the parent of the given subsystem must be this. Both this and the subsystem must not be terminated.
      */
     @DomainAPI
-    public boolean isValidMergeSubsystem(Subsystem subsystem){
-        if (this.isTerminated()){
+    public boolean isValidMergeSubsystem(Subsystem subsystem) {
+        if (this.isTerminated()) {
             return false;
         }
 
-        if (subsystem == null){
+        if (subsystem == null) {
             return false;
         }
-        
-        if (subsystem == this){
+
+        if (subsystem == this) {
             return false;
         }
-        
-        if (subsystem.isTerminated()){
+
+        if (subsystem.isTerminated()) {
             return false;
         }
-        
-        if (subsystem.getParent() == this){
+
+        if (subsystem.getParent() == this) {
             return true;
         }
-        
-        if (subsystem.getParent() == this.getParent()){
+
+        if (subsystem.getParent() == this.getParent()) {
             return true;
         }
         return false;

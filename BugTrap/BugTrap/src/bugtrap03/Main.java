@@ -1,10 +1,10 @@
 package bugtrap03;
 
 import bugtrap03.bugdomain.Milestone;
-import bugtrap03.bugdomain.VersionID;
-import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
+import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -58,10 +58,10 @@ public class Main {
         Issuer charlie = model.createIssuer("charlie", "Charles", "Arnold", "Berg");
         Developer major = model.createDeveloper("major", "Joseph", "Mays");
         Developer maria = model.createDeveloper("maria", "Maria", "Carney");
-        
+
         try {
             // create projectA
-            Project projectA = model.createProject(new VersionID(5,0), "ProjectA", "Description of projectA", major, 10000, admin);
+            Project projectA = model.createProject(new VersionID(5, 0), "ProjectA", "Description of projectA", major, 10000, admin);
             // add asked roles
             model.assignToProject(projectA, major, maria, Role.PROGRAMMER);
             model.assignToProject(projectA, major, maria, Role.TESTER);
@@ -83,12 +83,12 @@ public class Main {
                     "Launch with command line invocation:...", "Exception in thread \"main\" java.lang...", null);
 
             // set milestones
-            model.setMilestone(major, projectA, new Milestone(2,5));
-            model.setMilestone(major, subsystemA1, new Milestone(2,5,1));
+            model.setMilestone(major, projectA, new Milestone(2, 5));
+            model.setMilestone(major, subsystemA1, new Milestone(2, 5, 1));
             //model.setMilestone(major, subsystemA2, new Milestone(2,5));
-            model.setMilestone(major, subsystemA3, new Milestone(2,8,5));
-            model.setMilestone(major, subsystemA3_1, new Milestone(2,8,5,3));
-            model.setMilestone(major, subsystemA3_2, new Milestone(2,9));
+            model.setMilestone(major, subsystemA3, new Milestone(2, 8, 5));
+            model.setMilestone(major, subsystemA3_1, new Milestone(2, 8, 5, 3));
+            model.setMilestone(major, subsystemA3_2, new Milestone(2, 9));
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
             System.err.println(e.getMessage());
@@ -97,7 +97,7 @@ public class Main {
         Project projectB;
         try {
             // create projectB
-            projectB = model.createProject(new VersionID(0,4), "ProjectB", "Description of projectB", maria, 10000, admin);
+            projectB = model.createProject(new VersionID(0, 4), "ProjectB", "Description of projectB", maria, 10000, admin);
             // add asked roles
             model.assignToProject(projectB, maria, major, Role.PROGRAMMER);
             // add tester to ProjectB -> is needed bug not in assignment
@@ -109,7 +109,7 @@ public class Main {
             // make bug report 1
             BugReport bugRep1 = model.createBugReport(subsystemB1, doc, "The function parse_ewd returns unexpected results",
                     "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 0, 3),
-                    PList.<BugReport>empty(), new Milestone(1,1), 7.1, false, null, null, null);
+                    PList.<BugReport>empty(), new Milestone(1, 1), 7.1, false, null, null, null);
             // add user -> assigned
             model.addUsersToBugReport(maria, bugRep1, PList.<Developer>empty().plus(maria));
             // add tests -> assignedWithTest
@@ -129,8 +129,8 @@ public class Main {
             model.giveScore(bugRep1, doc, 4);
 
             // set milestones
-            model.setMilestone(major, projectB, new Milestone(1,2));
-            model.setMilestone(major, subsystemB1, new Milestone(1,3));
+            model.setMilestone(major, projectB, new Milestone(1, 2));
+            model.setMilestone(major, subsystemB1, new Milestone(1, 3));
         } catch (IllegalArgumentException | PermissionException e) {
             System.err.println("Unexpected error at initDemo");
             System.err.println(e.getMessage());

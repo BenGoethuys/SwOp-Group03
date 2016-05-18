@@ -1,9 +1,9 @@
 package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.Milestone;
-import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
@@ -40,12 +40,12 @@ public class CreateBugReportCmd implements Cmd<BugReport> {
      * <br> 9. The issuer selects the dependencies.
      * <br> 10. The system creates the bug report.
      *
-     * @param scan The scanner used to interact with the person.
+     * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user The {@link User} who wants to executes this command.
+     * @param user  The {@link User} who wants to executes this command.
      * @return The created bug report.
-     * @throws PermissionException When the user does not have sufficient permissions.
-     * @throws CancelException When the users wants to abort the current cmd
+     * @throws PermissionException      When the user does not have sufficient permissions.
+     * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalArgumentException When scan, model,user is null
      * @throws IllegalArgumentException When there are no projects.
      * @throws IllegalArgumentException When the user has selected a project where for there are no subsystems.
@@ -158,7 +158,7 @@ public class CreateBugReportCmd implements Cmd<BugReport> {
         do {
             scan.println("Give the impact factor I of the bug report: (0 < I <= 10)");
             impactfactor = new GetIntCmd().exec(scan, model, user);
-        } while (! BugReport.isValidImpactFactor(impactfactor));
+        } while (!BugReport.isValidImpactFactor(impactfactor));
 
         // 14. The system creates the bug report.
         BugReport bugreport = model.createBugReport(subsys, user, bugreportTitle, bugReportDesc, null,

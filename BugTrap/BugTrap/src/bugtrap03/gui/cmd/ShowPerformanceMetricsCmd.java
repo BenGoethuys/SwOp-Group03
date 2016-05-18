@@ -1,10 +1,6 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.bugdomain.HealthAlgorithm;
-import bugtrap03.bugdomain.HealthAlgorithm1;
-import bugtrap03.bugdomain.HealthAlgorithm2;
-import bugtrap03.bugdomain.HealthAlgorithm3;
-import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.*;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
@@ -44,11 +40,11 @@ public class ShowPerformanceMetricsCmd implements Cmd<Object> {
      * <br>The average lines of code for each submitted patch
      * <br>The total number of patches submitted
      *
-     * @param scan The scanner used to interact with the person.
+     * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param dummy A dummy value.
      * @return null
-     * @throws CancelException When the users wants to abort the current cmd
+     * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalArgumentException When scan or model == null.
      */
     @Override
@@ -78,7 +74,7 @@ public class ShowPerformanceMetricsCmd implements Cmd<Object> {
      * Print the details of the given developer.
      *
      * @param scan The scanner used to print the details. Must not be null.
-     * @param dev The developer to print the details of. Must not be null.
+     * @param dev  The developer to print the details of. Must not be null.
      */
     private void showDetails(TerminalScanner scan, Developer dev) {
         scan.println("--Developer details--");
@@ -88,9 +84,9 @@ public class ShowPerformanceMetricsCmd implements Cmd<Object> {
     /**
      * Print the performance metrics for a certain developer.
      *
-     * @param scan The scanner used to print the metrics. Must not be null.
+     * @param scan  The scanner used to print the metrics. Must not be null.
      * @param model The DataModel used to gather statistics with. Must not be null.
-     * @param dev The developer to print the metrics of. Must not be null.
+     * @param dev   The developer to print the metrics of. Must not be null.
      */
     private void showPerformanceMetrics(TerminalScanner scan, DataModel model, Developer dev) {
         //Report
@@ -132,9 +128,9 @@ public class ShowPerformanceMetricsCmd implements Cmd<Object> {
     /**
      * Get the health indicators of the given projects in String form.
      * <br> For each project the indicator based on every algorithm will be added.
-     * 
+     *
      * @param projects The projects to get the indicators for.
-     * @param ha The health algorithms used for the indicators.
+     * @param ha       The health algorithms used for the indicators.
      * @return The String containing the indicators for every project for every algorithm.
      */
     private String getAllHealthIndicators(PList<Project> projects, HealthAlgorithm... ha) {

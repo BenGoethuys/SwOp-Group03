@@ -14,15 +14,15 @@ class MergeSubsystemsModelCmd extends ModelCmd {
     /**
      * The constructor of this model cmd
      *
-     * @param user              The user that wants to merge the subsystems
-     * @param subsystem1        The first subsystem to merge
-     * @param subsystem2        The second subsystem to merge
-     * @param newName           The new name of the merged subsystem
-     * @param newDescription    The new description of the merged subsystem
+     * @param user           The user that wants to merge the subsystems
+     * @param subsystem1     The first subsystem to merge
+     * @param subsystem2     The second subsystem to merge
+     * @param newName        The new name of the merged subsystem
+     * @param newDescription The new description of the merged subsystem
      */
-    MergeSubsystemsModelCmd(User user, Subsystem subsystem1, Subsystem subsystem2, String newName, String newDescription){
+    MergeSubsystemsModelCmd(User user, Subsystem subsystem1, Subsystem subsystem2, String newName, String newDescription) {
         // user null, newName null and newDescription null will be tested automatically
-        if (subsystem1 == null || subsystem2 == null){
+        if (subsystem1 == null || subsystem2 == null) {
             throw new IllegalArgumentException("The given subsystem cannot be null");
         }
 
@@ -52,7 +52,6 @@ class MergeSubsystemsModelCmd extends ModelCmd {
      * @throws NullPointerException     When there is a null where it shouldn't. Read ModelCmd specific documentation.
      * @throws PermissionException      When the user does not have sufficient permissions
      * @throws IllegalStateException    When the command is already executed.
-     *
      * @returns This is ModelCommand-subclass specific. null when there is nothing to report.
      */
     @Override
@@ -63,7 +62,7 @@ class MergeSubsystemsModelCmd extends ModelCmd {
         }
 
         // get highest parent of both
-        if (subsystem1.getParent() == subsystem2){
+        if (subsystem1.getParent() == subsystem2) {
             this.parent = subsystem2.getParent();
         } else {
             this.parent = subsystem1.getParent();
@@ -82,7 +81,7 @@ class MergeSubsystemsModelCmd extends ModelCmd {
                 subsystem = subsystem1.mergeWithSubsystem(user, subsystem2, newName, newDescription);
             }
 
-        } catch (Exception exc){
+        } catch (Exception exc) {
             // something went wrong -> restore state
             parent.setMemento(memento);
 

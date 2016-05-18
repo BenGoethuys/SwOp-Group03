@@ -29,12 +29,10 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
      * @return The BugReport of which the tag has been updated.
-     *
      * @throws PermissionException      When the user doesn't have the needed permission to set the tag.
      * @throws CancelException          When the user wants to abort the process
      * @throws IllegalArgumentException If scan, model or user is null
      * @throws IllegalArgumentException If the chosen tag cannot be set
-     *
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
     @Override
@@ -55,26 +53,26 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
         // 5. The issuer provides the requested info
         // 6. The system gives the selected bug report the new tag.
         // 4a.The developer does not have the permission to assign the tag: the use case ends.
-        switch (tagToSet){
-            case ASSIGNED :
+        switch (tagToSet) {
+            case ASSIGNED:
                 this.setAssigned(user, bugrep, scan, model);
                 break;
-            case UNDER_REVIEW :
+            case UNDER_REVIEW:
                 this.setUnderReview(user, bugrep, scan, model);
                 break;
-            case RESOLVED :
+            case RESOLVED:
                 new SelectPatchCmd(bugrep).exec(scan, model, user);
                 break;
-            case CLOSED :
+            case CLOSED:
                 new GiveScoreToBugReportCmd(bugrep).exec(scan, model, user);
                 break;
-            case DUPLICATE :
+            case DUPLICATE:
                 new SetDuplicateBugReportCmd(bugrep).exec(scan, model, user);
                 break;
-            case NOT_A_BUG :
+            case NOT_A_BUG:
                 this.setNotABug(user, bugrep, model);
                 break;
-            default :
+            default:
                 throw new IllegalArgumentException("The given Tag cannot be set");
         }
         scan.println("The tag " + tagToSet.toString() + " has been set.");
@@ -106,16 +104,15 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
      * @param bugReport The bugReport that needs a Tag change
      * @param scanner   The scanner of the cmd' s
      * @param model     The model of the cmd' s
-     *
-     * @throws PermissionException      If the given user doesn't have the needed permissions
-     * @throws IllegalStateException    If the current bugReport doesn't allow the tag change
-     * @throws CancelException          If the user wants to abort the use case
+     * @throws PermissionException   If the given user doesn't have the needed permissions
+     * @throws IllegalStateException If the current bugReport doesn't allow the tag change
+     * @throws CancelException       If the user wants to abort the use case
      */
     private void setAssigned(User user, BugReport bugReport, TerminalScanner scanner, DataModel model)
             throws PermissionException, IllegalStateException, CancelException {
-        if (bugReport.getTag() == Tag.NEW){
+        if (bugReport.getTag() == Tag.NEW) {
             new AssignToBugReportCmd(bugReport).exec(scanner, model, user);
-        } else if (bugReport.getTag() == Tag.UNDER_REVIEW){
+        } else if (bugReport.getTag() == Tag.UNDER_REVIEW) {
             model.setTag(bugReport, Tag.ASSIGNED, user);
         } else {
             throw new IllegalStateException("The requested Tag cannot be set to the given bug report");
@@ -129,14 +126,13 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
      * @param bugReport The bug report that needs a tag change
      * @param scanner   The scanner of the cmd' s
      * @param model     The model of the cmd' s
-     *
-     * @throws PermissionException      If the given user doesn't have the needed permissions
-     * @throws IllegalStateException    If the current bugReport doesn't allow the tag change
-     * @throws CancelException          If the user wants to abort the use case
+     * @throws PermissionException   If the given user doesn't have the needed permissions
+     * @throws IllegalStateException If the current bugReport doesn't allow the tag change
+     * @throws CancelException       If the user wants to abort the use case
      */
     private void setUnderReview(User user, BugReport bugReport, TerminalScanner scanner, DataModel model)
             throws PermissionException, IllegalStateException, CancelException {
-        if (bugReport.getTests().isEmpty()){
+        if (bugReport.getTests().isEmpty()) {
             new ProposeTestCmd(bugReport).exec(scanner, model, user);
         }
         new ProposeTestCmd(bugReport).exec(scanner, model, user);
@@ -148,9 +144,8 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
      * @param user      The user that wants to change the Tag
      * @param bugReport The bug report that will have a tag change
      * @param model     The model of the cmd' s
-     *
-     * @throws PermissionException      If the given user doesn't have the needed permission
-     * @throws IllegalStateException    If the bug report doesn't allow the tag NotABug
+     * @throws PermissionException   If the given user doesn't have the needed permission
+     * @throws IllegalStateException If the bug report doesn't allow the tag NotABug
      */
     private void setNotABug(User user, BugReport bugReport, DataModel model)
             throws PermissionException, IllegalStateException {

@@ -12,7 +12,8 @@ public class MilestoneMailbox extends SubjectMailbox<AbstractSystem, AbstractSys
 
     /**
      * The constructor for a mailbox representing the subscription on the change of specific milestones.
-     * @param milestone The specified milestone of interest for this subscription. Can be null if all milestones are of interest.
+     *
+     * @param milestone             The specified milestone of interest for this subscription. Can be null if all milestones are of interest.
      * @param abstractSystemSubject The object from which the subscription originates.
      */
     public MilestoneMailbox(Milestone milestone, AbstractSystemSubject abstractSystemSubject) {
@@ -22,9 +23,10 @@ public class MilestoneMailbox extends SubjectMailbox<AbstractSystem, AbstractSys
 
     /**
      * A constructor without for a mailbox interested in all milestones.
+     *
      * @param abstractSystemSubject The object from which the subscription originates.
      */
-    public MilestoneMailbox(AbstractSystemSubject abstractSystemSubject){
+    public MilestoneMailbox(AbstractSystemSubject abstractSystemSubject) {
         this(null, abstractSystemSubject);
     }
 
@@ -32,15 +34,16 @@ public class MilestoneMailbox extends SubjectMailbox<AbstractSystem, AbstractSys
 
     /**
      * Tyis method returns the information about the subscription this mailbox represents.
+     *
      * @return A string containing info.
      */
     @Override
-    public String getInfo(){
+    public String getInfo() {
         StringBuilder message = new StringBuilder();
         message.append("You are subscribed to the change of ");
-        if (this.milestone == null){
+        if (this.milestone == null) {
             message.append("a new milestone");
-        } else{
+        } else {
             message.append("the specific milestone ");
             message.append(this.milestone.toString());
         }
@@ -52,28 +55,28 @@ public class MilestoneMailbox extends SubjectMailbox<AbstractSystem, AbstractSys
     /**
      * This method updated the notificationslist of this mailbox with a new notification about the interesting change
      * in the given object.
-     * @param changedObject The object of interest that has been changed.
      *
+     * @param changedObject The object of interest that has been changed.
      * @return The new notification
      * @throws IllegalArgumentException if the given changed object is null.
      */
     @Override
     public Notification update(AbstractSystem changedObject) throws IllegalArgumentException {
-        if(changedObject == null){
+        if (changedObject == null) {
             throw new IllegalArgumentException("changed object cannot be null to update a mailbox");
         }
         Notification asNotification;
-        if(this.milestone == null){
+        if (this.milestone == null) {
             asNotification = new Notification(("\tThe milestone " + changedObject.getMilestone().toString() + " has been set on: "), this.subject);
-        } else{
-            if (this.milestone == changedObject.getMilestone()){
+        } else {
+            if (this.milestone == changedObject.getMilestone()) {
                 asNotification = new Notification("\tThe milestone " + this.milestone.toString() + " has been set on: ", this.subject);
 
-            } else{
+            } else {
                 asNotification = null;
             }
         }
-        if(asNotification != null) {
+        if (asNotification != null) {
             this.addNotification(asNotification);
         }
         return asNotification;

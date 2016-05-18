@@ -6,7 +6,6 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
- *
  * @author Group 03
  */
 class SetDuplicateBugReportModelCmd extends ModelCmd {
@@ -16,8 +15,7 @@ class SetDuplicateBugReportModelCmd extends ModelCmd {
      *
      * @param bugReport The bug report that will be assigned the duplicate
      * @param duplicate The duplicate of the given bug report
-     * @param user The user who wishes to set the duplicate.
-     *
+     * @param user      The user who wishes to set the duplicate.
      * @throws IllegalArgumentException When bugReport == null
      * @throws IllegalArgumentException When duplicate == null
      * @throws IllegalArgumentException When user == null
@@ -28,7 +26,7 @@ class SetDuplicateBugReportModelCmd extends ModelCmd {
             throw new IllegalArgumentException("The bugReport, duplicate or user passed to SetDuplicateBugReportModelCmd was a null reference.");
         }
 
-        if (bugReport.isTerminated() || duplicate.isTerminated()){
+        if (bugReport.isTerminated() || duplicate.isTerminated()) {
             throw new IllegalArgumentException("the given bug report or duplicate is terminated");
         }
 
@@ -47,13 +45,12 @@ class SetDuplicateBugReportModelCmd extends ModelCmd {
 
     /**
      * This method sets the given duplicate bug report as the duplicate of the given bug report.
+     *
      * @return The bugReport that has been changed.
-     * 
-     * @throws IllegalArgumentException If the given duplicate is invalid for this bug report 
+     * @throws IllegalArgumentException If the given duplicate is invalid for this bug report
      * @throws IllegalArgumentException If bugReport or duplicate are terminated
-     * @throws PermissionException If the given user does not have the needed permission
-     * @throws IllegalStateException If the current state doesn't allow for a duplicate to be set.
-     * 
+     * @throws PermissionException      If the given user does not have the needed permission
+     * @throws IllegalStateException    If the current state doesn't allow for a duplicate to be set.
      * @see SetDuplicateBugReportModelCmd#SetDuplicateBugReportModelCmd(BugReport, BugReport, User)
      */
     @Override
@@ -65,7 +62,7 @@ class SetDuplicateBugReportModelCmd extends ModelCmd {
         if (bugReport.isTerminated() || duplicate.isTerminated()) {
             throw new IllegalArgumentException("The given bugReport or duplicate are terminated.");
         }
-        
+
         oldMem = bugReport.getMemento();
         bugReport.setDuplicate(user, duplicate);
         isExecuted = true;

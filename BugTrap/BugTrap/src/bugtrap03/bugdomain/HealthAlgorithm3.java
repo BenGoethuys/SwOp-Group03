@@ -16,7 +16,7 @@ public class HealthAlgorithm3 extends HealthAlgorithm {
     @DomainAPI
     public HealthAlgorithm3() {
     }
-    
+
     @Override
     public boolean isHealthy(AbstractSystem as) {
         return checkSubsystem(as, HealthIndicator.HEALTHY, HEALTHY);

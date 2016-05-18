@@ -54,7 +54,7 @@ public class HelpCmd implements Cmd<Object> {
             throw new IllegalArgumentException("HelpCmd requires a non null reference as scan");
         }
         scan.println("List of possible commands:");
-        for(int i = 0; i < cmdList.size(); i++) {
+        for (int i = 0; i < cmdList.size(); i++) {
             scan.println(i + ". " + cmdList.get(i).getKey());
         }
 

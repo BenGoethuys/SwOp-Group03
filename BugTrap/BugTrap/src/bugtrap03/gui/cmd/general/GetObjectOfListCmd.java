@@ -24,9 +24,7 @@ public class GetObjectOfListCmd<U extends Object> implements Cmd<U> {
      * @param listOfObjects  The list of users to pick from. When null is passed an empty list will be used.
      * @param printFunction  The function used to print the objects of the list.
      * @param selectFunction The function used to filter in the list when the user provides a String input.
-     *
      * @throws IllegalArgumentException If at least one of the functions is null
-     *
      * @see GetObjectOfListCmd#exec(TerminalScanner, DataModel, User)
      */
     public GetObjectOfListCmd(PList<U> listOfObjects, Function<U, String> printFunction, BiFunction<U, String, Boolean> selectFunction) {
@@ -54,9 +52,7 @@ public class GetObjectOfListCmd<U extends Object> implements Cmd<U> {
      * @param scan   Used to interact with the person who selects the option.
      * @param dummy2 Dummy
      * @param dummy3 Dummy
-     *
      * @return The selected option, can be null if the list of options was empty.
-     *
      * @throws IllegalArgumentException If the given scan is null
      * @throws CancelException          When the person has indicated to abort the cmd.
      */

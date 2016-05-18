@@ -22,10 +22,8 @@ public class CreateCommentCmd implements Cmd<Comment> {
      * <p>
      * <br> 1. The issuer indicates he wants to create a comment.
      * <br> 2. Include use case Select Bug Report.
-     * <br> 3. The system shows a list of all comments of the selected bug
-     * report.
-     * <br> 4. The issuer indicates if he wants to comment directly on the bug
-     * report or on some other comment.
+     * <br> 3. The system shows a list of all comments of the selected bug report.
+     * <br> 4. The issuer indicates if he wants to comment directly on the bug report or on some other comment.
      * <br> 5. The system asks for the text of the comment.
      * <br> 6. The issuer writes his comment.
      * <br> 7. The system adds the comment to the selected use case.

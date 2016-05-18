@@ -22,37 +22,35 @@ public class AssignToBugReportCmd implements Cmd<BugReport> {
 
     /**
      * Creates a {@link Cmd} for the AssignToBugReport scenario where the bugReport to add to is already chosen.
+     *
      * @param bugReport The bugReport to assign to.
      */
     public AssignToBugReportCmd(BugReport bugReport) {
         this.bugReport = bugReport;
     }
-    
+
     /**
      * Creates a {@link Cmd} for the AssignToBugReport scenario which includes a scenario to select the bug report.
      */
     public AssignToBugReportCmd() {
     }
-    
+
     private BugReport bugReport = null;
-    
-    
+
+
     /**
      * Execute this command and possibly return a result.
      * <p>
      * <p>
-     * <br> 1. The developer indicates he wants to assign a developer to a bug
-     * report.
+     * <br> 1. The developer indicates he wants to assign a developer to a bug report.
      * <br> 2. Include use case Select Bug Report if required.
-     * <br> 3. The system shows a list of developers that are involved in the
-     * project.
-     * <br> 4. The logged in developer selects one or more of the developers to
-     * assign to the selected bug report on top of those already assigned.
-     * <br> 5. The systems assigns the selected developers to the selected bug
-     * report.
+     * <br> 3. The system shows a list of developers that are involved in the project.
+     * <br> 4. The logged in developer selects one or more of the developers to assign to the selected bug report
+     * on top of those already assigned.
+     * <br> 5. The systems assigns the selected developers to the selected bug report.
      * <br> Extensions:
-     * <br> 3a. The selected bug report is of a project that the logged in
-     * developer is not involved in as lead or tester.
+     * <br> 3a. The selected bug report is of a project that the logged in developer is not
+     * involved in as lead or tester.
      * <br> 1. The use case returns to step 2.
      *
      * @param scan  The {@link TerminalScanner} used to interact with the person.
@@ -82,7 +80,7 @@ public class AssignToBugReportCmd implements Cmd<BugReport> {
 
                 // 3a. The selected bug report is of a project that the logged in developer is not involved in as lead or tester.
                 // 1. The use case returns to step 2.
-                if (! bugRep.canAssignDeveloper(user)) {
+                if (!bugRep.canAssignDeveloper(user)) {
                     scan.println("You don't have the required permission.");
                 } else {
                     hasPerm = true;
