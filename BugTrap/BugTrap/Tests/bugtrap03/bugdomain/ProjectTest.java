@@ -61,13 +61,13 @@ public class ProjectTest {
         PList<BugReport> emptyDep = PList.empty();
         Project project = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
                 testBudget);
-        Milestone projMil = new Milestone(2,4);
+        Milestone projMil = new Milestone(2, 4);
         project.setMilestone(projMil);
         Subsystem subsystem = project.addSubsystem("Subsys 1", "Description subsys 1");
         subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
                 emptyDep, null, 1, false, null, null, null);
         subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
-                emptyDep, new Milestone(5,6), 1, false, null, null, null);
+                emptyDep, new Milestone(5, 6), 1, false, null, null, null);
 
         assertFalse(project.isValidMilestone(null));
         assertTrue(project.isValidMilestone(new Milestone(3)));
@@ -437,14 +437,14 @@ public class ProjectTest {
         subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
                 emptyDep, null, 2, false, null, null, null);
         BugReport bugReport = subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
-                emptyDep, new Milestone(5,6), 5, false, null, null, null);
+                emptyDep, new Milestone(5, 6), 5, false, null, null, null);
         bugReport.addUser(testDev, testDev);
 
         Subsystem subsystem2 = testProject.addSubsystem("Subsys 1", "Description subsys 1");
         subsystem2.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
                 emptyDep, null, 1, false, null, null, null);
         BugReport bugReport2 = subsystem.addBugReport(testDev, "testBug3AS", "this is description of testbug 3AS", new GregorianCalendar(),
-                emptyDep, new Milestone(5,6), 4, false, null, null, null);
+                emptyDep, new Milestone(5, 6), 4, false, null, null, null);
         bugReport2.addUser(testDev, testDev);
 
         assertEquals(27.0, testProject.getBugImpact(), EPSILON);
@@ -479,11 +479,11 @@ public class ProjectTest {
     }
 
     @Test
-    public void testGetSubjectName(){
+    public void testGetSubjectName() {
         String res = testProject.getSubjectName();
         assertTrue(res.contains("Project " + testProject.getName()));
     }
-    
+
     @Test
     public void testGetMemento() {
         ProjectMemento mem = testProject.getMemento();
@@ -495,15 +495,15 @@ public class ProjectTest {
         assertEquals(testProject.getParent(), mem.getParent());
         assertEquals(testProject.isTerminated(), mem.getIsTerminated());
         assertEquals(testProject.getMilestone(), mem.getMilestone());
-        
+
         assertEquals(testProject.getBudgetEstimate(), mem.getBudgetEstimate());
         assertEquals(testProject.getCreationDate(), mem.getCreationDate());
         assertEquals(testProject.getStartDate(), mem.getStartDate());
-        
-        for(Developer dev : testProject.getAllDev()) {
-           assertTrue(testProject.getAllRolesDev(dev).equals(mem.getProjectParticipants().get(dev)));
+
+        for (Developer dev : testProject.getAllDev()) {
+            assertTrue(testProject.getAllRolesDev(dev).equals(mem.getProjectParticipants().get(dev)));
         }
-        
+
     }
 
     @Test
@@ -553,21 +553,21 @@ public class ProjectTest {
         //Revert
         testProject.setMemento(mem);
     }
-    
-    @Test(expected=IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testInvalidLead1() {
-	new Project("Test", "Test", null, testCreationDate, 0);
+        new Project("Test", "Test", null, testCreationDate, 0);
     }
-    
-    @Test(expected=IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testInvalidLead2() {
-	new Project("Test", "Test", null, 0);
+        new Project("Test", "Test", null, 0);
     }
-    
+
     @Test
     public void testIsValidParent() {
-	assertTrue(testProject.isValidParent(null));
-	assertFalse(testProject.isValidParent(testProject));
+        assertTrue(testProject.isValidParent(null));
+        assertFalse(testProject.isValidParent(testProject));
     }
 
 

@@ -3,23 +3,18 @@ package bugtrap03.bugdomain;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.VersionIDMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
-import java.util.EnumSet;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import purecollections.PList;
 
+import java.util.EnumSet;
 import java.util.GregorianCalendar;
 
 import static org.junit.Assert.*;
@@ -298,7 +293,7 @@ public class AbstractSystemTest {
         assertEquals(testProject.getParent(), mem.getParent());
         assertEquals(testProject.isTerminated(), mem.getIsTerminated());
         assertEquals(testProject.getMilestone(), mem.getMilestone());
-        
+
         //subs
         assertEquals(testProject.getCommentSubs(), mem.getCommentSubs());
         assertEquals(testProject.getCreationSubs(), mem.getCreationSubs());
@@ -317,20 +312,20 @@ public class AbstractSystemTest {
         AbstractSystem oldParent = testProject.getParent();
         boolean oldIsTerminated = testProject.isTerminated();
         Milestone oldMilestone = testProject.getMilestone();
-        
+
         PList<CommentMailbox> oldCommentSubs = testProject.getCommentSubs();
         PList<CreationMailbox> oldCreationSubs = testProject.getCreationSubs();
         PList<TagMailbox> oldTagSubs = testProject.getTagSubs();
         PList<VersionIDMailbox> oldVersionIDSubs = testProject.getVersionIDSubs();
         PList<MilestoneMailbox> oldMilestoneSubs = testProject.getMilestoneSubs();
-        
+
         String oldSubName = subSysTest.getName();
         PList<CommentMailbox> oldSubCommentSubs = subSysTest.getCommentSubs();
         PList<CreationMailbox> oldSubCreationSubs = subSysTest.getCreationSubs();
         PList<TagMailbox> oldSubTagSubs = subSysTest.getTagSubs();
         PList<VersionIDMailbox> oldSubVersionIDSubs = subSysTest.getVersionIDSubs();
         PList<MilestoneMailbox> oldSubMilestoneSubs = subSysTest.getMilestoneSubs();
-        
+
         AbstractSystemMemento mem = testProject.getMemento();
 
         // Change
@@ -344,14 +339,14 @@ public class AbstractSystemTest {
         testProject.addTagSub(new TagMailbox(testProject, EnumSet.allOf(Tag.class)));
         testProject.addMilestoneSub(new MilestoneMailbox(testProject));
         testProject.addVersionIDSub(new VersionIDMailbox(testProject));
-        
+
         subSysTest.setName("Blub new subsys name.");
         subSysTest.addCommentSub(new CommentMailbox(testProject));
         subSysTest.addCreationSub(new CreationMailbox(testProject));
         subSysTest.addTagSub(new TagMailbox(testProject, EnumSet.allOf(Tag.class)));
         subSysTest.addMilestoneSub(new MilestoneMailbox(testProject));
         subSysTest.addVersionIDSub(new VersionIDMailbox(testProject));
-        
+
 
         //Revert
         testProject.setMemento(mem);
@@ -368,7 +363,7 @@ public class AbstractSystemTest {
         assertTrue(oldTagSubs.equals(testProject.getTagSubs()));
         assertTrue(oldVersionIDSubs.equals(testProject.getVersionIDSubs()));
         assertTrue(oldMilestoneSubs.equals(testProject.getMilestoneSubs()));
-        
+
         assertEquals(oldSubName, subSysTest.getName());
         assertTrue(oldSubCommentSubs.equals(subSysTest.getCommentSubs()));
         assertTrue(oldSubCreationSubs.equals(subSysTest.getCreationSubs()));
@@ -384,7 +379,7 @@ public class AbstractSystemTest {
         PList<TagMailbox> oldSubTagSubs = subSysTest.getTagSubs();
         PList<VersionIDMailbox> oldSubVersionIDSubs = subSysTest.getVersionIDSubs();
         PList<MilestoneMailbox> oldSubMilestoneSubs = subSysTest.getMilestoneSubs();
-        
+
         //Store 
         SubjectMemento mem = subSysTest.getMemento();
 
@@ -397,7 +392,7 @@ public class AbstractSystemTest {
 
         //Revert
         testProject.setMemento(mem);
-        
+
         // Test
         assertTrue(oldCSubs.equals(testProject.getCommentSubs()));
         assertTrue(oldSubCreationSubs.equals(testProject.getCreationSubs()));
@@ -405,24 +400,24 @@ public class AbstractSystemTest {
         assertTrue(oldSubVersionIDSubs.equals(testProject.getVersionIDSubs()));
         assertTrue(oldSubMilestoneSubs.equals(testProject.getMilestoneSubs()));
     }
-    
-    @Test(expected=PermissionException.class)
+
+    @Test(expected = PermissionException.class)
     public void testSetMilestoneNoPermission() throws PermissionException {
-	testProject.setMilestone(testIss, new Milestone(0));
+        testProject.setMilestone(testIss, new Milestone(0));
     }
-    
+
     @Test
     public void testHasPermission() throws IllegalArgumentException, PermissionException {
-	testProject.setRole(testDev, testDev, Role.TESTER);
-	assertFalse(subSysTest.hasPermission(testDev, RolePerm.SPECIAL));
-	assertTrue(subSysTest.hasPermission(testDev, RolePerm.ADD_TEST));
+        testProject.setRole(testDev, testDev, Role.TESTER);
+        assertFalse(subSysTest.hasPermission(testDev, RolePerm.SPECIAL));
+        assertTrue(subSysTest.hasPermission(testDev, RolePerm.ADD_TEST));
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testAddSubsystem_Null() {
         subSysTest.addSubsystem(null);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testAddSubsystem_NoEqualParent() {
         Project testProjectB = new Project(testVersion, testName, testDescription, testCreationDate, testDev, testStartDate,
@@ -430,19 +425,19 @@ public class AbstractSystemTest {
         Subsystem subSysTestB = testProjectB.addSubsystem(subVersion, subName, subDescription);
         subSysTest.addSubsystem(subSysTestB);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testAddSubsystem_AlreadyIn() {
         Subsystem subSysTestB = testProject.addSubsystem(subVersion, subName, subDescription);
         subSysTest.addSubsystem(subSysTestB);
     }
-    
+
     @Test
     public void testGetMemento_Abstract() {
         AbstractSystemDummy dummy = new AbstractSystemDummy(testProject, "Blab", "OKe");
         AbstractSystemMemento mem = dummy.getMemento();
     }
-    
+
     class AbstractSystemDummy extends AbstractSystem {
 
         public AbstractSystemDummy(AbstractSystem parent, String name, String description) throws IllegalArgumentException {
@@ -468,7 +463,7 @@ public class AbstractSystemTest {
         public String getSubjectName() {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
-    
+
     }
 
 }

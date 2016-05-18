@@ -104,7 +104,7 @@ public class BugReportStateResolvedTest {
         assertTrue(tempBugReport.getUserList().contains(dev));
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void addTest() throws Exception {
         bugReport.getInternState().addTest(bugReport, test);
     }
@@ -114,7 +114,7 @@ public class BugReportStateResolvedTest {
         assertTrue(bugReport.getInternState().getTests().contains(test));
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void addPatch() throws Exception {
         bugReport.getInternState().addPatch(bugReport, patch);
     }
@@ -124,7 +124,7 @@ public class BugReportStateResolvedTest {
         assertTrue(bugReport.getInternState().getPatches().contains(patch));
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void selectPatch() throws Exception {
         bugReport.getInternState().selectPatch(bugReport, patch);
     }
@@ -140,18 +140,18 @@ public class BugReportStateResolvedTest {
         assertEquals(4, tempBugReport.getInternState().getScore());
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void giveScoreInvalid(){
+    @Test(expected = IllegalArgumentException.class)
+    public void giveScoreInvalid() {
         bugReport.getInternState().giveScore(bugReport, -1);
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void getScore() throws Exception {
         bugReport.getInternState().getScore();
     }
 
     @Test
-    public void isValidScore(){
+    public void isValidScore() {
         for (int i = 1; i < 6; i++) {
             assertTrue(BugReportStateResolved.isValidScore(i));
         }
@@ -167,7 +167,7 @@ public class BugReportStateResolvedTest {
         assertEquals(bugReport, tempBugReport.getDuplicate());
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void getDuplicate() throws Exception {
         bugReport.getInternState().getDuplicate();
     }
@@ -195,7 +195,7 @@ public class BugReportStateResolvedTest {
     }
 
     @Test
-    public void getMultiplier(){
+    public void getMultiplier() {
         assertEquals(0.1, bugReport.getMultiplier(), EPSILON);
     }
 }

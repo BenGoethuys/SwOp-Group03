@@ -1,12 +1,11 @@
 package bugtrap03.bugdomain.bugreport;
 
-import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.RolePerm;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class TagTest {
 

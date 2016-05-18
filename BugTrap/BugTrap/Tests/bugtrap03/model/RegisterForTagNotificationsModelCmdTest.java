@@ -6,16 +6,15 @@ import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
-import java.util.EnumSet;
-import java.util.GregorianCalendar;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.EnumSet;
+import java.util.GregorianCalendar;
+
+import static org.junit.Assert.*;
+
 /**
- *
  * @author Group 03
  */
 public class RegisterForTagNotificationsModelCmdTest {
@@ -99,7 +98,7 @@ public class RegisterForTagNotificationsModelCmdTest {
     public void testExec_EmptyTags() throws PermissionException {
         EnumSet<Tag> set = EnumSet.complementOf(EnumSet.allOf(Tag.class));
         RegisterForTagNotificationsModelCmd cmd = new RegisterForTagNotificationsModelCmd(admin, project, set);
-        
+
         assertFalse(cmd.isExecuted());
         cmd.exec();
     }

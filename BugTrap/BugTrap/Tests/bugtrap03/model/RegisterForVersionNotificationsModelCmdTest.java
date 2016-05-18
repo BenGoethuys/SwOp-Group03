@@ -70,7 +70,7 @@ public class RegisterForVersionNotificationsModelCmdTest {
         assertFalse(cmd.isExecuted());
         cmd.exec();
         assertTrue(cmd.isExecuted());
-        assertEquals("Created subscription: \n"+ "You are subscribed to the change of VersionIDs on " +
+        assertEquals("Created subscription: \n" + "You are subscribed to the change of VersionIDs on " +
                 project.getSubjectName() + " and all it's subsystems.", cmd.toString());
     }
 }

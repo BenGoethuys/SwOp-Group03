@@ -8,14 +8,14 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import purecollections.PList;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
- *
  * @author Group 03
  */
 public class SplitSubsystemModelCmdTest {
@@ -60,7 +60,6 @@ public class SplitSubsystemModelCmdTest {
     }
 
     /**
-     *
      * @throws PermissionException
      */
     @Test
@@ -134,7 +133,6 @@ public class SplitSubsystemModelCmdTest {
     }
 
     /**
-     *
      * @throws PermissionException
      */
     @Test

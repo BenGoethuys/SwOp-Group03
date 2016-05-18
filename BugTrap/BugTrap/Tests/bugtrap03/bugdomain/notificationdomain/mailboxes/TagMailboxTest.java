@@ -5,7 +5,6 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.BeforeClass;
@@ -35,10 +34,10 @@ public class TagMailboxTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         dev4TMB = new Developer("dev4TMB", "devviea", "mbTestera");
-        project4MB = new Project("Project4mb","a project to test the mb", dev4TMB, 1000);
+        project4MB = new Project("Project4mb", "a project to test the mb", dev4TMB, 1000);
         subsystem4MB = project4MB.addSubsystem("subsystem4MB", "A susbsystem to test the mb");
         bugreport4MB = subsystem4MB.addBugReport(dev4TMB, "bugreport4MB1", "A bugreport to test the mb",
-                new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
+                new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1, 2, 3),
                 1, false, "triggerhappy", "stacktacktack", "error404");
         bugReportNotification4MB2 = new BugReportNotification("this is a test notification for mb", bugreport4MB, project4MB);
         tagsTMB = EnumSet.of(Tag.NEW, Tag.DUPLICATE);
@@ -55,7 +54,7 @@ public class TagMailboxTest {
         bugreport4MB.addUser(dev4TMB, dev4TMB);
         BugReportNotification bugReportNotification2 = testTMB.update(bugreport4MB);
         assertEquals(null, bugReportNotification2);
-        assertEquals(size,testTMB.getNotifications().size());
+        assertEquals(size, testTMB.getNotifications().size());
     }
 
     @Test
@@ -77,7 +76,7 @@ public class TagMailboxTest {
         assertFalse(testTMB.getTagsOfInterest().contains(Tag.RESOLVED));
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testNullUpdate() throws Exception {
         testTMB.update(null);
     }

@@ -71,7 +71,7 @@ public class RegisterForForkNotificationsModelCmdTest {
         assertFalse(cmd.isExecuted());
         cmd.exec();
         assertTrue(cmd.isExecuted());
-        assertEquals("Created subscription: \n"+ "You are subscribed to the forking of " +
+        assertEquals("Created subscription: \n" + "You are subscribed to the forking of " +
                 project.getSubjectName(), cmd.toString());
     }
 }

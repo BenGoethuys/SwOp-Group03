@@ -23,24 +23,24 @@ import java.util.ArrayDeque;
 public class ShowNotificationsCmdTest {
 
     @BeforeClass
-    public static void setUpBeforeClass(){
+    public static void setUpBeforeClass() {
         index = 0;
     }
 
 
     @Before
-    public void setup() throws Exception{
+    public void setup() throws Exception {
         index++;
         model = new DataModel();
         question = new ArrayDeque<>();
         answer = new ArrayDeque<>();
 
-        administratorShowNotCmd = model.createAdministrator("administratorShowNotCmd" + index,"first","last");
+        administratorShowNotCmd = model.createAdministrator("administratorShowNotCmd" + index, "first", "last");
         developerShowNotCmd = model.createDeveloper("developerShowNotCmd" + index, "firstname", "lastname");
-        projectRegisterCmd = model.createProject(new VersionID(), "projectRegisterCmd","testdescription", developerShowNotCmd, 1000, administratorShowNotCmd);
-        subsystemRegisterCmd = model.createSubsystem(administratorShowNotCmd, projectRegisterCmd, "subsystemRegisterCmd","testdescription");
+        projectRegisterCmd = model.createProject(new VersionID(), "projectRegisterCmd", "testdescription", developerShowNotCmd, 1000, administratorShowNotCmd);
+        subsystemRegisterCmd = model.createSubsystem(administratorShowNotCmd, projectRegisterCmd, "subsystemRegisterCmd", "testdescription");
         bugReportRegisterCmd = model.createBugReport(subsystemRegisterCmd, developerShowNotCmd, "a", "b",
-                PList.<BugReport>empty(), new Milestone(1,1,1), 1, false);
+                PList.<BugReport>empty(), new Milestone(1, 1, 1), 1, false);
 
         cmd = new ShowNotificationsCmd();
     }
@@ -75,7 +75,7 @@ public class ShowNotificationsCmdTest {
         model.createComment(developerShowNotCmd, bugReportRegisterCmd, "this is a comment");
         //write scenario
         //show notficiation.
-        question.add("Length of inbox "+ 1);
+        question.add("Length of inbox " + 1);
         question.add("How many notifications do you wish to see? (numeric)");
         //getIntcmd
         question.add("Give number: ");

@@ -3,7 +3,6 @@ package bugtrap03.model;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
@@ -11,7 +10,8 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Group 03
@@ -32,7 +32,7 @@ public class UnregisterFromNotificationsModelCmdTest {
         model = new DataModel();
         admin = model.createAdministrator("MathiasLikesBluuub" + counter, "furst", "lust");
         dev = model.createDeveloper("MathiasLikesHimself" + counter, "hellow", "miauw");
-        project = model.createProject(new VersionID(), "blub","welp",dev, 1000, admin);
+        project = model.createProject(new VersionID(), "blub", "welp", dev, 1000, admin);
         cmb = model.registerForCommentNotifications(admin, project);
         cmd = new UnregisterFromNotificationsModelCmd(admin, cmb);
         counter++;
@@ -53,13 +53,13 @@ public class UnregisterFromNotificationsModelCmdTest {
         assertFalse(cmd.isValidMailbox(mmb, admin));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testConstructor1() throws Exception{
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructor1() throws Exception {
         cmd = new UnregisterFromNotificationsModelCmd(admin, admin.getMailbox());
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testConstructor2() throws Exception{
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructor2() throws Exception {
         cmd = new UnregisterFromNotificationsModelCmd(null, cmb);
     }
 
@@ -80,7 +80,7 @@ public class UnregisterFromNotificationsModelCmdTest {
         assertTrue(admin.getMailbox().getAllBoxes().contains(cmb));
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void testExecutedUndo() throws Exception {
         cmd.exec();
         cmd.exec();

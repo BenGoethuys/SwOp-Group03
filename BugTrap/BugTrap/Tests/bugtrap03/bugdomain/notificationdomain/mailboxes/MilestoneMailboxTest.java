@@ -22,7 +22,7 @@ public class MilestoneMailboxTest {
     private static MilestoneMailbox testTMB;
     private static MilestoneMailbox testTMB2;
     private static Notification bugReportNotification4MB2;
-    private static  Milestone milestone;
+    private static Milestone milestone;
 
 
     private static Developer dev4TMB;
@@ -33,14 +33,14 @@ public class MilestoneMailboxTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         dev4TMB = new Developer("dev4TMB2", "devviea", "mbTestera");
-        project4MB = new Project("Project4mb","a project to test the mb", dev4TMB, 1000);
+        project4MB = new Project("Project4mb", "a project to test the mb", dev4TMB, 1000);
         subsystem4MB = project4MB.addSubsystem("subsystem4MB", "A susbsystem to test the mb");
         bugreport4MB = subsystem4MB.addBugReport(dev4TMB, "bugreport4MB1", "A bugreport to test the mb",
-                new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
+                new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1, 2, 3),
                 1, false, "triggerhappy", "stacktacktack", "error404");
         bugReportNotification4MB2 = new BugReportNotification("iets", bugreport4MB, project4MB);
         testTMB = dev4TMB.getMailbox().milestoneSubscribe(project4MB);
-        milestone = new Milestone(5,5,5);
+        milestone = new Milestone(5, 5, 5);
         testTMB2 = dev4TMB.getMailbox().milestoneSubscribe(project4MB, milestone);
 
     }
@@ -56,7 +56,7 @@ public class MilestoneMailboxTest {
         assertFalse(testTMB.getNotifications().contains(bugReportNotification4MB2));
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testNullUpdate() throws Exception {
         testTMB.update(null);
     }

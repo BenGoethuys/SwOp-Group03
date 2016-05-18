@@ -1,6 +1,8 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.bugdomain.*;
+import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.permission.PermissionException;

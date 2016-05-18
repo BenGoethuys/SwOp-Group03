@@ -1,9 +1,9 @@
 package bugtrap03.gui.cmd;
 
-import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.VersionID;
+import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -134,7 +134,7 @@ public class AssignToBugReportCmdTest {
         BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null, 1, false);
 
-        
+
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         AssignToBugReportCmd cmd = new AssignToBugReportCmd();
@@ -196,7 +196,7 @@ public class AssignToBugReportCmdTest {
                 "Description of susbsystem A2");
         BugReport bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
                 "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null, 1, false);
-        
+
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         AssignToBugReportCmd cmd = new AssignToBugReportCmd();

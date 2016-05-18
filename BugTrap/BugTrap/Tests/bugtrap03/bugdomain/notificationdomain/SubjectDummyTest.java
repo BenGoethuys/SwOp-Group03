@@ -8,12 +8,12 @@ import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.usersystem.Developer;
-import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import purecollections.PList;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.GregorianCalendar;
 
@@ -37,14 +37,14 @@ public class SubjectDummyTest {
         testDummy = new SubjectDummy();
         subjectDummyDev = new Developer("subjectDummyDev505", "first", "last");
 
-        subjectDummyProject = new Project("sdp","sdp",subjectDummyDev,1000);
-        subjectDummySubsystem = subjectDummyProject.addSubsystem("This seems","easy");
+        subjectDummyProject = new Project("sdp", "sdp", subjectDummyDev, 1000);
+        subjectDummySubsystem = subjectDummyProject.addSubsystem("This seems", "easy");
         subjectDummyBugreport = subjectDummySubsystem.addBugReport(subjectDummyDev, "", "", new GregorianCalendar(),
-                PList.<BugReport>empty(), new Milestone(1), 1, false, "hi","ha","ho");
+                PList.<BugReport>empty(), new Milestone(1), 1, false, "hi", "ha", "ho");
     }
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         subjectDummyTMB = subjectDummyDev.getMailbox().tagSubscribe(testDummy);
         subjectDummyCMB = subjectDummyDev.getMailbox().commentSubscribe(testDummy);
     }
@@ -53,7 +53,7 @@ public class SubjectDummyTest {
     @Test
     public void testGetSubjectName() throws Exception {
         assertEquals("naam", testDummy.getSubjectName());
-        assertNotEquals("",testDummy.getSubjectName());
+        assertNotEquals("", testDummy.getSubjectName());
         assertNotEquals(null, testDummy.getSubjectName());
     }
 
@@ -90,20 +90,20 @@ public class SubjectDummyTest {
         testDummy.updateTagSubs(subjectDummyBugreport);
         assertFalse(extraTMB.getNotifications().isEmpty());
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testTagSubs_Null() {
         TagMailbox cmb1 = new TagMailbox(subjectDummySubsystem, EnumSet.allOf(Tag.class));
         TagMailbox cmb2 = null;
-        
+
         ArrayList<TagMailbox> list = new ArrayList<>();
         list.add(cmb1);
         list.add(cmb2);
-        
+
         testDummy.addTagSub(list);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testAddTagSubNull() throws Exception {
         TagMailbox box = null;
         testDummy.addTagSub(box);
@@ -123,20 +123,20 @@ public class SubjectDummyTest {
         testDummy.updateCommentSubs(subjectDummyBugreport);
         assertFalse(extraCMB.getNotifications().isEmpty());
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testAddCommentSubs_Null() {
         CommentMailbox cmb1 = new CommentMailbox(subjectDummySubsystem);
         CommentMailbox cmb2 = null;
-        
+
         ArrayList<CommentMailbox> list = new ArrayList<>();
         list.add(cmb1);
         list.add(cmb2);
-        
+
         testDummy.addCommentSub(list);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testAddCommentSubNull() throws Exception {
         CommentMailbox box = null;
         testDummy.addCommentSub(box);
@@ -152,14 +152,14 @@ public class SubjectDummyTest {
     @Test
     public void testGetMemento() {
         SubjectMemento mem = testDummy.getMemento();
-        
+
         assertTrue(testDummy.getCommentSubs().equals(mem.getCommentSubs()));
         assertTrue(testDummy.getTagSubs().equals(mem.getTagSubs()));
-        
+
         testDummy.addCommentSub(new CommentMailbox(subjectDummyProject));
         testDummy.addTagSub(new TagMailbox(subjectDummyProject, EnumSet.allOf(Tag.class)));
-        
+
         assertFalse(testDummy.getCommentSubs().equals(mem.getCommentSubs()));
-        assertFalse(testDummy.getTagSubs().equals(mem.getTagSubs()));        
+        assertFalse(testDummy.getTagSubs().equals(mem.getTagSubs()));
     }
 }
