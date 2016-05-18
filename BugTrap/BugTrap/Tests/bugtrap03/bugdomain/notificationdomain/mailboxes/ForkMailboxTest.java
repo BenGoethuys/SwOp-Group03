@@ -4,7 +4,6 @@ import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -12,7 +11,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import purecollections.PList;
 
-import java.util.EnumSet;
 import java.util.GregorianCalendar;
 
 import static org.junit.Assert.*;
