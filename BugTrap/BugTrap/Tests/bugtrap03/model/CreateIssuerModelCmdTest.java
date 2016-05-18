@@ -2,18 +2,16 @@ package bugtrap03.model;
 
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Issuer;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
- *
  * @author Group 03
  */
 public class CreateIssuerModelCmdTest {
-    
+
     private static int counter = Integer.MIN_VALUE;
 
     private DataModel model;
@@ -104,7 +102,6 @@ public class CreateIssuerModelCmdTest {
 
     /**
      * Test exec() with a non unique username.
-     *
      */
     @Test
     public void testExec_IllegalInput() throws PermissionException {

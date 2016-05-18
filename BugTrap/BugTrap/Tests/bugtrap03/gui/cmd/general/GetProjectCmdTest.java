@@ -65,8 +65,8 @@ public class GetProjectCmdTest {
      * Test execution of getProjectCmd exec using the index.
      *
      * @throws IllegalArgumentException Never
-     * @throws PermissionException Never
-     * @throws CancelException Never
+     * @throws PermissionException      Never
+     * @throws CancelException          Never
      * @see GetProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)
      */
     @Test
@@ -114,8 +114,8 @@ public class GetProjectCmdTest {
      * Test execution of getProjectCmd exec using the project name.
      *
      * @throws IllegalArgumentException Never
-     * @throws PermissionException Never
-     * @throws CancelException Never
+     * @throws PermissionException      Never
+     * @throws CancelException          Never
      * @see GetProjectCmd#exec(bugtrap03.gui.terminal.TerminalScanner, DataModel, bugtrap03.bugdomain.usersystem.User)
      */
     @Test
@@ -222,8 +222,8 @@ public class GetProjectCmdTest {
      * Test execution of getProjectCmd exec when proj == null
      *
      * @throws IllegalArgumentException Never
-     * @throws PermissionException Never
-     * @throws CancelException Never
+     * @throws PermissionException      Never
+     * @throws CancelException          Never
      * @see GetProjectCmd#exec(TerminalScanner, DataModel, User)
      */
     @Test(expected = IllegalArgumentException.class)

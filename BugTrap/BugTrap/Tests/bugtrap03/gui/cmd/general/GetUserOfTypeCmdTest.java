@@ -138,6 +138,7 @@ public class GetUserOfTypeCmdTest {
 
     /**
      * Test exec() while scan == null
+     *
      * @throws CancelException Never
      */
     @Test(expected = IllegalArgumentException.class)
@@ -164,7 +165,7 @@ public class GetUserOfTypeCmdTest {
 
     /**
      * Test exec() while model == null
-     * 
+     *
      * @throws CancelException Never
      */
     @Test(expected = IllegalArgumentException.class)

@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="capsules">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/capsules-1.4/capsules.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/capsules-1.5/capsules.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

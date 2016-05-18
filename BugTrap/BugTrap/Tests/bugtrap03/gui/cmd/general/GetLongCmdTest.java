@@ -1,19 +1,21 @@
 package bugtrap03.gui.cmd.general;
 
-import java.util.ArrayDeque;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Group 03
  */
 public class GetLongCmdTest {
 
     /**
      * Test exec
+     *
      * @throws CancelException never
      */
     @Test
@@ -41,7 +43,8 @@ public class GetLongCmdTest {
 
     /**
      * Test exec() while typing abort.
-     * @throws CancelException 
+     *
+     * @throws CancelException
      */
     @Test(expected = CancelException.class)
     public void testAbortExec() throws CancelException {

@@ -1,7 +1,7 @@
 package bugtrap03.bugdomain.usersystem;
 
-import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
+import bugtrap03.bugdomain.permission.UserPerm;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -245,7 +245,7 @@ public class UserTest {
         assertFalse(user.isValidMailbox(null));
         assertTrue(user.isValidMailbox(new Mailbox()));
     }
-    
+
     @Test
     public void testEquals() {
         user = new UserTestDummy("D", "um", "my");
@@ -254,7 +254,7 @@ public class UserTest {
         assertFalse(user.equals(getal));
         assertTrue(user.equals(user));
     }
-    
+
     @Test
     public void testStatistics() {
         Statistics stats = user.getStats();
@@ -262,12 +262,12 @@ public class UserTest {
         assertEquals(0, stats.getNbTestsSubmitted());
         assertEquals(0, stats.getAvgLinesOfPatchesSubmitted(), 1e-15);
         assertEquals(0, stats.getAvgLinesOfTestsSubmitted(), 1e-15);
-        
+
         Statistics newStats = stats.addLinesOfTest(3);
         user.setStats(newStats);
         assertEquals(newStats, user.getStats());
     }
-    
+
     /**
      * Test setStats with null value.
      */

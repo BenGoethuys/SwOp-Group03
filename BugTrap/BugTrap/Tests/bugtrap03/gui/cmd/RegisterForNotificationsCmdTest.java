@@ -21,7 +21,7 @@ import testCollection.TerminalTestScanner;
 
 import java.util.ArrayDeque;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Group 03
@@ -1014,35 +1014,35 @@ public class RegisterForNotificationsCmdTest {
         question.add("3. assigned");
         question.add("4. uniqueId");
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testException() throws IllegalArgumentException, CancelException, PermissionException {
-	RegisterForNotificationsCmd cmd = new RegisterForNotificationsCmd();
-	cmd.exec(null, null, null);
+        RegisterForNotificationsCmd cmd = new RegisterForNotificationsCmd();
+        cmd.exec(null, null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException2() throws IllegalArgumentException, CancelException, PermissionException {
-	RegisterForNotificationsCmd cmd = new RegisterForNotificationsCmd();
-	DataModel model1 = new DataModel();
-	cmd.exec(null, model1, null);
+        RegisterForNotificationsCmd cmd = new RegisterForNotificationsCmd();
+        DataModel model1 = new DataModel();
+        cmd.exec(null, model1, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException3() throws IllegalArgumentException, CancelException, PermissionException {
-	RegisterForNotificationsCmd cmd = new RegisterForNotificationsCmd();
-	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
-	        new ArrayDeque<>());
-	cmd.exec(scan, null, null);
+        RegisterForNotificationsCmd cmd = new RegisterForNotificationsCmd();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        cmd.exec(scan, null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testException4() throws IllegalArgumentException, CancelException, PermissionException {
-	RegisterForNotificationsCmd cmd = new RegisterForNotificationsCmd();
-	DataModel model2 = new DataModel();
-	TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
-	        new ArrayDeque<>());
-	cmd.exec(scan, model2, null);
+        RegisterForNotificationsCmd cmd = new RegisterForNotificationsCmd();
+        DataModel model2 = new DataModel();
+        TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(new ArrayDeque<>()),
+                new ArrayDeque<>());
+        cmd.exec(scan, model2, null);
     }
 
 }

@@ -1,18 +1,16 @@
 package bugtrap03.misc;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 
 /**
- *
  * @author Admin
  */
 public class TreeTest {
@@ -43,7 +41,7 @@ public class TreeTest {
 
     /**
      * Test the constructor of a Tree.
-     *
+     * <p>
      * <li> Implies size == 0 </li>
      * <li> Implies a value of null (due to top node) </li>
      * <li> Implies no children nodes. </li>

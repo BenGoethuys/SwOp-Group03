@@ -135,27 +135,27 @@ public class BugReportStateUnderReviewTest {
         assertEquals(patch, tempBugReport.getInternState().getSelectedPatch());
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void selectPatchInvalidNull() throws Exception {
         tempBugReport.getInternState().selectPatch(tempBugReport, null);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void selectPatchInvalidNotInList() throws Exception {
         tempBugReport.getInternState().selectPatch(tempBugReport, "This patch is not in the list");
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void getSelectedPatch() throws Exception {
         bugReport.getInternState().getSelectedPatch();
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void giveScore() throws Exception {
         bugReport.getInternState().giveScore(bugReport, 4);
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void getScore() throws Exception {
         bugReport.getInternState().getScore();
     }
@@ -167,7 +167,7 @@ public class BugReportStateUnderReviewTest {
         assertEquals(bugReport, tempBugReport.getDuplicate());
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void getDuplicate() throws Exception {
         bugReport.getInternState().getDuplicate();
     }
@@ -193,7 +193,7 @@ public class BugReportStateUnderReviewTest {
     }
 
     @Test
-    public void getMultiplier(){
+    public void getMultiplier() {
         assertEquals(1, bugReport.getMultiplier(), EPSILON);
     }
 }

@@ -1,11 +1,11 @@
 package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.usersystem.Statistics;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Group 03
  */
 public class StatisticsTest {
@@ -57,13 +57,13 @@ public class StatisticsTest {
 
         stats = stats.addLinesOfPatches(-5);
         assertEquals(0, stats.getNbPatchesSubmitted());
-        
+
         stats = stats.addLinesOfTest(-10);
         assertEquals(0, stats.getNbTestsSubmitted());
-        
+
         stats = stats.addPatchessSubmitted(-20);
         assertEquals(0, stats.getAvgLinesOfPatchesSubmitted(), 1e-15);
-        
+
         stats = stats.addTestsSubmitted(-50);
         assertEquals(0, stats.getAvgLinesOfTestsSubmitted(), 1e-15);
     }

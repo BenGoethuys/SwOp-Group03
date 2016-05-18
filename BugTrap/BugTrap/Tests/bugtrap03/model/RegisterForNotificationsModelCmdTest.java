@@ -4,14 +4,12 @@ import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.User;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
- *
  * @author Admin
  */
 public class RegisterForNotificationsModelCmdTest {
@@ -93,13 +91,13 @@ public class RegisterForNotificationsModelCmdTest {
         RegNotModelCmdDummy cmd = new RegNotModelCmdDummy(admin);
         assertEquals("Subscription not yet created.", cmd.toString());
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testSetNewMailbox_IllegalMB() {
         RegNotModelCmdDummy cmd = new RegNotModelCmdDummy(admin);
         cmd.setNewMailbox(null);
     }
-    
+
     @Test
     public void testSetNewMailBox_toString() {
         RegNotModelCmdDummy cmd = new RegNotModelCmdDummy(admin);

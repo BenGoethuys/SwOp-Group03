@@ -124,7 +124,7 @@ public class SubsystemTest {
         assertEquals(emptyDep, tempSub.getBugReportList());
     }
 
-//    @Test
+    //    @Test
 //    public void testIsValidParent() {
 //        assertFalse(subSysTest.isValidParent(null));
 //        assertFalse(subSysTest.isValidParent(subSysTest2));
@@ -335,7 +335,7 @@ public class SubsystemTest {
         assertEquals(1, list.size());
         assertTrue(list.contains(subSysTest));
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testSplit_SubsystemNull() throws PermissionException {
         subSysTest.split("T", "T", "T", "T", null, PList.<BugReport>empty(), testDev);

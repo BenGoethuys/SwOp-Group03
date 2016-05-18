@@ -11,16 +11,17 @@ import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
-import java.util.ArrayDeque;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertTrue;
+
 /**
- *
  * @author Group 03
  */
 public class ProposeTestCmdTest {
@@ -108,7 +109,7 @@ public class ProposeTestCmdTest {
      * Test the exec() while there is a bugReport assigned already.
      *
      * @throws PermissionException Never
-     * @throws CancelException Never
+     * @throws CancelException     Never
      */
     @Test
     public void testExec_BugReportGiven() throws PermissionException, CancelException {
@@ -121,7 +122,7 @@ public class ProposeTestCmdTest {
 
         assertTrue(bugRep.getTests().contains("test over here\ntest line 2"));
     }
-    
+
     @Test(expected = PermissionException.class)
     public void testExec_NoPermission() throws PermissionException, CancelException {
         ArrayDeque<String> question = ProposeTestCmdTest.getDefaultQuestions();

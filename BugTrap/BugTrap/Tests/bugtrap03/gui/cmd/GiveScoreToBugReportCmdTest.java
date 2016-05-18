@@ -1,18 +1,11 @@
 /**
- * 
+ *
  */
 package bugtrap03.gui.cmd;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayDeque;
-
-import bugtrap03.bugdomain.VersionID;
-import org.junit.Before;
-import org.junit.Test;
-
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
+import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
@@ -20,13 +13,18 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
+import org.junit.Before;
+import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Group 03
- *
  */
 public class GiveScoreToBugReportCmdTest {
 
@@ -51,13 +49,13 @@ public class GiveScoreToBugReportCmdTest {
         dev = model.createDeveloper("Ploperdeplop002" + counter, "first", "last");
         proj = model.createProject(new VersionID(), "Ploperdeplop003", "Testing stuff over here", dev, 50, admin);
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
-        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport> empty(), null, 1, false);
-        bugRepWrongState = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport> empty(), null, 1, false);
+        bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, 1, false);
+        bugRepWrongState = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, 1, false);
 
         dev2 = model.createDeveloper("Ploperdeplop004" + counter, "first", "last");
         dev3 = model.createDeveloper("Ploperdeplop005" + counter, "first", "last");
 
-        devList = PList.<Developer> empty();
+        devList = PList.<Developer>empty();
         devList = devList.plus(dev2);
         devList = devList.plus(dev3);
 
@@ -75,7 +73,7 @@ public class GiveScoreToBugReportCmdTest {
      * Test method for
      * {@link bugtrap03.gui.cmd.GiveScoreToBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
+     *
      * @throws CancelException
      * @throws PermissionException
      * @throws IllegalArgumentException
@@ -113,12 +111,12 @@ public class GiveScoreToBugReportCmdTest {
 
         assertTrue(score == 2);
     }
-    
+
     /**
      * Test method for
      * {@link bugtrap03.gui.cmd.GiveScoreToBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
+     *
      * @throws CancelException
      * @throws PermissionException
      * @throws IllegalArgumentException

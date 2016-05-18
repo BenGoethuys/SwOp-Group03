@@ -7,15 +7,16 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.model.DataModel;
-import java.util.ArrayDeque;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Group 0.3
  */
 public class GetSubsystemCmdTest {
@@ -83,8 +84,8 @@ public class GetSubsystemCmdTest {
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         Subsystem subsys = cmd.exec(scan, null, null);
     }
-    
-    
+
+
     @Test
     public void testExec_ByName() throws PermissionException, CancelException {
         ArrayDeque<String> question = GetProjectCmdTest.getDefaultQuestions(project1, project2);

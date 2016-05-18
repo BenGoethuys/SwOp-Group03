@@ -211,23 +211,24 @@ public class CommentTest {
         Comment comment = new Comment(issuer, text);
         Comment subComment = comment.addSubComment(issuer, "subBlub");
         assertTrue(comment.getSubComments().contains(subComment));
-        
+
         //Test delete subcomment
         assertTrue(comment.deleteComment(subComment));
-        
+
         assertFalse(comment.getSubComments().contains(subComment));
         assertFalse(comment.deleteComment(subComment));
-        
+
         //Test delete null
         assertFalse(comment.deleteComment(null));
-        
+
         //Test delete none subcomment
         assertFalse(comment.deleteComment(new Comment(issuer, "blub")));
     }
-    
-    
+
+
     /**
      * Test {@link Comment#commentsTreeToString(Tree)}
+     *
      * @throws PermissionException Never
      */
     @Test
@@ -235,15 +236,15 @@ public class CommentTest {
         Comment comment = new Comment(issuer, "firstComment");
         Comment subComment1 = comment.addSubComment(issuer, "subComment1");
         Comment subComment2 = comment.addSubComment(issuer, "subComment2");
-        
+
         Comment subsubComment11 = subComment1.addSubComment(issuer, "subsubComment11");
         Comment subsubComment12 = subComment1.addSubComment(issuer, "subComment12");
-        
-        Comment subsubComment21 = subComment2.addSubComment(issuer, "subComment21");        
-        
+
+        Comment subsubComment21 = subComment2.addSubComment(issuer, "subComment21");
+
         Tree<Comment> tree = comment.getAllComments(null);
         String result = Comment.commentsTreeToString(tree);
-        
+
         StringBuilder str = new StringBuilder();
         str.append("\n \t 1. ").append(comment.getText());
         str.append("\n \t 1.1. ").append(subComment1.getText());
@@ -251,8 +252,8 @@ public class CommentTest {
         str.append("\n \t 1.1.2. ").append(subsubComment12.getText());
         str.append("\n \t 1.2. ").append(subComment2.getText());
         str.append("\n \t 1.2.1. ").append(subsubComment21.getText());
-        
+
         assertEquals(str.toString(), result);
     }
-    
+
 }
