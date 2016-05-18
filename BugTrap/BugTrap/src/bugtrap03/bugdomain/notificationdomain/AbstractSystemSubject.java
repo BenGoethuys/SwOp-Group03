@@ -14,7 +14,6 @@ import java.util.Collection;
 /**
  * @author Group 03
  */
-@DomainAPI
 public abstract class AbstractSystemSubject extends Subject {
 
     public AbstractSystemSubject() {
