@@ -33,8 +33,7 @@ public abstract class ModelCmd {
      * @return Whether this command is executed.
      */
     abstract boolean isExecuted();
-
-
+    
     @DomainAPI
     @Override
     public abstract String toString();
