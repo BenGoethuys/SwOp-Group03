@@ -34,7 +34,6 @@ public abstract class ModelCmd {
      */
     abstract boolean isExecuted();
 
-
     @DomainAPI
     @Override
     public abstract String toString();

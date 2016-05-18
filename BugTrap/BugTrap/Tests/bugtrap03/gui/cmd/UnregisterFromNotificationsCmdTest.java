@@ -75,7 +75,7 @@ public class UnregisterFromNotificationsCmdTest {
         CommentMailbox cmb = model.registerForCommentNotifications(developerUnregisterCmd, projectRegisterCmd);
         //write scenario
         question.add("Please select a subscription from list. (use index)");
-        question.add("0. " + cmb.getInfo());
+        question.add("0. " + "You are subscribed to the creation of comments on Project projectRegisterCmd 0");
         question.add("Give number: ");
         answer.add("k");
         question.add("Invalid input, please enter a number");
@@ -85,7 +85,7 @@ public class UnregisterFromNotificationsCmdTest {
         //get int
         question.add("Give number: ");
         answer.add("1");
-        question.add("You selected: " + cmb.getInfo());
+        question.add("You selected: " + "You are subscribed to the creation of comments on Project projectRegisterCmd 0");
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario

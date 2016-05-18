@@ -1,6 +1,5 @@
 package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
-import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
 import bugtrap03.bugdomain.notificationdomain.Subject;
@@ -11,7 +10,6 @@ import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification
  *
  * @author Group 03
  */
-@DomainAPI
 public class CreationMailbox extends SubjectMailbox<BugReport, AbstractSystemSubject> {
 
     /**
@@ -31,7 +29,6 @@ public class CreationMailbox extends SubjectMailbox<BugReport, AbstractSystemSub
      *
      * @return A string containing the info.
      */
-    @Override
     public String getInfo() {
         StringBuilder info = new StringBuilder("You are subscribed to the creation of bugreports on ");
         info.append(this.subject.getSubjectName());

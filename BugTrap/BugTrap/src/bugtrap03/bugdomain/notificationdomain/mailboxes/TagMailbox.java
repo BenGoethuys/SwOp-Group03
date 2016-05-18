@@ -1,6 +1,5 @@
 package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
-import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.Subject;
@@ -13,7 +12,6 @@ import java.util.EnumSet;
  *
  * @author Group 03
  */
-@DomainAPI
 public class TagMailbox extends SubjectMailbox<BugReport, Subject> {
 
     /**
@@ -95,7 +93,6 @@ public class TagMailbox extends SubjectMailbox<BugReport, Subject> {
      * @return A String containing the subject name to which this mailbox is subscribed
      * and a textual explanation of the subscription.
      */
-    @DomainAPI
     public String getInfo() {
         StringBuilder message = new StringBuilder();
         message.append("You are subscribed to a change of following tags: ");
@@ -110,8 +107,7 @@ public class TagMailbox extends SubjectMailbox<BugReport, Subject> {
      *
      * @return An enumset of tags.
      */
-    @DomainAPI
-    public EnumSet<Tag> getTagsOfInterest() {
+    EnumSet<Tag> getTagsOfInterest() {
         return EnumSet.copyOf(this.tags);
     }
 }
