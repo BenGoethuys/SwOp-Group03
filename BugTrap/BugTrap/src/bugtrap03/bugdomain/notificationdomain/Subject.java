@@ -2,15 +2,16 @@ package bugtrap03.bugdomain.notificationdomain;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
-import java.util.Collection;
-
 import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import purecollections.PList;
 
+import java.util.Collection;
+
 /**
  * This abstract class represents the objects on which one can subscribe.
+ *
  * @author Group 03
  */
 @DomainAPI
@@ -19,7 +20,7 @@ public abstract class Subject {
     /**
      * The abstract constructor for a subject, sets the subs to empty Plists.
      */
-    public Subject(){
+    public Subject() {
         this.tagSubs = PList.<TagMailbox>empty();
         this.commentSubs = PList.<CommentMailbox>empty();
     }
@@ -41,56 +42,56 @@ public abstract class Subject {
      * @param br The bugreport needed for the update
      * @see TagMailbox#update(BugReport)
      */
-    protected void updateTagSubs(BugReport br){
-        for (TagMailbox tmb: this.tagSubs){
+    protected void updateTagSubs(BugReport br) {
+        for (TagMailbox tmb : this.tagSubs) {
             tmb.update(br);
         }
     }
-    
+
     /**
      * Get the subscribers of tag.
+     *
      * @return The TagMailBoxes that are subscribed to the change of a tag.
      */
     public PList<TagMailbox> getTagSubs() {
         return this.tagSubs;
     }
-    
+
     /**
      * Get the subscribers of comments.
+     *
      * @return The CommentMailBoxes that are subscribed on the creation of a comments.
      */
     public PList<CommentMailbox> getCommentSubs() {
         return this.commentSubs;
     }
-    
+
     /**
      * This method adds a tag subscriber to the subject.
      *
      * @param tmb The tag mailbox to add
-     *
      * @throws IllegalArgumentException if the tmb is invalid
      * @see #isValidMb
      */
-    public void addTagSub(TagMailbox tmb)throws IllegalArgumentException{
-        if (isValidMb(tmb)){
+    public void addTagSub(TagMailbox tmb) throws IllegalArgumentException {
+        if (isValidMb(tmb)) {
             this.tagSubs = this.tagSubs.plus(tmb);
         } else {
             throw new IllegalArgumentException("Invalid tagmailbox");
         }
     }
-    
+
     /**
      * This method adds a collection of tag subscriber to the subject.
      *
      * @param tmbs The tag mailboxes to add
-     *
      * @throws IllegalArgumentException if any of the tmbs is invalid. This is checked before adding is initiated.
      * @see #isValidMb
      * @see #addTagSub(TagMailbox)
      */
-    public void addTagSub(Collection<TagMailbox> tmbs)throws IllegalArgumentException{
-        for(TagMailbox tmb : tmbs) {
-            if(!isValidMb(tmb)) {
+    public void addTagSub(Collection<TagMailbox> tmbs) throws IllegalArgumentException {
+        for (TagMailbox tmb : tmbs) {
+            if (!isValidMb(tmb)) {
                 throw new IllegalArgumentException("Incvalid tagMailBox");
             }
         }
@@ -110,8 +111,8 @@ public abstract class Subject {
      * @param br The bug report needed for the update
      * @see CommentMailbox#update(BugReport)
      */
-    protected void updateCommentSubs(BugReport br){
-        for (CommentMailbox cmb: this.commentSubs){
+    protected void updateCommentSubs(BugReport br) {
+        for (CommentMailbox cmb : this.commentSubs) {
             cmb.update(br);
         }
     }
@@ -120,12 +121,11 @@ public abstract class Subject {
      * This method adds a comment subscriber to the subject.
      *
      * @param cmb The comment mailbox to add
-     *
      * @throws IllegalArgumentException if the cmb is invalid
      * @see #isValidMb
      */
-    public void addCommentSub(CommentMailbox cmb) throws IllegalArgumentException{
-        if (isValidMb(cmb)){
+    public void addCommentSub(CommentMailbox cmb) throws IllegalArgumentException {
+        if (isValidMb(cmb)) {
             this.commentSubs = this.commentSubs.plus(cmb);
         } else {
             throw new IllegalArgumentException("Invalid commentmailbox");
@@ -136,14 +136,13 @@ public abstract class Subject {
      * This method adds a collection of comment subscriber to the subject.
      *
      * @param cmbs The CommentMailBoxes to add
-     *
      * @throws IllegalArgumentException if any of the the cmbs is invalid.
      * @see #isValidMb
      * @see #addCommentSub(CommentMailbox)
      */
     public void addCommentSub(Collection<CommentMailbox> cmbs) throws IllegalArgumentException {
-        for(CommentMailbox cmb : cmbs) {
-            if(!isValidMb(cmb)) {
+        for (CommentMailbox cmb : cmbs) {
+            if (!isValidMb(cmb)) {
                 throw new IllegalArgumentException("Invalid commentMailBox");
             }
         }
@@ -154,16 +153,15 @@ public abstract class Subject {
      * This method checks the validity of a given mailbox.
      *
      * @param mb The mailbox to check
-     *
      * @return true if the mailbox is not null
      */
-    public boolean isValidMb(AbstractMailbox mb){
-        if (mb == null){
+    public boolean isValidMb(AbstractMailbox mb) {
+        if (mb == null) {
             return false;
         }
         return true;
     }
-    
+
     /**
      * The method returns the memento for this Subject.
      *
@@ -172,7 +170,7 @@ public abstract class Subject {
     public SubjectMemento getMemento() {
         return new SubjectMemento(this.tagSubs, this.commentSubs);
     }
-    
+
     /**
      * Set the memento of this Subject.
      *
@@ -184,7 +182,7 @@ public abstract class Subject {
         if (mem == null) {
             throw new IllegalArgumentException("The memento to set musn't be null.");
         }
-        
+
         this.tagSubs = mem.getTagSubs();
         this.commentSubs = mem.getCommentSubs();
     }

@@ -23,9 +23,8 @@ public class DeleteProjectCmd implements Cmd<Project> {
      * <br> 1. The administrator indicates he wants to delete a project.
      * <br> 2. The system shows a list of all projects.
      * <br> 3. The administrator selects a project.
-     * <br> 4. The system deletes a project and recursively all subsystems that
-     * are part of the project. All bug reports fore those subsystem are also
-     * removed from BugTrap.
+     * <br> 4. The system deletes a project and recursively all subsystems that are part of the project.
+     * All bug reports fore those subsystem are also removed from BugTrap.
      *
      * @param scan  The {@link Scanner} trough which to ask the questions.
      * @param model The model to use to access the model.

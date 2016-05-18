@@ -29,10 +29,10 @@ public class LoginCmd implements Cmd<User> {
      * @throws IllegalArgumentException When terminal == null
      */
     public LoginCmd(Terminal terminal) throws IllegalArgumentException {
-        if(terminal == null) {
+        if (terminal == null) {
             throw new IllegalArgumentException("Terminal musn't be null.");
         }
-        
+
         this.terminal = terminal;
         initLoginInfo();
     }

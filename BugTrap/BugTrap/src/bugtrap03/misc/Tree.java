@@ -1,16 +1,17 @@
 package bugtrap03.misc;
 
+import purecollections.PList;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import purecollections.PList;
 
 /**
  * A Tree data structure with an empty root node.
  * <br> This collection is based on nodes holding values.
  * <br> Removing a value does not result in removing the nodes unless the specific methods
  * ({@link Tree#removeTree(java.lang.Object)}, {@link Tree#sizeObjNb()}) are used.
- *
+ * <p>
  * <br> The Iterators included will not ignore these left-over-empty-nodes and will iterate over with null values.
  *
  * @author Group 03
@@ -28,7 +29,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
      * Create a Tree structure with the given object as the attached value and the parent as the parent Tree.
      *
      * @param parent The parent Tree to add to.
-     * @param obj The value to attach to this node.
+     * @param obj    The value to attach to this node.
      */
     private Tree(Tree<T> parent, T obj) {
         this();
@@ -241,12 +242,12 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
      * <br> More formally, removes an element e such that (o==null ? e==null : o.equals(e)), if this collection contains
      * one or more such elements. Returns true if this collection contained the specified element (or equivalently, if
      * this collection changed as a result of the call).
-     *
+     * <p>
      * <p>
      * Clarification: This will remove based on the values held in the tree nodes. When such a value is found the the
      * value is only removed from that node but the node remains. (Check {@link Tree#removeTree(java.lang.Object)} to
      * remove whole trees).
-     *
+     * <p>
      * <p>
      * When o == null no changes will be made as removing results in setting the value to null.
      *
@@ -503,7 +504,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
          * Go one node up and set the nextIndex to the correct one.
          *
          * @throws NoSuchElementException When the next node up is the parent node of the initial startNode meaning
-         * there is no next element.
+         *                                there is no next element.
          */
         private void goOneUp() {
             Tree<T> oldNode = currNode;
@@ -611,7 +612,7 @@ public class Tree<T> implements Iterable<T>, Collection<T> {
          * Go one node up and set the nextIndex to the correct one.
          *
          * @throws NoSuchElementException When the next node up is the parent node of the initial startNode meaning
-         * there is no next element.
+         *                                there is no next element.
          */
         private void goOneUp() {
             Tree<T> oldNode = currNode;

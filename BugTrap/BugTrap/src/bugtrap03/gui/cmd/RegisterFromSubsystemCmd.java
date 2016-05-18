@@ -4,21 +4,23 @@ import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.gui.cmd.general.*;
+import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.cmd.general.GetSubsystemCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
+
 import java.util.HashMap;
 
 /**
  * @author Group 03
  */
 public class RegisterFromSubsystemCmd implements Cmd<AbstractMailbox> {
-    public RegisterFromSubsystemCmd(){
+    public RegisterFromSubsystemCmd() {
         this.subsriptionTypes = new HashMap<>();
-        this.subsriptionTypes.put("alltags",1);
-        this.subsriptionTypes.put("specictags",2);
-        this.subsriptionTypes.put("comment",3);
-        this.subsriptionTypes.put("creation",4);
+        this.subsriptionTypes.put("alltags", 1);
+        this.subsriptionTypes.put("specictags", 2);
+        this.subsriptionTypes.put("comment", 3);
+        this.subsriptionTypes.put("creation", 4);
     }
 
     private HashMap<String, Integer> subsriptionTypes;
@@ -40,11 +42,9 @@ public class RegisterFromSubsystemCmd implements Cmd<AbstractMailbox> {
      * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
-     *
      * @return The newly created mailbox representing the registration for notifications.
-     *
-     * @throws PermissionException If the user does not have enough permissions.
-     * @throws CancelException If the abort command has been given.
+     * @throws PermissionException      If the user does not have enough permissions.
+     * @throws CancelException          If the abort command has been given.
      * @throws IllegalArgumentException If any of the arguments is null or invalid.
      */
     @Override

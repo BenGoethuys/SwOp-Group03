@@ -4,9 +4,10 @@ import bugtrap03.bugdomain.notificationdomain.ProjectSubjectMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
+import purecollections.PList;
+
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import purecollections.PList;
 
 /**
  * A (partial) memento of the project.
@@ -25,12 +26,11 @@ public class ProjectMemento extends ProjectSubjectMemento {
                 description, children, parent, milestone, isTerminated, forkSubs);
 
 
-        
         this.creationDate = (GregorianCalendar) creationDate.clone();
         this.startDate = (GregorianCalendar) startDate.clone();
-        
+
         this.projectParticipants = (HashMap<Developer, PList<Role>>) projectParticipants.clone();
-        
+
         this.budgetEstimate = budgetEstimate;
     }
 
@@ -38,21 +38,21 @@ public class ProjectMemento extends ProjectSubjectMemento {
     private final GregorianCalendar startDate;
     private final HashMap<Developer, PList<Role>> projectParticipants;
     private long budgetEstimate;
-    
+
     GregorianCalendar getCreationDate() {
         return this.creationDate;
     }
-    
+
     GregorianCalendar getStartDate() {
         return this.startDate;
     }
-    
+
     HashMap<Developer, PList<Role>> getProjectParticipants() {
         return this.projectParticipants;
     }
-    
+
     long getBudgetEstimate() {
         return this.budgetEstimate;
     }
-    
+
 }

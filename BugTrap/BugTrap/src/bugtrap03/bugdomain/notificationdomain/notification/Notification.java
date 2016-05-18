@@ -24,9 +24,10 @@ public class Notification {
 
     /**
      * This method returns the date of this notificataion
+     *
      * @return The final date of the notification
      */
-    public GregorianCalendar getDate(){
+    public GregorianCalendar getDate() {
         return this.date;
     }
 
@@ -92,11 +93,12 @@ public class Notification {
 
     /**
      * This method opens this notification.
+     *
      * @param user The user that wishes to open this notification
      * @return A string of the message.
      */
     @DomainAPI
-    public String open(User user){
+    public String open(User user) {
         StringBuilder message = new StringBuilder(this.message);
         message.append("\n\tThis notification originated from the subscription on: ");
         message.append(subject.getSubjectName());
@@ -105,33 +107,37 @@ public class Notification {
 
     /**
      * This nethod tells if this notification is equal to a given object.
+     *
      * @param object The object to compare
      * @return true if the given object is a notification with the same subject and message.
      */
     @Override
-    public boolean equals(Object object){
-        if (object == null){
+    public boolean equals(Object object) {
+        if (object == null) {
             return false;
         }
-        if (! (object instanceof Notification)){
+        if (!(object instanceof Notification)) {
             return false;
         }
         Notification notification = (Notification) object;
-        if (this.subject != notification.subject){
+        if (this.subject != notification.subject) {
             return false;
         }
-        if (! this.message.equals(notification.message)){
+        if (!this.message.equals(notification.message)) {
             return false;
         }
         return true;
-    };
+    }
+
+    ;
 
     /**
      * this method calculates a hash value for this notification based upon the hashvalue of the subject and message.
+     *
      * @return An int hash value.
      */
     @Override
-    public int hashCode(){
-    return((113*this.subject.hashCode())*this.message.hashCode());
+    public int hashCode() {
+        return ((113 * this.subject.hashCode()) * this.message.hashCode());
     }
 }

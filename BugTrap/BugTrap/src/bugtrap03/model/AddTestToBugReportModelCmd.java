@@ -7,7 +7,6 @@ import bugtrap03.bugdomain.usersystem.Statistics;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
- *
  * @author Group 03
  */
 class AddTestToBugReportModelCmd extends ModelCmd {
@@ -16,9 +15,8 @@ class AddTestToBugReportModelCmd extends ModelCmd {
      * Create a {@link ModelCmd} that can add a certain test to the bugReport when executed.
      *
      * @param bugReport The bug report to evaluate
-     * @param user The user that wants to assign a score to this bug reports selected patch.
-     * @param test The test that the user wants to add
-     *
+     * @param user      The user that wants to assign a score to this bug reports selected patch.
+     * @param test      The test that the user wants to add
      * @throws IllegalArgumentException When bugReport == null
      * @throws IllegalArgumentException When the bugReport is terminated
      */
@@ -26,7 +24,7 @@ class AddTestToBugReportModelCmd extends ModelCmd {
         if (bugReport == null) {
             throw new IllegalArgumentException("The bugReport passed to AddBugReportTestModelCmd was a null reference.");
         }
-        if (bugReport.isTerminated()){
+        if (bugReport.isTerminated()) {
             throw new IllegalArgumentException("The given bug report is terminated !");
         }
 
@@ -48,13 +46,11 @@ class AddTestToBugReportModelCmd extends ModelCmd {
      * This method adds a given test to the bug report state
      *
      * @return True
-     *
-     * @throws PermissionException If the given user doesn't have the permission to add a test
-     * @throws IllegalStateException If the current state doesn't allow to add a test
-     * @throws IllegalStateException When this ModelCmd was already executed
+     * @throws PermissionException      If the given user doesn't have the permission to add a test
+     * @throws IllegalStateException    If the current state doesn't allow to add a test
+     * @throws IllegalStateException    When this ModelCmd was already executed
      * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
      * @throws IllegalArgumentException When bugReport is terminated
-     *
      * @see BugReport#isValidTest(String)
      */
     @Override
@@ -62,7 +58,7 @@ class AddTestToBugReportModelCmd extends ModelCmd {
         if (this.isExecuted()) {
             throw new IllegalStateException("The AddBugReportTestModelCmd was already executed.");
         }
-        
+
         if (bugReport.isTerminated()) {
             throw new IllegalArgumentException("The given bugReport is terminated.");
         }
@@ -85,7 +81,7 @@ class AddTestToBugReportModelCmd extends ModelCmd {
         } catch (IllegalArgumentException ex) {
             return false;
         }
-        
+
         user.setStats(oldStats);
         return true;
     }

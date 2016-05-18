@@ -22,11 +22,9 @@ public class CreateSubsystemCmd implements Cmd<Subsystem> {
      * <p>
      * <br> 1. The administrator indicates he wants to create a new subsystem.
      * <br> 2. The system shows a list of projects and subsystems.
-     * <br> 3. The administrator selects the project or subsystem that the new
-     * subsystem will be part of.
+     * <br> 3. The administrator selects the project or subsystem that the new subsystem will be part of.
      * <br> 4. The system shows the subsystem creation form.
-     * <br> 5. The administrator enters the subsystem details: name and
-     * description
+     * <br> 5. The administrator enters the subsystem details: name and description
      * <br> 6. The system creates the subsystem.
      *
      * @param scan  The scanner used to interact with the person.

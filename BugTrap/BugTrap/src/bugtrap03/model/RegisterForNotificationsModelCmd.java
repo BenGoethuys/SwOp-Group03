@@ -1,23 +1,24 @@
 package bugtrap03.model;
 
 import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
-import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
+import bugtrap03.bugdomain.usersystem.User;
 
 /**
  * This class represents the 'action' of registering/subscribing for a certain notification and it holds the Mailbox associated with
  * this new registration.
- * 
+ *
  * @author Group 03
  */
 abstract class RegisterForNotificationsModelCmd extends ModelCmd {
 
     /**
      * Create an abstract {@link ModelCmd}
+     *
      * @param user The user that wishes to subscribe.
      */
-    RegisterForNotificationsModelCmd(User user){
-        if (! isValidUser(user)){
+    RegisterForNotificationsModelCmd(User user) {
+        if (!isValidUser(user)) {
             throw new IllegalArgumentException("The given user for notification registration is invalid!");
         }
         this.userMailbox = user.getMailbox();
@@ -30,11 +31,12 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
 
     /**
      * This method checks the validity of a given user.
+     *
      * @param user The user to check.
      * @return True if the user is not null.
      */
-    public boolean isValidUser(User user){
-        if (user == null || user.getMailbox() == null){
+    public boolean isValidUser(User user) {
+        if (user == null || user.getMailbox() == null) {
             return false;
         }
         return true;
@@ -45,7 +47,7 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      *
      * @return the Mailbox of the subscriber
      */
-    protected Mailbox getMailbox(){
+    protected Mailbox getMailbox() {
         return this.userMailbox;
     }
 
@@ -57,7 +59,7 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      * @see #isValidNewMailBox
      */
     protected void setNewMailbox(AbstractMailbox mb) throws IllegalArgumentException {
-        if (this.isValidNewMailBox(mb)){
+        if (this.isValidNewMailBox(mb)) {
             this.newMailbox = mb;
         } else throw new IllegalArgumentException("Invalid mailbox");
     }
@@ -68,8 +70,8 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      * @param mb the mailbox to check.
      * @return true if the given mailbox is not null
      */
-    private boolean isValidNewMailBox(AbstractMailbox mb){
-        if(mb == null){
+    private boolean isValidNewMailBox(AbstractMailbox mb) {
+        if (mb == null) {
             return false;
         }
         return true;
@@ -77,11 +79,12 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
 
     /**
      * This method undo's the result of an execution of this command.
+     *
      * @return true if the command has been succesfully undone.
      */
     @Override
     boolean undo() {
-        if (! this.isExecuted()) {
+        if (!this.isExecuted()) {
             return false;
         }
         this.getMailbox().unsubscribe(this.newMailbox);
@@ -103,8 +106,8 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      *
      * @throws IllegalStateException if the command has already been executed.
      */
-    protected void setExecuted(){
-        if (! this.isExecuted()){
+    protected void setExecuted() {
+        if (!this.isExecuted()) {
             this.isExecuted = true;
         } else {
             throw new IllegalStateException("This model command was already executed");
@@ -118,11 +121,11 @@ abstract class RegisterForNotificationsModelCmd extends ModelCmd {
      */
     @Override
     public String toString() {
-        if (this.newMailbox == null && ! this.isExecuted()){
+        if (this.newMailbox == null && !this.isExecuted()) {
             return ("Subscription not yet created.");
         }
-        if (this.newMailbox == null && this.isExecuted()){
-           throw new IllegalStateException("Empty subscription created.");
+        if (this.newMailbox == null && this.isExecuted()) {
+            throw new IllegalStateException("Empty subscription created.");
         }
         return ("Created subscription: \n" + this.newMailbox.getInfo());
     }

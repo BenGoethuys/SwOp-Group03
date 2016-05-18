@@ -6,7 +6,6 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
- *
  * @author Group 03
  */
 class SelectPatchFromBugReportModelCmd extends ModelCmd {
@@ -15,9 +14,8 @@ class SelectPatchFromBugReportModelCmd extends ModelCmd {
      * Create a {@link ModelCmd} that can select a certain patch for the bugReport when executed.
      *
      * @param bugReport The bug report to evaluate
-     * @param user The user that wants to assign a score to this bug reports selected patch.
-     * @param patch The patch that the user wants to select.
-     *
+     * @param user      The user that wants to assign a score to this bug reports selected patch.
+     * @param patch     The patch that the user wants to select.
      * @throws IllegalArgumentException When bugReport == null
      * @throws IllegalArgumentException When the given bug report is terminated
      */
@@ -25,7 +23,7 @@ class SelectPatchFromBugReportModelCmd extends ModelCmd {
         if (bugReport == null) {
             throw new IllegalArgumentException("The bugReport passed to SelectBugReportPatchModelCmd was a null reference.");
         }
-        if (bugReport.isTerminated()){
+        if (bugReport.isTerminated()) {
             throw new IllegalArgumentException("The given bugreport is terminated");
         }
 
@@ -46,10 +44,10 @@ class SelectPatchFromBugReportModelCmd extends ModelCmd {
      * This method selects a patch for this bug report state
      *
      * @return True
-     * @throws PermissionException If the given user doesn't have the permission to select a patch for this bugReport
-     * state
-     * @throws IllegalStateException If the current state doesn't allow the selecting of a patch
-     * @throws IllegalStateException When this ModelCmd was already executed
+     * @throws PermissionException      If the given user doesn't have the permission to select a patch for this bugReport
+     *                                  state
+     * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
+     * @throws IllegalStateException    When this ModelCmd was already executed
      * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
      * @throws IllegalArgumentException If bugReport is terminated
      */
@@ -62,7 +60,7 @@ class SelectPatchFromBugReportModelCmd extends ModelCmd {
         if (bugReport.isTerminated()) {
             throw new IllegalArgumentException("The given bugReport is terminated.");
         }
-        
+
         oldMem = bugReport.getMemento();
         bugReport.selectPatch(user, patch);
         isExecuted = true;

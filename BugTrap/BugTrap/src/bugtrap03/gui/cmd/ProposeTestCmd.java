@@ -6,11 +6,12 @@ import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import javax.swing.JFileChooser;
 
 /**
  * This command represents the use case for proposing a test for a bug report
@@ -39,7 +40,7 @@ public class ProposeTestCmd implements Cmd<BugReport> {
     /**
      * Executing the command resulting in the possible adding of a Test for a certain {@link BugReport}.
      * <p>
-     * 1. The developer indicates that he wants to submit a test for some bugRep.
+     * <br> 1. The developer indicates that he wants to submit a test for some bugRep.
      * <br> 2. Include use case Select Bug Report if required.
      * <br> 3. The system shows the form for uploading the test code.
      * <br> 4. The developer provides the details for uploading the test code.
@@ -48,16 +49,14 @@ public class ProposeTestCmd implements Cmd<BugReport> {
      * <br> 3a. The developer is not assigned as a tester to the corresponding project.
      * <br> 1. The use case ends here.
      *
-     * @param scan The scanner used to interact with the person.
+     * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user The {@link User} who wants to executes this command.
-     *
+     * @param user  The {@link User} who wants to executes this command.
      * @return The BugReport where a Test was proposed to.
-     * @throws PermissionException When the user does not have sufficient permissions.
-     * @throws CancelException When the users wants to abort the current cmd
+     * @throws PermissionException      When the user does not have sufficient permissions.
+     * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalArgumentException If scan, model or user is null
-     * @throws IllegalStateException When a BugReport is chosen with a state that does not allow adding a test.
-     *
+     * @throws IllegalStateException    When a BugReport is chosen with a state that does not allow adding a test.
      * @see DataModel#addTest(BugReport, User, String)
      */
     @Override
@@ -65,7 +64,7 @@ public class ProposeTestCmd implements Cmd<BugReport> {
         if (scan == null || model == null || user == null) {
             throw new IllegalArgumentException("scan, model and user musn't be null.");
         }
-        
+
         // 1. The developer indicates that he wants to submit a test for some bugRep.
         // 2. Include use case Select Bug Report if required.
         scan.println("Adding test.");

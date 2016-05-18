@@ -14,8 +14,6 @@ import testCollection.TerminalTestScanner;
 
 import java.util.ArrayDeque;
 
-import static org.junit.Assert.assertTrue;
-
 /**
  * @author Group 03
  */

@@ -5,11 +5,11 @@ import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import java.util.GregorianCalendar;
 import purecollections.PList;
 
+import java.util.GregorianCalendar;
+
 /**
- *
  * @author Group 03
  */
 class CreateBugReportModelCmd extends ModelCmd {
@@ -18,18 +18,18 @@ class CreateBugReportModelCmd extends ModelCmd {
      * This method creates a {@link ModelCmd} that can create and add a bug report to the list of associated bugReports
      * of this subsystem when executed.
      *
-     * @param subsystem The subsystem the new bugReport belongs to
-     * @param user The User that wants to create this bug report
-     * @param title The title of the bugReport
-     * @param description The description of the bugReport
+     * @param subsystem    The subsystem the new bugReport belongs to
+     * @param user         The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param milestone The milestone of the bug report
-     * @param impactFactor  The impact factor of the new bug rpeort
-     * @param isPrivate The boolean that says if this bug report should be private or not
-     * @param trigger A trigger used to trigger the bug. Can be NULL.
-     * @param stacktrace The stacktrace got when the bug was triggered. Can be NULL.
-     * @param error The error got when the bug was triggered. Can be NULL.
+     * @param milestone    The milestone of the bug report
+     * @param impactFactor The impact factor of the new bug rpeort
+     * @param isPrivate    The boolean that says if this bug report should be private or not
+     * @param trigger      A trigger used to trigger the bug. Can be NULL.
+     * @param stacktrace   The stacktrace got when the bug was triggered. Can be NULL.
+     * @param error        The error got when the bug was triggered. Can be NULL.
      * @throws IllegalArgumentException When subsystem == null
      * @throws IllegalArgumentException When the given subsystem is terminated
      */
@@ -40,7 +40,7 @@ class CreateBugReportModelCmd extends ModelCmd {
         if (subsystem == null) {
             throw new IllegalArgumentException("The subsystem passed to CreateBugReportModelCmd was null.");
         }
-        if (subsystem.isTerminated()){
+        if (subsystem.isTerminated()) {
             throw new IllegalArgumentException("The given subsystem is terminated");
         }
 
@@ -62,15 +62,15 @@ class CreateBugReportModelCmd extends ModelCmd {
      * This method creates a {@link ModelCmd} that can create and add a bug report to the list of associated bugReports
      * of this subsystem when executed. Using this constructor the trigger, stacktrace and error will be null.
      *
-     * @param subsystem The subsystem the new bugReport belongs to
-     * @param user The User that wants to create this bug report
-     * @param title The title of the bugReport
-     * @param description The description of the bugReport
+     * @param subsystem    The subsystem the new bugReport belongs to
+     * @param user         The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param milestone The milestone of the bug report
-     * @param impactFactor  The impact factor of the new bug report
-     * @param isPrivate The boolean that says if this bug report should be private or not
+     * @param milestone    The milestone of the bug report
+     * @param impactFactor The impact factor of the new bug report
+     * @param isPrivate    The boolean that says if this bug report should be private or not
      * @throws IllegalArgumentException When subsystem == null
      */
     CreateBugReportModelCmd(Subsystem subsystem, User user, String title, String description,
@@ -99,8 +99,8 @@ class CreateBugReportModelCmd extends ModelCmd {
      * Create a BugReport and add it to subsystem's list of bugReports.
      *
      * @return The newly created BugReport.
-     * @throws IllegalStateException When this ModelCmd was already executed.
-     * @throws PermissionException When the user does not have sufficient permissions.
+     * @throws IllegalStateException    When this ModelCmd was already executed.
+     * @throws PermissionException      When the user does not have sufficient permissions.
      * @throws IllegalArgumentException When the {@link BugReport} constructor fails.
      * @throws IllegalArgumentException if isValidCreator(user) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
@@ -111,12 +111,11 @@ class CreateBugReportModelCmd extends ModelCmd {
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
      * @throws IllegalArgumentException If subsystem is terminated
-     * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
-     *
-     * <br><dt><b>Postconditions:</b><dd> if creationDate == null: result.getDate() == current date at the moment of
-     * initialization
-     * <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
-     *
+     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
+     *                                  <p>
+     *                                  <br><dt><b>Postconditions:</b><dd> if creationDate == null: result.getDate() == current date at the moment of
+     *                                  initialization
+     *                                  <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -126,14 +125,13 @@ class CreateBugReportModelCmd extends ModelCmd {
      * @see BugReport#isValidSubsystem(Subsystem)
      * @see BugReport#isValidMilestone(Milestone)
      * @see BugReport#BugReport(User, String, String, GregorianCalendar, PList, Subsystem, Milestone, double, boolean, String, String, String)
-     *
      */
     @Override
     BugReport exec() throws IllegalArgumentException, PermissionException, IllegalStateException {
         if (this.isExecuted()) {
             throw new IllegalStateException("The CreateBugReportModelCmd was already executed.");
         }
-        
+
         if (subsystem.isTerminated()) {
             throw new IllegalArgumentException("The given subsystem is terminated.");
         }

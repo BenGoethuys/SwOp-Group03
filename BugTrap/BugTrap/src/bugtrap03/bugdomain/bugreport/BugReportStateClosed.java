@@ -13,13 +13,13 @@ class BugReportStateClosed implements BugReportState {
 
     /**
      * constructor for this state
-     *
+     * <p>
      * <br><dt><b>Preconditions:</b><dd> selectedPatch is a valid patch in the previous state &&
      * score is a valid score in the previous state.
      */
     @Requires("for (String test: tests) { BugReport.isValidTest(test) } && " +
             "for (String patch: patches) { BugReport.isValidPatch(patch) } &&")
-    BugReportStateClosed(PList<String> tests, PList<String> patches, String selectedPatch, int score){
+    BugReportStateClosed(PList<String> tests, PList<String> patches, String selectedPatch, int score) {
         this.tests = tests;
         this.patches = patches;
         this.selectedPatch = selectedPatch;
@@ -100,9 +100,8 @@ class BugReportStateClosed implements BugReportState {
     /**
      * This method returns all the tests associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The list of tests associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getTests() throws IllegalStateException {
@@ -126,9 +125,8 @@ class BugReportStateClosed implements BugReportState {
     /**
      * This method returns the patches associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The patches associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getPatches() throws IllegalStateException {
@@ -179,9 +177,8 @@ class BugReportStateClosed implements BugReportState {
     /**
      * This method returns the score associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The score associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public int getScore() throws IllegalStateException {
@@ -232,12 +229,12 @@ class BugReportStateClosed implements BugReportState {
         str.append("\n tag: ").append(this.getTag().name());
         // add tests
         str.append("\n tests: ");
-        for (String test : this.getTests()){
+        for (String test : this.getTests()) {
             str.append("\n \t ").append(test);
         }
         // add patches
         str.append("\n patches: ");
-        for (String patch : this.getPatches()){
+        for (String patch : this.getPatches()) {
             str.append("\n \t ").append(patch);
         }
         // add selected
@@ -250,7 +247,7 @@ class BugReportStateClosed implements BugReportState {
     /**
      * This method returns the multiplier of this state
      *
-     * @return  The multiplier
+     * @return The multiplier
      */
     @Override
     public double getMultiplier() {

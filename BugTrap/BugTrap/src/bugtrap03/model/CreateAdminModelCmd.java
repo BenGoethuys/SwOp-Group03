@@ -3,7 +3,6 @@ package bugtrap03.model;
 import bugtrap03.bugdomain.usersystem.Administrator;
 
 /**
- *
  * @author Group 03
  */
 class CreateAdminModelCmd extends ModelCmd {
@@ -11,11 +10,10 @@ class CreateAdminModelCmd extends ModelCmd {
     /**
      * Create a new {@link CreateAdminModelCmd} that can create an {@link Administrator} when executed.
      *
-     * @param model The DataMode to add the administrator to.
-     * @param username The username of the administrator.
+     * @param model     The DataMode to add the administrator to.
+     * @param username  The username of the administrator.
      * @param firstName The first name of the administrator.
-     * @param lastName The last name of the administrator.
-     *
+     * @param lastName  The last name of the administrator.
      * @throws IllegalArgumentException When model is a null reference.
      */
     CreateAdminModelCmd(DataModel model, String username, String firstName, String lastName) throws IllegalArgumentException {
@@ -32,12 +30,11 @@ class CreateAdminModelCmd extends ModelCmd {
     /**
      * Create a new {@link CreateAdminModelCmd} that can create an {@link Administrator} when executed.
      *
-     * @param model The DataMode to add the administrator to.
-     * @param username The username of the administrator.
-     * @param firstName The first name of the administrator.
+     * @param model      The DataMode to add the administrator to.
+     * @param username   The username of the administrator.
+     * @param firstName  The first name of the administrator.
      * @param middleName The middle name of the administrator.
-     * @param lastName The last name of the administrator.
-     *
+     * @param lastName   The last name of the administrator.
      * @throws IllegalArgumentException When model is a null reference.
      */
     CreateAdminModelCmd(DataModel model, String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
@@ -66,8 +63,7 @@ class CreateAdminModelCmd extends ModelCmd {
      *
      * @return The created {@link Administrator}
      * @throws IllegalArgumentException When any of the arguments passed to the constructor is invalid.
-     * @throws IllegalStateException When this ModelCmd was already executed.
-     *
+     * @throws IllegalStateException    When this ModelCmd was already executed.
      * @see Administrator#Administrator(java.lang.String, java.lang.String, java.lang.String)
      * @see Administrator#Administrator(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */

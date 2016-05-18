@@ -15,7 +15,7 @@ class BugReportStateAssignedWithTest implements BugReportState {
      * constructor for this state
      */
     @Requires("BugReport.isValidTest(test)")
-    BugReportStateAssignedWithTest(String test){
+    BugReportStateAssignedWithTest(String test) {
         this.tests = PList.<String>empty().plus(test);
     }
 
@@ -23,7 +23,7 @@ class BugReportStateAssignedWithTest implements BugReportState {
      * constructor for this state
      */
     @Requires("for (String test: tests) { BugReport.isValidTest(test) }")
-    private BugReportStateAssignedWithTest(PList<String> tests){
+    private BugReportStateAssignedWithTest(PList<String> tests) {
         this.tests = tests;
     }
 
@@ -70,7 +70,7 @@ class BugReportStateAssignedWithTest implements BugReportState {
      */
     @Override
     public boolean isValidTag(Tag tag) {
-        if (tag == Tag.NOT_A_BUG){
+        if (tag == Tag.NOT_A_BUG) {
             return true;
         }
         return false;
@@ -111,9 +111,8 @@ class BugReportStateAssignedWithTest implements BugReportState {
     /**
      * This method returns all the tests associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The list of tests associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getTests() throws IllegalStateException {
@@ -131,7 +130,7 @@ class BugReportStateAssignedWithTest implements BugReportState {
     @Override
     @Requires("bugReport.getInternState() == this && BugReport.isValidPatch(patch)")
     public BugReportState addPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-        if (bugReport.hasUnresolvedDependencies()){
+        if (bugReport.hasUnresolvedDependencies()) {
             throw new IllegalStateException("This bug report has unresolved dependencies and thus cannot have a patch yet");
         }
         BugReportState newState = new BugReportStateUnderReview(this.getTests(), patch);
@@ -143,9 +142,8 @@ class BugReportStateAssignedWithTest implements BugReportState {
     /**
      * This method returns the patches associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The patches associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getPatches() throws IllegalStateException {
@@ -196,9 +194,8 @@ class BugReportStateAssignedWithTest implements BugReportState {
     /**
      * This method returns the score associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The score associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public int getScore() throws IllegalStateException {
@@ -255,7 +252,7 @@ class BugReportStateAssignedWithTest implements BugReportState {
 
         // add tests
         str.append("\n tests: ");
-        for (String test : this.getTests()){
+        for (String test : this.getTests()) {
             str.append("\n \t ").append(test);
         }
 
@@ -265,7 +262,7 @@ class BugReportStateAssignedWithTest implements BugReportState {
     /**
      * This method returns the multiplier of this state
      *
-     * @return  The multiplier
+     * @return The multiplier
      */
     @Override
     public double getMultiplier() {

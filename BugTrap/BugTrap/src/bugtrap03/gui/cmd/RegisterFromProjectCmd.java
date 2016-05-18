@@ -4,15 +4,17 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.gui.cmd.general.*;
+import bugtrap03.gui.cmd.general.CancelException;
+import bugtrap03.gui.cmd.general.GetProjectCmd;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 
 /**
- * @author  Group 03
+ * @author Group 03
  */
-public class RegisterFromProjectCmd implements Cmd<AbstractMailbox>{
-    public RegisterFromProjectCmd(){}
+public class RegisterFromProjectCmd implements Cmd<AbstractMailbox> {
+    public RegisterFromProjectCmd() {
+    }
 
     /**
      * <br> 4. The system shows a list of projects.
@@ -28,11 +30,9 @@ public class RegisterFromProjectCmd implements Cmd<AbstractMailbox>{
      * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
-     *
      * @return The newly created mailbox representing the registration for notifications.
-     *
-     * @throws PermissionException If the user does not have enough permissions.
-     * @throws CancelException If the abort command has been given.
+     * @throws PermissionException      If the user does not have enough permissions.
+     * @throws CancelException          If the abort command has been given.
      * @throws IllegalArgumentException If any of the arguments is null or invalid.
      */
     @Override
