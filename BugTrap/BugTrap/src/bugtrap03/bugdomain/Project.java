@@ -179,6 +179,7 @@ public class Project extends ProjectSubject {
      * @param parent The parent to check
      * @return True if the given parent is a valid parent for this project.
      */
+    @Override
     public boolean isValidParent(AbstractSystem parent) {
         return parent == null;
     }
@@ -367,6 +368,7 @@ public class Project extends ProjectSubject {
      * @return the Project to which all the subsystems are linked.
      */
     @DomainAPI
+    @Override
     public Project getParentProject() {
         return this;
     }
