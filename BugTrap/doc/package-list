@@ -1,1 +1,8 @@
 bugtrap03.bugdomain
+bugtrap03.bugdomain.bugreport
+bugtrap03.bugdomain.notificationdomain
+bugtrap03.bugdomain.notificationdomain.mailboxes
+bugtrap03.bugdomain.notificationdomain.notification
+bugtrap03.bugdomain.permission
+bugtrap03.bugdomain.usersystem
+bugtrap03.model
