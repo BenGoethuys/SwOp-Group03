@@ -60,7 +60,7 @@ public class Main {
             // create projectA
             Project projectA = model.createProject(new VersionID(5,0), "ProjectA", "Description of projectA", major, 10000, admin);
             // add asked roles
-            model.assignToProject(projectA, major, major, Role.PROGRAMMER);
+            model.assignToProject(projectA, major, maria, Role.PROGRAMMER);
             model.assignToProject(projectA, major, maria, Role.TESTER);
             // make subsystems
             Subsystem subsystemA1 = model.createSubsystem(admin, projectA, "SubsystemA1", "Description of susbsystem A1");
@@ -70,13 +70,13 @@ public class Main {
             Subsystem subsystemA3_2 = model.createSubsystem(admin, subsystemA3, "SubsystemA3.2", "Description of susbsystem A3.2");
             // make bug report 2
             BugReport bugRep2 = model.createBugReport(subsystemA3_1, charlie, "Crash while processing user input",
-                    "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 1, 15),
+                    "If incorrect user input is entered into the system ...", new GregorianCalendar(2016, 0, 15),
                     PList.<BugReport>empty(), null, 2.3, false, null, null, "Internal Error 45: The...");
             // add user -> assigned
             model.addUsersToBugReport(major, bugRep2, PList.<Developer>empty().plusAll(Arrays.asList(major, maria)));
             // make bug report 3
             model.createBugReport(subsystemA2, major, "SubsystemA2 feezes", "If the function process_dfe is invoked with ...",
-                    new GregorianCalendar(2016, 2, 4), PList.<BugReport>empty(), new Milestone(3, 2), 5.8, true,
+                    new GregorianCalendar(2016, 1, 4), PList.<BugReport>empty(), new Milestone(3, 2), 5.8, true,
                     "Launch with command line invocation:...", "Exception in thread \"main\" java.lang...", null);
 
             // set milestones
@@ -105,7 +105,7 @@ public class Main {
             model.createSubsystem(admin, subsystemB2, "SubsystemB2.1", "Description of susbsystem B2.1");
             // make bug report 1
             BugReport bugRep1 = model.createBugReport(subsystemB1, doc, "The function parse_ewd returns unexpected results",
-                    "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 1, 3),
+                    "If the function parse_ewd is invoked while ...", new GregorianCalendar(2016, 0, 3),
                     PList.<BugReport>empty(), new Milestone(1,1), 7.1, false, null, null, null);
             // add user -> assigned
             model.addUsersToBugReport(maria, bugRep1, PList.<Developer>empty().plus(maria));
