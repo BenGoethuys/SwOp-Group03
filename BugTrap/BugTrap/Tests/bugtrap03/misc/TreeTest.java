@@ -344,7 +344,7 @@ public class TreeTest {
     }
 
     /**
-     * Test {@link Tree#toArray(T[])} which should do nothing and return null (because not implemented).
+     * Test {@link Tree#toArray(Object[])} which should do nothing and return null (because not implemented).
      */
     @Test
     public void testToArray_Obj() {
