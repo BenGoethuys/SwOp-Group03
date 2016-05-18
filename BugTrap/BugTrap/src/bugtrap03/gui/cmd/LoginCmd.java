@@ -16,8 +16,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * This command represents the use case login, where a user logs in into the
- * system
+ * This command represents the use case login, where a user logs in into the system
  *
  * @author Group 03
  */

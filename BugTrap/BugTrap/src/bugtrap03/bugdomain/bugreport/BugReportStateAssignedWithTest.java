@@ -6,6 +6,8 @@ import purecollections.PList;
 
 /**
  * This class represents the assigned state with also an assigned test of a bug report
+ *
+ * @author Group 03
  */
 class BugReportStateAssignedWithTest implements BugReportState {
 

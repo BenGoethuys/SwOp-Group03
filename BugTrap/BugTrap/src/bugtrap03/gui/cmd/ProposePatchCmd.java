@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import javax.swing.JFileChooser;
 
 /**
+ * This command represents the use case for proposing a patch for a bug report
  *
  * @author Group 03
  */

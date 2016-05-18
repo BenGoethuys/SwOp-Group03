@@ -11,6 +11,8 @@ import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
+ * This command represents the use case for merging 2 subsystems
+ *
  * @author Group 03
  */
 public class MergeSubsystemsCmd implements Cmd<Subsystem> {

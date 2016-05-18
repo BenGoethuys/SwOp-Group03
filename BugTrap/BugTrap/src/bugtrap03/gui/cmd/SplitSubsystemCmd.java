@@ -11,6 +11,7 @@ import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
+ * This command represents the use case for splitting a subsystem in 2 separate subsystems
  *
  * @author Group 03
  */

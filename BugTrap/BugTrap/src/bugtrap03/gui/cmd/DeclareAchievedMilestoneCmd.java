@@ -13,8 +13,9 @@ import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
- * @author Mathias
+ * This command represents the use case for declaring a milestone
  *
+ * @author Group 03
  */
 public class DeclareAchievedMilestoneCmd implements Cmd<Project> {
 

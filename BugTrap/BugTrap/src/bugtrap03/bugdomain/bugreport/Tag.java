@@ -6,7 +6,7 @@ import bugtrap03.bugdomain.permission.RolePerm;
 /**
  * This enum contains objects of Type Tag
  *
- * @author Ben Goethuys & Vincent Derkinderen
+ * @author Group 03
  */
 @DomainAPI
 public enum Tag {

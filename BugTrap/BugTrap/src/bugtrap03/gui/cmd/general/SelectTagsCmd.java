@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 
 /**
+ * This command asks the user the select some tags
+ *
  * @author Group 03
  */
 public class SelectTagsCmd implements Cmd<EnumSet<Tag>> {

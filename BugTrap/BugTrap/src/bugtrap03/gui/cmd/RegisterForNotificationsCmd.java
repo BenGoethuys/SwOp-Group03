@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.TreeSet;
 
 /**
+ * This command represents the use case for registering a user for a notification
+ *
  * @author Group 03
  */
 public class RegisterForNotificationsCmd implements Cmd<AbstractMailbox> {

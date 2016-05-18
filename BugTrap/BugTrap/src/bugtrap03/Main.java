@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.GregorianCalendar;
 
 /**
+ * This is the runnable main class of the BugTrap system
+ *
  * @author Group 03
  */
 public class Main {
