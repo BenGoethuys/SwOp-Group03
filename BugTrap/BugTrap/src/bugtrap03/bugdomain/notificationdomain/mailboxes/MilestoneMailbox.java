@@ -69,7 +69,7 @@ public class MilestoneMailbox extends SubjectMailbox<AbstractSystem, AbstractSys
         if (this.milestone == null) {
             asNotification = new Notification(("\tThe milestone " + changedObject.getMilestone().toString() + " has been set on: "), this.subject);
         } else {
-            if (this.milestone == changedObject.getMilestone()) {
+            if (this.milestone.equals(changedObject.getMilestone())) {
                 asNotification = new Notification("\tThe milestone " + this.milestone.toString() + " has been set on: ", this.subject);
 
             } else {
