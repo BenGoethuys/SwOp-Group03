@@ -9,7 +9,7 @@ import java.util.Arrays;
  * This class represents a User in the system
  *
  * @author Group 03
- * @version 0.1
+ * @version 1.2
  */
 @DomainAPI
 public class Issuer extends User {
