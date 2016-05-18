@@ -380,8 +380,7 @@ public class Subsystem extends AbstractSystem {
         if(this.isTerminated()) {
             throw new IllegalStateException("The subsystem cannot be split when terminated.");
         }
-
-        //TODO: Kwinten add the notification list to the other subsystem as well.
+        
         //Set current subsystem
         this.setName(name1);
         this.setDescription(desc1);
@@ -480,8 +479,6 @@ public class Subsystem extends AbstractSystem {
             bugReport.setSubsystem(this);
             this.addBugReport(bugReport);
         }
-
-        //TODO: possible merge subscribers?
 
         return this;
     }

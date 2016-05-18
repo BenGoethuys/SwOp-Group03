@@ -30,7 +30,7 @@ public class VersionIDMailboxTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        dev4TMB = new Developer("dev4TMB2", "devviea", "mbTestera");
+        dev4TMB = new Developer("dev4TMB50", "devviea", "mbTestera");
         project4MB = new Project("Project4mb","a project to test the mb", dev4TMB, 1000);
         subsystem4MB = project4MB.addSubsystem("subsystem4MB", "A susbsystem to test the mb");
         bugreport4MB = subsystem4MB.addBugReport(dev4TMB, "bugreport4MB1", "A bugreport to test the mb",
