@@ -103,7 +103,7 @@ public abstract class Subject {
      *
      * @param br The bugreport of which an attribute has changed.
      */
-    public abstract void notifyTagSubs(BugReport br);
+    protected abstract void notifyTagSubs(BugReport br);
 
     /**
      * This method updates all the mailboxes subscribed on a comment creation on this subject.
@@ -192,7 +192,7 @@ public abstract class Subject {
      *
      * @param br The bugreport of which an attribute has changed.
      */
-    public abstract void notifyCommentSubs(BugReport br);
+    protected abstract void notifyCommentSubs(BugReport br);
 
     /**
      * This method returns whether or not this subject is terminated

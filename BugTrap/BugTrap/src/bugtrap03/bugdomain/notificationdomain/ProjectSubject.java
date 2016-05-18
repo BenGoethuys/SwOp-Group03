@@ -108,8 +108,7 @@ public abstract class ProjectSubject extends AbstractSystem {
      *
      * @param project The newly forked project.
      */
-    @DomainAPI
-    public void notifyForkSubs(Project project) {
+    protected void notifyForkSubs(Project project) {
         for (ForkMailbox fmb : this.getForkSubs()) {
             fmb.update(project);
         }
