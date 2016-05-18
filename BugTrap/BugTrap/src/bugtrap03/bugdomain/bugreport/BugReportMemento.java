@@ -2,15 +2,15 @@ package bugtrap03.bugdomain.bugreport;
 
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Subsystem;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.SubjectMemento;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.usersystem.Developer;
-import java.util.GregorianCalendar;
 import purecollections.PList;
 
+import java.util.GregorianCalendar;
+
 /**
- *
  * <b>This class is the Memento of {@link BugReport}, this means it is a snapshot of the state of a BugReport.</b>
  * <br> <u>Caution:</u> Due to time/effort balancing this currently is not a fully functional Memento in the way that it
  * is designed to fit with the undo operations. This means that if it is used outside of the undo operations, for
@@ -28,24 +28,24 @@ public class BugReportMemento extends SubjectMemento {
     /**
      * Create a Memento for BugReport.
      *
-     * @param title The title of the BugReport during the snapshot
-     * @param desc The description of the BugReport during the snapshot.
+     * @param title        The title of the BugReport during the snapshot
+     * @param desc         The description of the BugReport during the snapshot.
      * @param creationDate The creationDate of the BugReport during the snapshot.
-     * @param commentList the commentList of the BugReport during the snapshot.
-     * @param userList The userList of the BugReport during the snapshot.
+     * @param commentList  the commentList of the BugReport during the snapshot.
+     * @param userList     The userList of the BugReport during the snapshot.
      * @param dependencies The dependencies of the BugReport during the snapshot.
-     * @param milestone The milestone of the BugReport during the snapshot.
-     * @param isPrivate The isPrivate of the BugReport during the snapshot.
-     * @param trigger The trigger of the BugReport during the snapshot.
-     * @param stacktrace The stack-trace of the BugReport during the snapshot.
-     * @param error The error of the BugReport during the snapshot.
-     * @param state The state of the BugReport during the snapshot.
+     * @param milestone    The milestone of the BugReport during the snapshot.
+     * @param isPrivate    The isPrivate of the BugReport during the snapshot.
+     * @param trigger      The trigger of the BugReport during the snapshot.
+     * @param stacktrace   The stack-trace of the BugReport during the snapshot.
+     * @param error        The error of the BugReport during the snapshot.
+     * @param state        The state of the BugReport during the snapshot.
      */
     BugReportMemento(PList<TagMailbox> tagMailboxes, PList<CommentMailbox> commentMailboxes, String title, String desc, GregorianCalendar creationDate, Subsystem subsystem, PList<Comment> commentList,
                      PList<Developer> userList, PList<BugReport> dependencies, Milestone milestone, boolean isPrivate,
                      String trigger, String stacktrace, String error, BugReportState state) {
         super(tagMailboxes, commentMailboxes);
-        
+
         this.title = title;
         this.description = desc;
         this.creationDate = creationDate;

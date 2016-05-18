@@ -22,7 +22,10 @@ public class ProjectSubjectMemento extends AbstractSystemMemento {
 
     /**
      * This method gets the final list of fork subscribers.
+     *
      * @return A PList of fork mailboxes.
      */
-    public PList<ForkMailbox> getForkSubs(){return this.forkSubs;}
+    public PList<ForkMailbox> getForkSubs() {
+        return this.forkSubs;
+    }
 }

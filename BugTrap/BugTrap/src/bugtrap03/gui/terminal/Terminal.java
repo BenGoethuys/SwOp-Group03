@@ -15,6 +15,7 @@ public class Terminal {
 
     /**
      * Create a new {@link Terminal} which can be used to start the terminal interaction.
+     *
      * @param model The data model used to access the data. Changes will be reflected.
      * @throws IllegalArgumentException When model is a null reference.
      * @see Terminal#openView()
@@ -43,9 +44,8 @@ public class Terminal {
     }
 
     /**
-     * 
      * Set the {@link User} currently logged in.
-     * 
+     *
      * @param user The new logged in user.
      * @throws IllegalArgumentException When the user given was a null reference.
      */

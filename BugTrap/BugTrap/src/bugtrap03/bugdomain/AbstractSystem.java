@@ -116,7 +116,7 @@ public abstract class AbstractSystem extends AbstractSystemSubject {
             notNullVersion = true;
         }
         this.version = version;
-        if (notNullVersion){
+        if (notNullVersion) {
             notifyVersionIDSubs(this);
         }
     }

@@ -4,7 +4,6 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 
 /**
- *
  * @author Group 03
  */
 class CreateDeveloperModelCmd extends ModelCmd {
@@ -12,12 +11,11 @@ class CreateDeveloperModelCmd extends ModelCmd {
     /**
      * Create a {@link CreateDeveloperModelCmd} which can create a new {@link Developer} when executed.
      *
-     * @param model The DataModel to add the developer to.
-     * @param username The username of the developer.
-     * @param firstName The first name of the developer.
+     * @param model      The DataModel to add the developer to.
+     * @param username   The username of the developer.
+     * @param firstName  The first name of the developer.
      * @param middleName The middle name of the developer.
-     * @param lastName The last name of the developer.
-     *
+     * @param lastName   The last name of the developer.
      * @throws IllegalArgumentException When model is a null reference.
      */
     CreateDeveloperModelCmd(DataModel model, String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
@@ -35,11 +33,10 @@ class CreateDeveloperModelCmd extends ModelCmd {
     /**
      * Create a new {@link ModelCmd} that can create an {@link Issuer} when executed.
      *
-     * @param model The DataMode to add the developer to.
-     * @param username The username of the developer.
+     * @param model     The DataMode to add the developer to.
+     * @param username  The username of the developer.
      * @param firstName The first name of the developer.
-     * @param lastName The last name of the developer.
-     *
+     * @param lastName  The last name of the developer.
      * @throws IllegalArgumentException When model is a null reference.
      */
     CreateDeveloperModelCmd(DataModel model, String username, String firstName, String lastName) throws IllegalArgumentException {
@@ -69,8 +66,7 @@ class CreateDeveloperModelCmd extends ModelCmd {
      *
      * @return The created {@link Developer}
      * @throws IllegalArgumentException When any of the arguments passed to the constructor is invalid.
-     * @throws IllegalStateException When this ModelCmd was already executed.
-     *
+     * @throws IllegalStateException    When this ModelCmd was already executed.
      * @see Developer#Developer(java.lang.String, java.lang.String, java.lang.String)
      * @see Developer#Developer(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */

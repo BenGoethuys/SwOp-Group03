@@ -4,7 +4,9 @@ import bugtrap03.bugdomain.*;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Comment;
 import bugtrap03.bugdomain.bugreport.Tag;
-import bugtrap03.bugdomain.notificationdomain.*;
+import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
+import bugtrap03.bugdomain.notificationdomain.ProjectSubject;
+import bugtrap03.bugdomain.notificationdomain.Subject;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
@@ -42,7 +44,6 @@ public class DataModel {
      * <br> This will only be added when the cmd has been executed.
      *
      * @param cmd The {@link ModelCmd} to add to the history.
-     *
      * @throws IllegalStateException When cmd is a null reference or has not been executed yet.
      * @see ModelCmd#isExecuted()
      */
@@ -101,7 +102,6 @@ public class DataModel {
      * <br> As soon as the undoing of an action fails the undoing is stopped and false is returned.
      *
      * @param x The amount of changes to undo.
-     *
      * @return True if all x changes were undone. When x &lt= 0 true is returned.
      * @throws PermissionException When user == null or does not have sufficient permissions.
      */
@@ -174,7 +174,7 @@ public class DataModel {
     /**
      * Get the list of users in this system who have the exact class type userType.
      *
-     * @param <U> extends User type.
+     * @param <U>      extends User type.
      * @param userType The type of users returned.
      * @return All users of this system who have the exact class type userType.
      */
@@ -192,7 +192,7 @@ public class DataModel {
     /**
      * Get the list of users in this system who are of type that is or extends userType.
      *
-     * @param <U> extends User type.
+     * @param <U>      extends User type.
      * @param userType The type of users returned.
      * @return All users of this system who have the exact class type userType or a class type that extends userType.
      */
@@ -210,10 +210,10 @@ public class DataModel {
     /**
      * Create a new {@link Issuer} in this system.
      *
-     * @param username The username of the issuer.
-     * @param firstName The first name of the issuer.
+     * @param username   The username of the issuer.
+     * @param firstName  The first name of the issuer.
      * @param middleName The middle name of the issuer.
-     * @param lastName The last name of the issuer.
+     * @param lastName   The last name of the issuer.
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
@@ -228,9 +228,9 @@ public class DataModel {
     /**
      * Create a new {@link Issuer} in this system.
      *
-     * @param username The username of the issuer.
+     * @param username  The username of the issuer.
      * @param firstName The first name of the issuer.
-     * @param lastName The last name of the issuer.
+     * @param lastName  The last name of the issuer.
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
@@ -245,10 +245,10 @@ public class DataModel {
     /**
      * Create a new {@link Developer} in this system.
      *
-     * @param username The username of the issuer.
-     * @param firstName The first name of the issuer.
+     * @param username   The username of the issuer.
+     * @param firstName  The first name of the issuer.
      * @param middleName The middle name of the issuer.
-     * @param lastName The last name of the issuer.
+     * @param lastName   The last name of the issuer.
      * @return The created {@link Developer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
@@ -263,9 +263,9 @@ public class DataModel {
     /**
      * Create a new {@link Developer} in this system.
      *
-     * @param username The username of the issuer.
+     * @param username  The username of the issuer.
      * @param firstName The first name of the issuer.
-     * @param lastName The last name of the issuer.
+     * @param lastName  The last name of the issuer.
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
@@ -280,10 +280,10 @@ public class DataModel {
     /**
      * Create a new {@link Administrator} in this system.
      *
-     * @param username The username of the issuer.
-     * @param firstName The first name of the issuer.
+     * @param username   The username of the issuer.
+     * @param firstName  The first name of the issuer.
      * @param middleName The middle name of the issuer.
-     * @param lastName The last name of the issuer.
+     * @param lastName   The last name of the issuer.
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
@@ -298,9 +298,9 @@ public class DataModel {
     /**
      * Create a new {@link Administrator} in this system.
      *
-     * @param username The username of the issuer.
+     * @param username  The username of the issuer.
      * @param firstName The first name of the issuer.
-     * @param lastName The last name of the issuer.
+     * @param lastName  The last name of the issuer.
      * @return The created {@link Administrator}
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
@@ -315,18 +315,16 @@ public class DataModel {
     /**
      * This method creates a new {@link Project} in the system
      *
-     *
      * @param versionID
-     * @param name The name of the project
+     * @param name        The name of the project
      * @param description The description of the project
-     * @param startDate The start date of the project
-     * @param lead The lead developer of this project
-     * @param budget The budget estimate for this project
-     * @param creator The creator of this Project
-     *
+     * @param startDate   The start date of the project
+     * @param lead        The lead developer of this project
+     * @param budget      The budget estimate for this project
+     * @param creator     The creator of this Project
      * @return The created project
      * @throws IllegalArgumentException if the constructor of project fails
-     * @throws PermissionException If the given creator has insufficient permissions
+     * @throws PermissionException      If the given creator has insufficient permissions
      */
     @DomainAPI
     public Project createProject(VersionID versionID, String name, String description, GregorianCalendar startDate, Developer lead,
@@ -340,17 +338,15 @@ public class DataModel {
     /**
      * This method creates a new {@link Project} in the system
      *
-     *
      * @param versionID
-     * @param name The name of the project
+     * @param name        The name of the project
      * @param description The description of the project
-     * @param lead The lead developer of this project
-     * @param budget The budget estimate for this project
-     * @param creator The creator of this project
-     *
+     * @param lead        The lead developer of this project
+     * @param budget      The budget estimate for this project
+     * @param creator     The creator of this project
      * @return The created project
      * @throws IllegalArgumentException if the constructor of project fails
-     * @throws PermissionException If the given creator has insufficient permissions
+     * @throws PermissionException      If the given creator has insufficient permissions
      */
     @DomainAPI
     public Project createProject(VersionID versionID, String name, String description, Developer lead, long budget, User creator)
@@ -375,9 +371,8 @@ public class DataModel {
      * This method gets all bug reports in the system that are visible to the given user.
      *
      * @param user The user to get all bug reports for. All bug reports will be visible for him. null would mean the bug
-     * report is visible to everyone.
+     *             report is visible to everyone.
      * @return a list of all bug reports in the system that are visible for the user.
-     *
      * @see BugReport#isVisibleTo(bugtrap03.bugdomain.usersystem.User)
      */
     @DomainAPI
@@ -413,17 +408,17 @@ public class DataModel {
     /**
      * This method updates the given project with the new given attributes
      *
-     * @param name The new name of the given project
-     * @param description The new description of the given project
-     * @param startDate The new startDate of the given project
+     * @param name           The new name of the given project
+     * @param description    The new description of the given project
+     * @param startDate      The new startDate of the given project
      * @param budgetEstimate The new budget estimate of the given project
-     * @throws PermissionException if the given user doesn't have the needed permission to update a project.
+     * @throws PermissionException      if the given user doesn't have the needed permission to update a project.
      * @throws IllegalArgumentException When any of the arguments is invalid.
-     * <br><dt><b>Postconditions:</b><dd> The attributes of the given project will not be updated if an error was thrown
+     *                                  <br><dt><b>Postconditions:</b><dd> The attributes of the given project will not be updated if an error was thrown
      */
     @DomainAPI
     public Project updateProject(Project proj, User user, String name, String description, GregorianCalendar startDate,
-            Long budgetEstimate) throws IllegalArgumentException, PermissionException {
+                                 Long budgetEstimate) throws IllegalArgumentException, PermissionException {
         UpdateProjectModelCmd cmd = new UpdateProjectModelCmd(proj, user, name, description, startDate, budgetEstimate);
         Project project = cmd.exec();
         addToHistory(cmd);
@@ -439,7 +434,7 @@ public class DataModel {
      */
     @DomainAPI
     public PList<Subsystem> getAllSubsystems(Project project) {
-        if(project == null) {
+        if (project == null) {
             return PList.<Subsystem>empty();
         }
         return project.getAllSubsystems();
@@ -463,10 +458,10 @@ public class DataModel {
     /**
      * This method removes a project from the project list.
      *
-     * @param user The user that wants to delete the project
+     * @param user    The user that wants to delete the project
      * @param project The project which has to be removed
      * @return The removed project
-     * @throws PermissionException If the given user doesn't have the permission to delete a project
+     * @throws PermissionException      If the given user doesn't have the permission to delete a project
      * @throws IllegalArgumentException When user == null
      */
     @DomainAPI
@@ -480,13 +475,12 @@ public class DataModel {
     /**
      * This method creates a new subsystem in the given Project/Subsystem
      *
-     * @param user The user that wants to create the subsystem
+     * @param user           The user that wants to create the subsystem
      * @param abstractSystem The Project/Subsystem to add the new subsystem to
-     * @param name The name of the new Subsystem
-     * @param description The description of the new Subsystem
-     *
+     * @param name           The name of the new Subsystem
+     * @param description    The description of the new Subsystem
      * @return The created subsystem
-     * @throws PermissionException If the user doesn't have the permission to create a subsystem
+     * @throws PermissionException      If the user doesn't have the permission to create a subsystem
      * @throws IllegalArgumentException When any of the arguments is invalid.
      */
     @DomainAPI
@@ -501,19 +495,18 @@ public class DataModel {
     /**
      * This method creates a new subsystem in the given Project/Subsystem
      *
-     * @param user The user that wants to create the subsystem
+     * @param user           The user that wants to create the subsystem
      * @param abstractSystem The Project/Subsystem to add the new subsystem to
-     * @param versionID The versionID of the new Subsystem.
-     * @param name The name of the new Subsystem
-     * @param description The description of the new Subsystem
-     *
+     * @param versionID      The versionID of the new Subsystem.
+     * @param name           The name of the new Subsystem
+     * @param description    The description of the new Subsystem
      * @return The created subsystem
-     * @throws PermissionException If the user doesn't have the permission to create a subsystem
+     * @throws PermissionException      If the user doesn't have the permission to create a subsystem
      * @throws IllegalArgumentException When user == null || abstractSystem == null
      */
     @DomainAPI
     public Subsystem createSubsystem(User user, AbstractSystem abstractSystem, VersionID versionID, String name,
-            String description) throws PermissionException, IllegalArgumentException {
+                                     String description) throws PermissionException, IllegalArgumentException {
         CreateSubsystemModelCmd cmd = new CreateSubsystemModelCmd(user, abstractSystem, versionID, name, description);
         Subsystem sub = cmd.exec();
         addToHistory(cmd);
@@ -523,14 +516,18 @@ public class DataModel {
     /**
      * This method creates and adds a bug report to the list of associated bugReports of this subsystem
      *
-     * @param subsystem The subsystem the new bugreport belongs to
-     * @param user The User that wants to create this bug report
-     * @param title The title of the bugReport
-     * @param description The description of the bugReport
+     * @param subsystem    The subsystem the new bugreport belongs to
+     * @param user         The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param milestone The milestone of the bug report
-     * @param impactFactor  The impact factor of the new bug report
-     * @param isPrivate The boolean that says if this bug report should be private or not
+     * @param milestone    The milestone of the bug report
+     * @param impactFactor The impact factor of the new bug report
+     * @param isPrivate    The boolean that says if this bug report should be private or not
+     * @return The create bug report
+     * <p>
+     * <br><dt><b>Postconditions:</b><dd> result.getDate() == current date at the moment of initialization
+     * <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
      * @throws IllegalArgumentException if isValidCreator(user) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -538,13 +535,7 @@ public class DataModel {
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
-     * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
-     *
-     * @return The create bug report
-     *
-     * <br><dt><b>Postconditions:</b><dd> result.getDate() == current date at the moment of initialization
-     * <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
-     *
+     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -569,18 +560,23 @@ public class DataModel {
     /**
      * This method creates and adds a bug report to the list of associated bugReports of this subsystem
      *
-     * @param subsystem The subsystem the new bugreport belongs to
-     * @param user The User that wants to create this bug report
-     * @param title The title of the bugReport
-     * @param description The description of the bugReport
+     * @param subsystem    The subsystem the new bugreport belongs to
+     * @param user         The User that wants to create this bug report
+     * @param title        The title of the bugReport
+     * @param description  The description of the bugReport
      * @param creationDate The creationDate of the bugReport
      * @param dependencies The depended bug reports of this bug report
-     * @param milestone The milestone of the bug report
-     * @param impactFactor  the impact factor of the new bug report
-     * @param isPrivate The boolean that says if this bug report should be private or not
-     * @param trigger A trigger used to trigger the bug. Can be NULL.
-     * @param stacktrace The stacktrace got when the bug was triggered. Can be NULL.
-     * @param error The error got when the bug was triggered. Can be NULL.
+     * @param milestone    The milestone of the bug report
+     * @param impactFactor the impact factor of the new bug report
+     * @param isPrivate    The boolean that says if this bug report should be private or not
+     * @param trigger      A trigger used to trigger the bug. Can be NULL.
+     * @param stacktrace   The stacktrace got when the bug was triggered. Can be NULL.
+     * @param error        The error got when the bug was triggered. Can be NULL.
+     * @return The create bug report
+     * <p>
+     * <br><dt><b>Postconditions:</b><dd> if creationDate == null: result.getDate() == current date at the moment of
+     * initialization
+     * <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
      * @throws IllegalArgumentException if isValidCreator(user) fails
      * @throws IllegalArgumentException if isValidUniqueID(uniqueID) fails
      * @throws IllegalArgumentException if isValidTitle(title) fails
@@ -589,14 +585,7 @@ public class DataModel {
      * @throws IllegalArgumentException if isValidDependencies(dependencies) fails
      * @throws IllegalArgumentException if isValidSubSystem(subsystem) fails
      * @throws IllegalArgumentException if isValidMilestone(milestone) fails
-     * @throws PermissionException if the given creator doesn't have the needed permission to create a bug report
-     *
-     * @return The create bug report
-     *
-     * <br><dt><b>Postconditions:</b><dd> if creationDate == null: result.getDate() == current date at the moment of
-     * initialization
-     * <br><dt><b>Postconditions:</b><dd> result.getUniqueID() is an unique ID for this bug report
-     *
+     * @throws PermissionException      if the given creator doesn't have the needed permission to create a bug report
      * @see BugReport#isValidCreator(User)
      * @see BugReport#isValidUniqueID(long)
      * @see BugReport#isValidTitle(String)
@@ -622,11 +611,11 @@ public class DataModel {
     /**
      * This method creates a comment on a given BugReport
      *
-     * @param user The creator of the comment
+     * @param user      The creator of the comment
      * @param bugReport The bug report to create the comment on
-     * @param text The text of the new comment
+     * @param text      The text of the new comment
      * @return The new generated comment
-     * @throws PermissionException If the given User doesn't have the permission to create the comment
+     * @throws PermissionException      If the given User doesn't have the permission to create the comment
      * @throws IllegalArgumentException When bugReport == null
      * @throws IllegalArgumentException if the given comment is not valid for this bug report
      * @see BugReport#isValidComment(Comment)
@@ -642,11 +631,11 @@ public class DataModel {
     /**
      * This method creates a comment on the given comment with the given text by the given user
      *
-     * @param user The creator of the new comment
+     * @param user          The creator of the new comment
      * @param parentComment The comment to create the comment on (= sub comment)
-     * @param text The text of the new Comment
+     * @param text          The text of the new Comment
      * @return The new generated comment
-     * @throws PermissionException If the given User doesn't have the permission to create the comment
+     * @throws PermissionException      If the given User doesn't have the permission to create the comment
      * @throws IllegalArgumentException When parentComment == null
      * @throws IllegalArgumentException if the given parameters are not valid for this comment
      * @see Comment#isValidSubComment(Comment)
@@ -662,10 +651,10 @@ public class DataModel {
     /**
      * Clone the given {@link Project} and set a few attributes.
      *
-     * @param cloneSource The project to clone from.
-     * @param versionID The versionID for the clone project.
-     * @param lead The lead developer for the clone project.
-     * @param startDate The startDate for the clone project.
+     * @param cloneSource    The project to clone from.
+     * @param versionID      The versionID for the clone project.
+     * @param lead           The lead developer for the clone project.
+     * @param startDate      The startDate for the clone project.
      * @param budgetEstimate The budgetEstimate for the clone project.
      * @return The resulting clone.
      * @throws IllegalArgumentException Check @see.
@@ -673,7 +662,7 @@ public class DataModel {
      */
     @DomainAPI
     public Project cloneProject(Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate,
-            long budgetEstimate) throws IllegalArgumentException {
+                                long budgetEstimate) throws IllegalArgumentException {
         CloneProjectModelCmd cmd = new CloneProjectModelCmd(this, cloneSource, versionID, lead, startDate, budgetEstimate);
         Project proj = cmd.exec();
         addToHistory(cmd);
@@ -696,11 +685,11 @@ public class DataModel {
     /**
      * This method adds all the users of the given list to the given project by the given user
      *
-     * @param user The user that wants to add all the given developers to the bug report
-     * @param bugRep The bug report to add all the developers to
+     * @param user    The user that wants to add all the given developers to the bug report
+     * @param bugRep  The bug report to add all the developers to
      * @param devList The developers to add to the bug report
-     * @throws PermissionException If the given user doesn't have the needed permission to add users to the given bug
-     * report
+     * @throws PermissionException      If the given user doesn't have the needed permission to add users to the given bug
+     *                                  report
      * @throws IllegalArgumentException When user == null
      * @throws IllegalArgumentException When bugRep == null
      * @throws IllegalArgumentException If the given developer was not valid for this bug report
@@ -727,22 +716,22 @@ public class DataModel {
      * This method lets the given user set the tag of the given bug report to the given tag
      *
      * @param bugrep The bug report of which the tag gets to be set
-     * @param tag The given tag to set
-     * @param user The user that wishes to set the tag
-     * @throws PermissionException If the user doesn't have the needed permission to set the given tag to the bug report
+     * @param tag    The given tag to set
+     * @param user   The user that wishes to set the tag
+     * @throws PermissionException      If the user doesn't have the needed permission to set the given tag to the bug report
      * @throws IllegalArgumentException If the given tag isn't a valid tag to set to the bug report
      */
     @DomainAPI
     public void setTag(BugReport bugrep, Tag tag, User user) throws PermissionException, IllegalArgumentException {
         SetTagForBugReportModelCmd cmd = new SetTagForBugReportModelCmd(bugrep, tag, user);
         cmd.exec();
-        addToHistory(cmd); 
+        addToHistory(cmd);
     }
 
     /**
      * This method gets the details of a given bug report and checks the needed permission
      *
-     * @param user The user that wants to inspect the bugReport
+     * @param user   The user that wants to inspect the bugReport
      * @param bugRep The bug report that the user wants to inspect
      * @return The details of the bug report
      * @throws PermissionException If the given user doesn't have the needed permission
@@ -768,12 +757,11 @@ public class DataModel {
     /**
      * This method lets a user assign a role to a developer in a given project .
      *
-     * @param project The project in which the user will be assigned.
-     * @param user The user that assigns the role to the developer
+     * @param project   The project in which the user will be assigned.
+     * @param user      The user that assigns the role to the developer
      * @param developer The developer that gets a role assigned
-     * @param role The role that will be assigned
-     *
-     * @throws PermissionException When the user does not have sufficient permissions.
+     * @param role      The role that will be assigned
+     * @throws PermissionException      When the user does not have sufficient permissions.
      * @throws IllegalArgumentException When role == null || user == null || project == null || developer == null
      */
     @DomainAPI
@@ -787,13 +775,11 @@ public class DataModel {
      * This method adds a given test to the bug report state
      *
      * @param bugReport The bug report to add the given test to
-     * @param user The user that wants to add the test to this bug report state
-     * @param test The test that the user wants to add
-     *
-     * @throws PermissionException If the given user doesn't have the permission to add a test
-     * @throws IllegalStateException If the current state doesn't allow to add a test
+     * @param user      The user that wants to add the test to this bug report state
+     * @param test      The test that the user wants to add
+     * @throws PermissionException      If the given user doesn't have the permission to add a test
+     * @throws IllegalStateException    If the current state doesn't allow to add a test
      * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
-     *
      * @see BugReport#isValidTest(String)
      */
     @DomainAPI
@@ -807,11 +793,10 @@ public class DataModel {
      * This method adds a given patch to this bug report state
      *
      * @param bugReport The bug report to add the patch to
-     * @param user The user that wants to add the patch to this bug report state
-     * @param patch The patch that the user wants to submit
-     *
-     * @throws PermissionException If the given user doesn't have the permission to add a patch to this bug report state
-     * @throws IllegalStateException If the given patch is invalid for this bug report
+     * @param user      The user that wants to add the patch to this bug report state
+     * @param patch     The patch that the user wants to submit
+     * @throws PermissionException      If the given user doesn't have the permission to add a patch to this bug report state
+     * @throws IllegalStateException    If the given patch is invalid for this bug report
      * @throws IllegalArgumentException If the given patch is not valid for this bug report state
      * @throws IllegalArgumentException When bugReport == null
      */
@@ -826,12 +811,11 @@ public class DataModel {
      * This method selects a patch for this bug report state
      *
      * @param bugReport The bug report to add the patch to
-     * @param user The user that wants to select the patch
-     * @param patch The patch that the user wants to select
-     *
-     * @throws PermissionException If the given user doesn't have the permission to select a patch for this bug report
-     * state
-     * @throws IllegalStateException If the current state doesn't allow the selecting of a patch
+     * @param user      The user that wants to select the patch
+     * @param patch     The patch that the user wants to select
+     * @throws PermissionException      If the given user doesn't have the permission to select a patch for this bug report
+     *                                  state
+     * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
      * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
      * @throws IllegalArgumentException When bugReport == null
      */
@@ -846,10 +830,9 @@ public class DataModel {
      * This method gives the selected patch of this bug report states a score
      *
      * @param bugReport The bug report to evaluate
-     * @param user The user that wants to assign a score to this bug report
-     * @param score The score that the creator wants to give
-     *
-     * @throws IllegalStateException If the current state doesn't allow assigning a score
+     * @param user      The user that wants to assign a score to this bug report
+     * @param score     The score that the creator wants to give
+     * @throws IllegalStateException    If the current state doesn't allow assigning a score
      * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
      * @throws IllegalArgumentException When bugReport == null
      */
@@ -862,10 +845,10 @@ public class DataModel {
 
     /**
      * This method sets the duplicate of the given bug report to the given duplicate
+     *
      * @param user      The user that wants to set the duplicate of the bug report
      * @param bugReport The bug report that will be assigned the duplicate
      * @param duplicate The duplicate of the given bug report
-     *
      * @throws IllegalStateException    If the bugReport doesn't allow a duplicate to be set
      * @throws IllegalArgumentException If the given bugReport/duplicate is invalid
      * @throws PermissionException      If the user doesn't have the needed permission to set the duplicate
@@ -881,17 +864,15 @@ public class DataModel {
     /**
      * This method lets a user register for notifications concerning a comment creation on a subject.
      *
-     * @param user the user that wishes to subscribe for notifications
+     * @param user    the user that wishes to subscribe for notifications
      * @param subject the subject on which the user wishes to subscribe
-     *
      * @return The newly created mailbox that represents the registration for notifications.
-     *
      * @throws IllegalArgumentException If the subject is invalid (=null).
-     * @throws IllegalStateException If the current state of the command is invalid.
+     * @throws IllegalStateException    If the current state of the command is invalid.
      */
     @DomainAPI
     public CommentMailbox registerForCommentNotifications(User user, Subject subject)
-            throws IllegalArgumentException, IllegalStateException{
+            throws IllegalArgumentException, IllegalStateException {
         RegisterForCommentNotificationsModelCmd cmd = new RegisterForCommentNotificationsModelCmd(user, subject);
         CommentMailbox newMailbox = cmd.exec();
         addToHistory(cmd);
@@ -901,17 +882,15 @@ public class DataModel {
     /**
      * This method lets a user register for notifications concerning a comment creation on a subject.
      *
-     * @param user the user that wishes to subscribe for notifications
+     * @param user                  the user that wishes to subscribe for notifications
      * @param abstractSystemSubject the abstract system subject on which the user wishes to subscribe
-     *
      * @return The newly created mailbox that represents the registration for notifications.
-     *
      * @throws IllegalArgumentException If the abstract system subject is invalid (=null).
-     * @throws IllegalStateException If the current state of the command is invalid.
+     * @throws IllegalStateException    If the current state of the command is invalid.
      */
     @DomainAPI
     public CreationMailbox registerForCreationNotifications(User user, AbstractSystemSubject abstractSystemSubject)
-            throws IllegalArgumentException, IllegalStateException{
+            throws IllegalArgumentException, IllegalStateException {
         RegisterForCreationNotificationsModelCmd cmd =
                 new RegisterForCreationNotificationsModelCmd(user, abstractSystemSubject);
         CreationMailbox newMailbox = cmd.exec();
@@ -922,14 +901,12 @@ public class DataModel {
     /**
      * This method lets a user register for notifications concerning a specific tag change on a subject.
      *
-     * @param user      the user that wishes to subscribe for notifications
-     * @param subject   the subject on which the user wishes to subscribe
-     * @param enumSet   the enumset of specific tags to which the user wishes to subscribe
-     *
+     * @param user    the user that wishes to subscribe for notifications
+     * @param subject the subject on which the user wishes to subscribe
+     * @param enumSet the enumset of specific tags to which the user wishes to subscribe
      * @return The newly created mailbox that represents the registration for notifications.
-     *
      * @throws IllegalArgumentException If the subject is invalid (=null).
-     * @throws IllegalStateException If the current state of the command is invalid.
+     * @throws IllegalStateException    If the current state of the command is invalid.
      */
     @DomainAPI
     public TagMailbox registerForSpecificTagsNotifications(User user, Subject subject, EnumSet<Tag> enumSet)
@@ -943,13 +920,11 @@ public class DataModel {
     /**
      * This method lets a user register for notifications concerning a tag change on a subject.
      *
-     * @param user      the user that wishes to subscribe for notifications
-     * @param subject   the subject on which the user wishes to subscribe
-     *
+     * @param user    the user that wishes to subscribe for notifications
+     * @param subject the subject on which the user wishes to subscribe
      * @return The newly created mailbox that represents the registration for notifications.
-     *
      * @throws IllegalArgumentException If the subject is invalid (=null).
-     * @throws IllegalStateException If the current state of the command is invalid.
+     * @throws IllegalStateException    If the current state of the command is invalid.
      */
     @DomainAPI
     public TagMailbox registerForAllTagsNotifications(User user, Subject subject)
@@ -963,13 +938,11 @@ public class DataModel {
     /**
      * This method lets a user register for notifications concerning a forking on a subject.
      *
-     * @param user      the user that wishes to subscribe for notifications
-     * @param projectSubject   the subject on which the user wishes to subscribe
-     *
+     * @param user           the user that wishes to subscribe for notifications
+     * @param projectSubject the subject on which the user wishes to subscribe
      * @return The newly created mailbox that represents the registration for notifications.
-     *
      * @throws IllegalArgumentException If the subject is invalid (=null).
-     * @throws IllegalStateException If the current state of the command is invalid.
+     * @throws IllegalStateException    If the current state of the command is invalid.
      */
     @DomainAPI
     public ForkMailbox registerForForkNotifactions(User user, ProjectSubject projectSubject)
@@ -984,13 +957,11 @@ public class DataModel {
      * This method lets a user register for notifications concerning a specific milestone change on a subject.
      *
      * @param user      the user that wishes to subscribe for notifications
-     * @param asSubject   the subject on which the user wishes to subscribe
-     * @param milestone     the milestone for which the user wishes to receive notifications
-     *
+     * @param asSubject the subject on which the user wishes to subscribe
+     * @param milestone the milestone for which the user wishes to receive notifications
      * @return The newly created mailbox that represents the registration for notifications.
-     *
      * @throws IllegalArgumentException If the subject is invalid (=null).
-     * @throws IllegalStateException If the current state of the command is invalid.
+     * @throws IllegalStateException    If the current state of the command is invalid.
      */
     @DomainAPI
     public MilestoneMailbox registerForMilestoneNotifactions(User user, AbstractSystemSubject asSubject, Milestone milestone)
@@ -1005,12 +976,10 @@ public class DataModel {
      * This method lets a user register for notifications concerning a milestone change on a subject.
      *
      * @param user      the user that wishes to subscribe for notifications
-     * @param asSubject   the subject on which the user wishes to subscribe
-     *
+     * @param asSubject the subject on which the user wishes to subscribe
      * @return The newly created mailbox that represents the registration for notifications.
-     *
      * @throws IllegalArgumentException If the subject is invalid (=null).
-     * @throws IllegalStateException If the current state of the command is invalid.
+     * @throws IllegalStateException    If the current state of the command is invalid.
      */
     @DomainAPI
     public MilestoneMailbox registerForAllMilestoneNotifactions(User user, AbstractSystemSubject asSubject)
@@ -1024,17 +993,15 @@ public class DataModel {
     /**
      * This method lets a user register for notifications concerning a versionID change on a subject.
      *
-     * @param user      the user that wishes to subscribe for notifications
-     * @param abstractSystemSubject   the subject on which the user wishes to subscribe
-     *
+     * @param user                  the user that wishes to subscribe for notifications
+     * @param abstractSystemSubject the subject on which the user wishes to subscribe
      * @return The newly created mailbox that represents the registration for notifications.
-     *
      * @throws IllegalArgumentException If the subject is invalid (=null).
-     * @throws IllegalStateException If the current state of the command is invalid.
+     * @throws IllegalStateException    If the current state of the command is invalid.
      */
     @DomainAPI
     public VersionIDMailbox registerForVersionNotifications(User user, AbstractSystemSubject abstractSystemSubject)
-            throws IllegalArgumentException, IllegalStateException{
+            throws IllegalArgumentException, IllegalStateException {
         RegisterForVersionNotificationsModelCmd cmd =
                 new RegisterForVersionNotificationsModelCmd(user, abstractSystemSubject);
         VersionIDMailbox newMailbox = cmd.exec();
@@ -1046,30 +1013,27 @@ public class DataModel {
     /**
      * This method lets a user unregister for notifications
      *
-     * @param user      The user that wishes to unregister.
-     * @param mailbox   The mailbox that contains the notifications from which the user wishes to unregister.
-     *
+     * @param user    The user that wishes to unregister.
+     * @param mailbox The mailbox that contains the notifications from which the user wishes to unregister.
      * @return The mailbox that represents the registration for notifications.
-     *
      * @throws IllegalArgumentException If the mailbox is not found in
-     * @throws IllegalStateException If the command has already been executed.
+     * @throws IllegalStateException    If the command has already been executed.
      */
     @DomainAPI
-    public AbstractMailbox unregisterFromNotifications(User user, AbstractMailbox mailbox) throws IllegalArgumentException, IllegalStateException{
+    public AbstractMailbox unregisterFromNotifications(User user, AbstractMailbox mailbox) throws IllegalArgumentException, IllegalStateException {
         UnregisterFromNotificationsModelCmd cmd = new UnregisterFromNotificationsModelCmd(user, mailbox);
         cmd.exec();
         addToHistory(cmd);
-        return  mailbox;
+        return mailbox;
     }
 
     /**
      * This method lets the given user change the milestone of the given abstractSystem to the given milestone
      *
-     * @param user              The user that wants to change the milestone
-     * @param abstractSystem    The abstractSystem that needs a milestone change
-     * @param milestone         The new milestone
-     *
-     * @throws PermissionException  If the given user doesn't have the needed permission
+     * @param user           The user that wants to change the milestone
+     * @param abstractSystem The abstractSystem that needs a milestone change
+     * @param milestone      The new milestone
+     * @throws PermissionException If the given user doesn't have the needed permission
      */
     @DomainAPI
     public void setMilestone(User user, AbstractSystem abstractSystem, Milestone milestone) throws PermissionException {
@@ -1077,24 +1041,22 @@ public class DataModel {
         cmd.exec();
         addToHistory(cmd);
     }
-    
+
     /**
      * Split the given subsystem into 2 subsystems, subsystem and a newly created one.
      * <br> subsystem will keep all the direct subsystems and bugReports that are also contained in the list subsystems1
      * or bugReports1 respectively... The rest will go to subsystem2.
      *
-     * @param subsystem         The Subsystem to split into itself and another newly created Subsystem.
-     * @param subsystem1Name    The new name for subsystem.
-     * @param subsystem1Desc    The new description for subsystem.
-     * @param subsystem2Name    The name for subsystem 2 resulting from the split.
-     * @param subsystem2Desc    The description for subsystem 2 resulting from the split.
-     * @param subsystems1       The list of subsystems to keep in subsystem.
-     * @param bugReports1       The list of bugReports to keep in subsystem.
-     * @param user              The user who wants to split the given subsystem.
-     *
+     * @param subsystem      The Subsystem to split into itself and another newly created Subsystem.
+     * @param subsystem1Name The new name for subsystem.
+     * @param subsystem1Desc The new description for subsystem.
+     * @param subsystem2Name The name for subsystem 2 resulting from the split.
+     * @param subsystem2Desc The description for subsystem 2 resulting from the split.
+     * @param subsystems1    The list of subsystems to keep in subsystem.
+     * @param bugReports1    The list of bugReports to keep in subsystem.
+     * @param user           The user who wants to split the given subsystem.
      * @return The extra newly created subsystem, subsystem 2. The other subsystem, subsystem 1 remains as subsystem.
-     *
-     * @throws PermissionException When the user does not have sufficient permissions
+     * @throws PermissionException      When the user does not have sufficient permissions
      * @throws IllegalArgumentException When subsystem == null
      * @throws IllegalArgumentException When user == null
      * @throws IllegalArgumentException When any of the arguments passed is invalid for a subsystem.
@@ -1110,14 +1072,12 @@ public class DataModel {
     /**
      * This method safely merges 2 subsystems together
      *
-     * @param user              The user that wants to merge the subsystems
-     * @param subsystem1        The first subsystem to merge
-     * @param subsystem2        The second subsystem to merge
-     * @param newName           The new name of the merged subsystem
-     * @param newDescription    The new description of the merged subsystem
-     *
-     * @return  The merged subsystem
-     *
+     * @param user           The user that wants to merge the subsystems
+     * @param subsystem1     The first subsystem to merge
+     * @param subsystem2     The second subsystem to merge
+     * @param newName        The new name of the merged subsystem
+     * @param newDescription The new description of the merged subsystem
+     * @return The merged subsystem
      * @throws IllegalArgumentException When there is an illegal argument passed.
      * @throws NullPointerException     When there is a null where it shouldn't. Read ModelCmd specific documentation.
      * @throws PermissionException      When the user does not have sufficient permissions
@@ -1134,12 +1094,11 @@ public class DataModel {
     /**
      * This method returns the number of Closed bug reports where the given user is assigned to
      *
-     * @param user  The user that needs to be assigned to the bug report
-     *
-     * @return  The number of Closed bug reports where the given user is assigned to
+     * @param user The user that needs to be assigned to the bug report
+     * @return The number of Closed bug reports where the given user is assigned to
      */
     @DomainAPI
-    public long getNbClosedBRForDev(User user){
+    public long getNbClosedBRForDev(User user) {
         PList<BugReport> bugList = this.getAllBugReports();
         return bugList.parallelStream().
                 filter(u -> (u.getUserList().contains(user) && u.getTag() == Tag.CLOSED)).count();
@@ -1147,16 +1106,17 @@ public class DataModel {
 
     /**
      * This method returns the number of unfinished bug reports the given user is assigned to
-     * @param user  The user that needs to be assigned to the bug report
-     * @return  The number of unfinished bug reports the given user is assigned to
+     *
+     * @param user The user that needs to be assigned to the bug report
+     * @return The number of unfinished bug reports the given user is assigned to
      */
     @DomainAPI
-    public long getNbUnfinishedBRForDev(User user){
+    public long getNbUnfinishedBRForDev(User user) {
         PList<BugReport> bugList = this.getAllBugReports();
         return bugList.parallelStream().
-                filter(u -> (u.getUserList().contains(user) && ! u.isResolved())).count();
+                filter(u -> (u.getUserList().contains(user) && !u.isResolved())).count();
     }
-    
+
     /**
      * Get the amount of bug reports that the given user has submitted and is marked as duplicate.
      *
@@ -1171,9 +1131,8 @@ public class DataModel {
                 filter(u -> u.getCreator() == user && u.getTag() == Tag.DUPLICATE).
                 count();
     }
-    
-    
-    
+
+
     /**
      * Get the amount of bug reports that the given user has submitted and is marked as not a bug.
      *
@@ -1203,7 +1162,7 @@ public class DataModel {
                 filter(u -> u.getCreator() == user).
                 count();
     }
-    
+
     /**
      * This method returns a list of all project of a lead developer.
      *

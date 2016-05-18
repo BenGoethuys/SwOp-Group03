@@ -12,17 +12,19 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 /**
  * @author Group 03
  */
-public class RegisterFromBugReportCmd implements Cmd<AbstractMailbox>{
-    public RegisterFromBugReportCmd(){
+public class RegisterFromBugReportCmd implements Cmd<AbstractMailbox> {
+    public RegisterFromBugReportCmd() {
         this.subsriptionTypes = new HashMap<>();
-        this.subsriptionTypes.put("newtag",1);
-        this.subsriptionTypes.put("specifictags",2);
-        this.subsriptionTypes.put("comment",3);
+        this.subsriptionTypes.put("newtag", 1);
+        this.subsriptionTypes.put("specifictags", 2);
+        this.subsriptionTypes.put("comment", 3);
     }
 
     private HashMap<String, Integer> subsriptionTypes;
@@ -41,11 +43,9 @@ public class RegisterFromBugReportCmd implements Cmd<AbstractMailbox>{
      * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
-     *
      * @return The newly created mailbox representing the registration for notifications.
-     *
-     * @throws PermissionException If the user does not have enough permissions.
-     * @throws CancelException If the abort command has been given.
+     * @throws PermissionException      If the user does not have enough permissions.
+     * @throws CancelException          If the abort command has been given.
      * @throws IllegalArgumentException If any of the arguments is null or invalid.
      */
     @Override
