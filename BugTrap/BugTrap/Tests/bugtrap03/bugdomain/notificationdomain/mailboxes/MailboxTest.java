@@ -5,10 +5,6 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.Tag;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.TagMailbox;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 import bugtrap03.bugdomain.usersystem.Developer;
 import org.junit.Before;
@@ -65,6 +61,10 @@ public class MailboxTest {
     @Test
     public void testGetAllNotifications() throws Exception {
         assertTrue(testMB.getAllNotifications().isEmpty());
+        Mailbox mb = new Mailbox();
+        mb.addNotification(bugReportNotification4MB2);
+        testMB.addBox(mb);
+        assertTrue(testMB.getAllNotifications().contains(bugReportNotification4MB2));
         assertTrue(testMB2.getAllNotifications().contains(bugReportNotification4MB2));
     }
 
@@ -158,6 +158,35 @@ public class MailboxTest {
         assertTrue(testMB.getAllBoxes().contains(cmb));
     }
 
+    @Test
+    public void testForkSubsribe() throws Exception {
+        ForkMailbox fmb = testMB.forkSubscribe(project4MB);
+        assertTrue(testMB.getAllBoxes().contains(fmb));
+    }
+
+    @Test
+    public void testMilestoneSubsribe() throws Exception {
+        MilestoneMailbox fmb = testMB.milestoneSubscribe(project4MB);
+        assertTrue(testMB.getAllBoxes().contains(fmb));
+    }
+
+    @Test
+    public void testMilestoneSubsribe2() throws Exception {
+        MilestoneMailbox fmb = testMB.milestoneSubscribe(project4MB, new Milestone(1,2,3,4,5));
+        assertTrue(testMB.getAllBoxes().contains(fmb));
+    }
+
+    @Test
+    public void testVersionSubsribe() throws Exception {
+        VersionIDMailbox fmb = testMB.versionIDSubscribe(project4MB);
+        assertTrue(testMB.getAllBoxes().contains(fmb));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testVersionSubscribeNull() throws Exception {
+        testMB.versionIDSubscribe(null);
+    }
+
     @Test (expected = IllegalArgumentException.class)
     public void testCommentSubscribeNull() throws Exception {
         testMB.commentSubscribe(null);
@@ -170,23 +199,43 @@ public class MailboxTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testCreationSubscribeNull() throws Exception {
-        testMB.creationSubscribe(null);
+    public void testForkSubscribeNull() throws Exception {
+        testMB.forkSubscribe(null);
     }
 
-    //TODO update test method
-    /*@Test
+    @Test (expected = IllegalArgumentException.class)
+    public void testMilestoneSubscribeNull() throws Exception {
+        testMB.milestoneSubscribe(null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testMilestone2SubscribeNull() throws Exception {
+        testMB.milestoneSubscribe(project4MB, null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testMilestone3SubscribeNull() throws Exception {
+        testMB.milestoneSubscribe(null, new Milestone(1,1,1));
+    }
+
+    @Test
     public void testUnsubscribe() throws Exception {
-        CreationMailbox cmb = testMB.creationSubscribe(subsystem4MB);
+        Mailbox mb3 = new Mailbox();
+        testMB.addBox(mb3);
+        CommentMailbox cmb = testMB.commentSubscribe(project4MB);
+        TagMailbox tmb = testMB.tagSubscribe(project4MB);
+        CommentMailbox cmb2 = mb3.commentSubscribe(subsystem4MB);
         assertTrue(testMB.getAllBoxes().contains(cmb));
-        CommentMailbox cmb2 = cmb.commentSubscribe(subsystem4MB);
-        assertTrue(testMB.unsubscribe(cmb2));
+        assertTrue(testMB.getAllBoxes().contains(cmb2));
+        assertTrue(testMB.getAllBoxes().contains(tmb));
+        testMB.unsubscribe(tmb);
+        assertFalse(testMB.getAllBoxes().contains(tmb));
+        assertTrue(testMB.getAllBoxes().contains(cmb));
+        assertTrue(testMB.getAllBoxes().contains(cmb2));
+        testMB.unsubscribe(cmb2);
+        assertTrue(testMB.getAllBoxes().contains(cmb));
         assertFalse(testMB.getAllBoxes().contains(cmb2));
-        assertFalse(testMB2.getAllBoxes().contains(cmb2));
-        assertFalse(testMB.unsubscribe(testCMB2));
-        assertTrue(testMB.unsubscribe(cmb));
-        assertFalse(testMB.getAllBoxes().contains(cmb));
-    }*/
+    }
 
     @Test
     public void testActivate() throws Exception {
@@ -197,5 +246,10 @@ public class MailboxTest {
         cmb.activate();
         cmb.addNotification(bugReportNotification4MB2);
         assertTrue(cmb.getNotifications().contains(bugReportNotification4MB2));
+    }
+
+    @Test
+    public void update() throws Exception {
+        assertEquals(null, testMB.update(project4MB));
     }
 }

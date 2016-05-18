@@ -187,9 +187,13 @@ public class Mailbox extends AbstractMailbox<Subject> {
      * @param milestone The milestone to subscribe upon
      * @return The created mailbox
      * @throws IllegalArgumentException if the subject is invalid
+     * @throws IllegalArgumentException if the milestone is null
      * @see MilestoneMailbox#MilestoneMailbox(AbstractSystemSubject)
      */
     public MilestoneMailbox milestoneSubscribe(AbstractSystemSubject abstractSystemSubject, Milestone  milestone) throws IllegalArgumentException{
+        if (milestone == null){
+            throw new IllegalArgumentException("Cannot subscribe on a null milestone");
+        }
         MilestoneMailbox mmb = new MilestoneMailbox(milestone, abstractSystemSubject);
         abstractSystemSubject.addMilestoneSub(mmb);
         this.addBox(mmb);
