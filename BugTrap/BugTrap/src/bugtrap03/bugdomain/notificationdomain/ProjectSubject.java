@@ -15,7 +15,7 @@ public abstract class ProjectSubject extends AbstractSystem {
     /**
      * A constructor for this project subject with a list of fork mailboxes.
      * @param parent The parent of this project subject
-     * @param version The version ID of this proejct subject
+     * @param version The version ID of this project subject
      * @param name The name of this project subject
      * @param description The description of this project subject
      * @throws IllegalArgumentException if one of the arguments is invalid

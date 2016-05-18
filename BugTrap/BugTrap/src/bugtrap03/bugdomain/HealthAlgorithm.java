@@ -72,7 +72,6 @@ public abstract class HealthAlgorithm {
      */
     public boolean checkSubsystem(AbstractSystem as, HealthIndicator hi, int number) {
         for (Subsystem subs : as.getAllSubsystems()) {
-            // if (subs.getIndicator(this).getRank() < hi.getRank()) {
             if (subs.getIndicator(this).ordinal() < hi.ordinal()) {
                 return false;
             }
