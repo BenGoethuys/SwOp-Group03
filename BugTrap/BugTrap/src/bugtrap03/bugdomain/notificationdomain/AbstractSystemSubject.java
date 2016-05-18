@@ -125,8 +125,8 @@ public abstract class AbstractSystemSubject extends Subject {
      *
      * @param as The abstract system of which the milestone has been changed.
      */
-    protected void updateMilestoneSubs(AbstractSystem as){
-        for (MilestoneMailbox mmb: this.getMilestoneSubs()){
+    protected void updateMilestoneSubs(AbstractSystem as) {
+        for (MilestoneMailbox mmb : this.getMilestoneSubs()) {
             mmb.update(as);
         }
     }
@@ -175,8 +175,8 @@ public abstract class AbstractSystemSubject extends Subject {
      *
      * @param as The abstract system of which the versionId has changed
      */
-    protected void updateVersionIDSubs(AbstractSystem as){
-        for (VersionIDMailbox vimb: this.versionIdSubs){
+    protected void updateVersionIDSubs(AbstractSystem as) {
+        for (VersionIDMailbox vimb : this.versionIdSubs) {
             vimb.update(as);
         }
     }

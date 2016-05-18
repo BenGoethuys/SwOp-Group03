@@ -46,12 +46,9 @@ public class RegisterNullTests {
     private static Developer developerRegisterCmd;
     private static Administrator adminRegisterCmd;
 
-    private static Cmd cmd;
-
     @Test(expected = IllegalArgumentException.class)
     public void testScanNull1() throws Exception {
         generalNullScan(new RegisterFromBugReportCmd());
-
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -179,7 +176,7 @@ public class RegisterNullTests {
         generalNullUser(new RegisterFromProjSubjectCmd(project));
     }
 
-    private static void generalNullUser(Cmd cmd) throws Exception {
+    private static void generalNullUser(Cmd<?> cmd) throws Exception {
         //set up scenario
         answer.add("dummy");
         question.add("dummy");
@@ -189,7 +186,7 @@ public class RegisterNullTests {
         // Test effects.
     }
 
-    private static void generalNullMode(Cmd cmd) throws Exception {
+    private static void generalNullMode(Cmd<?> cmd) throws Exception {
         //set up scenario
         answer.add("dummy");
         question.add("dummy");
@@ -199,7 +196,7 @@ public class RegisterNullTests {
         // Test effects.
     }
 
-    private static void generalNullScan(Cmd cmd) throws Exception {
+    private static void generalNullScan(Cmd<?> cmd) throws Exception {
         // Execute scenario
         cmd.exec(null, model, developerRegisterCmd);
         // Test effects.
