@@ -14,6 +14,7 @@ import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
+ * This command represents the use case for showing the performance metrics of a developer
  *
  * @author Group 03
  */

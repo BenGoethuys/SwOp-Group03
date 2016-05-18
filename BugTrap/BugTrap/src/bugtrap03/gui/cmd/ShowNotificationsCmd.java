@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
+ * This command represents the use case for showing the notifications of the logged in user
+ *
  * @author Group 03
  */
 public class ShowNotificationsCmd implements Cmd<Mailbox> {

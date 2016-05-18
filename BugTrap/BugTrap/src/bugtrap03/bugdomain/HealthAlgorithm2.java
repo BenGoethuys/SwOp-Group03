@@ -1,7 +1,9 @@
 package bugtrap03.bugdomain;
 
 /**
- * @author Mathias
+ * This class represents the 2nd health algorithm
+ *
+ * @author Group 03
  */
 @DomainAPI
 public class HealthAlgorithm2 extends HealthAlgorithm {

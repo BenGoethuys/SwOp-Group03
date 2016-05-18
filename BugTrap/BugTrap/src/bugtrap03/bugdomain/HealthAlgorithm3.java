@@ -1,10 +1,9 @@
-/**
- *
- */
 package bugtrap03.bugdomain;
 
 /**
- * @author Mathias
+ * This class represents 3th health algorithm
+ *
+ * @author Group 03
  */
 @DomainAPI
 public class HealthAlgorithm3 extends HealthAlgorithm {
@@ -14,6 +13,10 @@ public class HealthAlgorithm3 extends HealthAlgorithm {
     private final int STABLE = 250;
     private final int SERIOUS = 500;
 
+    @DomainAPI
+    public HealthAlgorithm3() {
+    }
+    
     @Override
     public boolean isHealthy(AbstractSystem as) {
         return checkSubsystem(as, HealthIndicator.HEALTHY, HEALTHY);

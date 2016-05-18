@@ -18,7 +18,7 @@ import java.util.*;
  * This class is the main controller of the system.
  *
  * @author Group 03
- * @version 0.1
+ * @version 1.2
  */
 @DomainAPI
 public class DataModel {

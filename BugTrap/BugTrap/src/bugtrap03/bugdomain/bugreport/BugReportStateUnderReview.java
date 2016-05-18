@@ -6,6 +6,8 @@ import purecollections.PList;
 
 /**
  * This class represents the under review state of a bug report
+ *
+ * @author Group 03
  */
 class BugReportStateUnderReview implements BugReportState {
 

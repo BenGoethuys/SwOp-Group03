@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 /**
  * This class extends AbstractSystem (versionID, name and description) and extends it with dates.
  *
- * @author Kwinten Buytaert & Ben Goethuys
+ * @author Group 03
  */
 @DomainAPI
 public class Project extends ProjectSubject {

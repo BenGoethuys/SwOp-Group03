@@ -7,6 +7,8 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 
 /**
+ * This command asks the user to input the details of a new milestone and returns this object
+ *
  * @author Group 03
  */
 public class SelectMilestoneCmd implements Cmd<Milestone> {
