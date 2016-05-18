@@ -209,19 +209,19 @@ public abstract class AbstractSystemSubject extends Subject {
      *
      * @param br The bugreport that has been created.
      */
-    public abstract void notifyCreationSubs(BugReport br);
+    protected abstract void notifyCreationSubs(BugReport br);
 
     /**
      * This abstract method lets subjects notify subjects higher in the hierarchy to update their milestonsubs.
      *
      * @param as The abstract system of which the milestone has been updated.
      */
-    public abstract void notifyMilestoneSubs(AbstractSystem as);
+    protected abstract void notifyMilestoneSubs(AbstractSystem as);
 
     /**
      * This abstract method lets subjects notify subjects higher in the hierarchy to update their versionIDsubs.
      *
      * @param as The abstract system of which the versionID has been updated.
      */
-    public abstract void notifyVersionIDSubs(AbstractSystem as);
+    protected abstract void notifyVersionIDSubs(AbstractSystem as);
 }
