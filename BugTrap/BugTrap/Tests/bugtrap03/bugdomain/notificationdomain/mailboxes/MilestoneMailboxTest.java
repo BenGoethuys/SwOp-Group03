@@ -40,7 +40,7 @@ public class MilestoneMailboxTest {
                 1, false, "triggerhappy", "stacktacktack", "error404");
         bugReportNotification4MB2 = new BugReportNotification("iets", bugreport4MB, project4MB);
         testTMB = dev4TMB.getMailbox().milestoneSubscribe(project4MB);
-        milestone = new Milestone(5,5,5);
+        milestone = new Milestone(1,2,2);
         testTMB2 = dev4TMB.getMailbox().milestoneSubscribe(project4MB, milestone);
 
     }
@@ -54,6 +54,9 @@ public class MilestoneMailboxTest {
         assertTrue(testTMB.getNotifications().contains(notification));
         assertEquals(null, notification2);
         assertFalse(testTMB.getNotifications().contains(bugReportNotification4MB2));
+        project4MB.setMilestone(dev4TMB, new Milestone(1,2,2));
+        Notification notification3 = testTMB2.update(project4MB);
+        assertTrue(testTMB2.getNotifications().contains(notification3));
     }
 
     @Test (expected = IllegalArgumentException.class)
