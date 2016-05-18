@@ -6,6 +6,8 @@ import purecollections.PList;
 
 /**
  * This class represents the closed state of a bug report
+ *
+ * @author Group 03
  */
 class BugReportStateClosed implements BugReportState {
 
