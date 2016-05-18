@@ -4,6 +4,7 @@ import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.CreationMailbox;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -48,6 +49,18 @@ public class UnregisterFromNotificationsModelCmdTest {
         assertFalse(cmd.isValidMailbox(null, dev));
         assertFalse(cmd.isValidMailbox(admin.getMailbox(), admin));
         assertTrue(cmd.isValidMailbox(cmb, admin));
+        MilestoneMailbox mmb = model.registerForAllMilestoneNotifactions(dev, project);
+        assertFalse(cmd.isValidMailbox(mmb, admin));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor1() throws Exception{
+        cmd = new UnregisterFromNotificationsModelCmd(admin, admin.getMailbox());
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor2() throws Exception{
+        cmd = new UnregisterFromNotificationsModelCmd(null, cmb);
     }
 
     @Test
@@ -60,10 +73,17 @@ public class UnregisterFromNotificationsModelCmdTest {
     @Test
     public void testUndo() throws Exception {
         assertTrue(admin.getMailbox().getAllBoxes().contains(cmb));
+        assertFalse(cmd.undo());
         cmd.exec();
         assertFalse(admin.getMailbox().getAllBoxes().contains(cmb));
-        cmd.undo();
+        assertTrue(cmd.undo());
         assertTrue(admin.getMailbox().getAllBoxes().contains(cmb));
+    }
+
+    @Test (expected = IllegalStateException.class)
+    public void testExecutedUndo() throws Exception {
+        cmd.exec();
+        cmd.exec();
     }
 
     @Test
