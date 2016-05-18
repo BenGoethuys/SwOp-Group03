@@ -1,6 +1,5 @@
 package bugtrap03.bugdomain.notificationdomain.mailboxes;
 
-import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.notificationdomain.Subject;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
