@@ -14,8 +14,6 @@ import testCollection.TerminalTestScanner;
 
 import java.util.ArrayDeque;
 
-import static org.junit.Assert.assertTrue;
-
 /**
  * @author Group 03
  */
@@ -33,8 +31,8 @@ public class RegisterNullTests {
         question = new ArrayDeque<>();
         answer = new ArrayDeque<>();
         developerRegisterCmd = model.createDeveloper("developerRegisterCmd" + index, "firstname", "lastname");
-        adminRegisterCmd = model.createAdministrator("adminRegisterCmd"+ index, "firstname", "lastname");
-        project = model.createProject(new VersionID(), "title","desc", developerRegisterCmd, 1000, adminRegisterCmd);
+        adminRegisterCmd = model.createAdministrator("adminRegisterCmd" + index, "firstname", "lastname");
+        project = model.createProject(new VersionID(), "title", "desc", developerRegisterCmd, 1000, adminRegisterCmd);
 
     }
 

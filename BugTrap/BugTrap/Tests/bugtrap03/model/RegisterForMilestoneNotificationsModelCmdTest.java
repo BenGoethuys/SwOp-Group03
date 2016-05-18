@@ -71,18 +71,18 @@ public class RegisterForMilestoneNotificationsModelCmdTest {
         assertFalse(cmd.isExecuted());
         cmd.exec();
         assertTrue(cmd.isExecuted());
-        assertEquals("Created subscription: \n"+ "You are subscribed to the change of a new milestone on: " +
+        assertEquals("Created subscription: \n" + "You are subscribed to the change of a new milestone on: " +
                 project.getSubjectName(), cmd.toString());
     }
 
     @Test
     public void testExecSpecific() throws PermissionException {
-        Milestone milestone = new Milestone(5,5,5);
+        Milestone milestone = new Milestone(5, 5, 5);
         RegisterForMilestoneNotificationsModelCmd cmd = new RegisterForMilestoneNotificationsModelCmd(admin, project, milestone);
         assertFalse(cmd.isExecuted());
         cmd.exec();
         assertTrue(cmd.isExecuted());
-        assertEquals("Created subscription: \n"+ "You are subscribed to the change of the specific milestone "
+        assertEquals("Created subscription: \n" + "You are subscribed to the change of the specific milestone "
                 + milestone.toString() + " on: " +
                 project.getSubjectName(), cmd.toString());
     }

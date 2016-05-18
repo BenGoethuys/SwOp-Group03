@@ -7,7 +7,6 @@ import bugtrap03.bugdomain.usersystem.Statistics;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
- *
  * @author Group 03
  */
 class AddPatchToBugReportModelCmd extends ModelCmd {
@@ -16,9 +15,8 @@ class AddPatchToBugReportModelCmd extends ModelCmd {
      * Create a {@link ModelCmd} that can add a certain patch to the bugReport when executed.
      *
      * @param bugReport The bug report to evaluate
-     * @param user The user that wants to assign a score to this bug reports selected patch.
-     * @param patch The patch to add.
-     *
+     * @param user      The user that wants to assign a score to this bug reports selected patch.
+     * @param patch     The patch to add.
      * @throws IllegalArgumentException When bugReport == null
      * @throws IllegalArgumentException When the bugReport is terminated
      */
@@ -26,7 +24,7 @@ class AddPatchToBugReportModelCmd extends ModelCmd {
         if (bugReport == null) {
             throw new IllegalArgumentException("The bugReport passed to AddBugReportPatchModelCmd was a null reference.");
         }
-        if (bugReport.isTerminated()){
+        if (bugReport.isTerminated()) {
             throw new IllegalArgumentException("The given bug report is terminated !");
         }
 
@@ -48,9 +46,9 @@ class AddPatchToBugReportModelCmd extends ModelCmd {
      * This method adds a given patch to this bug report state
      *
      * @return True
-     * @throws PermissionException If the given user doesn't have the permission to add a patch to this bug report state
-     * @throws IllegalStateException If the given patch is invalid for this bug report
-     * @throws IllegalStateException When this ModelCmd was already executed
+     * @throws PermissionException      If the given user doesn't have the permission to add a patch to this bug report state
+     * @throws IllegalStateException    If the given patch is invalid for this bug report
+     * @throws IllegalStateException    When this ModelCmd was already executed
      * @throws IllegalArgumentException If the given patch is not valid for this bug report state
      * @throws IllegalArgumentException When bugReport is terminated.
      */
@@ -59,8 +57,8 @@ class AddPatchToBugReportModelCmd extends ModelCmd {
         if (this.isExecuted()) {
             throw new IllegalStateException("The AddBugReportPatchModelCmd was already executed.");
         }
-        
-        if(bugReport.isTerminated()) {
+
+        if (bugReport.isTerminated()) {
             throw new IllegalArgumentException("The given bugReport is terminated.");
         }
 
@@ -82,7 +80,7 @@ class AddPatchToBugReportModelCmd extends ModelCmd {
         } catch (IllegalArgumentException ex) {
             return false;
         }
-        
+
         user.setStats(oldStats);
         return true;
     }

@@ -11,27 +11,28 @@ import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
+ * This command represents the use case for merging 2 subsystems
+ *
  * @author Group 03
  */
 public class MergeSubsystemsCmd implements Cmd<Subsystem> {
 
     /**
      * Execute use case 4.8, merge Subsystem and return the result.
-     *
-     * 4.8 Use Case: Merge Subsystems
+     * <p> 4.8 Use Case: Merge Subsystems
      * <p>
-     * <br>1. The administrator indicates he wants to merge two subsystems.
-     * <br>2. The system shows a list of projects.
-     * <br>3. The administrator selects a project.
-     * <br>4. The system shows a list of subsystems of the selected project.
-     * <br>5. The administrator selects a first subsystem.
-     * <br>6. The system shows a list of subsystems compatible with the first one.
+     * <br> 1. The administrator indicates he wants to merge two subsystems.
+     * <br> 2. The system shows a list of projects.
+     * <br> 3. The administrator selects a project.
+     * <br> 4. The system shows a list of subsystems of the selected project.
+     * <br> 5. The administrator selects a first subsystem.
+     * <br> 6. The system shows a list of subsystems compatible with the first one.
      * A compatible subsystem is a child, a parent or a sibling of the first
      * selected subsystem in the tree of subsystems of the selected project.
-     * <br>7. The administrator selects a second subsystem.
-     * <br>8. The system asks for a name and description for the new subsystem.
-     * <br>9. The administrator enters a name and description.
-     * <br>10. The system creates a new subsystem with the lowest milestone of the
+     * <br> 7. The administrator selects a second subsystem.
+     * <br> 8. The system asks for a name and description for the new subsystem.
+     * <br> 9. The administrator enters a name and description.
+     * <br> 10. The system creates a new subsystem with the lowest milestone of the
      * two original subsystems. The bug reports and subsystems that are part
      * of the original two subsystems are migrated to the new subsystem. The
      * two original subsystems are removed.
@@ -39,9 +40,7 @@ public class MergeSubsystemsCmd implements Cmd<Subsystem> {
      * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
-     *
-     * @return  The merged subsystem
-     *
+     * @return The merged subsystem
      * @throws PermissionException      When the user does not have sufficient permissions.
      * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalStateException    When the subject is in an illegal state to perform this cmd.
@@ -94,8 +93,7 @@ public class MergeSubsystemsCmd implements Cmd<Subsystem> {
      *
      * @param subsystem The first selected subsystem
      * @param scanner   The scanner of this cmd
-     *
-     * @return  The selected compatible subsystem
+     * @return The selected compatible subsystem
      */
     private Subsystem getCompatibleMergeCandidate(Subsystem subsystem, TerminalScanner scanner, DataModel model)
             throws CancelException {

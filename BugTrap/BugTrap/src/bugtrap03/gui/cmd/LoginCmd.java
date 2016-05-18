@@ -16,8 +16,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * This command represents the use case login, where a user logs in into the
- * system
+ * This command represents the use case login, where a user logs in into the system
  *
  * @author Group 03
  */
@@ -30,10 +29,10 @@ public class LoginCmd implements Cmd<User> {
      * @throws IllegalArgumentException When terminal == null
      */
     public LoginCmd(Terminal terminal) throws IllegalArgumentException {
-        if(terminal == null) {
+        if (terminal == null) {
             throw new IllegalArgumentException("Terminal musn't be null.");
         }
-        
+
         this.terminal = terminal;
         initLoginInfo();
     }

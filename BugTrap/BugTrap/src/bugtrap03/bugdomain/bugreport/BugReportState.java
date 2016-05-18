@@ -6,16 +6,18 @@ import purecollections.PList;
 
 /**
  * An interface for the different states of a bug report
- *
+ * <p>
  * Classes that implement this interface should only be used by a bug report
  * Only a bug report will use the methods of this interface
+ *
+ * @author Goup 03
  */
 interface BugReportState {
 
     /**
      * This method returns the tag associated with this bug report state
      *
-     * @return  The tag associated with this bug report state
+     * @return The tag associated with this bug report state
      */
     Tag getTag();
 
@@ -23,12 +25,10 @@ interface BugReportState {
      * This method sets the current tag for this bug report
      *
      * @param bugReport The bug report this state belongs to
-     * @param tag   The new tag of this bug report
-     *
+     * @param tag       The new tag of this bug report
      * @throws IllegalArgumentException If isValidTag(tag) throws this exception
      * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
      * @throws IllegalStateException    If the current state doesn't allow the new Tag
-     *
      * @see #isValidTag(Tag)
      */
     @Requires("bugReport.getInternState() == this && user != null && bugReport.isValidTag(tag)")
@@ -38,7 +38,6 @@ interface BugReportState {
      * This method check if the given tag is valid for the bug report
      *
      * @param tag the tag to check
-     *
      * @return true if the tag is a valid tag
      */
     boolean isValidTag(Tag tag);
@@ -48,7 +47,6 @@ interface BugReportState {
      *
      * @param bugReport The bug report this state belongs to
      * @param dev       The developer to assign to this bug report
-     *
      * @throws IllegalArgumentException If the given dev was null
      */
     @Requires("bugReport.getInternState() == this && bugReport.isValidUser(user)")
@@ -58,8 +56,7 @@ interface BugReportState {
      * This method adds a given test to the bug report state
      *
      * @param bugReport The bug report this state belongs to
-     * @param test  The test that the user wants to add
-     *
+     * @param test      The test that the user wants to add
      * @throws IllegalStateException    If the current state doesn't allow to add a test
      * @throws IllegalArgumentException If the given test is not a valid test for this bug report state
      */
@@ -69,9 +66,8 @@ interface BugReportState {
     /**
      * This method returns all the tests associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any tests
-     *
-     * @return  The list of tests associated with this bug report
+     * @return The list of tests associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any tests
      */
     PList<String> getTests() throws IllegalStateException;
 
@@ -79,8 +75,7 @@ interface BugReportState {
      * This method adds a given patch to this bug report state
      *
      * @param bugReport The bug report this state belongs to
-     * @param patch The patch that the user wants to submit
-     *
+     * @param patch     The patch that the user wants to submit
      * @throws IllegalStateException    If the given patch is invalid for this bug report
      * @throws IllegalArgumentException If the given patch is not valid for this bug report state
      */
@@ -90,9 +85,8 @@ interface BugReportState {
     /**
      * This method returns the patches associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
-     * @return  The patches associated with this bug report
+     * @return The patches associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     PList<String> getPatches() throws IllegalStateException;
 
@@ -100,8 +94,7 @@ interface BugReportState {
      * This method selects a patch for this bug report state
      *
      * @param bugReport The bug report this state belongs to
-     * @param patch The patch that the user wants to select
-     *
+     * @param patch     The patch that the user wants to select
      * @throws IllegalStateException    If the current state doesn't allow the selecting of a patch
      * @throws IllegalArgumentException If the given patch is not a valid patch to be selected for this bug report state
      * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
@@ -112,9 +105,8 @@ interface BugReportState {
     /**
      * This method returns the selected patch of this bug report state
      *
-     * @throws IllegalStateException    If the given state doesn't have a select patch
-     *
      * @return The selected patch for this bug report
+     * @throws IllegalStateException If the given state doesn't have a select patch
      */
     String getSelectedPatch() throws IllegalStateException;
 
@@ -122,8 +114,7 @@ interface BugReportState {
      * This method gives the selected patch of this bug report states a score
      *
      * @param bugReport The bug report this state belongs to
-     * @param score The score that the creator wants to give
-     *
+     * @param score     The score that the creator wants to give
      * @throws IllegalStateException    If the current state doesn't allow assigning a score
      * @throws IllegalArgumentException If the given score is not a valid score for this bug report state
      * @throws IllegalArgumentException If the given BugReport was null or not the bug report this belongs to
@@ -134,14 +125,14 @@ interface BugReportState {
     /**
      * This method returns the score associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
-     * @return  The score associated with this bug report
+     * @return The score associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     int getScore() throws IllegalStateException;
 
     /**
      * This method changes this bug report to a duplicate of the given bug report
+     *
      * @param bugReport The bug report this state belongs to
      * @param duplicate The bug report that this bug report is a duplicate of
      */
@@ -151,9 +142,8 @@ interface BugReportState {
     /**
      * This method returns the bug report this bug report is a duplicate of
      *
-     * @throws IllegalStateException    If the current state doesn't have a duplicate bug report
-     *
-     * @return  The bug report this bug report is a duplicate of
+     * @return The bug report this bug report is a duplicate of
+     * @throws IllegalStateException If the current state doesn't have a duplicate bug report
      */
     BugReport getDuplicate() throws IllegalStateException;
 
@@ -174,7 +164,7 @@ interface BugReportState {
     /**
      * This method returns the multiplier of this state
      *
-     * @return  The multiplier
+     * @return The multiplier
      */
     double getMultiplier();
 

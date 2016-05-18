@@ -11,16 +11,17 @@ import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
-import java.util.ArrayDeque;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertTrue;
+
 /**
- *
  * @author Group 03
  */
 public class SelectPatchCmdTest {
@@ -44,8 +45,7 @@ public class SelectPatchCmdTest {
      * that is added to the bugReport the first. (index = 0)
      *
      * @param patches The patches in the system, to chose from, should be arranged with the first element being the one
-     * that was added to the system the first.
-     *
+     *                that was added to the system the first.
      * @return
      */
     public static ArrayDeque<String> getDefaultQuestions(String... patches) {
@@ -69,8 +69,7 @@ public class SelectPatchCmdTest {
      * that is added to the bugReport the first. (index = 0)
      *
      * @param patches The patches in the system, to chose from, should be arranged with the first element being the one
-     * that was added to the system the first.
-     *
+     *                that was added to the system the first.
      * @return
      */
     public static final ArrayDeque<String> getDefaultAnswers(String... patches) {
@@ -125,7 +124,7 @@ public class SelectPatchCmdTest {
      * Test the exec() while there is a bugReport assigned already.
      *
      * @throws PermissionException Never
-     * @throws CancelException Never
+     * @throws CancelException     Never
      */
     @Test
     public void testExec_BugReportGiven() throws PermissionException, CancelException {
@@ -143,7 +142,7 @@ public class SelectPatchCmdTest {
      * Test the exec() while there are no patches.
      *
      * @throws PermissionException Never
-     * @throws CancelException Never
+     * @throws CancelException     Never
      */
     @Test(expected = IllegalStateException.class)
     public void testExec_NoPatches() throws PermissionException, CancelException {
@@ -154,7 +153,7 @@ public class SelectPatchCmdTest {
 
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
-        SelectPatchCmd cmd = new SelectPatchCmd(bugRep2);       
+        SelectPatchCmd cmd = new SelectPatchCmd(bugRep2);
         question.add("Selecting patch.");
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);

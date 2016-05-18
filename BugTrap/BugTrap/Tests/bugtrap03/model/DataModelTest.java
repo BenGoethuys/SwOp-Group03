@@ -323,7 +323,7 @@ public class DataModelTest {
     /**
      * Test {@link DataModel#undoLastChanges(User, int) as a success scenario with every possible branch.
      *
-     * @throws PermissionException  Never
+     * @throws PermissionException Never
      */
     @Test
     public void testUndo() throws PermissionException {
@@ -368,10 +368,11 @@ public class DataModelTest {
         admin = model.createAdministrator("A0BCDEF0458", "first", "last");
         assertTrue(model.undoLastChanges(admin, 2));
     }
-    
+
     /**
      * Test {@link DataModel#getDetails(User, BugReport)} without permissions.
-     * @throws PermissionException 
+     *
+     * @throws PermissionException
      */
     @Test(expected = PermissionException.class)
     public void testGetDetailsNoPerm() throws PermissionException {
@@ -379,17 +380,18 @@ public class DataModelTest {
         admin = model.createAdministrator("A2BCDEF0459", "first", "last");
         dev = model.createDeveloper("A2BCDEF460", "first", "last");
         project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
-        
+
         Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
         BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
-        
+
         model.getDetails(admin, bugRep);
     }
-    
+
     /**
      * Test {@link DataModel#giveScore(BugReport, User, int)}.
      * (superficial as it is tested in the ModelCmds used.
-     * @throws PermissionException 
+     *
+     * @throws PermissionException
      */
     @Test
     public void testGiveScore() throws PermissionException {
@@ -397,7 +399,7 @@ public class DataModelTest {
         admin = model.createAdministrator("A3BCDEF0459", "first", "last");
         dev = model.createDeveloper("A3BCDEF460", "first", "last");
         project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
-        
+
         Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
         BugReport bugRep = model.createBugReport(subsys, dev, "bugTitle", "bugDesc", PList.empty(), null, 1, false);
         model.assignToProject(project, dev, dev, Role.TESTER);
@@ -406,7 +408,7 @@ public class DataModelTest {
         model.addTest(bugRep, dev, "test");
         model.addPatch(bugRep, dev, "patch");
         model.selectPatch(bugRep, dev, "patch");
-        
+
         model.giveScore(bugRep, dev, 3);
         assertEquals(3, bugRep.getScore());
     }
@@ -483,7 +485,7 @@ public class DataModelTest {
 
         assertEquals(1, model.getNbUnfinishedBRForDev(dev));
     }
-    
+
     @Test
     public void testgetNbDuplicateBRsSubmitted() throws PermissionException {
         model = new DataModel();
@@ -512,22 +514,22 @@ public class DataModelTest {
 
         model.addTest(bugRep, dev, "test");
         model.addPatch(bugRep, dev, "patch");
-        
+
         assertEquals(0, model.getNbDuplicateBRsSubmitted(dev));
         assertEquals(0, model.getNbDuplicateBRsSubmitted(other));
-        
+
         model.setDuplicate(dev, bugRep, bugRep2);
-        
+
         assertEquals(1, model.getNbDuplicateBRsSubmitted(dev));
         assertEquals(0, model.getNbDuplicateBRsSubmitted(other));
-        
+
         model.setDuplicate(dev, bugRep1, bugRep);
-        
+
         assertEquals(1, model.getNbDuplicateBRsSubmitted(dev));
-        assertEquals(1, model.getNbDuplicateBRsSubmitted(other));        
-                
+        assertEquals(1, model.getNbDuplicateBRsSubmitted(other));
+
     }
-    
+
     @Test
     public void testgetNbNotABugReportBRsSubmitted() throws PermissionException {
         model = new DataModel();
@@ -556,24 +558,24 @@ public class DataModelTest {
 
         model.addTest(bugRep, dev, "test");
         model.addPatch(bugRep, dev, "patch");
-        
+
         //Test both 0
         assertEquals(0, model.getNbNotABugReportBRsSubmitted(dev));
         assertEquals(0, model.getNbNotABugReportBRsSubmitted(other));
-        
+
         model.setTag(bugRep2, Tag.NOT_A_BUG, dev);
-        
+
         //Test 1 became 1
         assertEquals(1, model.getNbNotABugReportBRsSubmitted(dev));
         assertEquals(0, model.getNbNotABugReportBRsSubmitted(other));
-        
+
         model.setTag(bugRep1, Tag.NOT_A_BUG, dev);
 
         //Test both 1.
         assertEquals(1, model.getNbNotABugReportBRsSubmitted(dev));
         assertEquals(1, model.getNbNotABugReportBRsSubmitted(other));
     }
-    
+
     @Test
     public void testgetNbBRSubmitted() throws PermissionException {
         model = new DataModel();
@@ -613,47 +615,47 @@ public class DataModelTest {
 
         model.addTest(bugRep, dev, "test");
         model.addPatch(bugRep, dev, "patch");
-        
+
         assertEquals(2, model.getNbBRSubmitted(dev));
         assertEquals(1, model.getNbBRSubmitted(other));
-        
+
         //undo to creation of only 1 for each.
         model.undoLastChanges(admin, 5);
-        
+
         assertEquals(1, model.getNbBRSubmitted(dev));
         assertEquals(1, model.getNbBRSubmitted(other));
     }
-    
-    
+
+
     @Test
     public void testgetAllProjectsOfLead() throws PermissionException {
         model = new DataModel();
         admin = model.createAdministrator("ThisIsAnotherAdmin6", "first", "last");
         dev = model.createDeveloper("ThisIsAnotherDeveloper6", "first", "last");
         Developer other = model.createDeveloper("ThisIsAnotherDeveloper6_1", "first", "last");
-        
+
         assertEquals(0, model.getAllProjectsOfLead(dev).size());
         project = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
 
         assertEquals(1, model.getAllProjectsOfLead(dev).size());
         assertTrue(model.getAllProjectsOfLead(dev).contains(project));
-        
+
         Project project1 = model.createProject(new VersionID(), "name", "desc", dev, 50, admin);
         Project project2 = model.createProject(new VersionID(), "name", "description", other, 1050, admin);
-        
+
         assertEquals(2, model.getAllProjectsOfLead(dev).size());
         assertTrue(model.getAllProjectsOfLead(dev).contains(project));
         assertTrue(model.getAllProjectsOfLead(dev).contains(project1));
-        
+
         model.assignToProject(project1, dev, dev, Role.TESTER);
-        
+
         assertEquals(2, model.getAllProjectsOfLead(dev).size());
         assertTrue(model.getAllProjectsOfLead(dev).contains(project));
         assertTrue(model.getAllProjectsOfLead(dev).contains(project1));
         assertEquals(1, model.getAllProjectsOfLead(other).size());
         assertTrue(model.getAllProjectsOfLead(other).contains(project2));
     }
-    
+
     @Test
     public void testGetAllSubsystems() throws PermissionException {
         model = new DataModel();
@@ -664,9 +666,9 @@ public class DataModelTest {
 
         Subsystem subsys = model.createSubsystem(admin, project, "subName", "subDesc");
         Subsystem subsys_2 = model.createSubsystem(admin, subsys, "name", "desc");
-        Subsystem subsys_1 = model.createSubsystem(admin, subsys, "name", "desc");        
+        Subsystem subsys_1 = model.createSubsystem(admin, subsys, "name", "desc");
         Subsystem subsys1 = model.createSubsystem(admin, project1, "subName", "subDesc");
-        
+
         assertEquals(0, model.getAllSubsystems(null).size());
         assertEquals(1, model.getAllSubsystems(project1).size());
         PList<Subsystem> result = model.getAllSubsystems(project);
@@ -676,7 +678,6 @@ public class DataModelTest {
         assertTrue(result.contains(subsys_1));
         assertFalse(result.contains(subsys1));
     }
-    
-    
+
 
 }

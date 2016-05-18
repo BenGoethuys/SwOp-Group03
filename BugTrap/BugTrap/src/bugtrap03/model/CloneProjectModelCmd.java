@@ -3,10 +3,10 @@ package bugtrap03.model;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.VersionID;
 import bugtrap03.bugdomain.usersystem.Developer;
+
 import java.util.GregorianCalendar;
 
 /**
- *
  * @author Group 03
  */
 class CloneProjectModelCmd extends ModelCmd {
@@ -14,18 +14,17 @@ class CloneProjectModelCmd extends ModelCmd {
     /**
      * Creates a {@link ModelCmd} that can clone the given project and set a few attributes when executed.
      *
-     * @param model The DataModel to add the clone project to.
-     * @param cloneSource The project to clone from.
-     * @param versionID The versionID for the clone project.
-     * @param lead The lead developer for the clone project.
-     * @param startDate The startDate for the clone project.
+     * @param model          The DataModel to add the clone project to.
+     * @param cloneSource    The project to clone from.
+     * @param versionID      The versionID for the clone project.
+     * @param lead           The lead developer for the clone project.
+     * @param startDate      The startDate for the clone project.
      * @param budgetEstimate The budgetEstimate for the clone project.
-     *
      * @throws IllegalArgumentException When model == null
      * @throws IllegalArgumentException When the given cloneSource is null or terminated
      */
     CloneProjectModelCmd(DataModel model, Project cloneSource, VersionID versionID, Developer lead, GregorianCalendar startDate,
-            long budgetEstimate) throws IllegalArgumentException {
+                         long budgetEstimate) throws IllegalArgumentException {
         if (model == null) {
             throw new IllegalArgumentException("The model passed to CloneProjectModelCmd was a null reference.");
         }
@@ -62,7 +61,7 @@ class CloneProjectModelCmd extends ModelCmd {
      * @return The resulting clone.
      * @throws IllegalArgumentException Check @see.
      * @throws IllegalArgumentException When cloneSource is terminated
-     * @throws IllegalStateException When this ModelCmd was already executed.
+     * @throws IllegalStateException    When this ModelCmd was already executed.
      * @see Project#cloneProject(VersionID, Developer, GregorianCalendar, long)
      */
     @Override

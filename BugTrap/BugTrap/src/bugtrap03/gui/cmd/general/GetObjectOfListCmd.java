@@ -11,6 +11,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
+ * This command selects a object out of an given generic list using 2 generic functions
+ *
  * @author Group 03
  */
 public class GetObjectOfListCmd<U extends Object> implements Cmd<U> {
@@ -19,8 +21,7 @@ public class GetObjectOfListCmd<U extends Object> implements Cmd<U> {
      * Create a GetObjectOfListCmd that will use the given list of users as the
      * options in the select process.
      *
-     * @param listOfObjects  The list of users to pick from. When null is passed an
-     *                       empty list will be used.
+     * @param listOfObjects  The list of users to pick from. When null is passed an empty list will be used.
      * @param printFunction  The function used to print the objects of the list.
      * @param selectFunction The function used to filter in the list when the user provides a String input.
      * @throws IllegalArgumentException If at least one of the functions is null

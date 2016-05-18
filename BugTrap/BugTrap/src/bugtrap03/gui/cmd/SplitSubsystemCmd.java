@@ -11,6 +11,7 @@ import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
+ * This command represents the use case for splitting a subsystem in 2 separate subsystems
  *
  * @author Group 03
  */
@@ -18,7 +19,7 @@ public class SplitSubsystemCmd implements Cmd<Subsystem[]> {
 
     /**
      * Execute use case 4.7, split Subsystem and return both resulting Subsystems.
-     *
+     * <p>
      * 4.7 Use Case: Split Subsystem
      * <p>
      * <br>1. The administrator indicates he wants to split a subsystem.
@@ -34,15 +35,15 @@ public class SplitSubsystemCmd implements Cmd<Subsystem[]> {
      * <br>10. The system creates two new subsystems with the same milestone as the original subsystem. The original
      * subsystem is removed.
      *
-     * @param scan The scanner used to interact with the person.
+     * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user The {@link User} who wants to executes this command.
+     * @param user  The {@link User} who wants to executes this command.
      * @return An array consisting of the 2 Subsystems split into.
-     * @throws PermissionException When the user does not have sufficient permissions.
-     * @throws CancelException When the users wants to abort the current cmd
-     * @throws IllegalStateException When the subject is in an illegal state to perform this cmd.
+     * @throws PermissionException      When the user does not have sufficient permissions.
+     * @throws CancelException          When the users wants to abort the current cmd
+     * @throws IllegalStateException    When the subject is in an illegal state to perform this cmd.
      * @throws IllegalArgumentException When any of the arguments is null and shouldn't be or when in the scenario a
-     * chosen option conflicted.
+     *                                  chosen option conflicted.
      */
     @Override
     public Subsystem[] exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {
@@ -82,7 +83,7 @@ public class SplitSubsystemCmd implements Cmd<Subsystem[]> {
         //10. The system creates two new subsystems with the same milestone as the original subsystem. (The original subsystem is removed.)
         Subsystem sub2 = model.splitSubsystem(sub, name1, desc1, name2, desc2, subs1, bugReports1, user);
         scan.println("Successfully split the subsystem.");
-        return new Subsystem[] {sub, sub2}; 
+        return new Subsystem[]{sub, sub2};
     }
 
     /**
@@ -115,20 +116,19 @@ public class SplitSubsystemCmd implements Cmd<Subsystem[]> {
      * Get a list of direct subsystems of sub chosen by the user.
      *
      * @param scan The scanner used to interact with the user. Shouldn't be null.
-     * @param sub The Subsystem to get the direct subsystems from. Shouldn't be null.
+     * @param sub  The Subsystem to get the direct subsystems from. Shouldn't be null.
      * @return The list of direct subsystems of the given sub that the user chose.
-     * 
      * @throws CancelException When the user wants to abort the cmd.
      */
     private PList<Subsystem> getSubsystems(TerminalScanner scan, Subsystem sub) throws CancelException {
         PList<Subsystem> result = PList.<Subsystem>empty();
-        for(Subsystem subsystem : sub.getSubsystems()) {
-            
+        for (Subsystem subsystem : sub.getSubsystems()) {
+
             scan.println("Keep " + subsystem.getSubjectName() + " ?");
             scan.print("Yes or No?");
             String answer = scan.nextLine();
-            
-            if(answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
+
+            if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
                 result = result.plus(subsystem);
             }
         }
@@ -139,20 +139,19 @@ public class SplitSubsystemCmd implements Cmd<Subsystem[]> {
      * Get a list of direct bugReports of sub chosen by the user.
      *
      * @param scan The scanner used to interact with the user. Shouldn't be null.
-     * @param sub The Subsystem to get the direct bugReports from. Shouldn't be null.
+     * @param sub  The Subsystem to get the direct bugReports from. Shouldn't be null.
      * @return The list of direct bugReports of the given sub that the user chose.
-     * 
      * @throws CancelException When the user wants to abort the cmd.
      */
     private PList<BugReport> getBugReports(TerminalScanner scan, Subsystem sub) throws CancelException {
         PList<BugReport> result = PList.<BugReport>empty();
-        for(BugReport bugReport : sub.getBugReportList()) {
-            
+        for (BugReport bugReport : sub.getBugReportList()) {
+
             scan.println("Keep " + bugReport.getSubjectName() + " ?");
             scan.print("Yes or No?");
             String answer = scan.nextLine();
-            
-            if(answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
+
+            if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
                 result = result.plus(bugReport);
             }
         }

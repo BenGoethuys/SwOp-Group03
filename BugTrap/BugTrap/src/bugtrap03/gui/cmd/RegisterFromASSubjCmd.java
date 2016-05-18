@@ -2,10 +2,9 @@ package bugtrap03.gui.cmd;
 
 import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.bugreport.Tag;
+import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.AbstractMailbox;
 import bugtrap03.bugdomain.usersystem.User;
-import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubject;
-import bugtrap03.gui.cmd.Cmd;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.cmd.general.GetObjectOfListCmd;
 import bugtrap03.gui.cmd.general.SelectMilestoneCmd;
@@ -14,15 +13,18 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 import purecollections.PList;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 /**
  * @author Group 03
  */
 public class RegisterFromASSubjCmd implements Cmd<AbstractMailbox> {
-    
+
     /**
      * Create a cmd which can be used to execute the scenario to register for a certain change on the abstractSystemSubject
+     *
      * @param abstractSystemSubject The AbstractSystemSubject to register on.
      */
     public RegisterFromASSubjCmd(AbstractSystemSubject abstractSystemSubject) {
@@ -42,11 +44,12 @@ public class RegisterFromASSubjCmd implements Cmd<AbstractMailbox> {
 
     /**
      * Execute the command and register for a certain change.
-     * @param scan The scanner used to interact with the user
+     *
+     * @param scan  The scanner used to interact with the user
      * @param model The model used to access the system data.
-     * @param user The user who wants to execute this cmd.
+     * @param user  The user who wants to execute this cmd.
      * @return The Mailbox created by registering for a certain change.
-     * @throws CancelException When the user aborted the cmd
+     * @throws CancelException          When the user aborted the cmd
      * @throws IllegalArgumentException When scan, model or user == null
      * @throws IllegalArgumentException When the abstractSystemSubject == null
      */

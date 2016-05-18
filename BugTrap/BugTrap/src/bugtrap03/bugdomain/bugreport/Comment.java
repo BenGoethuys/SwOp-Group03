@@ -6,8 +6,9 @@ import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.misc.Tree;
 import com.google.java.contract.Requires;
-import java.util.Iterator;
 import purecollections.PList;
+
+import java.util.Iterator;
 
 /**
  * This is a class representing a comment.
@@ -21,9 +22,9 @@ public class Comment {
      * This method initializes an Comment
      *
      * @param issuer the issuer that creates this comment
-     * @param text the comment text for this comment
+     * @param text   the comment text for this comment
      * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
-     * @throws PermissionException if the given creator doesn't have the needed permissions
+     * @throws PermissionException      if the given creator doesn't have the needed permissions
      * @see Comment#isValidCreator(User)
      */
     public Comment(User issuer, String text) throws IllegalArgumentException, PermissionException {
@@ -51,7 +52,7 @@ public class Comment {
      *
      * @param creator the creator to set
      * @throws IllegalArgumentException if the given creator is not a valid creator for this comment
-     * @throws PermissionException if the given creator doesn't have the needed permissions
+     * @throws PermissionException      if the given creator doesn't have the needed permissions
      * @see Comment#isValidCreator(User)
      * @see Comment#isValidText(String)
      */
@@ -135,7 +136,6 @@ public class Comment {
      *
      * @param tree The {@link Tree} to add these comments onto. When null a new Tree will be used.
      * @return The tree containing all the comments of this comment.
-     *
      * @see Tree#Tree()
      * @see Tree#addTree(java.lang.Object)
      */
@@ -209,9 +209,9 @@ public class Comment {
      * This method makes a Comment object and adds it to the sub-comment list
      *
      * @param creator the creator of the comment
-     * @param text the text of the comment
+     * @param text    the text of the comment
      * @throws IllegalArgumentException if the given parameters are not valid for this comment
-     * @throws PermissionException if the given creator doesn't have the needed permissions
+     * @throws PermissionException      if the given creator doesn't have the needed permissions
      * @see Comment(User, String)
      */
     public Comment addSubComment(User creator, String text) throws IllegalArgumentException, PermissionException {
@@ -255,7 +255,6 @@ public class Comment {
      *
      * @param top The Tree structure used to get the String format of.
      * @return The result of converting the Tree structure to a Comment. When
-     *
      * @throws ClassCastException When the Tree structure does not contain a Comment object.
      */
     @Requires("top != null")
@@ -283,10 +282,9 @@ public class Comment {
      * Convert the passed treeStructure to a String. This is used by
      * {@link Comment#commentsTreeToString(Tree)} and should not be used elsewhere.
      *
-     * @param node The node of which to print the children.
-     * @param str The StringBuilder used to build upon.
+     * @param node      The node of which to print the children.
+     * @param str       The StringBuilder used to build upon.
      * @param preString The preString which will contain the pre format of each Comment. (e.g 2.1)
-     *
      * @see Comment#commentsTreeToString(Tree)
      */
     private static void commentsTreeToString(Tree<Comment> node, StringBuilder str, String preString) {

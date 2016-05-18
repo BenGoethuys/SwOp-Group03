@@ -6,17 +6,19 @@ import purecollections.PList;
 
 /**
  * This class represents the Duplicate state of a bug report
+ *
+ * @author Group 03
  */
 class BugReportStateDuplicate implements BugReportState {
 
     /**
      * constructor for this state
-     *
+     * <p>
      * <br><dt><b>Preconditions:</b><dd> the given duplicate must be valid for the bug report to which this state will belong ! (@see )
      *
      * @see BugReport#isValidDuplicate(BugReport)
      */
-    BugReportStateDuplicate(BugReport duplicate){
+    BugReportStateDuplicate(BugReport duplicate) {
         this.duplicate = duplicate;
     }
 
@@ -91,9 +93,8 @@ class BugReportStateDuplicate implements BugReportState {
     /**
      * This method returns all the tests associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The list of tests associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getTests() throws IllegalStateException {
@@ -117,9 +118,8 @@ class BugReportStateDuplicate implements BugReportState {
     /**
      * This method returns the patches associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The patches associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getPatches() throws IllegalStateException {
@@ -170,9 +170,8 @@ class BugReportStateDuplicate implements BugReportState {
     /**
      * This method returns the score associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The score associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public int getScore() throws IllegalStateException {
@@ -229,7 +228,7 @@ class BugReportStateDuplicate implements BugReportState {
     /**
      * This method returns the multiplier of this state
      *
-     * @return  The multiplier
+     * @return The multiplier
      */
     @Override
     public double getMultiplier() {

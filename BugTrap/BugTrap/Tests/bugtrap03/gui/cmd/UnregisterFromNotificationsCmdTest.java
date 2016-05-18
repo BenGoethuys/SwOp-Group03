@@ -24,24 +24,24 @@ import java.util.ArrayDeque;
 public class UnregisterFromNotificationsCmdTest {
 
     @BeforeClass
-    public static void setUpBeforeClass(){
+    public static void setUpBeforeClass() {
         index = 0;
     }
 
 
     @Before
-    public void setup() throws Exception{
+    public void setup() throws Exception {
         index++;
         model = new DataModel();
         question = new ArrayDeque<>();
         answer = new ArrayDeque<>();
 
-        administratorUnregisterCmd = model.createAdministrator("administratorUnregisterCmd" + index,"first","last");
+        administratorUnregisterCmd = model.createAdministrator("administratorUnregisterCmd" + index, "first", "last");
         developerUnregisterCmd = model.createDeveloper("developerUnregisterCmd" + index, "firstname", "lastname");
-        projectRegisterCmd = model.createProject(new VersionID(), "projectRegisterCmd","testdescription", developerUnregisterCmd, 1000, administratorUnregisterCmd);
-        subsystemRegisterCmd = model.createSubsystem(administratorUnregisterCmd, projectRegisterCmd, "subsystemRegisterCmd","testdescription");
+        projectRegisterCmd = model.createProject(new VersionID(), "projectRegisterCmd", "testdescription", developerUnregisterCmd, 1000, administratorUnregisterCmd);
+        subsystemRegisterCmd = model.createSubsystem(administratorUnregisterCmd, projectRegisterCmd, "subsystemRegisterCmd", "testdescription");
         bugReportRegisterCmd = model.createBugReport(subsystemRegisterCmd, developerUnregisterCmd, "a", "b",
-                PList.<BugReport>empty(), new Milestone(1,1,1), 1, false);
+                PList.<BugReport>empty(), new Milestone(1, 1, 1), 1, false);
 
         cmd = new UnregisterFromNotificationsCmd();
     }
@@ -61,7 +61,7 @@ public class UnregisterFromNotificationsCmdTest {
     private static UnregisterFromNotificationsCmd cmd;
 
     @Test
-    public void testUnregisterNoSubs()throws Exception{
+    public void testUnregisterNoSubs() throws Exception {
         question.add("No subscriptions to show.");
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         // Execute scenario
@@ -70,7 +70,7 @@ public class UnregisterFromNotificationsCmdTest {
     }
 
     @Test
-    public void testUnregisterCommentProject()throws Exception{
+    public void testUnregisterCommentProject() throws Exception {
         //setup
         CommentMailbox cmb = model.registerForCommentNotifications(developerUnregisterCmd, projectRegisterCmd);
         //write scenario

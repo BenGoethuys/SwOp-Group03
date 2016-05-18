@@ -11,9 +11,7 @@ import bugtrap03.bugdomain.usersystem.Role;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author Group 03
@@ -49,18 +47,18 @@ public class SetMilestoneAbstractSystemModelCmdTest {
         counter++;
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testCreateInvalidUser(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateInvalidUser() {
         new SetMilestoneAbstractSystemModelCmd(null, proj, new Milestone(2));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testCreateInvalidProject(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateInvalidProject() {
         new SetMilestoneAbstractSystemModelCmd(dev, null, new Milestone(2));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testCreateInvalidMilestone(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateInvalidMilestone() {
         new SetMilestoneAbstractSystemModelCmd(dev, proj, null);
     }
 
@@ -94,7 +92,7 @@ public class SetMilestoneAbstractSystemModelCmdTest {
         assertEquals(new Milestone(0), subsys2.getMilestone());
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void testExecTwice() throws PermissionException {
         // 1. create
         Milestone milsMilestone = new Milestone(6);
@@ -108,7 +106,7 @@ public class SetMilestoneAbstractSystemModelCmdTest {
     }
 
     @Test
-    public void undoNotExec(){
+    public void undoNotExec() {
         // 1. create
         Milestone milsMilestone = new Milestone(6);
         SetMilestoneAbstractSystemModelCmd cmd = new SetMilestoneAbstractSystemModelCmd(dev, proj, milsMilestone);

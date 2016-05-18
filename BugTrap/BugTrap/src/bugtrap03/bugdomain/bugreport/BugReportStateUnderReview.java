@@ -6,6 +6,8 @@ import purecollections.PList;
 
 /**
  * This class represents the under review state of a bug report
+ *
+ * @author Group 03
  */
 class BugReportStateUnderReview implements BugReportState {
 
@@ -13,7 +15,7 @@ class BugReportStateUnderReview implements BugReportState {
      * constructor for this state
      */
     @Requires("BugReport.isValidTPatch(patch) && for (String test: tests) { BugReport.isValidTest(test) } ")
-    BugReportStateUnderReview(PList<String> tests, String patch){
+    BugReportStateUnderReview(PList<String> tests, String patch) {
         this.tests = tests;
         this.patches = PList.<String>empty().plus(patch);
     }
@@ -23,7 +25,7 @@ class BugReportStateUnderReview implements BugReportState {
      */
     @Requires("for (String test: tests) { BugReport.isValidTest(test) } && " +
             "for (String patch: patches) { BugReport.isValidPatch(patch) } &&")
-    private BugReportStateUnderReview(PList<String> tests, PList<String> patches){
+    private BugReportStateUnderReview(PList<String> tests, PList<String> patches) {
         this.tests = tests;
         this.patches = patches;
     }
@@ -76,10 +78,10 @@ class BugReportStateUnderReview implements BugReportState {
      */
     @Override
     public boolean isValidTag(Tag tag) {
-        if (tag == Tag.NOT_A_BUG){
+        if (tag == Tag.NOT_A_BUG) {
             return true;
         }
-        if (tag == Tag.ASSIGNED){
+        if (tag == Tag.ASSIGNED) {
             return true;
         }
         return false;
@@ -120,9 +122,8 @@ class BugReportStateUnderReview implements BugReportState {
     /**
      * This method returns all the tests associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The list of tests associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getTests() throws IllegalStateException {
@@ -148,9 +149,8 @@ class BugReportStateUnderReview implements BugReportState {
     /**
      * This method returns the patches associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The patches associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getPatches() throws IllegalStateException {
@@ -169,7 +169,7 @@ class BugReportStateUnderReview implements BugReportState {
     @Override
     @Requires("bugReport.getInternState() == this")
     public BugReportState selectPatch(BugReport bugReport, String patch) throws IllegalStateException, IllegalArgumentException {
-        if (! this.getPatches().contains(patch)){
+        if (!this.getPatches().contains(patch)) {
             throw new IllegalArgumentException("The given patch is not a valid patch for this bug report state");
         }
         BugReportState newState = new BugReportStateResolved(this.getTests(), this.getPatches(), patch);
@@ -207,9 +207,8 @@ class BugReportStateUnderReview implements BugReportState {
     /**
      * This method returns the score associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The score associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public int getScore() throws IllegalStateException {
@@ -263,12 +262,12 @@ class BugReportStateUnderReview implements BugReportState {
         str.append("\n tag: ").append(this.getTag().name());
         // add tests
         str.append("\n tests: ");
-        for (String test : this.getTests()){
+        for (String test : this.getTests()) {
             str.append("\n \t ").append(test);
         }
         // add patches
         str.append("\n patches: ");
-        for (String patch : this.getPatches()){
+        for (String patch : this.getPatches()) {
             str.append("\n \t ").append(patch);
         }
         return str.toString();
@@ -277,7 +276,7 @@ class BugReportStateUnderReview implements BugReportState {
     /**
      * This method returns the multiplier of this state
      *
-     * @return  The multiplier
+     * @return The multiplier
      */
     @Override
     public double getMultiplier() {

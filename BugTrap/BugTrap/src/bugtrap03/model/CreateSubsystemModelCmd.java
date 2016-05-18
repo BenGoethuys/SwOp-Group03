@@ -8,7 +8,6 @@ import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
- *
  * @author Group 03
  */
 class CreateSubsystemModelCmd extends ModelCmd {
@@ -16,12 +15,11 @@ class CreateSubsystemModelCmd extends ModelCmd {
     /**
      * Creates a {@link ModelCmd} that can creates a new subsystem in the given Project/Subsystem
      *
-     * @param user The user that wants to create the subsystem
+     * @param user           The user that wants to create the subsystem
      * @param abstractSystem The Project/Subsystem to add the new subsystem to
-     * @param versionID The versionID of the new Subsystem.
-     * @param name The name of the new Subsystem
-     * @param description The description of the new Subsystem
-     * 
+     * @param versionID      The versionID of the new Subsystem.
+     * @param name           The name of the new Subsystem
+     * @param description    The description of the new Subsystem
      * @return The created subsystem
      * @throws IllegalArgumentException When user == null
      * @throws IllegalArgumentException When abstractSystem == null
@@ -35,7 +33,7 @@ class CreateSubsystemModelCmd extends ModelCmd {
         if (abstractSystem == null) {
             throw new IllegalArgumentException("The abstractSystem passed to CreateSubsystemModelCmd was a null reference.");
         }
-        if (abstractSystem.isTerminated()){
+        if (abstractSystem.isTerminated()) {
             throw new IllegalArgumentException("The given abstractSystem is terminated");
         }
 
@@ -49,11 +47,10 @@ class CreateSubsystemModelCmd extends ModelCmd {
     /**
      * Creates a {@link ModelCmd} that can creates a new subsystem in the given Project/Subsystem
      *
-     * @param user The user that wants to create the subsystem
+     * @param user           The user that wants to create the subsystem
      * @param abstractSystem The Project/Subsystem to add the new subsystem to
-     * @param name The name of the new Subsystem
-     * @param description The description of the new Subsystem
-     * 
+     * @param name           The name of the new Subsystem
+     * @param description    The description of the new Subsystem
      * @return The created subsystem
      * @throws IllegalArgumentException When user == null
      * @throws IllegalArgumentException When abstractSystem == null
@@ -92,8 +89,8 @@ class CreateSubsystemModelCmd extends ModelCmd {
      * This method creates a new subsystem in the given Project/Subsystem
      *
      * @return The newly created subsystem.
-     * @throws IllegalStateException When this ModelCmd was already executed.
-     * @throws PermissionException If the user doesn't have the permission to create a subsystem
+     * @throws IllegalStateException    When this ModelCmd was already executed.
+     * @throws PermissionException      If the user doesn't have the permission to create a subsystem
      * @throws IllegalArgumentException When name or description are invalid.
      * @throws IllegalArgumentException When abstractSystem is terminated
      */
@@ -102,7 +99,7 @@ class CreateSubsystemModelCmd extends ModelCmd {
         if (this.isExecuted()) {
             throw new IllegalStateException("The CreateIssuerModelCmd was already executed.");
         }
-        
+
         if (abstractSystem.isTerminated()) {
             throw new IllegalArgumentException("The given abstractSystem is terminated.");
         }

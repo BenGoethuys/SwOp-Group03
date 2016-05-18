@@ -11,17 +11,18 @@ class RegisterForForkNotificationsModelCmd extends RegisterForNotificationsModel
 
     /**
      * This is the constructor for the command to subscribe for the forking of a project.
-     * @param user The user that wishes to subscribe
+     *
+     * @param user           The user that wishes to subscribe
      * @param projectSubject The project from which the user wishes to subscribe
      * @throws IllegalArgumentException If the projectsubject is null
      * @throws IllegalArgumentException if the given project subject is terminated
      */
-    public RegisterForForkNotificationsModelCmd(User user, ProjectSubject projectSubject) throws IllegalArgumentException{
+    public RegisterForForkNotificationsModelCmd(User user, ProjectSubject projectSubject) throws IllegalArgumentException {
         super(user);
-        if (projectSubject == null){
+        if (projectSubject == null) {
             throw new IllegalArgumentException("Projects subject cannot be null");
         }
-        if (projectSubject.isTerminated()){
+        if (projectSubject.isTerminated()) {
             throw new IllegalArgumentException("The given project subject is terminated");
         }
         this.projectSubject = projectSubject;
@@ -31,9 +32,10 @@ class RegisterForForkNotificationsModelCmd extends RegisterForNotificationsModel
 
     /**
      * This method executes this command and creates a subscription for forking on the subject of this cmd
+     *
      * @return The created forkmailbox that represents the subscription
      * @throws IllegalArgumentException If subject of this cmd is terminated
-     * @throws IllegalStateException If the state of this cmd is invalid
+     * @throws IllegalStateException    If the state of this cmd is invalid
      * @see bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox#forkSubscribe(ProjectSubject)
      * @see #setExecuted()
      */

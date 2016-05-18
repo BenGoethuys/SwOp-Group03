@@ -1,20 +1,22 @@
 package bugtrap03.gui.cmd.general;
 
-import java.util.ArrayDeque;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Group 03
  */
 public class GetStringCmdTest {
-    
+
     /**
      * Test exec()
-     * @throws CancelException 
+     *
+     * @throws CancelException
      */
     @Test
     public void testExec() throws CancelException {
@@ -37,11 +39,12 @@ public class GetStringCmdTest {
 
     /**
      * Test exec() with AbortCmd.
-     * @throws CancelException 
+     *
+     * @throws CancelException
      */
     @Test(expected = CancelException.class)
     public void testAbortExec() throws CancelException {
-        
+
         ArrayDeque<String> question = new ArrayDeque<>();
         ArrayDeque<String> answer = new ArrayDeque<>();
         GetStringCmd cmd = new GetStringCmd();
@@ -68,5 +71,5 @@ public class GetStringCmdTest {
         // Execute scenario
         cmd.exec(null, null, null);
     }
-    
+
 }

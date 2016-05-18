@@ -6,7 +6,6 @@ import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.User;
 
 /**
- *
  * @author Group 03
  */
 class DeleteProjectModelCmd extends ModelCmd {
@@ -14,10 +13,9 @@ class DeleteProjectModelCmd extends ModelCmd {
     /**
      * Create a {@link ModelCmd} that can delete a given {@link Project} when executed.
      *
-     * @param model The DataModel to delete the given project in.
-     * @param user The user who wants to delete the project.
+     * @param model   The DataModel to delete the given project in.
+     * @param user    The user who wants to delete the project.
      * @param project The project to delete.
-     * 
      * @throws IllegalArgumentException When model == null
      * @throws IllegalArgumentException When user == null
      * @throws IllegalArgumentException When the given project is null or terminated
@@ -29,10 +27,10 @@ class DeleteProjectModelCmd extends ModelCmd {
         if (user == null) {
             throw new IllegalArgumentException("The user passed to the DeleteProjectModelCmd was a null reference.");
         }
-        if (project == null){
+        if (project == null) {
             throw new IllegalArgumentException("The given project was null and thus cannot be deleted");
         }
-        if (project.isTerminated()){
+        if (project.isTerminated()) {
             throw new IllegalArgumentException("The given project is terminated");
         }
 
@@ -52,8 +50,8 @@ class DeleteProjectModelCmd extends ModelCmd {
      *
      * @return The deleted Project
      * @throws IllegalArgumentException When the project is terminated
-     * @throws IllegalStateException When this ModelCmd was already executed.
-     * @throws PermissionException When the passed user does not have permission to delete the given project.
+     * @throws IllegalStateException    When this ModelCmd was already executed.
+     * @throws PermissionException      When the passed user does not have permission to delete the given project.
      */
     @Override
     Project exec() throws PermissionException, IllegalStateException, IllegalArgumentException {
@@ -64,7 +62,7 @@ class DeleteProjectModelCmd extends ModelCmd {
         if (project.isTerminated()) {
             throw new IllegalArgumentException("The given project is terminated.");
         }
-        
+
         if (!user.hasPermission(UserPerm.DELETE_PROJ)) {
             throw new PermissionException("You dont have the needed permission to delete a project");
         }

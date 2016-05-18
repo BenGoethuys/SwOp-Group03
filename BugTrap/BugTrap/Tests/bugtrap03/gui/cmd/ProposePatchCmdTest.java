@@ -11,16 +11,17 @@ import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.bugdomain.usersystem.Role;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
-import java.util.ArrayDeque;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertTrue;
+
 /**
- *
  * @author Group 03
  */
 public class ProposePatchCmdTest {
@@ -112,7 +113,7 @@ public class ProposePatchCmdTest {
      * Test the exec() while there is a bugReport assigned already.
      *
      * @throws PermissionException Never
-     * @throws CancelException Never
+     * @throws CancelException     Never
      */
     @Test
     public void testExec_BugReportGiven() throws PermissionException, CancelException {
@@ -126,7 +127,7 @@ public class ProposePatchCmdTest {
         assertTrue(bugRep.getPatches().contains("patch over here\npatch line 2"));
     }
 
-        
+
     @Test(expected = PermissionException.class)
     public void testExec_NoPermission() throws PermissionException, CancelException {
         ArrayDeque<String> question = ProposePatchCmdTest.getDefaultQuestions();
@@ -162,7 +163,7 @@ public class ProposePatchCmdTest {
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);
         cmd.exec(scan, model, null);
     }
-    
+
     /**
      * Test exec() while there is no bug report assigned, this includes the select bug report scenario.
      *

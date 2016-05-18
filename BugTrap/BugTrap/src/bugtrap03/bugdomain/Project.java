@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 /**
  * This class extends AbstractSystem (versionID, name and description) and extends it with dates.
  *
- * @author Kwinten Buytaert & Ben Goethuys
+ * @author Group 03
  */
 @DomainAPI
 public class Project extends ProjectSubject {
@@ -26,12 +26,12 @@ public class Project extends ProjectSubject {
     /**
      * Creates a project with a given versionID, name, description, creationDate, lead, startDate, budgetEstimate.
      *
-     * @param version The versionID of this project.
-     * @param name The name of this project.
-     * @param description The description of this project.
-     * @param creationDate The creation date of this project.
-     * @param lead The lead developer of this project
-     * @param startDate The start date of this project. This will be cloned.
+     * @param version        The versionID of this project.
+     * @param name           The name of this project.
+     * @param description    The description of this project.
+     * @param creationDate   The creation date of this project.
+     * @param lead           The lead developer of this project
+     * @param startDate      The start date of this project. This will be cloned.
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
@@ -41,10 +41,10 @@ public class Project extends ProjectSubject {
      * @see Project#isValidBudgetEstimate(long)
      */
     public Project(VersionID version, String name, String description, GregorianCalendar creationDate, Developer lead,
-            GregorianCalendar startDate, long budgetEstimate) throws IllegalArgumentException {
+                   GregorianCalendar startDate, long budgetEstimate) throws IllegalArgumentException {
         super(null, version, name, description);
         this.setCreationDate(creationDate);
-        if (! Project.isValidLead(lead)){
+        if (!Project.isValidLead(lead)) {
             throw new IllegalArgumentException("The given lead is not a valid lead!");
         }
         this.projectParticipants = new HashMap<>();
@@ -58,11 +58,11 @@ public class Project extends ProjectSubject {
     /**
      * Creates a project with a given versionID, name, description, lead, startDate, budgetEstimate.
      *
-     * @param version The versionID of this project.
-     * @param name The name of this project.
-     * @param description The description of this project.
-     * @param lead The lead developer of this project
-     * @param startDate The start date of this project. This will be cloned.
+     * @param version        The versionID of this project.
+     * @param name           The name of this project.
+     * @param description    The description of this project.
+     * @param lead           The lead developer of this project
+     * @param startDate      The start date of this project. This will be cloned.
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
@@ -71,17 +71,17 @@ public class Project extends ProjectSubject {
      * @see Project#isValidBudgetEstimate(long)
      */
     public Project(VersionID version, String name, String description, Developer lead, GregorianCalendar startDate,
-            long budgetEstimate) throws IllegalArgumentException {
+                   long budgetEstimate) throws IllegalArgumentException {
         this(version, name, description, new GregorianCalendar(), lead, startDate, budgetEstimate);
     }
 
     /**
      * Creates a project with a given versionID, name, description, lead, startDate, budgetEstimate.
      *
-     * @param version The versionID of this project.
-     * @param name The name of this project.
-     * @param description The description of this project.
-     * @param lead The lead developer of this project
+     * @param version        The versionID of this project.
+     * @param name           The name of this project.
+     * @param description    The description of this project.
+     * @param lead           The lead developer of this project
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see AbstractSystem#AbstractSystem(AbstractSystem, VersionID, String, String)
@@ -97,10 +97,10 @@ public class Project extends ProjectSubject {
     /**
      * Creates a project with a given versionID, name, description, lead, startDate, budgetEstimate.
      *
-     * @param name The name of this project.
-     * @param description The description of this project.
-     * @param lead The lead developer of this project
-     * @param startDate The start date of this project. This will be cloned.
+     * @param name           The name of this project.
+     * @param description    The description of this project.
+     * @param lead           The lead developer of this project
+     * @param startDate      The start date of this project. This will be cloned.
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see AbstractSystem#AbstractSystem(AbstractSystem, String, String)
@@ -112,7 +112,7 @@ public class Project extends ProjectSubject {
             throws IllegalArgumentException {
         super(null, name, description);
         this.setCreationDate(new GregorianCalendar());
-        if (! Project.isValidLead(lead)){
+        if (!Project.isValidLead(lead)) {
             throw new IllegalArgumentException("The given lead is not a valid lead!");
         }
         this.projectParticipants = new HashMap<>();
@@ -124,9 +124,9 @@ public class Project extends ProjectSubject {
     /**
      * Creates a project with a given versionID, name, description, lead, startDate, budgetEstimate.
      *
-     * @param name The name of this project.
-     * @param description The description of this project.
-     * @param lead The lead developer of this project
+     * @param name           The name of this project.
+     * @param description    The description of this project.
+     * @param lead           The lead developer of this project
      * @param budgetEstimate The budget estimate of this project
      * @throws IllegalArgumentException if any of the arguments is invalid
      * @see AbstractSystem#AbstractSystem(AbstractSystem, String, String)
@@ -137,7 +137,7 @@ public class Project extends ProjectSubject {
             throws IllegalArgumentException {
         super(null, name, description);
         this.setCreationDate(new GregorianCalendar());
-        if (! Project.isValidLead(lead)){
+        if (!Project.isValidLead(lead)) {
             throw new IllegalArgumentException("The given lead is not a valid lead!");
         }
         this.projectParticipants = new HashMap<>();
@@ -156,7 +156,6 @@ public class Project extends ProjectSubject {
      * is still valid for the parent of this AbstractSystem
      *
      * @param milestone the Milestone to check
-     *
      * @return true if the given Milestone is valid for an AbstractSystem.
      */
     @DomainAPI
@@ -178,7 +177,6 @@ public class Project extends ProjectSubject {
      * This method checks if the given parent is a valid parent for this project
      *
      * @param parent The parent to check
-     *
      * @return True if the given parent is a valid parent for this project.
      */
     public boolean isValidParent(AbstractSystem parent) {
@@ -244,7 +242,7 @@ public class Project extends ProjectSubject {
      * This method checks the validity of the start date.
      *
      * @param creationDate The creation date.
-     * @param startDate The start date.
+     * @param startDate    The start date.
      * @return True if creation date <= start date.
      */
     @DomainAPI
@@ -376,9 +374,8 @@ public class Project extends ProjectSubject {
     /**
      * This method sets the role for a given developer
      *
-     * @param dev The developer to give a role
+     * @param dev  The developer to give a role
      * @param role The role the developer has in this project
-     *
      * @return Whether the roles of the developer have changed
      * @throws IllegalArgumentException if the given role was invalid
      */
@@ -400,12 +397,11 @@ public class Project extends ProjectSubject {
      * The given user uses this method to set the role of a given developer to the given role
      *
      * @param user The user that wants to set the given role to the given developer
-     * @param dev The developer to give the new role to
+     * @param dev  The developer to give the new role to
      * @param role The role that will be assigned to the given developer
-     *
      * @return Whether the roles of the developer have changed.
-     * @throws PermissionException If the given user does not have sufficient permissions to assign the given role to
-     * the given developer
+     * @throws PermissionException      If the given user does not have sufficient permissions to assign the given role to
+     *                                  the given developer
      * @throws IllegalArgumentException When user == null
      * @throws IllegalArgumentException When developer == null
      * @throws IllegalArgumentException When role == null
@@ -426,7 +422,7 @@ public class Project extends ProjectSubject {
      * (e.g This does change anything about BugReports with the developer as 'assigned'.)
      * <br> This is used for undoing an 'assign role' directly after assigning that role.
      *
-     * @param dev The developer to delete the role off.
+     * @param dev  The developer to delete the role off.
      * @param role The role to remove
      * @return Whether the roles of the developer have changed. False when dev == null || role == null.
      */
@@ -499,7 +495,7 @@ public class Project extends ProjectSubject {
     /**
      * This method checks if the given developer has the requested permission for this subsystem
      *
-     * @param dev the developer to check
+     * @param dev  the developer to check
      * @param perm the requested permission
      * @return true if the developer has the requested permission
      */
@@ -552,9 +548,9 @@ public class Project extends ProjectSubject {
     /**
      * Performs a deep clone on this Project. excluding all bugReports.
      *
-     * @param version The versionID of this project.
-     * @param lead The lead developer of this project
-     * @param startDate The start date of this project.
+     * @param version        The versionID of this project.
+     * @param lead           The lead developer of this project
+     * @param startDate      The start date of this project.
      * @param budgetEstimate The budget estimate of this project
      * @return The deep-cloned project.
      * @see Subsystem#cloneSubsystem(AbstractSystem)
@@ -661,15 +657,15 @@ public class Project extends ProjectSubject {
      * @param mem The Memento to use to set.
      * @throws IllegalArgumentException When mem == null
      * @throws IllegalArgumentException When any of the arguments stored in mem is invalid for the current state. (e.g
-     * milestones due to constraints)
+     *                                  milestones due to constraints)
      */
     @Override
     public void setMemento(SubjectMemento mem) {
         super.setMemento(mem);
-        
-        if(mem instanceof ProjectMemento) {
+
+        if (mem instanceof ProjectMemento) {
             ProjectMemento pMem = (ProjectMemento) mem;
-            
+
             this.creationDate = pMem.getCreationDate();
             this.startDate = pMem.getStartDate();
             this.projectParticipants = pMem.getProjectParticipants();
@@ -679,12 +675,13 @@ public class Project extends ProjectSubject {
 
     /**
      * Get the {@link HealthIndicator} computed by using the given {@link HealthAlgorithm} on this project.
+     *
      * @param ha The HealthAlgorithm to use.
      * @return The HealthIndicator of this project based on the given HealthAlgorithm.
      */
     @DomainAPI
     @Override
     public HealthIndicator getIndicator(HealthAlgorithm ha) {
-	return ha.getIndicator(this);
+        return ha.getIndicator(this);
     }
 }

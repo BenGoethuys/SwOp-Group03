@@ -9,7 +9,6 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Administrator;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Role;
-
 import org.junit.Before;
 import org.junit.Test;
 import purecollections.PList;
@@ -17,7 +16,6 @@ import purecollections.PList;
 import static org.junit.Assert.*;
 
 /**
- *
  * @author Group 03
  */
 public class SetTagForBugReportModelCmdTest {
@@ -63,13 +61,13 @@ public class SetTagForBugReportModelCmdTest {
         counter++;
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testCreateInvalidBugReportNull(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateInvalidBugReportNull() {
         new SetTagForBugReportModelCmd(null, Tag.NOT_A_BUG, dev);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void testCreateInvalidBugReportTerminated(){
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateInvalidBugReportTerminated() {
         proj.setTerminated(true);
         assertTrue(bugRep.isTerminated());
         new SetTagForBugReportModelCmd(bugRep, Tag.NOT_A_BUG, dev);
@@ -105,7 +103,7 @@ public class SetTagForBugReportModelCmdTest {
         assertEquals(old, bugRep.getTag());
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void testExecTwice() throws PermissionException {
         SetTagForBugReportModelCmd cmd = new SetTagForBugReportModelCmd(bugRep, Tag.NOT_A_BUG, dev);
         cmd.exec();

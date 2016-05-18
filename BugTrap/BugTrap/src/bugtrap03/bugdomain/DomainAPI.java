@@ -1,7 +1,7 @@
 package bugtrap03.bugdomain;
 
 /**
- * This is an annotation for our API
+ * This is an annotation for the system API
  *
  * @author Group 03
  */

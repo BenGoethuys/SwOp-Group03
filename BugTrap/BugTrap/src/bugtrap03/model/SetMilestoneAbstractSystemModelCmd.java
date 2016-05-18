@@ -16,11 +16,11 @@ class SetMilestoneAbstractSystemModelCmd extends ModelCmd {
     /**
      * The constructor of this Cmd
      *
-     * @param user              The user that wants to change the milestone
-     * @param abstractSystem    The abstractSystem that needs a milestone change
-     * @param milestone         The new milestone
+     * @param user           The user that wants to change the milestone
+     * @param abstractSystem The abstractSystem that needs a milestone change
+     * @param milestone      The new milestone
      */
-    SetMilestoneAbstractSystemModelCmd(User user, AbstractSystem abstractSystem, Milestone milestone){
+    SetMilestoneAbstractSystemModelCmd(User user, AbstractSystem abstractSystem, Milestone milestone) {
         if (user == null) {
             throw new IllegalArgumentException("The given user cannot be null");
         }
@@ -51,7 +51,6 @@ class SetMilestoneAbstractSystemModelCmd extends ModelCmd {
      * @throws NullPointerException     When there is a null where it shouldn't. Read ModelCmd specific documentation.
      * @throws PermissionException      When the user does not have sufficient permissions
      * @throws IllegalStateException    When the command is already executed.
-     *
      * @returns This is ModelCommand-subclass specific. null when there is nothing to report.
      */
     @Override
@@ -80,12 +79,12 @@ class SetMilestoneAbstractSystemModelCmd extends ModelCmd {
     @Override
     boolean undo() {
 
-        if (! this.isExecuted()){
+        if (!this.isExecuted()) {
             return false;
         }
         try {
             abstractSystem.setMilestone(user, oldValues.get(abstractSystem));
-        } catch (PermissionException exception){
+        } catch (PermissionException exception) {
             // should not happen, because had permission in the first place
         }
         for (Subsystem subsystem : abstractSystem.getAllSubsystems()) {

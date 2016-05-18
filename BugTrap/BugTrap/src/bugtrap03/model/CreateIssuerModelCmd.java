@@ -3,21 +3,18 @@ package bugtrap03.model;
 import bugtrap03.bugdomain.usersystem.Issuer;
 
 /**
- *
  * @author Group 03
  */
 class CreateIssuerModelCmd extends ModelCmd {
 
     /**
-     *
      * Create a {@link ModelCmd} that can create an {@link Issuer} when executed.
      *
-     * @param model The DataModel to create the issuer in.
-     * @param username The username of the issuer.
-     * @param firstName The first name of the issuer.
+     * @param model      The DataModel to create the issuer in.
+     * @param username   The username of the issuer.
+     * @param firstName  The first name of the issuer.
      * @param middleName The middle name of the issuer.
-     * @param lastName The last name of the issuer.
-     *
+     * @param lastName   The last name of the issuer.
      * @throws IllegalArgumentException When model is a null reference.
      */
     CreateIssuerModelCmd(DataModel model, String username, String firstName, String middleName, String lastName) throws IllegalArgumentException {
@@ -35,10 +32,9 @@ class CreateIssuerModelCmd extends ModelCmd {
     /**
      * Create a new {@link ModelCmd} that can create an {@link Issuer} when executed.
      *
-     * @param username The username of the issuer.
+     * @param username  The username of the issuer.
      * @param firstName The first name of the issuer.
-     * @param lastName The last name of the issuer.
-     *
+     * @param lastName  The last name of the issuer.
      * @throws IllegalArgumentException When model is a null reference.
      */
     CreateIssuerModelCmd(DataModel model, String username, String firstName, String lastName) throws IllegalArgumentException {
@@ -68,8 +64,7 @@ class CreateIssuerModelCmd extends ModelCmd {
      *
      * @return The created {@link Issuer}
      * @throws IllegalArgumentException When any of the arguments passed to the constructor is invalid.
-     * @throws IllegalStateException When this ModelCmd was already executed.
-     *
+     * @throws IllegalStateException    When this ModelCmd was already executed.
      * @see Issuer#Issuer(java.lang.String, java.lang.String, java.lang.String)
      * @see Issuer#Issuer(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
      */

@@ -11,7 +11,7 @@ import java.util.Arrays;
  * This class represents a developer in th system
  *
  * @author Group 03
- * @version 0.1
+ * @version 1.2
  */
 @DomainAPI
 public class Developer extends Issuer {

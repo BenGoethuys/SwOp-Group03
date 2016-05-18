@@ -8,7 +8,6 @@ import bugtrap03.bugdomain.usersystem.User;
 import purecollections.PList;
 
 /**
- *
  * @author Group 03
  */
 class AddUsersToBugReportModelCmd extends ModelCmd {
@@ -16,10 +15,9 @@ class AddUsersToBugReportModelCmd extends ModelCmd {
     /**
      * Create a {@link ModelCmd} that can add users to a BugReport when executed
      *
-     * @param user The user that wants to add all the given developers to the bug report
+     * @param user      The user that wants to add all the given developers to the bug report
      * @param bugReport The bug report to add all the developers to
-     * @param devList The developers to add to the bug report
-     *
+     * @param devList   The developers to add to the bug report
      * @throws IllegalArgumentException When bugReport == null
      * @throws IllegalArgumentException If the given bugReport is terminated
      */
@@ -27,7 +25,7 @@ class AddUsersToBugReportModelCmd extends ModelCmd {
         if (bugReport == null) {
             throw new IllegalArgumentException("The bugReport passed to AddUsersToReportModelCmd was a null reference.");
         }
-        if (bugReport.isTerminated()){
+        if (bugReport.isTerminated()) {
             throw new IllegalArgumentException("The given bug report is terminated !");
         }
 
@@ -51,9 +49,8 @@ class AddUsersToBugReportModelCmd extends ModelCmd {
      * @throws IllegalArgumentException If the given user was null
      * @throws IllegalArgumentException If the given developer was not valid for this bug report or the list was null
      * @throws IllegalArgumentException If the bugReport is terminated
-     * @throws PermissionException If the given user doesn't have the needed permission to add users to the given bug
-     * report
-     *
+     * @throws PermissionException      If the given user doesn't have the needed permission to add users to the given bug
+     *                                  report
      * @see BugReport#addUserList(User, PList)
      */
     @Override
@@ -64,7 +61,7 @@ class AddUsersToBugReportModelCmd extends ModelCmd {
         if (bugReport.isTerminated()) {
             throw new IllegalArgumentException("The given bugReport is terminated.");
         }
-                
+
         oldMem = bugReport.getMemento();
         bugReport.addUserList(user, devList);
         isExecuted = true;

@@ -10,7 +10,6 @@ import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
- *
  * A SelectPatchForBugReport scenario where the user selects a patch for a certain bug report.
  *
  * @author Group 03
@@ -46,14 +45,13 @@ public class SelectPatchCmd implements Cmd<String> {
      * <br><u>Extensions:</u> 5a. The developer does not have sufficient permissions.
      * <br> 1. The use case ends here.
      *
-     * @param scan The scanner used to interact with the person.
+     * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user The {@link User} who wants to executes this command.
-     *
+     * @param user  The {@link User} who wants to executes this command.
      * @return The BugReport that a patch was selected for.
-     * @throws IllegalStateException When there are on patches.
-     * @throws PermissionException When the user does not have sufficient permissions.
-     * @throws CancelException When the users wants to abort the current cmd
+     * @throws IllegalStateException    When there are on patches.
+     * @throws PermissionException      When the user does not have sufficient permissions.
+     * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalArgumentException When scan or model or user == null
      * @see DataModel#selectPatch(BugReport, User, String)
      */

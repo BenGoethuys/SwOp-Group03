@@ -6,13 +6,15 @@ import purecollections.PList;
 
 /**
  * This class represents the New state of a bug report
+ *
+ * @author Group 03
  */
 class BugReportStateNew implements BugReportState {
 
     /**
      * constructor for this state
      */
-    BugReportStateNew(){
+    BugReportStateNew() {
 
     }
 
@@ -57,7 +59,7 @@ class BugReportStateNew implements BugReportState {
      */
     @Override
     public boolean isValidTag(Tag tag) {
-        if (tag == Tag.NOT_A_BUG){
+        if (tag == Tag.NOT_A_BUG) {
             return true;
         }
         return false;
@@ -99,9 +101,8 @@ class BugReportStateNew implements BugReportState {
     /**
      * This method returns all the tests associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The list of tests associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getTests() throws IllegalStateException {
@@ -125,9 +126,8 @@ class BugReportStateNew implements BugReportState {
     /**
      * This method returns the patches associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The patches associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getPatches() throws IllegalStateException {
@@ -178,9 +178,8 @@ class BugReportStateNew implements BugReportState {
     /**
      * This method returns the score associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The score associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public int getScore() throws IllegalStateException {
@@ -240,7 +239,7 @@ class BugReportStateNew implements BugReportState {
     /**
      * This method returns the multiplier of this state
      *
-     * @return  The multiplier
+     * @return The multiplier
      */
     @Override
     public double getMultiplier() {

@@ -84,7 +84,7 @@ public class BugReportStateClosedTest {
         assertEquals(Tag.CLOSED, bugReport.getTag());
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void setTagNotABug() throws Exception {
         bugReport.getInternState().setTag(bugReport, Tag.NOT_A_BUG);
     }
@@ -100,12 +100,12 @@ public class BugReportStateClosedTest {
         assertFalse(bugReport.isValidTag(Tag.DUPLICATE));
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void addUser() throws Exception {
         bugReport.getInternState().addUser(bugReport, dev);
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void addTest() throws Exception {
         bugReport.getInternState().addTest(bugReport, test);
     }
@@ -115,7 +115,7 @@ public class BugReportStateClosedTest {
         assertTrue(bugReport.getInternState().getTests().contains(test));
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void addPatch() throws Exception {
         bugReport.getInternState().addPatch(bugReport, patch);
     }
@@ -125,7 +125,7 @@ public class BugReportStateClosedTest {
         assertTrue(bugReport.getInternState().getPatches().contains(patch));
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void selectPatch() throws Exception {
         bugReport.getInternState().selectPatch(bugReport, patch);
     }
@@ -135,7 +135,7 @@ public class BugReportStateClosedTest {
         assertEquals(patch, bugReport.getInternState().getSelectedPatch());
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void giveScore() throws Exception {
         bugReport.getInternState().giveScore(bugReport, 4);
     }
@@ -145,12 +145,12 @@ public class BugReportStateClosedTest {
         assertEquals(5, bugReport.getInternState().getScore());
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void setDuplicate() throws Exception {
         bugReport.getInternState().setDuplicate(bugReport, tempBugReport);
     }
 
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void getDuplicate() throws Exception {
         bugReport.getInternState().getDuplicate();
     }
@@ -181,7 +181,7 @@ public class BugReportStateClosedTest {
     }
 
     @Test
-    public void getMultiplier(){
+    public void getMultiplier() {
         assertEquals(0, bugReport.getMultiplier(), EPSILON);
     }
 }

@@ -6,10 +6,10 @@ import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.permission.UserPerm;
 import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.User;
+
 import java.util.GregorianCalendar;
 
 /**
- *
  * @author Group 03
  */
 class CreateProjectModelCmd extends ModelCmd {
@@ -17,14 +17,13 @@ class CreateProjectModelCmd extends ModelCmd {
     /**
      * Create a {@link ModelCmd} that can create a {@link Project} when executed.
      *
-     * @param model The model where the project will be created in.
-     * @param name The name of the project
-     * @param desc The description of the project
+     * @param model     The model where the project will be created in.
+     * @param name      The name of the project
+     * @param desc      The description of the project
      * @param startDate The start date of the project
-     * @param lead The lead developer of this project
-     * @param budget The budget estimate for this project
-     * @param creator The creator of this project.
-     *
+     * @param lead      The lead developer of this project
+     * @param budget    The budget estimate for this project
+     * @param creator   The creator of this project.
      * @throws IllegalArgumentException When model or creator is a null reference.
      */
     CreateProjectModelCmd(DataModel model, VersionID versionID, String name, String desc, GregorianCalendar startDate, Developer lead, long budget, User creator) throws IllegalArgumentException {
@@ -48,17 +47,16 @@ class CreateProjectModelCmd extends ModelCmd {
     /**
      * Create a {@link ModelCmd} that can create a {@link Project} when executed.
      *
-     * @param model The model to create the project in.
-     * @param name The name of the project
-     * @param desc The description of the project
-     * @param lead The lead developer of this project
-     * @param budget The budget estimate for this project
+     * @param model   The model to create the project in.
+     * @param name    The name of the project
+     * @param desc    The description of the project
+     * @param lead    The lead developer of this project
+     * @param budget  The budget estimate for this project
      * @param creator The creator of this project
-     *
      * @return The created project
      * @throws IllegalArgumentException if the constructor of project fails
      * @throws IllegalArgumentException if model or creator is null
-     * @throws PermissionException If the given creator has insufficient permissions
+     * @throws PermissionException      If the given creator has insufficient permissions
      */
     CreateProjectModelCmd(DataModel model, VersionID versionID, String name, String desc, Developer lead, long budget, User creator) {
         this(model, versionID, name, desc, null, lead, budget, creator);
@@ -82,9 +80,8 @@ class CreateProjectModelCmd extends ModelCmd {
      *
      * @return The created project
      * @throws IllegalArgumentException if the constructor of project fails
-     * @throws PermissionException If the given creator has insufficient permissions
-     * @throws IllegalStateException When this ModelCmd was already executed.
-     *
+     * @throws PermissionException      If the given creator has insufficient permissions
+     * @throws IllegalStateException    When this ModelCmd was already executed.
      * @see Project#Project(java.lang.String, java.lang.String, bugtrap03.bugdomain.usersystem.Developer,
      * java.util.GregorianCalendar, long)
      * @see Project#Project(java.lang.String, java.lang.String, bugtrap03.bugdomain.usersystem.Developer, long)

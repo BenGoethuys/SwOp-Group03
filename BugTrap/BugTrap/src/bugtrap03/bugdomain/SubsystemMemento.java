@@ -3,11 +3,9 @@ package bugtrap03.bugdomain;
 import bugtrap03.bugdomain.bugreport.BugReport;
 import bugtrap03.bugdomain.bugreport.BugReportMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.CommentMailbox;
+import purecollections.PList;
 
 import java.util.HashMap;
-
-import purecollections.PList;
 
 /**
  * A (partial) memento of the subsystem.

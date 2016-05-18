@@ -4,7 +4,7 @@ package bugtrap03.bugdomain;
  * This extends a {@link VersionID} and adds a 'M' in front of the String form.
  * <br> This is an Immutable class.
  *
- * @author Mathias
+ * @author Group 03
  */
 @DomainAPI
 public class Milestone extends VersionID {

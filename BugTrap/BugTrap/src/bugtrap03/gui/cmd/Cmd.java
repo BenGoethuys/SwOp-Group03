@@ -8,9 +8,9 @@ import bugtrap03.model.DataModel;
 
 /**
  * This interface should be implemented by all executable commands in the system
- * 
- * @author Group 03
+ *
  * @param <U> The return type to expect of this cmd.
+ * @author Group 03
  */
 public interface Cmd<U> {
 

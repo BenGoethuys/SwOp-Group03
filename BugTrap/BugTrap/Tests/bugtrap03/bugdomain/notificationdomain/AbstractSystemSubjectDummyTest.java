@@ -10,15 +10,16 @@ import bugtrap03.bugdomain.notificationdomain.mailboxes.MilestoneMailbox;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.VersionIDMailbox;
 import bugtrap03.bugdomain.permission.PermissionException;
 import bugtrap03.bugdomain.usersystem.Developer;
-import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import purecollections.PList;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Group 03
@@ -30,7 +31,7 @@ public class AbstractSystemSubjectDummyTest {
     private static Project assubjectDummyProject;
     private static Subsystem assubjectDummySubsystem;
     private static BugReport assubjectDummyBugreport;
-    
+
     private static CreationMailbox asssubjectDummyCrMB;
     private static MilestoneMailbox asssubjectDummyMileMB;
     private static VersionIDMailbox asssubjectDummyVerMB;
@@ -74,13 +75,13 @@ public class AbstractSystemSubjectDummyTest {
         testDummy.updateVersionIDSubs(assubjectDummySubsystem);
         assertFalse(extraCMrB.getNotifications().isEmpty());
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testAddVersionIDSubNull() throws Exception {
         VersionIDMailbox box = null;
         testDummy.addVersionIDSub(box);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testAddVersionIDSubs_Invalid() {
         VersionIDMailbox box1 = new VersionIDMailbox(assubjectDummyProject);
@@ -114,7 +115,7 @@ public class AbstractSystemSubjectDummyTest {
         testDummy.updateMilestoneSubs(assubjectDummySubsystem);
         assertFalse(extraCMrB.getNotifications().isEmpty());
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testAddMilestoneSubs_Invalid() {
         MilestoneMailbox box1 = new MilestoneMailbox(assubjectDummyProject);
@@ -126,7 +127,7 @@ public class AbstractSystemSubjectDummyTest {
 
         testDummy.addMilestoneSub(list);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testAddMilestoneSubNull() throws Exception {
         MilestoneMailbox box = null;
@@ -166,17 +167,17 @@ public class AbstractSystemSubjectDummyTest {
 
         testDummy.addCreationSub(list);
     }
-    
+
     @Test
     public void testGetMemento() {
         AbstractSystemSubjectMemento mem = testDummy.getMemento();
-        
+
         assertTrue(testDummy.getVersionIDSubs().equals(mem.getVersionIDSubs()));
         assertTrue(testDummy.getTagSubs().equals(mem.getTagSubs()));
         assertTrue(testDummy.getMilestoneSubs().equals(mem.getMilestoneSubs()));
         assertTrue(testDummy.getCreationSubs().equals(mem.getCreationSubs()));
         assertTrue(testDummy.getCommentSubs().equals(mem.getCommentSubs()));
-        
+
     }
 
     @Test(expected = IllegalArgumentException.class)

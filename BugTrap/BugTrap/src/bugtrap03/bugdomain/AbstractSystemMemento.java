@@ -2,10 +2,9 @@ package bugtrap03.bugdomain;
 
 import bugtrap03.bugdomain.notificationdomain.AbstractSystemSubjectMemento;
 import bugtrap03.bugdomain.notificationdomain.mailboxes.*;
+import purecollections.PList;
 
 import java.util.HashMap;
-
-import purecollections.PList;
 
 /**
  * A (partial) memento of the abstractSystem.
@@ -15,7 +14,7 @@ import purecollections.PList;
  * @author Group 03
  */
 public class AbstractSystemMemento extends AbstractSystemSubjectMemento {
-    
+
     public AbstractSystemMemento(PList<TagMailbox> tagMailboxes, PList<CommentMailbox> commentMailboxes,
                                  PList<CreationMailbox> creationMailboxes, PList<MilestoneMailbox> milestoneMailboxes,
                                  PList<VersionIDMailbox> versionIDMailboxes, VersionID versionID, String name,
@@ -26,12 +25,12 @@ public class AbstractSystemMemento extends AbstractSystemSubjectMemento {
         this.name = name;
         this.description = description;
         this.children = children;
-        
+
         childrenMementos = new HashMap<>();
-        for(Subsystem subsys : children) {
+        for (Subsystem subsys : children) {
             childrenMementos.put(subsys, subsys.getMemento());
         }
-        
+
         this.parent = parent;
         this.milestone = milestone;
         this.isTerminated = isTerminated;
@@ -84,7 +83,7 @@ public class AbstractSystemMemento extends AbstractSystemSubjectMemento {
     public Milestone getMilestone() {
         return this.milestone;
     }
-    
+
     public boolean getIsTerminated() {
         return this.isTerminated;
     }

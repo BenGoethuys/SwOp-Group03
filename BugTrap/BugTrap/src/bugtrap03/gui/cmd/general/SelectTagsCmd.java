@@ -11,36 +11,39 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 
 /**
+ * This command asks the user the select some tags
+ *
  * @author Group 03
  */
 public class SelectTagsCmd implements Cmd<EnumSet<Tag>> {
-    
+
     /**
      * Execute the command and get a set of tags chosen by the user trough interaction.
-     * @param scan The scanner used to interact with the user
+     *
+     * @param scan  The scanner used to interact with the user
      * @param model The model used to access the system data.
      * @param dummy Of the user
      * @return The chosen set of tags.
-     * @throws CancelException When the user aborted the cmd
+     * @throws CancelException          When the user aborted the cmd
      * @throws IllegalArgumentException When scan or model == null
      */
     @Override
     public EnumSet<Tag> exec(TerminalScanner scan, DataModel model, User dummy) throws CancelException, IllegalArgumentException {
-        if(scan == null || model == null) {
+        if (scan == null || model == null) {
             throw new IllegalArgumentException("Scan and model musn't be null.");
         }
-        
+
         ArrayList<Tag> selectedtags = new ArrayList<>();
         boolean selecting = true;
-        while (selecting){
+        while (selecting) {
             selectedtags.add(this.selectTag(scan, model));
             scan.println("Do you wish to select another tag? Y/N");
             String input = scan.nextLine();
-            if (input.equalsIgnoreCase("Y")){
+            if (input.equalsIgnoreCase("Y")) {
                 selecting = true;
-            } else if (input.equalsIgnoreCase("N")){
+            } else if (input.equalsIgnoreCase("N")) {
                 selecting = false;
-            } else{
+            } else {
                 scan.println("Invalid input, selecting of tags considered complete.");
                 selecting = false;
             }

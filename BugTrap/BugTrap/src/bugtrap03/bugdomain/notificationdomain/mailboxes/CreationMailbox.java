@@ -28,11 +28,12 @@ public class CreationMailbox extends SubjectMailbox<BugReport, AbstractSystemSub
 
     /**
      * This method returns the information of the subscription this mailbox represents.
+     *
      * @return A string containing the info.
      */
     @Override
     public String getInfo() {
-        StringBuilder info = new StringBuilder ("You are subscribed to the creation of bugreports on ");
+        StringBuilder info = new StringBuilder("You are subscribed to the creation of bugreports on ");
         info.append(this.subject.getSubjectName());
         info.append(" and all it's subsystems.");
         return info.toString();
@@ -42,11 +43,10 @@ public class CreationMailbox extends SubjectMailbox<BugReport, AbstractSystemSub
      * This method updates the notifications list with a new notification if a bugreport has been created.
      *
      * @param bugReport The created bugreport.
-     *
      * @return The added notification.
      */
     @Override
-    public BugReportNotification update(BugReport bugReport){
+    public BugReportNotification update(BugReport bugReport) {
         BugReportNotification newNotif = new BugReportNotification(" has been created.", bugReport, this.subject);
         this.addNotification(newNotif);
         return newNotif;

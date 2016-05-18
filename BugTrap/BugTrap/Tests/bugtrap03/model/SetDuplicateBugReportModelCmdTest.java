@@ -12,11 +12,11 @@ import bugtrap03.bugdomain.usersystem.User;
 import org.junit.Before;
 import org.junit.Test;
 import purecollections.PList;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- *
  * @author Group 03
  */
 public class SetDuplicateBugReportModelCmdTest {
@@ -47,7 +47,7 @@ public class SetDuplicateBugReportModelCmdTest {
         subsys = model.createSubsystem(admin, proj, "fancy name", "fancy description");
         bugRep = model.createBugReport(subsys, dev, "title", "desc", PList.<BugReport>empty(), null, 1, false);
         duplicate = model.createBugReport(subsys, dev, "titleDuplicate", "descDuplicate", PList.<BugReport>empty(), null, 1, false);
-        
+
         proj2 = model.createProject(new VersionID(), "TestProject49", "fajfief", dev, 50, admin);
         Subsystem subsys2 = model.createSubsystem(admin, proj2, "azdazd", "ferfre");
         duplicate2 = model.createBugReport(subsys2, dev, "titleDuplicate", "descDuplicate", PList.<BugReport>empty(), null, 1, false);

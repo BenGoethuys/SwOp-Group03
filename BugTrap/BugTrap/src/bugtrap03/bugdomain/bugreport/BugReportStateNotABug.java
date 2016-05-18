@@ -6,12 +6,14 @@ import purecollections.PList;
 
 /**
  * This class represents the NotABug state of a bug report
+ *
+ * @author Group 03
  */
 class BugReportStateNotABug implements BugReportState {
     /**
      * constructor for this state
      */
-    BugReportStateNotABug(){
+    BugReportStateNotABug() {
 
     }
 
@@ -84,9 +86,8 @@ class BugReportStateNotABug implements BugReportState {
     /**
      * This method returns all the tests associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The list of tests associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getTests() throws IllegalStateException {
@@ -110,9 +111,8 @@ class BugReportStateNotABug implements BugReportState {
     /**
      * This method returns the patches associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The patches associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getPatches() throws IllegalStateException {
@@ -163,9 +163,8 @@ class BugReportStateNotABug implements BugReportState {
     /**
      * This method returns the score associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The score associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public int getScore() throws IllegalStateException {
@@ -220,7 +219,7 @@ class BugReportStateNotABug implements BugReportState {
     /**
      * This method returns the multiplier of this state
      *
-     * @return  The multiplier
+     * @return The multiplier
      */
     @Override
     public double getMultiplier() {

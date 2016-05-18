@@ -106,8 +106,8 @@ public class CmdParser {
         cmdListExtra.add(new SimpleEntry<>("mergesubs", new MergeSubsystemsCmd()));
         cmdListExtra.add(new SimpleEntry<>("showperformance", new ShowPerformanceMetricsCmd()));
         cmdListExtra.add(new SimpleEntry<>("showmetrics", new ShowPerformanceMetricsCmd()));
-        cmdListExtra.add(new SimpleEntry<>("performance", new ShowPerformanceMetricsCmd()));        
-        
+        cmdListExtra.add(new SimpleEntry<>("performance", new ShowPerformanceMetricsCmd()));
+
         for (int i = 0; i < cmdListExtra.size(); i++) {
             cmdMap.put(cmdListExtra.get(i).getKey(), cmdListExtra.get(i).getValue());
         }

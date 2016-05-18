@@ -6,13 +6,15 @@ import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import javax.swing.JFileChooser;
 
 /**
+ * This command represents the use case for proposing a patch for a bug report
  *
  * @author Group 03
  */
@@ -38,7 +40,7 @@ public class ProposePatchCmd implements Cmd<BugReport> {
     /**
      * Executing the command resulting in the possible adding of a Test for a certain {@link BugReport}
      * <p>
-     * 1. The developer indicates that he wants to submit a patch for some bug report.
+     * <br> 1. The developer indicates that he wants to submit a patch for some bug report.
      * <br> 2. Include use case Select Bug Report if required.
      * <br> 3. The system shows the form for uploading the patch.
      * <br> 4. The developer provides the details for uploading the patch.
@@ -46,15 +48,14 @@ public class ProposePatchCmd implements Cmd<BugReport> {
      * <br><u>Extensions:</u> 3a. The developer is not assigned as a developer to the project.
      * <br> 1. The use case ends here.
      *
-     * @param scan The scanner used to interact with the person.
+     * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user The {@link User} who wants to executes this command.
-     *
+     * @param user  The {@link User} who wants to executes this command.
      * @return The BugReport where a patch was proposed to.
-     * @throws PermissionException When the user does not have sufficient permissions.
-     * @throws CancelException When the users wants to abort the current cmd
+     * @throws PermissionException      When the user does not have sufficient permissions.
+     * @throws CancelException          When the users wants to abort the current cmd
      * @throws IllegalArgumentException If scan, model or user is null
-     * @throws IllegalStateException When a BugReport is chosen with a state that does not allow adding a patch.
+     * @throws IllegalStateException    When a BugReport is chosen with a state that does not allow adding a patch.
      */
     @Override
     public BugReport exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException, IllegalStateException {

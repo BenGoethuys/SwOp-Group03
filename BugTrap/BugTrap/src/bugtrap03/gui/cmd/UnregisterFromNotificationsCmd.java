@@ -9,6 +9,8 @@ import bugtrap03.model.DataModel;
 import purecollections.PList;
 
 /**
+ * This command represents the use case to unregister the logged in user for a notification
+ *
  * @author Group 03
  */
 public class UnregisterFromNotificationsCmd implements Cmd<AbstractMailbox> {
@@ -20,23 +22,23 @@ public class UnregisterFromNotificationsCmd implements Cmd<AbstractMailbox> {
         }
         PList<AbstractMailbox> allBoxes = user.getMailbox().getAllBoxes();
         int size = allBoxes.size();
-        if (size < 1){
+        if (size < 1) {
             scan.println("No subscriptions to show.");
             return null;
         }
         scan.println("Please select a subscription from list. (use index)");
-        for (int i=0;i<size;i++){
+        for (int i = 0; i < size; i++) {
             scan.println(i + ". " + allBoxes.get(i).getInfo());
         }
         int index = -1;
-        while(index < 0){
-                index = new GetIntCmd().exec(scan, null, null);
-                if (index >= size) {
-                    index = size - 1;
-                }
-                if (index < 0) {
-                    scan.println("Invalid input, give new index.");
-                }
+        while (index < 0) {
+            index = new GetIntCmd().exec(scan, null, null);
+            if (index >= size) {
+                index = size - 1;
+            }
+            if (index < 0) {
+                scan.println("Invalid input, give new index.");
+            }
         }
         AbstractMailbox selectedMB = allBoxes.get(index);
         scan.println("You selected: " + selectedMB.getInfo());

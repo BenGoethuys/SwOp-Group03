@@ -13,11 +13,13 @@ import java.util.HashMap;
 import java.util.TreeSet;
 
 /**
+ * This command represents the use case for registering a user for a notification
+ *
  * @author Group 03
  */
 public class RegisterForNotificationsCmd implements Cmd<AbstractMailbox> {
 
-    public RegisterForNotificationsCmd(){
+    public RegisterForNotificationsCmd() {
         this.cmdMapSubjectTypes = new HashMap<>();
         cmdMapSubjectTypes.put("project", new RegisterFromProjectCmd());
         cmdMapSubjectTypes.put("subsystem", new RegisterFromSubsystemCmd());
@@ -37,11 +39,9 @@ public class RegisterForNotificationsCmd implements Cmd<AbstractMailbox> {
      * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
-     *
      * @return The mailbox of the user in which the new mailbox will be stored.
-     *
-     * @throws PermissionException If the user does not have enough permissions.
-     * @throws CancelException If the abort command has been given.
+     * @throws PermissionException      If the user does not have enough permissions.
+     * @throws CancelException          If the abort command has been given.
      * @throws IllegalArgumentException If any of the arguments is null or invalid.
      */
     @Override

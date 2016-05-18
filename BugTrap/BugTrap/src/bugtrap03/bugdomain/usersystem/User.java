@@ -2,9 +2,9 @@ package bugtrap03.bugdomain.usersystem;
 
 import bugtrap03.bugdomain.DomainAPI;
 import bugtrap03.bugdomain.Project;
+import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 import bugtrap03.bugdomain.permission.RolePerm;
 import bugtrap03.bugdomain.permission.UserPerm;
-import bugtrap03.bugdomain.notificationdomain.mailboxes.Mailbox;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -63,7 +63,7 @@ public abstract class User {
     private String middleName;
     private String lastName;
     private Mailbox mailbox;
-    
+
     private Statistics stats;
 
     private static HashSet<String> takenUsernames = new HashSet<String>();
@@ -102,7 +102,7 @@ public abstract class User {
      * @see #isValidMailbox(Mailbox)
      */
     private void setMailbox(Mailbox mailbox) throws IllegalArgumentException {
-        if (isValidMailbox(mailbox)){
+        if (isValidMailbox(mailbox)) {
             this.mailbox = mailbox;
         } else {
             throw new IllegalArgumentException("Invalid mailbox");
@@ -116,8 +116,8 @@ public abstract class User {
      * @return True if the mailbox is not null;
      */
     @DomainAPI
-    public Boolean isValidMailbox(Mailbox mailbox){
-        if (mailbox == null){
+    public Boolean isValidMailbox(Mailbox mailbox) {
+        if (mailbox == null) {
             return false;
         }
         return true;
@@ -129,7 +129,7 @@ public abstract class User {
      * @return the Mailbox of this user.
      */
     @DomainAPI
-    public Mailbox getMailbox(){
+    public Mailbox getMailbox() {
         return this.mailbox;
     }
 
@@ -326,27 +326,28 @@ public abstract class User {
     public boolean hasRolePermission(RolePerm perm, Project project) {
         return false;
     }
-    
+
     /**
      * Get the object that holds the statistics for this user.
+     *
      * @return The {@link Statistics} that hold the current stats of this user. (Never null)
      */
     @DomainAPI
     public Statistics getStats() {
         return stats;
     }
-    
+
     /**
      * Set the current statistics to the given statistics.
-     * 
+     *
      * @param stats The statistics to set.
      * @throws IllegalArgumentException When stats == null
      */
     public void setStats(Statistics stats) throws IllegalArgumentException {
-        if(stats == null) {
+        if (stats == null) {
             throw new IllegalArgumentException("The given statistics must not be null.");
         }
-        
+
         this.stats = stats;
     }
 }

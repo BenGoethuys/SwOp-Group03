@@ -9,15 +9,16 @@ import bugtrap03.bugdomain.usersystem.User;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
-import java.util.ArrayDeque;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
- *
  * @author Admin
  */
 public class UndoCmdTest {
@@ -60,8 +61,9 @@ public class UndoCmdTest {
 
     /**
      * Test {@link UndoCmd#exec(TerminalScanner, DataModel, User)} with scan == null
+     *
      * @throws PermissionException Never
-     * @throws CancelException Never
+     * @throws CancelException     Never
      */
     @Test(expected = IllegalArgumentException.class)
     public void testExecNullScan() throws PermissionException, CancelException {
@@ -73,8 +75,9 @@ public class UndoCmdTest {
 
     /**
      * Test {@link UndoCmd#exec(TerminalScanner, DataModel, User)} with model == null
+     *
      * @throws PermissionException Never
-     * @throws CancelException Never
+     * @throws CancelException     Never
      */
     @Test(expected = IllegalArgumentException.class)
     public void testExecNullModel() throws PermissionException, CancelException {
@@ -86,8 +89,9 @@ public class UndoCmdTest {
 
     /**
      * Test {@link UndoCmd#exec(TerminalScanner, DataModel, User)} with user == null
+     *
      * @throws PermissionException Never
-     * @throws CancelException Never
+     * @throws CancelException     Never
      */
     @Test(expected = IllegalArgumentException.class)
     public void testExecNullUser() throws PermissionException, CancelException {

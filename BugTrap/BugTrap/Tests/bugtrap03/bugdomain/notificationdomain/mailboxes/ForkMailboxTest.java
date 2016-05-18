@@ -4,7 +4,6 @@ import bugtrap03.bugdomain.Milestone;
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
 import bugtrap03.bugdomain.bugreport.BugReport;
-import bugtrap03.bugdomain.bugreport.Tag;
 import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification;
 import bugtrap03.bugdomain.notificationdomain.notification.Notification;
 import bugtrap03.bugdomain.usersystem.Developer;
@@ -12,7 +11,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import purecollections.PList;
 
-import java.util.EnumSet;
 import java.util.GregorianCalendar;
 
 import static org.junit.Assert.*;
@@ -34,10 +32,10 @@ public class ForkMailboxTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         dev4TMB = new Developer("dev4TMB1", "devviea", "mbTestera");
-        project4MB = new Project("Project4mb","a project to test the mb", dev4TMB, 1000);
+        project4MB = new Project("Project4mb", "a project to test the mb", dev4TMB, 1000);
         subsystem4MB = project4MB.addSubsystem("subsystem4MB", "A susbsystem to test the mb");
         bugreport4MB = subsystem4MB.addBugReport(dev4TMB, "bugreport4MB1", "A bugreport to test the mb",
-                new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1,2,3),
+                new GregorianCalendar(), PList.<BugReport>empty(), new Milestone(1, 2, 3),
                 1, false, "triggerhappy", "stacktacktack", "error404");
         bugReportNotification4MB2 = new BugReportNotification("iets", bugreport4MB, project4MB);
         testTMB = dev4TMB.getMailbox().forkSubscribe(project4MB);
@@ -51,7 +49,7 @@ public class ForkMailboxTest {
         assertFalse(testTMB.getNotifications().contains(bugReportNotification4MB2));
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testNullUpdate() throws Exception {
         testTMB.update(null);
     }

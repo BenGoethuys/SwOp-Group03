@@ -9,6 +9,8 @@ import bugtrap03.gui.terminal.TerminalScanner;
 import bugtrap03.model.DataModel;
 
 /**
+ * This command represents the use case for giving a score to a bug report
+ *
  * @author Group 03
  */
 public class GiveScoreToBugReportCmd implements Cmd<Integer> {
@@ -37,9 +39,7 @@ public class GiveScoreToBugReportCmd implements Cmd<Integer> {
      * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
      * @param user  The {@link User} who wants to executes this command.
-     *
      * @return the selected int;
-     *
      * @throws PermissionException      When the user does not have sufficient
      *                                  permissions.
      * @throws CancelException          When the users wants to abort the current cmd
@@ -49,7 +49,7 @@ public class GiveScoreToBugReportCmd implements Cmd<Integer> {
     @Override
     public Integer exec(TerminalScanner scan, DataModel model, User user) throws PermissionException, CancelException, IllegalArgumentException {
         // if bug report was not defined:
-        if (this.bugReport == null){
+        if (this.bugReport == null) {
             this.bugReport = new SelectBugReportCmd().exec(scan, model, user);
         }
 

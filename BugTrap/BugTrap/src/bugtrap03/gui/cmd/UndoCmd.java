@@ -10,8 +10,9 @@ import bugtrap03.model.ModelCmd;
 import purecollections.PList;
 
 /**
+ * This command represents the use case for undoing one or several executed commands
  *
- * @author Admin
+ * @author Group 03
  */
 public class UndoCmd implements Cmd<Boolean> {
 
@@ -27,13 +28,12 @@ public class UndoCmd implements Cmd<Boolean> {
      * <br> 4. The system reverts the selected use cases starting with the last completed one and, if necessary, sends
      * the required notifications if some object of interest is modified by the undoing of a use case.
      *
-     * @param scan The scanner used to interact with the person.
+     * @param scan  The scanner used to interact with the person.
      * @param model The model used for model access.
-     * @param user The {@link User} who wants to executes this command.
-     *
+     * @param user  The {@link User} who wants to executes this command.
      * @return Whether all the wanted Commands ({@link Cmd} were undone.
-     * @throws PermissionException When the user does not have sufficient permissions.
-     * @throws CancelException When the users wants to abort the current {@link Cmd}
+     * @throws PermissionException      When the user does not have sufficient permissions.
+     * @throws CancelException          When the users wants to abort the current {@link Cmd}
      * @throws IllegalArgumentException If the given scan, model or user is null
      */
     @Override

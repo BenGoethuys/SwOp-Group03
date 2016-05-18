@@ -1,13 +1,7 @@
 /**
- * 
+ *
  */
 package bugtrap03.gui.cmd;
-
-import static org.junit.Assert.*;
-
-import java.util.ArrayDeque;
-
-import org.junit.Test;
 
 import bugtrap03.bugdomain.Project;
 import bugtrap03.bugdomain.Subsystem;
@@ -20,13 +14,18 @@ import bugtrap03.bugdomain.usersystem.Developer;
 import bugtrap03.bugdomain.usersystem.Issuer;
 import bugtrap03.gui.cmd.general.CancelException;
 import bugtrap03.model.DataModel;
+import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
 
+import java.util.ArrayDeque;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 /**
  * @author Mathias
- *
  */
 public class SetDuplicateBugReportCmdTest {
 
@@ -52,7 +51,7 @@ public class SetDuplicateBugReportCmdTest {
      * Test method for
      * {@link bugtrap03.gui.cmd.SetDuplicateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
+     *
      * @throws CancelException
      * @throws PermissionException
      * @throws IllegalArgumentException
@@ -80,12 +79,12 @@ public class SetDuplicateBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport> empty(), null, 1, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(), null,
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null,
                 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport> empty(), null, 1, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -149,7 +148,7 @@ public class SetDuplicateBugReportCmdTest {
      * Test method for
      * {@link bugtrap03.gui.cmd.SetDuplicateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
+     *
      * @throws CancelException
      * @throws PermissionException
      * @throws IllegalArgumentException
@@ -177,12 +176,12 @@ public class SetDuplicateBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport> empty(), null, 1, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(), null,
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null,
                 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport> empty(), null, 1, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -248,7 +247,7 @@ public class SetDuplicateBugReportCmdTest {
      * Test method for
      * {@link bugtrap03.gui.cmd.SetDuplicateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
+     *
      * @throws CancelException
      * @throws PermissionException
      * @throws IllegalArgumentException
@@ -276,12 +275,12 @@ public class SetDuplicateBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport> empty(), null, 1, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(), null,
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null,
                 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport> empty(), null, 1, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");
@@ -327,7 +326,7 @@ public class SetDuplicateBugReportCmdTest {
      * Test method for
      * {@link bugtrap03.gui.cmd.SetDuplicateBugReportCmd#exec(bugtrap03.gui.terminal.TerminalScanner, bugtrap03.model.DataModel, bugtrap03.bugdomain.usersystem.User)}
      * .
-     * 
+     *
      * @throws CancelException
      * @throws PermissionException
      * @throws IllegalArgumentException
@@ -355,12 +354,12 @@ public class SetDuplicateBugReportCmdTest {
                 "Description of susbsystem A3.2");
 
         bugRep2 = model.createBugReport(subsystemA2, issuer, "bugRep over here", "createComment has an output error",
-                PList.<BugReport> empty(), null, 1, false);
+                PList.<BugReport>empty(), null, 1, false);
         bugRep1 = model.createBugReport(subsystemA2, issuer, "bugRep is too awesome",
-                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport> empty(), null,
+                "CreateComment is complicated but easy to use. Is this even legal?", PList.<BugReport>empty(), null,
                 1, false);
         bugRep3 = model.createBugReport(subsystemA3_1, issuer, "Used library not in repository", "title says it all.",
-                PList.<BugReport> empty(), null, 1, false);
+                PList.<BugReport>empty(), null, 1, false);
 
         comment1 = model.createComment(issuer, bugRep1, "First comment!!! :D");
         comment2 = model.createComment(issuer, comment1, "Inner commment, Fix asap");

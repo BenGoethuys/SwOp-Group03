@@ -1,7 +1,9 @@
 package bugtrap03.bugdomain;
 
 /**
- * @author Mathias
+ * This class represents the 1st health algorithm
+ *
+ * @author Group 03
  */
 @DomainAPI
 public class HealthAlgorithm1 extends HealthAlgorithm {
@@ -17,26 +19,26 @@ public class HealthAlgorithm1 extends HealthAlgorithm {
 
     @Override
     public boolean isHealthy(AbstractSystem as) {
-	return checkSubsystem(as, HealthIndicator.HEALTHY, HEALTHY);
+        return checkSubsystem(as, HealthIndicator.HEALTHY, HEALTHY);
     }
 
     @Override
     public boolean isSatisfactory(AbstractSystem as) {
-	return checkSubsystem(as, HealthIndicator.SATISFACTORY, SATISFACTORY);
+        return checkSubsystem(as, HealthIndicator.SATISFACTORY, SATISFACTORY);
     }
 
     @Override
     public boolean isStable(AbstractSystem as) {
-	return checkSubsystem(as, HealthIndicator.STABLE, STABLE);
+        return checkSubsystem(as, HealthIndicator.STABLE, STABLE);
     }
 
     @Override
     public boolean isSerious(AbstractSystem as) {
-	return checkSubsystem(as, HealthIndicator.SERIOUS, SERIOUS);
+        return checkSubsystem(as, HealthIndicator.SERIOUS, SERIOUS);
     }
 
     @Override
     public String toString() {
-	return "Algorithm 1";
+        return "Algorithm 1";
     }
 }

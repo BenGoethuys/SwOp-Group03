@@ -6,17 +6,19 @@ import purecollections.PList;
 
 /**
  * This class represents the resolved state of a bug report
+ *
+ * @author Group 03
  */
 class BugReportStateResolved implements BugReportState {
 
     /**
      * constructor for this state
-     *
+     * <p>
      * <br><dt><b>Preconditions:</b><dd> selectedPatch is a valid patch in the previous state.
      */
     @Requires("for (String test: tests) { BugReport.isValidTest(test) } && " +
             "for (String patch: patches) { BugReport.isValidPatch(patch) } &&")
-    BugReportStateResolved(PList<String> tests, PList<String> patches, String selectedPatch){
+    BugReportStateResolved(PList<String> tests, PList<String> patches, String selectedPatch) {
         this.tests = tests;
         this.patches = patches;
         this.selectedPatch = selectedPatch;
@@ -64,7 +66,7 @@ class BugReportStateResolved implements BugReportState {
      */
     @Override
     public boolean isValidTag(Tag tag) {
-        if (tag == Tag.NOT_A_BUG){
+        if (tag == Tag.NOT_A_BUG) {
             return true;
         }
         return false;
@@ -103,9 +105,8 @@ class BugReportStateResolved implements BugReportState {
     /**
      * This method returns all the tests associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The list of tests associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getTests() throws IllegalStateException {
@@ -129,9 +130,8 @@ class BugReportStateResolved implements BugReportState {
     /**
      * This method returns the patches associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The patches associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public PList<String> getPatches() throws IllegalStateException {
@@ -176,7 +176,7 @@ class BugReportStateResolved implements BugReportState {
     @Override
     @Requires("bugReport.getInternState() == this")
     public BugReportState giveScore(BugReport bugReport, int score) throws IllegalStateException, IllegalArgumentException {
-        if (! this.isValidScore(score)){
+        if (!this.isValidScore(score)) {
             throw new IllegalArgumentException("The given score is not a score from 1 to 5");
         }
         BugReportState newState = new BugReportStateClosed(this.getTests(), this.getPatches(), this.getSelectedPatch(), score);
@@ -188,9 +188,8 @@ class BugReportStateResolved implements BugReportState {
     /**
      * This method returns the score associated with this bug report
      *
-     * @throws IllegalStateException    If the current state doesn't have any patches
-     *
      * @return The score associated with this bug report
+     * @throws IllegalStateException If the current state doesn't have any patches
      */
     @Override
     public int getScore() throws IllegalStateException {
@@ -199,11 +198,12 @@ class BugReportStateResolved implements BugReportState {
 
     /**
      * this method checks if the give score is a valid score for a bug report in this state
+     *
      * @param score The score to check
-     * @return  True if the given score is a score on a 1 to 5 scale
+     * @return True if the given score is a score on a 1 to 5 scale
      */
-    protected static boolean isValidScore(int score){
-        if (score > 5 || score < 1){
+    protected static boolean isValidScore(int score) {
+        if (score > 5 || score < 1) {
             return false;
         }
         return true;
@@ -256,12 +256,12 @@ class BugReportStateResolved implements BugReportState {
         str.append("\n tag: ").append(this.getTag().name());
         // add tests
         str.append("\n tests: ");
-        for (String test : this.getTests()){
+        for (String test : this.getTests()) {
             str.append("\n \t ").append(test);
         }
         // add patches
         str.append("\n patches: ");
-        for (String patch : this.getPatches()){
+        for (String patch : this.getPatches()) {
             str.append("\n \t ").append(patch);
         }
         // add selected
@@ -272,7 +272,7 @@ class BugReportStateResolved implements BugReportState {
     /**
      * This method returns the multiplier of this state
      *
-     * @return  The multiplier
+     * @return The multiplier
      */
     @Override
     public double getMultiplier() {

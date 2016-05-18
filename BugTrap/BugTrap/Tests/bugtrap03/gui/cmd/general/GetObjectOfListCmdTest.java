@@ -1,13 +1,15 @@
 package bugtrap03.gui.cmd.general;
 
-import java.util.ArrayDeque;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import static org.junit.Assert.assertNull;
 import org.junit.Test;
 import purecollections.PList;
 import testCollection.MultiByteArrayInputStream;
 import testCollection.TerminalTestScanner;
+
+import java.util.ArrayDeque;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
+import static org.junit.Assert.assertNull;
 
 /**
  * Includes tests of border cases. The mainly used scenarios are tested by usage in other tests.
