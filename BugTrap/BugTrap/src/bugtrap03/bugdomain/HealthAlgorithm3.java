@@ -1,6 +1,3 @@
-/**
- *
- */
 package bugtrap03.bugdomain;
 
 /**
@@ -16,6 +13,10 @@ public class HealthAlgorithm3 extends HealthAlgorithm {
     private final int STABLE = 250;
     private final int SERIOUS = 500;
 
+    @DomainAPI
+    public HealthAlgorithm3() {
+    }
+    
     @Override
     public boolean isHealthy(AbstractSystem as) {
         return checkSubsystem(as, HealthIndicator.HEALTHY, HEALTHY);
