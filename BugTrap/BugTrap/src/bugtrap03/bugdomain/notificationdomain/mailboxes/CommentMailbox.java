@@ -10,7 +10,6 @@ import bugtrap03.bugdomain.notificationdomain.notification.BugReportNotification
  *
  * @author Group 03
  */
-@DomainAPI
 public class CommentMailbox extends SubjectMailbox<BugReport, Subject> {
 
     /**
@@ -32,7 +31,6 @@ public class CommentMailbox extends SubjectMailbox<BugReport, Subject> {
      * @return A String containing the subject name to which this mailbox is subscribed
      * and a textual explanation of the subscription.
      */
-    @DomainAPI
     public String getInfo() {
         StringBuilder message = new StringBuilder();
         message.append("You are subscribed to the creation of comments on ");
