@@ -1307,28 +1307,23 @@ public class BugReport extends Subject implements Comparable<BugReport> {
         if (mem instanceof BugReportMemento) {
 
             BugReportMemento bMem = (BugReportMemento) mem;
-            this.setTitle(bMem.getTitle());
-            this.setDescription(bMem.getDescription());
-            this.setCreationDate(bMem.getCreationDate());
-            this.setSubsystem(bMem.getSubsystem());
-            this.setCommentList(bMem.getComments());
+            this.title = bMem.getTitle();
+            this.description = bMem.getDescription();
+            this.creationDate = bMem.getCreationDate();
+            this.subsystem = bMem.getSubsystem();
+            this.commentList = bMem.getComments();
 
-            this.setDependencies(bMem.getDependencies());
-            this.setUserList(bMem.getUserList());
+            this.dependencies = bMem.getDependencies();
+            this.userList = bMem.getUserList();
 
-            this.setPrivate(bMem.isPrivate());
-            this.setMilestone(bMem.getMilestone()); //Can be Illegal due to constraints but is fine for undo.
+            this.isPrivate = bMem.isPrivate();
+            this.milestone = bMem.getMilestone(); //Can be Illegal due to constraints but is fine for undo.
+            
+            this.trigger = bMem.getTrigger();
+            this.stacktrace = bMem.getStackTrace();
+            this.error = bMem.getError();
 
-            try {
-                this.setTrigger(creator, bMem.getTrigger());
-                this.setStacktrace(creator, bMem.getStackTrace());
-                this.setError(creator, bMem.getError());
-            } catch (PermissionException ex) {
-                //never happens
-                Logger.getLogger(BugReport.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            this.setInternState(bMem.getSate());
+            this.state = bMem.getSate();
         }
     }
 
