@@ -23,9 +23,9 @@ loosely coupled (used in a method para) = stippelijn + arrowhead > (often not sh
 
 association : line (geen pijlen) - direct relationship but not necesaarily attributes for it.
 
-aggregation: line + ingekleurd vierkant
+aggregation: line + open diamant
 
-composition : line + open diamond (attribute inside the class)
+composition : line + ingekleurde diamond (attribute inside the class)
 Dog has a breed = Dog -D Breed
 
 Inheritance : pijl + driehoek open driehoek
