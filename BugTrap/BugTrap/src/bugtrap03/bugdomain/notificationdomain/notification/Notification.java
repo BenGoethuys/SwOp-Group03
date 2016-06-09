@@ -23,7 +23,7 @@ public class Notification {
     private final GregorianCalendar date;
 
     /**
-     * This method returns the date of this notificataion
+     * This method returns the date of this notification
      *
      * @return The final date of the notification
      */

@@ -205,6 +205,7 @@ public class UpdateBugReportCmdTest {
                 "title says it all.", PList.<BugReport>empty(), null, 1, false);
         model.addUsersToBugReport(lead, bugRep2, PList.<Developer>empty().plus(lead));
         model.assignToProject(projectA, lead, lead, Role.TESTER);
+        model.assignToProject(projectA, lead, lead, Role.PROGRAMMER);
         model.addTest(bugRep2, lead, "test here");
 
         ArrayDeque<String> question = new ArrayDeque<>();
@@ -248,13 +249,13 @@ public class UpdateBugReportCmdTest {
         question.add("I choose: ");
         answer.add("3");
         question.add("You have selected: \tUNDER_REVIEW");
-        question.add("Adding test.");
+        question.add("Adding patch.");
         question.add("Do you wish to submit a file? Please type yes or no.");
         answer.add("no");
         question.add("You have chosen to insert text. (Leave blank to finish the text)");
         question.add("text: ");
-        answer.add("test\n");
-        question.add("Added test.");
+        answer.add("patch\n");
+        question.add("Added patch.");
         question.add("The tag UNDER_REVIEW has been set.");
 
         TerminalTestScanner scan = new TerminalTestScanner(new MultiByteArrayInputStream(answer), question);

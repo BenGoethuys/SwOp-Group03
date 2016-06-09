@@ -135,7 +135,7 @@ public class UpdateBugReportCmd implements Cmd<BugReport> {
         if (bugReport.getTests().isEmpty()) {
             new ProposeTestCmd(bugReport).exec(scanner, model, user);
         }
-        new ProposeTestCmd(bugReport).exec(scanner, model, user);
+        new ProposePatchCmd(bugReport).exec(scanner, model, user);
     }
 
     /**
